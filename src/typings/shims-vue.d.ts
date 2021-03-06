@@ -1,6 +1,13 @@
-/* eslint-disable */
 declare module '*.vue' {
-  import type { DefineComponent } from 'vue'
-  const component: DefineComponent<{}, {}, any>
+  import type { App, defineComponent } from 'vue'
+  const component: ReturnType<typeof defineComponent> & {
+    install(app: App): void
+  }
   export default component
+}
+
+declare type Nullable<T> = T | null;
+
+declare type Indexable<T> = {
+  [key: string]: T
 }
