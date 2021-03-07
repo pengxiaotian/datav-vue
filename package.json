@@ -7,7 +7,7 @@
     "new": "plop --plopfile ./plop-templates/plopfile.js",
     "gen": "bash ./scripts/gc.sh",
     "bootstrap": "yarn --frozen-lockfile",
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "yarn run lint:js && yarn run lint:css",
     "lint:js": "vue-cli-service lint",
@@ -28,7 +28,9 @@
     "shortid": "^2.2.16",
     "vue": "^3.0.5",
     "vue-class-component": "^8.0.0-0",
-    "vue-router": "^4.0.2"
+    "vue-router": "^4.0.2",
+    "vuex": "^4.0.0",
+    "vuex-module-decorators": "^1.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

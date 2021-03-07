@@ -5,9 +5,9 @@ template doc: https://github.com/wycats/handlebars.js/
 */
 
 const componentGenerator = require('./component/prompt')
-// const storeGenerator = require('./store/prompt')
+const storeGenerator = require('./store/prompt')
 
 module.exports = function (plop) {
   plop.setGenerator('component', componentGenerator)
-  // plop.setGenerator('store', storeGenerator)
+  plop.setGenerator('store', storeGenerator)
 }

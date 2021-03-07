@@ -32,20 +32,10 @@ instance.interceptors.response.use(
       return Promise.reject(new Error(res.message || 'System Error'))
     }
 
-    return res
+    return response
   },
   error => {
-    if (error.response) {
-      if (error.response.status === 401) {
-        window.location.href = '/login'
-      }
-
-      if (error.response.status === 403) {
-        window.location.href = '/403'
-      }
-    }
-
-    return Promise.reject(error)
+    return error
   },
 )
 
