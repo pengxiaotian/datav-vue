@@ -10,7 +10,8 @@
 
 <script lang='ts'>
 import { defineComponent } from 'vue'
-import { UserModule } from '@/store/modules/user'
+// import { UserModule } from '@/store/modules/user'
+import { userStore } from '@/domains/user'
 
 export default defineComponent({
   name: 'VLogin',
@@ -27,7 +28,7 @@ export default defineComponent({
   },
   methods: {
     login() {
-      UserModule.login({ username:this.username, password:this.password })
+      userStore().doLogin(this.username, this.password)
         .then(() => {
           this.$router.push({ path: '/' })
         })

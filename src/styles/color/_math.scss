@@ -1,0 +1,50 @@
+@function ch-max($v1, $v2) {
+  @return if($v1 > $v2, $v1, $v2);
+}
+
+@function ch-min($v1, $v2) {
+  @return if($v1 < $v2, $v1, $v2);
+}
+
+@function ch-gcd($a, $b) {
+  // From: http://rosettacode.org/wiki/Greatest_common_divisor#JavaScript
+  @if ($b != 0) {
+    @return ch-gcd($b, $a % $b);
+  } @else {
+    @return abs($a);
+  }
+}
+
+@function ch-pow($base, $exponent, $prec: 12) {
+  // Handles decimal exponents by trying to convert them into a fraction and then use a nthRoot-algorithm for parts of the calculation
+  @if (floor($exponent) != $exponent) {
+    $prec2 : ch-pow(10, $prec);
+    $exponent: round($exponent * $prec2);
+    $denominator: ch-gcd($exponent, $prec2);
+    @return ch-nth-root(ch-pow($base, $exponent / $denominator), $prec2 / $denominator, $prec);
+  }
+
+  $value: $base;
+  @if $exponent > 1 {
+    @for $i from 2 through $exponent {
+      $value: $value * $base;
+    }
+  } @else if $exponent < 1 {
+    @for $i from 0 through -$exponent {
+      $value: $value / $base;
+    }
+  }
+
+  @return $value;
+}
+
+@function ch-nth-root($num, $n: 2, $prec: 12) {
+  // From: http://rosettacode.org/wiki/Nth_root#JavaScript
+  $x: 1;
+
+  @for $i from 0 through $prec {
+    $x: 1 / $n * (($n - 1) * $x + ($num / ch-pow($x, $n - 1)));
+  }
+
+  @return $x;
+}

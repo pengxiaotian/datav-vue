@@ -1,8 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   devServer: {
     host: '0.0.0.0',
+    port: 9090,
   },
   pages: {
     index: {

@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { config } from '@/config'
 import { getToken } from '@/utils/token-util'
-import { UserModule } from '@/store/modules/user'
+// import { UserModule } from '@/store/modules/user'
+import { userStore } from '@/domains/user'
 
 export const navRoutes = [
   {
@@ -54,14 +55,15 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      if (UserModule.role > 0) {
+      const { role, getUserInfo, resetToken } = userStore()
+      if (role.value > 0) {
         next()
       } else {
         try {
-          await UserModule.getUserInfo()
+          await getUserInfo()
           next({ ...to, replace: true })
         } catch (error) {
-          UserModule.resetToken()
+          resetToken()
           next(`/login?redirect=${to.path}`)
         }
       }

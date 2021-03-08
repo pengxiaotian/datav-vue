@@ -3,12 +3,12 @@ import { login, logout, getInfo } from '@/api/user'
 import { setToken, removeToken } from '@/utils/token-util'
 
 
-export const userStore = () => {
-  const token = ref('')
-  const name = ref('')
-  const avatar = ref('')
-  const role = ref(-1)
+const token = ref('')
+const name = ref('')
+const avatar = ref('')
+const role = ref(-1)
 
+export const userStore = () => {
   const doLogin = async (username: string, password: string) => {
     try {
       const res = await login(username, password)

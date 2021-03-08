@@ -1,0 +1,136 @@
+@import './color-palette.scss';
+
+// color palettes
+$senses-main: #23bd8a;
+$senses-1: colorPalette($senses-main, 1);
+$senses-2: colorPalette($senses-main, 2);
+$senses-3: colorPalette($senses-main, 3);
+$senses-4: colorPalette($senses-main, 4);
+$senses-5: colorPalette($senses-main, 5);
+$senses-6: $senses-main;
+$senses-7: colorPalette($senses-main, 7);
+$senses-8: colorPalette($senses-main, 8);
+$senses-9: colorPalette($senses-main, 9);
+$senses-10: colorPalette($senses-main, 10);
+
+$blue-main: #396aff;
+$blue-1: colorPalette($blue-main, 1);
+$blue-2: colorPalette($blue-main, 2);
+$blue-3: colorPalette($blue-main, 3);
+$blue-4: colorPalette($blue-main, 4);
+$blue-5: colorPalette($blue-main, 5);
+$blue-6: $blue-main;
+$blue-7: colorPalette($blue-main, 7);
+$blue-8: colorPalette($blue-main, 8);
+$blue-9: colorPalette($blue-main, 9);
+$blue-10: colorPalette($blue-main, 10);
+
+$lightblue-main: #0fadfd;
+$lightblue-1: colorPalette($lightblue-main, 1);
+$lightblue-2: colorPalette($lightblue-main, 2);
+$lightblue-3: colorPalette($lightblue-main, 3);
+$lightblue-4: colorPalette($lightblue-main, 4);
+$lightblue-5: colorPalette($lightblue-main, 5);
+$lightblue-6: $lightblue-main;
+$lightblue-7: colorPalette($lightblue-main, 7);
+$lightblue-8: colorPalette($lightblue-main, 8);
+$lightblue-9: colorPalette($lightblue-main, 9);
+$lightblue-10: colorPalette($lightblue-main, 10);
+
+$daybreakblue-main: #1d7bf1;
+$daybreakblue-1: colorPalette($daybreakblue-main, 1);
+$daybreakblue-2: colorPalette($daybreakblue-main, 2);
+$daybreakblue-3: colorPalette($daybreakblue-main, 3);
+$daybreakblue-4: colorPalette($daybreakblue-main, 4);
+$daybreakblue-5: colorPalette($daybreakblue-main, 5);
+$daybreakblue-6: $daybreakblue-main;
+$daybreakblue-7: colorPalette($daybreakblue-main, 7);
+$daybreakblue-8: colorPalette($daybreakblue-main, 8);
+$daybreakblue-9: colorPalette($daybreakblue-main, 9);
+$daybreakblue-10: colorPalette($daybreakblue-main, 10);
+
+$red-main: #f44336;
+$red-1: colorPalette($red-main, 1);
+$red-2: colorPalette($red-main, 2);
+$red-3: colorPalette($red-main, 3);
+$red-4: colorPalette($red-main, 4);
+$red-5: colorPalette($red-main, 5);
+$red-6: $red-main;
+$red-7: colorPalette($red-main, 7);
+$red-8: colorPalette($red-main, 8);
+$red-9: colorPalette($red-main, 9);
+$red-10: colorPalette($red-main, 10);
+
+$volcano-main: #ff5622;
+$volcano-1: colorPalette($volcano-main, 1);
+$volcano-2: colorPalette($volcano-main, 2);
+$volcano-3: colorPalette($volcano-main, 3);
+$volcano-4: colorPalette($volcano-main, 4);
+$volcano-5: colorPalette($volcano-main, 5);
+$volcano-6: $volcano-main;
+$volcano-7: colorPalette($volcano-main, 7);
+$volcano-8: colorPalette($volcano-main, 8);
+$volcano-9: colorPalette($volcano-main, 9);
+$volcano-10: colorPalette($volcano-main, 10);
+
+$green-main: #23bd3c;
+$green-1: colorPalette($green-main, 1);
+$green-2: colorPalette($green-main, 2);
+$green-3: colorPalette($green-main, 3);
+$green-4: colorPalette($green-main, 4);
+$green-5: colorPalette($green-main, 5);
+$green-6: $green-main;
+$green-7: colorPalette($green-main, 7);
+$green-8: colorPalette($green-main, 8);
+$green-9: colorPalette($green-main, 9);
+$green-10: colorPalette($green-main, 10);
+
+$gold-main: #ef931f;
+$gold-1: colorPalette($gold-main, 1);
+$gold-2: colorPalette($gold-main, 2);
+$gold-3: colorPalette($gold-main, 3);
+$gold-4: colorPalette($gold-main, 4);
+$gold-5: colorPalette($gold-main, 5);
+$gold-6: $gold-main;
+$gold-7: colorPalette($gold-main, 7);
+$gold-8: colorPalette($gold-main, 8);
+$gold-9: colorPalette($gold-main, 9);
+$gold-10: colorPalette($gold-main, 10);
+
+$cyan-main: #00bcd0;
+$cyan-1: colorPalette($cyan-main, 1);
+$cyan-2: colorPalette($cyan-main, 2);
+$cyan-3: colorPalette($cyan-main, 3);
+$cyan-4: colorPalette($cyan-main, 4);
+$cyan-5: colorPalette($cyan-main, 5);
+$cyan-6: $cyan-main;
+$cyan-7: colorPalette($cyan-main, 7);
+$cyan-8: colorPalette($cyan-main, 8);
+$cyan-9: colorPalette($cyan-main, 9);
+$cyan-10: colorPalette($cyan-main, 10);
+
+$gray-1: #fff;
+$gray-2: #fafafa;
+$gray-3: #f5f5f5;
+$gray-4: #f0f0f0;
+$gray-5: #d9d9d9;
+$gray-6: #bfbfbf;
+$gray-7: #8c8c8c;
+$gray-8: #595959;
+$gray-9: #434343;
+$gray-10: #262626;
+$gray-11: #1f1f1f;
+$gray-12: #141414;
+$gray-13: #000;
+
+$preset-colors: (
+  senses: $senses-main,
+  red: $red-main,
+  gold: $gold-main,
+  cyan: $cyan-main,
+  green: $green-main,
+  blue: $blue-main,
+  volcano: $volcano-main,
+  daybreakblue: $daybreakblue-main,
+  lightblue: $lightblue-main
+);
