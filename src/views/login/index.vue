@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <BackgroundParticles />
+    <background-particles />
     <el-form
       ref="loginFormRef"
       :model="loginForm"
@@ -8,17 +8,7 @@
       label-position="left"
       class="login-form"
     >
-      <div class="live2d-wrap">
-        <div id="cover" class="live2d-cover">
-          <div class="live2d-cover-text">
-            <span style="color: cyan;">MIMI</span>
-            <span style="color: white;">POWERED</span>
-          </div>
-          <div class="live2d-cover-line"></div>
-          <div id="handle" class="live2d-cover-handle"></div>
-        </div>
-        <canvas id="live2d" width="500" height="500"></canvas>
-      </div>
+      <live2d />
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
@@ -72,7 +62,8 @@ import { defineComponent, ref, watch } from 'vue'
 import { userStore } from '@/domains/user'
 import { useRouter, useRoute } from 'vue-router'
 import { config } from '@/config'
-import BackgroundParticles from './BackgroundParticles.vue'
+import BackgroundParticles from './background-particles.vue'
+import live2d from './live2d.vue'
 
 require('@/assets/live2d/index.js')
 
@@ -102,9 +93,10 @@ const getOtherQuery = (query: any) => {
 }
 
 export default defineComponent({
-  name: 'VLogin',
+  name: 'Login',
   components: {
     BackgroundParticles,
+    live2d,
   },
   props: { },
   setup() {
@@ -230,63 +222,6 @@ export default defineComponent({
     span {
       margin-right: 16px;
     }
-  }
-}
-
-.live2d-wrap {
-  position: relative;
-  background-color: #999;
-  clip-path: circle(120px at center);
-
-  .live2d-cover {
-    position: absolute;
-    background-color: #cb3837;
-    width: 100%;
-    height: 100%;
-    bottom: 10%;
-    transition: all 1s;
-    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .live2d-cover-text {
-    position: absolute;
-    bottom: 30%;
-    font-size: 2em;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0.4;
-    font-weight: bold;
-  }
-
-  .live2d-cover-line {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.1);
-    width: 100%;
-    height: 10px;
-    bottom: 0;
-  }
-
-  .live2d-cover-handle {
-    position: absolute;
-    background: #ccc;
-    bottom: -2px;
-    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.1);
-    height: 8px;
-    left: 50%;
-    margin-left: -15px;
-    width: 30px;
-    cursor: pointer;
-  }
-}
-
-#live2d {
-  height: 300px;
-  width: 300px;
-  margin-left: 60px;
-  cursor: grab;
-
-  &:active {
-    cursor: grabbing;
   }
 }
 </style>

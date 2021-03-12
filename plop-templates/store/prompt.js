@@ -1,12 +1,15 @@
-const { notEmpty } = require('../utils.js');
-
 module.exports = {
   description: 'generate store',
   prompts: [{
     type: 'input',
     name: 'name',
     message: 'store name please:',
-    validate: notEmpty('name'),
+    validate(value) {
+      if (!value || value.trim === '') {
+        return 'name is required';
+      }
+      return true;
+    },
   },
   {
     type: 'confirm',

@@ -6,8 +6,8 @@
 import 'particles.js'
 
 export default {
+  name: 'BackgroundParticles',
   mounted() {
-    // eslint-disable-next-line no-undef
     particlesJS('bg-particles', {
       particles: {
         number: {

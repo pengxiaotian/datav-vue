@@ -1,5 +1,3 @@
-const { notEmpty } = require('../utils.js');
-
 module.exports = {
   description: 'generate a component',
   prompts: [
@@ -7,7 +5,12 @@ module.exports = {
       type: 'input',
       name: 'name',
       message: 'component name please:',
-      validate: notEmpty('name'),
+      validate(value) {
+        if (!value || value.trim === '') {
+          return 'name is required';
+        }
+        return true;
+      },
     },
     {
       type: 'checkbox',
@@ -43,12 +46,17 @@ module.exports = {
       choices: ['components', 'views'],
       default: 'components',
     },
+    {
+      type: 'input',
+      name: 'subdirectory',
+      message: 'subdirectory name please:',
+    },
   ],
   actions: (data) => {
     const actions = [
       {
         type: 'add',
-        path: `${process.cwd()}/src/${data.category}/{{dashCase name}}/src/index.vue`,
+        path: `${process.cwd()}/src/${data.category}/${data.subdirectory}/{{dashCase name}}/src/index.vue`,
         templateFile: './component/index.hbs',
         data: {
           name: data.name,
@@ -59,7 +67,7 @@ module.exports = {
       },
       {
         type: 'add',
-        path: `${process.cwd()}/src/${data.category}/{{dashCase name}}/index.ts`,
+        path: `${process.cwd()}/src/${data.category}/${data.subdirectory}/{{dashCase name}}/index.ts`,
         templateFile: './component/index-ts.hbs',
         data: {
           name: data.name,

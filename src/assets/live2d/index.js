@@ -1,31 +1,36 @@
 require('./live2d.min.js')
 
 window.addEventListener('load', () => {
-  const apiPath = 'https://live2d.fghrsh.net/api',
-    modelId = localStorage.getItem('modelId') || '1',
-    modelTexturesId = localStorage.getItem('modelTexturesId') || '53'
+  let apiPath = 'https://live2d.fghrsh.net/api',
+    modelId = localStorage.getItem('modelId'),
+    modelTexturesId = localStorage.getItem('modelTexturesId')
 
   let state = 0
 
-  loadModel(modelId, modelTexturesId)
-
   function loadModel(modelId, modelTexturesId) {
-    localStorage.setItem('modelId', modelId)
-
-    if (modelTexturesId === undefined) {
-      modelTexturesId = '0'
+    if (modelId === undefined) {
+      modelId = '1'
     }
 
+    if (modelTexturesId === undefined) {
+      modelTexturesId = '53'
+    }
+
+    localStorage.setItem('modelId', modelId)
     localStorage.setItem('modelTexturesId', modelTexturesId)
 
     loadlive2d('live2d', `${apiPath}/get/?id=${modelId}-${modelTexturesId}`, null)
-
-    // console.log('live2d', `模型 ${modelId}-${modelTexturesId} 加载完成`)
 
     setTimeout(() => {
       coverPosition('80%')
       state = 2
     }, 2000)
+  }
+
+  loadModel(modelId, modelTexturesId)
+
+  function coverPosition(pos) {
+    document.getElementById('cover').style.bottom = pos
   }
 
   // function loadRandModel() {
@@ -43,10 +48,6 @@ window.addEventListener('load', () => {
   //       }, 1000)
   //     })
   // }
-
-  function coverPosition(pos) {
-    document.getElementById('cover').style.bottom = pos
-  }
 
   // window.refresh = function() {
   //   state = 0
