@@ -40,6 +40,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {

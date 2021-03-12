@@ -1,6 +1,3 @@
-@import "./mixins/mixins";
-@import "./themes/index";
-
 @include b(alert) {
   width: 100%;
   padding: $--alert-padding;
@@ -13,7 +10,7 @@
   opacity: 1;
   display: flex;
   align-items: center;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 
   @include when(light) {
     .v-alert__closebtn {
@@ -25,6 +22,7 @@
     .v-alert__closebtn {
       color: $--color-white;
     }
+
     .v-alert__description {
       color: $--color-white;
     }
@@ -106,6 +104,7 @@
   @include e(icon) {
     font-size: $--alert-icon-size;
     width: $--alert-icon-size;
+
     @include when(big) {
       font-size: $--alert-icon-large-size;
       width: $--alert-icon-large-size;
@@ -115,6 +114,7 @@
   @include e(title) {
     font-size: $--alert-title-font-size;
     line-height: 18px;
+
     @include when(bold) {
       font-weight: bold;
     }

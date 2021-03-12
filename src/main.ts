@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 
 import ElementPlus from 'element-plus'
-import '@/styles/index'
+import '@/styles/index.scss'
 
 import App from './App.vue'
 // import store from './store'

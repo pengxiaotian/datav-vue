@@ -1,6 +1,3 @@
-@import "./mixins/mixins";
-@import "./themes/index";
-
 @include b(scrollbar) {
   overflow: hidden;
   position: relative;
