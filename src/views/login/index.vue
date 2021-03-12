@@ -63,9 +63,7 @@ import { userStore } from '@/domains/user'
 import { useRouter, useRoute } from 'vue-router'
 import { config } from '@/config'
 import BackgroundParticles from './background-particles.vue'
-// import live2d from './Live2D.vue'
-
-require('@/assets/live2d/index.js')
+import live2d from './live2.vue'
 
 const validateUsername = (rule: any, value: string, callback: Function) => {
   if (!['admin', 'editor'].includes(value)) {
