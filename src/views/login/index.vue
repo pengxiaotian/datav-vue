@@ -63,7 +63,7 @@ import { userStore } from '@/domains/user'
 import { useRouter, useRoute } from 'vue-router'
 import { config } from '@/config'
 import BackgroundParticles from './background-particles.vue'
-import live2d from './live2d.vue'
+import live2d from './live2.vue'
 
 require('@/assets/live2d/index.js')
 
