@@ -1,10 +1,9 @@
 <template>
   <div class="live2d-wrap">
     <div class="live2d-cover" :style="{ bottom: cover ? '20%' : '80%' }">
-      <div class="live2d-cover-text">
-        <span style="color: cyan;">MIMI</span>
-        <span style="color: white;">POWERED</span>
-      </div>
+      <!-- <div class="live2d-cover-text">
+        <span>DATAV</span>
+      </div> -->
       <div class="live2d-cover-line"></div>
       <div class="live2d-cover-handle" @click="cover = !cover"></div>
     </div>
@@ -15,25 +14,36 @@
 <script>
 import '@/assets/live2d/live2d.min.js'
 
+/*
+
+https://github.com/pengxiaotian/live2d_api
+
+/add/ - 检测 新增皮肤 并更新 缓存列表
+/get/?id=1-23 获取 分组 1 的 第 23 号 皮肤
+/rand/?id=1 根据 上一分组 随机切换
+/switch/?id=1 根据 上一分组 顺序切换
+/rand_textures/?id=1-23 根据 上一皮肤 随机切换 同分组其他皮肤
+/switch_textures/?id=1-23 根据 上一皮肤 顺序切换 同分组其他皮肤
+
+*/
+
 const apiPath = 'https://live2d.fghrsh.net/api'
 
 export default {
   name: 'Live2d',
   data() {
     return {
-      modelId: '1',
-      modelTexturesId: '53',
       cover: true,
     }
   },
   mounted() {
-    this.loadModel()
+    // this.loadModel(1, 86)
+    this.loadRandModel()
     this.initPassword()
   },
   methods: {
-    loadModel() {
-      const { modelId, modelTexturesId } = this
-      loadlive2d('live2d', `${apiPath}/get/?id=${modelId}-${modelTexturesId}`, null)
+    loadModel(modelId, modelTexturesId) {
+      loadlive2d('live2d', `${apiPath}/get/?id=${modelId}-${modelTexturesId}`)
 
       setTimeout(() => {
         this.cover = false
@@ -41,11 +51,18 @@ export default {
     },
     loadRandModel() {
       this.cover = true
-      const { modelId, modelTexturesId } = this
-      fetch(`${apiPath}/rand_textures/?id=${modelId}-${modelTexturesId}`)
+
+      const modelId = 1
+      const modelTexturesId = 86
+
+      fetch(`${apiPath}/rand/?id=${modelId}`)
         .then(response => response.json())
-        .then(result => {
-          loadModel(modelId, result.textures.id)
+        .then(({ model }) => {
+          fetch(`${apiPath}/rand_textures/?id=${model.id}-${modelTexturesId}`)
+            .then(response => response.json())
+            .then(({ textures }) => {
+              this.loadModel(model.id, textures.id)
+            })
         })
     },
     initPassword() {
@@ -66,16 +83,19 @@ export default {
 <style lang="scss" scoped>
 .live2d-wrap {
   position: relative;
-  background-color: #999;
   clip-path: circle(120px at center);
 
   .live2d-cover {
     position: absolute;
-    background-color: #cb3837;
+    background-image: url('~@/assets/logo.png');
+    background-color: #2c3e50;
+    background-repeat: no-repeat;
+    background-size: 25%;
+    background-position: 50% 70%;
     width: 100%;
     height: 100%;
-    bottom: 10%;
-    transition: all 1s;
+    bottom: 20%;
+    transition: all 0.5s ease-in-out;
     box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
   }
 
@@ -84,9 +104,9 @@ export default {
     bottom: 30%;
     font-size: 2em;
     left: 50%;
-    transform: translateX(-50%);
-    opacity: 0.4;
     font-weight: bold;
+    color: #44bb85;
+    transform: translateX(-50%);
   }
 
   .live2d-cover-line {
