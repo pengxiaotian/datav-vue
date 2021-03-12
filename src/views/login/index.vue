@@ -8,7 +8,7 @@
       label-position="left"
       class="login-form"
     >
-      <live2d />
+      <!-- <live2d /> -->
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
@@ -63,7 +63,7 @@ import { userStore } from '@/domains/user'
 import { useRouter, useRoute } from 'vue-router'
 import { config } from '@/config'
 import BackgroundParticles from './background-particles.vue'
-import live2d from './live2.vue'
+// import live2d from './Live2D.vue'
 
 require('@/assets/live2d/index.js')
 
@@ -96,7 +96,7 @@ export default defineComponent({
   name: 'Login',
   components: {
     BackgroundParticles,
-    live2d,
+    // live2d,
   },
   props: { },
   setup() {
