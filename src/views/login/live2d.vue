@@ -52,13 +52,10 @@ export default {
     loadRandModel() {
       this.cover = true
 
-      const modelId = 1
-      const modelTexturesId = 86
-
-      fetch(`${apiPath}/rand/?id=${modelId}`)
+      fetch(`${apiPath}/rand/?id=7`)
         .then(response => response.json())
         .then(({ model }) => {
-          fetch(`${apiPath}/rand_textures/?id=${model.id}-${modelTexturesId}`)
+          fetch(`${apiPath}/rand_textures/?id=${model.id}-1`)
             .then(response => response.json())
             .then(({ textures }) => {
               this.loadModel(model.id, textures.id)
