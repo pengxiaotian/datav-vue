@@ -1,6 +1,6 @@
 <template>
   <div class="live2d-wrap">
-    <div class="live2d-cover" :style="{ bottom: cover ? '20%' : '80%' }">
+    <div class="live2d-cover" :style="{ transform: `translateY(${cover ? '-20%' : '-80%'})` }">
       <!-- <div class="live2d-cover-text">
         <span>DATAV</span>
       </div> -->
@@ -84,15 +84,16 @@ export default {
 
   .live2d-cover {
     position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    transform: translateY(-20%);
+    transition: all 0.5s ease-in-out;
     background-image: url('~@/assets/logo.png');
     background-color: #2c3e50;
     background-repeat: no-repeat;
     background-size: 25%;
     background-position: 50% 70%;
-    width: 100%;
-    height: 100%;
-    bottom: 20%;
-    transition: all 0.5s ease-in-out;
     box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
   }
 
