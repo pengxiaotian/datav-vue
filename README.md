@@ -21,7 +21,20 @@ yarn serve
 yarn build
 ```
 
+#### 创建组件
+
+```bash
+yarn gc [component name]
+```
+
+#### 创建组件 or Store
+
+```bash
+yarn new
+```
+
 #### Git提交模板
+
 ```bash
 yarn cz
 ```

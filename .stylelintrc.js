@@ -11,6 +11,7 @@ module.exports = {
     "at-rule-no-unknown": null,
     "selector-pseudo-class-no-unknown": null,
     "selector-pseudo-element-colon-notation": null,
+    "no-empty-source": null,
     'color-no-invalid-hex': true,
     'comment-no-empty': true,
     'declaration-block-no-duplicate-properties': [
@@ -29,7 +30,6 @@ module.exports = {
     'media-feature-name-no-unknown': true,
     'no-duplicate-at-import-rules': true,
     'no-duplicate-selectors': true,
-    // 'no-empty-source': true,
     'no-extra-semicolons': true,
     'no-invalid-double-slash-comments': true,
     'property-no-unknown': true,

@@ -44,10 +44,9 @@ export const userStore = () => {
     removeToken()
   }
 
-  const doLogout = () => {
-    logout().then(() => {
-      resetToken()
-    })
+  const doLogout = async () => {
+    await logout()
+    resetToken()
   }
 
   return {

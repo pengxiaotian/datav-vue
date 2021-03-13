@@ -1,19 +1,7 @@
 @import './color-palette.scss';
 
 // color palettes
-$senses-main: #23bd8a;
-$senses-1: colorPalette($senses-main, 1);
-$senses-2: colorPalette($senses-main, 2);
-$senses-3: colorPalette($senses-main, 3);
-$senses-4: colorPalette($senses-main, 4);
-$senses-5: colorPalette($senses-main, 5);
-$senses-6: $senses-main;
-$senses-7: colorPalette($senses-main, 7);
-$senses-8: colorPalette($senses-main, 8);
-$senses-9: colorPalette($senses-main, 9);
-$senses-10: colorPalette($senses-main, 10);
-
-$blue-main: #396aff;
+$blue-main: #2681ff;
 $blue-1: colorPalette($blue-main, 1);
 $blue-2: colorPalette($blue-main, 2);
 $blue-3: colorPalette($blue-main, 3);
@@ -36,18 +24,6 @@ $lightblue-7: colorPalette($lightblue-main, 7);
 $lightblue-8: colorPalette($lightblue-main, 8);
 $lightblue-9: colorPalette($lightblue-main, 9);
 $lightblue-10: colorPalette($lightblue-main, 10);
-
-$daybreakblue-main: #1d7bf1;
-$daybreakblue-1: colorPalette($daybreakblue-main, 1);
-$daybreakblue-2: colorPalette($daybreakblue-main, 2);
-$daybreakblue-3: colorPalette($daybreakblue-main, 3);
-$daybreakblue-4: colorPalette($daybreakblue-main, 4);
-$daybreakblue-5: colorPalette($daybreakblue-main, 5);
-$daybreakblue-6: $daybreakblue-main;
-$daybreakblue-7: colorPalette($daybreakblue-main, 7);
-$daybreakblue-8: colorPalette($daybreakblue-main, 8);
-$daybreakblue-9: colorPalette($daybreakblue-main, 9);
-$daybreakblue-10: colorPalette($daybreakblue-main, 10);
 
 $red-main: #f44336;
 $red-1: colorPalette($red-main, 1);
@@ -124,13 +100,11 @@ $gray-12: #141414;
 $gray-13: #000;
 
 $preset-colors: (
-  senses: $senses-main,
   red: $red-main,
   gold: $gold-main,
   cyan: $cyan-main,
   green: $green-main,
   blue: $blue-main,
   volcano: $volcano-main,
-  daybreakblue: $daybreakblue-main,
   lightblue: $lightblue-main
 );

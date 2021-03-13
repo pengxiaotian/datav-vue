@@ -51,12 +51,18 @@ module.exports = {
       name: 'subdirectory',
       message: 'subdirectory name please:',
     },
+    {
+      type: 'confirm',
+      name: 'withFolder',
+      message: 'Whether to create component as folder?',
+    },
   ],
   actions: (data) => {
+    const dir = `${process.cwd()}/src/${data.category}/${data.subdirectory}/{{dashCase name}}`;
     const actions = [
       {
         type: 'add',
-        path: `${process.cwd()}/src/${data.category}/${data.subdirectory}/{{dashCase name}}/src/index.vue`,
+        path: data.withFolder ? `${dir}/src/index.vue` : `${dir}.vue`,
         templateFile: './component/index.hbs',
         data: {
           name: data.name,
@@ -64,16 +70,19 @@ module.exports = {
           script: data.blocks.includes('script'),
           style: data.blocks.includes('style'),
         },
-      },
-      {
+      }
+    ];
+
+    if (data.withFolder) {
+      actions.push({
         type: 'add',
-        path: `${process.cwd()}/src/${data.category}/${data.subdirectory}/{{dashCase name}}/index.ts`,
+        path: `${dir}/index.ts`,
         templateFile: './component/index-ts.hbs',
         data: {
           name: data.name,
         },
-      }
-    ];
+      });
+    }
 
     return actions;
   },

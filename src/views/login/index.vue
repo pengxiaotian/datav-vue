@@ -96,7 +96,6 @@ export default defineComponent({
     BackgroundParticles,
     live2d,
   },
-  props: { },
   setup() {
     const loginForm = ref({
       username: 'admin',

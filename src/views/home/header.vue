@@ -1,0 +1,188 @@
+<template>
+  <div class="datav-hearder">
+    <div class="logo">
+      <div class="top-tip">
+        <strong class="tip-strong">公告</strong>
+        <div class="datav-marquee">
+          <span class="content">
+            <template v-for="n in 2" :key="n">
+              1. DataV 仅支持谷歌 Chrome 浏览器版本 60 以上。 2. 项目地址：<a href="https://github.com/pengxiaotian/datav-vue" target="_blank" class="project-href">https://github.com/pengxiaotian/datav-vue</a>
+              <span class="content-space"></span>
+            </template>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="user">
+      <div class="header-item">
+        <el-dropdown>
+          <span class="user-link-wrap">
+            <el-avatar :size="20" :src="avatar + '?imageView2/1/w/80/h/80'">
+              <img src="@/assets/images/placeholder.png">
+            </el-avatar>
+            <span class="user-link">
+              {{ userName }} <i class="el-icon-caret-bottom"></i>
+            </span>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="logout">
+                退出
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang='ts'>
+import { defineComponent } from 'vue'
+import { userStore } from '@/domains/user'
+import { useRouter } from 'vue-router'
+
+export default defineComponent({
+  name: 'Header',
+  setup() {
+    const { name, avatar, doLogout } = userStore()
+    const router = useRouter()
+
+    const logout = () => {
+      doLogout().then(() => {
+        router.push({ name: 'Login' })
+      })
+    }
+
+    return {
+      userName: name,
+      avatar,
+      logout,
+    }
+  },
+})
+</script>
+
+<style lang="scss">
+@import '~@/styles/themes/var';
+
+.datav-hearder {
+  display: flex;
+  position: fixed;
+  top: 0;
+  justify-content: space-between;
+  z-index: 999;
+  width: 100%;
+  height: 30px;
+  padding: 0 10px;
+  background-image: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 19%,
+    #171717 100%
+  );
+
+  .logo {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding-left: 18px;
+  }
+
+  .user {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 15px;
+    align-items: center;
+    font-size: 14px;
+    z-index: 9;
+    min-width: 540px;
+
+    .header-item {
+      margin: 0 5px;
+      padding: 0 10px;
+      cursor: pointer;
+      user-select: none;
+      color: #bcc9d4;
+      line-height: 20px;
+      height: 20px;
+    }
+
+    .user-link-wrap {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-link {
+      line-height: 20px;
+      height: 20px;
+      margin-left: 5px;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+}
+
+.top-tip {
+  padding: 6px 0;
+  font-size: 12px;
+  color: #bcc9d4;
+  display: flex;
+  right: 0;
+  height: 30px;
+  margin-right: 24px;
+  width: 600px;
+
+  .tip-strong {
+    white-space: nowrap;
+    padding-right: 8px;
+  }
+}
+
+.datav-marquee {
+  display: block;
+  margin: 0 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: clip;
+  position: relative;
+
+  .content {
+    display: inline-block;
+    position: relative;
+    padding-right: 0;
+    white-space: nowrap;
+    animation: marque-animation 20s infinite linear;
+    z-index: 0;
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+
+  .content-space {
+    display: inline-block;
+    width: 5em;
+  }
+
+  .project-href {
+    color: #bcc9d4;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@keyframes marque-animation {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+</style>
