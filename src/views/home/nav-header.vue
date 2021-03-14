@@ -1,37 +1,45 @@
 <template>
-  <div class="datav-hearder">
-    <div class="logo">
-      <div class="top-tip">
-        <strong class="tip-strong">公告</strong>
-        <div class="datav-marquee">
-          <span class="content">
-            <template v-for="n in 2" :key="n">
-              1. DataV 仅支持谷歌 Chrome 浏览器版本 60 以上。 2. 项目地址：<a href="https://github.com/pengxiaotian/datav-vue" target="_blank" class="project-href">https://github.com/pengxiaotian/datav-vue</a>
-              <span class="content-space"></span>
+  <div>
+    <div class="datav-hearder">
+      <div class="logo">
+        <div class="top-tip">
+          <strong class="tip-strong">公告</strong>
+          <div class="datav-marquee">
+            <span class="content">
+              <template v-for="n in 2" :key="n">
+                1. DataV 仅支持谷歌 Chrome 浏览器版本 60 以上。2. DataV 基于 Vue 3.x 开发。3. 项目地址：<a href="https://github.com/pengxiaotian/datav-vue" target="_blank" class="project-href">https://github.com/pengxiaotian/datav-vue</a>
+                <span class="content-space"></span>
+              </template>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="user">
+        <div class="header-item">
+          <el-dropdown>
+            <span class="user-link-wrap">
+              <el-avatar :size="20" :src="avatar + '?imageView2/1/w/80/h/80'">
+                <img src="@/assets/images/placeholder.png">
+              </el-avatar>
+              <span class="user-link">
+                {{ userName }} <i class="el-icon-caret-bottom"></i>
+              </span>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click="logout">
+                  退出
+                </el-dropdown-item>
+              </el-dropdown-menu>
             </template>
-          </span>
+          </el-dropdown>
         </div>
       </div>
     </div>
-    <div class="user">
-      <div class="header-item">
-        <el-dropdown>
-          <span class="user-link-wrap">
-            <el-avatar :size="20" :src="avatar + '?imageView2/1/w/80/h/80'">
-              <img src="@/assets/images/placeholder.png">
-            </el-avatar>
-            <span class="user-link">
-              {{ userName }} <i class="el-icon-caret-bottom"></i>
-            </span>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item @click="logout">
-                退出
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+    <div class="datav-nav">
+      <div class="header-img">
+        <img class="nav-img-text" src="@/assets/images/nav-img-text.png">
+        <div class="nav-img"></div>
       </div>
     </div>
   </div>
@@ -43,7 +51,7 @@ import { userStore } from '@/domains/user'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: 'Header',
+  name: 'NavHeader',
   setup() {
     const { name, avatar, doLogout } = userStore()
     const router = useRouter()
@@ -102,7 +110,7 @@ export default defineComponent({
       padding: 0 10px;
       cursor: pointer;
       user-select: none;
-      color: #bcc9d4;
+      color: $font-color;
       line-height: 20px;
       height: 20px;
     }
@@ -116,18 +124,15 @@ export default defineComponent({
       line-height: 20px;
       height: 20px;
       margin-left: 5px;
-
-      &:hover {
-        color: $color-primary;
-      }
+      color: $font-color;
     }
   }
 }
 
 .top-tip {
   padding: 6px 0;
-  font-size: 12px;
-  color: #bcc9d4;
+  font-size: $header-font-size;
+  color: $font-color;
   display: flex;
   right: 0;
   height: 30px;
@@ -167,7 +172,7 @@ export default defineComponent({
   }
 
   .project-href {
-    color: #bcc9d4;
+    color: $font-color;
     text-decoration: none;
 
     &:hover {
@@ -183,6 +188,41 @@ export default defineComponent({
 
   100% {
     transform: translateX(-50%);
+  }
+}
+
+.datav-nav {
+  display: flex;
+  position: absolute;
+  top: 0;
+  flex-direction: column;
+  background: $background-color;
+  width: 100%;
+  height: 290px;
+
+  .header-img {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .nav-img-text {
+    z-index: 1;
+    transform-origin: 0 0;
+    transform: scale(0.5);
+    top: 80px;
+    left: 40px;
+    position: absolute;
+    user-select: none;
+    cursor: pointer;
+  }
+
+  .nav-img {
+    position: absolute;
+    width: 100%;
+    height: 290px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('~@/assets/images/nav-img.png');
   }
 }
 </style>

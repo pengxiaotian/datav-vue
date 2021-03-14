@@ -9,6 +9,14 @@ $color-warning: $gold-6;
 $color-danger: $red-6;
 $color-info: $gray-6;
 
+// Base
+$font-color: #bcc9d4;
+$font-size: 12px;
+$header-font-size: $font-size;
+$hover-color: $color-primary;
+$nav-color: #b9c2cc;
+$nav-border-color: #27343e;
+
 // Animation
 $ease-base-out: cubic-bezier(0.7, 0.3, 0.1, 1);
 $ease-base-in: cubic-bezier(0.9, 0, 0.3, 0.7);
@@ -30,3 +38,5 @@ $background-color: #171b22;
 
 // Scrollbar
 $scrollbar-thumb-bg: #434b55;
+$scrollbar-thumb-width: 4px;
+$scrollbar-thumb-height: 4px;

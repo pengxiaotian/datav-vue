@@ -18,7 +18,7 @@ body {
   padding: 0;
   overflow: hidden;
   font-family: PingFangSC, 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif !important;
-  font-size: 12px;
+  font-size: $font-size;
   background: $background-color !important;
   -webkit-font-smoothing: antialiased;
 
@@ -33,8 +33,8 @@ ul {
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: $scrollbar-thumb-width;
+  height: $scrollbar-thumb-height;
 }
 
 ::-webkit-scrollbar-thumb {
