@@ -4,7 +4,7 @@
       <div class="project-manage">
         <div class="manage-title">
           <div class="my-project project-group">
-            <span style="margin-left: 10px;">我的分组</span>
+            <span style="margin-left: 2px;">我的分组</span>
             <i class="v-icon-lock"></i>
           </div>
           <div
@@ -22,7 +22,7 @@
             :class="{ 'project-checked-color': selectedGroupId === 0 }"
             @click="toggleProject(0)"
           >
-            <span class="project-name">未分组</span>
+            <span class="project-name project-ungrouped">未分组</span>
             <span class="project-num">{{ ungroup.children.length }}</span>
           </div>
           <div
@@ -37,7 +37,9 @@
           </div>
         </div>
       </div>
-      <div class="project-screen-list"></div>
+      <div class="project-screen-list">
+        <project-list />
+      </div>
     </div>
   </div>
 </template>
@@ -45,9 +47,13 @@
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
 import { ProjectStore } from '@/domains/project'
+import ProjectList from './project-list.vue'
 
 export default defineComponent({
   name: 'MyProject',
+  components: {
+    ProjectList,
+  },
   setup() {
     const { ungroup, groups, projects } = ProjectStore()
     const selectedGroupId = ref(0)
@@ -82,7 +88,7 @@ export default defineComponent({
   .project-manage {
     min-width: 240px;
     max-width: 240px;
-    color: $color-white;
+    color: #fff;
     position: sticky;
     top: 70px;
     font-size: 14px;
@@ -95,12 +101,6 @@ export default defineComponent({
       font-size: 12px;
     }
 
-    .project-group {
-      padding-left: 24px;
-      height: 56px;
-      border-bottom: 1px solid $nav-border-color;
-    }
-
     .my-project {
       line-height: 36px;
       height: 36px;
@@ -108,6 +108,16 @@ export default defineComponent({
       align-items: center;
       justify-content: space-between;
       padding-right: 30px;
+    }
+
+    .manage-title .project-group {
+      padding-left: 24px;
+      height: 56px;
+      border-bottom: 1px solid $nav-border-color;
+    }
+
+    .project-ungrouped {
+      color: $font-color;
     }
 
     .project-all {
@@ -125,7 +135,11 @@ export default defineComponent({
       background-repeat: round;
 
       &:hover {
-        color: $color-white !important;
+        color: #fff !important;
+      }
+
+      .project-name {
+        color: #fff !important;
       }
     }
 
@@ -155,7 +169,9 @@ export default defineComponent({
       }
 
       &:hover {
-        color: $color-primary;
+        .project-name {
+          color: $color-primary;
+        }
       }
     }
   }

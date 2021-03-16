@@ -91,7 +91,7 @@ export default defineComponent({
 
       &.nav-active,
       &:hover {
-        color: $color-white !important;
+        color: #fff !important;
       }
     }
 
