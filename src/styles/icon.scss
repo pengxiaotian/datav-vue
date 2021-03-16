@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-menu:before {
+  content: "\e868";
+}
+
 .v-icon-my-com:before {
   content: "\e652";
 }

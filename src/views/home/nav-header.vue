@@ -47,13 +47,13 @@
 
 <script lang='ts'>
 import { defineComponent } from 'vue'
-import { userStore } from '@/domains/user'
+import { UserStore } from '@/domains/user'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'NavHeader',
   setup() {
-    const { name, avatar, doLogout } = userStore()
+    const { name, avatar, doLogout } = UserStore()
     const router = useRouter()
 
     const logout = () => {

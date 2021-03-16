@@ -4,20 +4,36 @@
       <div class="project-manage">
         <div class="manage-title">
           <div class="my-project project-group">
-            <span>
-              <i class="v-icon-app" style="margin-right: 2px;"></i> 我的分组
-            </span>
+            <span style="margin-left: 10px;">我的分组</span>
             <i class="v-icon-lock"></i>
           </div>
-          <div class="my-project project-all project-checked-color">
+          <div
+            class="my-project project-all"
+            :class="{ 'project-checked-color': selectedGroupId === -1 }"
+            @click="toggleProject(-1)"
+          >
             <span>全部应用</span>
-            <span class="project-num">3</span>
+            <span class="project-num">{{ projects.length }}</span>
           </div>
         </div>
         <div class="manage-main">
-          <div class="main-project project-checked-color">
-            <span class="project-name project-ungrouped project-checked-span-color">未分组</span>
-            <span class="project-num project-block">3</span>
+          <div
+            class="main-project"
+            :class="{ 'project-checked-color': selectedGroupId === 0 }"
+            @click="toggleProject(0)"
+          >
+            <span class="project-name">未分组</span>
+            <span class="project-num">{{ ungroup.children.length }}</span>
+          </div>
+          <div
+            v-for="g in groups"
+            :key="g.id"
+            class="main-project"
+            :class="{ 'project-checked-color': selectedGroupId === g.id }"
+            @click="toggleProject(g.id)"
+          >
+            <span class="project-name">{{ g.name }}</span>
+            <span class="project-num">{{ g.children.length }}</span>
           </div>
         </div>
       </div>
@@ -27,12 +43,26 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import { ProjectStore } from '@/domains/project'
 
 export default defineComponent({
   name: 'MyProject',
   setup() {
-    // init here
+    const { ungroup, groups, projects } = ProjectStore()
+    const selectedGroupId = ref(0)
+
+    const toggleProject = (id: number) => {
+      selectedGroupId.value = id
+    }
+
+    return {
+      ungroup,
+      groups,
+      projects,
+      selectedGroupId,
+      toggleProject,
+    }
   },
 })
 </script>
@@ -84,15 +114,19 @@ export default defineComponent({
       padding-left: 50px;
       transition: color 0.2s;
       cursor: pointer;
+
+      &:hover {
+        color: $color-primary;
+      }
     }
 
     .project-checked-color {
       background-image: url('~@/assets/images/nav-menu-img.png');
       background-repeat: round;
-    }
 
-    .project-checked-span-color {
-      color: $color-white;
+      &:hover {
+        color: $color-white !important;
+      }
     }
 
     .project-num {
@@ -114,13 +148,14 @@ export default defineComponent({
 
       .project-name {
         width: 100px;
+        font-size: 14px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
       }
 
-      .project-ungrouped {
-        font-size: 14px;
+      &:hover {
+        color: $color-primary;
       }
     }
   }

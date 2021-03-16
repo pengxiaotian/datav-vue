@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { config } from '@/config'
 import { getToken } from '@/utils/token-util'
 // import { UserModule } from '@/store/modules/user'
-import { userStore } from '@/domains/user'
+import { UserStore } from '@/domains/user'
 
 export const navRoutes = [
   {
@@ -55,7 +55,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      const { role, getUserInfo, resetToken } = userStore()
+      const { role, getUserInfo, resetToken } = UserStore()
       if (role.value > 0) {
         next()
       } else {

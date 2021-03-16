@@ -8,7 +8,7 @@ const name = ref('')
 const avatar = ref('')
 const role = ref(-1)
 
-export const userStore = () => {
+export const UserStore = () => {
   const doLogin = async (username: string, password: string) => {
     try {
       const res = await login(username, password)

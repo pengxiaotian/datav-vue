@@ -59,7 +59,7 @@
 <script lang='ts'>
 import { defineComponent, ref, watch } from 'vue'
 // import { UserModule } from '@/store/modules/user'
-import { userStore } from '@/domains/user'
+import { UserStore } from '@/domains/user'
 import { useRouter, useRoute } from 'vue-router'
 import { config } from '@/config'
 import BackgroundParticles from './background-particles.vue'
@@ -141,7 +141,7 @@ export default defineComponent({
       (loginFormRef.value as any).validate((valid: any) => {
         if (valid) {
           loading.value = true
-          userStore().doLogin(loginForm.value.username, loginForm.value.password)
+          UserStore().doLogin(loginForm.value.username, loginForm.value.password)
             .then(() => {
               router.push({ path: redirect.value || '/', query: otherQuery.value })
             })
