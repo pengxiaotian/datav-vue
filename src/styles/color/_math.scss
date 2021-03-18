@@ -10,7 +10,9 @@
   // From: http://rosettacode.org/wiki/Greatest_common_divisor#JavaScript
   @if ($b != 0) {
     @return ch-gcd($b, $a % $b);
-  } @else {
+  }
+
+  @else {
     @return abs($a);
   }
 }
@@ -21,15 +23,19 @@
     $prec2 : ch-pow(10, $prec);
     $exponent: round($exponent * $prec2);
     $denominator: ch-gcd($exponent, $prec2);
+
     @return ch-nth-root(ch-pow($base, $exponent / $denominator), $prec2 / $denominator, $prec);
   }
 
   $value: $base;
+
   @if $exponent > 1 {
     @for $i from 2 through $exponent {
       $value: $value * $base;
     }
-  } @else if $exponent < 1 {
+  }
+
+  @else if $exponent < 1 {
     @for $i from 0 through -$exponent {
       $value: $value / $base;
     }

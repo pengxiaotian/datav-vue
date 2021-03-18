@@ -1,0 +1,15 @@
+@import "themes/var";
+
+.el-popover.el-popper {
+  min-width: auto;
+
+  // TODO
+  @each $placement, $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top') {
+    &.is-light.is-dark[data-popper-placement^='#{$placement}'] {
+      .el-popper__arrow::before {
+        border-color: $drop-list-popover-bgcolor;
+        background: $drop-list-popover-bgcolor;
+      }
+    }
+  }
+}

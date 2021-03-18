@@ -3,4 +3,6 @@
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-plus/lib/theme-chalk/fonts';
 
+$--color-primary: $color-primary;
+
 @import "~element-plus/packages/theme-chalk/src/index";

@@ -1,0 +1,59 @@
+@import "themes/var";
+
+.drop-list-popover.el-popover {
+  display: inline-block;
+  position: absolute;
+  box-sizing: border-box;
+  animation: in 0.15s ease;
+  color: $tooltip-popover-color;
+  padding: 0;
+  border: 0;
+
+  .drop-list-wp {
+    position: relative;
+    background: $drop-list-popover-bgcolor;
+    box-shadow: 0 1px 4px -3px $tooltip-popover-shadow-color;
+    border-radius: 1px;
+
+    .item-container {
+      max-height: 240px;
+      overflow-y: auto;
+    }
+
+    .drop-list-item {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 12px;
+      height: 30px;
+      line-height: 30px;
+      padding-left: 10px;
+      padding-right: 12px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      border-radius: 1px;
+      color: $tooltip-popover-color;
+      transition: 0.2s;
+      border-left: 3px solid transparent;
+
+      &:hover {
+        border-left-color: $color-primary;
+        background: $drop-list-popover-hover-bgcolor;
+      }
+
+      &:not(:first-child) {
+        border-top: 1px solid $drop-list-popover-hover-bgcolor;
+      }
+    }
+
+    .drop-text {
+      display: block;
+      margin-left: 6px;
+
+      &.--no-icon {
+        margin-left: 0;
+      }
+    }
+  }
+}

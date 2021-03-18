@@ -1,6 +1,11 @@
 @import "./themes/index";
 @import "./icon";
 
+// Element
 // @import "./alert.scss";
 @import "./button.scss";
-// @import "./scrollbar.scss";
+@import "./popover.scss";
+
+// UI
+@import "./tooltip-popover.scss";
+@import "./drop-list-popover.scss";

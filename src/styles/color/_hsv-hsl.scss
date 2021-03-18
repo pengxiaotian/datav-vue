@@ -16,9 +16,12 @@
   // }
   @if unit($s) == '%' {
     $s: 0 + (round($s) / 100%);
-  } @else {
+  }
+
+  @else {
     $s: $s / 100;
   }
+
   @if unit($v) == '%' {
     $v: if($v >= 100, 1, $v / 100%);
   }
@@ -28,9 +31,13 @@
 
   @if ($ll == 2 or $ll == 0) {
     $ss: 0;
-  } @else if $ll <= 1 {
+  }
+
+  @else if $ll <= 1 {
     $ss: $ss / $ll;
-  } @else {
+  }
+
+  @else {
     $ss: $ss / (2 - $ll);
   }
 
@@ -44,7 +51,9 @@
     $ll: nth($h, 3);
     $ss: nth($h, 2);
     $h: nth($h, 1);
-  } @else if type_of($h) == 'color' {
+  }
+
+  @else if type_of($h) == 'color' {
     $ll: lightness($h);
     $ss: saturation($h);
     $h: hue($h);
@@ -53,9 +62,11 @@
   @if unit($h) == 'deg' {
     $h: 3.1415 * 2 * ($h / 360deg);
   }
+
   @if unit($ss) == '%' {
     $ss: 0 + ($ss / 100%);
   }
+
   @if unit($ll) == '%' {
     $ll: 0 + ($ll / 100%);
   }
@@ -64,13 +75,16 @@
 
   @if $ll <= 1 {
     $ss: $ss * $ll;
-  } @else {
+  }
+
+  @else {
     $ss: $ss * (2 - $ll);
   }
 
   $v: ($ll + $ss) / 2;
 
   $s: 0;
+
   @if $ll + $ss != 0 {
     $s: (2 * $ss) / ($ll + $ss);
   }
@@ -84,6 +98,7 @@
 
 @function ch-hsv-to-color($h, $s: 0, $v: 0) {
   $hsl: ch-hsv-to-hsl($h, $s, $v);
+
   @return hsl(nth($hsl, 1), nth($hsl, 2), nth($hsl, 3));
 }
 
@@ -91,6 +106,7 @@
   @if type_of($h) == 'color' {
     $h: ch-color-to-hsv($h);
   }
+
   @if type_of($h) == 'list' {
     $adjustment: $s;
     $v: nth($h, 3);

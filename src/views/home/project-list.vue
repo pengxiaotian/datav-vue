@@ -16,22 +16,52 @@
           <input class="search-input" placeholder="搜索" value="">
         </div>
         <i class="v-icon-search"></i>
-        <div class="sort-type">
-          <span class="sort-text" title="按修改时间排序">按修改时间排序</span>
-          <i class="el-icon-caret-bottom arrow-icon"></i>
-        </div>
+        <g-drop-list-popover trigger="click">
+          <div class="sort-type">
+            <span class="sort-text" :title="sorts[sort]">
+              {{ sorts[sort] }}
+            </span>
+            <i class="el-icon-caret-bottom arrow-icon"></i>
+          </div>
+          <template #droplist>
+            <g-drop-list>
+              <g-drop-list-item
+                v-for="(v, k) in sorts"
+                :key="k"
+                @click="onSortChange(k)"
+              >
+                {{ v }}
+              </g-drop-list-item>
+            </g-drop-list>
+          </template>
+        </g-drop-list-popover>
       </div>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'ProjectList',
   setup() {
-    // init here
+    const sort = ref('name')
+    const sorts = ref({
+      name: '按名称排序',
+      created: '按创建时间排序',
+      updated: '按修改时间排序',
+    })
+
+    const onSortChange = (key: string) => {
+      sort.value = key
+    }
+
+    return {
+      sort,
+      sorts,
+      onSortChange,
+    }
   },
 })
 </script>

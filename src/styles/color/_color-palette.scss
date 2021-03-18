@@ -14,13 +14,17 @@ $darkColorCount: 4; // 深色数量，主色下
 
   @if ($h >= 60  and $h <= 240) {
     $hue: if($light, $h - $hueStep * $i, $h + $hueStep * $i);
-  } @else {
+  }
+
+  @else {
     $hue: if($light, $h + $hueStep * $i, $h - $hueStep * $i);
   }
 
   @if ($hue < 0) {
     $hue: $hue + 360;
-  } @else if ($hue >= 360) {
+  }
+
+  @else if ($hue >= 360) {
     $hue: $hue - 360;
   }
 
@@ -37,9 +41,13 @@ $darkColorCount: 4; // 深色数量，主色下
 
   @if ($light) {
     $saturation: $s  - $saturationStep * $i;
-  } @else if ($i == $darkColorCount) {
+  }
+
+  @else if ($i == $darkColorCount) {
     $saturation: $s  + $saturationStep;
-  } @else {
+  }
+
+  @else {
     $saturation: $s  + $saturationStep2 * $i;
   }
 
@@ -78,5 +86,6 @@ $darkColorCount: 4; // 深色数量，主色下
   $adjustHue: round(getHue($h, $s, $v, $i, $light));
   $adjustSaturation: getSaturation($h, $s, $v, $i, $light);
   $adjustLight: getValue($h, $s, $v, $i, $light);
+
   @return ch-hsv-to-color($adjustHue, $adjustSaturation, $adjustLight);
 }
