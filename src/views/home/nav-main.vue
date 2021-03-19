@@ -15,20 +15,26 @@
 
 <script lang='ts'>
 import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
+import type { PropType } from 'vue'
 import _ from 'lodash'
 import { NavCanvas } from './nav-canvas'
 
+interface NavDataType {
+  id: number
+  name: string
+  icon: string
+}
+
 export default defineComponent({
   name: 'NavMain',
+  props: {
+    navs: {
+      type: Array as PropType<NavDataType[]>,
+      required: true,
+    },
+  },
   setup() {
     const activeNav = ref(0)
-    const navs = ref([
-      { id: 0, name: '我的可视化', icon: 'layer' },
-      { id: 1, name: '我的数据', icon: 'my-data' },
-      { id: 2, name: '我的组件', icon: 'my-com' },
-      { id: 3, name: '教程', icon: 'tutorial' },
-    ])
-
     let nc: NavCanvas | null = null
 
     const toggleNav = (idx: number) => {
@@ -56,7 +62,6 @@ export default defineComponent({
     return {
       toggleNav,
       activeNav,
-      navs,
     }
   },
 })

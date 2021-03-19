@@ -16,7 +16,7 @@
           <input class="search-input" placeholder="搜索" value="">
         </div>
         <i class="v-icon-search"></i>
-        <g-drop-list-popover trigger="click">
+        <g-drop-list-popover>
           <div class="sort-type">
             <span class="sort-text" :title="sorts[sort]">
               {{ sorts[sort] }}
@@ -37,14 +37,21 @@
         </g-drop-list-popover>
       </div>
     </div>
+    <div class="main-screen">
+      <my-screen />
+    </div>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
+import MyScreen from './my-screen.vue'
 
 export default defineComponent({
   name: 'ProjectList',
+  components: {
+    MyScreen,
+  },
   setup() {
     const sort = ref('name')
     const sorts = ref({
@@ -218,5 +225,15 @@ export default defineComponent({
       }
     }
   }
+}
+
+.main-screen {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding-top: 8px;
+  user-select: none;
+  padding-bottom: 50px;
+  margin-right: -32px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="datav-hearder">
+    <div class="datav-hearder" :style="{ background: isFixed ? '#171b22' : '' }">
       <div class="logo">
         <div class="top-tip">
           <strong class="tip-strong">公告</strong>
@@ -52,6 +52,12 @@ import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'NavHeader',
+  props: {
+    isFixed: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup() {
     const { name, avatar, doLogout } = UserStore()
     const router = useRouter()

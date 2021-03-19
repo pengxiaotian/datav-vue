@@ -4,8 +4,8 @@
   "description": "一个基于 Vue3.x 的数据可视化项目。",
   "scripts": {
     "cz": "npx git-cz",
+    "gc": "bash ./scripts/gc.sh",
     "new": "plop --plopfile ./plop-templates/plopfile.js",
-    "gen": "bash ./scripts/gc.sh",
     "bootstrap": "yarn --frozen-lockfile",
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
