@@ -13,7 +13,7 @@
       </div>
       <div class="header-manager">
         <div class="search">
-          <input class="search-input" placeholder="搜索" value="">
+          <input v-model.trim="searchText" class="search-input" placeholder="搜索">
         </div>
         <i class="v-icon-search"></i>
         <g-drop-list-popover>
@@ -38,17 +38,16 @@
       </div>
     </div>
     <div class="main-screen">
-      <template v-if="group && group.children">
-        <div v-for="screen in group.children" :key="screen.id">
-          <my-screen :screen="screen" />
-        </div>
-      </template>
+      <div v-for="screen in screens" :key="screen.id">
+        <my-screen :screen="screen" />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, PropType } from 'vue'
+import { defineComponent, ref, PropType, computed, toRef } from 'vue'
+import _ from 'lodash'
 import { ProjectGroup } from '@/domains/project'
 import MyScreen from './my-screen.vue'
 
@@ -60,22 +59,37 @@ export default defineComponent({
   props: {
     group: Object as PropType<ProjectGroup>,
   },
-  setup() {
+  setup(props) {
+    const searchText = ref('')
     const sort = ref('name')
     const sorts = ref({
       name: '按名称排序',
-      created: '按创建时间排序',
-      updated: '按修改时间排序',
+      createAt: '按创建时间排序',
+      updateAt: '按修改时间排序',
     })
+
+    const group = toRef(props, 'group')
 
     const onSortChange = (key: string) => {
       sort.value = key
     }
 
+    const screens = computed(() => {
+      let list = group.value ? group.value.children : []
+      if (searchText.value) {
+        const text = searchText.value.toLowerCase()
+        list = list.filter(m => m.name.toLowerCase().includes(text))
+      }
+
+      return _.sortBy(list, sort.value)
+    })
+
     return {
+      searchText,
       sort,
       sorts,
       onSortChange,
+      screens,
     }
   },
 })

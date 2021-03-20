@@ -58,7 +58,7 @@
           >
             <div class="screen-name-input">
               <i class="v-icon-edit"></i>
-              <input v-model="name" class="input">
+              <input v-model.trim="screenName" class="input" @blur="onBlur">
             </div>
           </g-tooltip-popover>
           <div class="publish-info">
@@ -72,7 +72,10 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, toRefs, computed } from 'vue'
+import {
+  defineComponent, PropType, toRefs,
+  computed, ref, watch,
+} from 'vue'
 import { Project } from '@/domains/project'
 import { coverImg } from '@/data/images'
 
@@ -86,6 +89,8 @@ export default defineComponent({
   },
   setup(props) {
     const { name, share, config } = toRefs(props.screen)
+    const screenName = ref(name.value)
+    const oldScreenName = ref(name.value)
 
     const thumbnail = computed(() => {
       if (config.value.screenshot) {
@@ -111,10 +116,23 @@ export default defineComponent({
       }
     })
 
+    const onBlur = () => {
+      if (!screenName.value) {
+        screenName.value = oldScreenName.value
+      }
+    }
+
+    watch(screenName, nv => {
+      name.value = nv
+    })
+
     return {
       name,
       thumbnail,
       publishState,
+      screenName,
+      oldScreenName,
+      onBlur,
     }
   },
 })

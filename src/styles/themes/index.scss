@@ -11,11 +11,16 @@
   box-sizing: border-box;
 }
 
+html,
 body {
-  width: 100%;
+  margin: 0;
+  padding: 0;
   height: 100%;
   min-width: 1024px;
-  padding: 0;
+  font-size: 12px;
+}
+
+body {
   font-family: PingFangSC, 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif !important;
   font-size: $font-size;
   background: $background-color !important;
