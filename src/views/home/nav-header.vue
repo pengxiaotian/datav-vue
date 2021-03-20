@@ -16,7 +16,7 @@
       </div>
       <div class="user">
         <div class="header-item">
-          <el-dropdown>
+          <g-drop-list-popover>
             <span class="user-link-wrap">
               <el-avatar :size="20" :src="avatar + '?imageView2/1/w/80/h/80'">
                 <img src="@/assets/images/placeholder.png">
@@ -25,14 +25,14 @@
                 {{ userName }} <i class="el-icon-caret-bottom"></i>
               </span>
             </span>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item @click="logout">
+            <template #droplist>
+              <g-drop-list>
+                <g-drop-list-item icon="v-icon-logout" @click="logout">
                   退出
-                </el-dropdown-item>
-              </el-dropdown-menu>
+                </g-drop-list-item>
+              </g-drop-list>
             </template>
-          </el-dropdown>
+          </g-drop-list-popover>
         </div>
       </div>
     </div>

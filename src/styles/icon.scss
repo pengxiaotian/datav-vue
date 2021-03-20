@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-logout:before {
+  content: "\ef5b";
+}
+
 .v-icon-menu:before {
   content: "\e868";
 }
