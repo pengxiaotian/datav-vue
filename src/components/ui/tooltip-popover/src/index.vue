@@ -2,9 +2,12 @@
   <el-popover
     :placement="placement"
     :trigger="trigger"
-    width="auto"
     :show-arrow="false"
     :content="content"
+    :show-after="showAfter"
+    :enterable="false"
+    :offset="5"
+    width="auto"
     popper-class="tooltip-popover"
   >
     <template #reference>
@@ -25,6 +28,10 @@ export default defineComponent({
     placement: {
       type: String,
       default: 'bottom',
+    },
+    showAfter: {
+      type: Number,
+      default: 500,
     },
     content: String,
   },

@@ -11,6 +11,12 @@ export class ProjectGroup {
   name: string
   type: ProjectGroupType
   children: Project[]
+
+  constructor(id = 0, name = '', children: Project[] = []) {
+    this.id = id
+    this.name = name
+    this.children = children
+  }
 }
 
 export class Project {
@@ -38,7 +44,7 @@ const getProjects = async () => {
   try {
     const res = await api.getProjects()
     if (res.data.code === 0) {
-      allGroups.value = res.data.data
+      allGroups.value = res.data.data || []
     } else {
       throw Error(res.data.message)
     }
@@ -49,19 +55,18 @@ const getProjects = async () => {
 
 export const ProjectStore = () => {
 
+  const group = computed(() => {
+    const list = allGroups.value.flatMap(m => m.children)
+    return new ProjectGroup(-1, '全部应用', list)
+  })
+
   const ungroup = computed(() => {
-    const group = new ProjectGroup()
     const g = allGroups.value.find(m => m.type === ProjectGroupType.ungroup)
-    group.children = g ? g.children : []
-    return group
+    return new ProjectGroup(0, '未分组', g ? g.children || [] : [])
   })
 
   const groups = computed(() => {
     return allGroups.value.filter(m => m.type === ProjectGroupType.group)
-  })
-
-  const projects = computed(() => {
-    return allGroups.value.flatMap(m => m.children)
   })
 
   onMounted(() => {
@@ -69,9 +74,9 @@ export const ProjectStore = () => {
   })
 
   return {
+    group,
     ungroup,
     groups,
-    projects,
     getProjects,
   }
 }

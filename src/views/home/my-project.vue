@@ -9,20 +9,21 @@
           </div>
           <div
             class="my-project project-all"
-            :class="{ 'project-checked-color': selectedGroupId === -1 }"
-            @click="toggleProject(-1)"
+            :class="{ 'project-checked-color': selectedGroupId === group.id }"
+            @click="toggleProject(group.id)"
           >
-            <span>全部应用</span>
-            <span class="project-num">{{ projects.length }}</span>
+            <span>{{ group.name }}</span>
+            <span class="project-num">{{ group.children.length }}</span>
           </div>
         </div>
+
         <div class="manage-main">
           <div
             class="main-project"
-            :class="{ 'project-checked-color': selectedGroupId === 0 }"
-            @click="toggleProject(0)"
+            :class="{ 'project-checked-color': selectedGroupId === ungroup.id }"
+            @click="toggleProject(ungroup.id)"
           >
-            <span class="project-name project-ungrouped">未分组</span>
+            <span class="project-name project-ungrouped">{{ ungroup.name }}</span>
             <span class="project-num">{{ ungroup.children.length }}</span>
           </div>
           <div
@@ -38,14 +39,14 @@
         </div>
       </div>
       <div class="project-screen-list">
-        <project-list />
+        <project-list :group="selectedGroup" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { ProjectStore } from '@/domains/project'
 import ProjectList from './project-list.vue'
 
@@ -55,17 +56,30 @@ export default defineComponent({
     ProjectList,
   },
   setup() {
-    const { ungroup, groups, projects } = ProjectStore()
-    const selectedGroupId = ref(0)
+    const { group, ungroup, groups } = ProjectStore()
+    const selectedGroupId = ref(-1)
 
     const toggleProject = (id: number) => {
       selectedGroupId.value = id
     }
 
+    const selectedGroup = computed(() => {
+      if (selectedGroupId.value === -1) {
+        return group.value
+      }
+
+      if (selectedGroupId.value === 0) {
+        return ungroup.value
+      }
+
+      return groups.value.find(g => g.id === selectedGroupId.value)
+    })
+
     return {
+      group,
       ungroup,
       groups,
-      projects,
+      selectedGroup,
       selectedGroupId,
       toggleProject,
     }

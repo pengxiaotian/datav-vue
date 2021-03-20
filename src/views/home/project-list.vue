@@ -9,7 +9,7 @@
     </div>
     <div class="project-header">
       <div class="project-title">
-        <h2>全部应用</h2>
+        <h2>{{ group.name }}</h2>
       </div>
       <div class="header-manager">
         <div class="search">
@@ -38,19 +38,27 @@
       </div>
     </div>
     <div class="main-screen">
-      <my-screen />
+      <template v-if="group && group.children">
+        <div v-for="screen in group.children" :key="screen.id">
+          <my-screen :screen="screen" />
+        </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, PropType } from 'vue'
+import { ProjectGroup } from '@/domains/project'
 import MyScreen from './my-screen.vue'
 
 export default defineComponent({
   name: 'ProjectList',
   components: {
     MyScreen,
+  },
+  props: {
+    group: Object as PropType<ProjectGroup>,
   },
   setup() {
     const sort = ref('name')
@@ -182,7 +190,7 @@ export default defineComponent({
       .search-input {
         @include utils-ellipsis;
 
-        background: $input-background-color;
+        background: $input-bgcolor;
         color: #fff;
         padding: 0 10px;
         line-height: 30px;

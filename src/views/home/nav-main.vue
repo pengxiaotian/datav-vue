@@ -102,6 +102,7 @@ export default defineComponent({
 
     .nav-icon {
       padding-right: 5px;
+      font-size: 16px;
     }
   }
 }

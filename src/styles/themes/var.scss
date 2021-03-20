@@ -44,7 +44,9 @@ $background-color: #171b22;
 $border-color: #434b55;
 
 // Input
-$input-background-color: #1d262e;
+$input-bgcolor: #1d262e;
+$input-color: #fff;
+$input-hover-color: #bcc9d4;
 
 // Scrollbar
 $scrollbar-thumb-bg: #434b55;
@@ -59,3 +61,17 @@ $tooltip-popover-shadow-color: #000;
 // drop-list-popover
 $drop-list-popover-bgcolor: #262c33;
 $drop-list-popover-hover-bgcolor: #1a1b1d;
+
+// project
+$screen-border-color: #3a4659;
+$screen-bgcolor: rgba(0, 0, 0, 0.81);
+$screen-shadow-color: #000;
+$screen-font-color: #fff;
+
+// Icon
+$icon-color: $color-white;
+$icon-hover-color: $color-primary;
+
+// Publish
+$publish-font-color: #bcc9d4;
+$publish-dot-color: #576369;
