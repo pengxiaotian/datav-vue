@@ -3,18 +3,37 @@ import { config } from '@/config'
 import { getToken } from '@/utils/token-util'
 // import { UserModule } from '@/store/modules/user'
 import { UserStore } from '@/domains/user'
+import Home from '@/views/home/index.vue'
 
-export const navRoutes = [
+export const navRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '@/views/home/index.vue'),
+    redirect: '/project',
+    component: Home,
     meta: { title: '首页' },
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+    children: [
+      {
+        path: 'project',
+        name: 'MyProject',
+        component: () => import(/* webpackChunkName: "my-project" */ '@/views/my-project/index.vue'),
+      },
+      {
+        path: 'data',
+        name: 'MyData',
+        component: () => import(/* webpackChunkName: "my-data" */ '@/views/my-data/index.vue'),
+      },
+      {
+        path: 'com',
+        name: 'MyCom',
+        component: () => import(/* webpackChunkName: "my-com" */ '@/views/my-com/index.vue'),
+      },
+      {
+        path: 'case',
+        name: 'MyCase',
+        component: () => import(/* webpackChunkName: "my-case" */ '@/views/my-case/index.vue'),
+      },
+    ],
   },
 ]
 

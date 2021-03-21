@@ -2,15 +2,18 @@
 
 $color-white: #fff;
 $color-black: #000;
+$color-gray: #90a0ae;
+$color-dark: #262c33;
 
 $color-primary: $blue-6;
 $color-success: $green-6;
-$color-warning: $gold-6;
-$color-danger: $red-6;
-$color-info: $gray-6;
+$color-warning: $warn-6;
+$color-error: $red-6;
+$color-info: $color-gray;
 
 // Base
 $font-color: #bcc9d4;
+$font-color-disabled: #424447;
 $font-size: 12px;
 $header-font-size: $font-size;
 $hover-color: $color-primary;
@@ -59,7 +62,7 @@ $tooltip-popover-bgcolor: #1b3964;
 $tooltip-popover-shadow-color: #000;
 
 // drop-list-popover
-$drop-list-popover-bgcolor: #262c33;
+$drop-list-popover-bgcolor: $color-dark;
 $drop-list-popover-hover-bgcolor: #1a1b1d;
 
 // project
@@ -75,3 +78,10 @@ $icon-hover-color: $color-primary;
 // Publish
 $publish-font-color: #bcc9d4;
 $publish-dot-color: #576369;
+
+// Message
+$message-font-color: #fff;
+$message-success-bgcolor: #1b3964;
+$message-success-border-color: $color-primary;
+$message-error-bgcolor: #5d2b3e;
+$message-error-border-color: $color-error;

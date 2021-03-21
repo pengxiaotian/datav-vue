@@ -76,8 +76,10 @@ import {
   defineComponent, PropType, toRefs,
   computed, ref, watch,
 } from 'vue'
+import { MessageUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
 import { coverImg } from '@/data/images'
+import { updateProjectName } from '@/api/project'
 
 export default defineComponent({
   name: 'MyScreen',
@@ -88,7 +90,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { name, share, config } = toRefs(props.screen)
+    const { id, name, share, config } = toRefs(props.screen)
     const screenName = ref(name.value)
     const oldScreenName = ref(name.value)
 
@@ -117,7 +119,12 @@ export default defineComponent({
     })
 
     const onBlur = () => {
-      if (!screenName.value) {
+      if (screenName.value) {
+        updateProjectName(id.value, screenName.value)
+          .catch(error => {
+            MessageUtil.error(MessageUtil.format(error))
+          })
+      } else {
         screenName.value = oldScreenName.value
       }
     }

@@ -5,11 +5,12 @@
       ref="navMainRef"
       :navs="navs"
       :style="{ background: isFixed ? '#171b22' : '' }"
+      @change="onNavChange"
     />
     <div class="nav-shadow"></div>
     <div class="datav-main">
       <div class="datav-content">
-        <my-project />
+        <router-view />
       </div>
     </div>
   </div>
@@ -17,29 +18,35 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import NavHeader from './nav-header.vue'
 import NavMain from './nav-main.vue'
-import MyProject from './my-project.vue'
 
 export default defineComponent({
   name: 'Home',
   components: {
     NavHeader,
     NavMain,
-    MyProject,
   },
   setup() {
     const navMainRef = ref<any>(null)
     const isFixed = ref(false)
+
     const navs = ref([
-      { id: 0, name: '我的可视化', icon: 'layer' },
-      { id: 1, name: '我的数据', icon: 'my-data' },
-      { id: 2, name: '我的组件', icon: 'my-com' },
-      { id: 3, name: '教程', icon: 'tutorial' },
+      { id: 0, key: 'MyProject', name: '我的可视化', icon: 'layer' },
+      { id: 1, key: 'MyData', name: '我的数据', icon: 'my-data' },
+      { id: 2, key: 'MyCom', name: '我的组件', icon: 'my-com' },
+      { id: 3, key: 'MyCase', name: '教程', icon: 'tutorial' },
     ])
+
+    const router = useRouter()
 
     const scroll = () => {
       isFixed.value = navMainRef.value.$el.offsetTop > 200
+    }
+
+    const onNavChange = (nav: any) => {
+      router.push({ name: nav.key })
     }
 
     onMounted(() => {
@@ -54,6 +61,7 @@ export default defineComponent({
       navMainRef,
       isFixed,
       navs,
+      onNavChange,
     }
   },
   mounted() {

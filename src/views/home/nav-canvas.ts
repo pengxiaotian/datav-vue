@@ -23,16 +23,17 @@ export class NavCanvas {
     distance: 0,
   }
 
-  constructor(el: string, tabSelector: string) {
+  constructor(el: string, tabSelector: string, selectedTabIndex = 0) {
     this.canvas = document.getElementById(el) as HTMLCanvasElement
     this.tabSelector = tabSelector
 
     const { opt } =this
-    this.toggle(1)
     this.calcTabs()
     this.initCanvas(this.canvas, opt.width, opt.height)
     this.createPattern(this.canvas)
     this.startDraw(0)
+
+    this.toggle(selectedTabIndex)
   }
 
   initCanvas(canvas: HTMLCanvasElement, width: number, height: number) {

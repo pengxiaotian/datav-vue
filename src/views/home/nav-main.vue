@@ -5,7 +5,7 @@
       <a
         class="nav-link"
         :class="{ 'nav-active': activeNav === nav.id }"
-        @click="toggleNav(nav.id)"
+        @click="toggleNav(nav)"
       >
         <i :class="`v-icon-${nav.icon} nav-icon`"></i>{{ nav.name }}
       </a>
@@ -16,11 +16,13 @@
 <script lang='ts'>
 import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
 import type { PropType } from 'vue'
+import { useRoute } from 'vue-router'
 import _ from 'lodash'
 import { NavCanvas } from './nav-canvas'
 
 interface NavDataType {
   id: number
+  key: string
   name: string
   icon: string
 }
@@ -33,14 +35,17 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  emits: ['change'],
+  setup(props, context) {
+    const route = useRoute()
     const activeNav = ref(0)
     let nc: NavCanvas | null = null
 
-    const toggleNav = (idx: number) => {
+    const toggleNav = (nav: NavDataType) => {
       if (nc) {
-        activeNav.value = idx
-        nc.toggle(idx)
+        activeNav.value = nav.id
+        nc.toggle(nav.id)
+        context.emit('change', nav)
       }
     }
 
@@ -51,7 +56,9 @@ export default defineComponent({
     }, 500)
 
     onMounted(() => {
-      nc = new NavCanvas('nav-canvas', '.nav-main .nav-span')
+      const nav = props.navs.find(m => m.key === route.name)
+      activeNav.value = nav ? nav.id : 0
+      nc = new NavCanvas('nav-canvas', '.nav-main .nav-span', activeNav.value)
       window.addEventListener('resize', debNavResize)
     })
 

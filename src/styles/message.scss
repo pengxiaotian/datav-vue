@@ -1,0 +1,41 @@
+@import "themes/var";
+
+.el-message {
+  border-radius: 0;
+
+  .el-message__icon {
+    font-size: 16px;
+  }
+
+  .el-icon-success {
+    color: $color-primary;
+  }
+
+  .el-icon-error {
+    color: $color-error;
+  }
+}
+
+.el-message--error {
+  background-color: $message-error-bgcolor;
+  border-color: $message-error-border-color;
+
+  .el-message__content {
+    font-size: 12px;
+    color: $message-font-color;
+  }
+}
+
+.el-message--success {
+  background-color: $message-success-bgcolor;
+  border-color: $message-success-border-color;
+
+  .el-message__content {
+    font-size: 12px;
+    color: $message-font-color;
+  }
+}
+
+.el-message__closeBtn {
+  color: $message-font-color;
+}
