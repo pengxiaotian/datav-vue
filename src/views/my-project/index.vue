@@ -46,7 +46,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, provide } from 'vue'
 import { ProjectStore } from '@/domains/project'
 import ProjectList from './project-list.vue'
 
@@ -56,7 +56,7 @@ export default defineComponent({
     ProjectList,
   },
   setup() {
-    const { group, ungroup, groups } = ProjectStore()
+    const { group, ungroup, groups, deleteProject } = ProjectStore()
     const selectedGroupId = ref(-1)
 
     const toggleProject = (id: number) => {
@@ -74,6 +74,8 @@ export default defineComponent({
 
       return groups.value.find(g => g.id === selectedGroupId.value)
     })
+
+    provide('deleteProject', deleteProject)
 
     return {
       group,

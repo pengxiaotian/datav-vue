@@ -26,7 +26,7 @@
                 </span>
               </g-tooltip-popover>
               <g-tooltip-popover content="删除">
-                <span class="button-span">
+                <span class="button-span" @click="deleteScreen">
                   <i class="v-icon-delete"></i>
                 </span>
               </g-tooltip-popover>
@@ -74,8 +74,9 @@
 <script lang='ts'>
 import {
   defineComponent, PropType, toRefs,
-  computed, ref, watch,
+  computed, ref, watch, inject,
 } from 'vue'
+import { ElMessageBox } from 'element-plus'
 import { MessageUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
 import { coverImg } from '@/data/images'
@@ -90,7 +91,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { id, name, share, config } = toRefs(props.screen)
+    const { id, name, groupId, share, config } = toRefs(props.screen)
     const screenName = ref(name.value)
     const oldScreenName = ref(name.value)
 
@@ -133,6 +134,33 @@ export default defineComponent({
       name.value = nv
     })
 
+    const deleteProject = inject('deleteProject') as Function
+
+    const deleteScreen = () => {
+      ElMessageBox.confirm(`${screenName.value}' 删除后无法恢复，确认删除？`, '', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        beforeClose: async (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true
+            instance.confirmButtonText = '执行中...'
+
+            try {
+              await deleteProject(groupId.value, id.value)
+              done()
+            } catch (error) {
+              MessageUtil.error(MessageUtil.format(error))
+            } finally {
+              instance.confirmButtonLoading = false
+              instance.confirmButtonText = '确定'
+            }
+          } else {
+            done()
+          }
+        },
+      }).catch(() => {})
+    }
+
     return {
       name,
       thumbnail,
@@ -140,6 +168,7 @@ export default defineComponent({
       screenName,
       oldScreenName,
       onBlur,
+      deleteScreen,
     }
   },
 })
