@@ -4,6 +4,8 @@ import GDropListItem from './drop-list-item'
 import GDropListPopover from './drop-list-popover'
 import GTooltipPopover from './tooltip-popover'
 
+import Focus from '@/directives/focus'
+
 const components = [
   GDropList,
   GDropListItem,
@@ -11,9 +13,17 @@ const components = [
   GTooltipPopover,
 ]
 
+const plugins = [
+  Focus,
+]
+
 const install = (app: App): void => {
   components.forEach(component => {
     app.component(component.name, component)
+  })
+
+  plugins.forEach(plugin => {
+    app.use(plugin)
   })
 }
 

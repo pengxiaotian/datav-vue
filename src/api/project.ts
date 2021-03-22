@@ -16,12 +16,12 @@ export function deleteProject(id: number) {
   return request.delete(`/project/${id}`)
 }
 
-export function updateProjectGroup(id: number, data: any) {
-  return request.put(`/project/${id}/group`, data)
+export function moveProject(id: number, fromId: number, toId: number) {
+  return request.put(`/project/${id}/group`, { fromId, toId })
 }
 
 export function copyProject(id: number) {
-  return request.post(`/project/${id}/action/copy`)
+  return request.post(`/project/${id}/copy`)
 }
 
 export function createProjectGroup(data: any) {
@@ -30,4 +30,8 @@ export function createProjectGroup(data: any) {
 
 export function deleteProjectGroup(id: number) {
   return request.delete(`/project/group/${id}`)
+}
+
+export function updateProjectGroupName(id: number, name: string) {
+  return request.put(`/project/group/${id}/name`, { name })
 }

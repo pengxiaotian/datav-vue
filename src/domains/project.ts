@@ -78,22 +78,6 @@ export const ProjectStore = () => {
     }
   }
 
-  const deleteProjectGroup = async (id: number) => {
-    try {
-      const res = await api.deleteProjectGroup(id)
-      if (res.data.code === 0) {
-        const g = allGroups.value.find(m => m.id === id)
-        if (g) {
-          g.type = ProjectGroupType.ungroup
-        }
-      } else {
-        throw Error(res.data)
-      }
-    } catch (error) {
-      throw error
-    }
-  }
-
   const deleteProject = async (gid: number, pid: number) => {
     try {
       const res = await api.deleteProject(pid)
@@ -103,7 +87,38 @@ export const ProjectStore = () => {
           g.children = g.children.filter(m => m.id !== pid)
         }
       } else {
-        throw Error(res.data)
+        throw Error(res.data.message)
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  const createProjectGroup = async (name: string) => {
+    try {
+      const { data } = await api.createProjectGroup({ name })
+      if (data.code === 0) {
+        const newGroup = new ProjectGroup(data.data, name, [])
+        newGroup.type = ProjectGroupType.group
+        allGroups.value.unshift(newGroup)
+      } else {
+        throw Error(data.message)
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  const deleteProjectGroup = async (id: number) => {
+    try {
+      const res = await api.deleteProjectGroup(id)
+      if (res.data.code === 0) {
+        const g = allGroups.value.find(m => m.id === id)
+        if (g) {
+          g.type = ProjectGroupType.ungroup
+        }
+      } else {
+        throw Error(res.data.message)
       }
     } catch (error) {
       throw error
@@ -120,6 +135,7 @@ export const ProjectStore = () => {
     groups,
     getProjects,
     deleteProject,
+    createProjectGroup,
     deleteProjectGroup,
   }
 }

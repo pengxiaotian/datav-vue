@@ -5,7 +5,7 @@
         <div class="manage-title">
           <div class="my-project project-group">
             <span style="margin-left: 2px;">我的分组</span>
-            <i class="el-icon-plus btn-add-icon" @click="toAddGroup"></i>
+            <i class="el-icon-plus btn-add-icon" @click="adding = true"></i>
           </div>
           <div
             class="my-project project-all"
@@ -14,6 +14,14 @@
           >
             <span>{{ group.name }}</span>
             <span class="project-num">{{ group.children.length }}</span>
+          </div>
+          <div v-if="adding" class="new-project">
+            <input
+              v-focus
+              class="new-input"
+              @blur="onNewInputBlur"
+              @keyup.enter="addGroup"
+            >
           </div>
         </div>
 
@@ -26,6 +34,7 @@
             <span class="project-name project-ungrouped">{{ ungroup.name }}</span>
             <span class="project-num">{{ ungroup.children.length }}</span>
           </div>
+
           <div
             v-for="g in groups"
             :key="g.id"
@@ -33,12 +42,23 @@
             :class="{ 'project-checked-color': selectedGroupId === g.id }"
             @click="toggleProject(g.id)"
           >
-            <span class="project-name">{{ g.name }}</span>
-            <span class="project-num">{{ g.children.length }}</span>
-            <span class="group-btns">
-              <i class="v-icon-edit"></i>
-              <i class="v-icon-delete" @click="confirmDeleteGroup(g)"></i>
-            </span>
+            <template v-if="g.editing">
+              <input
+                v-focus
+                :default-value="g.name"
+                class="edit-input"
+                @blur="onEditInputBlur($event, g)"
+                @keyup.enter="editGroup($event, g)"
+              >
+            </template>
+            <template v-else>
+              <span class="project-name">{{ g.name }}</span>
+              <span class="project-num">{{ g.children.length }}</span>
+              <span class="group-btns">
+                <i class="v-icon-edit" @click="toEditGroup(g)"></i>
+                <i class="v-icon-delete" @click="confirmDeleteGroup(g)"></i>
+              </span>
+            </template>
           </div>
         </div>
       </div>
@@ -52,7 +72,8 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, provide } from 'vue'
 import { ProjectGroup, ProjectStore } from '@/domains/project'
-import { MessageBoxUtil } from '@/utils/message-util'
+import { updateProjectGroupName } from '@/api/project'
+import { MessageBoxUtil, MessageUtil } from '@/utils/message-util'
 import ProjectList from './project-list.vue'
 
 export default defineComponent({
@@ -62,10 +83,11 @@ export default defineComponent({
   },
   setup() {
     const {
-      group, ungroup, groups,
-      deleteProject, deleteProjectGroup,
+      group, ungroup, groups, deleteProject,
+      createProjectGroup, deleteProjectGroup,
     } = ProjectStore()
     const selectedGroupId = ref(-1)
+    const adding = ref(false)
 
     const toggleProject = (id: number) => {
       selectedGroupId.value = id
@@ -84,6 +106,57 @@ export default defineComponent({
     })
 
     provide('deleteProject', deleteProject)
+
+    const onNewInputBlur = (e: any) => {
+      const text = (e.target.value || '').trim()
+      if (!text) {
+        adding.value = false
+      }
+    }
+
+    const addGroup = async (e: any) => {
+      const text = (e.target.value || '').trim()
+      if (text) {
+        try {
+          await createProjectGroup(text)
+          adding.value = false
+        } catch (error) {
+          MessageUtil.error(MessageUtil.format(error))
+        }
+      } else {
+        adding.value = false
+      }
+    }
+
+    const toEditGroup = (group: any) => {
+      group.editing = true
+    }
+
+    const onEditInputBlur = (e: any, group: any) => {
+      const text = (e.target.value || '').trim()
+      if (!text || group.name === text) {
+        group.editing = false
+      }
+    }
+
+    const editGroup = async (e: any, group: any) => {
+      const text = (e.target.value || '').trim()
+      if (text && group.name !== text) {
+        try {
+          const res = await updateProjectGroupName(group.id, text)
+          if (res.data.code === 0) {
+            group.name = text
+            group.editing = false
+          } else {
+            throw Error(res.data.message)
+          }
+        } catch (error) {
+          MessageUtil.error(MessageUtil.format(error))
+        }
+      } else {
+        group.editing = false
+      }
+    }
 
     const confirmDeleteGroup = (group: ProjectGroup) => {
       MessageBoxUtil.confirmAsync(
@@ -104,7 +177,13 @@ export default defineComponent({
       groups,
       selectedGroup,
       selectedGroupId,
+      adding,
       toggleProject,
+      onNewInputBlur,
+      addGroup,
+      toEditGroup,
+      onEditInputBlur,
+      editGroup,
       confirmDeleteGroup,
     }
   },
@@ -113,6 +192,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '~@/styles/themes/var';
+@import '~@/styles/mixins/util';
 
 .my-project {
   position: relative;
@@ -243,6 +323,38 @@ export default defineComponent({
         }
       }
     }
+  }
+
+  .new-project {
+    padding: 5px 30px 5px 50px;
+
+    .new-input {
+      @include utils-ellipsis;
+
+      background: $input-bgcolor;
+      color: #fff;
+      padding: 0 10px;
+      line-height: 30px;
+      width: 100%;
+      height: 30px;
+      border: 1px solid $color-primary;
+      transition: 0.2s;
+      box-shadow: 0 0 10px -6px #000;
+    }
+  }
+
+  .edit-input {
+    @include utils-ellipsis;
+
+    background: $input-bgcolor;
+    color: #fff;
+    padding: 0 10px;
+    line-height: 30px;
+    width: 100%;
+    height: 30px;
+    border: 1px solid $color-primary;
+    transition: 0.2s;
+    box-shadow: 0 0 10px -6px #000;
   }
 
   .project-screen-list {
