@@ -78,6 +78,22 @@ export const ProjectStore = () => {
     }
   }
 
+  const deleteProjectGroup = async (id: number) => {
+    try {
+      const res = await api.deleteProjectGroup(id)
+      if (res.data.code === 0) {
+        const g = allGroups.value.find(m => m.id === id)
+        if (g) {
+          g.type = ProjectGroupType.ungroup
+        }
+      } else {
+        throw Error(res.data)
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
   const deleteProject = async (gid: number, pid: number) => {
     try {
       const res = await api.deleteProject(pid)
@@ -104,5 +120,6 @@ export const ProjectStore = () => {
     groups,
     getProjects,
     deleteProject,
+    deleteProjectGroup,
   }
 }

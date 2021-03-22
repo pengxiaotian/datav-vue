@@ -9,7 +9,7 @@
     </div>
     <div class="project-header">
       <div class="project-title">
-        <h2>{{ group.name }}</h2>
+        <h2>{{ group ? group.name : '' }}</h2>
       </div>
       <div class="header-manager">
         <div class="search">

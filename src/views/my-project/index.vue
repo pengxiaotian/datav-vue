@@ -5,7 +5,7 @@
         <div class="manage-title">
           <div class="my-project project-group">
             <span style="margin-left: 2px;">我的分组</span>
-            <i class="v-icon-lock"></i>
+            <i class="el-icon-plus btn-add-icon" @click="toAddGroup"></i>
           </div>
           <div
             class="my-project project-all"
@@ -29,12 +29,16 @@
           <div
             v-for="g in groups"
             :key="g.id"
-            class="main-project"
+            class="main-project group-project"
             :class="{ 'project-checked-color': selectedGroupId === g.id }"
             @click="toggleProject(g.id)"
           >
             <span class="project-name">{{ g.name }}</span>
             <span class="project-num">{{ g.children.length }}</span>
+            <span class="group-btns">
+              <i class="v-icon-edit"></i>
+              <i class="v-icon-delete" @click="confirmDeleteGroup(g)"></i>
+            </span>
           </div>
         </div>
       </div>
@@ -47,7 +51,8 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed, provide } from 'vue'
-import { ProjectStore } from '@/domains/project'
+import { ProjectGroup, ProjectStore } from '@/domains/project'
+import { MessageBoxUtil } from '@/utils/message-util'
 import ProjectList from './project-list.vue'
 
 export default defineComponent({
@@ -56,7 +61,10 @@ export default defineComponent({
     ProjectList,
   },
   setup() {
-    const { group, ungroup, groups, deleteProject } = ProjectStore()
+    const {
+      group, ungroup, groups,
+      deleteProject, deleteProjectGroup,
+    } = ProjectStore()
     const selectedGroupId = ref(-1)
 
     const toggleProject = (id: number) => {
@@ -77,6 +85,19 @@ export default defineComponent({
 
     provide('deleteProject', deleteProject)
 
+    const confirmDeleteGroup = (group: ProjectGroup) => {
+      MessageBoxUtil.confirmAsync(
+        `${group.name} 删除后无法恢复，该分组中的可视化应用将全部移动到未分组，确认删除？`,
+        () => {
+          return deleteProjectGroup(group.id)
+        },
+        {
+          success: () => {
+            toggleProject(ungroup.value.id)
+          },
+        })
+    }
+
     return {
       group,
       ungroup,
@@ -84,6 +105,7 @@ export default defineComponent({
       selectedGroup,
       selectedGroupId,
       toggleProject,
+      confirmDeleteGroup,
     }
   },
 })
@@ -126,10 +148,20 @@ export default defineComponent({
       padding-right: 30px;
     }
 
-    .manage-title .project-group {
-      padding-left: 24px;
-      height: 56px;
-      border-bottom: 1px solid $nav-border-color;
+    .manage-title {
+      .project-group {
+        padding-left: 24px;
+        height: 56px;
+        border-bottom: 1px solid $nav-border-color;
+      }
+
+      .btn-add-icon {
+        cursor: pointer;
+
+        &:hover {
+          color: $color-primary;
+        }
+      }
     }
 
     .project-ungrouped {
@@ -165,6 +197,15 @@ export default defineComponent({
       color: $font-color;
     }
 
+    .group-btns {
+      display: none;
+      color: $color-primary;
+
+      i + i {
+        margin-left: 10px;
+      }
+    }
+
     .main-project {
       position: relative;
       height: 36px;
@@ -187,6 +228,18 @@ export default defineComponent({
       &:hover {
         .project-name {
           color: $color-primary;
+        }
+      }
+    }
+
+    .group-project {
+      &:hover {
+        .project-num {
+          display: none;
+        }
+
+        .group-btns {
+          display: inline-block;
         }
       }
     }

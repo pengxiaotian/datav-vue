@@ -116,7 +116,7 @@ export class NavCanvas {
     ctx.bezierCurveTo(a + e, b, c - e, d, c, d)
   }
 
-  drawHightlight(a: number) {
+  drawHightlight(index: number) {
     const { opt } = this
     const ctx = this.canvas.getContext('2d')!
     const d = 0.3
@@ -131,24 +131,24 @@ export class NavCanvas {
     this.draw(ctx, false)
 
     //这里绘制了外围边框线条
-    const e = ctx.createLinearGradient(0, 0, opt.width, opt.height)
-    const f = a - d
-    e.addColorStop(Math.min(1, Math.max(0, 0 + f)), 'rgba(0,0,0,0)')
-    e.addColorStop(Math.min(1, Math.max(0, 0 + f + 0.1)), '#8ed6ff')
-    e.addColorStop(Math.min(1, 0 + f + d), '#8ed6ff')
-    e.addColorStop(Math.min(1, 0 + f + d + 0.1), 'rgba(0,0,0,0)')
-    e.addColorStop(1, 'rgba(0,0,0,0)')
+    const gradient = ctx.createLinearGradient(0, 0, opt.width, opt.height)
+    const f = index - d
+    gradient.addColorStop(Math.min(1, Math.max(0, 0 + f)), 'rgba(0,0,0,0)')
+    gradient.addColorStop(Math.min(1, Math.max(0, 0 + f + 0.1)), '#8ed6ff')
+    gradient.addColorStop(Math.min(1, 0 + f + d), '#8ed6ff')
+    gradient.addColorStop(Math.min(1, 0 + f + d + 0.1), 'rgba(0,0,0,0)')
+    gradient.addColorStop(1, 'rgba(0,0,0,0)')
     ctx.lineWidth = 1.5
-    ctx.strokeStyle = e
+    ctx.strokeStyle = gradient
     ctx.fillStyle = this.pattern!
     this.draw(ctx, true)
   }
 
-  startDraw(a: number) {
-    this.drawHightlight(a)
+  startDraw(index: number) {
+    this.drawHightlight(index)
 
     this.opt.timer = requestAnimationFrame(() => {
-      this.startDraw((a + 0.005) % 1.6)
+      this.startDraw((index + 0.005) % 1.6)
     })
   }
 

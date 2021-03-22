@@ -28,6 +28,10 @@
   }
 }
 
+.el-message-box__title {
+  color: $message-font-color;
+}
+
 .el-message-box__content {
   padding: 16px 20px;
   color: $message-font-color;

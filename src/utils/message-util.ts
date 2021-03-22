@@ -60,7 +60,7 @@ export const MessageUtil = {
 }
 
 export const MessageBoxUtil = {
-  confirm(message: string, title: string, callback: Function) {
+  confirm(message: string, callback: Function, title = '') {
     ElMessageBox.confirm(message, title, {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
@@ -70,8 +70,16 @@ export const MessageBoxUtil = {
       })
       .catch(() => {})
   },
-  confirmAsync(message: string, title: string, callback: Function) {
-    ElMessageBox.confirm(message, title, {
+  async confirmAsync(message: string, callback: Function, options?: {
+    title?: string
+    success?: Function
+    error?: Function
+  }) {
+    const opt = {
+      title: '',
+      ...(options || {}),
+    }
+    await ElMessageBox.confirm(message, opt.title, {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'warning',
@@ -93,6 +101,16 @@ export const MessageBoxUtil = {
           done()
         }
       },
-    }).catch(() => {})
+    })
+      .then(() => {
+        if (typeof opt.success === 'function') {
+          opt.success()
+        }
+      })
+      .catch(() => {
+        if (typeof opt.error === 'function') {
+          opt.error()
+        }
+      })
   },
 }

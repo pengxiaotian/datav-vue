@@ -23,3 +23,11 @@ export function updateProjectGroup(id: number, data: any) {
 export function copyProject(id: number) {
   return request.post(`/project/${id}/action/copy`)
 }
+
+export function createProjectGroup(data: any) {
+  return request.post('/project/group', data)
+}
+
+export function deleteProjectGroup(id: number) {
+  return request.delete(`/project/group/${id}`)
+}

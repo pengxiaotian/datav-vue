@@ -26,7 +26,7 @@
                 </span>
               </g-tooltip-popover>
               <g-tooltip-popover content="删除">
-                <span class="button-span" @click="deleteScreen">
+                <span class="button-span" @click="confirmDeleteProject">
                   <i class="v-icon-delete"></i>
                 </span>
               </g-tooltip-popover>
@@ -135,10 +135,9 @@ export default defineComponent({
 
     const deleteProject = inject('deleteProject') as Function
 
-    const deleteScreen = () => {
+    const confirmDeleteProject = () => {
       MessageBoxUtil.confirmAsync(
         `${screenName.value} 删除后无法恢复，确认删除？`,
-        '',
         () => deleteProject(groupId.value, id.value))
     }
 
@@ -149,7 +148,7 @@ export default defineComponent({
       screenName,
       oldScreenName,
       onBlur,
-      deleteScreen,
+      confirmDeleteProject,
     }
   },
 })
