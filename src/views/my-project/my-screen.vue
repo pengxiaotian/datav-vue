@@ -76,8 +76,7 @@ import {
   defineComponent, PropType, toRefs,
   computed, ref, watch, inject,
 } from 'vue'
-import { ElMessageBox } from 'element-plus'
-import { MessageUtil } from '@/utils/message-util'
+import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
 import { coverImg } from '@/data/images'
 import { updateProjectName } from '@/api/project'
@@ -137,28 +136,10 @@ export default defineComponent({
     const deleteProject = inject('deleteProject') as Function
 
     const deleteScreen = () => {
-      ElMessageBox.confirm(`${screenName.value}' 删除后无法恢复，确认删除？`, '', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        beforeClose: async (action, instance, done) => {
-          if (action === 'confirm') {
-            instance.confirmButtonLoading = true
-            instance.confirmButtonText = '执行中...'
-
-            try {
-              await deleteProject(groupId.value, id.value)
-              done()
-            } catch (error) {
-              MessageUtil.error(MessageUtil.format(error))
-            } finally {
-              instance.confirmButtonLoading = false
-              instance.confirmButtonText = '确定'
-            }
-          } else {
-            done()
-          }
-        },
-      }).catch(() => {})
+      MessageBoxUtil.confirmAsync(
+        `${screenName.value} 删除后无法恢复，确认删除？`,
+        '',
+        () => deleteProject(groupId.value, id.value))
     }
 
     return {

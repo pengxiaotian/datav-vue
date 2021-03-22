@@ -1,5 +1,29 @@
 .el-button {
-  border: none;
   border-radius: 0;
   transition: all 0.3s $ease-in-out;
+}
+
+.el-button--default:not(.el-button--primary) {
+  color: $color-primary;
+  border-color: $color-primary;
+  background: transparent;
+
+  &:hover {
+    color: $button-font-color;
+    background: $color-primary;
+    border-color: $color-primary;
+  }
+
+  &:focus {
+    color: $color-primary;
+    background: transparent;
+    border-color: $color-primary;
+  }
+
+  &:active {
+    color: $button-font-color;
+    background: mix($color-black, $color-primary, $button-active-shade-percent);
+    border-color: mix($color-black, $color-primary, $button-active-shade-percent);
+    outline: none;
+  }
 }

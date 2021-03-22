@@ -11,27 +11,30 @@ export const navRoutes: Array<RouteRecordRaw> = [
     name: 'Home',
     redirect: '/project',
     component: Home,
-    meta: { title: '首页' },
     children: [
       {
         path: 'project',
         name: 'MyProject',
         component: () => import(/* webpackChunkName: "my-project" */ '@/views/my-project/index.vue'),
+        meta: { title: '我的可视化' },
       },
       {
         path: 'data',
         name: 'MyData',
         component: () => import(/* webpackChunkName: "my-data" */ '@/views/my-data/index.vue'),
+        meta: { title: '我的数据' },
       },
       {
         path: 'com',
         name: 'MyCom',
         component: () => import(/* webpackChunkName: "my-com" */ '@/views/my-com/index.vue'),
+        meta: { title: '我的组件' },
       },
       {
         path: 'case',
         name: 'MyCase',
         component: () => import(/* webpackChunkName: "my-case" */ '@/views/my-case/index.vue'),
+        meta: { title: '教程' },
       },
     ],
   },

@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 type RetDataType = 'string' | 'json' | 'object'
 
@@ -56,5 +56,43 @@ export const MessageUtil = {
       showClose,
       message,
     })
+  },
+}
+
+export const MessageBoxUtil = {
+  confirm(message: string, title: string, callback: Function) {
+    ElMessageBox.confirm(message, title, {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+    })
+      .then(() => {
+        callback()
+      })
+      .catch(() => {})
+  },
+  confirmAsync(message: string, title: string, callback: Function) {
+    ElMessageBox.confirm(message, title, {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      beforeClose: async (action, instance, done) => {
+        if (action === 'confirm') {
+          instance.confirmButtonLoading = true
+          instance.confirmButtonText = '执行中...'
+
+          try {
+            await callback()
+            done()
+          } catch (error) {
+            MessageUtil.error(MessageUtil.format(error))
+          } finally {
+            instance.confirmButtonLoading = false
+            instance.confirmButtonText = '确定'
+          }
+        } else {
+          done()
+        }
+      },
+    }).catch(() => {})
   },
 }
