@@ -9,19 +9,19 @@ on:
     branches: [ master ]
 
 jobs:
-  ci-deploy:
+  master-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+
       - name: Setup node
         uses: actions/setup-node@v1
-      
+
       - name: Install dependencies
         run: yarn bootstrap
-      
+
       - name: Build Website
         run: yarn build
 
@@ -34,13 +34,3 @@ jobs:
           GIT_CONFIG_NAME: pengxiaotian
           GIT_CONFIG_EMAIL: 673923162@qq.com
           COMMIT_MESSAGE: website deploy
-
-      - name: Sync
-        env:
-          TRIGGERSYNCURL: ${{ secrets.TRIGGERSYNCURL }}
-        run: curl "$TRIGGERSYNCURL"   
-          
-          
-
-          
-          echo test, and deploy your project.
