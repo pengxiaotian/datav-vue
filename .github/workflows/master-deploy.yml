@@ -4,9 +4,9 @@ name: Deploy Demo Website
 
 on:
   push:
-    branches: [ ci ]
+    branches: [ master ]
   pull_request:
-    branches: [ ci ]
+    branches: [ master ]
 
 jobs:
   ci-deploy:
