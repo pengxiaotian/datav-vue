@@ -16,12 +16,12 @@
             </router-link>
             <div class="main-button">
               <g-tooltip-popover content="移动">
-                <span class="button-span">
+                <span class="button-span" draggable="true" @dragstart="onDragStart">
                   <i class="v-icon-move"></i>
                 </span>
               </g-tooltip-popover>
               <g-tooltip-popover content="复制">
-                <span class="button-span">
+                <span class="button-span" @click="confirmCopyProject">
                   <i class="v-icon-copy"></i>
                 </span>
               </g-tooltip-popover>
@@ -78,7 +78,7 @@ import {
 } from 'vue'
 import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
-import { coverImg } from '@/data/images'
+import { coverImg, dragImg } from '@/data/images'
 import { updateProjectName } from '@/api/project'
 
 export default defineComponent({
@@ -134,11 +134,27 @@ export default defineComponent({
     })
 
     const deleteProject = inject('deleteProject') as Function
+    const copyProject = inject('copyProject') as Function
+
+    const confirmCopyProject = () => {
+      copyProject(groupId.value, id.value)
+    }
 
     const confirmDeleteProject = () => {
       MessageBoxUtil.confirmAsync(
         `${screenName.value} 删除后无法恢复，确认删除？`,
         () => deleteProject(groupId.value, id.value))
+    }
+
+    const onDragStart = (event: DragEvent) => {
+      const dt = event.dataTransfer
+      if (dt) {
+        dt.setData('text', `${id.value},${groupId.value}`)
+
+        const img = new Image()
+        img.src = dragImg
+        dt.setDragImage(img, 10, 10)
+      }
     }
 
     return {
@@ -148,7 +164,9 @@ export default defineComponent({
       screenName,
       oldScreenName,
       onBlur,
+      confirmCopyProject,
       confirmDeleteProject,
+      onDragStart,
     }
   },
 })

@@ -1,4 +1,5 @@
 import { ref, computed, onMounted } from 'vue'
+import _ from 'lodash'
 import * as api from '@/api/project'
 
 export enum ProjectGroupType {
@@ -65,7 +66,12 @@ export const ProjectStore = () => {
         // TODO: 如果用关系数据库就不用赋值 groupId
         list.forEach((item: any) => {
           item.children.forEach((subitem: any) => {
-            subitem.groupId = item.id
+            if (item.type === ProjectGroupType.ungroup) {
+              item.id = 0
+              subitem.groupId = 0
+            } else {
+              subitem.groupId = item.id
+            }
           })
         })
 
@@ -85,6 +91,46 @@ export const ProjectStore = () => {
         const g = allGroups.value.find(m => m.id === gid)
         if (g) {
           g.children = g.children.filter(m => m.id !== pid)
+        }
+      } else {
+        throw Error(res.data.message)
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  const moveProject = async (pid: number, fromId: number, toId: number) => {
+    try {
+      const res = await api.moveProject(pid, fromId, toId)
+      if (res.data.code === 0) {
+        const formG = allGroups.value.find(m => m.id === fromId)
+        const toG = allGroups.value.find(m => m.id === toId)
+        if (formG && toG) {
+          const idx = formG.children.findIndex(m => m.id === pid)
+          const p = formG.children.splice(idx, 1)[0]
+          p.groupId = toId
+          toG.children.push(p)
+        }
+      } else {
+        throw Error(res.data.message)
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  const copyProject = async (gid: number, pid: number) => {
+    try {
+      const res = await api.copyProject(pid)
+      if (res.data.code === 0) {
+        const g = allGroups.value.find(m => m.id === gid)
+        if (g) {
+          // TODO: 这里只是简单 cloneDeep，实际应该在后端完成
+          const p = g.children.find(m => m.id === pid)!
+          const copy_p = _.cloneDeep(p)
+          copy_p.name += '_copy'
+          g.children.push(copy_p)
         }
       } else {
         throw Error(res.data.message)
@@ -135,6 +181,8 @@ export const ProjectStore = () => {
     groups,
     getProjects,
     deleteProject,
+    moveProject,
+    copyProject,
     createProjectGroup,
     deleteProjectGroup,
   }

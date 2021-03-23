@@ -29,7 +29,7 @@ module.exports = {
     'comma-style': ['error', 'last'],
     'comma-dangle': ['error', 'always-multiline'],
     quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
-    camelcase: ['error', { properties: 'never' }],
+    camelcase: 0,
     semi: ['error', 'never'],
     indent: ['error', 2, { SwitchCase: 1 }],
     'object-curly-spacing': ['error', 'always'],

@@ -30,6 +30,10 @@
             class="main-project"
             :class="{ 'project-checked-color': selectedGroupId === ungroup.id }"
             @click="toggleProject(ungroup.id)"
+            @dragover.prevent
+            @dragenter="onDragEnter"
+            @dragleave="onDragLeave"
+            @drop="onDrop($event, ungroup)"
           >
             <span class="project-name project-ungrouped">{{ ungroup.name }}</span>
             <span class="project-num">{{ ungroup.children.length }}</span>
@@ -41,6 +45,10 @@
             class="main-project group-project"
             :class="{ 'project-checked-color': selectedGroupId === g.id }"
             @click="toggleProject(g.id)"
+            @dragover.prevent
+            @dragenter="onDragEnter"
+            @dragleave="onDragLeave"
+            @drop="onDrop($event, g)"
           >
             <template v-if="g.editing">
               <input
@@ -74,6 +82,7 @@ import { defineComponent, ref, computed, provide } from 'vue'
 import { ProjectGroup, ProjectStore } from '@/domains/project'
 import { updateProjectGroupName } from '@/api/project'
 import { MessageBoxUtil, MessageUtil } from '@/utils/message-util'
+import { addClass, removeClass } from '@/utils/dom'
 import ProjectList from './project-list.vue'
 
 export default defineComponent({
@@ -83,7 +92,8 @@ export default defineComponent({
   },
   setup() {
     const {
-      group, ungroup, groups, deleteProject,
+      group, ungroup, groups,
+      deleteProject, moveProject, copyProject,
       createProjectGroup, deleteProjectGroup,
     } = ProjectStore()
     const selectedGroupId = ref(-1)
@@ -106,6 +116,7 @@ export default defineComponent({
     })
 
     provide('deleteProject', deleteProject)
+    provide('copyProject', copyProject)
 
     const onNewInputBlur = (e: any) => {
       const text = (e.target.value || '').trim()
@@ -171,6 +182,28 @@ export default defineComponent({
         })
     }
 
+    const onDragEnter = (event: any) => {
+      addClass(event.target, 'drag-enter')
+    }
+
+    const onDragLeave = (event: any) => {
+      removeClass(event.target, 'drag-enter')
+    }
+
+    const onDrop = (event: any, toGroup: ProjectGroup) => {
+      event.preventDefault()
+      removeClass(event.target, 'drag-enter')
+
+      const str = event.dataTransfer.getData('text')
+      console.log(str, toGroup.id)
+      if (str) {
+        const [pid, fromId] = str.split(',').map((m: string) => parseInt(m))
+        if (fromId !== toGroup.id) {
+          moveProject(pid, fromId, toGroup.id)
+        }
+      }
+    }
+
     return {
       group,
       ungroup,
@@ -185,6 +218,9 @@ export default defineComponent({
       onEditInputBlur,
       editGroup,
       confirmDeleteGroup,
+      onDragEnter,
+      onDragLeave,
+      onDrop,
     }
   },
 })
@@ -341,6 +377,10 @@ export default defineComponent({
     border: 1px solid $color-primary;
     transition: 0.2s;
     box-shadow: 0 0 10px -6px #000;
+  }
+
+  .drag-enter {
+    background: rgba(36, 127, 255, 0.3);
   }
 
   .project-screen-list {
