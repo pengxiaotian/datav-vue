@@ -2,6 +2,7 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
+  publicPath: '/datav-vue/',
   devServer: {
     host: '0.0.0.0',
     port: 9090,
