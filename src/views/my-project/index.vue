@@ -15,10 +15,10 @@
             <span>{{ group.name }}</span>
             <span class="project-num">{{ group.children.length }}</span>
           </div>
-          <div v-if="adding" class="new-project">
+          <div v-if="adding" class="new-group">
             <input
               v-focus
-              class="new-input"
+              class="edit-input"
               @blur="onNewInputBlur"
               @keyup.enter="addGroup"
             >
@@ -325,22 +325,8 @@ export default defineComponent({
     }
   }
 
-  .new-project {
+  .new-group {
     padding: 5px 30px 5px 50px;
-
-    .new-input {
-      @include utils-ellipsis;
-
-      background: $input-bgcolor;
-      color: #fff;
-      padding: 0 10px;
-      line-height: 30px;
-      width: 100%;
-      height: 30px;
-      border: 1px solid $color-primary;
-      transition: 0.2s;
-      box-shadow: 0 0 10px -6px #000;
-    }
   }
 
   .edit-input {
