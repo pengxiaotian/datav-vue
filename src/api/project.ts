@@ -35,3 +35,7 @@ export function deleteProjectGroup(id: number) {
 export function updateProjectGroupName(id: number, name: string) {
   return request.put(`/project/group/${id}/name`, { name })
 }
+
+export function getProjectTemplate() {
+  return request.get('/project/template')
+}

@@ -7,10 +7,15 @@
       :style="spinning ? spinContentStyle : {}"
     >
       <div class="g-loading">
-        <div v-if="type === 'dna'" class="loading-dna">
+        <div v-if="type === 'dna'" class="dna-loading">
           <div v-for="i in 45" :key="i" class="dna-ele">
             <div class="dna-dot"></div>
           </div>
+        </div>
+        <div v-else-if="type === 'square'" class="square-loading">
+          <i class="loading-icon validating"></i>
+          <i class="loading-icon validating"></i>
+          <i class="loading-icon validating"></i>
         </div>
         <div v-else>
           {{ type }}
@@ -28,7 +33,7 @@ export default defineComponent({
   name: 'GLoading',
   props: {
     type: {
-      type: String as PropType<'dna'>,
+      type: String as PropType<'dna' | 'square'>,
       default: 'dna',
     },
     spinning: {

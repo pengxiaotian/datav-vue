@@ -5,7 +5,7 @@ import { getToken } from '@/utils/token-util'
 import { UserStore } from '@/domains/user'
 import Home from '@/views/home/index.vue'
 
-export const navRoutes: Array<RouteRecordRaw> = [
+const navRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
@@ -42,6 +42,12 @@ export const navRoutes: Array<RouteRecordRaw> = [
 
 const routes: Array<RouteRecordRaw> = [
   ...navRoutes,
+  {
+    path: '/create-screen',
+    name: 'CreateScreen',
+    component: () => import('@/views/my-project/create-screen.vue'),
+    meta: { title: '创建' },
+  },
   {
     path: '/login',
     name: 'Login',

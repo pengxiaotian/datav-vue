@@ -46,4 +46,6 @@ yarn cz
 
 Git提交模板配置：`./commitlint.config.js`
 
+### 注意
 
+本项目主要用来研究与学习，如果商用请注意：项目里含有一些第三方付费素材如：`orbitron-bold` 字体。
