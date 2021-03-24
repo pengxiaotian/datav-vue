@@ -264,7 +264,7 @@ export default defineComponent({
         background-image: url(//files.pengxiaotian.com/datav/datav-vue-logo.png);
         background-repeat: no-repeat;
         background-position: center;
-        background-size: contain;
+        background-size: 50%;
         filter: grayscale(1);
         opacity: 0.36;
       }
