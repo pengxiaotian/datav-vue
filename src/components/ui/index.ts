@@ -3,6 +3,7 @@ import GDropList from './drop-list'
 import GDropListItem from './drop-list-item'
 import GDropListPopover from './drop-list-popover'
 import GTooltipPopover from './tooltip-popover'
+import GLoading from './loading'
 
 import Focus from '@/directives/focus'
 
@@ -11,6 +12,7 @@ const components = [
   GDropListItem,
   GDropListPopover,
   GTooltipPopover,
+  GLoading,
 ]
 
 const plugins = [
@@ -32,6 +34,7 @@ export {
   GDropListItem,
   GDropListPopover,
   GTooltipPopover,
+  GLoading,
   install,
 }
 
