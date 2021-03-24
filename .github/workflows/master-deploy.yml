@@ -4,9 +4,8 @@ name: Deploy Demo Website
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   master-deploy:
