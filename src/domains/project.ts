@@ -64,6 +64,10 @@ export const ProjectStore = () => {
         const list = res.data.data || []
 
         // TODO: 如果用关系数据库就不用赋值 groupId
+        const g = new ProjectGroup(0, '', [])
+        g.type = ProjectGroupType.ungroup
+        list.push(g)
+
         list.forEach((item: any) => {
           item.children.forEach((subitem: any) => {
             if (item.type === ProjectGroupType.ungroup) {

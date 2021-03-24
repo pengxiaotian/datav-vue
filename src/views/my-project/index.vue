@@ -25,7 +25,7 @@
           </div>
         </div>
 
-        <div class="manage-main">
+        <div class="manage-main" :class="{ draging: draging }">
           <div
             class="main-project"
             :class="{ 'project-checked-color': selectedGroupId === ungroup.id }"
@@ -98,6 +98,7 @@ export default defineComponent({
     } = ProjectStore()
     const selectedGroupId = ref(-1)
     const adding = ref(false)
+    const draging = ref(false)
 
     const toggleProject = (id: number) => {
       selectedGroupId.value = id
@@ -182,6 +183,13 @@ export default defineComponent({
         })
     }
 
+    provide('dragStart', () => {
+      draging.value = true
+    })
+    provide('dragEnd', () => {
+      draging.value = false
+    })
+
     const onDragEnter = (event: any) => {
       addClass(event.target, 'drag-enter')
     }
@@ -217,6 +225,7 @@ export default defineComponent({
       onEditInputBlur,
       editGroup,
       confirmDeleteGroup,
+      draging,
       onDragEnter,
       onDragLeave,
       onDrop,
@@ -246,12 +255,16 @@ export default defineComponent({
     top: 70px;
     font-size: 14px;
     overflow-y: auto;
-    height: calc(100vh - 300px);
+    height: calc(100vh - 150px);
 
     .manage-main {
       display: flex;
       flex-direction: column;
       font-size: 12px;
+
+      &.draging {
+        background: rgba(36, 127, 255, 0.3);
+      }
     }
 
     .my-project {
@@ -346,6 +359,10 @@ export default defineComponent({
           color: $color-primary;
         }
       }
+
+      &.drag-enter {
+        background: $background-color;
+      }
     }
 
     .group-project {
@@ -377,10 +394,6 @@ export default defineComponent({
     border: 1px solid $color-primary;
     transition: 0.2s;
     box-shadow: 0 0 10px -6px #000;
-  }
-
-  .drag-enter {
-    background: rgba(36, 127, 255, 0.3);
   }
 
   .project-screen-list {
