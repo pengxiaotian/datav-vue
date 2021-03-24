@@ -82,7 +82,7 @@ import {
   computed, ref, watch, inject,
 } from 'vue'
 import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
-import { Project } from '@/domains/project'
+import { Project, ProjectStore } from '@/domains/project'
 import { coverImg, getDragImg } from '@/data/images'
 import { updateProjectName } from '@/api/project'
 
@@ -95,6 +95,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { deleteProject, copyProject } = ProjectStore()
     const { id, name, groupId, share, config } = toRefs(props.screen)
     const screenName = ref(name.value)
     const oldScreenName = ref(name.value)
@@ -138,8 +139,6 @@ export default defineComponent({
       name.value = nv
     })
 
-    const deleteProject = inject('deleteProject') as Function
-    const copyProject = inject('copyProject') as Function
     const dragStart = inject('dragStart') as Function
     const dragEnd = inject('dragEnd') as Function
 

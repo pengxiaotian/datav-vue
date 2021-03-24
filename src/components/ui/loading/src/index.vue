@@ -41,7 +41,7 @@ export default defineComponent({
     },
     opacity: {
       type: Number,
-      default: 0.8,
+      default: 1,
     },
     wrapClass: {
       type: String,

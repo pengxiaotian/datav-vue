@@ -1,4 +1,4 @@
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import _ from 'lodash'
 import * as api from '@/api/project'
 
@@ -17,6 +17,7 @@ export class ProjectGroup {
     this.id = id
     this.name = name
     this.children = children
+    this.type = ProjectGroupType.ungroup
   }
 }
 
@@ -39,9 +40,9 @@ export class Project {
   }
 }
 
+const allGroups = ref<ProjectGroup[]>([])
 
 export const ProjectStore = () => {
-  const allGroups = ref<ProjectGroup[]>([])
 
   const group = computed(() => {
     const list = allGroups.value.flatMap(m => m.children)
@@ -49,8 +50,8 @@ export const ProjectStore = () => {
   })
 
   const ungroup = computed(() => {
-    const list = allGroups.value.filter(m => m.type === ProjectGroupType.ungroup)
-    return new ProjectGroup(0, '未分组', list.flatMap(m => m.children))
+    const g = allGroups.value.find(m => m.type === ProjectGroupType.ungroup)
+    return g ? g : new ProjectGroup(0, '未分组', [])
   })
 
   const groups = computed(() => {
@@ -61,25 +62,23 @@ export const ProjectStore = () => {
     try {
       const res = await api.getProjects()
       if (res.data.code === 0) {
-        const list = res.data.data || []
+        const list: ProjectGroup[] = res.data.data || []
 
         // TODO: 如果用关系数据库就不用赋值 groupId
-        const g = new ProjectGroup(0, '', [])
-        g.type = ProjectGroupType.ungroup
-        list.push(g)
+        const ungroup = new ProjectGroup(0, '未分组', [])
 
-        list.forEach((item: any) => {
+        list.forEach(item => {
           item.children.forEach((subitem: any) => {
             if (item.type === ProjectGroupType.ungroup) {
-              item.id = 0
               subitem.groupId = 0
+              ungroup.children.push(subitem)
             } else {
               subitem.groupId = item.id
             }
           })
         })
 
-        allGroups.value = list
+        allGroups.value = [ungroup, ...list.filter(m => m.type === ProjectGroupType.group)]
       } else {
         throw Error(res.data.message)
       }
@@ -133,6 +132,7 @@ export const ProjectStore = () => {
           // TODO: 这里只是简单 cloneDeep，实际应该在后端完成
           const p = g.children.find(m => m.id === pid)!
           const copy_p = _.cloneDeep(p)
+          copy_p.id = Math.round(Math.random() * 1000)
           copy_p.name += '_copy'
           g.children.push(copy_p)
         }
@@ -163,9 +163,14 @@ export const ProjectStore = () => {
     try {
       const res = await api.deleteProjectGroup(id)
       if (res.data.code === 0) {
-        const g = allGroups.value.find(m => m.id === id)
-        if (g) {
-          g.type = ProjectGroupType.ungroup
+        const idx = allGroups.value.findIndex(m => m.id === id)
+        const ungroup = allGroups.value.find(m => m.type === ProjectGroupType.ungroup)
+        if (idx > -1 && ungroup) {
+          const [group] = allGroups.value.splice(idx, 1)
+          group.children.forEach(item => {
+            item.groupId = ungroup.id
+            ungroup.children.push(item)
+          })
         }
       } else {
         throw Error(res.data.message)
@@ -174,10 +179,6 @@ export const ProjectStore = () => {
       throw error
     }
   }
-
-  onMounted(() => {
-    getProjects()
-  })
 
   return {
     group,

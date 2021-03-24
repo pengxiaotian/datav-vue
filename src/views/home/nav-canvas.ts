@@ -4,7 +4,7 @@ export class NavCanvas {
   private readonly l = 4
 
   private canvas: HTMLCanvasElement
-  private tabSelector = ''
+  private tabs: HTMLElement[]
 
   private pattern: CanvasPattern | null = null
 
@@ -25,9 +25,9 @@ export class NavCanvas {
 
   constructor(el: string, tabSelector: string, selectedTabIndex = 0) {
     this.canvas = document.getElementById(el) as HTMLCanvasElement
-    this.tabSelector = tabSelector
+    this.tabs = document.querySelectorAll(tabSelector) as unknown as HTMLElement[]
 
-    const { opt } =this
+    const { opt } = this
     this.calcTabs()
     this.initCanvas(this.canvas, opt.width, opt.height)
     this.createPattern(this.canvas)
@@ -47,11 +47,10 @@ export class NavCanvas {
   }
 
   calcTabs() {
-    const { opt } = this
-    const nodes = document.querySelectorAll(this.tabSelector) as unknown as HTMLSpanElement[]
+    const { opt, tabs } = this
     const b = []
     let c = 0
-    nodes.forEach(node => {
+    tabs.forEach(node => {
       b.push(c)
       c += node.offsetWidth
     })
@@ -60,7 +59,7 @@ export class NavCanvas {
     b.push(c)
 
     this.tabWidthList = b
-    this.tabHeight = nodes[0].offsetHeight + 0
+    this.tabHeight = tabs[0].offsetHeight + 0
     opt.height = this.tabHeight + 20
     opt.width = window.innerWidth
   }
