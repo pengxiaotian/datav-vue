@@ -2,10 +2,14 @@
   <div>
     <div class="new-projects-title">选择下面的方式进行创建</div>
     <div class="new-projects">
-      <div class="new-project">
+      <router-link
+        :to="{ name: 'CreateScreen' }"
+        target="_blank"
+        class="new-project"
+      >
         <img src="@/assets/images/new-project.png">
         <span class="project-type ellipsis">PC端创建</span>
-      </div>
+      </router-link>
     </div>
     <div class="project-header">
       <div class="project-title">
