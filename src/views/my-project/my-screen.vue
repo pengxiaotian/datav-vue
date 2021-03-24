@@ -78,7 +78,7 @@ import {
 } from 'vue'
 import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
-import { coverImg, dragImg } from '@/data/images'
+import { coverImg, getDragImg } from '@/data/images'
 import { updateProjectName } from '@/api/project'
 
 export default defineComponent({
@@ -146,14 +146,13 @@ export default defineComponent({
         () => deleteProject(groupId.value, id.value))
     }
 
+    const dragImg = getDragImg()
     const onDragStart = (event: DragEvent) => {
       const dt = event.dataTransfer
       if (dt) {
+        dt.effectAllowed = 'move'
+        dt.setDragImage(dragImg, 30, 30)
         dt.setData('text', `${id.value},${groupId.value}`)
-
-        const img = new Image()
-        img.src = dragImg
-        dt.setDragImage(img, 10, 10)
       }
     }
 

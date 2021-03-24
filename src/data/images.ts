@@ -5,7 +5,12 @@ const bgImg = `${process.env.VUE_APP_QINIU_FILE}/datav/bj.png`
 const coverImg = `${process.env.VUE_APP_QINIU_FILE}/datav/datav-vue-logo.png`
 
 // 项目拖拽图
-const dragImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAABQCAMAAADVyVCaAAAAM1BMVEVHcEwXvP8b1/8TV20UQVEZzf8Tn/8UiaMWqc4VkrEZw/AWsv8Vj7EUqf8YuOITRFYViKUfZVF5AAAACnRSTlMA////////Jt+CR+EzygAAAL9JREFUWMPt2FsOwjAMRNGGuKX0kbL/1bIBQv0YR0Kau4Ejz0+kTBNjjLGxPTptTxwh33uv6cTVXtmEVNhUXQI31dwlYFP1CdhUPwg51nQCNNWMyH+FNhIkhhIFQBQSUltNJup2JF+hEyKEUggQWsFPqAU3oRe8hEFwEhbhjtjjguweopVeMGLAFTbDR5gMJ2ExvITBcBN6w0+ojRviBLwXZ4BQGiFC93bHCEkfisRIYvkPYiGBIRDx/5Mxxsb2AVpUNS9SI1eoAAAAAElFTkSuQmCC'
+const getDragImg = () => {
+  const img = new Image()
+  img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAABQCAMAAADVyVCaAAAAM1BMVEVHcEwXvP8b1/8TV20UQVEZzf8Tn/8UiaMWqc4VkrEZw/AWsv8Vj7EUqf8YuOITRFYViKUfZVF5AAAACnRSTlMA////////Jt+CR+EzygAAAL9JREFUWMPt2FsOwjAMRNGGuKX0kbL/1bIBQv0YR0Kau4Ejz0+kTBNjjLGxPTptTxwh33uv6cTVXtmEVNhUXQI31dwlYFP1CdhUPwg51nQCNNWMyH+FNhIkhhIFQBQSUltNJup2JF+hEyKEUggQWsFPqAU3oRe8hEFwEhbhjtjjguweopVeMGLAFTbDR5gMJ2ExvITBcBN6w0+ojRviBLwXZ4BQGiFC93bHCEkfisRIYvkPYiGBIRDx/5Mxxsb2AVpUNS9SI1eoAAAAAElFTkSuQmCC'
+
+  return img
+}
 
 const boxImg = [
   {
@@ -85,7 +90,7 @@ const decorateImg = [
 export {
   bgImg,
   coverImg,
-  dragImg,
+  getDragImg,
   boxImg,
   decorateImg,
 }
