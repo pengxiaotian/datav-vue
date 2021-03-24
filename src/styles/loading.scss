@@ -1,0 +1,98 @@
+@import "themes/var";
+
+.g-nested-loading {
+  position: relative;
+}
+
+.g-loading-mask {
+  position: absolute;
+  z-index: 2000;
+  background-color: hsla(0, 0%, 100%, 0.9);
+  margin: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: opacity 0.3s;
+}
+
+.g-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2001;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 400px;
+}
+
+.loading-dna {
+  position: relative;
+  width: 136px;
+  margin: 0 auto;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  letter-spacing: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &::after {
+    content: 'loading...';
+    display: block;
+    padding-top: 25px;
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+    letter-spacing: 5px;
+  }
+}
+
+.dna-dot {
+  width: inherit;
+  height: inherit;
+  transform: translateZ(-10px);
+  transform-style: preserve-3d;
+
+  &::before {
+    content: '';
+    width: inherit;
+    height: inherit;
+    display: block;
+    background: #aaa;
+    border-radius: 50%;
+    animation: dna-rotate 5s linear infinite reverse;
+    transform: rotateX(-360deg) translateZ(0);
+  }
+}
+
+.dna-ele {
+  width: 3px;
+  height: 3px;
+  display: inline-block;
+  animation: dna-rotate 5s linear infinite;
+  transform: rotateX(-360deg) translateZ(0);
+  transform-style: preserve-3d;
+  margin-left: 0;
+
+  &:nth-of-type(2n) .dna-dot:before {
+    background: deepskyblue;
+  }
+}
+
+@for $i from 1 through 45 {
+  .dna-ele:nth-of-type(#{$i}),
+  .dna-ele:nth-of-type(#{$i}) .dna-dot:before {
+    animation-delay: -#{0.16 * $i}s;
+  }
+
+  .dna-ele:nth-of-type(#{$i}):nth-of-type(odd) {
+    animation-delay: -#{0.16 * $i + 2}s;
+  }
+}
+
+@keyframes dna-rotate {
+  100% {
+    transform: none;
+  }
+}

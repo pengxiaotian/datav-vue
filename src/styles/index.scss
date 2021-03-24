@@ -2,12 +2,13 @@
 @import "./icon";
 
 // Element
-// @import "./alert.scss";
-@import "./button.scss";
-@import "./popover.scss";
-@import "./message.scss";
-@import "./message-box.scss";
+// @import "./alert";
+@import "./button";
+@import "./popover";
+@import "./message";
+@import "./message-box";
 
 // UI
-@import "./tooltip-popover.scss";
-@import "./drop-list-popover.scss";
+@import "./tooltip-popover";
+@import "./drop-list-popover";
+@import "./loading";
