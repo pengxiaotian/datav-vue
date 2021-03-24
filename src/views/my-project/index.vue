@@ -195,7 +195,6 @@ export default defineComponent({
       removeClass(event.target, 'drag-enter')
 
       const str = event.dataTransfer.getData('text')
-      console.log(str, toGroup.id)
       if (str) {
         const [pid, fromId] = str.split(',').map((m: string) => parseInt(m))
         if (fromId !== toGroup.id) {
@@ -339,6 +338,7 @@ export default defineComponent({
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        pointer-events: none;
       }
 
       &:hover {
