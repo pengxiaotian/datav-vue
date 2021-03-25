@@ -34,9 +34,9 @@
         <div class="link-content">
           <el-tooltip
             v-model="showTooltip"
+            effect="blue"
             placement="top"
             content="点击复制"
-            popper-class="is-blue"
             :manual="true"
             :disabled="!isPublish"
           >
