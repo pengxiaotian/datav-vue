@@ -47,7 +47,7 @@
               <i class="v-icon-preview"></i>
             </g-tooltip-popover>
           </router-link>
-          <div class="public">
+          <div class="public" @click="doPublish">
             <g-tooltip-popover content="发布">
               <i class="v-icon-release"></i>
             </g-tooltip-popover>
@@ -141,6 +141,7 @@ export default defineComponent({
 
     const dragStart = inject('dragStart') as Function
     const dragEnd = inject('dragEnd') as Function
+    const publish = inject('publish') as Function
 
     const confirmCopyProject = () => {
       copyProject(groupId.value, id.value)
@@ -148,7 +149,7 @@ export default defineComponent({
 
     const confirmDeleteProject = () => {
       MessageBoxUtil.confirmAsync(
-        `${screenName.value} 删除后无法恢复，确认删除？`,
+        `<b>${screenName.value}</b> 删除后无法恢复，确认删除？`,
         () => deleteProject(groupId.value, id.value))
     }
 
@@ -163,8 +164,13 @@ export default defineComponent({
         dt.setData('text', `${id.value},${groupId.value}`)
       }
     }
+
     const onDragEnd = () => {
       dragEnd()
+    }
+
+    const doPublish = () => {
+      publish(id.value)
     }
 
     return {
@@ -178,6 +184,7 @@ export default defineComponent({
       confirmDeleteProject,
       onDragStart,
       onDragEnd,
+      doPublish,
     }
   },
 })

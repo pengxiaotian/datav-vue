@@ -39,3 +39,15 @@ export function updateProjectGroupName(id: number, name: string) {
 export function getProjectTemplate() {
   return request.get('/project/template')
 }
+
+export function getPublishInfo(id: number) {
+  return request.get(`/project/${id}/publish`)
+}
+
+export function publishApp(id: number, data: any) {
+  return request.post(`/project/${id}/publish`, data)
+}
+
+export function getShareUrl(id: number) {
+  return `${window.location.origin + '/screen/' + id}`
+}

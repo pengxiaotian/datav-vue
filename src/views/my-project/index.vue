@@ -173,7 +173,7 @@ export default defineComponent({
 
     const confirmDeleteGroup = (group: ProjectGroup) => {
       MessageBoxUtil.confirmAsync(
-        `${group.name} 删除后无法恢复，该分组中的可视化应用将全部移动到未分组，确认删除？`,
+        `<b>${group.name}</b> 删除后无法恢复，该分组中的可视化应用将全部移动到未分组，确认删除？`,
         () => {
           return deleteProjectGroup(group.id)
         },

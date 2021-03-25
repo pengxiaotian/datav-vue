@@ -11,8 +11,6 @@ import {
   toRawType,
 } from '@vue/shared'
 
-import isServer from './isServer'
-
 export type PartialCSSStyleDeclaration = Partial<
   Pick<CSSStyleDeclaration, 'transform' | 'transition' | 'animation'>
 >
@@ -34,15 +32,15 @@ export function toObject<T>(arr: Array<T>): Record<string, T> {
 export const generateId = (): number => Math.floor(Math.random() * 10000)
 
 export const isIE = function(): boolean {
-  return !isServer && !isNaN(Number(document.DOCUMENT_NODE))
+  return !isNaN(Number(document.DOCUMENT_NODE))
 }
 
 export const isEdge = function(): boolean {
-  return !isServer && navigator.userAgent.indexOf('Edge') > -1
+  return navigator.userAgent.indexOf('Edge') > -1
 }
 
 export const isFirefox = function(): boolean {
-  return !isServer && !!window.navigator.userAgent.match(/firefox/i)
+  return !!window.navigator.userAgent.match(/firefox/i)
 }
 
 export const kebabCase = hyphenate
@@ -93,4 +91,18 @@ export function isEmpty(val: unknown) {
 
 export function deduplicate<T>(arr: T[]) {
   return Array.from(new Set(arr))
+}
+
+export const copyText = (text: string) => {
+  try {
+    const input = document.createElement('textarea')
+    input.value = text
+    document.body.appendChild(input)
+    input.select()
+    document.execCommand('copy')
+    document.body.removeChild(input)
+    return true
+  } catch (error) {
+    return false
+  }
 }

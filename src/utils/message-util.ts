@@ -64,6 +64,7 @@ export const MessageBoxUtil = {
     ElMessageBox.confirm(message, title, {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
+      dangerouslyUseHTMLString: true,
     })
       .then(() => {
         callback()
@@ -83,6 +84,7 @@ export const MessageBoxUtil = {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'warning',
+      dangerouslyUseHTMLString: true,
       beforeClose: async (action, instance, done) => {
         if (action === 'confirm') {
           instance.confirmButtonLoading = true

@@ -50,6 +50,8 @@ $border-color: #434b55;
 $input-bgcolor: #1d262e;
 $input-color: #fff;
 $input-hover-color: #bcc9d4;
+$input-border-color: #0b0c0d;
+$input-label-color: #fff;
 
 // Scrollbar
 $scrollbar-thumb-bg: #434b55;
@@ -65,8 +67,11 @@ $tooltip-popover-shadow-color: #000;
 $drop-list-popover-bgcolor: $color-dark;
 $drop-list-popover-hover-bgcolor: #1a1b1d;
 
+// Border
+$border-color: #3a4659;
+
 // project
-$screen-border-color: #3a4659;
+$screen-border-color: $border-color;
 $screen-bgcolor: rgba(0, 0, 0, 0.81);
 $screen-shadow-color: #000;
 $screen-font-color: #fff;
@@ -89,7 +94,7 @@ $message-error-border-color: $color-error;
 // MessageBox
 $message-box-bgcolor: #303640;
 $message-box-icon-color: #ff4f43;
-$message-box-border-color: #3a4659;
+$message-box-border-color: $border-color;
 
 // Slider
 $slider-color: #74f0ff;
@@ -100,3 +105,11 @@ $button-active-shade-percent: 10% !default;
 
 // Loading
 $loading-color: #1996df;
+
+// Dialog
+$dialog-background-color: #303640;
+
+// Switch
+$switch-height: 28px;
+$switch-bgcolor: #0b0c0d;
+$switch-border-color: #303740;

@@ -45,19 +45,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/create-screen',
     name: 'CreateScreen',
-    component: () => import('@/views/my-project/create-screen.vue'),
+    component: () => import(/* webpackChunkName: "create-screen" */ '@/views/my-project/create-screen.vue'),
     meta: { title: '创建' },
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/login/index.vue'),
+    component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
     meta: { title: '登录' },
   },
   {
     path: '/:catchAll(.*)',
     name: '404',
-    component: () => import('@/views/error/404.vue'),
+    component: () => import(/* webpackChunkName: "404" */ '@/views/error/404.vue'),
     meta: { title: '404' },
   },
 ]

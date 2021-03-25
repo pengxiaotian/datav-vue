@@ -1,0 +1,21 @@
+@import "themes/var";
+@import "mixins/util";
+
+.el-dialog__header {
+  padding: 16px 20px 8px 20px;
+}
+
+.el-dialog__title {
+  color: $color-primary;
+  font-size: 14px;
+}
+
+.el-dialog__headerbtn .el-dialog__close {
+  @include utils-close-btn($color-primary);
+}
+
+.el-dialog__body {
+  min-height: 50px;
+  padding: 10px 20px 20px 20px;
+  overflow-y: auto;
+}
