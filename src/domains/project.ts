@@ -35,9 +35,9 @@ export class Project {
     screenshot: string
     zoomMode: number
     useWatermark: boolean
-    createAt: string
-    updateAt: string
   }
+  createAt: string
+  updateAt: string
 }
 
 export interface ProjectTemplate {
