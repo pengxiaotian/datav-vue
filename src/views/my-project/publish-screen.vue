@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="share-verify">
-        <div class="label-color link-title">分享链接</div>
+        <div class="label-color">分享链接</div>
         <div class="link-content">
           <el-tooltip
             v-model="showTooltip"
@@ -42,7 +42,7 @@
           >
             <textarea
               :value="shareUrl"
-              class="share-input"
+              class="g-input share-input"
               readonly
               placeholder="开启发布分享后可获取访问链接"
               @click="copyUrl"
@@ -54,12 +54,12 @@
         </div>
         <div class="label-color">访问密码</div>
         <div class="share-pwd">
-          <input
+          <g-input
             v-model="password"
             :type="passwordType"
             placeholder="设置访问密码"
-            class="share-input pwd-input"
-          >
+            class="pwd-input"
+          />
           <div
             class="func-btn"
             @click="passwordType ? passwordType = '' : passwordType = 'password'"
@@ -85,8 +85,7 @@ import { defineComponent, ref, watch, computed, nextTick } from 'vue'
 import { getShareUrl, getPublishInfo, publishApp } from '@/api/project'
 import { MessageUtil } from '@/utils/message-util'
 import { copyText } from '@/utils/util'
-
-const UPDATE_MODEL_EVENT = 'update:modelValue'
+import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 export default defineComponent({
   name: 'PublishScreen',
@@ -212,6 +211,7 @@ export default defineComponent({
     letter-spacing: 1.09px;
     color: $input-label-color;
     white-space: nowrap;
+    padding: 16px 0 10px;
   }
 
   .share-switch {
@@ -228,57 +228,34 @@ export default defineComponent({
     text-decoration: none;
   }
 
-  .link-title {
-    padding: 16px 0;
-  }
-
-  .share-pwd {
-    margin-top: 16px;
-  }
-
   .link-content,
   .share-pwd {
     display: flex;
     align-items: center;
-    padding-bottom: 12px;
     font-size: 14px;
   }
 
   .share-input {
-    display: inline-block;
     width: 80%;
     height: 50px;
-    padding: 0 8px;
-    margin: 0;
-    font-size: 12px;
     line-height: 22px;
-    color: $font-color;
-    vertical-align: middle;
-    cursor: pointer;
     background: $input-bgcolor;
-    border: 1px solid $input-border-color;
-    border-radius: 0;
-    outline: 0;
-    box-shadow: none;
-    box-sizing: border-box;
-    transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
     resize: none;
+  }
 
-    &:hover {
-      border: 1px solid $color-primary;
-    }
+  .pwd-input {
+    width: 80%;
+    height: 25px;
+    line-height: 25px;
+    background: $input-bgcolor;
+    cursor: text;
   }
 
   .func-btn {
     color: $color-primary;
     cursor: pointer;
     margin-left: 10px;
-  }
-
-  .pwd-input {
-    height: 25px;
-    line-height: 25px;
-    cursor: text;
   }
 }
 

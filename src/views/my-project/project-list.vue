@@ -233,8 +233,8 @@ export default defineComponent({
         transition: 0.2s;
 
         &:hover {
-          box-shadow: 0 0 10px -6px #000;
-          border: 1px solid $color-primary;
+          border: $border-primary;
+          box-shadow: $shadow;
         }
       }
     }

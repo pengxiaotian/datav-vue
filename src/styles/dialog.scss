@@ -26,6 +26,7 @@
 .el-dialog__title {
   color: $color-primary;
   font-size: 14px;
+  font-weight: 500;
 }
 
 .el-dialog__headerbtn .el-dialog__close {
@@ -36,4 +37,10 @@
   min-height: 50px;
   padding: 10px 20px 20px 20px;
   overflow-y: auto;
+  color: #fff;
+}
+
+.el-dialog__footer {
+  border-top: 1px solid $border-color;
+  padding: 16px 20px;
 }

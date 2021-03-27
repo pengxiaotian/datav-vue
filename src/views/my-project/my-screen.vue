@@ -202,7 +202,7 @@ export default defineComponent({
   flex-direction: column;
   width: 258px;
   height: 184px;
-  border: 1px solid $screen-border-color;
+  border: 1px solid $border-color;
   transition: 0.2s;
 
   .screen-info {
@@ -229,7 +229,7 @@ export default defineComponent({
       align-items: center;
       justify-content: center;
       transition: opacity 0.2s;
-      background: $screen-bgcolor;
+      background: rgba(0, 0, 0, 0.8);
 
       .edit-wrap {
         .edit {
@@ -296,8 +296,8 @@ export default defineComponent({
   }
 
   &:hover {
-    box-shadow: 0 0 10px -2px $screen-shadow-color;
-    border: 1px solid $color-primary;
+    box-shadow: $shadow;
+    border: $border-primary;
 
     .screen-info {
       .screen-edit {
@@ -315,7 +315,7 @@ export default defineComponent({
       align-items: center;
       position: relative;
       justify-content: space-between;
-      color: $screen-font-color;
+      color: $color-white;
       background: $input-bgcolor;
       padding: 0 10px;
 
@@ -350,7 +350,7 @@ export default defineComponent({
       .publish-info {
         align-items: center;
         display: flex;
-        color: $publish-font-color;
+        color: $font-color;
 
         .dot {
           content: "";
@@ -359,7 +359,7 @@ export default defineComponent({
           width: 8px;
           height: 8px;
           border-radius: 5px;
-          background-color: $publish-dot-color;
+          background-color: $state-color;
 
           &.published {
             background-color: $color-primary;
