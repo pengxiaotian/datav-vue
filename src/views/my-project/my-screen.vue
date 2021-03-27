@@ -6,7 +6,7 @@
         <div class="screen-edit">
           <div class="screen-button">
             <router-link
-              to="/"
+              :to="{ name: 'Screen', params: { projectId: screen.id } }"
               target="_blank"
               class="edit-wrap"
             >
@@ -39,7 +39,7 @@
           </div>
 
           <router-link
-            to="/"
+            :to="{ name: 'Screen', params: { projectId: screen.id } }"
             target="_blank"
             class="preview"
           >

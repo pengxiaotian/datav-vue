@@ -231,7 +231,9 @@ export default defineComponent({
           templateId: template.value.id,
         })
         if (res.data.code === 0) {
-          router.push({ name: 'Home' })
+          visibleCreateDialog.value = false
+          visiblePreviewDialog.value = false
+          router.push({ name: 'Screen', params: { projectId: res.data.data } })
         } else {
           throw Error(res.data.message)
         }

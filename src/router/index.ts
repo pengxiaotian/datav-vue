@@ -49,6 +49,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: '创建' },
   },
   {
+    path: '/screen/:projectId',
+    name: 'Screen',
+    props: true,
+    component: () => import(/* webpackChunkName: "screen" */ '@/views/screen/index.vue'),
+    meta: { title: '编辑器' },
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
