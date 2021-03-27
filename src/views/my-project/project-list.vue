@@ -46,19 +46,25 @@
         <my-screen :screen="screen" />
       </div>
     </div>
+    <publish-screen v-model="visiblePublish" :project-id="publishAppId" />
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, PropType, computed, toRef } from 'vue'
+import {
+  defineComponent, ref, PropType,
+  computed, toRef, provide,
+} from 'vue'
 import _ from 'lodash'
 import { ProjectGroup } from '@/domains/project'
 import MyScreen from './my-screen.vue'
+import PublishScreen from './publish-screen.vue'
 
 export default defineComponent({
   name: 'ProjectList',
   components: {
     MyScreen,
+    PublishScreen,
   },
   props: {
     group: Object as PropType<ProjectGroup>,
@@ -71,6 +77,8 @@ export default defineComponent({
       createAt: '按创建时间排序',
       updateAt: '按修改时间排序',
     })
+    const visiblePublish = ref(false)
+    const publishAppId = ref(0)
 
     const group = toRef(props, 'group')
 
@@ -88,10 +96,17 @@ export default defineComponent({
       return _.sortBy(list, sort.value)
     })
 
+    provide('publish', (appId: number) => {
+      visiblePublish.value = true
+      publishAppId.value = appId
+    })
+
     return {
       searchText,
       sort,
       sorts,
+      visiblePublish,
+      publishAppId,
       onSortChange,
       screens,
     }
@@ -218,8 +233,8 @@ export default defineComponent({
         transition: 0.2s;
 
         &:hover {
-          box-shadow: 0 0 10px -6px #000;
-          border: 1px solid $color-primary;
+          border: $border-primary;
+          box-shadow: $shadow;
         }
       }
     }

@@ -1,14 +1,18 @@
 @import "./themes/index";
 @import "./icon";
 
-// Element
-// @import "./alert";
+// Element Plus
 @import "./button";
 @import "./popover";
 @import "./message";
 @import "./message-box";
+@import "./dialog";
+@import "./switch";
+@import "./tooltip";
+@import "./select";
 
-// UI
+// DataV UI
 @import "./tooltip-popover";
 @import "./drop-list-popover";
 @import "./loading";
+@import "./input";

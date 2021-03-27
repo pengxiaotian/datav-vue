@@ -1,0 +1,46 @@
+@import "themes/var";
+@import "mixins/util";
+
+.el-dialog {
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background-image: linear-gradient(
+      270deg,
+      $slider-color 0,
+      $color-primary 74%
+    );
+  }
+}
+
+.el-dialog__header {
+  padding: 16px 20px 8px 20px;
+}
+
+.el-dialog__title {
+  color: $color-primary;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.el-dialog__headerbtn .el-dialog__close {
+  @include utils-close-btn($color-primary);
+}
+
+.el-dialog__body {
+  min-height: 50px;
+  padding: 10px 20px 20px 20px;
+  overflow-y: auto;
+  color: #fff;
+}
+
+.el-dialog__footer {
+  border-top: 1px solid $border-color;
+  padding: 16px 20px;
+}

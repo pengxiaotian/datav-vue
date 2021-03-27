@@ -63,7 +63,7 @@
 
 .dna-loading {
   position: relative;
-  width: 136px;
+  width: 120px;
   margin: 0 auto;
   perspective: 1000px;
   transform-style: preserve-3d;
@@ -85,7 +85,7 @@
 .dna-dot {
   width: inherit;
   height: inherit;
-  transform: translateZ(-10px);
+  transform: translateZ(-8px);
   transform-style: preserve-3d;
 
   &::before {
@@ -101,8 +101,8 @@
 }
 
 .dna-ele {
-  width: 3px;
-  height: 3px;
+  width: 2px;
+  height: 2px;
   display: inline-block;
   animation: dna-rotate 5s linear infinite;
   transform: rotateX(-360deg) translateZ(0);
@@ -114,7 +114,7 @@
   }
 }
 
-@for $i from 1 through 45 {
+@for $i from 1 through 60 {
   .dna-ele:nth-of-type(#{$i}),
   .dna-ele:nth-of-type(#{$i}) .dna-dot:before {
     animation-delay: -#{0.16 * $i}s;

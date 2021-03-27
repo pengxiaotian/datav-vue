@@ -1,0 +1,68 @@
+@import "themes/var";
+
+.el-popper.is-blue {
+  padding: 5px;
+  background: $color-primary;
+  border-radius: 0;
+  color: #fff;
+
+  .el-popper__arrow {
+    width: 8px;
+    height: 8px;
+
+    &::before {
+      content: " ";
+      width: 8px;
+      height: 8px;
+      background: $color-primary;
+    }
+  }
+
+  &[data-popper-placement^="top"] {
+    .el-popper__arrow {
+      bottom: -4px;
+      border-top-color: $color-primary;
+      border-bottom-width: 0;
+
+      &::after {
+        border-top-color: $color-primary;
+      }
+    }
+  }
+
+  &[data-popper-placement^="bottom"] {
+    .el-popper__arrow {
+      top: -4px;
+      border-bottom-color: $color-primary;
+      border-top-width: 0;
+
+      &::after {
+        border-bottom-color: $color-primary;
+      }
+    }
+  }
+
+  &[data-popper-placement^="left"] {
+    .el-popper__arrow {
+      right: -4px;
+      border-left-color: $color-primary;
+      border-right-width: 0;
+
+      &::after {
+        border-left-color: $color-primary;
+      }
+    }
+  }
+
+  &[data-popper-placement^="right"] {
+    .el-popper__arrow {
+      left: -4px;
+      border-right-color: $color-primary;
+      border-left-width: 0;
+
+      &::after {
+        border-right-color: $color-primary;
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@
     >
       <div class="g-loading">
         <div v-if="type === 'dna'" class="dna-loading">
-          <div v-for="i in 45" :key="i" class="dna-ele">
+          <div v-for="i in 60" :key="i" class="dna-ele">
             <div class="dna-dot"></div>
           </div>
         </div>

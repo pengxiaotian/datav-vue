@@ -4,6 +4,7 @@ $color-white: #fff;
 $color-black: #000;
 $color-gray: #90a0ae;
 $color-dark: #262c33;
+$color-red: #ff1f0f;
 
 $color-primary: $blue-6;
 $color-success: $green-6;
@@ -42,14 +43,22 @@ $animation-duration-fast: 0.1s; // Tooltip
 
 // Background
 $background-color: #171b22;
+$background-dark-color: #1d262e;
+$background-coms-color: #303640;
 
 // Border
 $border-color: #434b55;
+$border-outline: 1px solid #0b0c0d;
 
 // Input
-$input-bgcolor: #1d262e;
+$input-bgcolor: $background-dark-color;
 $input-color: #fff;
 $input-hover-color: #bcc9d4;
+$input-border-color: #0b0c0d;
+$input-label-color: #fff;
+
+$g-input-bgcolor: $color-dark;
+$g-input-color: #a1aeb3;
 
 // Scrollbar
 $scrollbar-thumb-bg: #434b55;
@@ -65,19 +74,20 @@ $tooltip-popover-shadow-color: #000;
 $drop-list-popover-bgcolor: $color-dark;
 $drop-list-popover-hover-bgcolor: #1a1b1d;
 
-// project
-$screen-border-color: #3a4659;
-$screen-bgcolor: rgba(0, 0, 0, 0.81);
-$screen-shadow-color: #000;
-$screen-font-color: #fff;
+// Border
+$border-color: #3a4659;
+$border: 1px solid $border-color;
+$border-primary: 1px solid $color-primary;
+
+// Shadow
+$shadow: 0 0 10px -6px #000;
 
 // Icon
 $icon-color: $color-white;
 $icon-hover-color: $color-primary;
 
-// Publish
-$publish-font-color: #bcc9d4;
-$publish-dot-color: #576369;
+// State
+$state-color: #576369;
 
 // Message
 $message-font-color: #fff;
@@ -89,7 +99,7 @@ $message-error-border-color: $color-error;
 // MessageBox
 $message-box-bgcolor: #303640;
 $message-box-icon-color: #ff4f43;
-$message-box-border-color: #3a4659;
+$message-box-border-color: $border-color;
 
 // Slider
 $slider-color: #74f0ff;
@@ -100,3 +110,17 @@ $button-active-shade-percent: 10% !default;
 
 // Loading
 $loading-color: #1996df;
+
+// Dialog
+$dialog-bgcolor: #303640;
+
+// Switch
+$switch-height: 28px;
+$switch-bgcolor: #0b0c0d;
+$switch-border-color: #303740;
+
+// Select
+$select-bgcolor: #111417;
+$select-option-bgcolor: #1d2126;
+$select-option-hover-bgcolor: #1b3964;
+$select-selected-color: #fff;

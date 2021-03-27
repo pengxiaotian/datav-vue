@@ -1,0 +1,25 @@
+@import "themes/var";
+
+.g-input {
+  height: 24px;
+  display: inline-block;
+  background: $g-input-bgcolor;
+  vertical-align: middle;
+  padding: 0 8px;
+  line-height: 16px;
+  color: $font-color;
+  width: 100%;
+  caret-color: $color-primary;
+  box-sizing: border-box;
+  box-shadow: none;
+  margin: 0;
+  outline: 0;
+  border-radius: 0;
+  font-size: 12px;
+  border: 1px solid $input-border-color;
+  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    border: $border-primary;
+  }
+}

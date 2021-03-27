@@ -5,7 +5,7 @@
   background: $tooltip-popover-bgcolor;
   box-shadow: 0 0 4px $tooltip-popover-shadow-color;
   color: $tooltip-popover-color;
-  border: 1px solid $color-primary;
+  border: $border-primary;
   line-height: 1;
   font-size: 12px;
   border-radius: 0;

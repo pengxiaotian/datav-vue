@@ -173,7 +173,7 @@ export default defineComponent({
 
     const confirmDeleteGroup = (group: ProjectGroup) => {
       MessageBoxUtil.confirmAsync(
-        `${group.name} 删除后无法恢复，该分组中的可视化应用将全部移动到未分组，确认删除？`,
+        `<b>${group.name}</b> 删除后无法恢复，该分组中的可视化应用将全部移动到未分组，确认删除？`,
         () => {
           return deleteProjectGroup(group.id)
         },
@@ -329,7 +329,6 @@ export default defineComponent({
 
     .project-num {
       user-select: none;
-      font-family: Orbitron-Bold, Microsoft Yahei;
       color: $font-color;
     }
 
@@ -399,9 +398,9 @@ export default defineComponent({
     line-height: 30px;
     width: 100%;
     height: 30px;
-    border: 1px solid $color-primary;
+    border: $border-primary;
     transition: 0.2s;
-    box-shadow: 0 0 10px -6px #000;
+    box-shadow: $shadow;
   }
 
   .project-screen-list {

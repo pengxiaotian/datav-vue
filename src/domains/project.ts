@@ -40,6 +40,14 @@ export class Project {
   }
 }
 
+export interface ProjectTemplate {
+  id: number
+  name: string
+  size: String[]
+  snapshot: string
+  thumbnail: string
+}
+
 const allGroups = ref<ProjectGroup[]>([])
 
 export const ProjectStore = () => {

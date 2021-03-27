@@ -1,0 +1,89 @@
+@import "themes/var";
+
+.el-select {
+  width: 100%;
+
+  .el-input__inner {
+    color: $font-color;
+    border-radius: 0;
+    padding: 0 14px;
+    background-color: $g-input-bgcolor;
+    border: $border-outline;
+  }
+
+  .el-input {
+    .el-select__caret {
+      color: $font-color;
+      font-weight: 600;
+    }
+  }
+
+  &:hover {
+    .el-input__inner {
+      border-color: $color-primary;
+    }
+  }
+}
+
+.el-select__popper {
+  background: $select-option-bgcolor;
+  border-color: $color-primary;
+  border-radius: 0;
+
+  &.el-popper[role="tooltip"] {
+    background: $select-option-bgcolor;
+    border: solid 1px $color-primary;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+
+    &[data-popper-placement^="bottom"] .el-popper__arrow::before {
+      background: $select-option-bgcolor;
+      border-color: $color-primary;
+      border-bottom-color: transparent;
+      border-right-color: transparent;
+    }
+
+    &[data-popper-placement^="top"] .el-popper__arrow::before {
+      background: $select-option-bgcolor;
+      border-color: $color-primary;
+      border-top-color: transparent;
+      border-left-color: transparent;
+    }
+  }
+}
+
+.el-select-dropdown {
+  border-radius: 0;
+}
+
+.el-select-dropdown__list {
+  padding: 2px 0;
+}
+
+.el-select-dropdown__item {
+  padding: 0 15px;
+  font-size: 12px;
+  color: $g-input-color;
+  height: 28px;
+  line-height: 28px;
+  background-color: $select-option-bgcolor;
+  border-left: 2px solid transparent;
+
+  &:hover {
+    background-color: $select-option-hover-bgcolor;
+    border-left-color: $color-primary;
+  }
+
+  &.selected {
+    color: $select-selected-color;
+
+    &::before {
+      content: " ● ";
+      color: $color-primary;
+      font-family: "Helvetica Neue";
+      display: inline-block;
+      position: absolute;
+      left: 4px;
+      vertical-align: middle;
+    }
+  }
+}
