@@ -5,8 +5,8 @@
 <p align="center">一个基于 Vue3.x 的数据可视化项目</p>
 
 
-* 💪 Vue 3.0 Composition API
-* 🔥 Written in TypeScript
+* 💪 Vue 3.0+
+* 🔥 TypeScript 4.2+
 
 ### 安装与使用
 
