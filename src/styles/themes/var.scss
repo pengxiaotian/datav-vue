@@ -77,6 +77,7 @@ $drop-list-popover-hover-bgcolor: #1a1b1d;
 // Border
 $border-color: #3a4659;
 $border: 1px solid $border-color;
+$border-dark: 1px solid #000;
 $border-primary: 1px solid $color-primary;
 
 // Shadow
@@ -124,3 +125,10 @@ $select-bgcolor: #111417;
 $select-option-bgcolor: #1d2126;
 $select-option-hover-bgcolor: #1b3964;
 $select-selected-color: #fff;
+
+// Editor
+$header-color: #a1aeb3;
+$header-icon-color: #fff;
+$header-bgcolor: #1d1e1f;
+$header-btn-bgcolor: #303640;
+$header-btn-hover-bgcolor: #414750;

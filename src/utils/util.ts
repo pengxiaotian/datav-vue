@@ -43,9 +43,12 @@ export const isFirefox = function(): boolean {
   return !!window.navigator.userAgent.match(/firefox/i)
 }
 
+export const isMac = () => {
+  return /macintosh|mac os x/i.test(navigator.userAgent)
+}
+
 export const kebabCase = hyphenate
 
-// reexport from lodash & vue shared
 export {
   hasOwn,
   isObject,
@@ -67,12 +70,6 @@ export const isHTMLElement = (val: unknown) => toRawType(val).startsWith('HTML')
  */
 export function getRandomInt(max: number) {
   return Math.floor(Math.random() * Math.floor(max))
-}
-
-export function entries<T>(obj: Hash<T>): [string, T][] {
-  return Object
-    .keys(obj)
-    .map((key: string) => ([key, obj[key]]))
 }
 
 export function isUndefined(val: any): val is undefined {
