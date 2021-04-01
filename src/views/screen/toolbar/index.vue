@@ -111,7 +111,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { Screen } from '@/domains/screen'
+import { ProjectConfig } from '@/domains/project'
 import { isMac } from '@/utils/util'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 
@@ -120,6 +120,10 @@ export default defineComponent({
   props: {
     screen: {
       type: Object as PropType<Screen>,
+      required: true,
+    },
+    pageConfig: {
+      type: Object as PropType<ProjectConfig>,
       required: true,
     },
   },
@@ -164,8 +168,8 @@ export default defineComponent({
             this.changeConfigPanel()
           } else if (key === 'a') {
             ToolbarModule.autoCanvasScale({
-              width: this.screen.config.width,
-              height: this.screen.config.height,
+              width: this.pageConfig.width,
+              height: this.pageConfig.height,
             })
           }
 

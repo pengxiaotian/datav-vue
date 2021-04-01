@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { config } from '@/config'
 import { getToken } from '@/utils/token-util'
-// import { UserModule } from '@/store/modules/user'
 import { UserStore } from '@/domains/user'
 import Home from '@/views/home/index.vue'
 

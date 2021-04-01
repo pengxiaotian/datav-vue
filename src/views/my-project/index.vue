@@ -20,7 +20,7 @@
               <input
                 v-focus
                 class="edit-input"
-                @blur="onNewInputBlur"
+                @blur="onAddInputBlur"
                 @keyup.enter="addGroup"
               >
             </div>
@@ -64,7 +64,7 @@
                 <span class="project-name">{{ g.name }}</span>
                 <span class="project-num">{{ g.children.length }}</span>
                 <span class="group-btns">
-                  <i class="v-icon-edit" @click="toEditGroup(g)"></i>
+                  <i class="v-icon-edit" @click="g.editing = true"></i>
                   <i class="v-icon-delete" @click="confirmDeleteGroup(g)"></i>
                 </span>
               </template>
@@ -81,9 +81,8 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed, provide, onMounted } from 'vue'
-import { ProjectGroup } from '@/domains/project.entity'
-import { ProjectStore } from '@/domains/project'
-import { updateProjectGroupName } from '@/api/project'
+import { ProjectGroup } from '@/domains/project'
+import { ProjectModule } from '@/store/modules/project'
 import { MessageBoxUtil, MessageUtil } from '@/utils/message-util'
 import { addClass, removeClass } from '@/utils/dom'
 import ProjectList from './project-list.vue'
@@ -95,19 +94,18 @@ export default defineComponent({
   },
   setup() {
     const {
-      group, ungroup, groups,
       getProjects, moveProject,
-      createProjectGroup, deleteProjectGroup,
-    } = ProjectStore()
+      createProjectGroup, deleteProjectGroup, updateProjectGroupName,
+    } = ProjectModule
 
     const selectedGroupId = ref(-1)
     const loading = ref(true)
     const adding = ref(false)
     const draging = ref(false)
 
-    const toggleProject = (id: number) => {
-      selectedGroupId.value = id
-    }
+    const group = computed(() => ProjectModule.group)
+    const ungroup = computed(() => ProjectModule.ungroup)
+    const groups = computed(() => ProjectModule.groups)
 
     const selectedGroup = computed(() => {
       if (selectedGroupId.value === -1) {
@@ -121,18 +119,30 @@ export default defineComponent({
       return groups.value.find(g => g.id === selectedGroupId.value)
     })
 
-    const onNewInputBlur = (e: any) => {
-      const text = (e.target.value || '').trim()
-      if (!text) {
+    const toggleProject = (id: number) => {
+      selectedGroupId.value = id
+    }
+
+    const onAddInputBlur = (e: any) => {
+      if (!adding.value) {
+        return
+      }
+
+      const name = (e.target.value || '').trim()
+      if (!name) {
         adding.value = false
       }
     }
 
     const addGroup = async (e: any) => {
-      const text = (e.target.value || '').trim()
-      if (text) {
+      if (!adding.value) {
+        return
+      }
+
+      const name = (e.target.value || '').trim()
+      if (name) {
         try {
-          await createProjectGroup(text)
+          await createProjectGroup(name)
           adding.value = false
         } catch (error) {
           MessageUtil.error(MessageUtil.format(error))
@@ -142,28 +152,28 @@ export default defineComponent({
       }
     }
 
-    const toEditGroup = (group: any) => {
-      group.editing = true
-    }
-
     const onEditInputBlur = (e: any, group: any) => {
-      const text = (e.target.value || '').trim()
-      if (!text || group.name === text) {
+      if (!group.editing) {
+        return
+      }
+
+      const newName = (e.target.value || '').trim()
+      if (!newName || group.name === newName) {
         group.editing = false
       }
     }
 
     const editGroup = async (e: any, group: any) => {
-      const text = (e.target.value || '').trim()
-      if (text && group.name !== text) {
+      if (!group.editing) {
+        return
+      }
+
+      const newName = (e.target.value || '').trim()
+      if (newName && group.name !== newName) {
         try {
-          const res = await updateProjectGroupName(group.id, text)
-          if (res.data.code === 0) {
-            group.name = text
-            group.editing = false
-          } else {
-            throw Error(res.data.message)
-          }
+          await updateProjectGroupName({ id: group.id, newName })
+          group.name = newName
+          group.editing = false
         } catch (error) {
           MessageUtil.error(MessageUtil.format(error))
         }
@@ -208,7 +218,7 @@ export default defineComponent({
       if (str) {
         const [pid, fromId] = str.split(',').map((m: string) => parseInt(m))
         if (fromId !== toGroup.id) {
-          moveProject(pid, fromId, toGroup.id)
+          moveProject({ pid, fromId, toId: toGroup.id })
         }
       }
     }
@@ -228,9 +238,8 @@ export default defineComponent({
       selectedGroupId,
       adding,
       toggleProject,
-      onNewInputBlur,
+      onAddInputBlur,
       addGroup,
-      toEditGroup,
       onEditInputBlur,
       editGroup,
       confirmDeleteGroup,

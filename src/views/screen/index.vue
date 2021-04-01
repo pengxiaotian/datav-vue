@@ -1,7 +1,7 @@
 <template>
   <el-container class="edit-container">
     <el-header style="height: auto; padding: 0;">
-      <toolbar :screen="srceen" />
+      <toolbar :screen="screen" :page-config="pageConfig" />
     </el-header>
     <el-container class="edit-main-wp">
       <el-container class="edit-main">
@@ -12,8 +12,8 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, onMounted } from 'vue'
-import { ScreenStore } from '@/domains/screen'
+import { defineComponent, computed, onMounted, ref } from 'vue'
+import { EditorModule } from '@/store/modules/editor'
 import toolbar from './toolbar/index.vue'
 
 export default defineComponent({
@@ -28,25 +28,27 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const loading = ref(true)
+
     const screenId = computed(() => {
       return typeof props.projectId === 'string'
         ? parseInt(props.projectId) : props.projectId
     })
 
-    const {
-      loading,
-      srceen,
-      getScreenInfo,
-    } = ScreenStore()
+    const screen = computed(() => EditorModule.screen)
+    const pageConfig = computed(() => EditorModule.pageConfig)
 
     onMounted(() => {
-      getScreenInfo(screenId.value)
+      EditorModule.loadScreen(screenId.value).finally(() => {
+        loading.value = false
+      })
     })
 
     return {
-      screenId,
       loading,
-      srceen,
+      screenId,
+      screen,
+      pageConfig,
     }
   },
 })

@@ -63,7 +63,7 @@
           >
             <div class="screen-name-input">
               <i class="v-icon-edit"></i>
-              <input v-model.trim="screenName" class="input" @blur="onBlur">
+              <input v-model.trim="screenName" class="input" @blur="onInputBlur">
             </div>
           </g-tooltip-popover>
           <div class="publish-info">
@@ -77,15 +77,11 @@
 </template>
 
 <script lang='ts'>
-import {
-  defineComponent, PropType, toRefs,
-  computed, ref, watch, inject,
-} from 'vue'
+import { defineComponent, PropType, toRefs, computed, ref, inject } from 'vue'
 import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
-import { Project } from '@/domains/project.entity'
-import { ProjectStore } from '@/domains/project'
+import { Project } from '@/domains/project'
+import { ProjectModule } from '@/store/modules/project'
 import { coverImg, getDragImg } from '@/data/images'
-import { updateProjectName } from '@/api/project'
 
 export default defineComponent({
   name: 'MyScreen',
@@ -96,7 +92,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { deleteProject, copyProject } = ProjectStore()
+    const { deleteProject, copyProject, updateProjectName } = ProjectModule
     const { id, name, groupId, share, config } = toRefs(props.screen)
     const screenName = ref(name.value)
     const oldScreenName = ref(name.value)
@@ -125,34 +121,32 @@ export default defineComponent({
       }
     })
 
-    const onBlur = () => {
+    const onInputBlur = async () => {
       if (screenName.value) {
-        updateProjectName(id.value, screenName.value)
-          .catch(error => {
-            MessageUtil.error(MessageUtil.format(error))
-          })
+        try {
+          await updateProjectName({ id: id.value, newName: screenName.value })
+          name.value = screenName.value
+        } catch (error) {
+          MessageUtil.error(MessageUtil.format(error))
+        }
       } else {
         screenName.value = oldScreenName.value
       }
     }
 
-    watch(screenName, nv => {
-      name.value = nv
-    })
-
-    const dragStart = inject('dragStart') as Function
-    const dragEnd = inject('dragEnd') as Function
-    const publish = inject('publish') as Function
-
     const confirmCopyProject = () => {
-      copyProject(groupId.value, id.value)
+      copyProject({ pid: id.value, gid: groupId.value })
     }
 
     const confirmDeleteProject = () => {
       MessageBoxUtil.confirmAsync(
         `<b>${screenName.value}</b> 删除后无法恢复，确认删除？`,
-        () => deleteProject(groupId.value, id.value))
+        () => deleteProject({ pid: id.value, gid: groupId.value }))
     }
+
+    const dragStart = inject('dragStart') as Function
+    const dragEnd = inject('dragEnd') as Function
+    const publish = inject('publish') as Function
 
     const dragImg = getDragImg()
     const onDragStart = (event: DragEvent) => {
@@ -180,7 +174,7 @@ export default defineComponent({
       publishState,
       screenName,
       oldScreenName,
-      onBlur,
+      onInputBlur,
       confirmCopyProject,
       confirmDeleteProject,
       onDragStart,

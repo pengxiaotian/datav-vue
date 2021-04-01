@@ -142,7 +142,7 @@
 import { defineComponent, ref, onMounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { coverImg } from '@/data/images'
-import { ProjectGroup, ProjectTemplate } from '@/domains/project.entity'
+import { ProjectGroup, ProjectTemplate } from '@/domains/project'
 import { getProjectTemplate, getProjects, createProject } from '@/api/project'
 import { MessageUtil } from '@/utils/message-util'
 import { scrollToLeft } from '@/utils/animation'

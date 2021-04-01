@@ -58,7 +58,6 @@
 
 <script lang='ts'>
 import { defineComponent, ref, watch } from 'vue'
-// import { UserModule } from '@/store/modules/user'
 import { UserStore } from '@/domains/user'
 import { useRouter, useRoute } from 'vue-router'
 import { config } from '@/config'

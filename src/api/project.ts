@@ -4,6 +4,10 @@ export function getProjects() {
   return request.get('/project')
 }
 
+export function getProject(id: number) {
+  return request.get(`/project/${id}`)
+}
+
 export function createProject(data: any) {
   return request.post('/project', data)
 }
