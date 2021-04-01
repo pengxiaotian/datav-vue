@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import { IUserState } from './modules/user'
 import { IToolbarState } from './modules/toolbar'
+import { IEditorState } from './modules/editor'
 // -- prepend import placeholder --
 
 // The name field in the decorator should match
@@ -9,6 +10,7 @@ import { IToolbarState } from './modules/toolbar'
 export interface IRootState {
   user: IUserState
   toolbar: IToolbarState
+  editor: IEditorState
   // -- prepend state placeholder --
 }
 

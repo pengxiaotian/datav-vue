@@ -1,52 +1,7 @@
 import { ref, computed } from 'vue'
 import _ from 'lodash'
 import * as api from '@/api/project'
-
-export enum ProjectGroupType {
-  ungroup = 0,
-  group = 1
-}
-
-export class ProjectGroup {
-  id: number
-  name: string
-  type: ProjectGroupType
-  children: Project[]
-
-  constructor(id = 0, name = '', children: Project[] = []) {
-    this.id = id
-    this.name = name
-    this.children = children
-    this.type = ProjectGroupType.ungroup
-  }
-}
-
-export class Project {
-  id: number
-  name: string
-  share: string
-  groupId: number
-  config: {
-    width: number
-    height: number
-    bgcolor: string
-    bgimage: string
-    grid: number
-    screenshot: string
-    zoomMode: number
-    useWatermark: boolean
-  }
-  createAt: string
-  updateAt: string
-}
-
-export interface ProjectTemplate {
-  id: number
-  name: string
-  size: String[]
-  snapshot: string
-  thumbnail: string
-}
+import { ProjectGroupType, ProjectGroup } from './project.entity'
 
 const allGroups = ref<ProjectGroup[]>([])
 

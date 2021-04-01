@@ -81,7 +81,8 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed, provide, onMounted } from 'vue'
-import { ProjectGroup, ProjectStore } from '@/domains/project'
+import { ProjectGroup } from '@/domains/project.entity'
+import { ProjectStore } from '@/domains/project'
 import { updateProjectGroupName } from '@/api/project'
 import { MessageBoxUtil, MessageUtil } from '@/utils/message-util'
 import { addClass, removeClass } from '@/utils/dom'

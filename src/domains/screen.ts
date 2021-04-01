@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import * as api from '@/api/screen'
 import { MessageUtil } from '@/utils/message-util'
-import { Project } from './project'
+import { Project } from './project.entity'
 
 export class Screen extends Project {
 

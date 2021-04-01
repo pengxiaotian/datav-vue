@@ -82,7 +82,8 @@ import {
   computed, ref, watch, inject,
 } from 'vue'
 import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
-import { Project, ProjectStore } from '@/domains/project'
+import { Project } from '@/domains/project.entity'
+import { ProjectStore } from '@/domains/project'
 import { coverImg, getDragImg } from '@/data/images'
 import { updateProjectName } from '@/api/project'
 

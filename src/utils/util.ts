@@ -10,10 +10,7 @@ import {
   hasOwn,
   toRawType,
 } from '@vue/shared'
-
-export type PartialCSSStyleDeclaration = Partial<
-  Pick<CSSStyleDeclaration, 'transform' | 'transition' | 'animation'>
->
+import shortid from 'shortid'
 
 export function toObject<T>(arr: Array<T>): Record<string, T> {
   const res = {}
@@ -30,6 +27,11 @@ export function toObject<T>(arr: Array<T>): Record<string, T> {
  * Maybe replace with [uuid](https://www.npmjs.com/package/uuid)
  */
 export const generateId = (): number => Math.floor(Math.random() * 10000)
+
+export const generateShortId = (prefix?: string) => {
+  const id = shortid.generate()
+  return prefix ? `${prefix}_${id}` : id
+}
 
 export const isIE = function(): boolean {
   return !isNaN(Number(document.DOCUMENT_NODE))

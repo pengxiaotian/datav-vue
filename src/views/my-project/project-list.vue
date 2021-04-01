@@ -56,7 +56,7 @@ import {
   computed, toRef, provide,
 } from 'vue'
 import _ from 'lodash'
-import { ProjectGroup } from '@/domains/project'
+import { ProjectGroup } from '@/domains/project.entity'
 import MyScreen from './my-screen.vue'
 import PublishScreen from './publish-screen.vue'
 
