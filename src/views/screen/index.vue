@@ -1,9 +1,10 @@
 <template>
   <el-container class="edit-container">
     <el-header style="height: auto; padding: 0;">
-      <toolbar :screen="screen" :page-config="pageConfig" />
+      <toolbar />
     </el-header>
     <el-container class="edit-main-wp">
+      <layer-panel />
       <el-container class="edit-main">
         <!-- <canvas-main /> -->
       </el-container>
@@ -15,11 +16,13 @@
 import { defineComponent, computed, onMounted, ref } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import toolbar from './toolbar/index.vue'
+import LayerPanel from './layer-panel/index.vue'
 
 export default defineComponent({
   name: 'Screen',
   components: {
     toolbar,
+    LayerPanel,
   },
   props: {
     projectId: {
@@ -35,11 +38,11 @@ export default defineComponent({
         ? parseInt(props.projectId) : props.projectId
     })
 
-    const screen = computed(() => EditorModule.screen)
     const pageConfig = computed(() => EditorModule.pageConfig)
 
     onMounted(() => {
-      EditorModule.loadScreen(screenId.value).finally(() => {
+      EditorModule.loadScreen(screenId.value)
+      EditorModule.loadComs(screenId.value).finally(() => {
         loading.value = false
       })
     })
@@ -47,7 +50,6 @@ export default defineComponent({
     return {
       loading,
       screenId,
-      screen,
       pageConfig,
     }
   },

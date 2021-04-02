@@ -3,3 +3,10 @@ export enum ComType {
   subCom = 'subCom',
   layer = 'layer',
 }
+
+export enum MoveType {
+  up,
+  down,
+  top,
+  bottom,
+}

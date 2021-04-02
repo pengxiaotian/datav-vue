@@ -1,5 +1,5 @@
 import { generateShortId } from '@/utils/util'
-import { ComType } from '@/domains/enums/com-type'
+import { ComType } from '@/domains/enums/com-enums'
 import { findByComName } from '@/data/system-components'
 
 export class BaseComponent {
@@ -10,12 +10,11 @@ export class BaseComponent {
   alias: string
   icon: string
   img: string
-  lock: boolean
-  hide: boolean
 
+  locked: boolean
+  hided: boolean
   selected: boolean
   hovered: boolean
-  renameing: boolean
 
   attr: {
     x: number
@@ -43,14 +42,13 @@ export class BaseComponent {
 
     const obj = findByComName(this.name)!
     this.alias = obj.com.name
-    this.icon = obj.com.icon
-    this.img = obj.category2.icon
-    this.lock = false
-    this.hide = false
+    this.img = obj.com.icon
+    this.icon = obj.category.icon
+    this.locked = false
+    this.hided = false
 
     this.selected = false
     this.hovered = false
-    this.renameing = false
 
     this.attr = {
       x: 0,

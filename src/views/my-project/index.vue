@@ -192,7 +192,8 @@ export default defineComponent({
           success: () => {
             toggleProject(ungroup.value.id)
           },
-        })
+        },
+      )
     }
 
     provide('dragStart', () => {

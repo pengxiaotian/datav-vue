@@ -255,7 +255,7 @@ export const other = {
   ],
 }
 
-export const categories = [
+export const classifications = [
   {
     type: 'regular',
     name: '常规图表',
@@ -307,15 +307,15 @@ export const categories = [
 ]
 
 export function findByComName(name: string) {
-  for (let i = 0; i < categories.length; i++) {
-    const category1 = categories[i]
-    for (let j = 0; j < category1.data.length; j++) {
-      const category2 = category1.data[j]
-      const com = category2.data.find(m => m.type === name)
+  for (let i = 0; i < classifications.length; i++) {
+    const classification = classifications[i]
+    for (let j = 0; j < classification.data.length; j++) {
+      const category = classification.data[j]
+      const com = category.data.find(m => m.type === name)
       if (com) {
         return {
-          category1,
-          category2,
+          classification,
+          category,
           com,
         }
       }

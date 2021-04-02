@@ -1,0 +1,244 @@
+@import '~@/styles/themes/var';
+
+$panel_width: 200px;
+
+.layer-panel-wp {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  width: $panel_width !important;
+  height: 100%;
+  overflow: hidden;
+  background: $panel-bgcolor;
+  border-right: $border-dark;
+  transition: width 0.3s ease;
+  flex: none;
+  flex-direction: column;
+}
+
+.layer-manager {
+  z-index: 9;
+  display: flex;
+  width: $panel_width;
+  height: 100%;
+  overflow: hidden;
+  transition: 0.3s ease;
+  flex-direction: column;
+  flex: auto;
+}
+
+.layer-manager-top {
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+  color: $font-color;
+  text-indent: 10px;
+  background: $layer-bgcolor;
+  user-select: none;
+
+  .layer-num {
+    line-height: 30px;
+    vertical-align: middle;
+  }
+}
+
+.layer-layout {
+  position: absolute;
+  top: 0;
+  right: 1px;
+  font-size: 0;
+  letter-spacing: 4px;
+
+  .btn-icon {
+    text-indent: 0;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #fff;
+    }
+
+    &.selected {
+      color: $color-primary;
+    }
+  }
+}
+
+.layer-toolbar {
+  display: flex;
+  height: 30px;
+  padding: 0 18px;
+  background: $layer-toolbar-bgcolor;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+
+  .toolbar-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    color: $font-color;
+    border-radius: 1px;
+    transition: background 0.2s;
+
+    &.enable:hover {
+      color: #fff;
+      cursor: pointer;
+      background: $color-primary !important;
+    }
+
+    &.enable.checked {
+      color: #fff;
+      background: $color-primary !important;
+    }
+
+    &.standard:not(.enable):hover {
+      cursor: pointer;
+      background: $layer-toolbar-hover-bgcolor;
+      opacity: 0.5 !important;
+    }
+  }
+}
+
+.layer-toolbar-top {
+  border-bottom: $layer-toolbar-border;
+
+  .toolbar-icon {
+    margin: 0 9px;
+    line-height: 20px;
+    text-align: center;
+    background: $layer-toolbar-icon-color;
+  }
+}
+
+.layer-toolbar-bottom {
+  border-top: $layer-toolbar-border;
+
+  .toolbar-icon {
+    display: flex;
+    margin: 0 5px;
+    border: 1px solid transparent;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.layer-panel-wp.--hide {
+  width: 0 !important;
+
+  .layer-manager {
+    transform: translateX(-100%);
+  }
+}
+
+.layer-manager-wrap {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  font-size: 12px;
+  line-height: 2;
+  color: $font-color;
+  list-style: none;
+  background: $panel-bgcolor;
+  user-select: none;
+  flex: auto;
+  flex-direction: column;
+}
+
+.layer-manager-item {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 32px;
+  padding: 0 6px;
+  padding-left: 8px;
+  cursor: pointer;
+  background: $layer-manager-bgcolor;
+  box-sizing: border-box;
+  transition: background 0.2s;
+  align-items: center;
+  flex: none;
+
+  &.thumbail-wrap {
+    height: 48px;
+  }
+
+  &.hided,
+  &.locked {
+    color: $layer-manager-hide-color;
+    background: $layer-manager-hide-bgcolor;
+  }
+
+  &.hovered {
+    color: #fff;
+    background: rgba(143, 225, 255, 0.1);
+  }
+
+  &.selected {
+    color: #fff;
+    background: $color-primary;
+  }
+
+  .layer-item-thumbail {
+    display: block;
+    width: 53px;
+    height: 34px;
+    background: $layer-thumbail-bgcolor;
+    border: $border;
+    flex: none;
+  }
+
+  .layer-manager-thumbail {
+    margin-left: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: auto;
+  }
+
+  .layer-item-span {
+    overflow: hidden;
+    text-indent: 7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: auto;
+  }
+
+  .layer-item-input {
+    height: 20px;
+    padding: 0 4px;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 20px;
+    color: $font-color;
+    text-indent: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: 0 0;
+    border: none;
+    outline: 0;
+
+    &:focus {
+      color: #fff;
+      background: $layer-input-bgcolor;
+    }
+  }
+
+  .layer-thumbail-item {
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    line-height: 1;
+  }
+
+  .show-toggle-btn {
+    padding: 0 2px;
+  }
+}
+
+.last-flex-item {
+  flex: auto;
+  min-height: 40px;
+}

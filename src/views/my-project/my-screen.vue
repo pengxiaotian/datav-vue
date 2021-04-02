@@ -141,7 +141,8 @@ export default defineComponent({
     const confirmDeleteProject = () => {
       MessageBoxUtil.confirmAsync(
         `<b>${screenName.value}</b> 删除后无法恢复，确认删除？`,
-        () => deleteProject({ pid: id.value, gid: groupId.value }))
+        () => deleteProject({ pid: id.value, gid: groupId.value }),
+      )
     }
 
     const dragStart = inject('dragStart') as Function

@@ -110,24 +110,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
-import { ProjectConfig } from '@/domains/project'
+import { defineComponent } from 'vue'
 import { isMac } from '@/utils/util'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
+import { EditorModule } from '@/store/modules/editor'
 
 export default defineComponent({
   name: 'Toolbar',
-  props: {
-    screen: {
-      type: Object as PropType<Screen>,
-      required: true,
-    },
-    pageConfig: {
-      type: Object as PropType<ProjectConfig>,
-      required: true,
-    },
-  },
   computed: {
+    screen() {
+      return EditorModule.screen
+    },
+    pageConfig() {
+      return EditorModule.pageConfig
+    },
     layer() {
       return ToolbarModule.layer.show
     },

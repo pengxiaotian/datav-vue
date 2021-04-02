@@ -4,15 +4,20 @@ import {
 import store from '@/store'
 import { Project, ProjectConfig } from '@/domains/project'
 import { BaseComponent } from '@/domains/base-component'
-import { getComs } from '@/api/coms'
+import { getComs, deleteCom } from '@/api/coms'
 import { getProject } from '@/api/project'
-import { ComType } from '@/domains/enums/com-type'
+import { ComType, MoveType } from '@/domains/enums/com-enums'
 
 config.rawError = true
 
 /* region interfaces */
 
 export type Screen = Pick<Project, 'id' | 'name'>
+
+interface MoveComDto {
+  id: string
+  moveType: MoveType
+}
 
 export interface IEditorState {
   screen: Screen
@@ -22,6 +27,10 @@ export interface IEditorState {
 }
 
 /* endregion */
+
+const findComIndex = (coms: BaseComponent[], id: string) => {
+  return coms.findIndex(c => c.id === id)
+}
 
 @Module({ dynamic: true, store, name: 'editor' })
 class Editor extends VuexModule implements IEditorState {
@@ -43,6 +52,10 @@ class Editor extends VuexModule implements IEditorState {
 
   coms: BaseComponent[] = [];
   subComs: BaseComponent[] = [];
+
+  public get selectedCom() {
+    return this.coms.find(m => m.selected)
+  }
 
   @Mutation
   private SET_SCREEN(payload: Project) {
@@ -70,6 +83,38 @@ class Editor extends VuexModule implements IEditorState {
     this.subComs = subComs
   }
 
+  @Mutation
+  public MOVE_COM_ZINDEX({ id, moveType }: MoveComDto) {
+    const i = findComIndex(this.coms, id)
+    console.log(this.coms)
+    if (moveType === MoveType.up) {
+      if (i > 0) {
+        this.coms.splice(i - 1, 0, ...this.coms.splice(i, 1))
+      }
+    } else if (moveType === MoveType.down) {
+      if (i + 1 < this.coms.length) {
+        this.coms.splice(i + 1, 0, ...this.coms.splice(i, 1))
+      }
+    } else if (moveType === MoveType.top) {
+      if (i > 0) {
+        this.coms.unshift(...this.coms.splice(i, 1))
+      }
+    } else if (moveType === MoveType.bottom) {
+      if (i + 1 < this.coms.length) {
+        this.coms.push(...this.coms.splice(i, 1))
+      }
+    }
+  }
+
+  @Mutation
+  private DELETE_COM(com: BaseComponent) {
+    if (com.type === ComType.com) {
+      this.coms.splice(findComIndex(this.coms, com.id), 1)
+    } else {
+      this.subComs.splice(findComIndex(this.subComs, com.id), 1)
+    }
+  }
+
   @Action
   public async loadScreen(projectId: number) {
     try {
@@ -90,6 +135,20 @@ class Editor extends VuexModule implements IEditorState {
       const res = await getComs(projectId)
       if (res.data.code === 0) {
         this.SET_COMS(res.data.data)
+      } else {
+        throw Error(res.data.message)
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  @Action
+  public async deleteCom(com: BaseComponent) {
+    try {
+      const res = await deleteCom(com.id)
+      if (res.data.code === 0) {
+        this.DELETE_COM(com)
       } else {
         throw Error(res.data.message)
       }
