@@ -126,16 +126,18 @@ $select-option-bgcolor: #1d2126;
 $select-option-hover-bgcolor: #1b3964;
 $select-selected-color: #fff;
 
-// Editor
+/* Editor
+-------------------------- */
+// Header
 $header-color: #a1aeb3;
 $header-icon-color: #fff;
 $header-bgcolor: #1d1e1f;
 $header-btn-bgcolor: #303640;
 $header-btn-hover-bgcolor: #414750;
 
+// Layer
 $panel-bgcolor: #1d2126;
 $layer-bgcolor: #2e343c;
-
 $layer-font-color: #fff;
 $layer-toolbar-bgcolor: #20242a;
 $layer-toolbar-hover-bgcolor: #3a4650;
@@ -146,3 +148,14 @@ $layer-manager-hide-color: #576369;
 $layer-manager-hide-bgcolor: #1c1f25;
 $layer-thumbail-bgcolor: #282a30;
 $layer-input-bgcolor: #363c48;
+
+// ContextMenu
+$context-menu-font-color: $font-color;
+$context-menu-bgcolor: #27343e;
+$context-menu-hover-color: #00baff;
+$context-menu-hover-bgcolor: #1d262e;
+$context-menu-disable-color: #576369;
+$context-menu-divider-bgcolor: #3a4659;
+
+/* Editor End
+-------------------------- */

@@ -135,10 +135,10 @@ export default defineComponent({
     },
   },
   mounted() {
-    document.addEventListener('keydown', this.addShortcuts)
+    document.addEventListener('keydown', this.addShortcuts, false)
   },
   unmounted() {
-    document.removeEventListener('keydown', this.addShortcuts)
+    document.removeEventListener('keydown', this.addShortcuts, false)
   },
   methods: {
     changeLayerPanel() {

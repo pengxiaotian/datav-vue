@@ -10,6 +10,7 @@
       </el-container>
     </el-container>
   </el-container>
+  <editor-context-menu />
 </template>
 
 <script lang='ts'>
@@ -17,12 +18,14 @@ import { defineComponent, computed, onMounted, ref } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import toolbar from './toolbar/index.vue'
 import LayerPanel from './layer-panel/index.vue'
+import EditorContextMenu from './editor-context-menu/index.vue'
 
 export default defineComponent({
   name: 'Screen',
   components: {
     toolbar,
     LayerPanel,
+    EditorContextMenu,
   },
   props: {
     projectId: {

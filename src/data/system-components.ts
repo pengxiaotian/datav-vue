@@ -4,29 +4,29 @@ export const bar = {
   icon: 'v-icon-chart-bar',
   data: [
     {
-      type: 'VBasicBar',
-      name: '基本柱状图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/basic-bar.png`,
+      name: 'VBasicBar',
+      alias: '基本柱状图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/basic-bar.png`,
       used: true,
     }, {
-      type: 'VArcBar',
-      name: '弧形柱图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/arc-bar.png`,
+      name: 'VArcBar',
+      alias: '弧形柱图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/arc-bar.png`,
       used: true,
     }, {
-      type: 'VBarWithLine',
-      name: '折线柱图(多)',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/bar-with-line.png`,
+      name: 'VBarWithLine',
+      alias: '折线柱图(多)',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/bar-with-line.png`,
       used: true,
     }, {
-      type: 'VLineBarChart',
-      name: '折线柱图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/line-bar-chart.png`,
+      name: 'VLineBarChart',
+      alias: '折线柱图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/line-bar-chart.png`,
       used: true,
     }, {
-      type: 'VHoriBasicBar',
-      name: '水平基本柱状图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/hori-basic-bar.png`,
+      name: 'VHoriBasicBar',
+      alias: '水平基本柱状图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/hori-basic-bar.png`,
       used: true,
     },
   ],
@@ -38,14 +38,14 @@ export const line = {
   icon: 'v-icon-chart-line',
   data: [
     {
-      type: 'VBasicLine',
-      name: '基本折线图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/basic-line.png`,
+      name: 'VBasicLine',
+      alias: '基本折线图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/basic-line.png`,
       used: true,
     }, {
-      type: 'VBasicArea',
-      name: '区域图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/basic-area.png`,
+      name: 'VBasicArea',
+      alias: '区域图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/basic-area.png`,
       used: true,
     },
   ],
@@ -57,14 +57,14 @@ export const pie = {
   icon: 'v-icon-chart-pie',
   data: [
     {
-      type: 'VBasicPie',
-      name: '基本饼图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/basic-pie.png`,
+      name: 'VBasicPie',
+      alias: '基本饼图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/basic-pie.png`,
       used: true,
     }, {
-      type: 'VPieOneValue',
-      name: '指标占比图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/pie-one-value.png`,
+      name: 'VPieOneValue',
+      alias: '指标占比图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/pie-one-value.png`,
       used: true,
     },
   ],
@@ -76,27 +76,27 @@ export const map = {
   icon: 'v-icon-map',
   data: [
     {
-      type: 'VChina2d',
-      name: '基础平面地图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/2d-china.png`,
+      name: 'VChina2d',
+      alias: '基础平面地图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/2d-china.png`,
       used: true,
       children: [
         {
-          type: 'VChina2dEffectScatter',
-          name: '动态气泡层',
-          icon: `${process.env.VUE_APP_HOST_FILE}/com/2d-china.png`,
+          name: 'VChina2dEffectScatter',
+          alias: '动态气泡层',
+          img: `${process.env.VUE_APP_HOST_FILE}/com/2d-china.png`,
           used: true,
         }, {
-          type: 'VChina2dFlyLines',
-          name: '飞线层',
-          icon: `${process.env.VUE_APP_HOST_FILE}/com/2d-china.png`,
+          name: 'VChina2dFlyLines',
+          alias: '飞线层',
+          img: `${process.env.VUE_APP_HOST_FILE}/com/2d-china.png`,
           used: true,
         },
       ],
     }, {
-      type: 'VBasicLine',
-      name: '世界',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/3d-world.png`,
+      name: 'VBasicLine',
+      alias: '世界',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/3d-world.png`,
       used: false,
     },
   ],
@@ -108,9 +108,9 @@ export const img = {
   icon: 'v-icon-img',
   data: [
     {
-      type: 'VMainImg',
-      name: '单张图片',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/main-img.png`,
+      name: 'VMainImg',
+      alias: '单张图片',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/main-img.png`,
       used: true,
     },
   ],
@@ -122,39 +122,39 @@ export const title = {
   icon: 'v-icon-title',
   data: [
     {
-      type: 'VMainTitle',
-      name: '通用标题',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/main-title.png`,
+      name: 'VMainTitle',
+      alias: '通用标题',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/main-title.png`,
       used: true,
     }, {
-      type: 'VMarquee',
-      name: '跑马灯',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/marquee.png`,
+      name: 'VMarquee',
+      alias: '跑马灯',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/marquee.png`,
       used: true,
     }, {
-      type: 'VWordCloud',
-      name: '词云',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/word-cloud.png`,
+      name: 'VWordCloud',
+      alias: '词云',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/word-cloud.png`,
       used: true,
     }, {
-      type: 'VNumberTitleFlop',
-      name: '数字翻牌器',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/number-title-flop.png`,
+      name: 'VNumberTitleFlop',
+      alias: '数字翻牌器',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/number-title-flop.png`,
       used: true,
     }, {
-      type: 'VParagraph',
-      name: '多行文本',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/paragraph.png`,
+      name: 'VParagraph',
+      alias: '多行文本',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/paragraph.png`,
       used: true,
     }, {
-      type: 'VPercentageBar',
-      name: '进度条',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/percentage-bar.png`,
+      name: 'VPercentageBar',
+      alias: '进度条',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/percentage-bar.png`,
       used: true,
     }, {
-      type: 'VTimer',
-      name: '时间器',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/timer.png`,
+      name: 'VTimer',
+      alias: '时间器',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/timer.png`,
       used: true,
     },
   ],
@@ -166,14 +166,14 @@ export const list = {
   icon: 'v-icon-list',
   data: [
     {
-      type: 'VCarouselTable',
-      name: '轮播列表',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/carousel-table.png`,
+      name: 'VCarouselTable',
+      alias: '轮播列表',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/carousel-table.png`,
       used: true,
     }, {
-      type: 'VTableBar',
-      name: '轮播列表柱状图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/table-bar.png`,
+      name: 'VTableBar',
+      alias: '轮播列表柱状图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/table-bar.png`,
       used: true,
     },
   ],
@@ -185,9 +185,9 @@ export const relation = {
   icon: 'v-icon-relation',
   data: [
     {
-      type: 'VTree',
-      name: '树图',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/tree.png`,
+      name: 'VTree',
+      alias: '树图',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/tree.png`,
       used: true,
     },
   ],
@@ -199,19 +199,19 @@ export const material = {
   icon: 'v-icon-material',
   data: [
     {
-      type: 'VDecoration',
-      name: '装饰',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/decoration.png`,
+      name: 'VDecoration',
+      alias: '装饰',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/decoration.png`,
       used: true,
     }, {
-      type: 'VBorderBox',
-      name: '边框',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/border-box.png`,
+      name: 'VBorderBox',
+      alias: '边框',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/border-box.png`,
       used: true,
     }, {
-      type: 'VBGBox',
-      name: '自定义背景',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/bg-box.png`,
+      name: 'VBGBox',
+      alias: '自定义背景',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/bg-box.png`,
       used: true,
     },
   ],
@@ -223,19 +223,19 @@ export const interact = {
   icon: 'v-icon-interact',
   data: [
     {
-      type: 'VTabList',
-      name: 'Tab列表',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/tab-list.png`,
+      name: 'VTabList',
+      alias: 'Tab列表',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/tab-list.png`,
       used: true,
     }, {
-      type: 'VFullScreen',
-      name: '全屏切换',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/full-screen.png`,
+      name: 'VFullScreen',
+      alias: '全屏切换',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/full-screen.png`,
       used: true,
     }, {
-      type: 'VTabSelect',
-      name: 'Tab选择器',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/tab-select.png`,
+      name: 'VTabSelect',
+      alias: 'Tab选择器',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/tab-select.png`,
       used: true,
     },
   ],
@@ -247,9 +247,9 @@ export const other = {
   icon: 'v-icon-other',
   data: [
     {
-      type: 'VDatePicker',
-      name: '日期选择器',
-      icon: `${process.env.VUE_APP_HOST_FILE}/com/date-picker.jpg`,
+      name: 'VDatePicker',
+      alias: '日期选择器',
+      img: `${process.env.VUE_APP_HOST_FILE}/com/date-picker.jpg`,
       used: true,
     },
   ],
@@ -306,12 +306,12 @@ export const classifications = [
   },
 ]
 
-export function findByComName(name: string) {
+export function findComByName(name: string) {
   for (let i = 0; i < classifications.length; i++) {
     const classification = classifications[i]
     for (let j = 0; j < classification.data.length; j++) {
       const category = classification.data[j]
-      const com = category.data.find(m => m.type === name)
+      const com = category.data.find(m => m.name === name)
       if (com) {
         return {
           classification,

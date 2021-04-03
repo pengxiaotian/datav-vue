@@ -1,6 +1,6 @@
 import { generateShortId } from '@/utils/util'
 import { ComType } from '@/domains/enums/com-enums'
-import { findByComName } from '@/data/system-components'
+import { findComByName } from '@/data/system-components'
 
 export class BaseComponent {
   id: string
@@ -13,8 +13,10 @@ export class BaseComponent {
 
   locked: boolean
   hided: boolean
+
   selected: boolean
   hovered: boolean
+  renameing: boolean
 
   attr: {
     x: number
@@ -26,8 +28,8 @@ export class BaseComponent {
   }
 
   projectId: number
-  parentId: string | null
-  children: BaseComponent[] | null
+  parentId?: string
+  // children: BaseComponent[] | null
 
   config: Record<string, any>
 
@@ -40,15 +42,16 @@ export class BaseComponent {
     this.name = `V${name}`
     this.type = type
 
-    const obj = findByComName(this.name)!
-    this.alias = obj.com.name
-    this.img = obj.com.icon
+    const obj = findComByName(this.name)!
+    this.alias = obj.com.alias
     this.icon = obj.category.icon
+    this.img = obj.com.img
     this.locked = false
     this.hided = false
 
     this.selected = false
     this.hovered = false
+    this.renameing = false
 
     this.attr = {
       x: 0,
@@ -60,8 +63,7 @@ export class BaseComponent {
     }
 
     this.projectId = 0
-    this.parentId = null
-    this.children = null
+    // this.children = null
 
     this.config = {}
     this.data = {}

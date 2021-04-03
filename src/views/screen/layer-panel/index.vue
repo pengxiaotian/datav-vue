@@ -64,6 +64,7 @@
             @mousedown="selectCom(com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
+            @contextmenu="showMenu"
           >
             <i :class="com.icon"></i>
             <input
@@ -101,6 +102,7 @@
             @mousedown="selectCom(com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
+            @contextmenu="showMenu"
           >
             <img class="layer-item-thumbail" :src="com.img">
             <div class="layer-manager-thumbail">
@@ -165,6 +167,7 @@ import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { MoveType } from '@/domains/enums/com-enums'
 import { MessageBoxUtil } from '@/utils/message-util'
+import { useContextMenu } from '../editor-context-menu/index'
 
 export default defineComponent({
   name: 'LayerPanel',
@@ -209,11 +212,10 @@ export default defineComponent({
       }
     }
 
-    // 因为组件列表是倒序排序，所以移动时也要反着来
-    const moveUp = () => moveCom(MoveType.down)
-    const moveDown = () => moveCom(MoveType.up)
-    const moveTop = () => moveCom(MoveType.bottom)
-    const moveBottom = () => moveCom(MoveType.top)
+    const moveUp = () => moveCom(MoveType.up)
+    const moveDown = () => moveCom(MoveType.down)
+    const moveTop = () => moveCom(MoveType.top)
+    const moveBottom = () => moveCom(MoveType.bottom)
 
     const lockCom = () => {
       if (selectedCom.value) {
@@ -237,6 +239,8 @@ export default defineComponent({
       }
     }
 
+    const { showMenu } = useContextMenu()
+
 
     return {
       showText,
@@ -256,6 +260,7 @@ export default defineComponent({
       lockCom,
       hideCom,
       toDeleteCom,
+      showMenu,
     }
   },
 })
