@@ -8,7 +8,7 @@ config.rawError = true
 
 export enum PanelType {
   layer = 'layer',
-  coms = 'coms',
+  comList = 'comList',
   config = 'config',
 }
 
@@ -19,7 +19,7 @@ function getPanelState(key: PanelType) {
     const val = localStorage.getItem(panelStateKey) || ''
     return JSON.parse(val)[key] === '1'
   } catch (error) {
-    return key !== PanelType.coms
+    return key !== PanelType.comList
   }
 }
 
@@ -44,7 +44,7 @@ export interface IToolbarState {
   layer: {
     show: boolean
   }
-  coms: {
+  comList: {
     show: boolean
   }
   config: {
@@ -87,8 +87,8 @@ class Toolbar extends VuexModule implements IToolbarState {
     show: getPanelState(PanelType.layer),
   }
 
-  coms = {
-    show: getPanelState(PanelType.coms),
+  comList = {
+    show: getPanelState(PanelType.comList),
   }
 
   config = {
@@ -131,8 +131,8 @@ class Toolbar extends VuexModule implements IToolbarState {
   @Mutation
   private SET_PANEL_STATE(payload: { type: PanelType; value: boolean; }) {
     switch (payload.type) {
-      case PanelType.coms:
-        this.coms.show = payload.value
+      case PanelType.comList:
+        this.comList.show = payload.value
         break
       case PanelType.config:
         this.config.show = payload.value
@@ -172,7 +172,7 @@ class Toolbar extends VuexModule implements IToolbarState {
         cw -= 200
       }
 
-      if (this.coms.show) {
+      if (this.comList.show) {
         cw -= 233
       }
 
@@ -218,7 +218,7 @@ class Toolbar extends VuexModule implements IToolbarState {
       cw -= 200
     }
 
-    if (this.coms.show) {
+    if (this.comList.show) {
       cw -= 233
     }
 

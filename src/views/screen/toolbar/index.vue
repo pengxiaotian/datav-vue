@@ -27,10 +27,10 @@
           :enterable="false"
         >
           <div
-            :class="['head-btn mr4', { '--selected': coms }]"
+            :class="['head-btn mr4', { '--selected': comList }]"
             @click="changeComsPanel"
           >
-            <i :class="['v-icon-box com-list-icon', { '--rotate': !coms }]"></i>
+            <i :class="['v-icon-box com-list-icon', { '--rotate': !comList }]"></i>
           </div>
         </el-tooltip>
         <el-tooltip
@@ -127,8 +127,8 @@ export default defineComponent({
     layer() {
       return ToolbarModule.layer.show
     },
-    coms() {
-      return ToolbarModule.coms.show
+    comList() {
+      return ToolbarModule.comList.show
     },
     config() {
       return ToolbarModule.config.show
@@ -145,7 +145,7 @@ export default defineComponent({
       ToolbarModule.setPanelState({ type: PanelType.layer, value: !this.layer })
     },
     changeComsPanel() {
-      ToolbarModule.setPanelState({ type: PanelType.coms, value: !this.coms })
+      ToolbarModule.setPanelState({ type: PanelType.comList, value: !this.comList })
     },
     changeConfigPanel() {
       ToolbarModule.setPanelState({ type: PanelType.config, value: !this.config })
