@@ -111,7 +111,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { isMac } from '@/utils/util'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 
@@ -120,9 +119,6 @@ export default defineComponent({
   computed: {
     screen() {
       return EditorModule.screen
-    },
-    pageConfig() {
-      return EditorModule.pageConfig
     },
     layer() {
       return ToolbarModule.layer.show
@@ -134,12 +130,6 @@ export default defineComponent({
       return ToolbarModule.config.show
     },
   },
-  mounted() {
-    document.addEventListener('keydown', this.addShortcuts, false)
-  },
-  unmounted() {
-    document.removeEventListener('keydown', this.addShortcuts, false)
-  },
   methods: {
     changeLayerPanel() {
       ToolbarModule.setPanelState({ type: PanelType.layer, value: !this.layer })
@@ -149,29 +139,6 @@ export default defineComponent({
     },
     changeConfigPanel() {
       ToolbarModule.setPanelState({ type: PanelType.config, value: !this.config })
-    },
-    addShortcuts(ev: KeyboardEvent) {
-      const target = ev.target as HTMLElement
-      if (!['input','textarea'].includes(target.tagName.toLowerCase())) {
-        const ismac = isMac()
-        if ((!ismac && ev.ctrlKey) || (ismac && ev.metaKey)) {
-          const key = ev.key.toLowerCase()
-          if (key === 'arrowleft') {
-            this.changeLayerPanel()
-          } else if (key === 'arrowup') {
-            this.changeComsPanel()
-          } else if (key === 'arrowright') {
-            this.changeConfigPanel()
-          } else if (key === 'a') {
-            ToolbarModule.autoCanvasScale({
-              width: this.pageConfig.width,
-              height: this.pageConfig.height,
-            })
-          }
-
-          ev.preventDefault()
-        }
-      }
     },
   },
 })

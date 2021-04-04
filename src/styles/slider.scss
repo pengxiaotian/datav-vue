@@ -1,0 +1,25 @@
+@import "themes/var";
+
+.el-slider {
+  .el-slider__runway {
+    height: 2px;
+    margin: 14px 0;
+    background-color: $slider-runway-color;
+    border-radius: 1px;
+  }
+
+  .el-slider__bar {
+    height: 2px;
+  }
+
+  .el-slider__button-wrapper {
+    top: -9px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .el-slider__button {
+    width: 10px;
+    height: 10px;
+  }
+}

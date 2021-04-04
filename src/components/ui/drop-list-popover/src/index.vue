@@ -4,7 +4,7 @@
     :placement="placement"
     :trigger="trigger"
     width="auto"
-    popper-class="drop-list-popover is-dark"
+    popper-class="drop-list-popover"
   >
     <template #reference>
       <slot></slot>

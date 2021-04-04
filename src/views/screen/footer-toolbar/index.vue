@@ -1,21 +1,334 @@
 <template>
-  <div>
-    FooterToolbar
-  </div>
+  <el-footer height="32px" class="bottom-sider">
+    <div class="btn-box">
+      <span class="btn-text">参考线</span>
+      <el-switch v-model="referLine.enable" class="btn-sw" />
+    </div>
+    <div class="btn-box">
+      <span class="btn-text">对齐线</span>
+      <el-tooltip placement="top" effect="blue">
+        <template #content>
+          组件数量多时，容易卡顿，<br>建议关闭
+        </template>
+        <i class="v-icon-help"></i>
+      </el-tooltip>
+      <el-switch v-model="alignLine.enable" class="btn-sw" />
+    </div>
+    <el-popover
+      width="235"
+      placement="top"
+      trigger="hover"
+      popper-class="editor-popover"
+    >
+      <template #reference>
+        <i class="v-icon-shortcut shortcut-btn"></i>
+      </template>
+      <div class="shortcut-wp">
+        <div class="shortcut-item">
+          <div class="shortcut-title">开关图层面板</div>
+          <div class="shortcut-value">Ctrl/Cmd + ←</div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-title">开关组件面板</div>
+          <div class="shortcut-value">Ctrl/Cmd + ↑</div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-title">开关右侧面板</div>
+          <div class="shortcut-value">Ctrl/Cmd + →</div>
+        </div>
+        <div class="shortcut-item">
+          <div class="shortcut-title">画布缩放到最佳位置</div>
+          <div class="shortcut-value">Ctrl/Cmd + a</div>
+        </div>
+      </div>
+    </el-popover>
+    <div class="scale-input-wp">
+      <input
+        v-model="inputScale"
+        type="number"
+        class="scale-input"
+        @keydown.enter="submitScale(0)"
+      >
+      <span class="percent">%</span>
+      <el-popover
+        :visible="visibleScaleList"
+        width="56"
+        placement="top"
+        trigger="manual"
+        popper-class="editor-popover"
+        :show-arrow="false"
+      >
+        <div class="scale-value-list">
+          <div
+            v-for="s in scaleList"
+            :key="s"
+            class="scale-value-item"
+            @click="submitScale(s)"
+          >
+            {{ `${s}%` }}
+          </div>
+          <div class="scale-value-item" @click="submitScale(-1)">自适应</div>
+        </div>
+        <template #reference>
+          <i class="el-icon-arrow-down open-icon" @click.stop="showScaleList"></i>
+        </template>
+      </el-popover>
+    </div>
+    <div
+      style="width: 190px;"
+      @mouseenter="useSlider = true"
+      @mouseleave="useSlider = false"
+    >
+      <el-slider
+        v-model="scale"
+        :min="20"
+        :max="200"
+        :step="5"
+        :show-tooltip="false"
+      />
+    </div>
+  </el-footer>
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { defineComponent, ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { isMac } from '@/utils/util'
+import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
+import { EditorModule } from '@/store/modules/editor'
 
 export default defineComponent({
   name: 'FooterToolbar',
-  props: { },
-  setup(props) {
-    // init here
+  setup() {
+    const scaleList = ref([200, 150, 100, 50])
+    const scale = ref(20)
+    const inputScale = ref(20)
+    const visibleScaleList = ref(false)
+    const useSlider = ref(false)
+    const pageConfig = computed(() => EditorModule.pageConfig)
+    const referLine = computed(() => ToolbarModule.referLine)
+    const alignLine = computed(() => ToolbarModule.alignLine)
+
+    const hideScaleList = () => {
+      visibleScaleList.value = false
+      document.removeEventListener('click', hideScaleList, false)
+    }
+
+    const showScaleList = () => {
+      visibleScaleList.value = true
+      document.addEventListener('click', hideScaleList, false)
+    }
+
+    const submitScale = (val: number) => {
+      if (val === -1) {
+        ToolbarModule.autoCanvasScale({
+          width: pageConfig.value.width,
+          height: pageConfig.value.height,
+        })
+      } else {
+        ToolbarModule.setCanvasScale({
+          scale: val === 0 ? inputScale.value : val,
+          width: pageConfig.value.width,
+          height: pageConfig.value.height,
+        })
+      }
+    }
+
+    watch(() => scale.value, s => submitScale(s))
+
+    watch(
+      () => ToolbarModule.canvas.scale,
+      s => {
+        const val = parseInt((s * 100).toFixed(2))
+        scale.value = val
+        inputScale.value = val
+      },
+    )
+
+    const addShortcuts = (ev: KeyboardEvent) => {
+      const target = ev.target as HTMLElement
+      if (!['input','textarea'].includes(target.tagName.toLowerCase())) {
+        const ismac = isMac()
+        if ((!ismac && ev.ctrlKey) || (ismac && ev.metaKey)) {
+          const key = ev.key.toLowerCase()
+          const { setPanelState } = ToolbarModule
+          if (key === 'arrowleft') {
+            setPanelState({ type: PanelType.layer, value: !ToolbarModule.layer.show })
+          } else if (key === 'arrowup') {
+            setPanelState({ type: PanelType.comList, value: !ToolbarModule.comList.show })
+          } else if (key === 'arrowright') {
+            setPanelState({ type: PanelType.config, value: !ToolbarModule.config.show })
+          } else if (key === 'a') {
+            ToolbarModule.autoCanvasScale({
+              width: pageConfig.value.width,
+              height: pageConfig.value.height,
+            })
+          }
+
+          ev.preventDefault()
+        }
+      }
+    }
+
+    onMounted(() => {
+      document.addEventListener('keydown', addShortcuts, false)
+    })
+
+    onUnmounted(() => {
+      document.removeEventListener('keydown', addShortcuts, false)
+    })
+
+    return {
+      scaleList,
+      scale,
+      inputScale,
+      visibleScaleList,
+      showScaleList,
+      useSlider,
+      referLine,
+      alignLine,
+      submitScale,
+    }
   },
 })
 </script>
 
 <style lang="scss" scoped>
 @import '~@/styles/themes/var';
+
+.bottom-sider {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  display: flex;
+  width: 100%;
+  height: 32px;
+  background: $footer-bgcolor;
+  box-shadow: 0 -1px $shadow-color;
+  user-select: none;
+  align-items: center;
+  justify-content: flex-end;
+
+  .shortcut-btn {
+    margin-right: 20px;
+    font-size: 18px;
+    color: $footer-color;
+    cursor: pointer;
+  }
+
+  .scale-input-wp {
+    position: relative;
+    display: block;
+    width: 58px;
+    height: 20px;
+    line-height: 18px;
+    margin-right: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    background: $color-dark;
+    border: $border-outline;
+
+    .scale-input {
+      width: 27px;
+      padding-left: 5px;
+      font-size: 12px;
+      color: $footer-color;
+      text-align: right;
+      background: transparent;
+      caret-color: $footer-color;
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+      }
+    }
+
+    .percent {
+      margin-left: 1px;
+      color: $footer-color;
+    }
+
+    .open-icon {
+      position: absolute;
+      top: -7px;
+      right: -9px;
+      padding: 10px;
+      font-weight: bold;
+      color: $footer-color;
+      transform: scale(0.7);
+    }
+  }
+}
+
+.shortcut-wp {
+  position: relative;
+  padding: 5px 10px;
+  font-size: 12px;
+  background: $background-color-secondary;
+  box-shadow: $shadow-secondary;
+  user-select: none;
+
+  .shortcut-item {
+    display: flex;
+    margin: 5px 0;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .shortcut-title {
+    padding-right: 15px;
+    color: $footer-color;
+  }
+
+  .shortcut-value {
+    padding: 4px 6px;
+    font-weight: 700;
+    color: $footer-shortcut-color;
+    background: $footer-shortcut-bgcolor;
+    border-radius: 2px;
+  }
+}
+
+.scale-value-list {
+  font-size: 12px;
+  background: $footer-shortcut-bgcolor;
+  border: $border-outline;
+  user-select: none;
+
+  .scale-value-item {
+    width: 54px;
+    padding: 5px 0;
+    color: $footer-color;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      color: $footer-hover-color;
+      background: $footer-shortcut-hover-color;
+    }
+
+    &:not(:first-child) {
+      border-top: $border-outline;
+    }
+  }
+}
+
+.btn-box {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  line-height: 28px;
+  margin-right: 20px;
+  color: $footer-color;
+
+  .btn-text {
+    margin-right: 2px;
+  }
+
+  .btn-sw {
+    margin-left: 3px;
+  }
+}
 </style>

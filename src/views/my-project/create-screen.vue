@@ -536,7 +536,7 @@ export default defineComponent({
   background-image: linear-gradient(
     #{$angle},
     rgba(0, 0, 0, 0) 64%,
-    $background-coms-color 100%
+    #303640 100%
   );
   width: 82px;
   height: 96px;

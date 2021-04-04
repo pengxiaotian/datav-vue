@@ -44,7 +44,7 @@ $animation-duration-fast: 0.1s; // Tooltip
 // Background
 $background-color: #171b22;
 $background-dark-color: #1d262e;
-$background-coms-color: #303640;
+$background-color-secondary: #303640;
 
 // Border
 $border-color: #434b55;
@@ -69,6 +69,9 @@ $tooltip-popover-shadow-color: #000;
 $drop-list-popover-bgcolor: $color-dark;
 $drop-list-popover-hover-bgcolor: #1a1b1d;
 
+// Popover
+$popover-dark-bgcolor: $color-dark;
+
 // Border
 $border-color: #3a4659;
 $border: 1px solid $border-color;
@@ -76,7 +79,9 @@ $border-dark: 1px solid #000;
 $border-primary: 1px solid $color-primary;
 
 // Shadow
-$shadow: 0 0 10px -6px #000;
+$shadow-color: #000;
+$shadow: 0 0 10px -6px $shadow-color;
+$shadow-secondary: 0 0 8px -4px $shadow-color;
 
 // Icon
 $icon-color: $color-white;
@@ -137,6 +142,9 @@ $collapse-font-color: $font-color;
 $collapse-bgcolor: #13161a;
 $collapse-border-color: #2c2e33;
 
+// Slider
+$slider-runway-color: #bcc9d4;
+
 /* Editor
 -------------------------- */
 // Header
@@ -169,6 +177,16 @@ $context-menu-hover-color: #00baff;
 $context-menu-hover-bgcolor: #1d262e;
 $context-menu-disable-color: #576369;
 $context-menu-divider-bgcolor: #3a4659;
+
+// Footer
+$footer-bgcolor: #222528;
+$footer-color: $font-color;
+$footer-hover-color: $color-primary;
+$footer-shortcut-bgcolor: #262b33;
+$footer-shortcut-color: #08a1db;
+$footer-shortcut-hover-color: #0b0c0d;
+
+$editor-popover-bgcolor: #303640;
 
 /* Editor End
 -------------------------- */
