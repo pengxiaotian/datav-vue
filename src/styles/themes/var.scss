@@ -51,14 +51,9 @@ $border-color: #434b55;
 $border-outline: 1px solid #0b0c0d;
 
 // Input
-$input-bgcolor: $background-dark-color;
-$input-color: #fff;
-$input-hover-color: #bcc9d4;
+$input-font-color: $font-color;
+$input-bgcolor: $color-dark;
 $input-border-color: #0b0c0d;
-$input-label-color: #fff;
-
-$g-input-bgcolor: $color-dark;
-$g-input-color: #a1aeb3;
 
 // Scrollbar
 $scrollbar-thumb-bg: #434b55;
@@ -94,6 +89,8 @@ $state-color: #576369;
 $message-font-color: #fff;
 $message-success-bgcolor: #1b3964;
 $message-success-border-color: $color-primary;
+$message-warning-bgcolor: #593c27;
+$message-warning-border-color: $color-warning;
 $message-error-bgcolor: #5d2b3e;
 $message-error-border-color: $color-error;
 
@@ -121,10 +118,24 @@ $switch-bgcolor: #0b0c0d;
 $switch-border-color: #303740;
 
 // Select
+$select-font-color: #a1aeb3;
 $select-bgcolor: #111417;
 $select-option-bgcolor: #1d2126;
 $select-option-hover-bgcolor: #1b3964;
 $select-selected-color: #fff;
+
+// Tabs
+$tabs-nav-bgcolor: #191c21;
+$tabs-bar-active-bgcolor: $color-primary;
+$tabs-font-color: $font-color;
+$tabs-font-hover-color: $color-primary;
+$tabs-active-bgcolor: #14161a;
+$tabs-content-bgcolor: #13161a;
+
+// Collapse
+$collapse-font-color: $font-color;
+$collapse-bgcolor: #13161a;
+$collapse-border-color: #2c2e33;
 
 /* Editor
 -------------------------- */
@@ -137,6 +148,8 @@ $header-btn-hover-bgcolor: #414750;
 
 // Layer
 $panel-bgcolor: #1d2126;
+$panel-font-color: $font-color;
+$panel-img-border-color: #37bfff;
 $layer-bgcolor: #2e343c;
 $layer-font-color: #fff;
 $layer-toolbar-bgcolor: #20242a;

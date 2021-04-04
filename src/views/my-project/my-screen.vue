@@ -311,8 +311,8 @@ export default defineComponent({
       align-items: center;
       position: relative;
       justify-content: space-between;
-      color: $color-white;
-      background: $input-bgcolor;
+      color: #fff;
+      background: $background-dark-color;
       padding: 0 10px;
 
       .screen-name-input {
@@ -324,7 +324,7 @@ export default defineComponent({
 
         .input {
           width: 120px;
-          color: $input-hover-color;
+          color: $font-color;
           background: 0 0;
           padding: 0 5px;
           line-height: 28px;
@@ -334,11 +334,11 @@ export default defineComponent({
           border: 1px solid transparent;
 
           &:hover {
-            color: $input-color;
+            color: #fff;
           }
 
           &:focus {
-            background: $input-bgcolor;
+            background: $background-dark-color;
           }
         }
       }

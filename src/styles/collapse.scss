@@ -1,0 +1,24 @@
+@import "themes/var";
+
+.el-collapse {
+  border: none;
+
+  .el-collapse-item__header {
+    color: $collapse-font-color;
+    background-color: $collapse-bgcolor;
+    border-bottom: 1px solid $collapse-border-color;
+  }
+
+  .el-collapse-item__arrow {
+    font-weight: bold;
+  }
+
+  .el-collapse-item__wrap {
+    background-color: $collapse-bgcolor;
+    border-bottom: none;
+  }
+
+  .el-collapse-item__content {
+    color: $collapse-font-color;
+  }
+}

@@ -1,13 +1,32 @@
 @import "themes/var";
 
+.el-input {
+  .el-input__inner {
+    padding: 0 8px;
+    color: $input-font-color;
+    background: $input-bgcolor;
+    border: 1px solid $input-border-color;
+    border-radius: 0;
+    caret-color: $color-primary;
+
+    &:focus {
+      border-color: $color-primary;
+    }
+
+    &:hover {
+      border-color: $color-primary;
+    }
+  }
+}
+
 .g-input {
   height: 24px;
   display: inline-block;
-  background: $g-input-bgcolor;
+  background: $input-bgcolor;
   vertical-align: middle;
   padding: 0 8px;
   line-height: 16px;
-  color: $font-color;
+  color: $input-font-color;
   width: 100%;
   caret-color: $color-primary;
   box-sizing: border-box;

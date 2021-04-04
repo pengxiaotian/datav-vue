@@ -16,7 +16,7 @@
             :class="[{ selected: showText }]"
             @click="showText = true"
           ></i>
-          <i class="v-icon-back btn-icon" @click="changeLayerState"></i>
+          <i class="v-icon-back btn-icon" @click="changeVisible"></i>
         </div>
       </div>
       <div class="layer-toolbar layer-toolbar-top">
@@ -198,7 +198,7 @@ export default defineComponent({
       }
     })
 
-    const changeLayerState = () => {
+    const changeVisible = () => {
       ToolbarModule.setPanelState({ type: PanelType.layer, value: !layer.value })
     }
 
@@ -251,7 +251,7 @@ export default defineComponent({
       enableLockBtnClass,
       enableHideBtnClass,
       enableBtnStyle,
-      changeLayerState,
+      changeVisible,
       selectCom,
       moveUp,
       moveDown,

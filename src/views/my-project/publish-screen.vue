@@ -209,7 +209,7 @@ export default defineComponent({
   .label-color {
     font-size: 14px;
     letter-spacing: 1.09px;
-    color: $input-label-color;
+    color: #fff;
     white-space: nowrap;
     padding: 16px 0 10px;
   }
@@ -239,7 +239,7 @@ export default defineComponent({
     width: 80%;
     height: 50px;
     line-height: 22px;
-    background: $input-bgcolor;
+    background: $background-dark-color;
     cursor: pointer;
     resize: none;
   }
@@ -248,7 +248,7 @@ export default defineComponent({
     width: 80%;
     height: 25px;
     line-height: 25px;
-    background: $input-bgcolor;
+    background: $background-dark-color;
     cursor: text;
   }
 

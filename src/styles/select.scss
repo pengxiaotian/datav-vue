@@ -7,7 +7,7 @@
     color: $font-color;
     border-radius: 0;
     padding: 0 14px;
-    background-color: $g-input-bgcolor;
+    background-color: $input-bgcolor;
     border: $border-outline;
   }
 
@@ -62,7 +62,7 @@
 .el-select-dropdown__item {
   padding: 0 15px;
   font-size: 12px;
-  color: $g-input-color;
+  color: $select-font-color;
   height: 28px;
   line-height: 28px;
   background-color: $select-option-bgcolor;

@@ -525,7 +525,6 @@ export default defineComponent({
     margin-bottom: 15px;
     height: 28px;
     line-height: 26px;
-    background: $input-bgcolor;
   }
 }
 

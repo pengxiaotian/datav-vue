@@ -191,6 +191,7 @@ export default defineComponent({
       background: transparent;
       border: 0;
       border-radius: 0;
+      padding-left: 30px;
       -webkit-appearance: none;
       caret-color: #fff;
 

@@ -223,7 +223,7 @@ export default defineComponent({
       .search-input {
         @include utils-ellipsis;
 
-        background: $input-bgcolor;
+        background: $background-dark-color;
         color: #fff;
         padding: 0 10px;
         line-height: 30px;

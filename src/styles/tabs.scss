@@ -1,0 +1,55 @@
+@import "themes/var";
+
+.el-tabs--left {
+  display: flex;
+  height: 100%;
+  margin-top: 5px;
+
+  .el-tabs__header.is-left {
+    width: 48px;
+    margin-right: 0;
+  }
+
+  .el-tabs__nav-wrap {
+    height: 100%;
+    background: $tabs-nav-bgcolor;
+
+    &.is-left {
+      margin-right: 0;
+
+      &::after {
+        right: auto;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .el-tabs__active-bar {
+    background-color: $tabs-bar-active-bgcolor;
+
+    &.is-left {
+      right: auto;
+    }
+  }
+
+  .el-tabs__item {
+    padding: 0 16px;
+    color: $tabs-font-color;
+
+    &:hover {
+      color: $tabs-font-hover-color;
+    }
+
+    &.is-active {
+      color: $tabs-font-hover-color;
+      background: $tabs-active-bgcolor;
+    }
+  }
+
+  .el-tabs__content {
+    height: 100%;
+    overflow-y: scroll;
+    background: $tabs-content-bgcolor;
+    flex: 1;
+  }
+}

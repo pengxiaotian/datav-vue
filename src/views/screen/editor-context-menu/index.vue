@@ -54,9 +54,10 @@
 
 
 <script lang='ts'>
-import { defineComponent, onBeforeMount } from 'vue'
+import { defineComponent, onBeforeMount, onUnmounted } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import { MessageBoxUtil } from '@/utils/message-util'
+import { on, off } from '@/utils/dom'
 import { MoveType } from '@/domains/enums/com-enums'
 import { useContextMenu } from './index'
 
@@ -113,10 +114,14 @@ export default defineComponent({
       }
     }
 
+    const handleContextmenu = (ev: Event) => ev.preventDefault()
+
     onBeforeMount(() => {
-      document.addEventListener('contextmenu', ev => {
-        ev.preventDefault()
-      }, false)
+      on(document, 'contextmenu', handleContextmenu)
+    })
+
+    onUnmounted(() => {
+      off(document, 'contextmenu', handleContextmenu)
     })
 
     return {

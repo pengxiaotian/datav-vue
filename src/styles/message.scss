@@ -11,6 +11,10 @@
     color: $color-primary;
   }
 
+  .el-icon-warning {
+    color: $color-warning;
+  }
+
   .el-icon-error {
     color: $color-error;
   }
@@ -30,6 +34,17 @@
 .el-message--success {
   background-color: $message-success-bgcolor;
   border-color: $message-success-border-color;
+
+  .el-message__content {
+    font-size: 12px;
+    font-weight: 500;
+    color: $message-font-color;
+  }
+}
+
+.el-message--warning {
+  background-color: $message-warning-bgcolor;
+  border-color: $message-warning-border-color;
 
   .el-message__content {
     font-size: 12px;

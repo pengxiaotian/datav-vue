@@ -50,6 +50,14 @@ export const MessageUtil = {
     })
   },
 
+  warning(message: string, showClose = true) {
+    ElMessage({
+      type: 'warning',
+      showClose,
+      message,
+    })
+  },
+
   error(message: string, showClose = true) {
     ElMessage({
       type: 'error',
