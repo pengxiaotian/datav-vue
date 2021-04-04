@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="auto" :class="['com-panel-wp', { '--hide': !comList }]">
+  <el-aside width="auto" :class="['com-panel-wp', { '--hide': !visiblePanel }]">
     <div class="com-panel">
       <div class="panel-title">
         <span class="panel-text">组件列表</span>
@@ -83,7 +83,7 @@ export default defineComponent({
   setup() {
     const searchText = ref('')
     const favoriteComs = ref([])
-    const comList = computed(() => ToolbarModule.comList.show)
+    const visiblePanel = computed(() => ToolbarModule.comList.show)
 
     const categories = computed(() => {
       const list: CategoryType[] = _.cloneDeep(classifications)
@@ -113,7 +113,7 @@ export default defineComponent({
     })
 
     const changeVisible = () => {
-      ToolbarModule.setPanelState({ type: PanelType.comList, value: !comList.value })
+      ToolbarModule.setPanelState({ type: PanelType.comList, value: !visiblePanel.value })
     }
 
     const toAddCom = (comName: string, used: boolean) => {
@@ -143,7 +143,7 @@ export default defineComponent({
     return {
       searchText,
       favoriteComs,
-      comList,
+      visiblePanel,
       changeVisible,
       categories,
       toAddCom,

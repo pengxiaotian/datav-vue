@@ -10,6 +10,7 @@
         <!-- <canvas-main /> -->
         <footer-toolbar />
       </el-container>
+      <config-panel />
     </el-container>
   </el-container>
   <editor-context-menu />
@@ -21,6 +22,7 @@ import { EditorModule } from '@/store/modules/editor'
 import toolbar from './toolbar/index.vue'
 import LayerPanel from './layer-panel/index.vue'
 import ComListPanel from './com-list-panel/index.vue'
+import ConfigPanel from './config-panel/index.vue'
 import FooterToolbar from './footer-toolbar/index.vue'
 import EditorContextMenu from './editor-context-menu/index.vue'
 
@@ -30,6 +32,7 @@ export default defineComponent({
     toolbar,
     LayerPanel,
     ComListPanel,
+    ConfigPanel,
     FooterToolbar,
     EditorContextMenu,
   },

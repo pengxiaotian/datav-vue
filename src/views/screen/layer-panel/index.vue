@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="auto" :class="['layer-panel-wp', { '--hide': !layer }]">
+  <el-aside width="auto" :class="['layer-panel-wp', { '--hide': !visiblePanel }]">
     <div class="layer-manager">
       <div class="layer-manager-top">
         <div class="layer-num">图层</div>
@@ -173,7 +173,7 @@ export default defineComponent({
   name: 'LayerPanel',
   setup() {
     const showText = ref(false)
-    const layer = computed(() => ToolbarModule.layer.show)
+    const visiblePanel = computed(() => ToolbarModule.layer.show)
     const coms = computed(() => EditorModule.coms)
     const descComs = computed(() => [...EditorModule.coms].reverse())
     const selectedCom = computed(() => EditorModule.selectedCom)
@@ -199,7 +199,7 @@ export default defineComponent({
     })
 
     const changeVisible = () => {
-      ToolbarModule.setPanelState({ type: PanelType.layer, value: !layer.value })
+      ToolbarModule.setPanelState({ type: PanelType.layer, value: !visiblePanel.value })
     }
 
     const selectCom = (id: string) => {
@@ -244,7 +244,7 @@ export default defineComponent({
 
     return {
       showText,
-      layer,
+      visiblePanel,
       coms,
       descComs,
       enableBtnClass,
