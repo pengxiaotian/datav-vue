@@ -5,6 +5,7 @@ import GDropListPopover from './drop-list-popover'
 import GTooltipPopover from './tooltip-popover'
 import GLoading from './loading'
 import GInput from './input'
+import GField from './field'
 
 import Focus from '@/directives/focus'
 
@@ -15,6 +16,7 @@ const components = [
   GTooltipPopover,
   GLoading,
   GInput,
+  GField,
 ]
 
 const plugins = [

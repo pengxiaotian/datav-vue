@@ -140,7 +140,7 @@ $tabs-content-bgcolor: #13161a;
 // Collapse
 $collapse-font-color: $font-color;
 $collapse-bgcolor: #13161a;
-$collapse-border-color: #2c2e33;
+$collapse-border-color: #141210;
 
 // Slider
 $slider-runway-color: #bcc9d4;
@@ -174,6 +174,10 @@ $layer-input-bgcolor: #363c48;
 $config-panel-bgcolor: #1c1f25;
 $config-manager-bgcolor: #191c21;
 
+$page-config-font-color: #fff;
+$page-config-bgcolor: #1c2026;
+$page-config-secondary-bgcolor: #262c33;
+
 // ContextMenu
 $context-menu-font-color: $font-color;
 $context-menu-bgcolor: #27343e;
@@ -194,3 +198,12 @@ $editor-popover-bgcolor: #303640;
 
 /* Editor End
 -------------------------- */
+
+// DataV GUI
+$field-font-size: $font-size;
+$field-font-color: #fff;
+$field-font-secondary-color: #7f97a0;
+$field-height: 28px;
+$field-help-color: #a1aeb3;
+$field-hover-color: $color-primary;
+$field-container-width: 192px;

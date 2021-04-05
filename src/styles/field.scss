@@ -1,0 +1,58 @@
+@import "themes/var";
+
+.g-field {
+  display: flex;
+  padding-left: 8px;
+  color: $field-font-color;
+}
+
+.g-field-text {
+  font-size: $field-font-size;
+  height: $field-height;
+  line-height: $field-height;
+
+  @include utils-ellipsis();
+}
+
+.g-field-help {
+  padding: 0 3px;
+  color: $field-help-color;
+  font-size: $field-font-size;
+  line-height: $field-height;
+  cursor: pointer;
+
+  &:hover {
+    color: $field-hover-color;
+  }
+}
+
+.g-field-show-placeholder {
+  display: block;
+  width: 16px;
+  margin-right: 4px;
+  line-height: $field-height;
+
+  .g-field-show {
+    color: $field-help-color;
+    cursor: pointer;
+
+    &:hover {
+      color: $field-hover-color;
+    }
+  }
+}
+
+.g-field-container {
+  width: $field-container-width;
+}
+
+.g-field-wp {
+  &.--lv2 {
+    margin-bottom: 4px;
+
+    .g-field {
+      padding-left: 24px;
+      color: $field-font-secondary-color;
+    }
+  }
+}

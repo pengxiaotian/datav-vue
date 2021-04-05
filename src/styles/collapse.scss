@@ -4,6 +4,8 @@
   border: none;
 
   .el-collapse-item__header {
+    height: 40px;
+    line-height: 40px;
     color: $collapse-font-color;
     background-color: $collapse-bgcolor;
     border-bottom: 1px solid $collapse-border-color;
