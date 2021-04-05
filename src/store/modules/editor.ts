@@ -26,6 +26,22 @@ export interface IEditorState {
   pageConfig: ProjectConfig
   coms: BaseComponent[]
   subComs: BaseComponent[]
+  canvas: {
+    scale: number
+  }
+  referLine: {
+    enable: boolean
+  }
+  alignLine: {
+    top: number
+    bottom: number
+    left: number
+    right: number
+    vertical: number
+    horizontal: number
+    enable: boolean
+    show: boolean
+  }
   contextMenu: {
     show: boolean
   }
@@ -65,6 +81,25 @@ class Editor extends VuexModule implements IEditorState {
 
   coms: BaseComponent[] = [];
   subComs: BaseComponent[] = [];
+
+  canvas = {
+    scale: 1,
+  }
+
+  referLine = {
+    enable: true,
+  }
+
+  alignLine = {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    vertical: 0,
+    horizontal: 0,
+    enable: false,
+    show: false,
+  }
 
   contextMenu = {
     show: false,
@@ -123,6 +158,17 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
+  private SET_SCALE(payload: number) {
+    this.canvas.scale = payload
+  }
+
+  @Mutation
+  private SET_SIZE(payload: { width: number; height: number; }) {
+    this.pageConfig.width = payload.width
+    this.pageConfig.height = payload.height
+  }
+
+  @Mutation
   private DELETE_COM(com: BaseComponent) {
     if (com.type === ComType.com) {
       this.coms.splice(findComIndex(this.coms, com.id), 1)
@@ -168,6 +214,100 @@ class Editor extends VuexModule implements IEditorState {
       this.coms.push(ncom)
       this.subComs.push(...nSubComs)
     }
+  }
+
+  @Action
+  public async autoCanvasScale(payload: {
+    visibleLayer: boolean
+    visibleComList: boolean
+    visibleConfig: boolean
+  }) {
+    const resize = _.debounce(() => {
+      const ch = document.documentElement.clientHeight
+      let cw = document.documentElement.clientWidth - 110
+
+      const { visibleLayer, visibleComList, visibleConfig } = payload
+
+      if (visibleLayer) {
+        cw -= 200
+      }
+
+      if (visibleComList) {
+        cw -= 233
+      }
+
+      if (visibleConfig) {
+        cw -= 332
+      }
+
+      const a = cw / this.pageConfig.width
+      const b = (ch - 180) / this.pageConfig.height
+      const c = parseFloat((a > b ? b : a).toFixed(6))
+
+      this.SET_SCALE(c < 0.2 ? 0.2 : c)
+      this.SET_SIZE({ width: ~~cw, height: ~~ch - 41 })
+    }, 200)
+
+    if (!window.onresize) {
+      window.onresize = resize
+    }
+
+    resize()
+  }
+
+  @Action
+  public async setCanvasScale(payload: {
+    scale: number
+    visibleLayer: boolean
+    visibleComList: boolean
+    visibleConfig: boolean
+  }) {
+    let { scale } = payload
+    if (scale < 20) {
+      scale = 20
+    }
+
+    if (scale > 200) {
+      scale = 200
+    }
+
+    scale /= 100
+
+    const w = this.pageConfig.width * scale
+    const h = this.pageConfig.height * scale
+
+    let ch = document.documentElement.clientHeight
+    let cw = document.documentElement.clientWidth
+
+    const { visibleLayer, visibleComList, visibleConfig } = payload
+    if (visibleLayer) {
+      cw -= 200
+    }
+
+    if (visibleComList) {
+      cw -= 233
+    }
+
+    if (visibleConfig) {
+      cw -= 332
+    }
+
+    const a = cw - w
+    const b = ch - h
+    if (a < 0) {
+      cw = w + 400
+    } else if (a < 150) {
+      cw += 150 - a
+    }
+
+    if (b < 0) {
+      ch = h + 400
+    } else if (b < 200) {
+      ch += 200 - b
+    }
+
+    this.SET_SCALE(scale)
+    this.SET_SIZE({ width: ~~cw, height: ~~ch - 41 })
   }
 
   @Action

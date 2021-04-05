@@ -18,6 +18,7 @@
 
 <script lang='ts'>
 import { defineComponent, computed, onMounted, ref } from 'vue'
+import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import toolbar from './toolbar/index.vue'
 import LayerPanel from './layer-panel/index.vue'
@@ -50,19 +51,24 @@ export default defineComponent({
         ? parseInt(props.projectId) : props.projectId
     })
 
-    const pageConfig = computed(() => EditorModule.pageConfig)
-
     onMounted(() => {
-      EditorModule.loadScreen(screenId.value)
+      EditorModule.loadScreen(screenId.value).finally(() => {
+        document.title = `${EditorModule.screen.name} | 编辑器`
+      })
+
       EditorModule.loadComs(screenId.value).finally(() => {
         loading.value = false
+        EditorModule.autoCanvasScale({
+          visibleLayer: ToolbarModule.layer.show,
+          visibleComList: ToolbarModule.comList.show,
+          visibleConfig: ToolbarModule.config.show,
+        })
       })
     })
 
     return {
       loading,
       screenId,
-      pageConfig,
     }
   },
 })

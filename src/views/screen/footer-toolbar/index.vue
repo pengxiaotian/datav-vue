@@ -104,9 +104,8 @@ export default defineComponent({
     const inputScale = ref(20)
     const visibleScaleList = ref(false)
     const useSlider = ref(false)
-    const pageConfig = computed(() => EditorModule.pageConfig)
-    const referLine = computed(() => ToolbarModule.referLine)
-    const alignLine = computed(() => ToolbarModule.alignLine)
+    const referLine = computed(() => EditorModule.referLine)
+    const alignLine = computed(() => EditorModule.alignLine)
 
     const hideScaleList = () => {
       visibleScaleList.value = false
@@ -120,15 +119,17 @@ export default defineComponent({
 
     const submitScale = (val: number) => {
       if (val === -1) {
-        ToolbarModule.autoCanvasScale({
-          width: pageConfig.value.width,
-          height: pageConfig.value.height,
+        EditorModule.autoCanvasScale({
+          visibleLayer: ToolbarModule.layer.show,
+          visibleComList: ToolbarModule.comList.show,
+          visibleConfig: ToolbarModule.config.show,
         })
       } else {
-        ToolbarModule.setCanvasScale({
+        EditorModule.setCanvasScale({
           scale: val === 0 ? inputScale.value : val,
-          width: pageConfig.value.width,
-          height: pageConfig.value.height,
+          visibleLayer: ToolbarModule.layer.show,
+          visibleComList: ToolbarModule.comList.show,
+          visibleConfig: ToolbarModule.config.show,
         })
       }
     }
@@ -136,7 +137,7 @@ export default defineComponent({
     watch(() => scale.value, s => submitScale(s))
 
     watch(
-      () => ToolbarModule.canvas.scale,
+      () => EditorModule.canvas.scale,
       s => {
         const val = parseInt((s * 100).toFixed(2))
         scale.value = val
@@ -158,9 +159,10 @@ export default defineComponent({
           } else if (key === 'arrowright') {
             setPanelState({ type: PanelType.config, value: !ToolbarModule.config.show })
           } else if (key === 'a') {
-            ToolbarModule.autoCanvasScale({
-              width: pageConfig.value.width,
-              height: pageConfig.value.height,
+            EditorModule.autoCanvasScale({
+              visibleLayer: ToolbarModule.layer.show,
+              visibleComList: ToolbarModule.comList.show,
+              visibleConfig: ToolbarModule.config.show,
             })
           }
 
