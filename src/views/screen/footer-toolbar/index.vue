@@ -74,17 +74,14 @@
         </template>
       </el-popover>
     </div>
-    <div
-      style="width: 190px;"
-      @mouseenter="useSlider = true"
-      @mouseleave="useSlider = false"
-    >
+    <div class="scale-slider-wp">
       <el-slider
         v-model="scale"
         :min="20"
         :max="200"
         :step="5"
         :show-tooltip="false"
+        @change="submitScale"
       />
     </div>
   </el-footer>
@@ -117,24 +114,20 @@ export default defineComponent({
       document.addEventListener('click', hideScaleList, false)
     }
 
-    const submitScale = (val: number) => {
+    const submitScale = async (val: number) => {
       if (val === -1) {
         EditorModule.autoCanvasScale({
-          visibleLayer: ToolbarModule.layer.show,
-          visibleComList: ToolbarModule.comList.show,
-          visibleConfig: ToolbarModule.config.show,
+          offsetX: ToolbarModule.getPanelOffsetX,
         })
       } else {
         EditorModule.setCanvasScale({
           scale: val === 0 ? inputScale.value : val,
-          visibleLayer: ToolbarModule.layer.show,
-          visibleComList: ToolbarModule.comList.show,
-          visibleConfig: ToolbarModule.config.show,
+          offsetX: ToolbarModule.getPanelOffsetX,
         })
       }
-    }
 
-    watch(() => scale.value, s => submitScale(s))
+      hideScaleList()
+    }
 
     watch(
       () => EditorModule.canvas.scale,
@@ -160,9 +153,7 @@ export default defineComponent({
             setPanelState({ type: PanelType.config, value: !ToolbarModule.config.show })
           } else if (key === 'a') {
             EditorModule.autoCanvasScale({
-              visibleLayer: ToolbarModule.layer.show,
-              visibleComList: ToolbarModule.comList.show,
-              visibleConfig: ToolbarModule.config.show,
+              offsetX: ToolbarModule.getPanelOffsetX,
             })
           }
 
@@ -260,6 +251,10 @@ export default defineComponent({
       color: $footer-color;
       transform: scale(0.7);
     }
+  }
+
+  .scale-slider-wp {
+    width: 190px;
   }
 }
 

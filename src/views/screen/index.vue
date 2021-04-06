@@ -7,7 +7,7 @@
       <layer-panel />
       <com-list-panel />
       <el-container class="edit-main">
-        <!-- <canvas-main /> -->
+        <canvas-main />
         <footer-toolbar />
       </el-container>
       <config-panel />
@@ -24,6 +24,7 @@ import toolbar from './toolbar/index.vue'
 import LayerPanel from './layer-panel/index.vue'
 import ComListPanel from './com-list-panel/index.vue'
 import ConfigPanel from './config-panel/index.vue'
+import CanvasMain from './canvas-main/index.vue'
 import FooterToolbar from './footer-toolbar/index.vue'
 import EditorContextMenu from './editor-context-menu/index.vue'
 
@@ -34,6 +35,7 @@ export default defineComponent({
     LayerPanel,
     ComListPanel,
     ConfigPanel,
+    CanvasMain,
     FooterToolbar,
     EditorContextMenu,
   },
@@ -59,9 +61,7 @@ export default defineComponent({
       EditorModule.loadComs(screenId.value).finally(() => {
         loading.value = false
         EditorModule.autoCanvasScale({
-          visibleLayer: ToolbarModule.layer.show,
-          visibleComList: ToolbarModule.comList.show,
-          visibleConfig: ToolbarModule.config.show,
+          offsetX: ToolbarModule.getPanelOffsetX,
         })
       })
     })

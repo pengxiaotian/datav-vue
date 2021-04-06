@@ -28,6 +28,8 @@ export interface IEditorState {
   subComs: BaseComponent[]
   canvas: {
     scale: number
+    width: number
+    height: number
   }
   referLine: {
     enable: boolean
@@ -84,6 +86,8 @@ class Editor extends VuexModule implements IEditorState {
 
   canvas = {
     scale: 1,
+    width: 100,
+    height: 100,
   }
 
   referLine = {
@@ -158,14 +162,8 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  private SET_SCALE(payload: number) {
-    this.canvas.scale = payload
-  }
-
-  @Mutation
-  private SET_SIZE(payload: { width: number; height: number; }) {
-    this.pageConfig.width = payload.width
-    this.pageConfig.height = payload.height
+  private SET_CANVAS(payload: { scale: number; width: number; height: number; }) {
+    this.canvas = { ...payload }
   }
 
   @Mutation
@@ -217,35 +215,17 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Action
-  public async autoCanvasScale(payload: {
-    visibleLayer: boolean
-    visibleComList: boolean
-    visibleConfig: boolean
-  }) {
+  public async autoCanvasScale(payload: { offsetX: number; }) {
     const resize = _.debounce(() => {
-      const ch = document.documentElement.clientHeight
-      let cw = document.documentElement.clientWidth - 110
+      const width = document.documentElement.clientWidth - payload.offsetX
+      const height = document.documentElement.clientHeight - 42
 
-      const { visibleLayer, visibleComList, visibleConfig } = payload
-
-      if (visibleLayer) {
-        cw -= 200
-      }
-
-      if (visibleComList) {
-        cw -= 233
-      }
-
-      if (visibleConfig) {
-        cw -= 332
-      }
-
-      const a = cw / this.pageConfig.width
-      const b = (ch - 180) / this.pageConfig.height
+      const a = (width - 100) / this.pageConfig.width
+      const b = (height - 140) / this.pageConfig.height
       const c = parseFloat((a > b ? b : a).toFixed(6))
+      const scale = c < 0.2 ? 0.2 : c
 
-      this.SET_SCALE(c < 0.2 ? 0.2 : c)
-      this.SET_SIZE({ width: ~~cw, height: ~~ch - 41 })
+      this.SET_CANVAS({ scale, width, height })
     }, 200)
 
     if (!window.onresize) {
@@ -256,58 +236,12 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Action
-  public async setCanvasScale(payload: {
-    scale: number
-    visibleLayer: boolean
-    visibleComList: boolean
-    visibleConfig: boolean
-  }) {
-    let { scale } = payload
-    if (scale < 20) {
-      scale = 20
-    }
+  public async setCanvasScale(payload: { scale: number; offsetX: number; }) {
+    const width = document.documentElement.clientWidth - payload.offsetX
+    const height = document.documentElement.clientHeight - 42
+    const scale = Math.min(Math.max(payload.scale, 20), 200) / 100
 
-    if (scale > 200) {
-      scale = 200
-    }
-
-    scale /= 100
-
-    const w = this.pageConfig.width * scale
-    const h = this.pageConfig.height * scale
-
-    let ch = document.documentElement.clientHeight
-    let cw = document.documentElement.clientWidth
-
-    const { visibleLayer, visibleComList, visibleConfig } = payload
-    if (visibleLayer) {
-      cw -= 200
-    }
-
-    if (visibleComList) {
-      cw -= 233
-    }
-
-    if (visibleConfig) {
-      cw -= 332
-    }
-
-    const a = cw - w
-    const b = ch - h
-    if (a < 0) {
-      cw = w + 400
-    } else if (a < 150) {
-      cw += 150 - a
-    }
-
-    if (b < 0) {
-      ch = h + 400
-    } else if (b < 200) {
-      ch += 200 - b
-    }
-
-    this.SET_SCALE(scale)
-    this.SET_SIZE({ width: ~~cw, height: ~~ch - 41 })
+    this.SET_CANVAS({ scale, width, height })
   }
 
   @Action

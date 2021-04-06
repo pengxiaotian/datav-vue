@@ -49,6 +49,10 @@ ul {
   background: $scrollbar-thumb-bg;
 }
 
+::-webkit-scrollbar-corner {
+  display: none;
+}
+
 #app {
   width: 100%;
   height: 100%;

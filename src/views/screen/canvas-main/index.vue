@@ -18,13 +18,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-// import { EditorModule } from '@/store/modules/editor'
+import { computed, defineComponent } from 'vue'
+import { EditorModule } from '@/store/modules/editor'
 
 export default defineComponent({
   name: 'CanvasMain',
   setup() {
+    const canvas = computed(() => EditorModule.canvas)
+    const pageConfig = computed(() => EditorModule.pageConfig)
+    const screenShotStyle = computed(() => {
+      return {
+        width: `${canvas.value.width}px`,
+        height: `${canvas.value.height}px`,
+      }
+    })
 
+    const canvasPanelStyle = computed(() => {
+      return {
+        position: 'absolute',
+        width: `${pageConfig.value.width}px`,
+        height: `${pageConfig.value.height}px`,
+        transform: `scale(${canvas.value.scale}) translate(0px, 0px)`,
+        'background-image': `url(${pageConfig.value.bgimage})`,
+        'background-color': pageConfig.value.bgcolor,
+      }
+    })
+
+    return {
+      screenShotStyle,
+      canvasPanelStyle,
+    }
   },
 })
 </script>

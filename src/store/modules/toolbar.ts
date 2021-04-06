@@ -76,6 +76,23 @@ class Toolbar extends VuexModule implements IToolbarState {
     filterManager: false,
   }
 
+  public get getPanelOffsetX() {
+    let offsetX = 0
+    if (this.layer.show) {
+      offsetX += 200
+    }
+
+    if (this.comList.show) {
+      offsetX += 233
+    }
+
+    if (this.config.show) {
+      offsetX += 332
+    }
+
+    return offsetX
+  }
+
   @Mutation
   private SET_PANEL_STATE(payload: { type: PanelType; value: boolean; }) {
     switch (payload.type) {
