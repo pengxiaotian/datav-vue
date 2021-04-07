@@ -1,13 +1,13 @@
 <template>
   <el-main class="canvas-main">
-    <div
-      class="canvas-panel-wrap"
-    >
+    <div class="canvas-panel-wrap">
       <div class="screen-shot" :style="screenShotStyle">
         <div
           id="canvas-coms"
           class="canvas-panel"
           :style="canvasPanelStyle"
+          @dragover.prevent
+          @drop="dropToAddCom"
         >
           1
         </div>
@@ -20,6 +20,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
+import FactoryComponent from '@/domains/factory-component'
 
 export default defineComponent({
   name: 'CanvasMain',
@@ -44,9 +45,26 @@ export default defineComponent({
       }
     })
 
+    const dropToAddCom = (event: any) => {
+      event.preventDefault()
+
+      try {
+        const name = event.dataTransfer.getData('text')
+        if (name) {
+          let com = FactoryComponent.create(name)
+          com.attr.x = event.offsetX - com.attr.w / 2
+          com.attr.y = event.offsetY - com.attr.h / 2
+          EditorModule.addCom(com)
+        }
+      } catch {
+        // TODO
+      }
+    }
+
     return {
       screenShotStyle,
       canvasPanelStyle,
+      dropToAddCom,
     }
   },
 })
@@ -77,10 +95,6 @@ export default defineComponent({
     box-shadow: rgba(0, 0, 0, 0.5) 0 0 30px 0;
     transition: 0.2s all ease-in-out;
     transform-origin: 0 0;
-  }
-
-  &::-webkit-scrollbar {
-    height: 34px;
   }
 }
 </style>

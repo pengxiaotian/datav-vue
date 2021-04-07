@@ -176,9 +176,8 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  private ADD_COM(id: string) {
-    const com = findCom(this.coms, id)
-    console.log(com)
+  private ADD_COM(com: BaseComponent) {
+    this.coms.push(com)
   }
 
   @Mutation
@@ -220,7 +219,7 @@ class Editor extends VuexModule implements IEditorState {
       const width = document.documentElement.clientWidth - payload.offsetX
       const height = document.documentElement.clientHeight - 42
 
-      const a = (width - 100) / this.pageConfig.width
+      const a = (width - 120) / this.pageConfig.width
       const b = (height - 140) / this.pageConfig.height
       const c = parseFloat((a > b ? b : a).toFixed(6))
       const scale = c < 0.2 ? 0.2 : c
@@ -287,11 +286,11 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Action
-  public async addCom(id: string) {
+  public async addCom(com: BaseComponent) {
     try {
-      const res = await addCom(id)
+      const res = await addCom(com)
       if (res.data.code === 0) {
-        this.ADD_COM(id)
+        this.ADD_COM(com)
       } else {
         throw Error(res.data.message)
       }

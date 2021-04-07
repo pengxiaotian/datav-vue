@@ -75,6 +75,7 @@ import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { classifications } from '@/data/system-components'
 import { MessageUtil } from '@/utils/message-util'
+import FactoryComponent from '@/domains/factory-component'
 
 type CategoryType = { expand?: string; } & typeof classifications[0]
 
@@ -119,15 +120,10 @@ export default defineComponent({
     const toAddCom = (comName: string, used: boolean) => {
       if (used) {
         const { pageConfig } = EditorModule
-        console.log(pageConfig)
-        // let com = FactoryComponent.create(comName)
-        // if (!Array.isArray(com)) {
-        //   com = [com]
-        // }
-
-        // com[0].attr.x = Math.floor((pageConfig.width - com[0].attr.w) / 2)
-        // com[0].attr.y = Math.floor((pageConfig.height - com[0].attr.h) / 2)
-        // EditorModule.addCom(com)
+        const com = FactoryComponent.create(comName)
+        com.attr.x = Math.floor((pageConfig.width - com.attr.w) / 2)
+        com.attr.y = Math.floor((pageConfig.height - com.attr.h) / 2)
+        EditorModule.addCom(com)
       } else {
         MessageUtil.warning('正在开发中。。。')
       }
