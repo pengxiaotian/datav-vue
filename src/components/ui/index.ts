@@ -5,6 +5,7 @@ import GDropListPopover from './drop-list-popover'
 import GTooltipPopover from './tooltip-popover'
 import GLoading from './loading'
 import GInput from './input'
+import GInputNumber from './input-number'
 import GField from './field'
 
 import Focus from '@/directives/focus'
@@ -16,6 +17,7 @@ const components = [
   GTooltipPopover,
   GLoading,
   GInput,
+  GInputNumber,
   GField,
 ]
 

@@ -4,23 +4,21 @@
     <div class="config-manager-body">
       <div class="page-config">
         <div class="page-config-wp">
-          <g-field label="屏幕大小" :nest="true">
-            <g-field label="宽度" :level="2">
-              <el-input-number
-                v-model="pageConfig.width"
-                size="mini"
-                :min="100"
-                :max="20000"
-              />
-            </g-field>
-            <g-field label="高度" :level="2">
-              <el-input-number
-                v-model="pageConfig.height"
-                size="mini"
-                :min="100"
-                :max="20000"
-              />
-            </g-field>
+          <g-field label="屏幕大小">
+            <g-input-number
+              v-model="pageConfig.width"
+              size="mini"
+              label="宽度"
+              :min="100"
+              :max="20000"
+            />
+            <g-input-number
+              v-model="pageConfig.height"
+              size="mini"
+              label="高度"
+              :min="100"
+              :max="20000"
+            />
           </g-field>
 
           <g-field label="背景颜色">
@@ -35,21 +33,92 @@
             </el-button>
           </g-field>
         </div>
+
+        <div class="page-config-wp">
+          <g-field label="页面缩放方式">
+            <el-radio-group v-model="pageConfig.zoomMode" size="mini">
+              <el-radio-button :label="zoomMode.auto">
+                <i class="v-icon-preview"></i>
+              </el-radio-button>
+              <el-radio-button :label="zoomMode.width">
+                <i class="v-icon-preview"></i>
+              </el-radio-button>
+              <el-radio-button :label="zoomMode.height">
+                <i class="v-icon-preview"></i>
+              </el-radio-button>
+              <el-radio-button :label="zoomMode.full">
+                <i class="v-icon-preview"></i>
+              </el-radio-button>
+            </el-radio-group>
+          </g-field>
+          <g-field label="栅格间距" tooltip="每次移动的距离，单位px">
+            <g-input-number
+              v-model="pageConfig.grid"
+              size="mini"
+              :min="1"
+              :max="20"
+            />
+          </g-field>
+        </div>
+
+        <div class="page-config-wp">
+          <g-field label="缩略图" more>
+            <el-button size="mini">
+              截取封面
+            </el-button>
+            <el-button size="mini">
+              上传封面
+            </el-button>
+            <div
+              class="screen-preview"
+            >
+              <img :src="coverimg" :style="coverimgStyle">
+              <input readonly class="screen-preview-paste">
+            </div>
+          </g-field>
+          <g-field label="使用水印">
+            <el-switch
+              v-model="pageConfig.useWatermark"
+            />
+          </g-field>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
-import { bgImg } from '@/data/images'
+import { bgImg, coverImg } from '@/data/images'
+import { ZoomMode } from '@/domains/enums/com-enums'
 
 export default defineComponent({
   name: 'PageConfig',
   setup() {
     const selectedCom = computed(() => EditorModule.selectedCom)
     const pageConfig = computed(() => EditorModule.pageConfig)
+
+    const cover = ref({
+      loading: false,
+      isPreview: false,
+      preview: '',
+      display: 'none',
+      width: '100%',
+      height: '100%',
+    })
+
+    const coverimg = computed(() => {
+      return cover.value.isPreview
+        ? cover.value.preview
+        : pageConfig.value.screenshot || coverImg
+    })
+
+    const coverimgStyle = computed(() => {
+      return cover.value.isPreview || pageConfig.value.screenshot
+        ? ''
+        : 'object-fit: contain; opacity: 0.25; filter: grayscale(1);'
+    })
 
     const resetBGImage = () => {
       pageConfig.value.bgimage = bgImg
@@ -58,6 +127,9 @@ export default defineComponent({
     return {
       selectedCom,
       pageConfig,
+      zoomMode: ZoomMode,
+      coverimg,
+      coverimgStyle,
       resetBGImage,
     }
   },
@@ -103,8 +175,8 @@ export default defineComponent({
 
 .page-config-wp {
   position: relative;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 
   &:not(:last-child)::after {
     position: absolute;
@@ -115,10 +187,6 @@ export default defineComponent({
     background: $page-config-secondary-bgcolor;
     content: '';
   }
-}
-
-.page-config-zoom:not(:last-child) {
-  margin-bottom: 5px;
 }
 
 .screen-preview {

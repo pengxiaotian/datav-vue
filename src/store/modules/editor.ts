@@ -85,7 +85,7 @@ class Editor extends VuexModule implements IEditorState {
   subComs: BaseComponent[] = [];
 
   canvas = {
-    scale: 1,
+    scale: 0.2,
     width: 100,
     height: 100,
   }

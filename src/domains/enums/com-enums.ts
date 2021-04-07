@@ -10,3 +10,10 @@ export enum MoveType {
   top,
   bottom,
 }
+
+export enum ZoomMode {
+  auto,
+  width,
+  height,
+  full,
+}
