@@ -34,6 +34,7 @@ cat > $DIRNAME/src/index.vue <<EOF
     <slot></slot>
   </div>
 </template>
+
 <script lang='ts'>
 import { defineComponent } from 'vue'
 

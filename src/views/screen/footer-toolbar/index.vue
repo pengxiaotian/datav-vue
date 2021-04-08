@@ -29,11 +29,11 @@
           <div class="shortcut-value">Ctrl/Cmd + ←</div>
         </div>
         <div class="shortcut-item">
-          <div class="shortcut-title">开关组件面板</div>
+          <div class="shortcut-title">切换组件面板</div>
           <div class="shortcut-value">Ctrl/Cmd + ↑</div>
         </div>
         <div class="shortcut-item">
-          <div class="shortcut-title">开关右侧面板</div>
+          <div class="shortcut-title">切换右侧面板</div>
           <div class="shortcut-value">Ctrl/Cmd + →</div>
         </div>
         <div class="shortcut-item">

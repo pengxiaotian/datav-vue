@@ -75,7 +75,7 @@ class Editor extends VuexModule implements IEditorState {
     height: 1080,
     bgimage: '',
     bgcolor: '',
-    grid: 8,
+    grid: 6,
     screenshot: '',
     zoomMode: 0,
     useWatermark: false,

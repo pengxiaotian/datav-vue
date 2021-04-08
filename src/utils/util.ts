@@ -11,6 +11,7 @@ import {
   toRawType,
 } from '@vue/shared'
 import shortid from 'shortid'
+import { ZoomMode } from '@/domains/enums/com-enums'
 
 export function toObject<T>(arr: Array<T>): Record<string, T> {
   const res = {}
@@ -103,5 +104,50 @@ export const copyText = (text: string) => {
     return true
   } catch (error) {
     return false
+  }
+}
+
+export const calcZoom = (
+  mode: ZoomMode,
+  width: number,
+  height: number,
+  boxWidth: number,
+  boxHeight: number,
+) => {
+  const scaleX = boxWidth / width
+  const scaleY = boxHeight / height
+  let w = width
+  let h = height
+  let r = 1
+  switch (mode) {
+    case ZoomMode.auto:
+      r = Math.min(scaleX, scaleY)
+      if (r < 1) {
+        w *= r
+        h *= r
+      }
+      break
+    case ZoomMode.width:
+      r = scaleX
+      w *= r
+      h *= r
+      break
+    case ZoomMode.height:
+      r = scaleY
+      w *= r
+      h *= r
+      break
+    case ZoomMode.full:
+      w = boxWidth
+      h = boxHeight
+      break
+    default:
+      break
+  }
+
+  return {
+    width: w,
+    height: h,
+    ratio: r,
   }
 }

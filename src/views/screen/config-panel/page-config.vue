@@ -7,25 +7,22 @@
           <g-field label="屏幕大小">
             <g-input-number
               v-model="pageConfig.width"
-              size="mini"
               label="宽度"
               :min="100"
               :max="20000"
             />
             <g-input-number
               v-model="pageConfig.height"
-              size="mini"
               label="高度"
               :min="100"
               :max="20000"
             />
           </g-field>
-
           <g-field label="背景颜色">
-            <!-- <aui-color-picker v-model="pageConfig.bgcolor" /> -->
+            <g-color-picker v-model="pageConfig.bgcolor" />
           </g-field>
           <g-field label="背景图">
-            <!-- <aui-upload v-model="pageConfig.bgimage" /> -->
+            <g-upload-image v-model="pageConfig.bgimage" />
           </g-field>
           <g-field label="重置">
             <el-button size="mini" @click="resetBGImage">
@@ -37,49 +34,43 @@
         <div class="page-config-wp">
           <g-field label="页面缩放方式">
             <el-radio-group v-model="pageConfig.zoomMode" size="mini">
-              <el-radio-button :label="zoomMode.auto">
-                <i class="v-icon-preview"></i>
+              <el-radio-button :label="zoomMode.full">
+                <i class="v-icon-fullscreen"></i>
               </el-radio-button>
               <el-radio-button :label="zoomMode.width">
-                <i class="v-icon-preview"></i>
+                <i class="v-icon-adapt-width"></i>
               </el-radio-button>
               <el-radio-button :label="zoomMode.height">
-                <i class="v-icon-preview"></i>
+                <i class="v-icon-adapt-height"></i>
               </el-radio-button>
-              <el-radio-button :label="zoomMode.full">
-                <i class="v-icon-preview"></i>
+              <el-radio-button :label="zoomMode.auto">
+                <i class="v-icon-adapt-auto"></i>
+              </el-radio-button>
+              <el-radio-button :label="zoomMode.disabled">
+                <i class="v-icon-stop"></i>
               </el-radio-button>
             </el-radio-group>
           </g-field>
           <g-field label="栅格间距" tooltip="每次移动的距离，单位px">
-            <g-input-number
-              v-model="pageConfig.grid"
-              size="mini"
-              :min="1"
-              :max="20"
-            />
+            <g-input-number v-model="pageConfig.grid" :min="1" :max="20" />
           </g-field>
         </div>
 
         <div class="page-config-wp">
-          <g-field label="缩略图" more>
+          <g-field label="缩略图">
             <el-button size="mini">
               截取封面
             </el-button>
             <el-button size="mini">
               上传封面
             </el-button>
-            <div
-              class="screen-preview"
-            >
+            <div class="screen-preview">
               <img :src="coverimg" :style="coverimgStyle">
               <input readonly class="screen-preview-paste">
             </div>
           </g-field>
           <g-field label="使用水印">
-            <el-switch
-              v-model="pageConfig.useWatermark"
-            />
+            <el-switch v-model="pageConfig.useWatermark" />
           </g-field>
         </div>
       </div>
@@ -175,8 +166,6 @@ export default defineComponent({
 
 .page-config-wp {
   position: relative;
-  padding-top: 16px;
-  padding-bottom: 16px;
 
   &:not(:last-child)::after {
     position: absolute;

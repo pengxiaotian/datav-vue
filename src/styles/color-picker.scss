@@ -1,0 +1,21 @@
+.g-color-picker {
+  display: flex;
+  justify-content: space-between;
+
+  .el-color-picker {
+    margin-left: -28px;
+  }
+
+  .el-color-picker__trigger {
+    border: none;
+  }
+
+  .el-input .el-input__inner {
+    color: #fff;
+  }
+}
+
+.el-color-picker__panel.el-popper.is-dark {
+  border-color: $popover-dark-bgcolor;
+  background: $popover-dark-bgcolor;
+}

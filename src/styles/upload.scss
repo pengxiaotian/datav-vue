@@ -1,0 +1,73 @@
+
+.g-upload {
+  width: 100%;
+
+  .el-input {
+    .el-input__inner {
+      color: #fff;
+      padding-right: 21px;
+      padding-left: 21px;
+    }
+
+    .el-input__prefix {
+      left: 0;
+    }
+
+    .el-input__suffix {
+      right: 0;
+    }
+  }
+
+  .el-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    padding: 10px;
+    margin-top: 3px;
+    background: $upload-bgcolor;
+    border: $border-outline;
+
+    &:hover {
+      background: $upload-hover-bgcolor;
+      border: 1px solid $color-primary;
+    }
+  }
+
+  .el-upload-dragger {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .g-upload-image-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 120px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .g-upload-tip {
+    color: $upload-tip-color;
+
+    .v-icon-img {
+      margin-bottom: 5px;
+      font-size: 60px;
+    }
+  }
+}

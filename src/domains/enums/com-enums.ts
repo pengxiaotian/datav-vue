@@ -16,4 +16,5 @@ export enum ZoomMode {
   width,
   height,
   full,
+  disabled,
 }

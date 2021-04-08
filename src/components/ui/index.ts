@@ -7,6 +7,8 @@ import GLoading from './loading'
 import GInput from './input'
 import GInputNumber from './input-number'
 import GField from './field'
+import GColorPicker from './color-picker'
+import GUploadImage from './upload-image'
 
 import Focus from '@/directives/focus'
 
@@ -19,6 +21,8 @@ const components = [
   GInput,
   GInputNumber,
   GField,
+  GColorPicker,
+  GUploadImage,
 ]
 
 const plugins = [
