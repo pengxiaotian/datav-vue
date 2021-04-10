@@ -2,6 +2,32 @@
   <el-aside width="auto" :class="['config-panel-wp', { '--hide': !visiblePanel }]">
     <div class="config-manager">
       <page-config v-if="!selectedCom" />
+      <el-tabs v-else type="card" :stretch="true">
+        <el-tab-pane>
+          <template #label>
+            <el-tooltip effect="blue" :open-delay="500" content="配置">
+              <i class="v-icon-setting"></i>
+            </el-tooltip>
+          </template>
+          配置
+        </el-tab-pane>
+        <el-tab-pane lazy>
+          <template #label>
+            <el-tooltip effect="blue" :open-delay="500" content="数据">
+              <i class="v-icon-cloud"></i>
+            </el-tooltip>
+          </template>
+          数据
+        </el-tab-pane>
+        <el-tab-pane lazy>
+          <template #label>
+            <el-tooltip effect="blue" :open-delay="500" content="交互">
+              <i class="v-icon-interact"></i>
+            </el-tooltip>
+          </template>
+          交互
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </el-aside>
 </template>

@@ -53,3 +53,32 @@
     flex: 1;
   }
 }
+
+.el-tabs--card {
+  & > .el-tabs__header {
+    border: 0;
+    margin: 0;
+
+    .el-tabs__nav {
+      border: 0;
+      border-radius: 0;
+    }
+
+    .el-tabs__item {
+      border: 0;
+      height: 30px;
+      line-height: 30px;
+      border-top: 2px solid transparent;
+      background: $datav-tabs-nav-bgcolor;
+
+      &.is-active {
+        border-top: 2px solid $color-primary;
+        background: $datav-tabs-nav-active-bgcolor;
+      }
+    }
+  }
+
+  .el-tabs__content {
+    background: $datav-tabs-nav-active-bgcolor;
+  }
+}
