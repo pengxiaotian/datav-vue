@@ -49,7 +49,7 @@
       </div>
       <div class="screen-info">
         <i class="v-icon-workspace workspace-icon"></i>
-        <span>{{ ' - ' + (screen.name || '工作台') }}</span>
+        <span>{{ '工作空间 - ' + screen.name }}</span>
       </div>
       <div class="global-actions">
         <el-tooltip
@@ -107,15 +107,20 @@
       </div>
     </el-col>
   </el-row>
+  <head-loading />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
+import HeadLoading from './head-loading.vue'
 
 export default defineComponent({
   name: 'Toolbar',
+  components: {
+    HeadLoading,
+  },
   computed: {
     screen() {
       return EditorModule.screen

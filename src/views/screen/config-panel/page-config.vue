@@ -115,6 +115,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed } from 'vue'
+import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { bgImg, coverImg } from '@/data/images'
 import { ZoomMode } from '@/domains/enums/com-enums'
@@ -147,6 +148,7 @@ export default defineComponent({
 
     const uploadCover = async (blob: Blob) => {
       try {
+        ToolbarModule.addLoading()
         const token = await getTokenByEnv()
         const formData = new FormData()
         formData.append('file', blob)
@@ -154,9 +156,13 @@ export default defineComponent({
         formData.append('key', `upload/${generateShortId()}_screenshot.png`)
 
         const res = await upload(uploadHost, formData)
-        pageConfig.value.screenshot = `${previewHost}/${res.data.key}`
+        if (res) {
+          pageConfig.value.screenshot = `${previewHost}/${res.data.key}`
+        }
       } catch (error) {
         throw error
+      } finally {
+        ToolbarModule.removeLoading()
       }
     }
 
@@ -166,10 +172,10 @@ export default defineComponent({
         return
       }
 
-      cover.value.loading = true
       const { transform } = dom.style
       dom.style.transform = 'scale(1) translate(0px, 0px)'
       try {
+        cover.value.loading = true
         const res = await html2canvas(dom, {
           scale: 1,
           logging: false,
@@ -195,11 +201,13 @@ export default defineComponent({
       }
 
       try {
+        ToolbarModule.addLoading()
         uploadLoading.value = true
         form.value.token = await getTokenByEnv()
         form.value.key = `upload/${generateShortId()}_${file.name}`
         return true
       } catch (error) {
+        ToolbarModule.removeLoading()
         uploadLoading.value = false
         MessageUtil.error(error.toString())
       }
@@ -208,23 +216,29 @@ export default defineComponent({
     }
 
     const onSuccess = (res: any) => {
+      ToolbarModule.removeLoading()
       uploadLoading.value = false
       pageConfig.value.screenshot = `${previewHost}/${res.key}`
     }
 
     const onError = (error: any) => {
+      ToolbarModule.removeLoading()
       uploadLoading.value = false
       MessageUtil.error(error.toString())
     }
 
-    const onPaste = (ev: ClipboardEvent) => {
+    const onPaste = async (ev: ClipboardEvent) => {
       if (ev.type === 'paste' && ev.clipboardData) {
-        const item = ev.clipboardData.items[0]
-        if (item && item.type.includes('image')) {
-          const file = item.getAsFile()
-          if (file) {
-            uploadCover(file)
+        try {
+          const item = ev.clipboardData.items[0]
+          if (item && item.type.includes('image')) {
+            const file = item.getAsFile()
+            if (file) {
+              await uploadCover(file)
+            }
           }
+        } catch (error) {
+          MessageUtil.error(error.toString())
         }
       }
     }

@@ -53,6 +53,7 @@ export interface IToolbarState {
     datasource: boolean
     filterManager: boolean
   }
+  loading: number
 }
 
 /* endregion */
@@ -75,6 +76,8 @@ class Toolbar extends VuexModule implements IToolbarState {
     datasource: false,
     filterManager: false,
   }
+
+  loading = 0
 
   public get getPanelOffsetX() {
     let offsetX = 0
@@ -110,9 +113,29 @@ class Toolbar extends VuexModule implements IToolbarState {
     setPanelState(payload.type, payload.value ? '1' : '0')
   }
 
+  @Mutation
+  private SET_LOADING(payload: number) {
+    this.loading = payload
+  }
+
   @Action
   public setPanelState(payload: { type: PanelType; value: boolean; }) {
     this.SET_PANEL_STATE(payload)
+  }
+
+  @Action
+  public addLoading() {
+    this.SET_LOADING(this.loading + 1)
+  }
+
+  @Action
+  public removeLoading() {
+    this.SET_LOADING(this.loading - 1)
+  }
+
+  @Action
+  public removeAllLoading() {
+    this.SET_LOADING(0)
   }
 }
 

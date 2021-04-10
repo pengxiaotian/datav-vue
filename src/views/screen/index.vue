@@ -7,7 +7,9 @@
       <layer-panel />
       <com-list-panel />
       <el-container class="edit-main">
-        <canvas-main />
+        <g-loading :spinning="loading">
+          <canvas-main />
+        </g-loading>
         <footer-toolbar />
       </el-container>
       <config-panel />
