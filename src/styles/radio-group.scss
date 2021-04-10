@@ -1,0 +1,36 @@
+@import "themes/var";
+
+.el-radio-group {
+  .el-radio-button {
+    & + .el-radio-button {
+      margin-left: 6px;
+    }
+
+    &:first-child {
+      .el-radio-button__inner {
+        border-radius: 0;
+        border-left: $border-outline;
+      }
+    }
+  }
+
+  .el-radio-button--mini {
+    .el-radio-button__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      border-radius: 0;
+      border: $border-outline;
+      color: $gui-component-color;
+      background: $gui-component-bgcolor;
+    }
+  }
+
+  .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+    color: #fff;
+    background-color: $color-primary;
+    border-color: $color-primary;
+    box-shadow: -1px 0 0 0 $color-primary;
+  }
+}

@@ -34,21 +34,31 @@
         <div class="page-config-wp">
           <g-field label="页面缩放方式">
             <el-radio-group v-model="pageConfig.zoomMode" size="mini">
-              <el-radio-button :label="zoomMode.full">
-                <i class="v-icon-fullscreen"></i>
-              </el-radio-button>
-              <el-radio-button :label="zoomMode.width">
-                <i class="v-icon-adapt-width"></i>
-              </el-radio-button>
-              <el-radio-button :label="zoomMode.height">
-                <i class="v-icon-adapt-height"></i>
-              </el-radio-button>
-              <el-radio-button :label="zoomMode.auto">
-                <i class="v-icon-adapt-auto"></i>
-              </el-radio-button>
-              <el-radio-button :label="zoomMode.disabled">
-                <i class="v-icon-stop"></i>
-              </el-radio-button>
+              <el-tooltip effect="blue" content="全屏铺满">
+                <el-radio-button :label="ZoomMode.full">
+                  <i class="v-icon-fullscreen"></i>
+                </el-radio-button>
+              </el-tooltip>
+              <el-tooltip effect="blue" content="等比缩放宽度铺满">
+                <el-radio-button :label="ZoomMode.width">
+                  <i class="v-icon-adapt-width"></i>
+                </el-radio-button>
+              </el-tooltip>
+              <el-tooltip effect="blue" content="等比缩放高度铺满">
+                <el-radio-button :label="ZoomMode.height">
+                  <i class="v-icon-adapt-height"></i>
+                </el-radio-button>
+              </el-tooltip>
+              <el-tooltip effect="blue" content="等比缩放高度铺满（可滚动）">
+                <el-radio-button :label="ZoomMode.auto">
+                  <i class="v-icon-adapt-auto"></i>
+                </el-radio-button>
+              </el-tooltip>
+              <el-tooltip effect="blue" content="不缩放">
+                <el-radio-button :label="ZoomMode.disabled">
+                  <i class="v-icon-stop"></i>
+                </el-radio-button>
+              </el-tooltip>
             </el-radio-group>
           </g-field>
           <g-field label="栅格间距" tooltip="每次移动的距离，单位px">
@@ -58,16 +68,41 @@
 
         <div class="page-config-wp">
           <g-field label="缩略图">
-            <el-button size="mini">
-              截取封面
+            <el-button size="mini" class="cover-btn" @click="cutCover">
+              <template v-if="cover.loading">
+                <i class="v-icon-loading"></i>
+              </template>
+              <template v-else>
+                截取封面
+              </template>
             </el-button>
-            <el-button size="mini">
-              上传封面
-            </el-button>
+            <el-upload
+              accept="image/*"
+              :action="cover.uploadHost"
+              :multiple="false"
+              :show-file-list="false"
+              :before-upload="beforeUpload"
+              :on-success="onSuccess"
+              :on-error="onError"
+              :data="form"
+              style="display: inline-block;"
+              class="upload-cover-wp"
+            >
+              <el-button size="mini" class="cover-btn">
+                <template v-if="uploadLoading">
+                  <i class="v-icon-loading"></i>
+                </template>
+                <template v-else>
+                  上传封面
+                </template>
+              </el-button>
+            </el-upload>
             <div class="screen-preview">
-              <img :src="coverimg" :style="coverimgStyle">
-              <input readonly class="screen-preview-paste">
+              <img v-if="pageConfig.screenshot" :src="pageConfig.screenshot">
+              <img v-else :src="cover.img" style="object-fit: contain; opacity: 0.25; filter: grayscale(1);">
+              <input readonly class="screen-preview-paste" @paste="onPaste">
             </div>
+            <span class="upload-tip">*选中封面，从剪贴板粘贴</span>
           </g-field>
           <g-field label="使用水印">
             <el-switch v-model="pageConfig.useWatermark" />
@@ -83,6 +118,11 @@ import { defineComponent, ref, computed } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import { bgImg, coverImg } from '@/data/images'
 import { ZoomMode } from '@/domains/enums/com-enums'
+import html2canvas from 'html2canvas'
+import { uploadHost, previewHost, validAllowImg, dataURLtoBlob } from '@/utils/upload-util'
+import { getTokenByEnv, upload } from '@/api/qiniu'
+import { MessageUtil } from '@/utils/message-util'
+import { generateShortId } from '@/utils/util'
 
 export default defineComponent({
   name: 'PageConfig',
@@ -92,36 +132,116 @@ export default defineComponent({
 
     const cover = ref({
       loading: false,
-      isPreview: false,
-      preview: '',
-      display: 'none',
-      width: '100%',
-      height: '100%',
+      img: coverImg,
+      uploadHost,
     })
-
-    const coverimg = computed(() => {
-      return cover.value.isPreview
-        ? cover.value.preview
-        : pageConfig.value.screenshot || coverImg
-    })
-
-    const coverimgStyle = computed(() => {
-      return cover.value.isPreview || pageConfig.value.screenshot
-        ? ''
-        : 'object-fit: contain; opacity: 0.25; filter: grayscale(1);'
+    const uploadLoading = ref(false)
+    const form = ref({
+      key: '',
+      token: '',
     })
 
     const resetBGImage = () => {
       pageConfig.value.bgimage = bgImg
     }
 
+    const uploadCover = async (blob: Blob) => {
+      try {
+        const token = await getTokenByEnv()
+        const formData = new FormData()
+        formData.append('file', blob)
+        formData.append('token', token)
+        formData.append('key', `upload/${generateShortId()}_screenshot.png`)
+
+        const res = await upload(uploadHost, formData)
+        pageConfig.value.screenshot = `${previewHost}/${res.data.key}`
+      } catch (error) {
+        throw error
+      }
+    }
+
+    const cutCover = async () => {
+      const dom = document.getElementById('canvas-coms')
+      if (!dom || cover.value.loading) {
+        return
+      }
+
+      cover.value.loading = true
+      const { transform } = dom.style
+      dom.style.transform = 'scale(1) translate(0px, 0px)'
+      try {
+        const res = await html2canvas(dom, {
+          scale: 1,
+          logging: false,
+          allowTaint: true,
+          useCORS: true,
+          scrollX: 0,
+          scrollY: 0,
+        })
+        dom.style.transform = transform
+        await uploadCover(dataURLtoBlob(res.toDataURL()))
+      } catch (error) {
+        MessageUtil.error(error.toString())
+      } finally {
+        cover.value.loading = false
+      }
+    }
+
+    const beforeUpload = async (file: any) => {
+      const valid = validAllowImg(file, {})
+
+      if (!valid) {
+        return false
+      }
+
+      try {
+        uploadLoading.value = true
+        form.value.token = await getTokenByEnv()
+        form.value.key = `upload/${generateShortId()}_${file.name}`
+        return true
+      } catch (error) {
+        uploadLoading.value = false
+        MessageUtil.error(error.toString())
+      }
+
+      return false
+    }
+
+    const onSuccess = (res: any) => {
+      uploadLoading.value = false
+      pageConfig.value.screenshot = `${previewHost}/${res.key}`
+    }
+
+    const onError = (error: any) => {
+      uploadLoading.value = false
+      MessageUtil.error(error.toString())
+    }
+
+    const onPaste = (ev: ClipboardEvent) => {
+      if (ev.type === 'paste' && ev.clipboardData) {
+        const item = ev.clipboardData.items[0]
+        if (item && item.type.includes('image')) {
+          const file = item.getAsFile()
+          if (file) {
+            uploadCover(file)
+          }
+        }
+      }
+    }
+
     return {
       selectedCom,
       pageConfig,
-      zoomMode: ZoomMode,
-      coverimg,
-      coverimgStyle,
+      ZoomMode,
+      cover,
+      uploadLoading,
       resetBGImage,
+      cutCover,
+      form,
+      beforeUpload,
+      onSuccess,
+      onError,
+      onPaste,
     }
   },
 })
@@ -178,6 +298,22 @@ export default defineComponent({
   }
 }
 
+.cover-btn {
+  width: 88px;
+
+  .v-icon-loading {
+    font-size: 12px;
+  }
+}
+
+.upload-cover-wp {
+  display: inline-block;
+
+  .cover-btn {
+    border-left: 1px solid transparent;
+  }
+}
+
 .screen-preview {
   position: relative;
   width: 182px;
@@ -205,5 +341,16 @@ export default defineComponent({
       border-color: $color-primary;
     }
   }
+}
+
+.upload-tip {
+  color: $input-font-color-description;
+  margin-top: 4px;
+  display: -webkit-box;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 </style>

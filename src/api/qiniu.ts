@@ -74,7 +74,7 @@ function safe64(base64: string) {
   return base64.replace(/\+/g, '-').replace(/\//g, '_')
 }
 
-export function genUpToken() {
+export function genToken() {
   const accessKey = process.env.VUE_APP_QINIU_AK || ''
   const secretKey = process.env.VUE_APP_QINIU_SK || ''
   const bucket = process.env.VUE_APP_QINIU_BUCKET || ''
@@ -88,6 +88,21 @@ export function genUpToken() {
     const encodedSigned = hash.toString(CryptoJS.enc.Base64)
     const token = `${accessKey}:${safe64(encodedSigned)}:${encoded}`
     return { data: token }
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function getTokenByEnv(): Promise<string> {
+  try {
+    let res
+    if (process.env.NODE_ENV === 'development') {
+      res = genToken()
+    } else {
+      res = await getToken()
+    }
+
+    return res.data
   } catch (error) {
     throw error
   }

@@ -14,9 +14,8 @@
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.7)"
       drag
-      :action="action"
-      :limit="2"
       accept="image/*"
+      :action="action"
       :multiple="false"
       :show-file-list="false"
       :before-upload="beforeUpload"
@@ -38,7 +37,8 @@ import { defineComponent, ref, watch } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import { MessageUtil } from '@/utils/message-util'
 import { generateShortId } from '@/utils/util'
-import { getToken, genUpToken } from '@/api/qiniu'
+import { uploadHost, previewHost, validAllowImg } from '@/utils/upload-util'
+import { getTokenByEnv } from '@/api/qiniu'
 
 export default defineComponent({
   name: 'GUploadImage',
@@ -57,11 +57,11 @@ export default defineComponent({
     },
     action: {
       type: String,
-      default: process.env.VUE_APP_QINIU_UPLOAD,
+      default: uploadHost,
     },
     previewHost: {
       type: String,
-      default: process.env.VUE_APP_QINIU_FILE,
+      default: previewHost,
     },
   },
   emits: [UPDATE_MODEL_EVENT],
@@ -74,30 +74,19 @@ export default defineComponent({
     const iserr = ref(false)
 
     const beforeUpload = async (file: any) => {
-      const regx = new RegExp(`\\.(${props.allowType})$`, 'i')
-      if (!regx.test(file.name)) {
-        MessageUtil.error(`上传图片的格式只能是 ${props.allowType} 中的一种！`)
-        return false
-      }
+      const valid = validAllowImg(file, {
+        allowType: props.allowType,
+        allowSize: props.size,
+      })
 
-      if (file.size / 1024 / 1024 > props.size) {
-        MessageUtil.error(`上传图片的大小不能超过 ${props.size}MB！`)
+      if (!valid) {
         return false
       }
 
       try {
         loading.value = true
-        let res
-        if (process.env.NODE_ENV === 'development') {
-          res = genUpToken()
-        } else {
-          res = await getToken()
-        }
-
-        form.value.token = res.data
-        form.value.key = `upload/${file.name}_${generateShortId()}`
-
-        loading.value = true
+        form.value.token = await getTokenByEnv()
+        form.value.key = `upload/${generateShortId()}_${file.name}`
         return true
       } catch (error) {
         loading.value = false
