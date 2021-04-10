@@ -3,7 +3,7 @@ module.exports = {
   prompts: [{
     type: 'input',
     name: 'name',
-    message: 'store name please:',
+    message: 'store name:',
     validate(value) {
       if (!value || value.trim === '') {
         return 'name is required';

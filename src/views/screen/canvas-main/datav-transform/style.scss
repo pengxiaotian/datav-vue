@@ -1,0 +1,252 @@
+@import '~@/styles/themes/var';
+
+$bdc: #05ddff;
+
+.com-transform {
+  position: absolute;
+  will-change: transform;
+}
+
+.datav-scale {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 0;
+}
+
+.transform-handler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: move;
+  box-sizing: border-box;
+}
+
+.datav-com {
+  width: 100%;
+  height: 100%;
+  outline: 0;
+  box-sizing: border-box;
+  transform-origin: 50% 50%;
+
+  .datav-wraper-event-disable {
+    position: absolute;
+    top: 0;
+  }
+}
+
+.control-point {
+  z-index: 2;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
+
+  &::after {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 100%;
+    content: '';
+  }
+}
+
+.top-handler {
+  position: absolute;
+  top: -5px;
+  display: flex;
+  width: 100%;
+  height: 11px;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-handler {
+  position: absolute;
+  bottom: -5px;
+  display: flex;
+  width: 100%;
+  height: 11px;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-handler,
+.bottom-handler {
+  .point-handler-after {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 1px;
+    background: $bdc;
+    content: "";
+  }
+}
+
+.left-handler {
+  position: absolute;
+  top: 0;
+  left: -5px;
+  display: flex;
+  width: 11px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-handler {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  display: flex;
+  width: 11px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-handler,
+.right-handler {
+  .point-handler-after {
+    position: absolute;
+    z-index: 1;
+    width: 1px;
+    height: 100%;
+    background: $bdc;
+    content: "";
+  }
+}
+
+.rotate-handler {
+  z-index: 2;
+  cursor: url('~@/assets/images/rotate.png') 14 14, pointer;
+}
+
+.top-left-handler {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  display: flex;
+  width: 11px;
+  height: 11px;
+  justify-content: center;
+  align-items: center;
+
+  .rotate-handler {
+    padding-top: 21px;
+    padding-left: 21px;
+  }
+}
+
+.top-right-handler {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  display: flex;
+  width: 11px;
+  height: 11px;
+  justify-content: center;
+  align-items: center;
+
+  .rotate-handler {
+    padding-top: 21px;
+    padding-right: 21px;
+  }
+}
+
+.bottom-left-handler {
+  position: absolute;
+  bottom: -15px;
+  left: -15px;
+  display: flex;
+  width: 11px;
+  height: 11px;
+  justify-content: center;
+  align-items: center;
+
+  .rotate-handler {
+    padding-bottom: 21px;
+    padding-left: 21px;
+  }
+}
+
+.bottom-right-handler {
+  position: absolute;
+  right: -15px;
+  bottom: -15px;
+  display: flex;
+  width: 11px;
+  height: 11px;
+  justify-content: center;
+  align-items: center;
+
+  .rotate-handler {
+    padding-right: 21px;
+    padding-bottom: 21px;
+  }
+}
+
+.transform-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  cursor: move;
+  background: rgba(0, 231, 255, 0.11);
+}
+
+.transform-handler.hide {
+  .transform-bg,
+  i[class$="-handler"] {
+    display: none;
+  }
+}
+
+.datav-scale.hovered {
+  .datav-com {
+    background: rgba(36, 63, 162, 0.03);
+  }
+
+  .bottom-handler,
+  .left-handler,
+  .right-handler,
+  .top-handler {
+    display: flex !important;
+  }
+}
+
+.com-transform.selected {
+  z-index: 1;
+
+  .datav-com {
+    background: rgba(36, 63, 162, 0.03);
+  }
+
+  .datav-scale::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    border: 1px dashed $bdc;
+    content: "";
+  }
+}
+
+.com-transform.hided {
+  pointer-events: none;
+}
+
+.com-transform.locked {
+  pointer-events: none;
+}
+
+.datav-com .datav-wraper {
+  pointer-events: none !important;
+}

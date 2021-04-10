@@ -9,7 +9,9 @@
           @dragover.prevent
           @drop="dropToAddCom"
         >
-          1
+          <datav-transform v-for="com in coms" :key="com.id" :com="com">
+            <component :is="com.name" :com="com" />
+          </datav-transform>
         </div>
       </div>
     </div>
@@ -21,12 +23,17 @@
 import { computed, defineComponent } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import FactoryComponent from '@/domains/factory-component'
+import DatavTransform from './datav-transform/index.vue'
 
 export default defineComponent({
   name: 'CanvasMain',
+  components: {
+    DatavTransform,
+  },
   setup() {
     const canvas = computed(() => EditorModule.canvas)
     const pageConfig = computed(() => EditorModule.pageConfig)
+    const coms = computed(() => EditorModule.coms)
     const screenShotStyle = computed(() => {
       return {
         width: `${canvas.value.width}px`,
@@ -65,6 +72,7 @@ export default defineComponent({
       screenShotStyle,
       canvasPanelStyle,
       dropToAddCom,
+      coms,
     }
   },
 })

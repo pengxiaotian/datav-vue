@@ -4,7 +4,7 @@ module.exports = {
     {
       type: 'input',
       name: 'name',
-      message: 'component name please:',
+      message: 'component name:',
       validate(value) {
         if (!value || value.trim === '') {
           return 'name is required';
@@ -49,7 +49,7 @@ module.exports = {
     {
       type: 'input',
       name: 'subdirectory',
-      message: 'subdirectory name please:',
+      message: 'subdirectory name:',
     },
     {
       type: 'confirm',
