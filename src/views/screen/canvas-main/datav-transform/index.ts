@@ -121,7 +121,7 @@ const setAttr = (ev: MouseEvent, dir: Direction | null, com: BaseComponent, scal
 
   const up = () => {
     off(document, 'mousemove', move)
-    off(document, 'mouseup', move)
+    off(document, 'mouseup', up)
 
     EditorModule.hideAlignLine(com.id)
   }
@@ -160,7 +160,7 @@ export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: BaseComponent
 
   const up = () => {
     off(document, 'mousemove', move)
-    off(document, 'mouseup', move)
+    off(document, 'mouseup', up)
   }
 
   on(document, 'mousemove', move)
