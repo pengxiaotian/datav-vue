@@ -2,11 +2,27 @@
   <img src="./src/assets/logo.png">
 </p>
 <h1 align="center">DataV Vue</h1>
+<p align="center">
+  <a href="https://github.com/pengxiaotian/datav-vue/actions/workflows/master-deploy.yml">
+    <img src="https://github.com/pengxiaotian/datav-vue/actions/workflows/master-deploy.yml/badge.svg?branch=master">
+  </a>
+  <br>
+</p>
 <p align="center">一个基于 Vue3.x 的数据可视化项目</p>
-
 
 * 💪 Vue 3.0+
 * 🔥 TypeScript 4.2+
+
+### 简介
+
+#### 登录页
+![登录页](./demo/login.png)
+
+#### 可视化列表
+![可视化列表](./demo/home.png)
+
+#### 编辑器
+![编辑器](./demo/editor.png)
 
 ### 安装与使用
 
