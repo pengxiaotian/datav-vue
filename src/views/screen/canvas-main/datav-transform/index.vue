@@ -23,7 +23,11 @@
       >
         <div class="datav-com" :style="hideStyle">
           <slot></slot>
-          <div class="datav-wrapper-event-disable" :style="wrapperStyle"></div>
+          <div
+            class="datav-wrapper-event-disable"
+            :style="wrapperStyle"
+            @contextmenu="showMenu"
+          ></div>
         </div>
         <template v-for="(v, k) in points" :key="k">
           <i v-if="v.rotateStyle" :class="`${v.name}-handler`">
@@ -61,6 +65,7 @@ import {
   Direction, getCursors, setHover,
   handleMove, handleZoom, handleRotate,
 } from './index'
+import { useContextMenu } from '../../editor-context-menu/index'
 import ReferLine from './refer-line.vue'
 
 export default defineComponent({
@@ -192,6 +197,8 @@ export default defineComponent({
       handleRotate(ev, instance!.vnode.el as HTMLElement, props.com)
     }
 
+    const { showMenu } = useContextMenu()
+
     return {
       referLine,
       scale,
@@ -207,6 +214,7 @@ export default defineComponent({
       onMove,
       onZoom,
       onRotate,
+      showMenu,
     }
   },
 })
