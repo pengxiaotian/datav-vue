@@ -1,7 +1,8 @@
 <template>
   <el-main class="canvas-main">
-    <div class="canvas-panel-wrap">
+    <div class="canvas-panel-wrap" @mousedown.stop="cancelSelectCom">
       <div class="screen-shot" :style="screenShotStyle">
+        <align-line />
         <div
           id="canvas-coms"
           class="canvas-panel"
@@ -9,7 +10,11 @@
           @dragover.prevent
           @drop="dropToAddCom"
         >
-          <datav-transform v-for="com in coms" :key="com.id" :com="com">
+          <datav-transform
+            v-for="com in coms"
+            :key="com.id"
+            :com="com"
+          >
             <component :is="com.name" :com="com" />
           </datav-transform>
         </div>
@@ -23,12 +28,14 @@
 import { computed, defineComponent } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import FactoryComponent from '@/domains/factory-component'
+import AlignLine from './align-line.vue'
 import DatavTransform from './datav-transform/index.vue'
 
 export default defineComponent({
   name: 'CanvasMain',
   components: {
     DatavTransform,
+    AlignLine,
   },
   setup() {
     const canvas = computed(() => EditorModule.canvas)
@@ -68,11 +75,16 @@ export default defineComponent({
       }
     }
 
+    const cancelSelectCom = () => {
+      EditorModule.selectCom()
+    }
+
     return {
+      coms,
       screenShotStyle,
       canvasPanelStyle,
       dropToAddCom,
-      coms,
+      cancelSelectCom,
     }
   },
 })

@@ -1,10 +1,10 @@
 <template>
-  <div v-if="urlText" class="com-wraper" :style="titleStyle">
+  <div v-if="urlText" class="com-wrapper" :style="titleStyle">
     <a :href="urlText" :target="urlTarget" :style="urlStyle">
       {{ titleText }}
     </a>
   </div>
-  <div v-else class="com-wraper" :style="titleStyle">
+  <div v-else class="com-wrapper" :style="titleStyle">
     {{ titleText }}
   </div>
 </template>

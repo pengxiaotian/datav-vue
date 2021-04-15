@@ -2,6 +2,15 @@ import { generateShortId } from '@/utils/util'
 import { ComType } from '@/domains/enums/com-enums'
 import { findComByName } from '@/data/system-components'
 
+export interface ComponentAttr {
+  x: number
+  y: number
+  w: number
+  h: number
+  deg: number
+  opacity: number
+}
+
 export class BaseComponent {
   id: string
   name: string
@@ -14,18 +23,12 @@ export class BaseComponent {
   locked: boolean
   hided: boolean
 
+  // 以下几个状态可以不进行持久化，为了操作方便在此声明
   selected: boolean
   hovered: boolean
   renameing: boolean
 
-  attr: {
-    x: number
-    y: number
-    w: number
-    h: number
-    deg: number
-    opacity: number
-  }
+  attr: ComponentAttr
 
   projectId: number
   parentId?: string

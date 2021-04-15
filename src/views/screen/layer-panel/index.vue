@@ -174,7 +174,6 @@ export default defineComponent({
   setup() {
     const showText = ref(false)
     const visiblePanel = computed(() => ToolbarModule.layer.show)
-    const coms = computed(() => EditorModule.coms)
     const descComs = computed(() => [...EditorModule.coms].reverse())
     const selectedCom = computed(() => EditorModule.selectedCom)
 
@@ -203,12 +202,12 @@ export default defineComponent({
     }
 
     const selectCom = (id: string) => {
-      coms.value.forEach(com => com.selected = com.id === id)
+      EditorModule.selectCom(id)
     }
 
     const moveCom = (moveType: MoveType) => {
       if (selectedCom.value) {
-        EditorModule.MOVE_COM_ZINDEX({ id: selectedCom.value.id, moveType })
+        EditorModule.moveCom({ id: selectedCom.value.id, moveType })
       }
     }
 
@@ -245,7 +244,6 @@ export default defineComponent({
     return {
       showText,
       visiblePanel,
-      coms,
       descComs,
       enableBtnClass,
       enableLockBtnClass,

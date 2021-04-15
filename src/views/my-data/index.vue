@@ -16,7 +16,7 @@ export default defineComponent({
   name: 'MyData',
   setup() {
     onMounted(() => {
-      MessageUtil.error('建设中。。。')
+      MessageUtil.warning('建设中。。。')
     })
   },
 })

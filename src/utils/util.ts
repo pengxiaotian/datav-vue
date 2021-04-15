@@ -13,14 +13,17 @@ import {
 import shortid from 'shortid'
 import { ZoomMode } from '@/domains/enums/com-enums'
 
-export function toObject<T>(arr: Array<T>): Record<string, T> {
-  const res = {}
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i]) {
-      extend(res, arr[i])
-    }
-  }
-  return res
+export const kebabCase = hyphenate
+
+export {
+  hasOwn,
+  isObject,
+  isArray,
+  isString,
+  capitalize,
+  camelize,
+  looseEqual,
+  extend,
 }
 
 /**
@@ -32,6 +35,14 @@ export const generateId = (): number => Math.floor(Math.random() * 10000)
 export const generateShortId = (prefix?: string) => {
   const id = shortid.generate()
   return prefix ? `${prefix}_${id}` : id
+}
+
+/**
+ * Generating a random int in range (0, max - 1)
+ * @param max {number}
+ */
+export function getRandomInt(max: number) {
+  return Math.floor(Math.random() * Math.floor(max))
 }
 
 export const isIE = function(): boolean {
@@ -50,32 +61,11 @@ export const isMac = () => {
   return /macintosh|mac os x/i.test(navigator.userAgent)
 }
 
-export const kebabCase = hyphenate
-
-export {
-  hasOwn,
-  isObject,
-  isArray,
-  isString,
-  capitalize,
-  camelize,
-  looseEqual,
-  extend,
-}
-
 export const isBool = (val: unknown) => typeof val === 'boolean'
 export const isNumber = (val: unknown) => typeof val === 'number'
 export const isHTMLElement = (val: unknown) => toRawType(val).startsWith('HTML')
 
-/**
- * Generating a random int in range (0, max - 1)
- * @param max {number}
- */
-export function getRandomInt(max: number) {
-  return Math.floor(Math.random() * Math.floor(max))
-}
-
-export function isUndefined(val: any): val is undefined {
+export function isUndefined(val: any) {
   return val === void 0
 }
 
@@ -87,6 +77,16 @@ export function isEmpty(val: unknown) {
   ) return true
 
   return false
+}
+
+export function toObject<T>(arr: Array<T>): Record<string, T> {
+  const res = {}
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]) {
+      extend(res, arr[i])
+    }
+  }
+  return res
 }
 
 export function deduplicate<T>(arr: T[]) {

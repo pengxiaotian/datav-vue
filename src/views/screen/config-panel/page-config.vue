@@ -128,7 +128,6 @@ import { generateShortId } from '@/utils/util'
 export default defineComponent({
   name: 'PageConfig',
   setup() {
-    const selectedCom = computed(() => EditorModule.selectedCom)
     const pageConfig = computed(() => EditorModule.pageConfig)
 
     const cover = ref({
@@ -244,7 +243,6 @@ export default defineComponent({
     }
 
     return {
-      selectedCom,
       pageConfig,
       ZoomMode,
       cover,

@@ -8,6 +8,7 @@ import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { getProject } from '@/api/project'
 import { ComType, MoveType } from '@/domains/enums/com-enums'
 import { generateShortId } from '@/utils/util'
+import { calcIntersectingLines } from '@/utils/intersecting-line-util'
 import { BaseComponent } from '@/domains/base-component'
 
 config.rawError = true
@@ -19,6 +20,17 @@ export type Screen = Pick<Project, 'id' | 'name'>
 interface MoveComDto {
   id: string
   moveType: MoveType
+}
+
+export interface AlignLine {
+  top: number
+  bottom: number
+  left: number
+  right: number
+  vertical: number
+  horizontal: number
+  enable: boolean
+  show: boolean
 }
 
 export interface IEditorState {
@@ -34,16 +46,7 @@ export interface IEditorState {
   referLine: {
     enable: boolean
   }
-  alignLine: {
-    top: number
-    bottom: number
-    left: number
-    right: number
-    vertical: number
-    horizontal: number
-    enable: boolean
-    show: boolean
-  }
+  alignLine: AlignLine
   contextMenu: {
     show: boolean
   }
@@ -61,6 +64,17 @@ const findCom = (coms: BaseComponent[], id: string) => {
 
 const findComs = (coms: BaseComponent[], parentId?: string) => {
   return coms.filter(c => c.parentId === parentId)
+}
+
+const selectCom = (coms: BaseComponent[], id?: string) => {
+  coms.forEach(com => {
+    if (com.id === id) {
+      com.selected = true
+    } else {
+      com.selected = false
+    }
+    com.hovered = false
+  })
 }
 
 @Module({ dynamic: true, store, name: 'editor' })
@@ -95,14 +109,14 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   alignLine = {
+    enable: false,
+    show: false,
     top: 0,
     bottom: 0,
     left: 0,
     right: 0,
     vertical: 0,
     horizontal: 0,
-    enable: false,
-    show: false,
   }
 
   contextMenu = {
@@ -140,7 +154,40 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  public MOVE_COM_ZINDEX({ id, moveType }: MoveComDto) {
+  private SET_CANVAS(payload: { scale: number; width: number; height: number; }) {
+    this.canvas = { ...payload }
+  }
+
+  /**
+   * 计算对齐线
+   */
+  @Mutation
+  public calcAlignLine(com: BaseComponent) {
+    if (!this.alignLine.enable) {
+      return
+    }
+
+    const attr = calcIntersectingLines(com, this.coms, this.canvas.scale)
+    this.alignLine = { ...this.alignLine, ...attr, show: true }
+  }
+
+  /**
+   * 隐藏对齐线
+   */
+  @Mutation
+  public hideAlignLine(id?: string) {
+    if (!this.alignLine.enable) {
+      return
+    }
+
+    if (this.alignLine.enable && this.alignLine.show) {
+      this.alignLine.show = false
+      selectCom(this.coms, id)
+    }
+  }
+
+  @Mutation
+  public moveCom({ id, moveType }: MoveComDto) {
     const i = findComIndex(this.coms, id)
     if (moveType === MoveType.up) {
       if (i + 1 < this.coms.length) {
@@ -162,8 +209,8 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  private SET_CANVAS(payload: { scale: number; width: number; height: number; }) {
-    this.canvas = { ...payload }
+  public selectCom(id?: string) {
+    selectCom(this.coms, id)
   }
 
   @Mutation
@@ -222,7 +269,7 @@ class Editor extends VuexModule implements IEditorState {
       const a = (width - 120) / this.pageConfig.width
       const b = (height - 140) / this.pageConfig.height
       const c = parseFloat((a > b ? b : a).toFixed(6))
-      const scale = c < 0.2 ? 0.2 : c
+      const scale = Math.max(c, 0.2)
 
       this.SET_CANVAS({ scale, width, height })
     }, 200)

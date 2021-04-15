@@ -71,7 +71,7 @@ export default defineComponent({
 
     const moveCom = (moveType: MoveType) => {
       if (selectedCom.value) {
-        EditorModule.MOVE_COM_ZINDEX({ id: selectedCom.value.id, moveType })
+        EditorModule.moveCom({ id: selectedCom.value.id, moveType })
       }
     }
 
