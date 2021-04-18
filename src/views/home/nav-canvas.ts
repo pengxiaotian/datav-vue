@@ -48,7 +48,7 @@ export class NavCanvas {
 
   calcTabs() {
     const { opt, tabs } = this
-    const b = []
+    const b: number[] = []
     let c = 0
     tabs.forEach(node => {
       b.push(c)

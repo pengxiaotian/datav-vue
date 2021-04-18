@@ -3,6 +3,7 @@
     <div class="canvas-panel-wrap" @mousedown.stop="cancelSelectCom">
       <div class="screen-shot" :style="screenShotStyle">
         <align-line />
+        <ruler />
         <div
           id="canvas-coms"
           class="canvas-panel"
@@ -29,13 +30,15 @@ import { computed, defineComponent } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import FactoryComponent from '@/domains/factory-component'
 import AlignLine from './align-line.vue'
+import Ruler from './ruler/index.vue'
 import DatavTransform from './datav-transform/index.vue'
 
 export default defineComponent({
   name: 'CanvasMain',
   components: {
-    DatavTransform,
     AlignLine,
+    Ruler,
+    DatavTransform,
   },
   setup() {
     const canvas = computed(() => EditorModule.canvas)
