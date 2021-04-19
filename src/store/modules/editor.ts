@@ -100,8 +100,8 @@ class Editor extends VuexModule implements IEditorState {
 
   canvas = {
     scale: 0.2,
-    width: 100,
-    height: 100,
+    width: 1920,
+    height: 1080,
   }
 
   referLine = {
@@ -283,9 +283,20 @@ class Editor extends VuexModule implements IEditorState {
 
   @Action
   public async setCanvasScale(payload: { scale: number; offsetX: number; }) {
-    const width = document.documentElement.clientWidth - payload.offsetX
-    const height = document.documentElement.clientHeight - 42
+    let width = document.documentElement.clientWidth - payload.offsetX
+    let height = document.documentElement.clientHeight - 42
     const scale = Math.min(Math.max(payload.scale, 20), 200) / 100
+
+    // 方便计算滚动条 和 标尺
+    const deltaW = this.pageConfig.width * scale
+    const deltaH = this.pageConfig.height * scale
+    if (width < deltaW) {
+      width = deltaW + 400
+    }
+
+    if (height < deltaH) {
+      height = deltaH + 400
+    }
 
     this.SET_CANVAS({ scale, width, height })
   }

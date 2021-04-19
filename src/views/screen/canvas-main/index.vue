@@ -1,6 +1,6 @@
 <template>
   <el-main class="canvas-main">
-    <div class="canvas-panel-wrap" @mousedown.stop="cancelSelectCom">
+    <div id="canvas-wp" class="canvas-panel-wrap" @mousedown.stop="cancelSelectCom">
       <div class="screen-shot" :style="screenShotStyle">
         <align-line />
         <ruler />

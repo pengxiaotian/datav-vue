@@ -1,7 +1,15 @@
 <template>
   <div class="canvas-ruler-wp">
-    <div ref="hRulerRef" class="ruler-wrapper h-container"></div>
-    <div ref="vRulerRef" class="ruler-wrapper v-container"></div>
+    <div
+      ref="hRulerWpRef"
+      class="ruler-wrapper h-container"
+      :style="`transform: translateX(-${hScroll}px);`"
+    ></div>
+    <div
+      ref="vRulerWpRef"
+      class="ruler-wrapper v-container"
+      :style="`transform: rotate(90deg) translateX(-${vScroll}px);`"
+    ></div>
     <div class="ruler-corner">
       <i class="v-icon-line-show" style="z-index: 10;"></i>
     </div>
@@ -9,40 +17,70 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, watchEffect } from 'vue'
+import { defineComponent, ref, onMounted, onUnmounted, watchEffect } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import { RulerBuilder } from './index'
 
 export default defineComponent({
   name: 'Ruler',
   setup() {
-    const hRulerRef = ref<any>(null)
-    const vRulerRef = ref<any>(null)
-    const pageConfig = computed(() => EditorModule.pageConfig)
+    const hRulerWpRef = ref<any>(null)
+    const vRulerWpRef = ref<any>(null)
+    const hRuler = ref<RulerBuilder | null>(null)
+    const vRuler = ref<RulerBuilder | null>(null)
+    const hScroll = ref(0)
+    const vScroll = ref(0)
 
     watchEffect(() => {
-      if (hRulerRef.value && vRulerRef.value) {
+      if (hRulerWpRef.value && vRulerWpRef.value) {
         const { canvas } = EditorModule
-        const hRuler = new RulerBuilder(hRulerRef.value, {
-          direction: 'TB',
-          rulerWidth: canvas.width,
-          scale: canvas.scale,
-          offset: 40,
-        })
-        const vRuler = new RulerBuilder(vRulerRef.value, {
-          direction: 'LR',
-          rulerWidth: canvas.height,
-          scale: canvas.scale,
-          offset: 40,
-        })
-        console.log(hRuler, vRuler)
+        if (hRuler.value) {
+          hRuler.value.setSize(canvas.width, 20, canvas.scale)
+        } else {
+          hRuler.value = new RulerBuilder(hRulerWpRef.value, {
+            direction: 'TB',
+            rulerWidth: canvas.width,
+            scale: canvas.scale,
+            offset: 40,
+          })
+        }
+
+        if (vRuler.value) {
+          vRuler.value.setSize(canvas.width, 20, canvas.scale)
+        } else {
+          vRuler.value = new RulerBuilder(vRulerWpRef.value, {
+            direction: 'LR',
+            rulerWidth: canvas.height,
+            scale: canvas.scale,
+            offset: 40,
+          })
+        }
       }
     })
 
+    const onScroll = (ev: Event) => {
+      const dom = ev.target as HTMLElement
+      hScroll.value = dom.scrollLeft
+      vScroll.value = dom.scrollTop
+    }
+
+    onMounted(() => {
+      const canvasWp = document.getElementById('canvas-wp')
+      canvasWp?.addEventListener('scroll', onScroll)
+    })
+
+    onUnmounted(() => {
+      const canvasWp = document.getElementById('canvas-wp')
+      canvasWp?.removeEventListener('scroll', onScroll)
+    })
+
+
+
     return {
-      hRulerRef,
-      vRulerRef,
-      pageConfig,
+      hRulerWpRef,
+      vRulerWpRef,
+      vScroll,
+      hScroll,
     }
   },
 })

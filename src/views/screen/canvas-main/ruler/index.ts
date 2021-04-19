@@ -124,6 +124,21 @@ class GuideLine {
   }
 }
 
+// 创建高分辨率画布
+const createCanvas = (el: HTMLCanvasElement | null, width: number, height: number, ratio: number) => {
+  const canvas = el ?? document.createElement('canvas')
+  canvas.width = width * ratio
+  canvas.height = height * ratio
+  canvas.style.width = pixelize(width)
+  canvas.style.height = pixelize(height)
+
+  const ctx = canvas.getContext('2d')
+  if (ctx) {
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
+  }
+  return canvas
+}
+
 export class RulerBuilder {
   el: HTMLElement
   canvas: HTMLCanvasElement
@@ -178,19 +193,13 @@ export class RulerBuilder {
     this.ruler.height = height
 
     // 创建高分辨率画布
-    const canvas = document.createElement('canvas')
-    canvas.width = width * ratio
-    canvas.height = height * ratio
-    canvas.style.width = pixelize(width)
-    canvas.style.height = pixelize(height)
-
-    addClass(canvas, `canvas-ruler ${direction === 'TB' ? 'v-ruler' : 'h-ruler'}`)
+    const canvas = createCanvas(null, width, height, ratio)
+    addClass(canvas, 'canvas-ruler')
     el.appendChild(canvas)
 
     this.canvas = canvas
     const ctx = canvas.getContext('2d')
     if (ctx) {
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
       this.ctx = ctx
     }
 
@@ -235,7 +244,7 @@ export class RulerBuilder {
 
       if (delta % 50 === 0) {
         pointLength = lineLengthMax
-        label = Math.round(Math.abs(delta) / options.scale).toString()
+        label = Math.floor(Math.abs(delta) / options.scale).toString()
         draw = true
       } else if (delta % 25 === 0) {
         pointLength = lineLengthMed
@@ -282,28 +291,28 @@ export class RulerBuilder {
     this.constructGuide(e, e.clientX, e.clientY)
   }
 
+  setSize(w: number, h: number, s: number) {
+    const { el, options } = this
+    options.rulerWidth = w
+    options.rulerHeight = h
+    options.scale = s
+    const { direction, rulerWidth, rulerHeight, ratio } = options
+
+    const width = direction === 'TB'
+      ? Math.max(el.offsetWidth, rulerWidth)
+      : Math.max(el.offsetHeight, rulerWidth)
+    const height = rulerHeight
+
+    this.ruler.width = width
+    this.ruler.height = height
+
+    createCanvas(this.canvas, width, height, ratio)
+    this.drawRuler()
+  }
+
   setScale(newScale: number) {
-    const { canvas, ctx, guides, options } = this
-    const { direction, rulerHeight, scale, offset } = options
-    options.scale = newScale
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.beginPath()
-    this.drawPoints()
-    ctx.stroke()
-
-    const orgDelta = rulerHeight + 1
-    const curScale = newScale / scale
-    const delta = orgDelta + offset
-    guides.forEach(guide => {
-      if (direction == 'TB') {
-        const top = parseInt(guide.guideLine.style.top) - delta
-        guide.guideLine.style.top = pixelize((top / curScale) + delta)
-      } else {
-        const left = parseInt(guide.guideLine.style.left) - delta
-        guide.guideLine.style.left = pixelize((left / curScale) + delta)
-      }
-    })
+    this.options.scale = newScale
+    this.drawRuler()
   }
 
   toggleGuideVisibility(visible: boolean) {
