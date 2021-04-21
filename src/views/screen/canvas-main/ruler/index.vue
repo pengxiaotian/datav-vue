@@ -10,7 +10,7 @@
       class="ruler-wrapper v-container"
       :style="`transform: rotate(90deg) translateX(-${vScroll}px);`"
     ></div>
-    <div title="切换参考线" class="ruler-corner">
+    <div title="切换参考线" class="ruler-corner" @click="toggleGuides">
       <i class="v-icon-line-show" style="z-index: 10;"></i>
     </div>
   </div>
@@ -28,20 +28,33 @@ export default defineComponent({
     const vRulerWpRef = ref<any>(null)
     const hRuler = ref<RulerBuilder | null>(null)
     const vRuler = ref<RulerBuilder | null>(null)
+    const visible = ref(true)
     const hScroll = ref(0)
     const vScroll = ref(0)
 
     watchEffect(() => {
       if (hRulerWpRef.value && vRulerWpRef.value) {
-        const { canvas } = EditorModule
+        const { canvas, guideLine } = EditorModule
         if (hRuler.value) {
           hRuler.value.setSize(canvas.width, 20, canvas.scale)
         } else {
           hRuler.value = new RulerBuilder(hRulerWpRef.value, {
             direction: 'TB',
-            rulerWidth: canvas.width,
+            width: canvas.width,
             scale: canvas.scale,
+            coorChange: (action, nCoor, oCoor) => {
+              if (action === 'add') {
+                guideLine.h.push(nCoor)
+              } else if (action === 'update' && nCoor !== oCoor) {
+                guideLine.h = guideLine.h.filter(m => m !== oCoor)
+                guideLine.h.push(nCoor)
+              } else if (action === 'delete') {
+                guideLine.h = guideLine.h.filter(m => m !== nCoor)
+              }
+            },
           })
+
+          hRuler.value.setGuideLines(guideLine.h)
         }
 
         if (vRuler.value) {
@@ -49,12 +62,32 @@ export default defineComponent({
         } else {
           vRuler.value = new RulerBuilder(vRulerWpRef.value, {
             direction: 'LR',
-            rulerWidth: canvas.height,
+            width: canvas.height,
             scale: canvas.scale,
+            coorChange: (action, nCoor, oCoor) => {
+              if (action === 'add') {
+                guideLine.v.push(nCoor)
+              } else if (action === 'update' && nCoor !== oCoor) {
+                guideLine.v = guideLine.v.filter(m => m !== oCoor)
+                guideLine.v.push(nCoor)
+              } else if (action === 'delete') {
+                guideLine.v = guideLine.v.filter(m => m !== nCoor)
+              }
+            },
           })
+
+          vRuler.value.setGuideLines(guideLine.v)
         }
       }
     })
+
+    const toggleGuides = () => {
+      if (hRuler.value && vRuler.value) {
+        visible.value = !visible.value
+        hRuler.value.toggleGuide(visible.value)
+        vRuler.value.toggleGuide(visible.value)
+      }
+    }
 
     const onScroll = (ev: Event) => {
       const dom = ev.target as HTMLElement
@@ -75,6 +108,7 @@ export default defineComponent({
     return {
       hRulerWpRef,
       vRulerWpRef,
+      toggleGuides,
       vScroll,
       hScroll,
     }
@@ -208,6 +242,10 @@ export default defineComponent({
     border-bottom: 1px solid $ruler-font-color;
     align-items: center;
     justify-content: center;
+
+    &:hover {
+      color: #fff;
+    }
   }
 }
 </style>

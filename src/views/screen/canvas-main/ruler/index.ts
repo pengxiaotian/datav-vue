@@ -1,127 +1,28 @@
-import { addClass, removeClass } from '@/utils/dom'
+import { addClass, on, off } from '@/utils/dom'
 
 type LayoutDirection = 'LR' | 'TB'
 
+type Action = 'add' | 'update' | 'delete'
+
 interface RulerOption {
   direction: LayoutDirection
-  rulerWidth: number
-  rulerHeight: number
+  width: number
+  height: number
   bgColor: string
   fontFamily: string
   fontSize: string
   fontColor: string
   strokeStyle: string
   lineWidth: number
-  enableMouseTracking: boolean
-  enableToolTip: boolean
+  indicatorLineWidth: number
   scale: number
   offset: number
   ratio: number
+  coorChange?: (action: Action, newCoor: number, oldCoor: number) => void
 }
 
 const pixelize = (val: number | string) => {
   return val + 'px'
-}
-
-class GuideLine {
-  dragContainer: HTMLDivElement
-
-  constructor(
-    private el: HTMLElement,
-    public guideLine: HTMLDivElement,
-    private options: RulerOption,
-    private event: MouseEvent,
-  ) {
-    this.dragContainer = el.querySelector('.ruler-wrapper') as HTMLDivElement
-
-    guideLine.addEventListener('mousedown', this.mousedown)
-    guideLine.addEventListener('mouseup', this.stopMoving)
-    guideLine.addEventListener('dblclick', this.dblclick)
-
-    this.startMoving(event)
-  }
-
-  startMoving(e: MouseEvent) {
-    const { el, guideLine, dragContainer, options } = this
-    addClass(guideLine, 'rul_line_dragged')
-
-    const divTop = parseInt(guideLine.style.top) || 0,
-      divLeft = parseInt(guideLine.style.left) || 0,
-      eWi = guideLine.offsetWidth,
-      eHe = guideLine.offsetHeight,
-      cWi = dragContainer.offsetWidth,
-      cHe = dragContainer.offsetHeight,
-      cursor = options.direction == 'TB' ? 'ns-resize' : 'ew-resize'
-
-    el.style.cursor = cursor
-    guideLine.style.cursor = cursor
-    const diffX = e.clientX - divLeft,
-      diffY = e.clientY - divTop
-    document.onmousemove = evt => {
-      const aX = Math.min(Math.max(evt.clientX - diffX, 0), cWi - eWi)
-      const aY = Math.min(Math.max(evt.clientY - diffY, 0), cHe - eHe)
-      guideLine.style.left = pixelize(aX)
-      guideLine.style.top = pixelize(aY)
-      this.updateToolTip(aX, aY)
-    }
-    this.showToolTip()
-  }
-
-  stopMoving() {
-    this.el.style.cursor = ''
-    this.guideLine.style.cursor = ''
-    document.onmousemove = null
-    this.hideToolTip()
-    removeClass(this.guideLine, 'rul_line_dragged')
-  }
-
-  showToolTip() {
-    if (!this.options.enableToolTip) {
-      return
-    }
-    addClass(this.guideLine, 'rul_tooltip')
-  }
-
-  updateToolTip(x: number, y: number) {
-    const { guideLine, options } = this
-    const { rulerHeight, offset, scale } = options
-    if (y) {
-      guideLine.dataset.tip = 'Y: ' + Math.round((y - rulerHeight - 1 - offset) * scale) + ' px'
-    } else {
-      guideLine.dataset.tip = 'X: ' + Math.round((x - rulerHeight - 1 - offset) * scale) + ' px'
-    }
-  }
-
-  hideToolTip() {
-    removeClass(this.guideLine, 'rul_tooltip')
-  }
-
-  show() {
-    this.guideLine.style.display = 'block'
-  }
-
-  hide() {
-    this.guideLine.style.display = 'none'
-  }
-
-  mousedown(e: MouseEvent) {
-    e.stopPropagation()
-    this.startMoving(e)
-  }
-
-  dblclick(e: any) {
-    e.stopPropagation()
-    this.destroy()
-  }
-
-  destroy() {
-    const { guideLine } = this
-    this.stopMoving()
-    guideLine.removeEventListener('mousedown', this.mousedown)
-    guideLine.removeEventListener('mouseup', this.stopMoving)
-    guideLine.removeEventListener('dblclick', this.dblclick)
-    guideLine.parentNode && guideLine.parentNode.removeChild(guideLine)
-  }
 }
 
 // 创建高分辨率画布
@@ -139,36 +40,169 @@ const createCanvas = (el: HTMLCanvasElement | null, width: number, height: numbe
   return canvas
 }
 
+// 计算指示线位置
+const getLinePos = (el: HTMLElement, options: RulerOption, cx: number, cy: number) => {
+  const { height, scale, offset } = options
+  let dist = 0
+  if (options.direction == 'TB') {
+    dist = cx - (el.parentElement?.offsetLeft || 0)
+  } else {
+    dist = cy - (el.parentElement?.offsetTop || 0)
+  }
+
+  dist = dist - height + options.indicatorLineWidth
+  const coor = Math.floor((dist - offset) / scale)
+  return {
+    coor,
+    dist,
+  }
+}
+
+// 通过坐标计算指示线位置
+const getPosByCoor = (coor: number, options: RulerOption) => {
+  const { scale, offset } = options
+  return {
+    coor,
+    dist: parseFloat((coor * scale + offset).toFixed(3)),
+  }
+}
+
+class GuideLine {
+  guideLine: HTMLElement
+  coor = -1
+
+  constructor(
+    private el: HTMLElement,
+    private options: RulerOption,
+    ev: MouseEvent | null,
+    coor = 0,
+  ) {
+    this.constructGuide(ev, coor)
+  }
+
+  // 创建参考线
+  constructGuide(ev: MouseEvent | null, coor?: number) {
+    const { el } = this
+    const guideLine = document.createElement('div')
+    guideLine.title = '双击删除参考线'
+    addClass(guideLine, 'ruler-line')
+    this.guideLine = guideLine
+
+    const { coor: oldCoor } = this
+    this.setLine(ev, coor)
+
+    if (ev) {
+      this.coorChange('add', this.coor, oldCoor)
+    }
+
+    let guideWp = el.querySelector('.lines-wrapper')
+    if (!guideWp) {
+      guideWp = document.createElement('div')
+      addClass(guideWp as HTMLDivElement, 'lines-wrapper')
+      el.appendChild(guideWp)
+    }
+
+    guideWp.appendChild(guideLine)
+
+    on(guideLine, 'mousedown', this.moving.bind(this))
+    on(guideLine, 'dblclick', this.dblclick.bind(this))
+  }
+
+  moving() {
+    const { coor: oldCoor } = this
+    const move = (e: MouseEvent) => {
+      this.setLine(e)
+    }
+
+    const up = () => {
+      off(document, 'mousemove', move)
+      off(document, 'mouseup', up)
+
+      const { coor } = this
+      if (coor < 0) {
+        this.coorChange('delete', oldCoor, oldCoor)
+      } else {
+        this.coorChange('update', coor, oldCoor)
+      }
+    }
+
+    on(document, 'mousemove', move)
+    on(document, 'mouseup', up)
+  }
+
+  setLine(e: MouseEvent | null, coor = 0) {
+    const { el, options, guideLine } = this
+    const pos = e ? getLinePos(el, options, e.clientX, e.clientY) : getPosByCoor(coor, options)
+    if (options.direction === 'TB') {
+      guideLine.style.left = pixelize(pos.dist)
+    } else {
+      guideLine.style.top = pixelize(pos.dist)
+    }
+
+    guideLine.innerHTML = `
+      <div class="line-action">
+        <span class="line-value">${pos.coor}</span>
+      </div>`
+
+    this.coor = pos.coor
+  }
+
+  dblclick(e: MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    this.destroy()
+  }
+
+  coorChange(action: Action, nCoor: number, oCoor: number) {
+    const { options } = this
+    options.coorChange && options.coorChange(action, nCoor, oCoor)
+  }
+
+  show() {
+    this.guideLine.style.display = 'block'
+  }
+
+  hide() {
+    this.guideLine.style.display = 'none'
+  }
+
+  destroy() {
+    const { guideLine, coor } = this
+    this.coorChange('delete', coor, coor)
+
+    off(guideLine, 'mousedown', this.moving.bind(this))
+    off(guideLine, 'dblclick', this.dblclick.bind(this))
+
+    guideLine.remove()
+  }
+}
+
 export class RulerBuilder {
   el: HTMLElement
   canvas: HTMLCanvasElement
   ctx: CanvasRenderingContext2D
 
-  indicator: HTMLDivElement
-  indicatorValue: HTMLSpanElement
-  indicatorLineWidth = 1
-
   ruler = {
-    orgPos: 0,
-    thickness: 0,
     width: 0,
     height: 0,
   }
 
-  guides: GuideLine[] = []
+  indicator: HTMLDivElement
+  indicatorValue: HTMLSpanElement
+
+  guideLines: GuideLine[] = []
 
   options: RulerOption = {
     direction: 'TB',
-    rulerWidth: 1000,
-    rulerHeight: 20,
+    width: 1000,
+    height: 20,
     bgColor: '#0e1013',
     fontFamily: 'sans-serif',
     fontSize: '10px',
     fontColor: '#90a0ae',
     strokeStyle: 'rgba(161, 174, 179, 0.8)',
     lineWidth: 0.5,
-    enableMouseTracking: true,
-    enableToolTip: true,
+    indicatorLineWidth: 1,
     scale: 1,
     offset: 40,
     ratio: 2,
@@ -184,18 +218,17 @@ export class RulerBuilder {
   // 创建标尺
   constructRuler() {
     const { el, options } = this
-    const { direction, rulerWidth, rulerHeight, ratio } = options
+    const { direction, width, height, ratio } = options
 
-    const width = direction === 'TB'
-      ? Math.max(el.offsetWidth, rulerWidth)
-      : Math.max(el.offsetHeight, rulerWidth)
-    const height = rulerHeight
+    const deltaW = direction === 'TB'
+      ? Math.max(el.offsetWidth, width)
+      : Math.max(el.offsetHeight, width)
+    const deltaH = height
 
-    this.ruler.width = width
-    this.ruler.height = height
+    this.ruler.width = deltaW
+    this.ruler.height = deltaH
 
-    // 创建高分辨率画布
-    const canvas = createCanvas(null, width, height, ratio)
+    const canvas = createCanvas(null, deltaW, deltaH, ratio)
     addClass(canvas, 'canvas-ruler')
     el.appendChild(canvas)
 
@@ -204,8 +237,8 @@ export class RulerBuilder {
 
     this.drawRuler()
 
-    canvas.addEventListener('mouseenter', this.constructIndicator.bind(this))
-    canvas.addEventListener('mousedown', this.constructGuide.bind(this))
+    on(canvas, 'mouseenter', this.constructIndicator.bind(this))
+    on(canvas, 'mousedown', this.createGuideLine.bind(this))
   }
 
   // 画标尺
@@ -263,32 +296,9 @@ export class RulerBuilder {
     }
   }
 
-  private getPos(e: MouseEvent) {
-    const { el, options, indicatorLineWidth } = this
-    const { direction, offset, scale, rulerHeight } = options
-    let distance = 0
-    if (direction == 'TB') {
-      distance = e.clientX - (el.parentElement?.offsetLeft || 0)
-    } else {
-      distance = e.clientY - (el.parentElement?.offsetTop || 0)
-    }
-
-    distance = distance - rulerHeight + indicatorLineWidth
-    const coor = Math.floor((distance - offset) / scale)
-    return {
-      coor,
-      distance,
-    }
-  }
-
-  private getDistanceByCoor(coor: number) {
-    const { scale, offset } = this.options
-    return parseFloat((coor * scale + offset).toFixed(3))
-  }
-
   // 画指示线
   constructIndicator() {
-    const { el, canvas } = this
+    const { el, options, canvas } = this
     const indicator = document.createElement('div')
     const indicatorValue = document.createElement('span')
     addClass(indicator, 'ruler-indicator')
@@ -300,91 +310,82 @@ export class RulerBuilder {
     el.appendChild(indicator)
 
     const move = (e: MouseEvent) => {
-      const pos = this.getPos(e)
-      indicator.style.left = pixelize(pos.distance)
+      const pos = getLinePos(el, options, e.clientX, e.clientY)
+      indicator.style.left = pixelize(pos.dist)
       indicatorValue.textContent = `${pos.coor}`
     }
 
     const out = () => {
+      off(canvas, 'mousemove', move)
+      off(canvas, 'mouseout', out)
       indicator.remove()
-      canvas.removeEventListener('mousemove', move)
-      canvas.removeEventListener('mouseout', out)
     }
 
-    canvas.addEventListener('mousemove', move)
-    canvas.addEventListener('mouseout', out)
+    on(canvas, 'mousemove', move)
+    on(canvas, 'mouseout', out)
   }
 
   // 创建参考线
-  constructGuide(e: MouseEvent) {
+  createGuideLine(e: MouseEvent) {
     const { el, options } = this
-
-    const guide = document.createElement('div')
-    guide.title = '双击删除参考线'
-    addClass(guide, 'ruler-line')
-
-    const pos = this.getPos(e)
-    if (options.direction === 'TB') {
-      guide.style.left = pixelize(pos.distance)
-    } else {
-      guide.style.top = pixelize(pos.distance)
-    }
-
-    guide.innerHTML = `<div class="line-action"><span class="line-value">${pos.coor}</span></div>`
-
-    let guideWp = el.querySelector('.lines-wrapper')
-    if (!guideWp) {
-      guideWp = document.createElement('div')
-      addClass(guideWp as HTMLDivElement, 'lines-wrapper')
-      el.appendChild(guideWp)
-    }
-
-    guideWp.appendChild(guide)
-
-    // const guideLine = new GuideLine(el, guide, options, e)
-    // this.guides.push(guideLine)
+    this.guideLines.push(new GuideLine(el, options, e))
   }
 
+  // 设置指定参考线
+  setGuideLines(lines: number[]) {
+    const { el, options } = this
+    lines.forEach(coor => {
+      this.guideLines.push(new GuideLine(el, options, null, coor))
+    })
+  }
+
+  // 设置画布尺寸和比例
   setSize(w: number, h: number, s: number) {
     const { el, options } = this
-    options.rulerWidth = w
-    options.rulerHeight = h
+    options.width = w
+    options.height = h
     options.scale = s
-    const { direction, rulerWidth, rulerHeight, ratio } = options
+    const { direction, width, height, ratio } = options
 
-    const width = direction === 'TB'
-      ? Math.max(el.offsetWidth, rulerWidth)
-      : Math.max(el.offsetHeight, rulerWidth)
-    const height = rulerHeight
+    const deltaW = direction === 'TB'
+      ? Math.max(el.offsetWidth, width)
+      : Math.max(el.offsetHeight, width)
+    const deltaH = height
 
-    this.ruler.width = width
-    this.ruler.height = height
+    this.ruler.width = deltaW
+    this.ruler.height = deltaH
 
-    createCanvas(this.canvas, width, height, ratio)
+    createCanvas(this.canvas, deltaW, deltaH, ratio)
     this.drawRuler()
+    this.guideLines.forEach(g => g.setLine(null, g.coor))
   }
 
+  // 设置画布比例
   setScale(scale: number) {
     this.options.scale = scale
     this.drawRuler()
+    this.guideLines.forEach(g => g.setLine(null, g.coor))
   }
 
+  // 切换参考线
   toggleGuide(visible: boolean) {
     const func = visible ? 'show' : 'hide'
-    this.guides.forEach(guide => guide[func]())
+    this.guideLines.forEach(g => g[func]())
   }
 
+  // 清空所有参考线
   clearGuides() {
-    this.guides.forEach(guide => guide.destroy())
-    this.guides = []
+    this.guideLines.forEach(g => g.destroy())
+    this.guideLines = []
   }
 
   destroy() {
     const { el, canvas } = this
     this.clearGuides()
 
-    canvas.removeEventListener('mouseenter', this.constructIndicator.bind(this))
-    canvas.removeEventListener('mousedown', this.constructGuide.bind(this))
+    off(canvas, 'mouseenter', this.constructIndicator.bind(this))
+    off(canvas, 'mousedown', this.createGuideLine.bind(this))
+
     el.remove()
   }
 }

@@ -46,6 +46,10 @@ export interface IEditorState {
   referLine: {
     enable: boolean
   }
+  guideLine: {
+    h: number[]
+    v: number[]
+  }
   alignLine: AlignLine
   contextMenu: {
     show: boolean
@@ -106,6 +110,14 @@ class Editor extends VuexModule implements IEditorState {
 
   referLine = {
     enable: true,
+  }
+
+  guideLine: {
+    h: number[]
+    v: number[]
+  } = {
+    h: [],
+    v: [],
   }
 
   alignLine = {
