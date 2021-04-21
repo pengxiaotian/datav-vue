@@ -10,7 +10,7 @@
       class="ruler-wrapper v-container"
       :style="`transform: rotate(90deg) translateX(-${vScroll}px);`"
     ></div>
-    <div class="ruler-corner">
+    <div title="切换参考线" class="ruler-corner">
       <i class="v-icon-line-show" style="z-index: 10;"></i>
     </div>
   </div>
@@ -41,7 +41,6 @@ export default defineComponent({
             direction: 'TB',
             rulerWidth: canvas.width,
             scale: canvas.scale,
-            offset: 40,
           })
         }
 
@@ -52,7 +51,6 @@ export default defineComponent({
             direction: 'LR',
             rulerWidth: canvas.height,
             scale: canvas.scale,
-            offset: 40,
           })
         }
       }
@@ -74,8 +72,6 @@ export default defineComponent({
       canvasWp?.removeEventListener('scroll', onScroll)
     })
 
-
-
     return {
       hRulerWpRef,
       vRulerWpRef,
@@ -92,15 +88,43 @@ export default defineComponent({
 .canvas-ruler-wp {
   position: fixed;
   z-index: 1;
-  width: 100%;
 
   .ruler-wrapper {
     position: absolute;
     height: 20px;
-    width: 100%;
+  }
 
-    .canvas-ruler {
+  .ruler-line {
+    position: absolute;
+
+    .line-action {
       position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      color: #fff;
+      padding: 0 4px;
+      border-radius: 1px;
+      box-shadow: 0 0 5px -3px #000;
+      background: $ruler-tag-bg;
+
+      .line-value {
+        pointer-events: none;
+      }
+    }
+  }
+
+  .ruler-indicator {
+    position: absolute;
+    pointer-events: none;
+
+    .indicator-value {
+      position: absolute;
+      background: $ruler-tag-bg;
+      color: #fff;
+      border-radius: 1px;
+      padding: 0 4px;
     }
   }
 
@@ -108,12 +132,66 @@ export default defineComponent({
     left: 20px;
     cursor: ew-resize;
     transform: translateX(0);
+
+    .ruler-line {
+      top: 0;
+      height: 100vh;
+      padding-left: 5px;
+      border-left: 1px solid $ruler-line-bg;
+
+      .line-action {
+        top: 5px;
+      }
+    }
+
+    .ruler-indicator {
+      border-left: 1px dashed $ruler-line-bg;
+      top: 0;
+      height: 100vw;
+
+      .indicator-value {
+        left: 10px;
+        top: 5px;
+      }
+    }
   }
 
   .v-container {
     cursor: ns-resize;
     transform: rotate(90deg) translateX(0);
     transform-origin: 0 100% 0;
+
+    .lines-wrapper {
+      transform: rotate(-90deg);
+      transform-origin: 0 100% 0;
+    }
+
+    .ruler-line {
+      left: 3px;
+      width: 100vw;
+      border-top: 1px solid $ruler-line-bg;
+
+      .line-action {
+        top: 10px;
+        left: 5px;
+        transform: rotate(90deg);
+      }
+    }
+
+    .ruler-indicator {
+      border-bottom: 1px dashed $ruler-line-bg;
+      width: 100vw;
+      bottom: 1px;
+      transform: rotate(-90deg);
+      transform-origin: 1px 100% 0;
+
+      .indicator-value {
+        transform-origin: 0 0;
+        transform: rotate(90deg);
+        top: 10px;
+        left: 25px;
+      }
+    }
   }
 
   .ruler-corner {
@@ -125,9 +203,9 @@ export default defineComponent({
     font-size: 16px;
     color: $font-color;
     cursor: pointer;
-    background: #0e1013;
-    border-right: $border;
-    border-bottom: $border;
+    background: $ruler-bg;
+    border-right: 1px solid $ruler-font-color;
+    border-bottom: 1px solid $ruler-font-color;
     align-items: center;
     justify-content: center;
   }

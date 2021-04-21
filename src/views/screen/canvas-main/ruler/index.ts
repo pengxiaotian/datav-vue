@@ -27,7 +27,7 @@ class GuideLine {
   dragContainer: HTMLDivElement
 
   constructor(
-    private el: HTMLDivElement,
+    private el: HTMLElement,
     public guideLine: HTMLDivElement,
     private options: RulerOption,
     private event: MouseEvent,
@@ -144,6 +144,10 @@ export class RulerBuilder {
   canvas: HTMLCanvasElement
   ctx: CanvasRenderingContext2D
 
+  indicator: HTMLDivElement
+  indicatorValue: HTMLSpanElement
+  indicatorLineWidth = 1
+
   ruler = {
     orgPos: 0,
     thickness: 0,
@@ -155,32 +159,30 @@ export class RulerBuilder {
 
   options: RulerOption = {
     direction: 'TB',
-    rulerWidth: 20,
+    rulerWidth: 1000,
     rulerHeight: 20,
-    bgColor: '',
+    bgColor: '#0e1013',
     fontFamily: 'sans-serif',
     fontSize: '10px',
-    fontColor: '#a1aeb3',
+    fontColor: '#90a0ae',
     strokeStyle: 'rgba(161, 174, 179, 0.8)',
     lineWidth: 0.5,
     enableMouseTracking: true,
     enableToolTip: true,
     scale: 1,
-    offset: 0,
+    offset: 40,
     ratio: 2,
   }
 
   constructor(container: HTMLElement, options: Partial<RulerOption>) {
-    this.options = { ...this.options, ...options }
     this.el = container
+    this.options = { ...this.options, ...options }
 
-    // 创建标尺
     this.constructRuler()
-
-    this.el.addEventListener('mouseup', this.mouseup.bind(this))
   }
 
-  constructRuler = () => {
+  // 创建标尺
+  constructRuler() {
     const { el, options } = this
     const { direction, rulerWidth, rulerHeight, ratio } = options
 
@@ -198,13 +200,12 @@ export class RulerBuilder {
     el.appendChild(canvas)
 
     this.canvas = canvas
-    const ctx = canvas.getContext('2d')
-    if (ctx) {
-      this.ctx = ctx
-    }
+    this.ctx = canvas.getContext('2d')!
 
     this.drawRuler()
-    // canvas.addEventListener('mousedown', this.mousedown)
+
+    canvas.addEventListener('mouseenter', this.constructIndicator.bind(this))
+    canvas.addEventListener('mousedown', this.constructGuide.bind(this))
   }
 
   // 画标尺
@@ -229,66 +230,119 @@ export class RulerBuilder {
 
   // 画刻度
   drawPoints() {
-    const { options, ctx, ruler } = this
+    const { ctx, options, ruler } = this
     const { width, height } = ruler
+    const { offset, scale } = options
 
-    const lineLengthMax = 0,
-      lineLengthMed = height / 1.5,
-      lineLengthMin = height / 1.2
+    const maxTickLen = 0,
+      medTickLen = height / 1.5,
+      minTickLen = height / 1.2
 
     for (let pos = 0; pos <= width; pos += 1) {
-      const delta = pos - options.offset
-      let pointLength = 0
-      let label = ''
-      let draw = false
+      const delta = pos - offset
+      if (delta < 0) continue
 
+      let label = -1
+      let tickLen = -1
       if (delta % 50 === 0) {
-        pointLength = lineLengthMax
-        label = Math.floor(Math.abs(delta) / options.scale).toString()
-        draw = true
+        label = Math.floor(delta / scale)
+        tickLen = maxTickLen
       } else if (delta % 25 === 0) {
-        pointLength = lineLengthMed
-        draw = true
+        tickLen = medTickLen
       } else if (delta % 5 === 0) {
-        pointLength = lineLengthMin
-        draw = true
+        tickLen = minTickLen
       }
 
-      if (draw && delta >= 0) {
+      if (tickLen >= 0) {
         ctx.moveTo(pos + 0.5, height + 0.5)
-        ctx.lineTo(pos + 0.5, pointLength)
-        ctx.fillText(label, pos + 2.5, height / 1.5)
+        ctx.lineTo(pos + 0.5, tickLen)
+        if (label > -1) {
+          ctx.fillText(`${label}`, pos + 2.5, height / 1.5)
+        }
       }
     }
   }
 
-  constructGuide(e: MouseEvent, x: number, y: number, isSet = false) {
+  private getPos(e: MouseEvent) {
+    const { el, options, indicatorLineWidth } = this
+    const { direction, offset, scale, rulerHeight } = options
+    let distance = 0
+    if (direction == 'TB') {
+      distance = e.clientX - (el.parentElement?.offsetLeft || 0)
+    } else {
+      distance = e.clientY - (el.parentElement?.offsetTop || 0)
+    }
+
+    distance = distance - rulerHeight + indicatorLineWidth
+    const coor = Math.floor((distance - offset) / scale)
+    return {
+      coor,
+      distance,
+    }
+  }
+
+  private getDistanceByCoor(coor: number) {
+    const { scale, offset } = this.options
+    return parseFloat((coor * scale + offset).toFixed(3))
+  }
+
+  // 画指示线
+  constructIndicator() {
+    const { el, canvas } = this
+    const indicator = document.createElement('div')
+    const indicatorValue = document.createElement('span')
+    addClass(indicator, 'ruler-indicator')
+    addClass(indicatorValue, 'indicator-value')
+    indicator.appendChild(indicatorValue)
+
+    this.indicator = indicator
+    this.indicatorValue = indicatorValue
+    el.appendChild(indicator)
+
+    const move = (e: MouseEvent) => {
+      const pos = this.getPos(e)
+      indicator.style.left = pixelize(pos.distance)
+      indicatorValue.textContent = `${pos.coor}`
+    }
+
+    const out = () => {
+      indicator.remove()
+      canvas.removeEventListener('mousemove', move)
+      canvas.removeEventListener('mouseout', out)
+    }
+
+    canvas.addEventListener('mousemove', move)
+    canvas.addEventListener('mouseout', out)
+  }
+
+  // 创建参考线
+  constructGuide(e: MouseEvent) {
     const { el, options } = this
-    const { scale, direction, rulerHeight } = options
 
     const guide = document.createElement('div')
-    guide.title = '双击删除'
-    const guideStyle = direction === 'TB' ? 'v-ruler-line' : 'h-ruler-line'
-    addClass(guide,  `rul_line ${guideStyle}`)
-    el.appendChild(guide)
+    guide.title = '双击删除参考线'
+    addClass(guide, 'ruler-line')
 
-    if (direction === 'TB') {
-      const left = isSet ? Math.round(x / scale) + rulerHeight : x - el.getBoundingClientRect().left
-      guide.style.left = pixelize(left)
+    const pos = this.getPos(e)
+    if (options.direction === 'TB') {
+      guide.style.left = pixelize(pos.distance)
     } else {
-      const top = isSet ? Math.round(y / scale) + rulerHeight : y - el.getBoundingClientRect().top
-      guide.style.top = pixelize(top)
+      guide.style.top = pixelize(pos.distance)
     }
 
-    // this.guides.push(new GuideLine(el, guide, options, e))
-  }
+    guide.innerHTML = `<div class="line-action"><span class="line-value">${pos.coor}</span></div>`
 
-  mouseup() {
-    this.guides.forEach(guide => guide.stopMoving())
-  }
+    let guideWp = el.querySelector('.lines-wrapper')
+    if (!guideWp) {
+      guideWp = document.createElement('div')
+      addClass(guideWp as HTMLDivElement, 'lines-wrapper')
+      el.appendChild(guideWp)
+    }
 
-  mousedown(e: MouseEvent) {
-    this.constructGuide(e, e.clientX, e.clientY)
+    guideWp.appendChild(guide)
+
+    // const guideLine = new GuideLine(el, guide, options, e)
+    // this.guides.push(guideLine)
   }
 
   setSize(w: number, h: number, s: number) {
@@ -310,12 +364,12 @@ export class RulerBuilder {
     this.drawRuler()
   }
 
-  setScale(newScale: number) {
-    this.options.scale = newScale
+  setScale(scale: number) {
+    this.options.scale = scale
     this.drawRuler()
   }
 
-  toggleGuideVisibility(visible: boolean) {
+  toggleGuide(visible: boolean) {
     const func = visible ? 'show' : 'hide'
     this.guides.forEach(guide => guide[func]())
   }
@@ -326,9 +380,11 @@ export class RulerBuilder {
   }
 
   destroy() {
+    const { el, canvas } = this
     this.clearGuides()
-    this.canvas.removeEventListener('mousedown', this.mousedown)
-    this.el.removeEventListener('mouseup', this.mouseup)
-    this.el.remove()
+
+    canvas.removeEventListener('mouseenter', this.constructIndicator.bind(this))
+    canvas.removeEventListener('mousedown', this.constructGuide.bind(this))
+    el.remove()
   }
 }
