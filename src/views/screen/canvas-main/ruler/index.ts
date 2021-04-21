@@ -108,7 +108,10 @@ class GuideLine {
     on(guideLine, 'dblclick', this.dblclick.bind(this))
   }
 
-  moving() {
+  moving(ev: MouseEvent) {
+    ev.preventDefault()
+    ev.stopPropagation()
+
     const { coor: oldCoor } = this
     const move = (e: MouseEvent) => {
       this.setLine(e)
@@ -326,9 +329,12 @@ export class RulerBuilder {
   }
 
   // 创建参考线
-  createGuideLine(e: MouseEvent) {
+  createGuideLine(ev: MouseEvent) {
+    ev.preventDefault()
+    ev.stopPropagation()
+
     const { el, options } = this
-    this.guideLines.push(new GuideLine(el, options, e))
+    this.guideLines.push(new GuideLine(el, options, ev))
   }
 
   // 设置指定参考线
