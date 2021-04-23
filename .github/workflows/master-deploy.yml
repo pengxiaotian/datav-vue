@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - master
-  paths-ignore:
-    - '**.md'
-    - 'demo/**'
+    paths-ignore:
+      - '**.md'
+      - 'demo/**'
 
 jobs:
   master-deploy:

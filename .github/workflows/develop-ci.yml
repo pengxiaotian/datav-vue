@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - develop
-  paths-ignore:
-    - '**.md'
-    - 'demo/**'
+    paths-ignore:
+      - '**.md'
+      - 'demo/**'
 
 jobs:
   develop-ci:
