@@ -26,4 +26,5 @@ jobs:
           gitee-username: pengxiaotian
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
           gitee-repo: pengxiaotian/datav-vue
-          # branch: gh_pages
+          branch: gh-pages
+          https: false
