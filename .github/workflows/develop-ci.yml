@@ -1,11 +1,12 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Develop CI
 
 on:
   push:
     branches:
       - develop
+  paths-ignore:
+    - '**.md'
+    - 'demo/**'
 
 jobs:
   develop-ci:
