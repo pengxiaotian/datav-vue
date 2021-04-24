@@ -12,7 +12,8 @@
 </template>
 
 <script lang='ts'>
-import { computed, defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
+import { useDataCenter } from '@/mixins/data-center'
 import { MainTitle } from './main-title'
 
 export default defineComponent({
@@ -24,6 +25,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { datav_data } = useDataCenter(props.com)
+
     const titleStyle = computed(() => ({
       width: `${props.com.attr.w}px`,
       height: `${props.com.attr.h}px`,
@@ -47,11 +50,15 @@ export default defineComponent({
     }))
 
     const titleText = computed(() => {
-      return props.com.config.title
+      return datav_data.value.source?.title
+        ? datav_data.value.source.title
+        : props.com.config.title
     })
 
     const urlText = computed(() => {
-      return props.com.config.urlConfig.url
+      return datav_data.value.source?.url
+        ? datav_data.value.source.url
+        : props.com.config.urlConfig.url
     })
 
     const urlTarget = computed(() => props.com.config.urlConfig.isBlank ? '_blank' : '_self')

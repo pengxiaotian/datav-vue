@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import { createComponent } from '@/components/datav'
 import AlignLine from './align-line.vue'

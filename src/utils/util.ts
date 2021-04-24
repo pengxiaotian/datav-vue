@@ -78,6 +78,14 @@ export function isEmpty(val: unknown) {
   return false
 }
 
+export function isUrl(val: string) {
+  return /^[a-zA-z]+:\/\/[^\s]*$/.test(val)
+}
+
+export function deduplicate<T>(arr: T[]) {
+  return Array.from(new Set(arr))
+}
+
 export function toObject<T>(arr: Array<T>): Record<string, T> {
   const res = {}
   for (let i = 0; i < arr.length; i++) {
@@ -88,8 +96,16 @@ export function toObject<T>(arr: Array<T>): Record<string, T> {
   return res
 }
 
-export function deduplicate<T>(arr: T[]) {
-  return Array.from(new Set(arr))
+export function toJson<T>(data: any, defaultValue: T) {
+  try {
+    if (isString(data)) {
+      return JSON.parse(data)
+    }
+
+    return data
+  } catch {
+    return defaultValue
+  }
 }
 
 export const copyText = (text: string) => {

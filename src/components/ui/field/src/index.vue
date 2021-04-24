@@ -33,7 +33,7 @@
 </template>
 
 <script lang='ts'>
-import { computed, defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 export default defineComponent({

@@ -9,7 +9,10 @@ export interface FieldConfig {
 }
 
 export interface DataConfig {
-  fields: Record<string, FieldConfig>[]
+  fields: Record<string, FieldConfig>
+  /**
+   * 执行指定的渲染函数，默认值是 render
+   */
   render: string
   description: string
   dcConfig: {
@@ -34,7 +37,7 @@ export function setDataConfig<K extends keyof DataConfigMap>(
 ) {
   if (name === 'source') {
     data.source = {
-      fields: [],
+      fields: {},
       render: 'render',
       description: '',
       dcConfig: {
@@ -46,6 +49,8 @@ export function setDataConfig<K extends keyof DataConfigMap>(
       ...config,
     }
   }
+
+  return data
 }
 
 /**
@@ -99,16 +104,19 @@ export function setSourceData<K extends keyof SourceConfigMap>(
       },
     }
   }
+
+  return source
 }
 
 /**
  * 通过数据源类型转换数据
  */
 export function castDataBySourceType(type: DataSourceType, data: any) {
-  const ret = Object.create({})
+  const ret: Record<string, any> = Object.create({})
   switch (type) {
     case DataSourceType.static:
       ret.data = isString(data) ? data : JSON.stringify(data)
+      break
     case DataSourceType.api:
       ret.api = data
       break

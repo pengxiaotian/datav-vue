@@ -33,26 +33,19 @@ export class MainTitle extends DatavComponent {
   }
 
   initData() {
-    setDataConfig(
-      this.data,
-      'source',
-      {
-        fields: [
-          createField('title', { description: '标题值', optional: true }),
-          createField('url', { description: '超链接', optional: true }),
-        ],
-      },
-    )
+    const fields = [
+      createField('title', { description: '标题值', optional: true }),
+      createField('url', { description: '超链接', optional: true }),
+    ]
 
-    setSourceData(
-      this.id,
-      this.source,
-      'source',
-      [{
-        title: '我是标题数据',
-        url: '',
-      }],
-    )
+    this.data = setDataConfig({} as any, 'source', {
+      fields: Object.assign({}, ...fields),
+    })
+
+    this.source = setSourceData(this.id, {} as any, 'source', {
+      title: '我是标题数据',
+      url: '',
+    })
 
     return this
   }
