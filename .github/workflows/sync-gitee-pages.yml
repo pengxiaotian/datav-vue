@@ -1,9 +1,9 @@
-name: Sync Gitee Pages
+name: Sync Gitee
 
 on:
   push:
     branches:
-      - gh-pages
+      - sync-gitee
 
 jobs:
   sync:
