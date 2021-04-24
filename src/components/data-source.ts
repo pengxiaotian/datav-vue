@@ -121,7 +121,7 @@ export function castDataBySourceType(type: DataSourceType, data: any) {
       ret.api = data
       break
     default:
-      throw Error(`Unknown type: ${type}`)
+      throw Error(`Unknown DataSourceType: ${type}`)
   }
 
   return ret
