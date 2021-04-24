@@ -6,10 +6,10 @@ import store from '@/store'
 import { Project, ProjectConfig } from '@/domains/project'
 import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { getProject } from '@/api/project'
-import { ComType, MoveType } from '@/domains/enums/com-enums'
-import { generateShortId } from '@/utils/util'
+import { DatavComponent } from '@/components/datav-component'
+import { ComType, MoveType } from '@/components/enums/com-enums'
+import { generateId } from '@/utils/util'
 import { calcIntersectingLines } from '@/utils/intersecting-line-util'
-import { BaseComponent } from '@/domains/base-component'
 
 config.rawError = true
 
@@ -36,8 +36,8 @@ export interface AlignLine {
 export interface IEditorState {
   screen: Screen
   pageConfig: ProjectConfig
-  coms: BaseComponent[]
-  subComs: BaseComponent[]
+  coms: DatavComponent[]
+  subComs: DatavComponent[]
   canvas: {
     scale: number
     width: number
@@ -58,19 +58,19 @@ export interface IEditorState {
 
 /* endregion */
 
-const findComIndex = (coms: BaseComponent[], id: string) => {
+const findComIndex = (coms: DatavComponent[], id: string) => {
   return coms.findIndex(c => c.id === id)
 }
 
-const findCom = (coms: BaseComponent[], id: string) => {
+const findCom = (coms: DatavComponent[], id: string) => {
   return coms.find(c => c.id === id)
 }
 
-const findComs = (coms: BaseComponent[], parentId?: string) => {
+const findComs = (coms: DatavComponent[], parentId?: string) => {
   return coms.filter(c => c.parentId === parentId)
 }
 
-const selectCom = (coms: BaseComponent[], id?: string) => {
+const selectCom = (coms: DatavComponent[], id?: string) => {
   coms.forEach(com => {
     if (com.id === id) {
       com.selected = true
@@ -99,8 +99,8 @@ class Editor extends VuexModule implements IEditorState {
     useWatermark: false,
   }
 
-  coms: BaseComponent[] = [];
-  subComs: BaseComponent[] = [];
+  coms: DatavComponent[] = [];
+  subComs: DatavComponent[] = [];
 
   canvas = {
     scale: 0.2,
@@ -150,9 +150,9 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  private SET_COMS(payload: BaseComponent[]) {
-    const coms: BaseComponent[] = []
-    const subComs: BaseComponent[] = []
+  private SET_COMS(payload: DatavComponent[]) {
+    const coms: DatavComponent[] = []
+    const subComs: DatavComponent[] = []
     payload.forEach(c => {
       if (c.type === ComType.com) {
         coms.push(c)
@@ -174,7 +174,7 @@ class Editor extends VuexModule implements IEditorState {
    * 计算对齐线
    */
   @Mutation
-  public calcAlignLine(com: BaseComponent) {
+  public calcAlignLine(com: DatavComponent) {
     if (!this.alignLine.enable) {
       return
     }
@@ -226,7 +226,7 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  private DELETE_COM(com: BaseComponent) {
+  private DELETE_COM(com: DatavComponent) {
     if (com.type === ComType.com) {
       this.coms.splice(findComIndex(this.coms, com.id), 1)
     } else {
@@ -235,16 +235,16 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  private ADD_COM(com: BaseComponent) {
+  private ADD_COM(com: DatavComponent) {
     this.coms.push(com)
   }
 
   @Mutation
   private COPY_COM(id: string) {
     // 模拟后端复制
-    const getNewCom = (com: BaseComponent, parentId?: string) => {
+    const getNewCom = (com: DatavComponent, parentId?: string) => {
       const ncom = _.cloneDeep(com)
-      ncom.id = generateShortId(ncom.name)
+      ncom.id = generateId(ncom.name)
       ncom.alias += '_copy'
       ncom.attr.x += 30
       ncom.attr.y += 30
@@ -256,7 +256,7 @@ class Editor extends VuexModule implements IEditorState {
       ncom.parentId = parentId
 
       for (const key in ncom.source) {
-        ncom.source[key].id = generateShortId()
+        ncom.source[key].id = generateId()
         ncom.source[key].comId = ncom.id
       }
 
@@ -342,7 +342,7 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Action
-  public async deleteCom(com: BaseComponent) {
+  public async deleteCom(com: DatavComponent) {
     try {
       const res = await deleteCom(com.id)
       if (res.data.code === 0) {
@@ -356,7 +356,7 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Action
-  public async addCom(com: BaseComponent) {
+  public async addCom(com: DatavComponent) {
     try {
       const res = await addCom(com)
       if (res.data.code === 0) {

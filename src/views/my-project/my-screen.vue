@@ -81,7 +81,7 @@ import { defineComponent, PropType, toRefs, computed, ref, inject } from 'vue'
 import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
-import { coverImg, getDragImg } from '@/data/images'
+import { coverImg, dragImg } from '@/data/images'
 
 export default defineComponent({
   name: 'MyScreen',
@@ -149,14 +149,16 @@ export default defineComponent({
     const dragEnd = inject('dragEnd') as Function
     const publish = inject('publish') as Function
 
-    const dragImg = getDragImg()
+    const image = new Image()
+    image.src = dragImg
+
     const onDragStart = (event: DragEvent) => {
       dragStart()
 
       const dt = event.dataTransfer
       if (dt) {
         dt.effectAllowed = 'move'
-        dt.setDragImage(dragImg, 30, 30)
+        dt.setDragImage(image, 30, 30)
         dt.setData('text', `${id.value},${groupId.value}`)
       }
     }

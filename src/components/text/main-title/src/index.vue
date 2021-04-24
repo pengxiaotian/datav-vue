@@ -1,17 +1,19 @@
 <template>
-  <div v-if="urlText" class="com-wrapper" :style="titleStyle">
-    <a :href="urlText" :target="urlTarget" :style="urlStyle">
+  <div class="com-wrapper" :style="titleStyle">
+    <template v-if="urlText">
+      <a :href="urlText" :target="urlTarget" :style="urlStyle">
+        {{ titleText }}
+      </a>
+    </template>
+    <template v-else>
       {{ titleText }}
-    </a>
-  </div>
-  <div v-else class="com-wrapper" :style="titleStyle">
-    {{ titleText }}
+    </template>
   </div>
 </template>
 
 <script lang='ts'>
 import { computed, defineComponent, PropType } from 'vue'
-import MainTitle from '@/domains/text/main-title'
+import { MainTitle } from './main-title'
 
 export default defineComponent({
   name: 'VMainTitle',

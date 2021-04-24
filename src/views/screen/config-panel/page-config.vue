@@ -118,12 +118,12 @@ import { defineComponent, ref, computed } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { bgImg, coverImg } from '@/data/images'
-import { ZoomMode } from '@/domains/enums/com-enums'
+import { ZoomMode } from '@/components/enums/com-enums'
 import html2canvas from 'html2canvas'
 import { uploadHost, previewHost, validAllowImg, dataURLtoBlob } from '@/utils/upload-util'
 import { getTokenByEnv, upload } from '@/api/qiniu'
 import { MessageUtil } from '@/utils/message-util'
-import { generateShortId } from '@/utils/util'
+import { generateId } from '@/utils/util'
 
 export default defineComponent({
   name: 'PageConfig',
@@ -152,7 +152,7 @@ export default defineComponent({
         const formData = new FormData()
         formData.append('file', blob)
         formData.append('token', token)
-        formData.append('key', `upload/${generateShortId()}_screenshot.png`)
+        formData.append('key', `upload/${generateId()}_screenshot.png`)
 
         const res = await upload(uploadHost, formData)
         if (res) {
@@ -203,7 +203,7 @@ export default defineComponent({
         ToolbarModule.addLoading()
         uploadLoading.value = true
         form.value.token = await getTokenByEnv()
-        form.value.key = `upload/${generateShortId()}_${file.name}`
+        form.value.key = `upload/${generateId()}_${file.name}`
         return true
       } catch (error) {
         ToolbarModule.removeLoading()

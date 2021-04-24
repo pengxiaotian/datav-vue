@@ -28,7 +28,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
-import FactoryComponent from '@/domains/factory-component'
+import { createComponent } from '@/components/datav'
 import AlignLine from './align-line.vue'
 import Ruler from './ruler/index.vue'
 import DatavTransform from './datav-transform/index.vue'
@@ -68,7 +68,7 @@ export default defineComponent({
       try {
         const name = event.dataTransfer.getData('text')
         if (name) {
-          let com = FactoryComponent.create(name)
+          let com = createComponent(name)
           com.attr.x = event.offsetX - com.attr.w / 2
           com.attr.y = event.offsetY - com.attr.h / 2
           EditorModule.addCom(com)

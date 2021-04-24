@@ -1,5 +1,6 @@
 import {
   isObject,
+  isPlainObject,
   isArray,
   isString,
   capitalize,
@@ -11,28 +12,26 @@ import {
   toRawType,
 } from '@vue/shared'
 import shortid from 'shortid'
-import { ZoomMode } from '@/domains/enums/com-enums'
-
-export const kebabCase = hyphenate
+import { ZoomMode } from '@/components/enums/com-enums'
 
 export {
-  hasOwn,
   isObject,
+  isPlainObject,
   isArray,
   isString,
   capitalize,
-  camelize,
   looseEqual,
   extend,
+  camelize,
+  hasOwn,
 }
 
-/**
- * Generate random number in range [0, 1000]
- * Maybe replace with [uuid](https://www.npmjs.com/package/uuid)
- */
-export const generateId = (): number => Math.floor(Math.random() * 10000)
+export const kebabCase = hyphenate
 
-export const generateShortId = (prefix?: string) => {
+/**
+ * Generate shortId
+ */
+export const generateId = (prefix?: string) => {
   const id = shortid.generate()
   return prefix ? `${prefix}_${id}` : id
 }

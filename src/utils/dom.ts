@@ -1,9 +1,7 @@
-/* istanbul ignore next */
 const trim = function(s: string) {
   return (s || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
 }
 
-/* istanbul ignore next */
 export const on = function(
   element: HTMLElement | Document | Window,
   event: string,
@@ -15,7 +13,6 @@ export const on = function(
   }
 }
 
-/* istanbul ignore next */
 export const off = function(
   element: HTMLElement | Document | Window,
   event: string,
@@ -26,7 +23,6 @@ export const off = function(
   }
 }
 
-/* istanbul ignore next */
 export function hasClass(el: HTMLElement, cls: string): boolean {
   if (!el || !cls) return false
   if (cls.indexOf(' ') !== -1)
@@ -38,7 +34,6 @@ export function hasClass(el: HTMLElement, cls: string): boolean {
   }
 }
 
-/* istanbul ignore next */
 export function addClass(el: HTMLElement, cls: string): void {
   if (!el) return
   let curClass = el.className
@@ -59,7 +54,6 @@ export function addClass(el: HTMLElement, cls: string): void {
   }
 }
 
-/* istanbul ignore next */
 export function removeClass(el: HTMLElement, cls: string): void {
   if (!el || !cls) return
   const classes = cls.split(' ')

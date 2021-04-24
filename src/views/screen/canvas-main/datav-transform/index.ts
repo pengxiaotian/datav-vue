@@ -1,4 +1,4 @@
-import { BaseComponent, ComponentAttr } from '@/domains/base-component'
+import { DatavComponent, ComponentAttr } from '@/components/datav-component'
 import { on, off } from '@/utils/dom'
 import { EditorModule } from '@/store/modules/editor'
 
@@ -73,11 +73,11 @@ export const getCursors = (startAngle: number) => {
   return result as Record<Direction, BidirectionalCursor>
 }
 
-export const setHover = (com: BaseComponent, hovered: boolean) => {
+export const setHover = (com: DatavComponent, hovered: boolean) => {
   com.hovered = hovered
 }
 
-const setAttr = (ev: MouseEvent, dir: Direction | null, com: BaseComponent, scale: number, grid: number) => {
+const setAttr = (ev: MouseEvent, dir: Direction | null, com: DatavComponent, scale: number, grid: number) => {
   const attr = { ...com.attr }
   const pos = Object.create(null) as Partial<ComponentAttr>
   const move = (e: MouseEvent) => {
@@ -130,15 +130,15 @@ const setAttr = (ev: MouseEvent, dir: Direction | null, com: BaseComponent, scal
   on(document, 'mouseup', up)
 }
 
-export const handleZoom = (ev: MouseEvent, dir: Direction, com: BaseComponent, scale: number) => {
+export const handleZoom = (ev: MouseEvent, dir: Direction, com: DatavComponent, scale: number) => {
   setAttr(ev, dir, com, scale, 0)
 }
 
-export const handleMove = (ev: MouseEvent, com: BaseComponent, scale: number, grid: number) => {
+export const handleMove = (ev: MouseEvent, com: DatavComponent, scale: number, grid: number) => {
   setAttr(ev, null, com, scale, grid)
 }
 
-export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: BaseComponent) => {
+export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponent) => {
   // 获取元素中心点位置
   const rect = el.getBoundingClientRect()
   const centerX = rect.left + rect.width / 2

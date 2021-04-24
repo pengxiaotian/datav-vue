@@ -59,7 +59,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, getCurrentInstance } from 'vue'
-import { BaseComponent } from '@/domains/base-component'
+import { DatavComponent } from '@/components/datav-component'
 import { EditorModule } from '@/store/modules/editor'
 import {
   Direction, getCursors, setHover,
@@ -75,7 +75,7 @@ export default defineComponent({
   },
   props: {
     com: {
-      type: Object as PropType<BaseComponent>,
+      type: Object as PropType<DatavComponent>,
       required: true,
     },
   },

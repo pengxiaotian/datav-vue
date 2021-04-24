@@ -73,9 +73,9 @@ import { defineComponent, ref, computed } from 'vue'
 import _ from 'lodash'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
-import { classifications } from '@/data/system-components'
 import { MessageUtil } from '@/utils/message-util'
-import FactoryComponent from '@/domains/factory-component'
+import { classifications } from '@/data/system-components'
+import { createComponent } from '@/components/datav'
 
 type CategoryType = { expand?: string; } & typeof classifications[0]
 
@@ -120,7 +120,7 @@ export default defineComponent({
     const toAddCom = (comName: string, used: boolean) => {
       if (used) {
         const { pageConfig } = EditorModule
-        const com = FactoryComponent.create(comName)
+        const com = createComponent(comName)
         com.attr.x = Math.floor((pageConfig.width - com.attr.w) / 2)
         com.attr.y = Math.floor((pageConfig.height - com.attr.h) / 2)
         EditorModule.addCom(com)

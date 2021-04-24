@@ -1,14 +1,16 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
 
-type RetDataType = 'string' | 'json' | 'object'
-
-interface RetData {
-  code: number
-  message: string
+interface RetDataMap {
+  string: string
+  json: string
+  object: {
+    code: number
+    message: string
+  }
 }
 
-const parseError = (error: any, retDataType: RetDataType) => {
-  const ret: RetData = {
+function parseError<K extends keyof RetDataMap>(error: any, type: K): RetDataMap[K] {
+  const retData = {
     code: -1,
     message: 'error',
   }
@@ -16,30 +18,26 @@ const parseError = (error: any, retDataType: RetDataType) => {
   const res = error.response || { data: error }
   if (res && res.data) {
     const { status, code, message } = res.data
-    ret.code = status || code || -1
-    ret.message = message || res.data
+    retData.code = status || code || -1
+    retData.message = message || res.data
   }
 
-  if (retDataType === 'string') {
-    return ret.message
-  }
+  const ret = type === 'string'
+    ? retData.message : type === 'json'
+      ? JSON.stringify(retData) : retData
 
-  if (retDataType === 'json') {
-    return JSON.stringify(ret)
-  }
-
-  return ret
+  return ret as RetDataMap[K]
 }
 
 export const MessageUtil = {
   format(error: any) {
-    return parseError(error, 'string') as string
+    return parseError(error, 'string')
   },
   formatJson(error: any) {
-    return parseError(error, 'json') as string
+    return parseError(error, 'json')
   },
   formatObject(error: any) {
-    return parseError(error, 'object') as RetData
+    return parseError(error, 'object')
   },
 
   success(message: string, showClose = true) {

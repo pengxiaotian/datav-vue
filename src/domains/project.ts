@@ -1,7 +1,27 @@
-
 export enum ProjectGroupType {
   ungroup = 0,
   group = 1
+}
+
+export interface ProjectConfig {
+  width: number
+  height: number
+  bgcolor: string
+  bgimage: string
+  grid: number
+  screenshot: string
+  zoomMode: number
+  useWatermark: boolean
+}
+
+export interface Project {
+  id: number
+  name: string
+  share: string
+  groupId: number
+  config: ProjectConfig
+  createAt: string
+  updateAt: string
 }
 
 export class ProjectGroup {
@@ -16,27 +36,6 @@ export class ProjectGroup {
     this.children = children
     this.type = ProjectGroupType.ungroup
   }
-}
-
-export interface ProjectConfig {
-  width: number
-  height: number
-  bgcolor: string
-  bgimage: string
-  grid: number
-  screenshot: string
-  zoomMode: number
-  useWatermark: boolean
-}
-
-export class Project {
-  id: number
-  name: string
-  share: string
-  groupId: number
-  config: ProjectConfig
-  createAt: string
-  updateAt: string
 }
 
 export interface ProjectTemplate {

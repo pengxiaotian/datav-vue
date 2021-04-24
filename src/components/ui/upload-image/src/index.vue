@@ -36,7 +36,7 @@
 import { defineComponent, ref, watch } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import { MessageUtil } from '@/utils/message-util'
-import { generateShortId } from '@/utils/util'
+import { generateId } from '@/utils/util'
 import { uploadHost, previewHost, validAllowImg } from '@/utils/upload-util'
 import { getTokenByEnv } from '@/api/qiniu'
 
@@ -86,7 +86,7 @@ export default defineComponent({
       try {
         loading.value = true
         form.value.token = await getTokenByEnv()
-        form.value.key = `upload/${generateShortId()}_${file.name}`
+        form.value.key = `upload/${generateId()}_${file.name}`
         return true
       } catch (error) {
         loading.value = false
