@@ -108,6 +108,8 @@ $message-box-border-color: $border-color;
 
 // Slider
 $slider-color: #74f0ff;
+$slider-runway-color: #bcc9d4;
+$slider-track-color: linear-gradient(to right, $slider-color, $color-primary);
 
 // Button
 $button-font-color: $color-white;
@@ -145,9 +147,6 @@ $datav-tabs-nav-active-bgcolor: #1d2126;
 $collapse-font-color: $font-color;
 $collapse-bgcolor: #13161a;
 $collapse-border-color: #141210;
-
-// Slider
-$slider-runway-color: #bcc9d4;
 
 /* Editor
 -------------------------- */
