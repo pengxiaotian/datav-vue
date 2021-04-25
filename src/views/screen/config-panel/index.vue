@@ -9,7 +9,7 @@
               <i class="v-icon-setting"></i>
             </el-tooltip>
           </template>
-          配置
+          <setting-panel :com="selectedCom" />
         </el-tab-pane>
         <el-tab-pane lazy>
           <template #label>
@@ -36,12 +36,14 @@
 import { defineComponent, computed } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
+import { loadAsyncComponent } from '@/utils/async-component'
 import PageConfig from './page-config.vue'
 
 export default defineComponent({
   name: 'ConfigPanel',
   components: {
     PageConfig,
+    SettingPanel: loadAsyncComponent(() => import('./setting-panel.vue')),
   },
   setup() {
     const visiblePanel = computed(() => ToolbarModule.config.show)

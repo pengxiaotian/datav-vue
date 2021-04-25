@@ -70,5 +70,6 @@ module.exports = {
     }],
     'vue/require-default-prop': 'off',
     'vue/html-closing-bracket-spacing': 'error',
+    'vue/no-mutating-props': 'off',
   },
 }
