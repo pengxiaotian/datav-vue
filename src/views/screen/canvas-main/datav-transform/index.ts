@@ -154,8 +154,8 @@ export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponen
       centerY - e.clientY,
       centerX - e.clientX,
     ) * 180 / Math.PI - startAngle
-    const deg = ~~angle % 360
-    com.attr.deg = Math.max(deg, deg + 360)
+    const deg = Math.round(angle % 360)
+    com.attr.deg = deg < 0 ? deg + 360 : deg
   }
 
   const up = () => {
