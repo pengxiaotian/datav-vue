@@ -21,7 +21,7 @@
         :class="handlerClass"
         :style="handlerStyle"
       >
-        <div class="datav-com" :style="hideStyle">
+        <div class="datav-com" :style="comStyle">
           <slot></slot>
           <div
             class="datav-wrapper-event-disable"
@@ -110,6 +110,14 @@ export default defineComponent({
       cursor: 'move',
       transform: `rotate(${props.com.attr.deg}deg)`,
     }))
+
+    const comStyle = computed(() => {
+      const { hided, attr } = props.com
+      return {
+        display: hided ? 'none' : 'block',
+        transform: `scaleX(${attr.filpH ? -1 : 1}) scaleY(${attr.filpV ? -1 : 1}) rotateZ(360deg)`,
+      }
+    })
 
     const wrapperStyle = computed(() => ({
       width: `${props.com.attr.w}px`,
@@ -207,6 +215,7 @@ export default defineComponent({
       hideStyle,
       handlerClass,
       handlerStyle,
+      comStyle,
       wrapperStyle,
       points,
       onEnter,

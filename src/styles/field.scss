@@ -2,7 +2,6 @@
 
 .g-field {
   display: flex;
-  padding-left: 8px;
   color: $field-font-color;
 }
 
@@ -47,8 +46,7 @@
 }
 
 .g-field-wp {
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding: 4px 8px 4px;
 
   &:first-child {
     padding-top: 16px;

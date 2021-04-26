@@ -11,6 +11,7 @@ $color-success: $green-6;
 $color-warning: $warn-6;
 $color-error: $red-6;
 $color-info: $color-gray;
+$color-primary-secondary: mix($color-white, $color-primary, 30%);
 
 // Base
 $font-color: #bcc9d4;

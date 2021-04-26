@@ -13,6 +13,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-flip-v:before {
+  content: "\e70a";
+}
+
+.v-icon-flip-h:before {
+  content: "\e70b";
+}
+
+.v-icon-assets:before {
+  content: "\e715";
+}
+
 .v-icon-stop:before {
   content: "\e680";
 }
