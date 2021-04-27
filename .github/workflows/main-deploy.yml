@@ -3,13 +3,13 @@ name: Deploy Demo Website
 on:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - '**.md'
       - 'demo/**'
 
 jobs:
-  master-deploy:
+  main-deploy:
     runs-on: ubuntu-latest
 
     steps:
