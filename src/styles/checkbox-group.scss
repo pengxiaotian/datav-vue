@@ -1,0 +1,50 @@
+@import "themes/var";
+
+.el-checkbox-group {
+  display: inline-block;
+
+  .el-checkbox-button {
+    & + .el-checkbox-button {
+      margin-left: 6px;
+    }
+
+    &:first-child {
+      .el-checkbox-button__inner {
+        border-radius: 0;
+        border-left: $border-outline;
+      }
+    }
+
+    &.is-checked {
+      &:first-child {
+        .el-checkbox-button__inner {
+          border-left-color: $color-primary;
+        }
+      }
+
+      .el-checkbox-button__inner {
+        color: #fff;
+        // background-color: $color-primary;
+        border-color: $color-primary;
+        box-shadow: unset;
+      }
+    }
+  }
+
+  .el-checkbox-button--mini {
+    .el-checkbox-button__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      border-radius: 0;
+      border: $border-outline;
+      color: $gui-component-color;
+      background: $gui-component-bgcolor;
+    }
+  }
+}
+
+.g-input-number + .el-checkbox-group {
+  margin-left: 8px;
+}

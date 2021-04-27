@@ -14,17 +14,19 @@
           @click="toggleVisible"
         ></i>
       </i>
-      <label class="g-field-text" :title="label">{{ label }}</label>
-      <el-tooltip
-        v-if="tooltip"
-        placement="right"
-        effect="blue"
-      >
-        <template #content>
-          <slot name="tooltip">{{ tooltip }}</slot>
-        </template>
-        <i class="v-icon-help g-field-help"></i>
-      </el-tooltip>
+      <template v-if="tooltip">
+        <el-tooltip effect="blue" placement="top" :offset="2">
+          <template #content>
+            <slot name="tooltip">{{ tooltip }}</slot>
+          </template>
+          <label class="g-field-title-with-description" :title="label">
+            {{ label }}
+          </label>
+        </el-tooltip>
+      </template>
+      <label v-else class="g-field-title" :title="label">
+        {{ label }}
+      </label>
     </el-col>
     <el-col class="g-field-container" v-bind="contentStyle">
       <slot></slot>

@@ -311,7 +311,7 @@ export default defineComponent({
 }
 
 .cover-btn {
-  width: 88px;
+  width: 91px;
 
   .v-icon-loading {
     font-size: 12px;

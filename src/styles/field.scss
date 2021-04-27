@@ -2,16 +2,22 @@
 
 .g-field {
   display: flex;
-  padding-left: 8px;
   color: $field-font-color;
 }
 
-.g-field-text {
+.g-field-title {
   font-size: $field-font-size;
   height: $field-height;
   line-height: $field-height;
 
   @include utils-ellipsis();
+}
+
+.g-field-title-with-description {
+  @extend .g-field-title;
+
+  cursor: help;
+  text-decoration: underline dotted;
 }
 
 .g-field-help {
@@ -47,8 +53,7 @@
 }
 
 .g-field-wp {
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding: 4px 8px 4px;
 
   &:first-child {
     padding-top: 16px;

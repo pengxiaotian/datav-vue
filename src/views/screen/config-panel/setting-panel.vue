@@ -8,7 +8,7 @@
     </config-title>
     <div class="setting-panel-content">
       <div class="scroll-container">
-        <basic-setting :attr="com.attr" />
+        <basic-setting :key="`${com.id}'_basic-setting`" :attr="com.attr" />
         <!-- <component
           :is="com.name + 'Prop'"
           :key="com.id"
