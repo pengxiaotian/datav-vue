@@ -3,8 +3,8 @@
 </p>
 <h1 align="center">DataV Vue</h1>
 <p align="center">
-  <a href="https://github.com/pengxiaotian/datav-vue/actions/workflows/master-deploy.yml">
-    <img src="https://github.com/pengxiaotian/datav-vue/actions/workflows/master-deploy.yml/badge.svg?branch=master">
+  <a href="https://github.com/pengxiaotian/datav-vue/actions/workflows/main-deploy.yml">
+    <img src="https://github.com/pengxiaotian/datav-vue/actions/workflows/main-deploy.yml/badge.svg?branch=main">
   </a>
   <br>
 </p>
