@@ -24,9 +24,9 @@
 
       .el-checkbox-button__inner {
         color: #fff;
-        background-color: $color-primary;
+        // background-color: $color-primary;
         border-color: $color-primary;
-        box-shadow: -1px 0 0 0 $color-primary;
+        box-shadow: unset;
       }
     }
   }
