@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { config } from '@/config'
 import { getToken } from '@/utils/token-util'
+import { isDev } from '@/utils/env'
 import { UserStore } from '@/domains/user'
 import Home from '@/views/home/index.vue'
 
@@ -67,6 +68,17 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: '404' },
   },
 ]
+
+if (isDev) {
+  routes.unshift(
+    {
+      path: '/dev/props-config',
+      name: 'DevPropsConfig',
+      component: () => import('@/pages/props-config/index.vue'),
+      meta: { title: '属性配置' },
+    },
+  )
+}
 
 const router = createRouter({
   history: createWebHashHistory(),

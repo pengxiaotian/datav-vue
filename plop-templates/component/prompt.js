@@ -43,7 +43,7 @@ module.exports = {
       type: 'list',
       name: 'category',
       message: 'Where would you like to put this component?',
-      choices: ['components', 'views'],
+      choices: ['components', 'views', 'pages'],
       default: 'components',
     },
     {
