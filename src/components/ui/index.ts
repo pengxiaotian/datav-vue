@@ -9,6 +9,7 @@ import GInputNumber from './input-number'
 import GField from './field'
 import GColorPicker from './color-picker'
 import GUploadImage from './upload-image'
+import GLangSelect from './lang-select'
 
 import Focus from '@/directives/focus'
 
@@ -23,6 +24,7 @@ const components = [
   GField,
   GColorPicker,
   GUploadImage,
+  GLangSelect,
 ]
 
 const plugins = [

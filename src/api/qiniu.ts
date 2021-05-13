@@ -1,6 +1,7 @@
 import CryptoJS from 'crypto-js'
 import { AxiosRequestConfig } from 'axios'
 import request from '@/utils/request'
+import { isDev } from '@/utils/env'
 
 export function getToken() {
   return request.get('/qiniu/upload/token')
@@ -96,7 +97,7 @@ export function genToken() {
 export async function getTokenByEnv(): Promise<string> {
   try {
     let res
-    if (process.env.NODE_ENV === 'development') {
+    if (isDev) {
       res = genToken()
     } else {
       res = await getToken()
