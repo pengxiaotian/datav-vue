@@ -9,6 +9,9 @@
       class="login-form"
     >
       <live2d />
+
+      <g-lang-select class="lang-select" />
+
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
@@ -44,12 +47,12 @@
         style="width: 100%; margin-bottom: 30px;"
         @click.prevent="handleLogin"
       >
-        登录
+        {{ $t('login.login') }}
       </el-button>
       <div style="position: relative;">
         <div class="tips">
-          <span>账号 : admin</span>
-          <span>密码 : 随便填</span>
+          <span>{{ $t('login.username') }}: admin</span>
+          <span>{{ $t('login.password') }}: 123123</span>
         </div>
       </div>
     </el-form>
@@ -98,7 +101,7 @@ export default defineComponent({
   setup() {
     const loginForm = ref({
       username: 'admin',
-      password: '111111',
+      password: '123123',
     })
 
     const loginRules = ref({
@@ -200,6 +203,10 @@ export default defineComponent({
         -webkit-text-fill-color: #fff !important;
       }
     }
+
+    .el-input__icon {
+      line-height: 48px;
+    }
   }
 
   .login-form {
@@ -219,6 +226,12 @@ export default defineComponent({
     span {
       margin-right: 16px;
     }
+  }
+
+  .lang-select {
+    float: right;
+    margin-top: -24px;
+    cursor: pointer;
   }
 }
 </style>

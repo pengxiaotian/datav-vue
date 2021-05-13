@@ -65,6 +65,39 @@ yarn cz
 
 Git提交模板配置：`./commitlint.config.js`
 
+### 国际化
+目前只有 `登录页` 进行了国际化设置，有需要可自行添加。
+
+#### 添加多语言
+
+多语言文件位置：`@/locales/lang/*.js`
+
+#### 使用
+
+- 在模板中使用：
+```html
+<template>
+  ...
+    {{ $t('xxx') }}
+  ...
+</template>
+```
+
+- Componsition：
+```js
+import { useI18n } from 'vue-i18n'
+
+...
+setup() {
+  const { t } = useI18n({ useScope: 'global' })
+
+  t('xxx')
+
+  return { t }
+}
+...
+```
+
 ### 注意
 
 本项目主要用来研究与学习，如果商用请注意：项目里含有一些第三方付费素材，如：`orbitron-bold` 字体。
