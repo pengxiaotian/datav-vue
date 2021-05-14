@@ -16,7 +16,11 @@
 
 ### 简介
 
-- [DataV Demo](http://datav.pengxiaotian.com)
+- [国外 GitHub](https://github.com/pengxiaotian/datav-vue)
+- [国内 Gitee](https://gitee.com/pengxiaotian/datav-vue)
+
+#### 预览
+- [DataV 在线预览](http://datav.pengxiaotian.com)
 
 > 因为项目中的 Mock 服务来自于 `http://rap2api.taobao.org`, 而该服务不支持 `HTTPS`, 还有的浏览器会强制使用 `HTTPS`, 所以如果出现了无法登录的情况, 请检查当前访问的URL是什么协议！
 
