@@ -50,3 +50,5 @@ export class MainTitle extends DatavComponent {
     return this
   }
 }
+
+export default MainTitle
