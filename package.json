@@ -11,7 +11,8 @@
     "build": "vue-cli-service build",
     "lint": "yarn run lint:js && yarn run lint:css",
     "lint:js": "vue-cli-service lint",
-    "lint:css": "stylelint 'src/**/*.(vue|css|less)' --fix"
+    "lint:css": "stylelint 'src/**/*.(vue|css|less)' --fix",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
     "accounting": "^0.4.1",
@@ -59,6 +60,7 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-preset-vue": "^2.0.2",
     "chalk": "^4.1.0",
+    "conventional-changelog-cli": "^2.1.1",
     "cp-cli": "^2.0.0",
     "cross-env": "^7.0.2",
     "cz-conventional-changelog": "^3.3.0",
