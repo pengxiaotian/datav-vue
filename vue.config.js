@@ -1,6 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path')
+
+function resolve (dir) {
+  return path.join(__dirname, dir)
+}
+
 module.exports = {
   publicPath: '/',
   devServer: {
@@ -26,5 +33,9 @@ module.exports = {
     config
       .when(process.env.NODE_ENV === 'development',
         config => config.devtool('eval-cheap-source-map'))
+
+    // 解决vue-i18n警告You are running the esm-bundler build of vue-i18n...
+    config.resolve.alias
+      .set('vue-i18n', resolve('./node_modules/vue-i18n/dist/vue-i18n.cjs.prod.js'))
   },
 }
