@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 
+import { isDev } from '@/utils/env'
+
 import ElementPlus from 'element-plus'
 import locale from 'element-plus/lib/locale/lang/zh-cn'
 import '@/styles/index.scss'
@@ -8,6 +10,8 @@ import i18n from '@/locales'
 
 import DatavCharts from '@/components'
 import GUI from '@/components/ui'
+
+import DevComponents from '@/pages/components'
 
 import App from './App.vue'
 import store from './store'
@@ -20,4 +24,9 @@ app.use(router)
 app.use(ElementPlus, { locale, size: 'medium', zIndex: 3000 })
 app.use(GUI)
 app.use(DatavCharts)
+
+if (isDev) {
+  app.use(DevComponents)
+}
+
 app.mount('#app')

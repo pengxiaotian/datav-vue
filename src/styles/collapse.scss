@@ -23,4 +23,15 @@
   .el-collapse-item__content {
     color: $collapse-font-color;
   }
+
+  &.collapse-arrow-left {
+    .el-collapse-item__header {
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+    }
+
+    .el-collapse-item__arrow {
+      margin: 0 8px 0 0;
+    }
+  }
 }
