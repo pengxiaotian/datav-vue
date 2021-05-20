@@ -4,6 +4,7 @@ import { isPlainObject, isArray, isNumber, isString } from '@/utils/util'
 
 
 export enum PropDataType {
+  unknown = 'unknown',
   number = 'number',
   string = 'string',
   boolean = 'boolean',
@@ -52,7 +53,7 @@ export interface PropConfig {
 
 export const createPropConfig = () => {
   const data: PropConfig = {
-    type: PropDataType.object,
+    type: PropDataType.unknown,
     component: ComponentType.none,
     alias: '',
     tip: '',
@@ -84,15 +85,15 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
     if (isString(val)) {
       pc.type = PropDataType.string
       pc.component = ComponentType.input
-      pc.defaultValue = ''
-    } else if (isNumber(data)) {
+      pc.defaultValue = val
+    } else if (isNumber(val)) {
       pc.type = PropDataType.number
       pc.component = ComponentType.number
-      pc.defaultValue = 0
+      pc.defaultValue = val
     } else if (_.isBoolean(val)) {
       pc.type = PropDataType.boolean
       pc.component = ComponentType.switch
-      pc.defaultValue = false
+      pc.defaultValue = val
     } else if (isPlainObject(val)) {
       pc.type = PropDataType.object
       pc.displayMode = DisplayMode.nest
@@ -101,11 +102,10 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       initPropData(val, dto.children, dto.path)
     } else if (isArray(val) && val.length > 0) {
       pc.type = PropDataType.array
-      pc.component = ComponentType.none
       pc.displayMode = DisplayMode.nest
       dto.children = []
       dto.cols = Object.keys(val[0])
-      initPropData(val[0], dto.children, dto.path)
+      initPropData(val, dto.children, dto.path)
     }
     arr.push(dto)
   }

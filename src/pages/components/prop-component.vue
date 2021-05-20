@@ -26,6 +26,7 @@
     multiple
     filterable
     allow-create
+    default-first-option
     placeholder="创建下拉选项"
   />
   <el-select
@@ -215,31 +216,36 @@ export default defineComponent({
       type: String as PropType<ComponentType>,
       required: true,
     },
+    defaultValue: {
+      type: [String, Number, Boolean, Array, Object],
+    },
   },
-  emits: ['change'],
-  setup(props, ctx) {
+  setup(props) {
     const componentTypes = ref({ ...ComponentType })
 
     const strValue = ref('')
     const numValue = ref(0)
     const boolValue = ref(false)
-    const arrValue = ref<string[]>([])
+    const arrValue = ref<(string | number)[]>([])
 
-    watch(() => strValue.value, (nv: string) => {
-      ctx.emit('change', nv)
-    })
-
-    watch(() => numValue.value, (nv: number) => {
-      ctx.emit('change', nv)
-    })
-
-    watch(() => boolValue.value, (nv: boolean) => {
-      ctx.emit('change', nv)
-    })
-
-    watch(() => arrValue.value, (nv: string[]) => {
-      ctx.emit('change', nv)
-    })
+    watch(
+      () => props.componentType,
+      () => {
+        const dv = props.defaultValue
+        if (dv !== undefined) {
+          if (props.dataType === PropDataType.string) {
+            strValue.value = dv as string
+          } else if (props.dataType === PropDataType.number) {
+            numValue.value = dv as number
+          } else if (props.dataType === PropDataType.boolean) {
+            boolValue.value = dv as boolean
+          } else if (props.dataType === PropDataType.array) {
+            arrValue.value = dv as (string | number)[]
+          }
+        }
+      }, {
+        immediate: true,
+      })
 
     return {
       componentTypes,

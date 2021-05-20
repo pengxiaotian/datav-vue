@@ -37,5 +37,12 @@ module.exports = {
     // 解决vue-i18n警告You are running the esm-bundler build of vue-i18n...
     config.resolve.alias
       .set('vue-i18n', resolve('./node_modules/vue-i18n/dist/vue-i18n.cjs.prod.js'))
+
+    config.module
+      .rule('handlebars')
+      .test(/\.hbs$/)
+      .use('handlebars-loader')
+      .loader('handlebars-loader')
+      .end()
   },
 }

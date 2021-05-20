@@ -20,12 +20,17 @@
 import { defineComponent, ref } from 'vue'
 import { PropDto, initPropData } from '@/domains/dev/prop-config'
 import MainTitle from '@/components/text/main-title/src/main-title'
+import PropsConfigForm from '../components/props-config-form.vue'
 
 export default defineComponent({
   name: 'PropsConfig',
+  components: {
+    PropsConfigForm,
+  },
   setup() {
     const list = ref<PropDto[]>([])
     const dvc = new MainTitle()
+
     initPropData(dvc.config, list.value, '')
 
     return {

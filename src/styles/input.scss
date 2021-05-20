@@ -16,6 +16,10 @@
     &:hover {
       border-color: $color-primary;
     }
+
+    &::placeholder {
+      color: $font-color-placeholder;
+    }
   }
 }
 

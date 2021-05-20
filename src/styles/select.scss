@@ -3,6 +3,16 @@
 .el-select {
   width: 100%;
 
+  .el-select__input {
+    margin-left: 8px;
+    color: $input-font-color;
+    caret-color: $color-primary;
+
+    &::placeholder {
+      color: $font-color-placeholder;
+    }
+  }
+
   .el-input__inner {
     color: $font-color;
     border-radius: 0;

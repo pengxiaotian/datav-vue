@@ -1,9 +1,6 @@
 @import "themes/var";
 
-.g-input-number {
-  width: 88px;
-  display: inline-block;
-
+.el-input-number {
   .el-input-number__decrease {
     color: $input-font-color;
     background: $input-bgcolor;
@@ -27,6 +24,11 @@
       border-color: $input-hover-color;
     }
   }
+}
+
+.g-input-number {
+  width: 88px;
+  display: inline-block;
 
   .el-input-number--mini.is-controls-right {
     width: 88px;

@@ -10,31 +10,35 @@
         <el-form-item label="名称">
           <el-input v-model="item.config.alias" />
         </el-form-item>
-        <el-form-item label="组件类型">
-          <el-select v-model="item.config.component">
-            <el-option
-              v-for="ct in componentTypes"
-              :key="ct"
-              :value="ct"
+        <template v-if="item.children">
+          <el-form-item label="控制显示的属性名">
+            <el-select v-model="item.config.showCol">
+              <el-option
+                v-for="c in item.cols"
+                :key="c"
+                :value="c"
+              />
+            </el-select>
+          </el-form-item>
+        </template>
+        <template v-else>
+          <el-form-item label="组件类型">
+            <el-select v-model="item.config.component">
+              <el-option
+                v-for="ct in componentTypes"
+                :key="ct"
+                :value="ct"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="组件预览">
+            <prop-component
+              :data-type="item.config.type"
+              :component-type="item.config.component"
+              :default-value="item.config.defaultValue"
             />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="默认值">
-          <PropComponent
-            :data-type="item.config.type"
-            :component-type="item.config.component"
-            @change="(v) => item.config.defaultValue = v"
-          />
-        </el-form-item>
-        <el-form-item label="控制显示的属性名">
-          <el-select v-model="item.config.showCol">
-            <el-option
-              v-for="c in item.cols"
-              :key="c"
-              :value="c"
-            />
-          </el-select>
-        </el-form-item>
+          </el-form-item>
+        </template>
         <el-form-item label="显示模式">
           <el-select v-model="item.config.displayMode">
             <el-option

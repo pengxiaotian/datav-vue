@@ -86,7 +86,7 @@ const router = createRouter({
 })
 
 
-const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
+const whiteList = ['/login', '/auth-redirect', '/dev'] // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
   // set page title
@@ -114,7 +114,7 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     }
-  } else if (whiteList.indexOf(to.path) !== -1) {
+  } else if (whiteList.some(m => to.path.startsWith(m))) {
     next()
   } else {
     next(`/login?redirect=${to.path}`)
