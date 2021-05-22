@@ -1,15 +1,49 @@
 <template>
   <el-container>
     <el-header class="pc-header">
-      <el-input size="large" placeholder="输入组件目录" />
+      <el-row>
+        <el-col :span="24" style="text-align: center;">
+          <el-input size="large" placeholder="输入组件目录" style="width: 60%;" />
+          <el-button size="large" style="margin-left: 12px;">确定</el-button>
+        </el-col>
+      </el-row>
     </el-header>
     <el-main>
-      <el-row>
+      <el-row :gutter="24">
         <el-col :span="12">
-          <props-config-form :configs="list" />
+          <el-card>
+            <template #header>
+              <div class="card-header__actions">
+                <span>属性配置</span>
+                <el-button>运行配置</el-button>
+              </div>
+            </template>
+            <props-config-form :configs="list" />
+          </el-card>
         </el-col>
         <el-col :span="12">
-          2
+          <el-card>
+            <!-- <template #header>
+              <div class="card-header__actions">
+                <span>配置预览</span>
+                <el-button>查看配置</el-button>
+              </div>
+            </template> -->
+            <el-tabs v-model="activeTab" type="card">
+              <el-tab-pane label="配置预览" name="config">
+                <props-config-preview :configs="list" />
+              </el-tab-pane>
+              <el-tab-pane label="查看配置" name="code" lazy>
+                <g-monaco-editor
+                  language="json"
+                  :code="list"
+                  :extra="{ comId: 1 }"
+                  :height="500"
+                  @blur="handleChange"
+                />
+              </el-tab-pane>
+            </el-tabs>
+          </el-card>
         </el-col>
       </el-row>
     </el-main>
@@ -21,20 +55,30 @@ import { defineComponent, ref } from 'vue'
 import { PropDto, initPropData } from '@/domains/dev/prop-config'
 import MainTitle from '@/components/text/main-title/src/main-title'
 import PropsConfigForm from '../components/props-config-form.vue'
+import PropsConfigPreview from '../components/props-config-preview.vue'
 
 export default defineComponent({
   name: 'PropsConfig',
   components: {
     PropsConfigForm,
+    PropsConfigPreview,
   },
   setup() {
     const list = ref<PropDto[]>([])
     const dvc = new MainTitle()
 
+    const activeTab = ref('config')
+
     initPropData(dvc.config, list.value, '')
+
+    const handleChange = (data: any) => {
+      console.log(data)
+    }
 
     return {
       list,
+      activeTab,
+      handleChange,
     }
   },
 })
@@ -44,6 +88,6 @@ export default defineComponent({
 @import '~@/styles/themes/var';
 
 .pc-header {
-  padding: 20px;
+  padding-top: 20px;
 }
 </style>

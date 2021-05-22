@@ -15,10 +15,10 @@
     v-else-if="componentType === componentTypes.switch"
     v-model="boolValue"
   />
-  <el-color-picker
+  <g-color-picker
     v-else-if="componentType === componentTypes.color"
     v-model="strValue"
-    show-alpha
+    size="medium"
   />
   <el-select
     v-else-if="componentType === componentTypes.select"

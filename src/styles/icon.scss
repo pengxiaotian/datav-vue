@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-fullscreen-exit:before {
+  content: "\eca9";
+}
+
 .v-icon-international:before {
   content: "\e676";
 }

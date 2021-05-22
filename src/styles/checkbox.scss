@@ -1,0 +1,26 @@
+@import "themes/var";
+
+.el-checkbox {
+  line-height: 28px;
+
+  .el-checkbox__inner {
+    background-color: transparent;
+    border: $border;
+    outline: $border-outline;
+
+    &:hover {
+      border-color: $checkbox-checked-border-color;
+      background-color: rgba(38, 129, 255, 0.3);
+    }
+
+    &::after {
+      border-color: $checkbox-checked-border-color;
+    }
+  }
+
+  &.is-checked {
+    .el-checkbox__inner {
+      background-color: transparent;
+    }
+  }
+}

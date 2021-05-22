@@ -69,9 +69,15 @@
       height: 30px;
       line-height: 30px;
       border-top: 2px solid transparent;
+      color: $tabs-font-color;
       background: $datav-tabs-nav-bgcolor;
 
+      &:hover {
+        color: $tabs-font-hover-color;
+      }
+
       &.is-active {
+        color: $tabs-font-hover-color;
         border-top: 2px solid $color-primary;
         background: $datav-tabs-nav-active-bgcolor;
       }

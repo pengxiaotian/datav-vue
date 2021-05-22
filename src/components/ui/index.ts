@@ -10,6 +10,7 @@ import GField from './field'
 import GColorPicker from './color-picker'
 import GUploadImage from './upload-image'
 import GLangSelect from './lang-select'
+import GMonacoEditor from './monaco-editor'
 
 import Focus from '@/directives/focus'
 
@@ -25,6 +26,7 @@ const components = [
   GColorPicker,
   GUploadImage,
   GLangSelect,
+  GMonacoEditor,
 ]
 
 const plugins = [

@@ -1,0 +1,101 @@
+@import "themes/var";
+
+.monaco-editor .margin-view-overlays .codicon-chevron-right,
+.monaco-editor .margin-view-overlays .codicon-chevron-down {
+  font-size: 100% !important;
+}
+
+.monaco-editor .suggest-widget {
+  width: 200px !important;
+  color: $monaco-suggest-color !important;
+}
+
+.monaco-editor .monaco-editor-overlaymessage {
+  padding-bottom: 8px;
+}
+
+.monaco-editor .monaco-editor-overlaymessage.fadeIn {
+  animation: monaco-fade-in 150ms ease-out;
+}
+
+.monaco-editor .monaco-editor-overlaymessage.fadeOut {
+  animation: monaco-fade-out 100ms ease-out;
+}
+
+.monaco-editor .monaco-editor-overlaymessage .message {
+  padding: 1px 4px;
+}
+
+.monaco-editor .monaco-editor-overlaymessage .anchor {
+  width: 0 !important;
+  height: 0 !important;
+  border-color: transparent;
+  border-style: solid;
+  z-index: 1000;
+  border-width: 8px;
+  position: absolute;
+}
+
+@keyframes monaco-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes monaco-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.datav-editor {
+  position: relative;
+  min-height: 240px;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid $datav-editor-border-color;
+  background: $background-color;
+
+  .datav-editor-title {
+    padding: 12px;
+    color: $color-primary;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .datav-editor-actions {
+    position: absolute;
+    right: 20px;
+    bottom: 24px;
+    z-index: 1;
+    width: 40px;
+    font-size: 12px;
+    text-align: right;
+
+    .action-btn {
+      padding: 4px;
+      font-size: 12px;
+      color: $datav-editor-action-color;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+  }
+
+  &.--read-only {
+    .margin,
+    .monaco-editor-background {
+      background-color: $monaco-readonly-bgcolor;
+    }
+  }
+
+  &.--is-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    padding-top: 0;
+
+    .datav-editor-actions {
+      right: 30px;
+      bottom: 24px;
+    }
+  }
+}

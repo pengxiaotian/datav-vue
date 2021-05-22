@@ -48,16 +48,15 @@ $background-color: #171b22;
 $background-dark-color: #1d262e;
 $background-color-secondary: #303640;
 
-// Border
-$border-color: #434b55;
-$border-outline: 1px solid #0b0c0d;
-
 // Input
 $input-font-color: $font-color;
 $input-bgcolor: $color-dark;
 $input-border-color: #0b0c0d;
 $input-font-color-description: #5c6366;
 $input-hover-color: $color-primary;
+
+// Checkbox
+$checkbox-checked-border-color: $color-primary;
 
 // Scrollbar
 $scrollbar-thumb-bg: #434b55;
@@ -79,6 +78,7 @@ $popover-dark-bgcolor: $color-dark;
 // Border
 $border-color: #3a4659;
 $border: 1px solid $border-color;
+$border-outline: 1px solid #0b0c0d;
 $border-dark: 1px solid #000;
 $border-primary: 1px solid $color-primary;
 
@@ -149,6 +149,13 @@ $datav-tabs-nav-active-bgcolor: #1d2126;
 $collapse-font-color: $font-color;
 $collapse-bgcolor: #13161a;
 $collapse-border-color: #141210;
+
+// MonacoEditor
+$monaco-suggest-color: #d4d4d4;
+$monaco-readonly-bgcolor: #1f2329;
+$datav-editor-border-color: #282f3a;
+$datav-editor-border-color: #282f3a;
+$datav-editor-action-color: #bfbfbf;
 
 /* Editor
 -------------------------- */
