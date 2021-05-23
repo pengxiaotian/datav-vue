@@ -1,4 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+const webpack = require('webpack')
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -22,6 +25,12 @@ module.exports = {
   },
   configureWebpack: {
     plugins: [
+      new webpack.DefinePlugin({
+        // Suppress vue-i18-next warning
+        __VUE_I18N_LEGACY_API__: false,
+        __VUE_I18N_FULL_INSTALL__: false,
+        __INTLIFY_PROD_DEVTOOLS__: false,
+      }),
       new MonacoWebpackPlugin({
         languages: ['plaintext', 'html', 'javascript', 'json', 'sql'],
         filename: '[name].worker.[contenthash].js',
