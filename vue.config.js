@@ -23,7 +23,7 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new MonacoWebpackPlugin({
-        languages: ['plaintext', 'javascript', 'json', 'sql'],
+        languages: ['plaintext', 'html', 'javascript', 'json', 'sql'],
         filename: '[name].worker.[contenthash].js',
       }),
     ],

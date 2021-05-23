@@ -1,7 +1,7 @@
 import * as monaco from 'monaco-editor'
 import trim from 'lodash/trim'
 
-export type languageType = 'javascript' | 'json' | 'plaintext' | 'sql'
+export type languageType = 'plaintext' | 'html' | 'javascript' | 'json' | 'sql'
 
 export const defaultOpts: monaco.editor.IStandaloneEditorConstructionOptions = {
   cursorStyle: 'line',

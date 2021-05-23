@@ -19,7 +19,7 @@
       <i
         class="action-btn"
         :class="isFullScreen ? 'v-icon-fullscreen-exit' : 'v-icon-fullscreen'"
-        title="全屏模式下编辑或查看"
+        :title="isFullScreen ? '退出全屏' : '全屏模式下编辑或查看'"
         @click="switchFullScreen"
       ></i>
     </div>
@@ -39,7 +39,7 @@ export default defineComponent({
   props: {
     language: {
       type: String as PropType<languageType>,
-      default: 'javascript',
+      default: 'plaintext',
     },
     code: {
       type: [String, Array, Object],
@@ -169,9 +169,11 @@ export default defineComponent({
         ce.onDidBlurEditorText(() => blurHandler())
         ce.onKeyDown(() => {
           if (props.readOnly) {
-            MessageUtil.warning('当前数据为只读不可编辑')
+            const mc = ce.getContribution('editor.contrib.messageController') as any
+            mc._onDidAttemptReadOnlyEdit()
           }
         })
+
         editor = ce
       }
     })

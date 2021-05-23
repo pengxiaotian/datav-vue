@@ -15,7 +15,7 @@
             <template #header>
               <div class="card-header__actions">
                 <span>属性配置</span>
-                <el-button>运行配置</el-button>
+                <el-button>生成模板代码</el-button>
               </div>
             </template>
             <props-config-form :configs="list" />
@@ -27,13 +27,19 @@
               <el-tab-pane label="配置预览" name="config">
                 <props-config-preview :configs="list" />
               </el-tab-pane>
-              <el-tab-pane label="查看配置" name="code" lazy>
+              <el-tab-pane label="配置代码" name="code" lazy>
                 <g-monaco-editor
                   language="json"
                   :code="list"
-                  :extra="{ comId: 1 }"
                   :height="500"
-                  @blur="handleChange"
+                  :read-only="true"
+                />
+              </el-tab-pane>
+              <el-tab-pane label="模板代码" name="template" lazy>
+                <g-monaco-editor
+                  language="html"
+                  code="<div></div>"
+                  :height="500"
                 />
               </el-tab-pane>
             </el-tabs>
@@ -65,14 +71,9 @@ export default defineComponent({
 
     initPropData(dvc.config, list.value, '')
 
-    const handleChange = (data: any) => {
-      console.log(data)
-    }
-
     return {
       list,
       activeTab,
-      handleChange,
     }
   },
 })
