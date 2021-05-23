@@ -2,10 +2,14 @@
   <el-input
     v-if="componentType === componentTypes.input"
     v-model="strValue"
+    size="mini"
   />
-  <el-input-number
+  <g-input-number
     v-else-if="componentType === componentTypes.number"
     v-model="numValue"
+    :min="0"
+    :max="8888"
+    :is-inline="false"
   />
   <el-checkbox
     v-else-if="componentType === componentTypes.checkbox"
@@ -18,7 +22,6 @@
   <g-color-picker
     v-else-if="componentType === componentTypes.color"
     v-model="strValue"
-    size="medium"
   />
   <el-select
     v-else-if="componentType === componentTypes.select"
@@ -28,10 +31,12 @@
     allow-create
     default-first-option
     placeholder="创建下拉选项"
+    size="mini"
   />
   <el-select
     v-else-if="componentType === componentTypes.fontFamily"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in fontFamilys"
@@ -43,6 +48,7 @@
   <el-select
     v-else-if="componentType === componentTypes.fontWeight"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in fontWeights"
@@ -54,6 +60,7 @@
   <el-select
     v-else-if="componentType === componentTypes.fontStyle"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in fontStyles"
@@ -65,6 +72,7 @@
   <el-select
     v-else-if="componentType === componentTypes.hAlign"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in hAligns"
@@ -76,6 +84,7 @@
   <el-select
     v-else-if="componentType === componentTypes.vAlign"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in vAligns"
@@ -87,6 +96,7 @@
   <el-select
     v-else-if="componentType === componentTypes.writingMode"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in writingModes"
@@ -98,6 +108,7 @@
   <el-select
     v-else-if="componentType === componentTypes.justify"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in justifyContents"
@@ -109,6 +120,7 @@
   <el-select
     v-else-if="componentType === componentTypes.align"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in aligns"
@@ -120,6 +132,7 @@
   <el-select
     v-else-if="componentType === componentTypes.angle"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in angles"
@@ -131,6 +144,7 @@
   <el-select
     v-else-if="componentType === componentTypes.location"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in locations"
@@ -142,6 +156,7 @@
   <el-select
     v-else-if="componentType === componentTypes.lineStyle"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in lineStyles"
@@ -153,6 +168,7 @@
   <el-select
     v-else-if="componentType === componentTypes.fillType"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in fillTypes"
@@ -164,6 +180,7 @@
   <el-select
     v-else-if="componentType === componentTypes.box"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in boxImgs"
@@ -175,6 +192,7 @@
   <el-select
     v-else-if="componentType === componentTypes.decorate"
     v-model="strValue"
+    size="mini"
   >
     <el-option
       v-for="item in decorateImgs"
@@ -206,7 +224,7 @@ import {
 import { boxImgs, decorateImgs } from '@/data/images'
 
 export default defineComponent({
-  name: 'PropComponent',
+  name: 'PropComponentPreview',
   props: {
     dataType: {
       type: String as PropType<PropDataType>,

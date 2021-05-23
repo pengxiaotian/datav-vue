@@ -47,7 +47,7 @@ export interface PropConfig {
   alias: string
   tip: string
   displayMode: DisplayMode
-  showCol: string
+  toggleCol: string
   defaultValue: any
 }
 
@@ -58,7 +58,7 @@ export const createPropConfig = () => {
     alias: '',
     tip: '',
     displayMode: DisplayMode.flat,
-    showCol: '',
+    toggleCol: '',
     defaultValue: null,
   }
 

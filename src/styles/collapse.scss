@@ -9,6 +9,15 @@
     color: $collapse-font-color;
     background-color: $collapse-bgcolor;
     border-bottom: 1px solid $collapse-border-color;
+
+    &.focusing:focus:not(:hover) {
+      color: $collapse-font-color;
+    }
+  }
+
+  .el-collapse-item.is-disabled .el-collapse-item__header {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 
   .el-collapse-item__arrow {
@@ -33,5 +42,36 @@
     .el-collapse-item__arrow {
       margin: 0 8px 0 0;
     }
+  }
+}
+
+.g-field-collapse {
+  margin-bottom: 5px;
+  border: none;
+
+  .el-collapse-item__header {
+    height: 40px;
+    padding-left: 8px;
+    font-size: $font-size;
+    line-height: 40px;
+    color: #fff;
+    background: $field-collapse-header-bgcolor;
+    border-bottom-color: rgba(52, 52, 52, 0.5);
+
+    .el-collapse-item__arrow {
+      font-weight: bold;
+      color: $field-collapse-arrow-color;
+    }
+  }
+
+  .el-collapse-item__wrap {
+    padding: 0;
+    padding-right: 8px;
+    background-color: $field-collapse-item-bgcolor;
+    border-bottom-color: rgba(52, 52, 52, 0.5);
+  }
+
+  .el-collapse-item__content {
+    padding: 0;
   }
 }

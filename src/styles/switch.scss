@@ -26,4 +26,30 @@
       }
     }
   }
+
+  &.--mini {
+    height: 8px;
+    line-height: 8px;
+    font-size: 12px;
+
+    .el-switch__core {
+      width: 16px !important;
+      height: 8px;
+
+      .el-switch__action {
+        width: 6px;
+        height: 6px;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    &.is-checked {
+      .el-switch__core {
+        .el-switch__action {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
 }

@@ -14,6 +14,16 @@ export class MainTitle extends DatavComponent {
       fontWeight: 'normal',
     },
     textAlign: 'center',
+    letterSpacing: 0,
+    backgroundStyle: {
+      show: true,
+      bgColor: '#008bff',
+      borderRadius: 15,
+      borderColor: '#fff',
+      borderStyle: 'solid',
+      borderWidth: 1,
+    },
+    ellipsis: false,
     urlConfig: {
       url: '',
       isBlank: false,

@@ -23,12 +23,6 @@
         </el-col>
         <el-col :span="12">
           <el-card>
-            <!-- <template #header>
-              <div class="card-header__actions">
-                <span>配置预览</span>
-                <el-button>查看配置</el-button>
-              </div>
-            </template> -->
             <el-tabs v-model="activeTab" type="card">
               <el-tab-pane label="配置预览" name="config">
                 <props-config-preview :configs="list" />

@@ -5,6 +5,7 @@
       :key="item.key"
       :title="item.path"
       :name="item.key"
+      :disabled="toggleCol === item.key"
     >
       <el-form label-width="150px">
         <el-form-item label="名称">
@@ -12,7 +13,7 @@
         </el-form-item>
         <template v-if="item.children">
           <el-form-item label="控制显示的属性名">
-            <el-select v-model="item.config.showCol">
+            <el-select v-model="item.config.toggleCol" :clearable="true">
               <el-option
                 v-for="c in item.cols"
                 :key="c"
@@ -56,6 +57,7 @@
       <props-config-form
         v-if="item.children"
         :configs="item.children"
+        :toggle-col="item.config.toggleCol"
       />
     </el-collapse-item>
   </el-collapse>
@@ -76,6 +78,7 @@ export default defineComponent({
       type: Array as PropType<PropDto[]>,
       required: true,
     },
+    toggleCol: String,
   },
   setup() {
     const componentTypes = ref({ ...ComponentType })

@@ -1,5 +1,8 @@
 <template>
-  <div class="g-input-number">
+  <div
+    class="g-input-number"
+    :class="[`--${size}`, { '--inline': isInline }]"
+  >
     <el-input-number
       :model-value="modelValue"
       :size="size"
@@ -40,6 +43,10 @@ export default defineComponent({
     max: {
       type: Number,
       default: Infinity,
+    },
+    isInline: {
+      type: Boolean,
+      default: true,
     },
   },
   emits: [UPDATE_MODEL_EVENT],

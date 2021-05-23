@@ -11,6 +11,7 @@ import GColorPicker from './color-picker'
 import GUploadImage from './upload-image'
 import GLangSelect from './lang-select'
 import GMonacoEditor from './monaco-editor'
+import GFieldCollapse from './field-collapse'
 
 import Focus from '@/directives/focus'
 
@@ -27,6 +28,7 @@ const components = [
   GUploadImage,
   GLangSelect,
   GMonacoEditor,
+  GFieldCollapse,
 ]
 
 const plugins = [

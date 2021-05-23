@@ -36,6 +36,7 @@
   display: block;
   width: 16px;
   margin-right: 4px;
+  height: $field-height;
   line-height: $field-height;
 
   .g-field-show {
@@ -67,7 +68,6 @@
     margin-bottom: 4px;
 
     .g-field {
-      padding-left: 24px;
       color: $field-font-secondary-color;
     }
   }
