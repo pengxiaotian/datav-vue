@@ -62,7 +62,7 @@ export default defineComponent({
 .setting-panel-content {
   position: absolute;
   top: 60px;
-  bottom: 66px;
+  bottom: 120px;
   width: 100%;
   overflow-y: auto;
 }

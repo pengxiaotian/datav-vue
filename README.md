@@ -28,9 +28,10 @@
 ![登录页](./demo/login.png)
 
 #### 可视化列表&编辑器
-![可视化列表](./demo/home.png)
-
-![编辑器](./demo/editor.png)
+|        |        |
+| ------ | ------ |
+| ![可视化列表](./demo/home.png)     | ![编辑器](./demo/editor.png) |
+|||
 
 ### 安装与使用
 
