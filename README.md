@@ -46,6 +46,8 @@ yarn serve
 yarn build
 ```
 
+### 开发
+
 #### 创建组件
 
 ```bash
@@ -57,6 +59,27 @@ yarn gc [component name]
 ```bash
 yarn new
 ```
+
+#### 配置组件
+
+- 目录结构 (如: main-title):
+
+```bash
+main-title
+├── index.ts
+└── src
+    ├── config.vue
+    ├── index.vue
+    └── main-title.ts
+```
+
+> 其中 `config.vue` 组件，可以在 `development` 模式下，通过访问 `http://localhost:9090/#/dev/props-config` 配置生成。
+
+> 目前还是个简易版生成工具，需要手动将生成的模板代码，复制粘贴到一个 `vue` 组件中。
+
+##### prop-config 预览
+
+![prop-config](./demo/prop-config.png)
 
 #### Git提交模板
 
