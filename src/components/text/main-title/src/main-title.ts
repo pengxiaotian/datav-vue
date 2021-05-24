@@ -6,14 +6,15 @@ import {
 
 export class MainTitle extends DatavComponent {
   config = {
-    title: '',
+    title: '我是标题数据',
     textStyle: {
       fontFamily: 'Microsoft Yahei',
-      fontSize: 32,
+      fontSize: 24,
       color: '#fff',
       fontWeight: 'normal',
     },
     textAlign: 'center',
+    writingMode: 'horizontal-tb',
     letterSpacing: 0,
     backgroundStyle: {
       show: true,
@@ -28,7 +29,6 @@ export class MainTitle extends DatavComponent {
       url: '',
       isBlank: false,
     },
-    writingMode: 'horizontal-tb',
   }
 
   data: DataConfigMap

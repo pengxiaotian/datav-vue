@@ -67,9 +67,12 @@ export default defineComponent({
       spinContentClass.value = ''
     }
 
+    const wrapStyle: Record<string, any> = props.wrapStyle || {}
     const spinContentStyle = ref({
-      ...props.wrapStyle,
-      background: props.theme === 'dark' ? `rgba(23,27,34,${opacity})` : `rgba(255, 255, 255, ${opacity})`,
+      ...wrapStyle,
+      background: props.theme === 'dark'
+        ? `rgba(23,27,34,${opacity})`
+        : `rgba(255, 255, 255, ${opacity})`,
     })
 
     return {

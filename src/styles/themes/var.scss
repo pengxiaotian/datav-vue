@@ -54,6 +54,7 @@ $input-bgcolor: $color-dark;
 $input-border-color: #0b0c0d;
 $input-font-color-description: #5c6366;
 $input-hover-color: $color-primary;
+$input-prepend-bgcolor: #39414d;
 
 // Checkbox
 $checkbox-checked-border-color: $color-primary;
@@ -116,6 +117,9 @@ $slider-track-color: linear-gradient(to right, $slider-color, $color-primary);
 // Button
 $button-font-color: $color-white;
 $button-active-shade-percent: 10% !default;
+$button-font-color-disabled: rgba(255, 255, 255, 0.5);
+$button-border-color-disabled: #323437;
+$button-bgcolor-disabled: #262c33;
 
 // Loading
 $loading-color: #1996df;

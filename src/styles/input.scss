@@ -23,6 +23,12 @@
   }
 }
 
+.el-input-group__prepend {
+  color: $font-color;
+  border-color: $input-border-color;
+  background: $input-prepend-bgcolor;
+}
+
 .g-input {
   height: 24px;
   display: inline-block;

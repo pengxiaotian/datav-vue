@@ -56,6 +56,12 @@ module.exports = {
       name: 'withFolder',
       message: 'Whether to create component as folder?',
     },
+    {
+      when: (value) => value.withFolder,
+      type: 'confirm',
+      name: 'withPlugin',
+      message: 'Compatible with plugin type?',
+    },
   ],
   actions: (data) => {
     const dir = `${process.cwd()}/src/${data.category}/${data.subdirectory}/{{dashCase name}}`;
@@ -80,6 +86,7 @@ module.exports = {
         templateFile: './component/index-ts.hbs',
         data: {
           name: data.name,
+          withPlugin: data.withPlugin,
         },
       });
     }

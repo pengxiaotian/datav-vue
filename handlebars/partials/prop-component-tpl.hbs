@@ -1,0 +1,205 @@
+{{#if (eq config.component componentTypes.input)}}
+<el-input
+  v-model="config.{{path}}"
+  size="mini"
+/>
+{{else if (eq config.component componentTypes.number)}}
+<g-input-number
+  v-model="config.{{path}}"
+  :min="0"
+  :max="8888"
+  :is-inline="false"
+/>
+{{else if (eq config.component componentTypes.checkbox)}}
+<el-checkbox
+  v-model="config.{{path}}"
+/>
+{{else if (eq config.component componentTypes.switch)}}
+<el-switch
+  v-model="config.{{path}}"
+/>
+{{else if (eq config.component componentTypes.color)}}
+<g-color-picker
+  v-model="config.{{path}}"
+/>
+{{else if (eq config.component componentTypes.select)}}
+<el-select
+  v-model="config.{{path}}"
+  multiple
+  filterable
+  allow-create
+  default-first-option
+  placeholder="创建下拉选项"
+  size="mini"
+/>
+{{else if (eq config.component componentTypes.fontFamily)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in fontFamilys"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.fontWeight)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in fontWeights"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.fontStyle)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in fontStyles"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.hAlign)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in hAligns"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.vAlign)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in vAligns"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.writingMode)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in writingModes"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.justify)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in justifyContents"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.align)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in aligns"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.angle)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in angles"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.location)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in locations"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.lineStyle)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in lineStyles"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.fillType)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in fillTypes"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.box)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in boxImgs"
+    :key="item.id"
+    :label="item.src"
+    :value="item.id"
+  />
+</el-select>
+{{else if (eq config.component componentTypes.decorate)}}
+<el-select
+  v-model="config.{{path}}"
+  size="mini"
+>
+  <el-option
+    v-for="item in decorateImgs"
+    :key="item.id"
+    :label="item.src"
+    :value="item.id"
+  />
+</el-select>
+{{else}}
+<span>--</span>
+{{/if}}

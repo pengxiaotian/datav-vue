@@ -5,6 +5,9 @@
   background: $color-primary;
   border-radius: 0;
   color: #fff;
+  max-width: 200px;
+  overflow-wrap: break-word;
+  line-height: 16px;
 
   .el-popper__arrow {
     width: 8px;

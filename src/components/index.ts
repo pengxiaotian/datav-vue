@@ -9,7 +9,7 @@ const components = [
 
 const install = (app: App): void => {
   components.forEach(component => {
-    app.component(component.name, component)
+    app.use(component)
   })
 }
 

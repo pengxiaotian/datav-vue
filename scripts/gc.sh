@@ -52,7 +52,7 @@ export default defineComponent({
 EOF
 
 cat <<EOF >"$DIRNAME/index.ts"
-import { App } from 'vue'
+import type { App } from 'vue'
 import ${NAME} from './src/index.vue'
 
 ${NAME}.install = (app: App): void => {

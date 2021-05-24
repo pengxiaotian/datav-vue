@@ -17,7 +17,7 @@
       <template v-if="tooltip">
         <el-tooltip effect="blue" placement="top" :offset="2">
           <template #content>
-            <slot name="tooltip">{{ tooltip }}</slot>
+            <span v-html="tooltip"></span>
           </template>
           <label class="g-field-title-with-description" :title="label">
             {{ label }}

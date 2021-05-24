@@ -1,8 +1,3 @@
-.el-button {
-  border-radius: 0;
-  transition: all 0.3s $ease-in-out;
-}
-
 .el-button--default:not(.el-button--primary) {
   color: $color-primary;
   border-color: $color-primary;
@@ -31,4 +26,20 @@
 .el-button--medium {
   padding: 0 30px;
   min-height: 32px;
+}
+
+.el-button {
+  border-radius: 0;
+  transition: all 0.3s $ease-in-out;
+
+  &.is-disabled {
+    &,
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+      color: $button-font-color-disabled;
+      border-color: $button-border-color-disabled;
+      background: $button-bgcolor-disabled;
+    }
+  }
 }

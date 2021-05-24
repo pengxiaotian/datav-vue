@@ -14,6 +14,14 @@ import {
 import shortid from 'shortid'
 import { ZoomMode } from '@/components/enums/com-enums'
 
+/**
+ * Generate shortId
+ */
+export const generateId = (prefix?: string) => {
+  const id = shortid.generate()
+  return prefix ? `${prefix}_${id}` : id
+}
+
 export {
   isObject,
   isPlainObject,
@@ -29,11 +37,65 @@ export {
 export const kebabCase = hyphenate
 
 /**
- * Generate shortId
+ * Remove leading and trailing whitespace and non-word
+ * characters from the given string.
+ *
+ * @param {String} `str`
+ * @return {String}
  */
-export const generateId = (prefix?: string) => {
-  const id = shortid.generate()
-  return prefix ? `${prefix}_${id}` : id
+export const chop = (str: string) => {
+  if (!isString(str)) return ''
+  const re = /^[-_.\W\s]+|[-_.\W\s]+$/g
+  return str.trim().replace(re, '')
+}
+
+/**
+ * Change casing on the given `string`, optionally
+ * passing a delimiter to use between words in the
+ * returned string.
+ *
+ * ```js
+ * utils.changeCase('fooBarBaz');
+ * //=> 'foo bar baz'
+ *
+ * utils.changeCase('fooBarBaz' '-');
+ * //=> 'foo-bar-baz'
+ * ```
+ * @param {String} `string` The string to change.
+ * @return {String}
+ * @api public
+ */
+export const changeCase = (str: string, fn?: (str: string) => string) => {
+  if (!isString(str)) return ''
+  if (str.length === 1) {
+    return str.toLowerCase()
+  }
+
+  str = chop(str).toLowerCase()
+
+  const re = /[-_.\W\s]+(\w|$)/g
+  return str.replace(re, (_, ch) => {
+    return fn ? fn(ch) : ''
+  })
+}
+
+/**
+ * PascalCase the characters in `string`.
+ *
+ * ```js
+ * {{pascalCase "foo bar baz"}}
+ * <!-- results in:  'FooBarBaz' -->
+ * ```
+ * @param {String} `string`
+ * @return {String}
+ * @api public
+ */
+export const pascalCase = (str: string) => {
+  if (!isString(str)) return ''
+  str = changeCase(str, (ch: string) => {
+    return ch.toUpperCase()
+  })
+  return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
 /**

@@ -4,5 +4,6 @@ es/
 lib/
 dist/
 package.json
-plop-templates/
 src/assets/
+plop-templates/
+handlebars/

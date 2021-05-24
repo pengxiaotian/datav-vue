@@ -9,11 +9,11 @@
     <div class="setting-panel-content">
       <div class="scroll-container">
         <basic-setting :key="`${com.id}'_basic-setting`" :attr="com.attr" />
-        <!-- <component
+        <component
           :is="com.name + 'Prop'"
           :key="com.id"
           :com="com"
-        /> -->
+        />
       </div>
     </div>
   </div>

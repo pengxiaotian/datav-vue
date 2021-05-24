@@ -2,15 +2,18 @@
   <div class="setting-panel">
     <div class="setting-panel-content">
       <div class="scroll-container">
-        <div class="setting-panel-detail">
+        <div class="setting-panel-gui">
           <template v-for="item in configs" :key="item.key">
             <g-field-collapse
               v-if="item.children"
               :label="item.config.alias"
               :tooltip="item.config.tip"
+              :toggle="!!item.config.toggleCol"
+              :model-value="true"
             >
               <template v-for="subitem in item.children" :key="subitem.key">
                 <g-field
+                  v-if="subitem.key !== item.config.toggleCol"
                   :label="subitem.config.alias"
                   :tooltip="subitem.config.tip"
                   :level="2"
@@ -42,8 +45,8 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref } from 'vue'
-import { PropDto, ComponentType, DisplayMode } from '@/domains/dev/prop-config'
+import { defineComponent, PropType } from 'vue'
+import { PropDto } from '@/domains/dev/prop-config'
 import {
   fontFamilys,
   fontWeights,
@@ -73,13 +76,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const componentTypes = ref({ ...ComponentType })
-    const displayModes = ref({ ...DisplayMode })
-
     return {
-      componentTypes,
-      displayModes,
-
       fontFamilys,
       fontWeights,
       fontStyles,
