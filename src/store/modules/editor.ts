@@ -7,7 +7,7 @@ import { Project, ProjectConfig } from '@/domains/project'
 import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { getProject } from '@/api/project'
 import { DatavComponent } from '@/components/datav-component'
-import { ComType, MoveType } from '@/components/enums/com-enums'
+import { ComType, MoveType } from '@/utils/enums/com-enums'
 import { generateId } from '@/utils/util'
 import { calcIntersectingLines } from '@/utils/intersecting-line-util'
 

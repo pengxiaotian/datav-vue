@@ -165,7 +165,7 @@
 import { defineComponent, ref, computed } from 'vue'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
-import { MoveType } from '@/components/enums/com-enums'
+import { MoveType } from '@/utils/enums/com-enums'
 import { MessageBoxUtil } from '@/utils/message-util'
 import { useContextMenu } from '../editor-context-menu/index'
 

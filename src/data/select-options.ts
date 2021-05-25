@@ -4,6 +4,9 @@ export const fontFamilys = [
   { id: 'SimHei', value: '黑体' },
   { id: 'LiSu', value: '隶书' },
   { id: 'YouYuan', value: '幼圆' },
+  { id: 'tahoma', value: 'tahoma' },
+  { id: 'arial', value: 'arial' },
+  { id: 'sans-serif', value: 'sans-serif' },
 ]
 
 export const fontWeights = [

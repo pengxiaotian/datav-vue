@@ -12,7 +12,7 @@ import {
   toRawType,
 } from '@vue/shared'
 import shortid from 'shortid'
-import { ZoomMode } from '@/components/enums/com-enums'
+import { ZoomMode } from '@/utils/enums/com-enums'
 
 /**
  * Generate shortId

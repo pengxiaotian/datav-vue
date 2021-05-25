@@ -58,7 +58,7 @@ import { defineComponent, onBeforeMount, onUnmounted } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import { MessageBoxUtil } from '@/utils/message-util'
 import { on, off } from '@/utils/dom'
-import { MoveType } from '@/components/enums/com-enums'
+import { MoveType } from '@/utils/enums/com-enums'
 import { useContextMenu } from './index'
 
 export default defineComponent({

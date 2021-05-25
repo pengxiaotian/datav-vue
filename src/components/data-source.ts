@@ -1,4 +1,4 @@
-import { DataSourceType } from '@/components/enums/data-source'
+import { DataSourceType } from '@/utils/enums/data-source'
 import { generateId, isString } from '@/utils/util'
 
 export interface FieldConfig {

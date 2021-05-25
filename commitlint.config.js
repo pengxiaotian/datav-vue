@@ -1,6 +1,6 @@
 module.exports = {
   rules: {
-    'scope-enum': [2, 'always', ['project', 'core', 'style', 'docs', 'ci', 'dev', 'build', 'deploy', 'other']],
+    'scope-enum': [2, 'always', ['core', 'style', 'docs', 'ci', 'dev', 'other']],
     'body-leading-blank': [1, 'always'],
     'footer-leading-blank': [1, 'always'],
     'header-max-length': [2, 'always', 72],
@@ -10,8 +10,10 @@ module.exports = {
     'subject-full-stop': [2, 'never', '.'],
     'type-case': [2, 'always', 'lower-case'],
     'type-empty': [2, 'never'],
-    'type-enum': [2, 'always',
-      ['build', 'chore', 'ci', 'docs', 'feat', 'fix', 'perf', 'refactor', 'revert', 'style', 'test', 'improvement'],
+    'type-enum': [
+      2,
+      'always',
+      ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'ci', 'chore', 'revert'],
     ],
   },
 }
