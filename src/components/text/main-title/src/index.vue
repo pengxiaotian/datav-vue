@@ -1,18 +1,20 @@
 <template>
-  <div class="com-wrapper" :style="titleStyle">
+  <div class="datav-wrapper" :style="titleStyle">
     <template v-if="urlText">
       <a :href="urlText" :target="urlTarget" :style="urlStyle">
         {{ titleText }}
       </a>
     </template>
     <template v-else>
-      {{ titleText }}
+      <span :style="wordStyle">
+        {{ titleText }}
+      </span>
     </template>
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, PropType, computed, toRef } from 'vue'
 import { useDataCenter } from '@/mixins/data-center'
 import { MainTitle } from './main-title'
 
@@ -26,45 +28,100 @@ export default defineComponent({
   },
   setup(props) {
     const { datav_data } = useDataCenter(props.com)
+    const config = toRef(props.com, 'config')
+    const attr = toRef(props.com, 'attr')
 
-    const titleStyle = computed(() => ({
-      width: `${props.com.attr.w}px`,
-      height: `${props.com.attr.h}px`,
-      opacity: props.com.attr.opacity,
-      'font-family': `${props.com.config.textStyle.fontFamily}, Arial, sans-serif`,
-      'font-size': `${props.com.config.textStyle.fontSize}px`,
-      'font-weight': props.com.config.textStyle.fontWeight,
-      color: props.com.config.textStyle.color,
-      'justify-content': props.com.config.textAlign,
-      'writing-mode': props.com.config.writingMode,
-      display: 'flex',
-      overflow: 'hidden',
-      'align-items': 'center',
-      'text-overflow': 'ellipsis',
-      'white-space': 'nowrap',
-    }))
+    const titleStyle = computed(() => {
+      const style = {
+        width: `${attr.value.w}px`,
+        height: `${attr.value.h}px`,
+        opacity: attr.value.opacity,
+        'font-family': `${config.value.textStyle.fontFamily}, Arial, sans-serif`,
+        'font-size': `${config.value.textStyle.fontSize}px`,
+        'font-weight': config.value.textStyle.fontWeight,
+        'justify-content': config.value.textAlign,
+        'writing-mode': config.value.writingMode,
+        'letter-spacing': `${config.value.letterSpacing}px`,
+        'background-color': 'initial',
+        border: 'none',
+        'border-radius': '0px',
+        transform: 'translateZ(0px)',
+        display: 'flex',
+        'align-items': 'center',
+        'text-overflow': 'ellipsis',
+        'white-space': 'nowrap',
+        overflow: 'hidden',
+      }
 
-    const urlStyle = computed(() => ({
-      color: props.com.config.textStyle.color,
-      'text-decoration': 'none',
-    }))
+      if (config.value.backgroundStyle.show) {
+        const bgs = config.value.backgroundStyle
+        style['background-color'] = bgs.bgColor
+        style.border = `${bgs.borderWidth}px ${bgs.borderStyle} ${bgs.borderColor}`
+        style['border-radius'] = `${bgs.borderRadius}px`
+      }
+
+      return style
+    })
+
+    const wordStyle = computed(() => {
+      const style = {
+        color: config.value.textStyle.color,
+        overflow: 'unset',
+        'text-overflow': 'unset',
+        'white-space': 'unset',
+        'background-image': 'none',
+        'background-clip': 'unset',
+        '-webkit-text-fill-color': 'initial',
+      }
+
+      if (config.value.ellipsis) {
+        style.overflow = 'hidden'
+        style['text-overflow'] = 'ellipsis'
+        style['white-space'] = 'nowrap'
+      }
+
+      return style
+    })
+
+    const urlStyle = computed(() => {
+      const style = {
+        display: 'block',
+        'text-decoration': 'none',
+        color: config.value.textStyle.color,
+        overflow: 'unset',
+        'text-overflow': 'unset',
+        'white-space': 'unset',
+        'background-image': 'none',
+        'background-clip': 'unset',
+        '-webkit-text-fill-color': 'initial',
+      }
+
+      if (config.value.ellipsis) {
+        style.overflow = 'hidden'
+        style['text-overflow'] = 'ellipsis'
+        style['white-space'] = 'nowrap'
+      }
+
+      return style
+    })
 
     const titleText = computed(() => {
       return datav_data.value.source?.title
         ? datav_data.value.source.title
-        : props.com.config.title
+        : config.value.title
     })
 
     const urlText = computed(() => {
       return datav_data.value.source?.url
         ? datav_data.value.source.url
-        : props.com.config.urlConfig.url
+        : config.value.urlConfig.url
     })
 
-    const urlTarget = computed(() => props.com.config.urlConfig.isBlank ? '_blank' : '_self')
+    const urlTarget = computed(() => config.value.urlConfig.isBlank ? '_blank' : '_self')
 
     return {
       titleStyle,
+      wordStyle,
       urlStyle,
       titleText,
       urlText,

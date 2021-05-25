@@ -121,3 +121,14 @@ export default defineComponent({
   }
 }
 </style>
+
+<style lang="scss">
+.datav-com .datav-wraper,
+.datav-layer .datav-wraper {
+  pointer-events: none !important;
+}
+
+.datav-wraper {
+  box-sizing: border-box;
+}
+</style>

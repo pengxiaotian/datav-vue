@@ -201,18 +201,9 @@ import { defineComponent, PropType, toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
-  fontStyles,
-  hAligns,
-  vAligns,
   writingModes,
   justifyContents,
-  aligns,
-  angles,
-  locations,
-  lineStyles,
-  fillTypes,
 } from '@/data/select-options'
-import { boxImgs, decorateImgs } from '@/data/images'
 import { MainTitle } from './main-title'
 
 export default defineComponent({
@@ -231,18 +222,8 @@ export default defineComponent({
 
       fontFamilys,
       fontWeights,
-      fontStyles,
-      hAligns,
-      vAligns,
       writingModes,
       justifyContents,
-      aligns,
-      angles,
-      locations,
-      lineStyles,
-      fillTypes,
-      boxImgs,
-      decorateImgs,
     }
   },
 })
