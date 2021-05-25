@@ -1,0 +1,32 @@
+{{#each configs as | item |}}
+{{#if item.children}}
+<g-field-collapse
+  {{#if item.config.toggleCol}}
+  v-model="config.{{item.path}}.{{item.config.toggleCol}}"
+  :toggle="true"
+  {{^}}
+  :toggle="false"
+  {{/if}}
+  {{#if item.config.tip}}
+  label="{{item.config.alias}}"
+  tooltip="{{{item.config.tip}}}"
+  {{^}}
+  label="{{item.config.alias}}"
+  {{/if}}
+>
+  {{> prop-config-tpl configs=item.children componentTypes=../componentTypes toggleCol=item.config.toggleCol level=2}}
+</g-field-collapse>
+{{else if (neq ../toggleCol item.key)}}
+<g-field
+  {{#if item.config.tip}}
+  label="{{item.config.alias}}"
+  tooltip="{{{item.config.tip}}}"
+  {{^}}
+  label="{{item.config.alias}}"
+  {{/if}}
+  :level="{{../level}}"
+>
+  {{> prop-component-tpl componentTypes=../componentTypes}}
+</g-field>
+{{/if}}
+{{/each}}

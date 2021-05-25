@@ -22,21 +22,21 @@ export class NumberTitleFlop extends DatavComponent {
     counter: {
       fontFamily: 'Microsoft Yahei',
       textAlign: 'left',
-    },
-    prefix: {
-      content: '￥',
-      textStyle: {
-        fontSize: 50,
-        color: '#fff',
-        fontWeight: 'normal',
+      prefix: {
+        content: '￥',
+        textStyle: {
+          fontSize: 50,
+          color: '#fff',
+          fontWeight: 'normal',
+        },
       },
-    },
-    suffix: {
-      content: '元',
-      textStyle: {
-        fontSize: 30,
-        color: '#fff',
-        fontWeight: 'normal',
+      suffix: {
+        content: '元',
+        textStyle: {
+          fontSize: 30,
+          color: '#fff',
+          fontWeight: 'normal',
+        },
       },
     },
     numbers: {
@@ -80,16 +80,16 @@ export class NumberTitleFlop extends DatavComponent {
         optional: true,
       }),
       createField('value', {
-        map: 'numbers.value',
+        path: 'numbers.value',
         description: '翻牌器数值',
       }),
       createField('prefix', {
-        map: 'prefix.content',
+        path: 'counter.prefix.content',
         description: '翻牌器前缀',
         optional: true,
       }),
       createField('suffix', {
-        map: 'suffix.content',
+        path: 'counter.suffix.content',
         description: '翻牌器后缀',
         optional: true,
       }),

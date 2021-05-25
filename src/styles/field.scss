@@ -9,6 +9,7 @@
   font-size: $field-font-size;
   height: $field-height;
   line-height: $field-height;
+  font-weight: normal;
 
   @include utils-ellipsis();
 }

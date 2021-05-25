@@ -1,47 +1,31 @@
 <template>
-  <div class="setting-panel">
-    <div class="setting-panel-content">
-      <div class="scroll-container">
-        <div class="setting-panel-gui">
-          <template v-for="item in configs" :key="item.key">
-            <g-field-collapse
-              v-if="item.children"
-              :label="item.config.alias"
-              :tooltip="item.config.tip"
-              :toggle="!!item.config.toggleCol"
-              :model-value="true"
-            >
-              <template v-for="subitem in item.children" :key="subitem.key">
-                <g-field
-                  v-if="subitem.key !== item.config.toggleCol"
-                  :label="subitem.config.alias"
-                  :tooltip="subitem.config.tip"
-                  :level="2"
-                >
-                  <prop-component-preview
-                    :data-type="subitem.config.type"
-                    :component-type="subitem.config.component"
-                    :default-value="subitem.config.defaultValue"
-                  />
-                </g-field>
-              </template>
-            </g-field-collapse>
-            <g-field
-              v-else
-              :label="item.config.alias"
-              :tooltip="item.config.tip"
-            >
-              <prop-component-preview
-                :data-type="item.config.type"
-                :component-type="item.config.component"
-                :default-value="item.config.defaultValue"
-              />
-            </g-field>
-          </template>
-        </div>
-      </div>
-    </div>
-  </div>
+  <template v-for="item in configs" :key="item.key">
+    <g-field-collapse
+      v-if="item.children"
+      :label="item.config.alias"
+      :tooltip="item.config.tip"
+      :toggle="!!item.config.toggleCol"
+      :model-value="true"
+    >
+      <props-config-preview
+        :configs="item.children"
+        :toggle-col="item.config.toggleCol"
+        :level="2"
+      />
+    </g-field-collapse>
+    <g-field
+      v-else-if="toggleCol !== item.key"
+      :label="item.config.alias"
+      :tooltip="item.config.tip"
+      :level="level"
+    >
+      <prop-component-preview
+        :data-type="item.config.type"
+        :component-type="item.config.component"
+        :default-value="item.config.defaultValue"
+      />
+    </g-field>
+  </template>
 </template>
 
 <script lang='ts'>
@@ -65,7 +49,7 @@ import { boxImgs, decorateImgs } from '@/data/images'
 import PropComponentPreview from './prop-component-preview.vue'
 
 export default defineComponent({
-  name: 'PropsConfigForm',
+  name: 'PropsConfigPreview',
   components: {
     PropComponentPreview,
   },
@@ -73,6 +57,11 @@ export default defineComponent({
     configs: {
       type: Array as PropType<PropDto[]>,
       required: true,
+    },
+    toggleCol: String,
+    level: {
+      type: Number,
+      default: 1,
     },
   },
   setup() {
@@ -95,30 +84,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-@import '~@/styles/themes/var';
-
-.setting-panel {
-  position: relative;
-  width: 332px;
-  height: 100vh;
-}
-
-.setting-panel-content {
-  position: absolute;
-  top: 12px;
-  bottom: 12px;
-  width: 100%;
-  overflow-y: auto;
-}
-
-.scroll-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 534px;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-</style>

@@ -6,6 +6,7 @@ export interface FieldConfig {
   description: string
   optional?: boolean
   map?: string
+  path?: string
 }
 
 export interface DataConfig {
@@ -63,6 +64,7 @@ export function createField(name: string, config?: Partial<FieldConfig>) {
       description: '',
       optional: false,
       map: '',
+      path: '',
       ...(config || {}),
     },
   }

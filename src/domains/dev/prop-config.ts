@@ -19,6 +19,7 @@ export enum ComponentType {
   checkbox = 'checkbox',
   switch = 'switch',
   color = 'color',
+  slider = 'slider',
   select = 'select',
   fontFamily = 'fontFamily',
   fontWeight = 'fontWeight',

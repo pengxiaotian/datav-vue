@@ -42,7 +42,7 @@
           <el-card>
             <el-tabs v-model="activeTab" type="card">
               <el-tab-pane label="配置预览" name="config">
-                <props-config-preview :configs="list" />
+                <props-config-panel :configs="list" />
               </el-tab-pane>
               <el-tab-pane label="配置代码" name="code" lazy>
                 <g-monaco-editor
@@ -74,17 +74,17 @@ import { MessageUtil } from '@/utils/message-util'
 import { pascalCase } from '@/utils/util'
 import { DatavComponent } from '@/components/datav-component'
 import PropsConfigForm from '../components/props-config-form.vue'
-import PropsConfigPreview from '../components/props-config-preview.vue'
+import PropsConfigPanel from '../components/props-config-panel.vue'
 import configTpl from './config-tpl.hbs'
 
 export default defineComponent({
   name: 'PropsConfig',
   components: {
     PropsConfigForm,
-    PropsConfigPreview,
+    PropsConfigPanel,
   },
   setup() {
-    const classPath = ref('text/main-title/src/main-title')
+    const classPath = ref('text/number-title-flop/src/number-title-flop')
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')

@@ -1,50 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    {{#each configs as | item |}}
-    {{#if item.children}}
-    <g-field-collapse
-      {{#if item.config.toggleCol}}
-      v-model="config.{{item.path}}.{{item.config.toggleCol}}"
-      :toggle="true"
-      {{^}}
-      :toggle="false"
-      {{/if}}
-      {{#if item.config.tip}}
-      label="{{item.config.alias}}"
-      tooltip="{{{item.config.tip}}}"
-      {{^}}
-      label="{{item.config.alias}}"
-      {{/if}}
-    >
-      {{#each item.children as | subitem |}}
-      {{#if (neq subitem.key item.config.toggleCol)}}
-      <g-field
-        {{#if subitem.config.tip}}
-        label="{{subitem.config.alias}}"
-        tooltip="{{{subitem.config.tip}}}"
-        {{^}}
-        label="{{subitem.config.alias}}"
-        {{/if}}
-        :level="2"
-      >
-        {{> prop-component-tpl componentTypes=../../componentTypes}}
-      </g-field>
-      {{/if}}
-      {{/each}}
-    </g-field-collapse>
-    {{else}}
-    <g-field
-      {{#if item.config.tip}}
-      label="{{item.config.alias}}"
-      tooltip="{{{item.config.tip}}}"
-      {{^}}
-      label="{{item.config.alias}}"
-      {{/if}}
-    >
-      {{> prop-component-tpl componentTypes=../componentTypes}}
-    </g-field>
-    {{/if}}
-    {{/each}}
+    {{> prop-config-tpl configs=configs componentTypes=componentTypes toggleCol='' level=1}}
   </div>
 </template>
 
@@ -99,7 +55,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss" scoped>
-@import '~@/styles/themes/var';
-</style>

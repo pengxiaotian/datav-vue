@@ -66,12 +66,32 @@
 
   .el-collapse-item__wrap {
     padding: 0;
-    padding-right: 8px;
+    // padding-right: 8px;
     background-color: $field-collapse-item-bgcolor;
     border-bottom-color: rgba(52, 52, 52, 0.5);
   }
 
   .el-collapse-item__content {
     padding: 0;
+  }
+}
+
+.el-collapse-item__content {
+  .g-field-collapse {
+    margin-bottom: 1px;
+
+    .g-field-title {
+      color: $field-font-color-3;
+    }
+
+    .el-collapse-item__header {
+      color: $field-font-secondary-color;
+      background-color: $field-collapse-item-bgcolor;
+
+      .g-field-title,
+      .g-field-title-with-description {
+        color: $field-font-secondary-color;
+      }
+    }
   }
 }

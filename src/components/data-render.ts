@@ -1,3 +1,4 @@
+import set from 'lodash/set'
 import { isPlainObject, isArray } from '@/utils/util'
 import { FieldConfig } from './data-source'
 
@@ -7,7 +8,7 @@ const getMapData = (data: any, fields: [string, FieldConfig][]) => {
   for (const [key, fc] of fields) {
     const fieldName = fc.map || key
     if (has.call(data, fieldName)) {
-      obj[key] = data[fieldName]
+      set(obj, fc.path || key, data[fieldName])
     }
   }
 

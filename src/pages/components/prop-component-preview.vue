@@ -23,6 +23,18 @@
     v-else-if="componentType === componentTypes.color"
     v-model="strValue"
   />
+  <el-slider
+    v-else-if="componentType === componentTypes.slider"
+    v-model="numValue"
+    :min="0"
+    :max="1"
+    :step="0.05"
+    :show-tooltip="false"
+    show-input
+    input-size="mini"
+    class="g-slider"
+    style="width: 184px;"
+  />
   <el-select
     v-else-if="componentType === componentTypes.select"
     v-model="arrValue"
