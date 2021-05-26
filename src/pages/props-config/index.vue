@@ -13,6 +13,12 @@
             style="width: 60%;"
           >
             <template #prepend>src/components/</template>
+            <template #append>
+              <el-select v-model="ext" style="width: 66px;">
+                <el-option value=".ts" />
+                <el-option value=".json" />
+              </el-select>
+            </template>
           </el-input>
           <el-button
             size="large"
@@ -88,6 +94,7 @@ export default defineComponent({
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')
+    const ext = ref<'.ts' | '.json'>('.ts')
 
     const list = ref<PropDto[]>([])
     const templateCode = ref('<template></template>')
@@ -97,13 +104,19 @@ export default defineComponent({
         if (classPath.value) {
           loading.value = true
           const comModule = await import(/* webpackChunkName: "datav-com-[request]" */ `../../components/${classPath.value}`)
-          if (comModule.default.prototype instanceof DatavComponent) {
-            fileName.value = classPath.value.split('/').pop() || ''
-            list.value = []
-            const dvc = new comModule.default()
-            initPropData(dvc.config, list.value, '')
+          if (ext.value === '.ts') {
+            if (comModule.default.prototype instanceof DatavComponent) {
+              fileName.value = classPath.value.split('/').pop() || ''
+              list.value = []
+              const dvc = new comModule.default()
+              initPropData(dvc.config, list.value, '')
+            } else {
+              throw new Error(`未识别的模块`)
+            }
+          } else if (ext.value === '.json') {
+            list.value = comModule.default
           } else {
-            throw new Error(`未识别的模块`)
+            throw new Error(`未识别的文件格式`)
           }
         }
       } catch (error) {
@@ -134,6 +147,7 @@ export default defineComponent({
 
     return {
       classPath,
+      ext,
       activeTab,
       loading,
       list,

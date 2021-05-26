@@ -53,5 +53,9 @@ export default defineComponent({
   min-height: 534px;
   overflow-x: hidden;
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>

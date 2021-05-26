@@ -36,13 +36,16 @@
 {{else if (eq config.component componentTypes.select)}}
 <el-select
   v-model="config.{{path}}"
-  multiple
-  filterable
-  allow-create
-  default-first-option
-  placeholder="创建下拉选项"
+  disabled
   size="mini"
-/>
+>
+  <el-option
+    v-for="item in []"
+    :key="item.id"
+    :label="item.value"
+    :value="item.id"
+  />
+</el-select>
 {{else if (eq config.component componentTypes.fontFamily)}}
 <el-select
   v-model="config.{{path}}"

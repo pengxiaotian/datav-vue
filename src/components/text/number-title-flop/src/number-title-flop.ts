@@ -12,16 +12,23 @@ export class NumberTitleFlop extends DatavComponent {
   config = {
     arrangement: 'top',
     distance: 0,
-    title: '我是标题',
-    textStyle: {
-      fontFamily: 'Microsoft Yahei',
-      fontSize: 15,
-      color: '#fff',
-      fontWeight: 'lighter',
+    title: {
+      content: '我是标题',
+      textStyle: {
+        fontFamily: 'Microsoft Yahei',
+        fontSize: 15,
+        color: '#fff',
+        fontWeight: 'lighter',
+      },
+      textAlign: 'center',
     },
     counter: {
       fontFamily: 'Microsoft Yahei',
-      textAlign: 'left',
+      justifyContent: 'flex-start',
+      margin: {
+        preNum: 0,
+        numSuff: 0,
+      },
       prefix: {
         content: '￥',
         textStyle: {
@@ -40,7 +47,6 @@ export class NumberTitleFlop extends DatavComponent {
       },
     },
     numbers: {
-      value: 1000,
       textStyle: {
         fontSize: 50,
         color: '#fff600',
@@ -57,6 +63,8 @@ export class NumberTitleFlop extends DatavComponent {
       separatingSymbol: ',',
       decimalSymbol: '.',
       fixedWidth: 0,
+      increment: true,
+      animation: true,
       sameDataFlip: false,
       duration: 1000,
     },
@@ -76,6 +84,7 @@ export class NumberTitleFlop extends DatavComponent {
   initData() {
     const fields = [
       createField('title', {
+        path: 'title.content',
         description: '标题',
         optional: true,
       }),

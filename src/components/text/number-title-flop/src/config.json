@@ -1,0 +1,681 @@
+[
+  {
+    "key": "arrangement",
+    "config": {
+      "type": "string",
+      "component": "select",
+      "alias": "排列方式",
+      "tip": "",
+      "displayMode": "flat",
+      "toggleCol": "",
+      "defaultValue": "top"
+    },
+    "path": "arrangement"
+  },
+  {
+    "key": "distance",
+    "config": {
+      "type": "number",
+      "component": "slider",
+      "alias": "间隔",
+      "tip": "",
+      "displayMode": "flat",
+      "toggleCol": "",
+      "defaultValue": 0
+    },
+    "path": "distance"
+  },
+  {
+    "key": "title",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "标题",
+      "tip": "",
+      "displayMode": "nest",
+      "toggleCol": "",
+      "defaultValue": null
+    },
+    "path": "title",
+    "children": [
+      {
+        "key": "content",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "标题名",
+          "tip": "支持从数据中获取标题内容,详见数据面板",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "我是标题"
+        },
+        "path": "title.content"
+      },
+      {
+        "key": "textStyle",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "文本样式",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null
+        },
+        "path": "title.textStyle",
+        "children": [
+          {
+            "key": "fontFamily",
+            "config": {
+              "type": "string",
+              "component": "fontFamily",
+              "alias": "字体",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "Microsoft Yahei"
+            },
+            "path": "title.textStyle.fontFamily"
+          },
+          {
+            "key": "fontSize",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "字号",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 15
+            },
+            "path": "title.textStyle.fontSize"
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "#fff"
+            },
+            "path": "title.textStyle.color"
+          },
+          {
+            "key": "fontWeight",
+            "config": {
+              "type": "string",
+              "component": "fontWeight",
+              "alias": "粗细",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "lighter"
+            },
+            "path": "title.textStyle.fontWeight"
+          }
+        ],
+        "cols": [
+          "fontFamily",
+          "fontSize",
+          "color",
+          "fontWeight"
+        ]
+      },
+      {
+        "key": "textAlign",
+        "config": {
+          "type": "string",
+          "component": "hAlign",
+          "alias": "对齐方式",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "center"
+        },
+        "path": "title.textAlign"
+      }
+    ],
+    "cols": [
+      "content",
+      "textStyle",
+      "textAlign"
+    ]
+  },
+  {
+    "key": "counter",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "翻牌器",
+      "tip": "",
+      "displayMode": "nest",
+      "toggleCol": "",
+      "defaultValue": null
+    },
+    "path": "counter",
+    "children": [
+      {
+        "key": "fontFamily",
+        "config": {
+          "type": "string",
+          "component": "fontFamily",
+          "alias": "字体",
+          "tip": "请选择您系统有的字体,如果您系统无此字体,标题将会显示默认字体",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "Microsoft Yahei"
+        },
+        "path": "counter.fontFamily"
+      },
+      {
+        "key": "justifyContent",
+        "config": {
+          "type": "string",
+          "component": "justify",
+          "alias": "水平对齐",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "flex-start"
+        },
+        "path": "counter.justifyContent"
+      },
+      {
+        "key": "margin",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "间距",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null
+        },
+        "path": "counter.margin",
+        "children": [
+          {
+            "key": "preNum",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "前缀",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 0
+            },
+            "path": "counter.margin.preNum"
+          },
+          {
+            "key": "numSuff",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "后缀",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 0
+            },
+            "path": "counter.margin.numSuff"
+          }
+        ],
+        "cols": [
+          "preNum",
+          "numSuff"
+        ]
+      },
+      {
+        "key": "prefix",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "前缀",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null
+        },
+        "path": "counter.prefix",
+        "children": [
+          {
+            "key": "content",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "内容",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "￥"
+            },
+            "path": "counter.prefix.content"
+          },
+          {
+            "key": "textStyle",
+            "config": {
+              "type": "object",
+              "component": "none",
+              "alias": "文本样式",
+              "tip": "",
+              "displayMode": "nest",
+              "toggleCol": "",
+              "defaultValue": null
+            },
+            "path": "counter.prefix.textStyle",
+            "children": [
+              {
+                "key": "fontSize",
+                "config": {
+                  "type": "number",
+                  "component": "number",
+                  "alias": "字号",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "toggleCol": "",
+                  "defaultValue": 50
+                },
+                "path": "counter.prefix.textStyle.fontSize"
+              },
+              {
+                "key": "color",
+                "config": {
+                  "type": "string",
+                  "component": "color",
+                  "alias": "字体颜色",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "toggleCol": "",
+                  "defaultValue": "#fff"
+                },
+                "path": "counter.prefix.textStyle.color"
+              },
+              {
+                "key": "fontWeight",
+                "config": {
+                  "type": "string",
+                  "component": "fontWeight",
+                  "alias": "字体粗细",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "toggleCol": "",
+                  "defaultValue": "normal"
+                },
+                "path": "counter.prefix.textStyle.fontWeight"
+              }
+            ],
+            "cols": [
+              "fontSize",
+              "color",
+              "fontWeight"
+            ]
+          }
+        ],
+        "cols": [
+          "content",
+          "textStyle"
+        ]
+      },
+      {
+        "key": "suffix",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "后缀",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null
+        },
+        "path": "counter.suffix",
+        "children": [
+          {
+            "key": "content",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "内容",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "元"
+            },
+            "path": "counter.suffix.content"
+          },
+          {
+            "key": "textStyle",
+            "config": {
+              "type": "object",
+              "component": "none",
+              "alias": "文本样式",
+              "tip": "",
+              "displayMode": "nest",
+              "toggleCol": "",
+              "defaultValue": null
+            },
+            "path": "counter.suffix.textStyle",
+            "children": [
+              {
+                "key": "fontSize",
+                "config": {
+                  "type": "number",
+                  "component": "number",
+                  "alias": "字号",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "toggleCol": "",
+                  "defaultValue": 30
+                },
+                "path": "counter.suffix.textStyle.fontSize"
+              },
+              {
+                "key": "color",
+                "config": {
+                  "type": "string",
+                  "component": "color",
+                  "alias": "字体颜色",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "toggleCol": "",
+                  "defaultValue": "#fff"
+                },
+                "path": "counter.suffix.textStyle.color"
+              },
+              {
+                "key": "fontWeight",
+                "config": {
+                  "type": "string",
+                  "component": "fontWeight",
+                  "alias": "字体粗细",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "toggleCol": "",
+                  "defaultValue": "normal"
+                },
+                "path": "counter.suffix.textStyle.fontWeight"
+              }
+            ],
+            "cols": [
+              "fontSize",
+              "color",
+              "fontWeight"
+            ]
+          }
+        ],
+        "cols": [
+          "content",
+          "textStyle"
+        ]
+      }
+    ],
+    "cols": [
+      "fontFamily",
+      "justifyContent",
+      "margin",
+      "prefix",
+      "suffix"
+    ]
+  },
+  {
+    "key": "numbers",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "数字",
+      "tip": "",
+      "displayMode": "nest",
+      "toggleCol": "",
+      "defaultValue": null
+    },
+    "path": "numbers",
+    "children": [
+      {
+        "key": "textStyle",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "文本样式",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null
+        },
+        "path": "numbers.textStyle",
+        "children": [
+          {
+            "key": "fontSize",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "字号",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 50
+            },
+            "path": "numbers.textStyle.fontSize"
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "字体颜色",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "#fff600"
+            },
+            "path": "numbers.textStyle.color"
+          },
+          {
+            "key": "fontWeight",
+            "config": {
+              "type": "string",
+              "component": "fontWeight",
+              "alias": "字体粗细",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "normal"
+            },
+            "path": "numbers.textStyle.fontWeight"
+          }
+        ],
+        "cols": [
+          "fontSize",
+          "color",
+          "fontWeight"
+        ]
+      },
+      {
+        "key": "marginRight",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "数字间隔",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 0
+        },
+        "path": "numbers.marginRight"
+      },
+      {
+        "key": "bgColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "背景色",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "rgba(51,51,51,0)"
+        },
+        "path": "numbers.bgColor"
+      },
+      {
+        "key": "bgRadius",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "背景圆角",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 6
+        },
+        "path": "numbers.bgRadius"
+      },
+      {
+        "key": "bgSeparating",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "分隔符背景",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": false
+        },
+        "path": "numbers.bgSeparating"
+      },
+      {
+        "key": "digit",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "默认位数",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 0
+        },
+        "path": "numbers.digit"
+      },
+      {
+        "key": "decimal",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "小数点位数",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 0
+        },
+        "path": "numbers.decimal"
+      },
+      {
+        "key": "divisor",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "除数",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 0
+        },
+        "path": "numbers.divisor"
+      },
+      {
+        "key": "separatingChart",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "千分位分隔符",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": true
+        },
+        "path": "numbers.separatingChart"
+      },
+      {
+        "key": "separatingSymbol",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "千分位分隔符符号",
+          "tip": "分隔符最长一位，超出一位取第一位，无法以数字为分隔符",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": ","
+        },
+        "path": "numbers.separatingSymbol"
+      },
+      {
+        "key": "decimalSymbol",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "小数分隔符符号",
+          "tip": "分隔符最长一位，超出一位取第一位，无法以数字为分隔符",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "."
+        },
+        "path": "numbers.decimalSymbol"
+      },
+      {
+        "key": "fixedWidth",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "定宽",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 0
+        },
+        "path": "numbers.fixedWidth"
+      },
+      {
+        "key": "sameDataFlip",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "始终动画",
+          "tip": "当传入数据不变时始终开启动画",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": false
+        },
+        "path": "numbers.sameDataFlip"
+      },
+      {
+        "key": "duration",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "动画时长(ms)",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 1000
+        },
+        "path": "numbers.duration"
+      }
+    ],
+    "cols": [
+      "textStyle",
+      "marginRight",
+      "bgColor",
+      "bgRadius",
+      "bgSeparating",
+      "digit",
+      "decimal",
+      "divisor",
+      "separatingChart",
+      "separatingSymbol",
+      "decimalSymbol",
+      "fixedWidth",
+      "sameDataFlip",
+      "duration"
+    ]
+  }
+]

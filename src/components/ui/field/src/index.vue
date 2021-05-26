@@ -73,15 +73,15 @@ export default defineComponent({
 
     const labelStyle = computed(() => {
       return {
-        span: props.nest ? 24 : 8,
+        span: props.nest ? 24 : 0,
       }
     })
 
     const contentStyle = computed(() => {
       // const isNest = props.nest || props.level === 1
       return {
-        span: props.nest ? 24 : 14,
-        offset: props.nest ? 0 : 2,
+        span: props.nest ? 24 : 0,
+        offset: props.nest ? 0 : 0,
       }
     })
 

@@ -30,17 +30,19 @@
     show-input
     input-size="mini"
     class="g-slider"
-    style="width: 184px;"
   />
   <el-select
     v-else-if="componentType === componentTypes.select"
-    v-model="arrValue"
-    multiple
-    filterable
-    allow-create
-    default-first-option
-    placeholder="创建下拉选项"
-  />
+    v-model="strValue"
+    disabled
+  >
+    <el-option
+      v-for="item in []"
+      :key="item.id"
+      :label="item.value"
+      :value="item.id"
+    />
+  </el-select>
   <el-select
     v-else-if="componentType === componentTypes.fontFamily"
     v-model="strValue"
@@ -284,7 +286,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss" scoped>
-@import '~@/styles/themes/var';
-</style>

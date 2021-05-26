@@ -17,7 +17,7 @@ export class MainTitle extends DatavComponent {
     writingMode: 'horizontal-tb',
     letterSpacing: 0,
     backgroundStyle: {
-      show: true,
+      show: false,
       bgColor: '#008bff',
       borderRadius: 15,
       borderColor: '#fff',

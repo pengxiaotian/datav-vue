@@ -26,6 +26,23 @@
       color: $font-color;
       font-weight: 600;
     }
+
+    &.is-disabled {
+      .el-input__inner {
+        color: $font-color;
+        border: $border-outline;
+        background-color: $input-bgcolor;
+        opacity: 0.5;
+
+        &:hover {
+          border: $border-outline;
+        }
+      }
+
+      .el-select__caret {
+        opacity: 0.5;
+      }
+    }
   }
 
   &:hover {

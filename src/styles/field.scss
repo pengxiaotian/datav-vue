@@ -55,6 +55,7 @@
 }
 
 .g-field-wp {
+  display: flex;
   padding: 4px 8px 4px;
 
   &:first-child {
@@ -63,6 +64,11 @@
 
   &:last-child {
     padding-bottom: 16px;
+  }
+
+  .g-field {
+    flex: 1;
+    padding-right: 5px;
   }
 
   &.--lv2 {

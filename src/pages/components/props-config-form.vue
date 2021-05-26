@@ -50,7 +50,12 @@
           </el-select>
         </el-form-item>
         <el-form-item label="提示">
-          <el-input v-model="item.config.tip" />
+          <!-- <el-input v-model="item.config.tip" /> -->
+          <el-autocomplete
+            v-model="item.config.tip"
+            :fetch-suggestions="querySearch"
+            style="width: 100%;"
+          />
         </el-form-item>
       </el-form>
 
@@ -83,10 +88,20 @@ export default defineComponent({
   setup() {
     const componentTypes = ref({ ...ComponentType })
     const displayModes = ref({ ...DisplayMode })
+    const querySearch = (queryString: string, cb: Function) => {
+      const results = [
+        '请选择您系统有的字体,如果您系统无此字体,标题将会显示默认字体',
+        '支持从数据中获取标题内容,详见数据面板',
+        '分隔符最长一位，超出一位取第一位，无法以数字为分隔符',
+        '当传入数据不变时始终开启动画',
+      ].map(value => ({ value }))
+      cb(results)
+    }
 
     return {
       componentTypes,
       displayModes,
+      querySearch,
     }
   },
 })
