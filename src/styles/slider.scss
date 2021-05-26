@@ -90,11 +90,17 @@
       }
     }
 
-    .el-input .el-input__inner {
-      padding-right: 35px;
-      padding-left: 7px;
-      color: #fff;
-      text-align: left;
+    .el-input {
+      &.el-input--mini {
+        line-height: 26px;
+      }
+
+      .el-input__inner {
+        padding-right: 35px;
+        padding-left: 7px;
+        color: #fff;
+        text-align: left;
+      }
     }
   }
 }

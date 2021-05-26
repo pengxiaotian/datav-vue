@@ -22,6 +22,7 @@
 import { defineComponent, computed, onMounted, ref } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
+import { useMock } from '@/data/mock'
 import toolbar from './toolbar/index.vue'
 import LayerPanel from './layer-panel/index.vue'
 import ComListPanel from './com-list-panel/index.vue'
@@ -66,6 +67,8 @@ export default defineComponent({
           offsetX: ToolbarModule.getPanelOffsetX,
         })
       })
+
+      useMock()
     })
 
     return {

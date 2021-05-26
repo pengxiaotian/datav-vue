@@ -8,6 +8,7 @@
       :size="size"
       :min="min"
       :max="max"
+      :step="step"
       class="is-controls-right"
       @update:model-value="handleInput"
     />
@@ -43,6 +44,10 @@ export default defineComponent({
     max: {
       type: Number,
       default: Infinity,
+    },
+    step: {
+      type: Number,
+      default: 1,
     },
     isInline: {
       type: Boolean,

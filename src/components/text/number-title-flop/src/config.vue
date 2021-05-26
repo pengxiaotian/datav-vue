@@ -20,9 +20,9 @@
     >
       <el-slider
         v-model="config.distance"
-        :min="0"
-        :max="1"
-        :step="0.05"
+        :min="-100"
+        :max="500"
+        :step="0.5"
         :show-tooltip="false"
         show-input
         input-size="mini"
@@ -67,8 +67,8 @@
         >
           <g-input-number
             v-model="config.title.textStyle.fontSize"
-            :min="0"
-            :max="8888"
+            :min="10"
+            :max="100"
             :is-inline="false"
           />
         </g-field>
@@ -197,8 +197,8 @@
           >
             <g-input-number
               v-model="config.counter.prefix.textStyle.fontSize"
-              :min="0"
-              :max="8888"
+              :min="10"
+              :max="100"
               :is-inline="false"
             />
           </g-field>
@@ -249,8 +249,8 @@
           >
             <g-input-number
               v-model="config.counter.suffix.textStyle.fontSize"
-              :min="0"
-              :max="8888"
+              :min="10"
+              :max="100"
               :is-inline="false"
             />
           </g-field>
@@ -293,8 +293,8 @@
         >
           <g-input-number
             v-model="config.numbers.textStyle.fontSize"
-            :min="0"
-            :max="8888"
+            :min="10"
+            :max="100"
             :is-inline="false"
           />
         </g-field>
@@ -330,8 +330,8 @@
         <el-slider
           v-model="config.numbers.marginRight"
           :min="0"
-          :max="1"
-          :step="0.05"
+          :max="10"
+          :step="0.5"
           :show-tooltip="false"
           show-input
           input-size="mini"
@@ -353,8 +353,8 @@
         <el-slider
           v-model="config.numbers.bgRadius"
           :min="0"
-          :max="1"
-          :step="0.05"
+          :max="100"
+          :step="0.5"
           :show-tooltip="false"
           show-input
           input-size="mini"
@@ -376,8 +376,8 @@
         <el-slider
           v-model="config.numbers.digit"
           :min="0"
-          :max="1"
-          :step="0.05"
+          :max="100"
+          :step="1"
           :show-tooltip="false"
           show-input
           input-size="mini"
@@ -391,8 +391,8 @@
         <el-slider
           v-model="config.numbers.decimal"
           :min="0"
-          :max="1"
-          :step="0.05"
+          :max="10"
+          :step="1"
           :show-tooltip="false"
           show-input
           input-size="mini"
@@ -405,8 +405,6 @@
       >
         <g-input-number
           v-model="config.numbers.divisor"
-          :min="0"
-          :max="8888"
           :is-inline="false"
         />
       </g-field>
@@ -445,7 +443,7 @@
         <g-input-number
           v-model="config.numbers.fixedWidth"
           :min="0"
-          :max="8888"
+          :max="100"
           :is-inline="false"
         />
       </g-field>
@@ -465,7 +463,7 @@
         <g-input-number
           v-model="config.numbers.duration"
           :min="0"
-          :max="8888"
+          :step="500"
           :is-inline="false"
         />
       </g-field>
