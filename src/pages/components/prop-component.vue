@@ -23,13 +23,11 @@
   <el-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
-    :min="0"
-    :max="1"
-    :step="0.05"
     :show-tooltip="false"
     show-input
-    input-size="mini"
+    input-size="medium"
     class="g-slider"
+    style="width: 232px;"
   />
   <el-select
     v-else-if="componentType === componentTypes.select"

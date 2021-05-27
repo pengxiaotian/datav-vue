@@ -39,6 +39,17 @@
               :default-value="item.config.defaultValue"
             />
           </el-form-item>
+          <template v-if="item.config.component === componentTypes.number || item.config.component === componentTypes.slider">
+            <el-form-item label="最小值">
+              <el-input-number v-model="item.config.min" />
+            </el-form-item>
+            <el-form-item label="最大值">
+              <el-input-number v-model="item.config.max" />
+            </el-form-item>
+            <el-form-item label="步长">
+              <el-input-number v-model="item.config.step" />
+            </el-form-item>
+          </template>
         </template>
         <el-form-item label="显示模式">
           <el-select v-model="item.config.displayMode">

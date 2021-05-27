@@ -50,6 +50,9 @@ export interface PropConfig {
   displayMode: DisplayMode
   toggleCol: string
   defaultValue: any
+  min: number
+  max: number
+  step: number
 }
 
 export const createPropConfig = () => {
@@ -61,6 +64,9 @@ export const createPropConfig = () => {
     displayMode: DisplayMode.flat,
     toggleCol: '',
     defaultValue: null,
+    min: 0,
+    max: 100,
+    step: 1,
   }
 
   return data

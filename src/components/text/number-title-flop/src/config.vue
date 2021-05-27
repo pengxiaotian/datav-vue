@@ -69,6 +69,7 @@
             v-model="config.title.textStyle.fontSize"
             :min="10"
             :max="100"
+            :step="1"
             :is-inline="false"
           />
         </g-field>
@@ -159,8 +160,9 @@
         >
           <g-input-number
             v-model="config.counter.margin.preNum"
-            :min="0"
-            :max="8888"
+            :min="-100"
+            :max="100"
+            :step="0.5"
             :is-inline="false"
           />
         </g-field>
@@ -170,8 +172,9 @@
         >
           <g-input-number
             v-model="config.counter.margin.numSuff"
-            :min="0"
-            :max="8888"
+            :min="-100"
+            :max="100"
+            :step="0.5"
             :is-inline="false"
           />
         </g-field>
@@ -199,6 +202,7 @@
               v-model="config.counter.prefix.textStyle.fontSize"
               :min="10"
               :max="100"
+              :step="1"
               :is-inline="false"
             />
           </g-field>
@@ -251,6 +255,7 @@
               v-model="config.counter.suffix.textStyle.fontSize"
               :min="10"
               :max="100"
+              :step="1"
               :is-inline="false"
             />
           </g-field>
@@ -295,6 +300,7 @@
             v-model="config.numbers.textStyle.fontSize"
             :min="10"
             :max="100"
+            :step="1"
             :is-inline="false"
           />
         </g-field>
@@ -444,10 +450,19 @@
           v-model="config.numbers.fixedWidth"
           :min="0"
           :max="100"
+          :step="1"
           :is-inline="false"
         />
       </g-field>
       <g-field
+        :level="2"
+        label="开启动画"
+      >
+        <el-switch
+          v-model="config.numbers.animation"
+        />
+      </g-field>
+      <!-- <g-field
         :level="2"
         tooltip="当传入数据不变时始终开启动画"
         label="始终动画"
@@ -455,7 +470,7 @@
         <el-switch
           v-model="config.numbers.sameDataFlip"
         />
-      </g-field>
+      </g-field> -->
       <g-field
         :level="2"
         label="动画时长(ms)"
@@ -463,6 +478,7 @@
         <g-input-number
           v-model="config.numbers.duration"
           :min="0"
+          :max="100000"
           :step="500"
           :is-inline="false"
         />

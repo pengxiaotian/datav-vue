@@ -23,6 +23,9 @@
         :data-type="item.config.type"
         :component-type="item.config.component"
         :default-value="item.config.defaultValue"
+        :min="item.config.min"
+        :max="item.config.max"
+        :step="item.config.step"
       />
     </g-field>
   </template>

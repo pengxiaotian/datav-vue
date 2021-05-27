@@ -22,7 +22,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref, toRef, computed, watch } from 'vue'
+import { defineComponent, PropType, ref, toRef, computed, watchEffect } from 'vue'
 import { TweenLite } from 'gsap'
 import Accounting from 'accounting'
 import { useDataCenter } from '@/mixins/data-center'
@@ -251,53 +251,17 @@ export default defineComponent({
       return style
     })
 
-    const setFlopData = (data, dataConfig, vm) => {
-      if (data && data.length > 0) {
-        const item = data[0]
-        for (let i = 0, len = dataConfig.struct.length; i < len; i++) {
-          const s = dataConfig.struct[i]
-          const field = s.mapField ? s.mapField : s.field
-          let value = Object.prototype.hasOwnProperty.call(item, field) ? item[field] : ''
-          if (s.field === 'value') {
-            value = parseFloat(value) || 0
-            if (vm.data.numbers.sameDataFlip) {
-              vm.data.numbers.value *= 0.9
-              value += Math.random() / 100000
-            }
-          }
-          // _.set(vm, `viewData.${s.path}`, value)
-        }
-        // _.set(vm, 'viewData.origin', item)
-      } else {
-        for (let i = 0, len = dataConfig.struct.length; i < len; i++) {
-          const s = dataConfig.struct[i]
-          // let value = ''
-          if (s.field === 'value') {
-            // value = 0
-          }
-          // _.set(vm, `viewData.${s.path}`, value)
-        }
-      }
-    }
-
-    const changeNumber = (val: number) => {
+    watchEffect(() => {
       const { numbers } = config.value
-      let num = val
+      let num: number = datav_data.value.source?.numbers?.value || 0
       const divisor = numbers.divisor || 0
       if (divisor !== 0) num /= divisor
-      TweenLite.to(numVal, duration.value / 1000, { value: num })
-    }
 
-    watch(() => {
-      return datav_data.value.source?.numbers?.value || 0
-    }, (nv: number) => {
-      changeNumber(nv)
-    }, {
-      immediate: true,
-    })
-
-    watch(() => config.value.numbers.divisor, () => {
-      changeNumber(datav_data.value.source?.numbers?.value || 0)
+      if (numbers.animation) {
+        TweenLite.to(numVal, duration.value / 1000, { value: num })
+      } else {
+        numVal.value = num
+      }
     })
 
     return {
@@ -315,7 +279,6 @@ export default defineComponent({
       suffixStyle,
       numberStyle,
       separateCharStyle,
-      setFlopData,
     }
   },
 })

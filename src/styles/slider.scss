@@ -14,7 +14,7 @@
   }
 
   .el-slider__button-wrapper {
-    top: -9px;
+    top: -10px;
     width: 20px;
     height: 20px;
   }
@@ -55,6 +55,10 @@
     }
   }
 
+  .el-input-number--medium + .el-slider__runway {
+    margin: 16px 0;
+  }
+
   .el-input-number--mini {
     width: 88px;
     margin-top: 0;
@@ -91,10 +95,6 @@
     }
 
     .el-input {
-      &.el-input--mini {
-        line-height: 26px;
-      }
-
       .el-input__inner {
         padding-right: 35px;
         padding-left: 7px;

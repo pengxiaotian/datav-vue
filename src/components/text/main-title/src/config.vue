@@ -36,8 +36,9 @@
       >
         <g-input-number
           v-model="config.textStyle.fontSize"
-          :min="0"
-          :max="8888"
+          :min="10"
+          :max="100"
+          :step="1"
           :is-inline="false"
         />
       </g-field>
@@ -102,8 +103,9 @@
     >
       <g-input-number
         v-model="config.letterSpacing"
-        :min="0"
-        :max="8888"
+        :min="-100"
+        :max="100"
+        :step="0.5"
         :is-inline="false"
       />
     </g-field>
@@ -129,6 +131,7 @@
           v-model="config.backgroundStyle.borderRadius"
           :min="0"
           :max="8888"
+          :step="1"
           :is-inline="false"
         />
       </g-field>
@@ -158,6 +161,7 @@
           v-model="config.backgroundStyle.borderWidth"
           :min="0"
           :max="8888"
+          :step="1"
           :is-inline="false"
         />
       </g-field>

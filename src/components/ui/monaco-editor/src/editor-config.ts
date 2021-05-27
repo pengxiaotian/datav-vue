@@ -4,24 +4,42 @@ import trim from 'lodash/trim'
 export type languageType = 'plaintext' | 'html' | 'javascript' | 'json' | 'sql'
 
 export const defaultOpts: monaco.editor.IStandaloneEditorConstructionOptions = {
+  automaticLayout: true,
+  contextmenu: false,
+  fixedOverflowWidgets: true,
+  fontFamily: 'Menlo-Regular, Monaco, Menlo, Consolas, "Ubuntu Mono", monospace',
+  formatOnPaste: true,
+  formatOnType: true,
+  insertSpaces: true,
+  lineDecorationsWidth: 7,
+  lineHeight: 15,
+  lineNumbersMinChars: 3,
+  minimap: {
+    enabled: false,
+  },
+  quickSuggestions: false,
+  readOnly: false,
+  roundedSelection: false,
+  scrollBeyondLastLine: false,
+  scrollbar: {
+    verticalScrollbarSize: 6,
+    horizontalScrollbarSize: 6,
+    alwaysConsumeMouseWheel: false,
+    arrowSize: 0,
+  },
+  snippetSuggestions: 'none',
+  tabSize: 2,
+  theme: 'vs-dark',
+  wordBasedSuggestions: false,
+  wordWrap: 'on',
   cursorStyle: 'line',
   selectOnLineNumbers: true,
-  automaticLayout: false,
   autoIndent: 'advanced',
   glyphMargin: false,
-  contextmenu: false,
-  scrollbar: {
-    alwaysConsumeMouseWheel: false,
-    verticalSliderSize: 6,
-    verticalScrollbarSize: 6,
-  },
-  lineNumbersMinChars: 3,
   renderIndentGuides: true,
   renderLineHighlight: 'line',
   renderWhitespace: 'none',
-  scrollBeyondLastLine: false,
   scrollBeyondLastColumn: 2,
-  lineHeight: 16,
 }
 
 export const registerDatavDarkTheme = () => {

@@ -7,8 +7,9 @@
   <g-input-number
     v-else-if="componentType === componentTypes.number"
     v-model="numValue"
-    :min="0"
-    :max="8888"
+    :min="min"
+    :max="max"
+    :step="step"
     :is-inline="false"
   />
   <el-checkbox
@@ -26,9 +27,9 @@
   <el-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
-    :min="0"
-    :max="1"
-    :step="0.05"
+    :min="min"
+    :max="max"
+    :step="step"
     :show-tooltip="false"
     show-input
     input-size="mini"
@@ -250,6 +251,18 @@ export default defineComponent({
     },
     defaultValue: {
       type: [String, Number, Boolean, Array, Object],
+    },
+    min: {
+      type: Number,
+      default: -Infinity,
+    },
+    max: {
+      type: Number,
+      default: Infinity,
+    },
+    step: {
+      type: Number,
+      default: 1,
     },
   },
   setup(props) {

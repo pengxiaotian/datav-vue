@@ -6,8 +6,9 @@
 {{else if (eq config.component componentTypes.number)}}
 <g-input-number
   v-model="config.{{path}}"
-  :min="0"
-  :max="8888"
+  :min="{{config.min}}"
+  :max="{{config.max}}"
+  :step="{{config.step}}"
   :is-inline="false"
 />
 {{else if (eq config.component componentTypes.checkbox)}}
@@ -25,9 +26,9 @@
 {{else if (eq config.component componentTypes.slider)}}
 <el-slider
   v-model="config.{{path}}"
-  :min="0"
-  :max="1"
-  :step="0.05"
+  :min="{{config.min}}"
+  :max="{{config.max}}"
+  :step="{{config.step}}"
   :show-tooltip="false"
   show-input
   input-size="mini"

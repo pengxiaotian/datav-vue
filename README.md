@@ -153,15 +153,16 @@ main-title
 
 ![prop-config](./demo/prop-config.png)
 
-#### Git提交模板
+### Git提交模板
 
 ```bash
 yarn cz
 ```
+
 例子：
 ```
 [TYPE](SCOPE):DESCRIPTION#[ISSUE]
-# example feat(button):add type 'button' for form usage #1234
+# example feat(button): add type 'button' for form usage #1234
 ```
 
 Git提交模板配置：`./commitlint.config.js`

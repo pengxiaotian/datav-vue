@@ -167,10 +167,12 @@ export default defineComponent({
 
         ce.onDidChangeModelContent(() => debounceChangeHandler())
         ce.onDidBlurEditorText(() => blurHandler())
-        ce.onKeyDown(() => {
+        ce.onKeyDown(ev => {
           if (props.readOnly) {
-            const mc = ce.getContribution('editor.contrib.messageController') as any
-            mc._onDidAttemptReadOnlyEdit()
+            if (!ev.ctrlKey && !ev.shiftKey && !ev.metaKey) {
+              const mc = ce.getContribution('editor.contrib.messageController') as any
+              mc._onDidAttemptReadOnlyEdit()
+            }
           }
         })
 
