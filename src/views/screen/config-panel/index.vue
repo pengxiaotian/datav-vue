@@ -17,7 +17,7 @@
               <i class="v-icon-cloud"></i>
             </el-tooltip>
           </template>
-          数据
+          <data-center-panel :com="selectedCom" />
         </el-tab-pane>
         <el-tab-pane lazy>
           <template #label>
@@ -25,7 +25,7 @@
               <i class="v-icon-interact"></i>
             </el-tooltip>
           </template>
-          交互
+          <interaction-panel :com="selectedCom" />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -44,6 +44,8 @@ export default defineComponent({
   components: {
     PageConfig,
     SettingPanel: loadAsyncComponent(() => import('./setting-panel.vue')),
+    DataCenterPanel: loadAsyncComponent(() => import('./data-center-panel/index.vue')),
+    InteractionPanel: loadAsyncComponent(() => import('./interaction-panel/index.vue')),
   },
   setup() {
     const visiblePanel = computed(() => ToolbarModule.config.show)
