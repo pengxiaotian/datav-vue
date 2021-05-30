@@ -9,7 +9,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed, ComputedRef, inject } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
@@ -20,18 +20,15 @@ export default defineComponent({
     ConfigTitle,
     EmptyPanel,
   },
-  props: {
-    com: {
-      type: Object as PropType<DatavComponent>,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
+    const com = inject('com') as ComputedRef<DatavComponent>
+
     const eventKeys = computed(() => {
-      return Object.keys(props.com.events)
+      return Object.keys(com.value.events)
     })
 
     return {
+      com,
       eventKeys,
     }
   },

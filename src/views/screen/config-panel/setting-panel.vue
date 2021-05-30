@@ -20,7 +20,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, ComputedRef, inject } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
 import { MessageUtil } from '@/utils/message-util'
 import ConfigTitle from './components/config-title.vue'
@@ -32,19 +32,16 @@ export default defineComponent({
     ConfigTitle,
     BasicSetting,
   },
-  props: {
-    com: {
-      type: Object as PropType<DatavComponent>,
-      required: true,
-    },
-  },
   setup() {
+    const com = inject('com') as ComputedRef<DatavComponent>
+
     const toSearch = () => {
       MessageUtil.warning('正在开发中。。。')
     }
 
     return {
       toSearch,
+      com,
     }
   },
 })

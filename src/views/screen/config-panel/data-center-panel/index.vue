@@ -3,7 +3,13 @@
     <config-title :com-name="com.name" :com-alias="com.alias" />
     <div class="scroll-container">
       <template v-if="dataKeys.length > 0">
-        数据
+        <source-panel
+          v-for="dk in dataKeys"
+          :key="dk"
+          :api-name="dk"
+          :active-name="activeName"
+          :collapse="dataKeys.length > 1"
+        />
       </template>
       <empty-panel v-else content="该组件不需要配置数据" />
     </div>
@@ -11,8 +17,9 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, ref, computed, ComputedRef, provide, inject } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
+import { loadAsyncComponent } from '@/utils/async-component'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
 
@@ -21,19 +28,24 @@ export default defineComponent({
   components: {
     ConfigTitle,
     EmptyPanel,
+    SourcePanel: loadAsyncComponent(() => import('./source-panel.vue')),
   },
-  props: {
-    com: {
-      type: Object as PropType<DatavComponent>,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
+    const com = inject('com') as ComputedRef<DatavComponent>
+
     const dataKeys = computed(() => {
-      return Object.keys(props.com.data)
+      return Object.keys(com.value.data)
+    })
+
+    const activeName = ref(dataKeys.value[0])
+
+    provide('changePanel', (panelName: string) => {
+      activeName.value = activeName.value === panelName ? '' : panelName
     })
 
     return {
+      activeName,
+      com,
       dataKeys,
     }
   },
@@ -51,8 +63,8 @@ export default defineComponent({
 
 .scroll-container {
   position: absolute;
-  top: 61px;
-  bottom: 0;
+  top: 60px;
+  bottom: 60px;
   width: 100%;
   padding-bottom: 30px;
   overflow-x: hidden;

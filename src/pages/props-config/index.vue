@@ -51,19 +51,23 @@
                 <props-config-panel :configs="list" />
               </el-tab-pane>
               <el-tab-pane label="配置代码" name="code" lazy>
-                <g-monaco-editor
-                  language="json"
-                  :code="list"
-                  :height="500"
-                  :read-only="true"
-                />
+                <div style="padding: 12px;">
+                  <g-monaco-editor
+                    language="json"
+                    :code="list"
+                    :height="500"
+                    :read-only="true"
+                  />
+                </div>
               </el-tab-pane>
               <el-tab-pane label="模板代码" name="template" lazy>
-                <g-monaco-editor
-                  language="html"
-                  :code="templateCode"
-                  :height="500"
-                />
+                <div style="padding: 12px;">
+                  <g-monaco-editor
+                    language="html"
+                    :code="templateCode"
+                    :height="500"
+                  />
+                </div>
               </el-tab-pane>
             </el-tabs>
           </el-card>

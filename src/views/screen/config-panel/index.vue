@@ -9,7 +9,7 @@
               <i class="v-icon-setting"></i>
             </el-tooltip>
           </template>
-          <setting-panel :com="selectedCom" />
+          <setting-panel />
         </el-tab-pane>
         <el-tab-pane lazy>
           <template #label>
@@ -17,7 +17,7 @@
               <i class="v-icon-cloud"></i>
             </el-tooltip>
           </template>
-          <data-center-panel :com="selectedCom" />
+          <data-center-panel />
         </el-tab-pane>
         <el-tab-pane lazy>
           <template #label>
@@ -25,7 +25,7 @@
               <i class="v-icon-interact"></i>
             </el-tooltip>
           </template>
-          <interaction-panel :com="selectedCom" />
+          <interaction-panel />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -33,7 +33,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, provide } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { loadAsyncComponent } from '@/utils/async-component'
@@ -50,6 +50,8 @@ export default defineComponent({
   setup() {
     const visiblePanel = computed(() => ToolbarModule.config.show)
     const selectedCom = computed(() => EditorModule.selectedCom)
+
+    provide('com', selectedCom)
 
     return {
       visiblePanel,
@@ -80,6 +82,7 @@ $panel_width: 332px;
   height: 100%;
   background: $config-manager-bgcolor;
   transition: 0.25s ease-in-out;
+  user-select: none;
 
   ::-webkit-scrollbar {
     display: none;
