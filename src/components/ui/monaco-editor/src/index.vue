@@ -4,12 +4,8 @@
     class="datav-editor"
     :class="[{
       '--read-only': readOnly,
-      '--is-fullscreen': isFullScreen
     }]"
   >
-    <div v-if="isFullScreen" class="datav-editor-title">
-      全屏模式
-    </div>
     <div class="datav-editor-actions">
       <i
         class="v-icon-copy action-btn"
@@ -20,7 +16,6 @@
         class="action-btn"
         :class="isFullScreen ? 'v-icon-fullscreen-exit' : 'v-icon-fullscreen'"
         :title="isFullScreen ? '退出全屏' : '全屏模式下编辑或查看'"
-        @click="switchFullScreen"
       ></i>
     </div>
   </div>

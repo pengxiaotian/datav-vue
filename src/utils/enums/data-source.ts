@@ -8,3 +8,11 @@ export enum DataSourceType {
    */
   api = 'api',
 }
+
+export enum ApiStatus {
+  loading = 'loading',
+  success = 'success',
+  failed = 'failed',
+  notfound = 'notfound',
+  incomplete='incomplete'
+}

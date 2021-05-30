@@ -54,8 +54,15 @@
   border: 1px solid $input-border-color;
   transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
+  &:focus,
   &:hover {
     border: $border-primary;
+  }
+
+  &[type='number']::-webkit-outer-spin-button,
+  &[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
   }
 }
 

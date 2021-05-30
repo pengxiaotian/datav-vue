@@ -18,9 +18,20 @@
     }
   }
 
+  .el-checkbox__label {
+    padding-left: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    color: $font-color;
+  }
+
   &.is-checked {
     .el-checkbox__inner {
       background-color: transparent;
     }
+  }
+
+  .el-checkbox__input.is-checked + .el-checkbox__label {
+    color: $font-color;
   }
 }

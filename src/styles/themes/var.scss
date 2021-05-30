@@ -15,6 +15,7 @@ $color-primary-secondary: mix($color-white, $color-primary, 30%);
 
 // Base
 $font-color: #bcc9d4;
+$font-color-secondary: #a1aeb3;
 $font-color-disabled: #424447;
 $font-color-placeholder: #c0c4cc;
 $font-size: 12px;
@@ -55,6 +56,8 @@ $input-border-color: #0b0c0d;
 $input-font-color-description: #5c6366;
 $input-hover-color: $color-primary;
 $input-prepend-bgcolor: #39414d;
+$input-bgcolor-disabled: $color-dark;
+$input-border-disabled: 1px solid #323437;
 
 // Checkbox
 $checkbox-checked-border-color: $color-primary;
@@ -158,7 +161,6 @@ $collapse-border-color: #141210;
 $monaco-suggest-color: #d4d4d4;
 $monaco-readonly-bgcolor: #1f2329;
 $datav-editor-border-color: #282f3a;
-$datav-editor-border-color: #282f3a;
 $datav-editor-action-color: #bfbfbf;
 
 /* Editor
@@ -189,6 +191,10 @@ $layer-input-bgcolor: #363c48;
 
 $config-panel-bgcolor: #1c1f25;
 $config-manager-bgcolor: #191c21;
+$config-panel-border: 1px solid #282f3a;
+$config-status-color: $loading-color;
+$config-dot-list-bgcolor: #4c5768;
+$config-dot-bgcolor: #7d8081;
 
 $page-config-font-color: #fff;
 $page-config-bgcolor: #1c2026;
@@ -232,7 +238,7 @@ $upload-hover-bgcolor: $background-color-secondary;
 
 $gui-component-bgcolor: $color-dark;
 $gui-component-color: #a1aeb3;
-$gui-transform-border-color: #05ddff;
+$gui-transform-border-color: #2483ff;
 
 $ruler-bg: #0e1013;
 $ruler-tag-bg: rgba(64, 116, 180, 1);

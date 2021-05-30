@@ -49,22 +49,15 @@
 .datav-editor {
   position: relative;
   min-height: 240px;
-  padding: 12px;
+  padding: 0;
   overflow: hidden;
   border: 1px solid $datav-editor-border-color;
   background: $background-color;
 
-  .datav-editor-title {
-    padding: 12px;
-    color: $color-primary;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
   .datav-editor-actions {
     position: absolute;
-    right: 20px;
-    bottom: 24px;
+    right: 10px;
+    bottom: 5px;
     z-index: 1;
     width: 40px;
     font-size: 12px;
@@ -83,19 +76,6 @@
     .margin,
     .monaco-editor-background {
       background-color: $monaco-readonly-bgcolor;
-    }
-  }
-
-  &.--is-fullscreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    padding-top: 0;
-
-    .datav-editor-actions {
-      right: 30px;
-      bottom: 24px;
     }
   }
 }

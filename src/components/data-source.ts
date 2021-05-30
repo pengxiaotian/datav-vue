@@ -16,7 +16,7 @@ export interface DataConfig {
    */
   render: string
   description: string
-  dcConfig: {
+  config: {
     useFilter: boolean
     pageFilters: any[]
   }
@@ -34,20 +34,20 @@ export interface DataConfigMap {
 export function setDataConfig<K extends keyof DataConfigMap>(
   data: DataConfigMap,
   name: K,
-  config: Partial<DataConfigMap[K]>,
+  options: Partial<DataConfigMap[K]>,
 ) {
   if (name === 'source') {
     data.source = {
       fields: {},
       render: 'render',
       description: '',
-      dcConfig: {
+      config: {
         useFilter: false,
         pageFilters: [],
       },
       useAutoUpdate: false,
       autoUpdate: 1,
-      ...config,
+      ...options,
     }
   }
 

@@ -18,8 +18,8 @@ export const useDataCenter = (com: DatavComponent) => {
     timers.value.forEach(t => clearInterval(t))
   })
 
-  const toData = async (dataName: string, scConfig: SourceConfig, dataConfig: DataConfig) => {
-    const { type, config } = scConfig
+  const toData = async (sourceName: string, sConfig: SourceConfig, dConfig: DataConfig) => {
+    const { type, config } = sConfig
     let res: unknown = []
     if (type === DataSourceType.static) {
       res = config.data
@@ -33,13 +33,13 @@ export const useDataCenter = (com: DatavComponent) => {
 
     res = toJson(res, [])
 
-    const { dcConfig, render } = dataConfig
-    if (dcConfig.useFilter) {
-      res = execFilter(FilterModule.dataFilters, dcConfig.pageFilters, res)
+    const { config: dc, render } = dConfig
+    if (dc.useFilter) {
+      res = execFilter(FilterModule.dataFilters, dc.pageFilters, res)
     }
 
     if (render === 'render') {
-      datav_data.value[dataName] = getRenderData(res, dataConfig.fields)
+      datav_data.value[sourceName] = getRenderData(res, dConfig.fields)
     } else {
       MessageUtil.error(`${render} is not a function`)
     }
