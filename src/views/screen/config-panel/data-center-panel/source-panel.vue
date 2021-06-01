@@ -117,6 +117,7 @@
             :read-only="true"
             :code="sourceConfig.config.data"
             :height="250"
+            full-screen-title="数据响应结果"
           />
         </div>
       </div>

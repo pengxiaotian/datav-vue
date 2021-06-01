@@ -16,9 +16,33 @@
         class="action-btn"
         :class="isFullScreen ? 'v-icon-fullscreen-exit' : 'v-icon-fullscreen'"
         :title="isFullScreen ? '退出全屏' : '全屏模式下编辑或查看'"
+        @click="switchFullScreen"
       ></i>
     </div>
   </div>
+
+  <el-dialog
+    v-model="isFullScreen"
+    :title="`${fullScreenTitle}${readOnly ? ' ( 只读 )' : ''}`"
+    width="90%"
+    top="0"
+    custom-class="fullscreen-editor-dialog"
+    :destroy-on-close="true"
+    :append-to-body="true"
+    @opened="openedFullScreenDialog"
+    @closed="closedFullScreenDialog"
+  >
+    <div class="fullscreen-editor-wp">
+      <div
+        class="datav-editor fullscreen-editor"
+        :class="[{
+          '--read-only': readOnly,
+        }]"
+      >
+        <section style="display: flex; position: relative; text-align: initial; width: 100%; height: 100%;"></section>
+      </div>
+    </div>
+  </el-dialog>
 </template>
 
 <script lang='ts'>
@@ -60,11 +84,16 @@ export default defineComponent({
       type: Number,
       default: 240,
     },
+    fullScreenTitle: {
+      type: String,
+      default: '全屏模式',
+    },
   },
   emits: ['change', 'blur'],
   setup(props, ctx) {
     const editorId = computed(() => `datav-editor-${generateId()}`)
     let editor = null as monaco.editor.IStandaloneCodeEditor | null
+    let fullEditor = null as monaco.editor.IStandaloneCodeEditor | null
 
     const isFullScreen = ref(false)
 
@@ -75,26 +104,6 @@ export default defineComponent({
       if (editor) {
         copyText(editor.getValue())
         MessageUtil.success('复制成功')
-      }
-    }
-
-    const switchFullScreen = () => {
-      isFullScreen.value = !isFullScreen.value
-      if (editor) {
-        if (isFullScreen.value) {
-          editor.layout({
-            width: document.documentElement.offsetWidth - 36,
-            height: document.documentElement.offsetHeight - 60,
-          })
-        } else {
-          const dom = document.getElementById(editorId.value)?.parentElement
-          if (dom) {
-            editor.layout({
-              width: dom.offsetWidth - 16,
-              height: props.height,
-            })
-          }
-        }
       }
     }
 
@@ -118,6 +127,59 @@ export default defineComponent({
     }
 
     const debounceChangeHandler = debounce(changeHandler, 300)
+
+    const switchFullScreen = () => {
+      isFullScreen.value = !isFullScreen.value
+    }
+
+    const openedFullScreenDialog = () => {
+      const dom = document.querySelector('.fullscreen-editor > section') as HTMLElement
+      if (dom) {
+        const opts = Object.assign(
+          {},
+          defaultOpts,
+          props.options,
+          {
+            tabSize: 2,
+            value: '',
+            language: props.language,
+            theme: themeName,
+            readOnly: props.readOnly,
+            minimap: {
+              enabled: props.useMinimap,
+            },
+            lineNumbers: props.lineNumbers,
+            wordWrap: props.wordWrap,
+          },
+        )
+        const ce = monaco.editor.create(dom, opts)
+
+        ce.setValue(editor.getValue())
+
+        ce.onDidChangeModelContent(() => debounceChangeHandler())
+        ce.onDidBlurEditorText(() => blurHandler())
+        ce.onKeyDown(ev => {
+          if (props.readOnly) {
+            if (!ev.ctrlKey && !ev.shiftKey && !ev.metaKey) {
+              const mc = ce.getContribution('editor.contrib.messageController') as any
+              mc._onDidAttemptReadOnlyEdit()
+            }
+          }
+        })
+
+        fullEditor = ce
+      }
+    }
+
+    const closedFullScreenDialog = () => {
+      if (fullEditor) {
+        if (editor && !props.readOnly) {
+          editor.setValue(fullEditor.getValue())
+        }
+
+        fullEditor.dispose()
+      }
+    }
 
     watch(() => props.code, (nv: any) => {
       if (editor) {
@@ -155,10 +217,9 @@ export default defineComponent({
         const inputCode = handleInputCode(props.language, props.code)
         ce.setValue(inputCode)
 
-        ce.layout({
-          width: (dom.parentElement || dom).offsetWidth - 16,
-          height: props.height,
-        })
+        if (props.height > 0) {
+          dom.style.height = `${props.height}px`
+        }
 
         ce.onDidChangeModelContent(() => debounceChangeHandler())
         ce.onDidBlurEditorText(() => blurHandler())
@@ -177,6 +238,7 @@ export default defineComponent({
 
     onUnmounted(() => {
       editor?.dispose()
+      fullEditor?.dispose()
     })
 
     return {
@@ -184,6 +246,8 @@ export default defineComponent({
       copyData,
       isFullScreen,
       switchFullScreen,
+      openedFullScreenDialog,
+      closedFullScreenDialog,
     }
   },
 })
