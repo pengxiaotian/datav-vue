@@ -7939,17 +7939,17 @@ modify-values@^1.0.0:
   resolved "https://registry.npmjs.org/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-monaco-editor-webpack-plugin@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.npmjs.org/monaco-editor-webpack-plugin/-/monaco-editor-webpack-plugin-3.0.1.tgz#b9bf93314eb2708907c232cfbf359622e7a6d98a"
-  integrity sha512-Hym4HqWgIpyoi9G0spln/b/7rkDKfYwIOrNzo1fHHMc+MLYSwD1JXHwKSDS77X27ZHfVJsEXbMZYdGhSYuVF0w==
+monaco-editor-webpack-plugin@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/monaco-editor-webpack-plugin/-/monaco-editor-webpack-plugin-3.1.0.tgz#972efc47a91b3bf3bd977885684a3180eb8f341b"
+  integrity sha512-TP5NkCAV0OeFTry5k/d60KR7CkhTXL4kgJKtE3BzjgbDb5TGEPEhoKmHBrSa6r7Oc0sNbPLZhKD/TP2ig7A+/A==
   dependencies:
     loader-utils "^2.0.0"
 
-monaco-editor@0.23.0:
-  version "0.23.0"
-  resolved "https://registry.npmjs.org/monaco-editor/-/monaco-editor-0.23.0.tgz#24844ba5640c7adb3a2a3ff3b520cf2d7170a6f0"
-  integrity sha512-q+CP5zMR/aFiMTE9QlIavGyGicKnG2v/H8qVvybLzeFsARM8f6G9fL0sMST2tyVYCwDKkGamZUI6647A0jR/Lg==
+monaco-editor@0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.24.0.tgz#990b55096bcc95d08d8d28e55264c6eb17707269"
+  integrity sha512-o1f0Lz6ABFNTtnEqqqvlY9qzNx24rQZx1RgYNQ8SkWkE+Ka63keHH/RqxQ4QhN4fs/UYOnvAtEUZsPrzccH++A==
 
 move-concurrently@^1.0.1:
   version "1.0.1"

@@ -158,14 +158,6 @@ export default defineComponent({
 
         ce.onDidChangeModelContent(() => debounceChangeHandler())
         ce.onDidBlurEditorText(() => blurHandler())
-        ce.onKeyDown(ev => {
-          if (props.readOnly) {
-            if (!ev.ctrlKey && !ev.shiftKey && !ev.metaKey) {
-              const mc = ce.getContribution('editor.contrib.messageController') as any
-              mc._onDidAttemptReadOnlyEdit()
-            }
-          }
-        })
 
         fullEditor = ce
       }
@@ -223,14 +215,6 @@ export default defineComponent({
 
         ce.onDidChangeModelContent(() => debounceChangeHandler())
         ce.onDidBlurEditorText(() => blurHandler())
-        ce.onKeyDown(ev => {
-          if (props.readOnly) {
-            if (!ev.ctrlKey && !ev.shiftKey && !ev.metaKey) {
-              const mc = ce.getContribution('editor.contrib.messageController') as any
-              mc._onDidAttemptReadOnlyEdit()
-            }
-          }
-        })
 
         editor = ce
       }
