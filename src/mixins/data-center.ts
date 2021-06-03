@@ -7,7 +7,7 @@ import { DatavComponent } from '@/components/datav-component'
 import { DataSourceType } from '@/utils/enums/data-source'
 import { SourceConfig, DataConfig } from '@/components/data-source'
 import { execFilter } from '@/components/data-filter'
-import { getRenderData } from '@/components/data-render'
+import { setFieldLoading, checkDataSchema, getRenderData } from '@/components/data-render'
 
 export const useDataCenter = (com: DatavComponent) => {
   const { data, source } = toRefs(com)
@@ -19,6 +19,8 @@ export const useDataCenter = (com: DatavComponent) => {
   })
 
   const toData = async (sourceName: string, sConfig: SourceConfig, dConfig: DataConfig) => {
+    setFieldLoading(dConfig.fields)
+
     const { type, config } = sConfig
     let res: unknown = []
     if (type === DataSourceType.static) {
@@ -43,6 +45,8 @@ export const useDataCenter = (com: DatavComponent) => {
     } else {
       MessageUtil.error(`${render} is not a function`)
     }
+
+    checkDataSchema(res, dConfig.fields)
   }
 
   for (const [name, dc] of Object.entries(data.value)) {

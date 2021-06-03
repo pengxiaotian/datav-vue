@@ -14,5 +14,6 @@ export enum ApiStatus {
   success = 'success',
   failed = 'failed',
   notfound = 'notfound',
+  completed='completed',
   incomplete='incomplete'
 }

@@ -4,7 +4,6 @@ $color-white: #fff;
 $color-black: #000;
 $color-gray: #90a0ae;
 $color-dark: #262c33;
-$color-red: #ff1f0f;
 
 $color-primary: $blue-6;
 $color-success: $green-6;
@@ -16,7 +15,6 @@ $color-primary-secondary: mix($color-white, $color-primary, 30%);
 // Base
 $font-color: #bcc9d4;
 $font-color-secondary: #a1aeb3;
-$font-color-disabled: #424447;
 $font-color-placeholder: #c0c4cc;
 $font-size: 12px;
 $header-font-size: $font-size;
@@ -57,6 +55,7 @@ $input-font-color-description: #5c6366;
 $input-hover-color: $color-primary;
 $input-prepend-bgcolor: #39414d;
 $input-bgcolor-disabled: $color-dark;
+$input-font-color-disabled: #424447;
 $input-border-disabled: 1px solid #323437;
 
 // Checkbox

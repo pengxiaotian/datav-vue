@@ -54,6 +54,12 @@
   border: 1px solid $input-border-color;
   transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
+  &.is-disabled {
+    color: $input-font-color-disabled;
+    cursor: not-allowed;
+    border: $input-border-disabled;
+  }
+
   &:focus,
   &:hover {
     border: $border-primary;

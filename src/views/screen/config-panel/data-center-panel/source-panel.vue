@@ -11,10 +11,7 @@
         {{ dataConfig.description || '数据接口' }}
       </div>
       <div class="api-status success">
-        <display-api-status
-          status="loading"
-          success-text="配置完成"
-        />
+        <display-api-status :status="totalStatus" success-text="配置完成" />
       </div>
     </div>
     <div v-show="visible" class="attr-source-wp">
@@ -43,7 +40,7 @@
                 <el-tooltip
                   :content="fc.description"
                   placement="left"
-                  popper-class="is-blue"
+                  effect="blue"
                 >
                   <span class="ellipsis2">{{ fn }}</span>
                 </el-tooltip>
@@ -57,9 +54,7 @@
                 />
               </td>
               <td class="column-item attr-status">
-                <display-api-status
-                  :optional="fc.optional"
-                />
+                <display-api-status :status="fc.status" :optional="fc.optional" />
               </td>
             </tr>
           </tbody>
@@ -70,10 +65,7 @@
           数据响应结果
         </div>
         <div class="auto-update-config">
-          <el-checkbox
-            v-model="dataConfig.useAutoUpdate"
-            class="auto-update-checkbox"
-          >
+          <el-checkbox v-model="dataConfig.useAutoUpdate" class="auto-update-checkbox">
             自动更新选项
           </el-checkbox>
           <g-input
@@ -101,14 +93,14 @@
           </div>
           <div class="ds-line mt5">
             <span>数据响应结果 ( 只读 ) </span>
-            <el-tooltip content="刷新数据" placement="left" popper-class="is-blue">
+            <el-tooltip content="刷新数据" placement="left" effect="blue">
               <i class="el-icon-refresh refresh-btn"></i>
             </el-tooltip>
           </div>
           <div class="ds-dots">
-            <span class="ds-dot active"></span>
+            <span class="ds-dot" :class="[totalStatus === 'completed' ? 'active' : 'error']"></span>
             <span class="ds-dot"></span>
-            <span class="ds-dot active"></span>
+            <span class="ds-dot"></span>
           </div>
         </div>
         <div class="data-response">
@@ -128,7 +120,8 @@
 <script lang='ts'>
 import { defineComponent, computed, ComputedRef, inject } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
-import { DataConfig, SourceConfig } from '@/components/data-source'
+import { DataConfig, SourceConfig, FieldStatus } from '@/components/data-source'
+import { ApiStatus } from '@/utils/enums/data-source'
 import DisplayApiStatus from '../components/display-api-status.vue'
 
 export default defineComponent({
@@ -147,6 +140,19 @@ export default defineComponent({
     const com = inject('com') as ComputedRef<DatavComponent>
     const dataConfig = computed((): DataConfig => com.value.data[props.apiName])
     const sourceConfig = computed((): SourceConfig => com.value.source[props.apiName])
+
+    const totalStatus = computed(() => {
+      const fields = Object.values(dataConfig.value.fields)
+      if (fields.some(m => m.status === FieldStatus.loading)) {
+        return ApiStatus.loading
+      }
+
+      if (fields.some(m => !m.optional && (m.status === FieldStatus.failed || m.status === FieldStatus.notfound || m.status === FieldStatus.incomplete))) {
+        return ApiStatus.incomplete
+      }
+
+      return ApiStatus.completed
+    })
 
     const changePanel = inject('changePanel') as Function
 
@@ -168,6 +174,7 @@ export default defineComponent({
       com,
       dataConfig,
       sourceConfig,
+      totalStatus,
       toggle,
       showDataSource,
     }
@@ -391,6 +398,10 @@ export default defineComponent({
 
     &.active {
       background: $color-primary;
+    }
+
+    &.error {
+      background: $color-error;
     }
   }
 

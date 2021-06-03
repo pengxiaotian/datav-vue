@@ -1,12 +1,22 @@
 import { DataSourceType } from '@/utils/enums/data-source'
 import { generateId, isString } from '@/utils/util'
 
+export enum FieldStatus {
+  loading = 'loading',
+  success = 'success',
+  failed = 'failed',
+  notfound = 'notfound',
+  completed = 'completed',
+  incomplete = 'incomplete'
+}
+
 export interface FieldConfig {
   type: string
   description: string
   optional?: boolean
   map?: string
   path?: string
+  status?: FieldStatus
 }
 
 export interface DataConfig {
@@ -61,10 +71,11 @@ export function createField(name: string, config?: Partial<FieldConfig>) {
   return {
     [name]: {
       type: 'string',
+      path: '',
+      map: '',
       description: '',
       optional: false,
-      map: '',
-      path: '',
+      incomplete: FieldStatus.incomplete,
       ...(config || {}),
     },
   }

@@ -50,7 +50,7 @@
               <el-tab-pane label="配置预览" name="config">
                 <props-config-panel :configs="list" />
               </el-tab-pane>
-              <el-tab-pane label="配置代码" name="code" lazy>
+              <el-tab-pane label="配置代码（config.json）" name="code" lazy>
                 <div style="padding: 12px;">
                   <g-monaco-editor
                     language="json"
@@ -60,7 +60,7 @@
                   />
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="模板代码" name="template" lazy>
+              <el-tab-pane label="模板代码（config.vue）" name="template" lazy>
                 <div style="padding: 12px;">
                   <g-monaco-editor
                     language="html"

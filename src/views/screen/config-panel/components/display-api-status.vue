@@ -1,18 +1,18 @@
 <template>
   <div>
-    <template v-if="status === apiStatus.success">
+    <template v-if="status === apiStatus.loading">
+      <i class="status-icon validating"></i>
+      <i class="status-icon validating"></i>
+      <i class="status-icon validating"></i>
+    </template>
+    <template v-else-if="status === apiStatus.success || status === apiStatus.completed">
+      <i class="status-icon" :class="`--${status}`"></i>
+    </template>
+    <template v-else-if="optional">
       <i class="status-icon --success"></i>
     </template>
-    <template v-else-if="status === apiStatus.failed">
-      <i class="status-icon --failed"></i>
-    </template>
-    <template v-else-if="status === apiStatus.loading">
-      <i class="status-icon validating"></i>
-      <i class="status-icon validating"></i>
-      <i class="status-icon validating"></i>
-    </template>
     <template v-else>
-      <i class="status-icon --incomplete"></i>
+      <i class="status-icon" :class="`--${status}`"></i>
     </template>
     <span class="status-text">
       {{ statusText }}
@@ -29,7 +29,11 @@ export default defineComponent({
   props: {
     status: {
       type: String as PropType<ApiStatus>,
-      default: ApiStatus.notfound,
+      default: ApiStatus.incomplete,
+    },
+    loadingText: {
+      type: String,
+      default: '匹配中',
     },
     successText: {
       type: String,
@@ -39,9 +43,17 @@ export default defineComponent({
       type: String,
       default: '匹配失败',
     },
-    loadingText: {
+    notfoundText: {
       type: String,
-      default: '匹配中',
+      default: '未找到字段',
+    },
+    completedText: {
+      type: String,
+      default: '配置完成',
+    },
+    incompleteText: {
+      type: String,
+      default: '配置未完成',
     },
     optional: {
       type: Boolean,
@@ -50,19 +62,35 @@ export default defineComponent({
   },
   setup(props) {
     const statusText = computed(() => {
-      if (props.status === ApiStatus.success) {
-        return props.successText
-      }
-
-      if (props.status === ApiStatus.failed) {
-        return props.optional ? '可选' : props.failedText
-      }
-
       if (props.status === ApiStatus.loading) {
         return props.loadingText
       }
 
-      return '匹配未完成'
+      if (props.status === ApiStatus.success) {
+        return props.successText
+      }
+
+      if (props.status === ApiStatus.completed) {
+        return props.completedText
+      }
+
+      if (props.optional) {
+        return '可选'
+      }
+
+      if (props.status === ApiStatus.failed) {
+        return props.failedText
+      }
+
+      if (props.status === ApiStatus.notfound) {
+        return props.notfoundText
+      }
+
+      if (props.status === ApiStatus.incomplete) {
+        return props.incompleteText
+      }
+
+      return props.status
     })
 
     return {
@@ -81,6 +109,7 @@ export default defineComponent({
   @include square-loading-icon();
 
   &.--failed,
+  &.--notfound,
   &.--incomplete {
     background: $warn-main;
   }

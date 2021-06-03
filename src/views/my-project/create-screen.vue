@@ -514,7 +514,7 @@ export default defineComponent({
   .required {
     display: inline-block;
     margin-right: 6px;
-    color: $color-red;
+    color: $color-error;
   }
 
   .name-title {

@@ -4,6 +4,8 @@
     :value="modelValue"
     autocomplete="off"
     class="g-input"
+    :class="{ 'is-disabled': disabled }"
+    :disabled="disabled"
     @input="handleInput"
     @blur="handleBlur"
     @keypress.enter="handleKeyEnter"
@@ -21,6 +23,7 @@ export default defineComponent({
       type: [String, Number],
       default: '',
     },
+    disabled: Boolean,
   },
   emits: [UPDATE_MODEL_EVENT, 'change'],
   setup(props, ctx) {
