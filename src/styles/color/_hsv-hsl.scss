@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @function ch-hsv-to-hsl($h, $s: 0, $v: 0) {
   @if type_of($h) == 'list' {
     $v: nth($h, 3);
@@ -6,24 +8,27 @@
   }
 
   @if unit($h) == 'deg' {
-    $h: 3.1415 * 2 * ($h / 360deg);
+    $h: 3.1415 * 2 * math.div($h, 360deg);
   }
+
   // @if unit($s) == '%' {
-  //   $s: 0 + ($s / 100%);
+  //   $s: 0 + math.div($s, 100%);
   // }
+
   // @if unit($v) == '%' {
-  //   $v: 0 + ($v / 100%);
+  //   $v: 0 + math.div($v, 100%);
   // }
+
   @if unit($s) == '%' {
-    $s: 0 + (round($s) / 100%);
+    $s: 0 + math.div(round($s), 100%);
   }
 
   @else {
-    $s: $s / 100;
+    $s: math.div($s, 100);
   }
 
   @if unit($v) == '%' {
-    $v: if($v >= 100, 1, $v / 100%);
+    $v: if($v >= 100, 1, math.div($v, 100%));
   }
 
   $ss: $s * $v;
@@ -34,16 +39,16 @@
   }
 
   @else if $ll <= 1 {
-    $ss: $ss / $ll;
+    $ss: math.div($ss, $ll);
   }
 
   @else {
-    $ss: $ss / (2 - $ll);
+    $ss: math.div($ss, 2 - $ll);
   }
 
-  $ll: $ll / 2;
+  $ll: math.div($ll, 2);
 
-  @return 360deg * $h / (3.1415 * 2), percentage(max(0, min(1, $ss))), percentage(max(0, min(1, $ll)));
+  @return math.div(360deg * $h, 3.1415 * 2), percentage(max(0, min(1, $ss))), percentage(max(0, min(1, $ll)));
 }
 
 @function ch-hsl-to-hsv($h, $ss: 0, $ll: 0) {
@@ -60,15 +65,15 @@
   }
 
   @if unit($h) == 'deg' {
-    $h: 3.1415 * 2 * ($h / 360deg);
+    $h: 3.1415 * 2 * math.div($h, 360deg);
   }
 
   @if unit($ss) == '%' {
-    $ss: 0 + ($ss / 100%);
+    $ss: 0 + math.div($ss, 100%);
   }
 
   @if unit($ll) == '%' {
-    $ll: 0 + ($ll / 100%);
+    $ll: 0 + math.div($ll, 100%);
   }
 
   $ll: $ll * 2;
@@ -81,15 +86,15 @@
     $ss: $ss * (2 - $ll);
   }
 
-  $v: ($ll + $ss) / 2;
+  $v: math.div($ll + $ss, 2);
 
   $s: 0;
 
   @if $ll + $ss != 0 {
-    $s: (2 * $ss) / ($ll + $ss);
+    $s: math.div(2 * $ss, $ll + $ss);
   }
 
-  @return 360deg * $h / (3.1415 * 2), percentage(max(0, min(1, $s))), percentage(max(0, min(1, $v)));
+  @return math.div(360deg * $h, 3.1415 * 2), percentage(max(0, min(1, $s))), percentage(max(0, min(1, $v)));
 }
 
 @function ch-color-to-hsv($color) {

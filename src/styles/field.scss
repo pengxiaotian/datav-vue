@@ -3,6 +3,11 @@
 .g-field {
   display: flex;
   color: $field-font-color;
+
+  &.el-col-0 {
+    display: flex;
+    max-width: unset;
+  }
 }
 
 .g-field-title {
@@ -52,6 +57,12 @@
 
 .g-field-container {
   width: $field-container-width;
+
+  &.el-col-0 {
+    display: block;
+    max-width: unset;
+    flex: 0 0 $field-container-width;
+  }
 }
 
 .g-field-wp {

@@ -62,18 +62,15 @@
     border: solid 1px $color-primary;
     box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
 
-    &[data-popper-placement^="bottom"] .el-popper__arrow::before {
-      background: $select-option-bgcolor;
-      border-color: $color-primary;
-      border-bottom-color: transparent;
-      border-right-color: transparent;
-    }
-
-    &[data-popper-placement^="top"] .el-popper__arrow::before {
-      background: $select-option-bgcolor;
-      border-color: $color-primary;
-      border-top-color: transparent;
-      border-left-color: transparent;
+    @each $placement, $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top') {
+      &[data-popper-placement^='#{$placement}'] {
+        .el-popper__arrow::before {
+          background: $select-option-bgcolor;
+          border-color: $color-primary;
+          border-#{$placement}-color: transparent;
+          border-#{$adjacency}-color: transparent;
+        }
+      }
     }
   }
 }
