@@ -116,18 +116,10 @@ yarn serve
 yarn build
 ```
 
-### 新建
-
-- 快速创建一个组件
+### 新建可视化组件
 
 ```bash
-yarn gc [component name]
-```
-
-- 通过选项模式创建组件 or Store
-
-```bash
-yarn new
+yarn new datav
 ```
 
 ### 配置可视化组件
@@ -136,12 +128,12 @@ yarn new
 
 ```bash
 main-title
-├── index.ts
+├── index.ts             # 组件入口
 └── src
-    ├── config.json
-    ├── config.vue
-    ├── index.vue
-    └── main-title.ts
+    ├── index.vue        # 组件入口
+    ├── main-title.ts    # 组件声明类
+    ├── config.vue       # 组件属性配置
+    └── config.json      # 用于生成 config.vue 的配置文件
 ```
 
 #### 使用工具
@@ -152,6 +144,24 @@ main-title
 #### 工具预览
 
 ![prop-config](./demo/prop-config.png)
+
+### 更多新建选项
+
+- 快速创建一个组件
+
+```bash
+yarn gc [component name]
+```
+
+- 通过选项模式
+
+```bash
+# 创建组件
+yarn new component
+
+# 创建 Store
+yarn new store
+```
 
 ### Git提交模板
 

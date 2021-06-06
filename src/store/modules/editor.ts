@@ -255,9 +255,9 @@ class Editor extends VuexModule implements IEditorState {
 
       ncom.parentId = parentId
 
-      for (const key in ncom.source) {
-        ncom.source[key].id = generateId()
-        ncom.source[key].comId = ncom.id
+      for (const key in ncom.apiData) {
+        ncom.apiData[key].id = generateId()
+        ncom.apiData[key].comId = ncom.id
       }
 
       return ncom

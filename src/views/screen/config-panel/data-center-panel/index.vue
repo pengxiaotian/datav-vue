@@ -34,7 +34,7 @@ export default defineComponent({
     const com = inject('com') as ComputedRef<DatavComponent>
 
     const dataKeys = computed(() => {
-      return Object.keys(com.value.data)
+      return Object.keys(com.value.apis)
     })
 
     const activeName = ref(dataKeys.value[0])

@@ -41,10 +41,6 @@ export default defineComponent({
     },
     failedText: {
       type: String,
-      default: '匹配失败',
-    },
-    notfoundText: {
-      type: String,
       default: '未找到字段',
     },
     completedText: {
@@ -82,10 +78,6 @@ export default defineComponent({
         return props.failedText
       }
 
-      if (props.status === ApiStatus.notfound) {
-        return props.notfoundText
-      }
-
       if (props.status === ApiStatus.incomplete) {
         return props.incompleteText
       }
@@ -109,7 +101,6 @@ export default defineComponent({
   @include square-loading-icon();
 
   &.--failed,
-  &.--notfound,
   &.--incomplete {
     background: $warn-main;
   }

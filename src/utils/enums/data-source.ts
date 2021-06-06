@@ -1,4 +1,4 @@
-export enum DataSourceType {
+export enum ApiType {
   /**
    * 静态数据
    */
@@ -13,7 +13,6 @@ export enum ApiStatus {
   loading = 'loading',
   success = 'success',
   failed = 'failed',
-  notfound = 'notfound',
   completed='completed',
   incomplete='incomplete'
 }

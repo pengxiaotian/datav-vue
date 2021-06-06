@@ -1,7 +1,7 @@
 import { generateId } from '@/utils/util'
 import { findComByName } from '@/data/system-components'
 import { ComType } from '@/utils/enums/com-enums'
-import { DataConfigMap, SourceConfigMap } from './data-source'
+import { ApiConfigMap, ApiDataConfigMap } from './data-source'
 
 export interface ComponentAttr {
   x: number
@@ -48,8 +48,8 @@ export abstract class DatavComponent {
 
   abstract config: Record<string, any>
 
-  abstract data: DataConfigMap
-  abstract source: SourceConfigMap
+  abstract apis: ApiConfigMap
+  abstract apiData: ApiDataConfigMap
 
   abstract events: Record<string, any>
 

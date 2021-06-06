@@ -8,7 +8,7 @@
     <div class="api-editor-title">
       <div class="api-desc ellipsis2" @click="toggle">
         <i v-if="collapse" class="el-icon-arrow-right api-fold-icon"></i>
-        {{ dataConfig.description || '数据接口' }}
+        {{ apiConfig.description || '数据接口' }}
       </div>
       <div class="api-status success">
         <display-api-status :status="totalStatus" success-text="配置完成" />
@@ -32,7 +32,7 @@
           </thead>
           <tbody class="table-body">
             <tr
-              v-for="(fc, fn) in dataConfig.fields"
+              v-for="(fc, fn) in apiConfig.fields"
               :key="fn"
               class="table-body-row"
             >
@@ -54,7 +54,7 @@
                 />
               </td>
               <td class="column-item attr-status">
-                <display-api-status :status="fc.status" :optional="fc.optional" />
+                <display-api-status :status="fieldsStatus[fn]" :optional="fc.optional" />
               </td>
             </tr>
           </tbody>
@@ -65,15 +65,15 @@
           数据响应结果
         </div>
         <div class="auto-update-config">
-          <el-checkbox v-model="dataConfig.useAutoUpdate" class="auto-update-checkbox">
+          <el-checkbox v-model="apiConfig.useAutoUpdate" class="auto-update-checkbox">
             自动更新选项
           </el-checkbox>
           <g-input
-            :model-value="dataConfig.autoUpdate"
+            :model-value="apiConfig.autoUpdate"
             type="number"
-            :disabled="!dataConfig.useAutoUpdate"
+            :disabled="!apiConfig.useAutoUpdate"
             class="update-interval-input"
-            @change="dataConfig.autoUpdate = $event"
+            @change="apiConfig.autoUpdate = $event"
           />
           秒一次
         </div>
@@ -81,7 +81,7 @@
           <div class="ds-line">
             <div class="ds-title">
               <span class="ds-title-text">数据源</span>
-              <span class="ds-type-text">{{ sourceConfig.type }}</span>
+              <span class="ds-type-text">{{ apiDataConfig.type }}</span>
             </div>
             <el-button
               size="mini"
@@ -107,7 +107,7 @@
           <g-monaco-editor
             language="json"
             :read-only="true"
-            :code="sourceConfig.config.data"
+            :code="datav_data"
             :height="250"
             full-screen-title="数据响应结果"
           />
@@ -120,8 +120,9 @@
 <script lang='ts'>
 import { defineComponent, computed, ComputedRef, inject } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
-import { DataConfig, SourceConfig, FieldStatus } from '@/components/data-source'
+import { ApiConfig, ApiDataConfig, FieldStatus } from '@/components/data-source'
 import { ApiStatus } from '@/utils/enums/data-source'
+import { ApiModule } from '@/store/modules/api'
 import DisplayApiStatus from '../components/display-api-status.vue'
 
 export default defineComponent({
@@ -138,16 +139,26 @@ export default defineComponent({
     const visible = computed(() => props.apiName === props.activeName)
 
     const com = inject('com') as ComputedRef<DatavComponent>
-    const dataConfig = computed((): DataConfig => com.value.data[props.apiName])
-    const sourceConfig = computed((): SourceConfig => com.value.source[props.apiName])
+    const apiConfig = computed((): ApiConfig => com.value.apis[props.apiName])
+    const apiDataConfig = computed((): ApiDataConfig => com.value.apiData[props.apiName])
+
+    const datav_data = computed(() => {
+      const comData = ApiModule.dataMap[com.value.id]
+      return comData ? comData[props.apiName] : ''
+    })
+
+    const fieldsStatus = computed(() => {
+      const comFields = ApiModule.fieldStatusMap[com.value.id]
+      return comFields ? comFields[props.apiName] : {}
+    })
 
     const totalStatus = computed(() => {
-      const fields = Object.values(dataConfig.value.fields)
-      if (fields.some(m => m.status === FieldStatus.loading)) {
+      const list = Object.values(fieldsStatus.value)
+      if (list.includes(FieldStatus.loading)) {
         return ApiStatus.loading
       }
 
-      if (fields.some(m => !m.optional && (m.status === FieldStatus.failed || m.status === FieldStatus.notfound || m.status === FieldStatus.incomplete))) {
+      if (list.includes(FieldStatus.failed)) {
         return ApiStatus.incomplete
       }
 
@@ -172,9 +183,11 @@ export default defineComponent({
     return {
       visible,
       com,
-      dataConfig,
-      sourceConfig,
+      apiConfig,
+      apiDataConfig,
+      fieldsStatus,
       totalStatus,
+      datav_data,
       toggle,
       showDataSource,
     }

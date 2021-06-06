@@ -20,18 +20,15 @@ module.exports = {
         name: '<template>',
         value: 'template',
         checked: true,
-      },
-      {
+      }, {
         name: '<script>',
         value: 'script',
         checked: true,
-      },
-      {
+      }, {
         name: 'style',
         value: 'style',
         checked: true,
-      },
-      ],
+      }],
       validate(value) {
         if (value.includes('script') || value.includes('template')) {
           return true;

@@ -10,7 +10,7 @@ const getMapData = (data: any, fields: [string, FieldConfig][]) => {
   for (const [key, fc] of fields) {
     const fieldName = fc.map || key
     if (hasOwn(data, fieldName)) {
-      _.set(obj, fc.path || key, data[fieldName])
+      _.set(obj, key, data[fieldName])
     }
   }
 
@@ -35,11 +35,11 @@ export const getRenderData = (data: any, fields: Record<string, FieldConfig>) =>
 }
 
 export const setFieldLoading = (fields: Record<string, FieldConfig>) => {
-  for (const key in fields) {
-    if (hasOwn(fields, key)) {
-      fields[key].status = FieldStatus.loading
-    }
-  }
+  return Object.keys(fields)
+    .reduce((prev, curr) => {
+      prev[curr] = FieldStatus.loading
+      return prev
+    }, Object.create(null)) as Record<string, FieldStatus>
 }
 
 export const checkDataSchema = (data: any, fields: Record<string, FieldConfig>) => {
@@ -50,17 +50,15 @@ export const checkDataSchema = (data: any, fields: Record<string, FieldConfig>) 
     _data = data[0]
   }
 
-  if (_data) {
-    for (const key in fields) {
-      if (hasOwn(fields, key)) {
-        fields[key].status = hasOwn(_data, fields[key].map || key) ? FieldStatus.success : FieldStatus.notfound
+  return Object.entries(fields)
+    .reduce((prev, [key, fc]) => {
+      if (_data && hasOwn(_data, fc.map || key)) {
+        prev[key] = FieldStatus.success
+      } else if (fc.optional) {
+        prev[key] = FieldStatus.optional
+      } else {
+        prev[key] = FieldStatus.failed
       }
-    }
-  } else {
-    for (const key in fields) {
-      if (hasOwn(fields, key)) {
-        fields[key].status = FieldStatus.notfound
-      }
-    }
-  }
+      return prev
+    }, Object.create(null)) as Record<string, FieldStatus>
 }

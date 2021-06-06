@@ -48,7 +48,7 @@
         </el-tooltip>
       </div>
       <div class="screen-info">
-        <i class="v-icon-workspace workspace-icon"></i>
+        <i class="v-icon-workspace workspace-icon" @click="$router.push('/')"></i>
         <span>{{ '工作空间 - ' + screen.name }}</span>
       </div>
       <div class="global-actions">
@@ -217,6 +217,7 @@ export default defineComponent({
 
     .workspace-icon {
       padding-right: 8px;
+      cursor: pointer;
     }
   }
 

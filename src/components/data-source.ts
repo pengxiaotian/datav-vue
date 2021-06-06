@@ -1,13 +1,11 @@
-import { DataSourceType } from '@/utils/enums/data-source'
+import { ApiType } from '@/utils/enums/data-source'
 import { generateId, isString } from '@/utils/util'
 
 export enum FieldStatus {
   loading = 'loading',
   success = 'success',
   failed = 'failed',
-  notfound = 'notfound',
-  completed = 'completed',
-  incomplete = 'incomplete'
+  optional = 'optional',
 }
 
 export interface FieldConfig {
@@ -15,11 +13,9 @@ export interface FieldConfig {
   description: string
   optional?: boolean
   map?: string
-  path?: string
-  status?: FieldStatus
 }
 
-export interface DataConfig {
+export interface ApiConfig {
   fields: Record<string, FieldConfig>
   /**
    * 执行指定的渲染函数，默认值是 render
@@ -34,20 +30,20 @@ export interface DataConfig {
   autoUpdate: number
 }
 
-export interface DataConfigMap {
-  source: DataConfig
+export interface ApiConfigMap {
+  source: ApiConfig
 }
 
 /**
- * 设置数据配置
+ * 设置数据接口配置
  */
-export function setDataConfig<K extends keyof DataConfigMap>(
-  data: DataConfigMap,
+export function setApiConfig<K extends keyof ApiConfigMap>(
+  api: ApiConfigMap,
   name: K,
-  options: Partial<DataConfigMap[K]>,
+  options: Partial<ApiConfigMap[K]>,
 ) {
   if (name === 'source') {
-    data.source = {
+    api.source = {
       fields: {},
       render: 'render',
       description: '',
@@ -61,7 +57,7 @@ export function setDataConfig<K extends keyof DataConfigMap>(
     }
   }
 
-  return data
+  return api
 }
 
 /**
@@ -71,45 +67,43 @@ export function createField(name: string, config?: Partial<FieldConfig>) {
   return {
     [name]: {
       type: 'string',
-      path: '',
       map: '',
       description: '',
       optional: false,
-      incomplete: FieldStatus.incomplete,
       ...(config || {}),
     },
   }
 }
 
-export interface SourceConfig {
+export interface ApiDataConfig {
   id: string
-  type: DataSourceType
   comId: string
+  type: ApiType
   config: {
     local: boolean
     cookie: boolean
   } & Record<string, any>
 }
 
-export interface SourceConfigMap {
-  source: SourceConfig
+export interface ApiDataConfigMap {
+  source: ApiDataConfig
 }
 
 /**
  * 设置源数据
  */
-export function setSourceData<K extends keyof SourceConfigMap>(
+export function setApiData<K extends keyof ApiDataConfigMap>(
   comId: string,
-  source: SourceConfigMap,
+  api: ApiDataConfigMap,
   name: K,
   data: any,
-  type = DataSourceType.static,
+  type = ApiType.static,
 ) {
   if (name === 'source') {
-    source.source = {
+    api.source = {
       id: generateId(),
-      type,
       comId,
+      type,
       config: {
         local: true,
         cookie: false,
@@ -118,23 +112,23 @@ export function setSourceData<K extends keyof SourceConfigMap>(
     }
   }
 
-  return source
+  return api
 }
 
 /**
  * 通过数据源类型转换数据
  */
-export function castDataBySourceType(type: DataSourceType, data: any) {
-  const ret: Record<string, any> = Object.create({})
+export function castDataBySourceType(type: ApiType, data: any) {
+  const ret: Record<string, any> = Object.create(null)
   switch (type) {
-    case DataSourceType.static:
-      ret.data = isString(data) ? data : JSON.stringify(data)
+    case ApiType.static:
+      ret.data = isString(data) ? data : JSON.stringify(data, null, 2)
       break
-    case DataSourceType.api:
+    case ApiType.api:
       ret.api = data
       break
     default:
-      throw Error(`Unknown DataSourceType: ${type}`)
+      throw Error(`Unknown ApiType: ${type}`)
   }
 
   return ret

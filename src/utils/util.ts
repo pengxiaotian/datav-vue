@@ -160,6 +160,10 @@ export function toObject<T>(arr: Array<T>): Record<string, T> {
 
 export function toJson<T>(data: any, defaultValue: T) {
   try {
+    if (!data) {
+      return defaultValue
+    }
+
     if (isString(data)) {
       return JSON.parse(data)
     }

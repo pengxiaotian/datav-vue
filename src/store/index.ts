@@ -3,6 +3,7 @@ import { IToolbarState } from './modules/toolbar'
 import { IEditorState } from './modules/editor'
 import { IProjectState } from './modules/project'
 import { IFilterState } from './modules/filter'
+import { IApiState } from './modules/api'
 // -- prepend import placeholder --
 
 // The name field in the decorator should match
@@ -13,6 +14,7 @@ export interface IRootState {
   editor: IEditorState
   project: IProjectState
   filter: IFilterState
+  api: IApiState
   // -- prepend state placeholder --
 }
 

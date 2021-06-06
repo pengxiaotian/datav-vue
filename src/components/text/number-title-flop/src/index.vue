@@ -26,6 +26,7 @@ import { defineComponent, PropType, ref, toRef, computed, watchEffect } from 'vu
 import { TweenLite } from 'gsap'
 import Accounting from 'accounting'
 import { useDataCenter } from '@/mixins/data-center'
+import { ApiModule } from '@/store/modules/api'
 import { NumberTitleFlop } from './number-title-flop'
 
 type ArrangementType = 'top' | 'topcenter' | 'left' | 'bottom' | 'bottomcenter'
@@ -39,27 +40,31 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const numVal = ref(0)
-    const { datav_data } = useDataCenter(props.com)
+    useDataCenter(props.com)
 
+    const datav_data = computed(() => {
+      return ApiModule.dataMap[props.com.id]
+    })
+
+    const numVal = ref(0)
     const config = toRef(props.com, 'config')
     const attr = toRef(props.com, 'attr')
 
     const titleText = computed((): string => {
-      return datav_data.value.source?.title?.content
-        ? datav_data.value.source.title.content
+      return datav_data.value?.source?.title
+        ? datav_data.value.source.title
         : config.value.title.content
     })
 
     const prefixText = computed((): string => {
-      return datav_data.value.source?.counter?.prefix.content
-        ? datav_data.value.source.counter.prefix.content
+      return datav_data.value?.source?.prefix
+        ? datav_data.value.source.counter.prefix
         : config.value.counter.prefix.content
     })
 
     const suffixText = computed((): string => {
-      return datav_data.value.source?.counter?.suffix.content
-        ? datav_data.value.source.counter.suffix.content
+      return datav_data.value?.source?.suffix
+        ? datav_data.value.source.counter.suffix
         : config.value.counter.suffix.content
     })
 
@@ -253,7 +258,7 @@ export default defineComponent({
 
     watchEffect(() => {
       const { numbers } = config.value
-      let num: number = datav_data.value.source?.numbers?.value || 0
+      let num: number = datav_data.value?.source?.value || 0
       const divisor = numbers.divisor || 0
       if (divisor !== 0) num /= divisor
 

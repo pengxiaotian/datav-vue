@@ -1,0 +1,11 @@
+import type { App } from 'vue'
+import type { SFCWithInstall } from '@/utils/types'
+import {{ pascalCase name }} from './src/index.vue'
+// import {{ pascalCase name }}Prop from './src/config.vue'
+
+{{ pascalCase name }}.install = (app: App): void => {
+  app.component({{ pascalCase name }}.name, {{ pascalCase name }})
+  // app.component({{ pascalCase name }}Prop.name, {{ pascalCase name }}Prop)
+}
+
+export default {{ pascalCase name }} as SFCWithInstall<typeof {{ pascalCase name }}>

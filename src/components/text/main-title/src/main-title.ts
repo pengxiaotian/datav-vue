@@ -1,7 +1,7 @@
 import { DatavComponent } from '@/components/datav-component'
 import {
-  DataConfigMap, createField, setDataConfig,
-  SourceConfigMap, setSourceData,
+  ApiConfigMap, ApiDataConfigMap,
+  createField, setApiConfig, setApiData,
 } from '@/components/data-source'
 
 export class MainTitle extends DatavComponent {
@@ -31,8 +31,8 @@ export class MainTitle extends DatavComponent {
     },
   }
 
-  data: DataConfigMap
-  source: SourceConfigMap
+  apis: ApiConfigMap
+  apiData: ApiDataConfigMap
 
   events: Record<string, any> = {}
 
@@ -48,11 +48,11 @@ export class MainTitle extends DatavComponent {
       createField('url', { description: '超链接', optional: true }),
     ]
 
-    this.data = setDataConfig({} as any, 'source', {
+    this.apis = setApiConfig({} as any, 'source', {
       fields: Object.assign({}, ...fields),
     })
 
-    this.source = setSourceData(this.id, {} as any, 'source', {
+    this.apiData = setApiData(this.id, {} as any, 'source', {
       title: '我是标题数据',
       url: '',
     })

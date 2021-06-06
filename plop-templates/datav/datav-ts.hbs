@@ -1,0 +1,41 @@
+import { DatavComponent } from '@/components/datav-component'
+import {
+  ApiConfigMap, ApiDataConfigMap,
+  createField, setApiConfig, setApiData,
+} from '@/components/data-source'
+
+/**
+ * {{ pascalCase name }}
+ */
+export class {{ pascalCase name }} extends DatavComponent {
+  config = {}
+
+  apis: ApiConfigMap
+  apiData: ApiDataConfigMap
+
+  events: Record<string, any> = {}
+
+  constructor() {
+    super('{{ pascalCase name }}', { w: 200, h: 200 })
+
+    this.initData()
+  }
+
+  initData() {
+    const fields = [
+      createField('value', { description: '', optional: true }),
+    ]
+
+    this.apis = setApiConfig({} as any, 'source', {
+      fields: Object.assign({}, ...fields),
+    })
+
+    this.apiData = setApiData(this.id, {} as any, 'source', {
+      value: 'api data',
+    })
+
+    return this
+  }
+}
+
+export default {{ pascalCase name }}

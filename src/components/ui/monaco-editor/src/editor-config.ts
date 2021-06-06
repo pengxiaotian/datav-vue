@@ -1,5 +1,5 @@
 import * as monaco from 'monaco-editor'
-import trim from 'lodash/trim'
+import { isObject, isArray, isString } from '@/utils/util'
 
 export type languageType = 'plaintext' | 'html' | 'javascript' | 'json' | 'sql'
 
@@ -89,21 +89,10 @@ export const registerApiCompletion = (languageId: languageType, callbackids?: an
 
 export const handleInputCode = (languageId: languageType, code: string | any[] | object) => {
   let val = code
-  if (languageId === 'json') {
-    if (typeof val === 'string') {
-      val = JSON.parse(trim(val, '"\''))
-    }
 
-    return JSON.stringify(val, null, 2)
-  }
-
-  if (typeof val !== 'string') {
+  if (isObject(val) || isArray(val)) {
     val = JSON.stringify(val, null, 2)
   }
 
-  if (languageId === 'javascript') {
-    return val || 'return data;'
-  }
-
-  return val
+  return isString(val) ? val : `${val}`
 }
