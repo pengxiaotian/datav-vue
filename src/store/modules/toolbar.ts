@@ -49,10 +49,6 @@ export interface IToolbarState {
   config: {
     show: boolean
   }
-  toolPanels: {
-    datasource: boolean
-    filterManager: boolean
-  }
   loading: number
 }
 
@@ -70,11 +66,6 @@ class Toolbar extends VuexModule implements IToolbarState {
 
   config = {
     show: getPanelState(PanelType.config),
-  }
-
-  toolPanels = {
-    datasource: false,
-    filterManager: false,
   }
 
   loading = 0

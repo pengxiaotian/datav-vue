@@ -1,0 +1,105 @@
+@import '~@/styles/themes/var';
+
+.source-drawer {
+  color: $font-color;
+  user-select: none;
+
+  &.el-drawer.ltr,
+  &.el-drawer.rtl {
+    top: 40px;
+    height: calc(100% - 40px);
+  }
+
+  .el-drawer__header {
+    padding-bottom: 10px;
+  }
+
+  .source-drawer-title {
+    font-size: 18px;
+    color: #eee;
+  }
+
+  .step-title {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 18px;
+
+    &::before {
+      position: absolute;
+      top: 6px;
+      left: -13px;
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: $color-primary;
+      border-radius: 4px;
+      content: '';
+      box-shadow: 0 0 4px -2px #000;
+      transition: background 0.2s;
+    }
+
+    &::after {
+      position: absolute;
+      top: 10px;
+      right: 0;
+      width: 300px;
+      height: 1px;
+      background: rgba(128, 128, 128, 0.4);
+      content: '';
+      transform: scaleY(0.5);
+    }
+
+    &.--disabled::before {
+      background: #444;
+    }
+  }
+
+  .datasource-selector {
+    margin-top: 15px;
+  }
+
+  .datav-ds-editor {
+    height: 140px;
+  }
+
+  .use-filter-btn {
+    margin-right: 5px;
+    margin-left: 3px;
+    line-height: 18px;
+    vertical-align: middle;
+  }
+
+  .use-filter-text {
+    vertical-align: -1px;
+  }
+
+  .tutorial-popup {
+    margin-left: 10px;
+    font-size: 12px;
+    color: $color-primary;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-primary-secondary;
+    }
+  }
+
+  .refresh-btn {
+    margin-left: 5px;
+    color: $color-primary;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-primary-secondary;
+    }
+  }
+
+  .response-editor {
+    height: 240px;
+    margin-bottom: 40px;
+  }
+}

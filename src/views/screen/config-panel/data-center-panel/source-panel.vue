@@ -86,7 +86,7 @@
             <el-button
               size="mini"
               class="ds-action-btn"
-              @click="showDataSource"
+              @click="openSourceDrawer"
             >
               配置数据源
             </el-button>
@@ -114,21 +114,24 @@
         </div>
       </div>
     </div>
+    <source-drawer ref="sourceDrawerRef" />
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, ComputedRef, inject } from 'vue'
+import { defineComponent, ref, computed, ComputedRef, inject } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
 import { ApiConfig, ApiDataConfig, FieldStatus } from '@/components/data-source'
 import { ApiStatus } from '@/utils/enums/data-source'
 import { ApiModule } from '@/store/modules/api'
 import DisplayApiStatus from '../components/display-api-status.vue'
+import SourceDrawer from './source-drawer.vue'
 
 export default defineComponent({
   name: 'SourcePanel',
   components: {
     DisplayApiStatus,
+    SourceDrawer,
   },
   props: {
     apiName: {
@@ -140,6 +143,7 @@ export default defineComponent({
   },
   setup(props) {
     const visible = computed(() => props.apiName === props.activeName)
+    const sourceDrawerRef = ref(null)
 
     const com = inject('com') as ComputedRef<DatavComponent>
     const apiConfig = computed((): ApiConfig => com.value.apis[props.apiName])
@@ -176,15 +180,13 @@ export default defineComponent({
       }
     }
 
-    const showDataSource = () => {
-      // this.currInfo.comId = this.comId
-      // this.currInfo.sourceId = this.source.id
-      // this.currInfo.apiName = this.apiName
-      // this.toolPanels.datasource = true
+    const openSourceDrawer = () => {
+      sourceDrawerRef.value?.open()
     }
 
     return {
       visible,
+      sourceDrawerRef,
       com,
       apiConfig,
       apiDataConfig,
@@ -192,238 +194,12 @@ export default defineComponent({
       totalStatus,
       datav_data,
       toggle,
-      showDataSource,
+      openSourceDrawer,
     }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
-
-.api-editor {
-  .api-editor-title {
-    display: flex;
-    width: 100%;
-    height: 38px;
-    padding-right: 34px;
-    padding-left: 10px;
-    font-size: $font-size;
-    background: $config-panel-bgcolor;
-    border-top: $config-panel-border;
-    border-bottom: $config-panel-border;
-    box-sizing: border-box;
-    justify-content: space-between;
-    align-items: center;
-    transition: 0.4s;
-  }
-
-  .api-desc {
-    max-width: 160px;
-    color: $color-white;
-    white-space: initial;
-    cursor: pointer;
-  }
-
-  .api-fold-icon {
-    transition: transform 0.3s;
-  }
-
-  &.--disable-fold {
-    .api-desc {
-      cursor: default;
-    }
-  }
-
-  &.--fold {
-    .api-fold-icon {
-      transform: rotate(90deg);
-    }
-  }
-}
-
-.data-attr-table {
-  width: 100%;
-  color: $font-color;
-  text-align: left;
-
-  .table-head {
-    display: block;
-    width: 100%;
-    height: 40px;
-    font-size: 0;
-    line-height: 40px;
-    border-bottom: $config-panel-border;
-
-    .table-head-row {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    .th-item {
-      font-weight: 400;
-    }
-  }
-
-  .table-body {
-    display: block;
-    width: 100%;
-    padding-bottom: 10px;
-
-    .table-body-row {
-      display: block;
-      width: 100%;
-    }
-  }
-
-  .table-head,
-  .table-body {
-    .column-item {
-      display: inline-flex;
-      height: 40px;
-      padding: 0 6px;
-      font-size: 12px;
-      line-height: 17px;
-      vertical-align: middle;
-      box-sizing: border-box;
-      align-items: center;
-
-      &:first-child {
-        padding-left: 10px;
-      }
-    }
-
-    .attr-name {
-      width: 19%;
-    }
-
-    .attr-value {
-      width: 41%;
-    }
-
-    .attr-status {
-      width: 40%;
-    }
-
-    .attr-input {
-      width: 108px;
-      height: 24px;
-
-      .el-input__inner {
-        height: 24px;
-        line-height: 24px;
-        color: $font-color-secondary;
-      }
-    }
-  }
-}
-
-.data-source {
-  color: $font-color;
-  user-select: none;
-
-  .data-result-title {
-    padding: 10px;
-    border-top: $config-panel-border;
-    border-bottom: $config-panel-border;
-  }
-
-  .auto-update-config {
-    display: block;
-    margin-top: 15px;
-    margin-left: 10px;
-  }
-
-  .auto-update-checkbox {
-    margin-right: 5px;
-    line-height: 16px;
-    vertical-align: middle;
-  }
-
-  .update-interval-input {
-    width: 36px;
-    margin: 0 5px;
-    vertical-align: middle;
-  }
-
-  .data-flow-wp {
-    position: relative;
-    padding: 10px;
-  }
-
-  .ds-line {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 0 5px 20px;
-
-    &.mt5 {
-      margin-top: 5px;
-    }
-
-    .ds-type-text {
-      display: inline-block;
-      padding: 3px 5px;
-      margin-left: 7px;
-      font-size: 12px;
-      line-height: 12px;
-      color: $font-color;
-      text-align: center;
-      background: $input-prepend-bgcolor;
-      border-radius: 1px;
-      box-shadow: 0 0 5px -3px #000;
-    }
-
-    .ds-action-btn {
-      width: 120px;
-    }
-
-    .refresh-btn {
-      font-size: 16px;
-      cursor: pointer;
-      transition: color 0.2s;
-
-      &:hover {
-        color: $color-primary;
-      }
-    }
-  }
-
-  .ds-dots {
-    position: absolute;
-    top: 25px;
-    left: 15px;
-    display: flex;
-    width: 1px;
-    height: 87px;
-    background: $config-dot-list-bgcolor;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .ds-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: $config-dot-bgcolor;
-    border-radius: 4px;
-    box-shadow: 0 0 3px #000;
-    transition: background 0.2s;
-
-    &.active {
-      background: $color-primary;
-    }
-
-    &.error {
-      background: $color-error;
-    }
-  }
-
-  .data-response {
-    padding: 10px;
-    padding-top: 0;
-  }
-}
+@import './source-panel.scss';
 </style>
