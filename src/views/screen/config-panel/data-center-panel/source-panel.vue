@@ -131,7 +131,10 @@ export default defineComponent({
     DisplayApiStatus,
   },
   props: {
-    apiName: String,
+    apiName: {
+      type: String,
+      required: true,
+    },
     activeName: String,
     collapse: Boolean,
   },

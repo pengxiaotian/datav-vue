@@ -2,17 +2,24 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    // "strict": true,
     "jsx": "preserve",
-    "noImplicitAny": false,
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+
+    // "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
     "strictPropertyInitialization": false,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
     "baseUrl": ".",
     "types": [
       "webpack-env"
