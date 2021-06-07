@@ -25,7 +25,7 @@
 import { defineComponent, PropType, ref, toRef, computed, watchEffect } from 'vue'
 import { TweenLite } from 'gsap'
 import Accounting from 'accounting'
-import { useDataCenter } from '@/mixins/data-center'
+import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
 import { NumberTitleFlop } from './number-title-flop'
 
@@ -42,8 +42,12 @@ export default defineComponent({
   setup(props) {
     useDataCenter(props.com)
 
-    const datav_data = computed(() => {
-      return ApiModule.dataMap[props.com.id]
+    const dv_data = computed(() => {
+      return ApiModule.dataMap[props.com.id]?.source ?? {}
+    })
+
+    const dv_field = computed(() => {
+      return getFieldMap(props.com.apis.source.fields)
     })
 
     const numVal = ref(0)
@@ -51,21 +55,15 @@ export default defineComponent({
     const attr = toRef(props.com, 'attr')
 
     const titleText = computed((): string => {
-      return datav_data.value?.source?.title
-        ? datav_data.value.source.title
-        : config.value.title.content
+      return dv_data.value[dv_field.value.title] ?? config.value.title.content
     })
 
     const prefixText = computed((): string => {
-      return datav_data.value?.source?.prefix
-        ? datav_data.value.source.counter.prefix
-        : config.value.counter.prefix.content
+      return dv_data.value[dv_field.value.prefix] ?? config.value.counter.prefix.content
     })
 
     const suffixText = computed((): string => {
-      return datav_data.value?.source?.suffix
-        ? datav_data.value.source.counter.suffix
-        : config.value.counter.suffix.content
+      return dv_data.value[dv_field.value.suffix] ?? config.value.counter.suffix.content
     })
 
     const separatingSymbol = computed(() => {
@@ -258,7 +256,7 @@ export default defineComponent({
 
     watchEffect(() => {
       const { numbers } = config.value
-      let num: number = datav_data.value?.source?.value || 0
+      let num: number = dv_data.value[dv_field.value.value] || 0
       const divisor = numbers.divisor || 0
       if (divisor !== 0) num /= divisor
 

@@ -15,7 +15,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
-import { useDataCenter } from '@/mixins/data-center'
+import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
 import { MainTitle } from './main-title'
 
@@ -30,8 +30,12 @@ export default defineComponent({
   setup(props) {
     useDataCenter(props.com)
 
-    const datav_data = computed(() => {
-      return ApiModule.dataMap[props.com.id]
+    const dv_data = computed(() => {
+      return ApiModule.dataMap[props.com.id]?.source ?? {}
+    })
+
+    const dv_field = computed(() => {
+      return getFieldMap(props.com.apis.source.fields)
     })
 
     const config = toRef(props.com, 'config')
@@ -112,15 +116,11 @@ export default defineComponent({
     })
 
     const titleText = computed(() => {
-      return datav_data.value?.source?.title
-        ? datav_data.value.source.title
-        : config.value.title
+      return dv_data.value[dv_field.value.title] ?? config.value.title
     })
 
     const urlText = computed(() => {
-      return datav_data.value?.source?.url
-        ? datav_data.value.source.url
-        : config.value.urlConfig.url
+      return dv_data.value[dv_field.value.url] ?? config.value.urlConfig.url
     })
 
     const urlTarget = computed(() => config.value.urlConfig.isBlank ? '_blank' : '_self')
