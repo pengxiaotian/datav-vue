@@ -51,7 +51,7 @@ import * as monaco from 'monaco-editor'
 import debounce from 'lodash/debounce'
 import { generateId, copyText } from '@/utils/util'
 import { MessageUtil } from '@/utils/message-util'
-import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode } from './editor-config'
+import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode, formatDocument } from './editor-config'
 
 export default defineComponent({
   name: 'GMonacoEditor',
@@ -123,6 +123,7 @@ export default defineComponent({
           value,
           extra: props.extra,
         })
+        formatDocument(editor)
       }
     }
 
@@ -155,6 +156,7 @@ export default defineComponent({
         const ce = monaco.editor.create(dom, opts)
 
         ce.setValue(editor.getValue())
+        formatDocument(ce)
 
         ce.onDidChangeModelContent(() => debounceChangeHandler())
         ce.onDidBlurEditorText(() => blurHandler())
@@ -178,8 +180,6 @@ export default defineComponent({
         const inputCode = handleInputCode(props.language, nv)
         editor.setValue(inputCode)
       }
-    }, {
-      deep: true,
     })
 
     onMounted(async () => {
@@ -208,6 +208,7 @@ export default defineComponent({
 
         const inputCode = handleInputCode(props.language, props.code)
         ce.setValue(inputCode)
+        formatDocument(ce)
 
         if (props.height > 0) {
           dom.style.height = `${props.height}px`

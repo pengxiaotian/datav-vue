@@ -96,3 +96,7 @@ export const handleInputCode = (languageId: languageType, code: string | any[] |
 
   return isString(val) ? val : `${val}`
 }
+
+export const formatDocument = (editor: monaco.editor.IStandaloneCodeEditor) => {
+  editor.getAction('editor.action.formatDocument').run()
+}

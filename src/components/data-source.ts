@@ -122,7 +122,7 @@ export function castDataBySourceType(type: ApiType, data: any) {
   const ret: Record<string, any> = Object.create(null)
   switch (type) {
     case ApiType.static:
-      ret.data = isString(data) ? data : JSON.stringify(data, null, 2)
+      ret.data = isString(data) ? data : JSON.stringify(data)
       break
     case ApiType.api:
       ret.api = data
@@ -132,4 +132,11 @@ export function castDataBySourceType(type: ApiType, data: any) {
   }
 
   return ret
+}
+
+export function createDataSources() {
+  return {
+    [ApiType.static]: '静态数据',
+    [ApiType.api]: 'API',
+  }
 }

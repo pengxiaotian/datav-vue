@@ -11,7 +11,7 @@
   }
 
   .el-drawer__header {
-    padding-bottom: 10px;
+    padding-bottom: 12px;
   }
 
   .source-drawer-title {
@@ -50,18 +50,10 @@
       content: '';
       transform: scaleY(0.5);
     }
-
-    &.--disabled::before {
-      background: #444;
-    }
   }
 
   .datasource-selector {
     margin-top: 15px;
-  }
-
-  .datav-ds-editor {
-    height: 140px;
   }
 
   .use-filter-btn {
@@ -97,9 +89,34 @@
       color: $color-primary-secondary;
     }
   }
+}
 
-  .response-editor {
-    height: 240px;
-    margin-bottom: 40px;
+.datasource-select {
+  width: 100%;
+  margin: 10px 0;
+
+  .el-input__inner {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+    background: #0e1013;
+    border: $config-panel-border;
+
+    &:hover {
+      border-color: $color-primary;
+    }
+  }
+}
+
+.datasource-select-option.el-select__popper {
+  border-top: none !important;
+  margin-top: -12px !important;
+
+  > .datasource-select-option {
+    min-width: 458px !important;
+  }
+
+  .el-popper__arrow {
+    display: none;
   }
 }

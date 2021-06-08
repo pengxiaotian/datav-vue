@@ -81,7 +81,7 @@
           <div class="ds-line">
             <div class="ds-title">
               <span class="ds-title-text">数据源</span>
-              <span class="ds-type-text">{{ apiDataConfig.type }}</span>
+              <span class="ds-type-text">{{ datasources[apiDataConfig.type] }}</span>
             </div>
             <el-button
               size="mini"
@@ -119,9 +119,9 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, ComputedRef, inject } from 'vue'
+import { defineComponent, ref, computed, ComputedRef, inject, provide } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
-import { ApiConfig, ApiDataConfig, FieldStatus } from '@/components/data-source'
+import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources } from '@/components/data-source'
 import { ApiStatus } from '@/utils/enums/data-source'
 import { ApiModule } from '@/store/modules/api'
 import DisplayApiStatus from '../components/display-api-status.vue'
@@ -144,10 +144,15 @@ export default defineComponent({
   setup(props) {
     const visible = computed(() => props.apiName === props.activeName)
     const sourceDrawerRef = ref(null)
+    const datasources = createDataSources()
 
     const com = inject('com') as ComputedRef<DatavComponent>
     const apiConfig = computed((): ApiConfig => com.value.apis[props.apiName])
     const apiDataConfig = computed((): ApiDataConfig => com.value.apiData[props.apiName])
+
+    provide('apiConfig', apiConfig)
+    provide('apiDataConfig', apiDataConfig)
+    provide('apiName', props.apiName)
 
     const datav_data = computed(() => {
       const comData = ApiModule.dataMap[com.value.id]
@@ -187,6 +192,7 @@ export default defineComponent({
     return {
       visible,
       sourceDrawerRef,
+      datasources,
       com,
       apiConfig,
       apiDataConfig,
