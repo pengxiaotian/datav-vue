@@ -109,15 +109,22 @@ class GuideLine {
   }
 
   moving(ev: MouseEvent) {
+    const { options } = this
     ev.preventDefault()
     ev.stopPropagation()
 
     const { coor: oldCoor } = this
     const move = (e: MouseEvent) => {
+      if (options.direction === 'TB') {
+        document.body.style.cursor = 'col-resize'
+      } else {
+        document.body.style.cursor = 'row-resize'
+      }
       this.setLine(e)
     }
 
     const up = () => {
+      document.body.style.cursor = ''
       off(document, 'mousemove', move)
       off(document, 'mouseup', up)
 
