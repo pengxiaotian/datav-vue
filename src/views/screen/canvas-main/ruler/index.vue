@@ -164,7 +164,7 @@ export default defineComponent({
 
   .h-container {
     left: 20px;
-    cursor: ew-resize;
+    cursor: col-resize;
     transform: translateX(0);
 
     .ruler-line {
@@ -191,7 +191,7 @@ export default defineComponent({
   }
 
   .v-container {
-    cursor: ns-resize;
+    cursor: row-resize;
     transform: rotate(90deg) translateX(0);
     transform-origin: 0 100% 0;
 
