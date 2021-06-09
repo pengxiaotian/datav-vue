@@ -110,7 +110,7 @@
 yarn bootstrap
 
 # 跑起来！
-yarn serve
+yarn dev
 
 # 构建发布
 yarn build
