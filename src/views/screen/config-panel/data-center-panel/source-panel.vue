@@ -31,30 +31,41 @@
             </tr>
           </thead>
           <tbody class="table-body">
-            <tr
-              v-for="(fc, fn) in apiConfig.fields"
-              :key="fn"
-              class="table-body-row"
-            >
+            <template v-if="Object.keys(apiConfig.fields).length > 0">
+              <tr
+                v-for="(fc, fn) in apiConfig.fields"
+                :key="fn"
+                class="table-body-row"
+              >
+                <td class="column-item attr-name">
+                  <el-tooltip
+                    :content="fc.description"
+                    placement="left"
+                    effect="blue"
+                  >
+                    <span class="ellipsis2">{{ fn }}</span>
+                  </el-tooltip>
+                </td>
+                <td class="column-item attr-value">
+                  <g-input
+                    :model-value="fc.map"
+                    placeholder="可自定义"
+                    class="attr-input"
+                    @change="fc.map = $event"
+                  />
+                </td>
+                <td class="column-item attr-status">
+                  <display-api-status :status="fieldsStatus[fn]" :optional="fc.optional" />
+                </td>
+              </tr>
+            </template>
+            <tr v-else class="table-body-row">
               <td class="column-item attr-name">
-                <el-tooltip
-                  :content="fc.description"
-                  placement="left"
-                  effect="blue"
-                >
-                  <span class="ellipsis2">{{ fn }}</span>
-                </el-tooltip>
+                <span>任意</span>
               </td>
-              <td class="column-item attr-value">
-                <g-input
-                  :model-value="fc.map"
-                  placeholder="可自定义"
-                  class="attr-input"
-                  @change="fc.map = $event"
-                />
-              </td>
+              <td class="column-item attr-value"></td>
               <td class="column-item attr-status">
-                <display-api-status :status="fieldsStatus[fn]" :optional="fc.optional" />
+                <display-api-status status="completed" />
               </td>
             </tr>
           </tbody>

@@ -3,7 +3,7 @@ import {
 } from 'vuex-module-decorators'
 import store from '@/store'
 import { FieldStatus, ApiConfigMap, ApiConfig, ApiDataConfig } from '@/components/data-source'
-import { ApiType } from '@/utils/enums/data-source'
+import { ApiType, ApiRequestMethod } from '@/utils/enums/data-source'
 import { isUrl, toJson } from '@/utils/util'
 import dcRequest from '@/utils/dc-request'
 
@@ -71,7 +71,15 @@ class Api extends VuexModule implements IApiState {
     } else if (type === ApiType.api) {
       if (isUrl(config.api)) {
         try {
-          res = await dcRequest.get(config.api)
+          const conf = {
+            headers: toJson(config.apiHeaders, {}),
+            withCredentials: config.cookie,
+          }
+          if (config.apiMethod === ApiRequestMethod.GET) {
+            res = await dcRequest.get(config.api, conf)
+          } else {
+            res = await dcRequest.post(config.api, toJson(config.apiBody, {}), conf)
+          }
         } catch {
           res = []
         }

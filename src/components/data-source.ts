@@ -105,7 +105,7 @@ export function setApiData<K extends keyof ApiDataConfigMap>(
       comId,
       type,
       config: {
-        local: true,
+        local: false,
         cookie: false,
         ...castDataBySourceType(type, data),
       },

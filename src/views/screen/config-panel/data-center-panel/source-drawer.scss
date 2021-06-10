@@ -91,14 +91,14 @@
   }
 }
 
-.datasource-select {
+.datav-new-select {
   width: 100%;
   margin: 10px 0;
 
   .el-input__inner {
     height: 30px;
     line-height: 30px;
-    padding-left: 10px;
+    padding-left: 14px;
     background: #0e1013;
     border: $config-panel-border;
 
@@ -108,11 +108,11 @@
   }
 }
 
-.datasource-select-option.el-select__popper {
+.datav-new-select-option.el-select__popper {
   border-top: none !important;
   margin-top: -12px !important;
 
-  > .datasource-select-option {
+  > .datav-new-select-option {
     min-width: 458px !important;
   }
 
