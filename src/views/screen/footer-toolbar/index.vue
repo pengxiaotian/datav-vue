@@ -1,6 +1,20 @@
 <template>
   <el-footer height="32px" class="bottom-sider">
     <div class="btn-box">
+      <span class="btn-text">组件缩放</span>
+      <el-tooltip placement="top" effect="blue">
+        <template #content>
+          勾选时为自然模式，否则为拉伸模式，默认勾选
+        </template>
+        <i class="v-icon-help"></i>
+      </el-tooltip>
+      <el-checkbox
+        :model-value="isNormal"
+        class="btn-sw"
+        @update:model-value="handleResizeModeChange"
+      />
+    </div>
+    <div class="btn-box">
       <span class="btn-text">参考线</span>
       <el-switch v-model="referLine.enable" class="btn-sw" />
     </div>
@@ -103,6 +117,12 @@ export default defineComponent({
     const useSlider = ref(false)
     const referLine = computed(() => EditorModule.referLine)
     const alignLine = computed(() => EditorModule.alignLine)
+    const isNormal = ref(EditorModule.isNormalResizeMode)
+
+    const handleResizeModeChange = (val: boolean) => {
+      isNormal.value = val
+      EditorModule.changeResizeMode(val)
+    }
 
     const hideScaleList = () => {
       visibleScaleList.value = false
@@ -179,6 +199,8 @@ export default defineComponent({
       useSlider,
       referLine,
       alignLine,
+      isNormal,
+      handleResizeModeChange,
       submitScale,
     }
   },

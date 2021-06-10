@@ -62,7 +62,7 @@ import { defineComponent, PropType, computed, getCurrentInstance } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
 import { EditorModule } from '@/store/modules/editor'
 import {
-  Direction, getCursors, setHover,
+  Direction, getCursors,
   handleMove, handleZoom, handleRotate,
 } from './index'
 import { useContextMenu } from '../../editor-context-menu/index'
@@ -183,11 +183,11 @@ export default defineComponent({
     }
 
     const onEnter = () => {
-      setHover(props.com, true)
+      props.com.hovered = true
     }
 
     const onLeave = () => {
-      setHover(props.com, false)
+      props.com.hovered = false
     }
 
     const onMove = (ev: MouseEvent) => {

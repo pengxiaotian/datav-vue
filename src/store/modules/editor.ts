@@ -54,6 +54,7 @@ export interface IEditorState {
   contextMenu: {
     show: boolean
   }
+  isNormalResizeMode: boolean
 }
 
 /* endregion */
@@ -134,6 +135,8 @@ class Editor extends VuexModule implements IEditorState {
   contextMenu = {
     show: false,
   }
+
+  isNormalResizeMode = true
 
   public get selectedCom() {
     return this.coms.find(m => m.selected)
@@ -223,6 +226,11 @@ class Editor extends VuexModule implements IEditorState {
   @Mutation
   public selectCom(id?: string) {
     selectCom(this.coms, id)
+  }
+
+  @Mutation
+  public changeResizeMode(isNormal: boolean) {
+    this.isNormalResizeMode = isNormal
   }
 
   @Mutation
