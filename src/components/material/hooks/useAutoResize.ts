@@ -8,7 +8,6 @@ export function useAutoResize(dom: Ref<HTMLElement>, onResize?: () => void){
   const heightRef = ref(0)
   const domObserver = ref()
 
-
   watchEffect(() => {
     autoResizeMixinInit()
   })
@@ -28,9 +27,9 @@ export function useAutoResize(dom: Ref<HTMLElement>, onResize?: () => void){
         widthRef.value = unref(dom) && (dom.value.clientWidth ?? 0)
         heightRef.value = unref(dom) && (dom.value.clientHeight ?? 0)
         if (!unref(dom)) {
-          console.warn('Failed to get dom node, component rendering may be abnormal!')
+          console.warn('DataV: Failed to get dom node, component rendering may be abnormal!')
         } else if (!unref(widthRef) || !unref(heightRef)) {
-          console.warn('Component width or height is 0px, rendering abnormality may occur!')
+          console.warn('DataV: Component width or height is 0px, rendering abnormality may occur!')
         }
         isFunction(onResize) && resize && onResize()
 
@@ -55,5 +54,5 @@ export function useAutoResize(dom: Ref<HTMLElement>, onResize?: () => void){
   }
 
 
-  return [widthRef, heightRef, domObserver]
+  return [widthRef, heightRef]
 }

@@ -1,22 +1,17 @@
 import { DatavComponent } from '@/components/datav-component'
-import {
-  ApiConfigMap, ApiDataConfigMap,
-  createField, setApiConfig, setApiData,
-} from '@/components/data-source'
+import { setApiConfig, ApiConfigMap, ApiDataConfigMap } from '@/components/data-source'
 
 import { merge, cloneDeep } from 'lodash'
 
 /**
- * BorderBox_1
+ * BorderBox1
  */
-export class BorderBox_1 extends DatavComponent {
+export class BorderBox1 extends DatavComponent {
   config = {
     title: '边框1',
     color: [],
     border: [],
-    backgroundStyle: {
-      bgColor: 'transparent',
-    },
+    background: 'rgba(255, 255, 255, 0)',
   }
 
   apis: ApiConfigMap
@@ -25,7 +20,7 @@ export class BorderBox_1 extends DatavComponent {
   events: Record<string, any> = {}
 
   constructor() {
-    super('BorderBox_1', { w: 400, h: 250 })
+    super('BorderBox1', { w: 400, h: 250 })
 
     this.initData()
   }
@@ -37,20 +32,10 @@ export class BorderBox_1 extends DatavComponent {
     const defaultBorder = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
     this.config.border = merge(cloneDeep(defaultBorder), this.config.border || [])
 
-    const fields = [
-      createField('value', { description: '', optional: true }),
-    ]
-
-    this.apis = setApiConfig({} as any, 'source', {
-      fields: Object.assign({}, ...fields),
-    })
-
-    this.apiData = setApiData(this.id, {} as any, 'source', {
-      value: 'api data',
-    })
+    this.apis = setApiConfig({} as any, null, {})
 
     return this
   }
 }
 
-export default BorderBox_1
+export default BorderBox1

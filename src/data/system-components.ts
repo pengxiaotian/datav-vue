@@ -204,14 +204,8 @@ export const material = {
       img: `${process.env.VUE_APP_QINIU_FILE}/com/decoration.png`,
       used: true,
     }, {
-      name: 'VBorderBox',
+      name: 'VBorderBox1',
       alias: '边框',
-      img: `${process.env.VUE_APP_QINIU_FILE}/com/border-box.png`,
-      used: true,
-    },
-    {
-      name: 'VBorderBox_1',
-      alias: '边框1',
       img: `${process.env.VUE_APP_QINIU_FILE}/com/border-box.png`,
       used: true,
     },

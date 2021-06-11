@@ -1,7 +1,5 @@
 
-import type { Ref } from 'vue'
-
-export function useObserverDomResize (dom: HTMLElement | Ref<HTMLElement>, callback: () => any) {
+export function useObserverDomResize (dom: HTMLElement, callback: () => void) {
   const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
 
   const observer = new MutationObserver(callback)
