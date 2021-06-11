@@ -105,7 +105,7 @@
           <div class="ds-line mt5">
             <span>数据响应结果 ( 只读 ) </span>
             <el-tooltip content="刷新数据" placement="left" effect="blue">
-              <i class="el-icon-refresh refresh-btn"></i>
+              <i class="el-icon-refresh refresh-btn" @click="refreshData"></i>
             </el-tooltip>
           </div>
           <div class="ds-dots">
@@ -135,6 +135,7 @@ import { DatavComponent } from '@/components/datav-component'
 import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources } from '@/components/data-source'
 import { ApiStatus } from '@/utils/enums/data-source'
 import { ApiModule } from '@/store/modules/api'
+import { setDatavData } from '@/mixins/data-center'
 import DisplayApiStatus from '../components/display-api-status.vue'
 import SourceDrawer from './source-drawer.vue'
 
@@ -200,6 +201,10 @@ export default defineComponent({
       sourceDrawerRef.value?.open()
     }
 
+    const refreshData = () => {
+      setDatavData(com.value.id, props.apiName, apiConfig.value, apiDataConfig.value)
+    }
+
     return {
       visible,
       sourceDrawerRef,
@@ -212,6 +217,7 @@ export default defineComponent({
       datav_data,
       toggle,
       openSourceDrawer,
+      refreshData,
     }
   },
 })

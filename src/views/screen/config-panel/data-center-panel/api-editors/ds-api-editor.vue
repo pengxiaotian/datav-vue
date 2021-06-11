@@ -53,10 +53,10 @@
         @blur="updateApiBody"
       />
     </div>
-    <el-checkbox v-model="apiDataConfig.config.local">
+    <el-checkbox v-model="apiDataConfig.config.local" class="ds-checkbox">
       服务器代理请求 (因跨域无法访问时可勾选)
     </el-checkbox>
-    <el-checkbox v-model="apiDataConfig.config.cookie">
+    <el-checkbox v-model="apiDataConfig.config.cookie" class="ds-checkbox">
       需要 cookie (不选择代理并且需要获取cookie时使用)
     </el-checkbox>
   </div>
@@ -112,6 +112,11 @@ export default defineComponent({
   }
 
   .url-info-text {
+    margin-bottom: 10px;
+  }
+
+  .ds-checkbox {
+    line-height: 18px;
     margin-bottom: 10px;
   }
 

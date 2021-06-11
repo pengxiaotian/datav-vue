@@ -8,7 +8,9 @@
       <p class="source-drawer-title">设置数据源</p>
     </template>
     <template v-if="visible">
-      <div class="step-title">数据源</div>
+      <div class="step-title" :class="{ '--error': dataStatus.errSource }">
+        数据源
+      </div>
       <div class="datasource-selector">
         <label class="datasource-selector-title">数据源类型</label>
         <div class="datasource-select">
@@ -34,7 +36,29 @@
       <ds-static-editor v-if="apiDataConfig.type === apiType.static" />
       <ds-api-editor v-else-if="apiDataConfig.type === apiType.api" />
 
-      <div class="step-title">
+      <el-popover
+        v-model:visible="visiblePreview"
+        placement="left"
+        :width="400"
+        popper-class="editor-popover"
+      >
+        <div class="ds-preview-content">
+          <g-monaco-editor
+            language="json"
+            :read-only="true"
+            :height="180"
+            :code="dataOrign"
+          />
+        </div>
+        <template #reference>
+          <div class="ds-response-btn">
+            <i class="v-icon-search"></i>
+            预览数据源返回结果
+          </div>
+        </template>
+      </el-popover>
+
+      <div class="step-title" :class="{ '--error': dataStatus.errFilter }">
         <el-checkbox
           v-model="apiConfig.useAutoUpdate"
           class="use-filter-btn"
@@ -43,7 +67,12 @@
         <span class="tutorial-popup">教程</span>
       </div>
       <field-grid :fields="apiConfig.fields" />
-      <div class="step-title">
+      <div
+        class="step-title"
+        :class="{
+          '--error': dataStatus.errSource || dataStatus.errFilter
+        }"
+      >
         <span>数据响应结果</span>
         <i class="el-icon-refresh refresh-btn" @click="refreshData"></i>
       </div>
@@ -77,6 +106,7 @@ export default defineComponent({
   },
   setup() {
     const visible = ref(false)
+    const visiblePreview = ref(false)
     const apiType = ApiType
     const datasources = createDataSources()
 
@@ -88,6 +118,15 @@ export default defineComponent({
     const apiConfig = inject('apiConfig') as ComputedRef<ApiConfig>
     const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
     const apiName = inject('apiName') as string
+
+    const dataStatus = computed(() => {
+      return ApiModule.dataStatusMap[com.value.id] || {}
+    })
+
+    const dataOrign = computed(() => {
+      const comData = ApiModule.originMap[com.value.id]
+      return comData ? comData[apiName] : ''
+    })
 
     const changeSource = (val: ApiType) => {
       switch (val) {
@@ -120,11 +159,14 @@ export default defineComponent({
 
     return {
       visible,
+      visiblePreview,
       apiType,
       datasources,
       com,
       apiConfig,
       apiDataConfig,
+      dataStatus,
+      dataOrign,
       resData,
       open,
       changeSource,

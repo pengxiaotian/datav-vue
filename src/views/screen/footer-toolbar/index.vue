@@ -68,7 +68,7 @@
         :visible="visibleScaleList"
         width="56"
         placement="top"
-        trigger="manual"
+        trigger="click"
         popper-class="editor-popover"
         :show-arrow="false"
       >

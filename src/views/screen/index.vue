@@ -51,6 +51,8 @@ export default defineComponent({
   setup(props) {
     const loading = ref(true)
 
+    EditorModule.setEditMode()
+
     const screenId = computed(() => {
       return typeof props.projectId === 'string'
         ? parseInt(props.projectId) : props.projectId

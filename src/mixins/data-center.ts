@@ -1,6 +1,7 @@
 import { ref, toRefs, watch, onUnmounted } from 'vue'
 import { MessageUtil } from '@/utils/message-util'
 import { isPlainObject, isArray } from '@/utils/util'
+import { EditorModule } from '@/store/modules/editor'
 import { FilterModule } from '@/store/modules/filter'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { ApiModule } from '@/store/modules/api'
@@ -19,10 +20,10 @@ export const getFieldMap = (fields: Record<string, FieldConfig>) => {
   return fieldMap
 }
 
-export const setFieldLoading = (fields: Record<string, FieldConfig>) => {
+export const setFieldStatus = (fields: Record<string, FieldConfig>, status: FieldStatus) => {
   return Object.keys(fields)
     .reduce((prev, curr) => {
-      prev[curr] = FieldStatus.loading
+      prev[curr] = status
       return prev
     }, Object.create(null)) as Record<string, FieldStatus>
 }
@@ -51,24 +52,56 @@ export const checkDataSchema = (data: any, fields: Record<string, FieldConfig>) 
 export const setDatavData = async (comId: string, sourceName: string, aConfig: ApiConfig, adConfig: ApiDataConfig) => {
   ToolbarModule.addLoading()
 
+  // 初始化字段状态
   ApiModule.setFieldStatus({
     comId,
     fields: {
-      [sourceName]: setFieldLoading(aConfig.fields),
+      [sourceName]: setFieldStatus(aConfig.fields, FieldStatus.loading),
     },
   })
 
-  let res = await ApiModule.requestData({ comId, aConfig, adConfig })
+  // 初始化数据状态
+  ApiModule.setDataStatus({ comId, data: {} })
 
-  const { config, render } = aConfig
-  if (config.useFilter) {
-    res = execFilter(FilterModule.dataFilters, config.pageFilters, res)
+  let isError = false
+  let res: any
+
+  try {
+    // 获取源数据
+    res = await ApiModule.requestData({ comId, aConfig, adConfig })
+
+    // 只在编辑模式下保存源数据
+    if (EditorModule.editMode) {
+      ApiModule.setOrigin({ comId, data: { [sourceName]: res } })
+    }
+  } catch (error) {
+    isError = true
+    res = { isError, message: `${error}` }
+    ApiModule.setDataStatus({ comId, data: { errSource: true } })
   }
 
-  if (render === 'render') {
+  if (!isError) {
+    try {
+      // 使用过滤器筛选数据
+      const { config } = aConfig
+      if (config.useFilter) {
+        res = execFilter(FilterModule.dataFilters, config.pageFilters, res)
+      }
+    } catch (error) {
+      isError = true
+      res = { isError, message: `${error}` }
+      ApiModule.setDataStatus({ comId, data: { errFilter: true } })
+    }
+  }
+
+  if (isError) {
+    MessageUtil.error(res.message)
+  }
+
+  if (aConfig.render === 'render') {
     ApiModule.setData({ comId, data: { [sourceName]: res } })
   } else {
-    MessageUtil.error(`${render} is not a function`)
+    MessageUtil.error(`${aConfig.render} is not a function`)
   }
 
   // TODO: remove mock
@@ -76,7 +109,9 @@ export const setDatavData = async (comId: string, sourceName: string, aConfig: A
     ApiModule.setFieldStatus({
       comId,
       fields: {
-        [sourceName]: checkDataSchema(res, aConfig.fields),
+        [sourceName]: isError
+          ? setFieldStatus(aConfig.fields, FieldStatus.failed)
+          : checkDataSchema(res, aConfig.fields),
       },
     })
     ToolbarModule.removeLoading()

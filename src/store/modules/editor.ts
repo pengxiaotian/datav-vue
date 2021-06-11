@@ -34,6 +34,7 @@ export interface AlignLine {
 }
 
 export interface IEditorState {
+  editMode: boolean
   screen: Screen
   pageConfig: ProjectConfig
   coms: DatavComponent[]
@@ -84,6 +85,8 @@ const selectCom = (coms: DatavComponent[], id?: string) => {
 
 @Module({ dynamic: true, store, name: 'editor' })
 class Editor extends VuexModule implements IEditorState {
+  editMode = false
+
   public screen = {
     id: 0,
     name: '',
@@ -226,6 +229,11 @@ class Editor extends VuexModule implements IEditorState {
   @Mutation
   public selectCom(id?: string) {
     selectCom(this.coms, id)
+  }
+
+  @Mutation
+  public setEditMode() {
+    this.editMode = true
   }
 
   @Mutation

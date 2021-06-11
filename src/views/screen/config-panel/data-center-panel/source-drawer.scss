@@ -50,10 +50,30 @@
       content: '';
       transform: scaleY(0.5);
     }
+
+    &.--error::before {
+      background: $color-error;
+    }
+
+    &.--disabled::before {
+      background: #444;
+    }
   }
 
   .datasource-selector {
     margin-top: 15px;
+  }
+
+  .ds-response-btn {
+    display: inline-block;
+    margin-top: 10px;
+    cursor: pointer;
+    color: $color-primary;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-primary-secondary;
+    }
   }
 
   .use-filter-btn {
@@ -119,4 +139,14 @@
   .el-popper__arrow {
     display: none;
   }
+}
+
+.ds-preview-content {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  padding: 10px;
+  border-radius: 2px;
+  background: $color-dark;
+  box-shadow: 0 0 6px -3px #000;
 }

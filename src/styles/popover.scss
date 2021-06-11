@@ -3,6 +3,10 @@
 .el-popover.el-popper {
   min-width: auto;
 
+  &.is-light {
+    background: $popover-dark-bgcolor;
+  }
+
   // TODO:  el-popover 只支持 light
   @each $placement, $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top') {
     &.is-light[data-popper-placement^='#{$placement}'] {
