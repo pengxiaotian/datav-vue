@@ -208,7 +208,14 @@ export const material = {
       alias: '边框',
       img: `${process.env.VUE_APP_QINIU_FILE}/com/border-box.png`,
       used: true,
-    }, {
+    },
+    {
+      name: 'VBorderBox_1',
+      alias: '边框1',
+      img: `${process.env.VUE_APP_QINIU_FILE}/com/border-box.png`,
+      used: true,
+    },
+    {
       name: 'VBGBox',
       alias: '自定义背景',
       img: `${process.env.VUE_APP_QINIU_FILE}/com/bg-box.png`,

@@ -15,5 +15,3 @@ declare type Indexable<T> = {
 }
 
 declare type Hash<T> = Indexable<T>
-
-declare type TimeoutHandle = ReturnType<typeof global.setTimeout>

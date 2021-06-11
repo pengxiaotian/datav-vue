@@ -35,6 +35,12 @@ const navRoutes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "my-case" */ '@/views/my-case/index.vue'),
         meta: { title: '教程' },
       },
+      {
+        path: 'border-box-1',
+        name: 'BorderBox1',
+        component: () => import(/* webpackChunkName: "my-case" */ '@/components/material/border-box-1/examples/test.vue'),
+        meta: { title: '边框1' },
+      },
     ],
   },
 ]
