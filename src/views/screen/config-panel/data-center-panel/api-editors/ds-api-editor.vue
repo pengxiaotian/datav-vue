@@ -97,7 +97,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .ds-api {
   .url-info {

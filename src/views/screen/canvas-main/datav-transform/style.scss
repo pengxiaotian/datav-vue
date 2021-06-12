@@ -1,4 +1,4 @@
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .transform-handler {
   position: absolute;
@@ -30,7 +30,7 @@
 
 .rotate-handler {
   z-index: 2;
-  cursor: url('~@/assets/images/rotate.png') 14 14, pointer;
+  cursor: url('@/assets/images/rotate.png') 14 14, pointer;
 }
 
 .control-point {

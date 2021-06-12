@@ -115,8 +115,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
-@import '~@/styles/mixins/util';
+@import '@/styles/themes/var';
+@import '@/styles/mixins/util';
 
 .ellipsis {
   @include utils-ellipsis;

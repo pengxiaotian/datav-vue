@@ -76,9 +76,9 @@ function safe64(base64: string) {
 }
 
 export function genToken() {
-  const accessKey = process.env.VUE_APP_QINIU_AK || ''
-  const secretKey = process.env.VUE_APP_QINIU_SK || ''
-  const bucket = process.env.VUE_APP_QINIU_BUCKET || ''
+  const accessKey = import.meta.env.VITE_APP_QINIU_AK || ''
+  const secretKey = import.meta.env.VITE_APP_QINIU_SK || ''
+  const bucket = import.meta.env.VITE_APP_QINIU_BUCKET || ''
   try {
     const putPolicy = JSON.stringify({
       scope: bucket,

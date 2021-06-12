@@ -78,7 +78,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .datav-hearder {
   display: flex;
@@ -228,7 +228,7 @@ export default defineComponent({
     height: 290px;
     background-size: cover;
     background-position: center;
-    background-image: url('~@/assets/images/nav-img.png');
+    background-image: url('@/assets/images/nav-img.png');
   }
 }
 </style>

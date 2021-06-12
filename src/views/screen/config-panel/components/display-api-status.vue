@@ -94,8 +94,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
-@import '~@/styles/loading';
+@import '@/styles/themes/var';
+@import '@/styles/loading';
 
 .status-icon {
   @include square-loading-icon();

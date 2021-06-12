@@ -10,8 +10,8 @@ interface UploadOption {
   allowSize: number
 }
 
-export const uploadHost = process.env.VUE_APP_QINIU_UPLOAD || ''
-export const previewHost = process.env.VUE_APP_QINIU_FILE || ''
+export const uploadHost = import.meta.env.VITE_APP_QINIU_UPLOAD || ''
+export const previewHost = import.meta.env.VITE_APP_QINIU_FILE || ''
 
 export const validAllowImg = (file: FileInfo, option: Partial<UploadOption>) => {
   const opt: UploadOption = {

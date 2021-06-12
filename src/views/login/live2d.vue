@@ -89,7 +89,7 @@ export default {
     top: 0;
     transform: translateY(-20%);
     transition: all 0.5s ease-in-out;
-    background-image: url('~@/assets/logo.png');
+    background-image: url('@/assets/logo.png');
     background-color: #2c3e50;
     background-repeat: no-repeat;
     background-size: 25%;
