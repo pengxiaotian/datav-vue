@@ -4,7 +4,6 @@ import { loadEnv, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 import plainText from 'vite-plugin-plain-text'
-import MonacoEditorNlsPlugin from 'vite-plugin-monaco-editor-nls'
 
 import { resolve } from 'path'
 
@@ -25,7 +24,6 @@ export default ({ mode }: ConfigEnv) => {
     plugins: [
       vue(),
       (isDev ? plainText(/\.hbs$/) : undefined),
-      MonacoEditorNlsPlugin(),
     ],
     server: {
       host: '0.0.0.0',

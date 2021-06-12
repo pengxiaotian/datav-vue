@@ -57,6 +57,7 @@
                     :code="list"
                     :height="500"
                     :read-only="true"
+                    :auto-format="true"
                   />
                 </div>
               </el-tab-pane>

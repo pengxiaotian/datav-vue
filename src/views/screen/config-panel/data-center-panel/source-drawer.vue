@@ -46,6 +46,7 @@
           <g-monaco-editor
             language="json"
             :read-only="true"
+            :auto-format="true"
             :height="180"
             :code="dataOrign"
           />
@@ -80,6 +81,7 @@
         <g-monaco-editor
           language="json"
           :read-only="true"
+          :auto-format="true"
           :code="resData"
         />
       </div>

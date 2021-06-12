@@ -47,11 +47,35 @@
 
 <script lang='ts'>
 import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, PropType, watch } from 'vue'
-import * as monaco from 'monaco-editor'
 import { debounce } from 'lodash-es'
 import { generateId, copyText } from '@/utils/util'
 import { MessageUtil } from '@/utils/message-util'
+import * as monaco from 'monaco-editor'
+import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
+import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
+import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
+import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
+import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
 import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode, formatDocument } from './editor-config'
+
+// @ts-ignore
+self.MonacoEnvironment = {
+  getWorker(_, label) {
+    if (label === 'json') {
+      return new jsonWorker()
+    }
+    if (label === 'css' || label === 'scss' || label === 'less') {
+      return new cssWorker()
+    }
+    if (label === 'html' || label === 'handlebars' || label === 'razor') {
+      return new htmlWorker()
+    }
+    if (label === 'typescript' || label === 'javascript') {
+      return new tsWorker()
+    }
+    return new editorWorker()
+  },
+}
 
 export default defineComponent({
   name: 'GMonacoEditor',
@@ -74,6 +98,7 @@ export default defineComponent({
       type: String,
       default: 'on',
     },
+    autoFormat: Boolean,
     options: {
       type: Object,
       default: () => {},
@@ -123,7 +148,9 @@ export default defineComponent({
           value,
           extra: props.extra,
         })
-        formatDocument(editor)
+        if (props.autoFormat) {
+          formatDocument(editor, props.language)
+        }
       }
     }
 
@@ -156,7 +183,9 @@ export default defineComponent({
         const ce = monaco.editor.create(dom, opts)
 
         ce.setValue(editor.getValue())
-        formatDocument(ce)
+        if (props.autoFormat) {
+          formatDocument(ce, props.language)
+        }
 
         ce.onDidChangeModelContent(() => debounceChangeHandler())
         ce.onDidBlurEditorText(() => blurHandler())
@@ -208,7 +237,9 @@ export default defineComponent({
 
         const inputCode = handleInputCode(props.language, props.code)
         ce.setValue(inputCode)
-        formatDocument(ce)
+        if (props.autoFormat) {
+          formatDocument(ce, props.language)
+        }
 
         if (props.height > 0) {
           dom.style.height = `${props.height}px`

@@ -97,6 +97,10 @@ export const handleInputCode = (languageId: languageType, code: string | any[] |
   return isString(val) ? val : `${val}`
 }
 
-export const formatDocument = (editor: monaco.editor.IStandaloneCodeEditor) => {
-  editor.getAction('editor.action.formatDocument').run()
+export const formatDocument = (editor: monaco.editor.IStandaloneCodeEditor, languageId: languageType) => {
+  if (languageId === 'sql') {
+    // todo
+  } else {
+    editor.getAction('editor.action.formatDocument').run()
+  }
 }
