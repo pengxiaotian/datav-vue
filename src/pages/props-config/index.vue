@@ -82,10 +82,11 @@ import { defineComponent, ref } from 'vue'
 import { PropDto, initPropData, ComponentType } from '@/domains/dev/prop-config'
 import { MessageUtil } from '@/utils/message-util'
 import { pascalCase } from '@/utils/util'
+import Handlebars from 'handlebars'
 import { DatavComponent } from '@/components/datav-component'
 import PropsConfigForm from '../components/props-config-form.vue'
 import PropsConfigPanel from '../components/props-config-panel.vue'
-import configTpl from './config-tpl.hbs'
+import { plainText as configTpl } from './config-tpl.hbs'
 
 export default defineComponent({
   name: 'PropsConfig',
@@ -140,7 +141,7 @@ export default defineComponent({
 
       try {
         loading.value = true
-        templateCode.value = configTpl(data)
+        templateCode.value = Handlebars.compile(configTpl)(data)
         activeTab.value = 'template'
       } catch (error) {
         MessageUtil.error(error?.toString())

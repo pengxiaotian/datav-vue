@@ -68,8 +68,6 @@ const routes: Array<RouteRecordRaw> = [
   },
 ]
 
-console.log(import.meta.env)
-
 if (import.meta.env.DEV) {
   routes.unshift(
     {

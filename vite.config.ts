@@ -3,9 +3,7 @@ import type { ConfigEnv } from 'vite'
 import { loadEnv, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// https://github.com/alexlafroscia/vite-plugin-handlebars#requirements
-// nodejs >= 14
-import handlebars from 'vite-plugin-handlebars'
+import plainText from 'vite-plugin-plain-text'
 import MonacoEditorNlsPlugin from 'vite-plugin-monaco-editor-nls'
 
 import { resolve } from 'path'
@@ -18,22 +16,15 @@ function pathResolve(dir: string) {
 export default ({ mode }: ConfigEnv) => {
   const dirRoot = process.cwd()
 
+  const isDev = mode === 'development'
+
   const env = loadEnv(mode, dirRoot)
 
   return defineConfig({
     base: env.VITE_PUBLIC_PATH,
     plugins: [
       vue(),
-      handlebars({
-        partialDirectory: pathResolve('./handlebars/partials'),
-        // helperDirectory: pathResolve('./handlebars/helpers'),
-        runtimeOptions: {
-          helpers: {
-            eq: (a, b) => a === b,
-            neq: (a, b) => a !== b,
-          },
-        },
-      }),
+      (isDev ? plainText(/\.hbs$/) : undefined),
       MonacoEditorNlsPlugin(),
     ],
     server: {

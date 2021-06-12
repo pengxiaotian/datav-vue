@@ -8276,17 +8276,15 @@ vfile@^4.0.0, vfile@^4.0.1:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-handlebars@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.npmjs.org/vite-plugin-handlebars/-/vite-plugin-handlebars-1.5.1.tgz#141e73dfb1a98d77e7118e82eb6c4a9762f7c237"
-  integrity sha512-rmEeoeCvSSz2ovohDSgovdQ/bcVwEGKcPI0SunZeV+HPI4g8tALI0oMHRhzdAl51sadNniqaXnXjy+6ymFmQXQ==
-  dependencies:
-    handlebars "^4.7.6"
-
 vite-plugin-monaco-editor-nls@^1.0.8:
   version "1.0.8"
   resolved "https://registry.npmjs.org/vite-plugin-monaco-editor-nls/-/vite-plugin-monaco-editor-nls-1.0.8.tgz#5bd8395ce2860f3ae8175919dc311d9f76d9ad9a"
   integrity sha512-5mwbwrTYUPvhlWuZLUkFOEV7C9Q47gbtAghl3rKAkhs+Ed4n9Bo8rOK8vAID8ZBKO8eUhqiCypXKCNuoTHXyGQ==
+
+vite-plugin-plain-text@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/vite-plugin-plain-text/-/vite-plugin-plain-text-1.1.4.tgz#a370f240c206951db8dd47f4cd495bbdc178b8fc"
+  integrity sha512-vsqrq79wZBn4WUC1aQvo8rXPdZX5Ekqa3fTpGWHA5Q8GwcGC6+ILmihOu9qP6jZrX43rCUTBJGVNmedDAB31Uw==
 
 vite@^2.3.7:
   version "2.3.7"
