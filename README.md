@@ -14,6 +14,10 @@
 * 🔥 TypeScript 4.2+
 * 🔥 ECharts 5.0+
 
+## 关于贡献
+
+我现在有自己的`学习计划`，项目中可能会出现实验性的功能，所以在完成第一个可用版本之前只接受 `fixbug PR`，不接受 `feature PR`。还望大家理解。
+
 ## 简介
 
 - [国外 GitHub](https://github.com/pengxiaotian/datav-vue)
