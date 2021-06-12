@@ -1,24 +1,23 @@
 {
   "name": "datav-vue",
   "version": "0.1.0",
-  "description": "一个基于 Vue3.x 的数据可视化项目。",
+  "description": "A Data Visualization Project For Vue3.x",
   "scripts": {
     "cz": "npx git-cz",
     "gc": "bash ./scripts/gc.sh",
     "new": "plop --plopfile ./plop-templates/plopfile.js",
     "bootstrap": "yarn --frozen-lockfile",
-    "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "yarn run lint:js && yarn run lint:css",
-    "lint:js": "vue-cli-service lint",
-    "lint:css": "stylelint 'src/**/*.(vue|css|less)' --fix",
+    "dev": "cross-env NODE_ENV=development vite",
+    "build": "NODE_ENV=production vue-tsc --noEmit && vite build",
+    "lint": "yarn run lint:code && yarn run lint:css",
+    "lint:code": "eslint --fix 'src/**/*.{js,ts,vue}'",
+    "lint:css": "stylelint --fix 'src/**/*.(css|scss|vue)'",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "prepare": "husky install"
   },
   "dependencies": {
     "accounting": "^0.4.1",
     "axios": "^0.21.1",
-    "core-js": "^3.13.1",
     "crypto-js": "^4.0.0",
     "dayjs": "^1.10.5",
     "echarts": "^5.1.1",
@@ -26,11 +25,11 @@
     "gsap": "^3.6.1",
     "html2canvas": "^1.0.0-rc.7",
     "js-cookie": "^2.2.1",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "monaco-editor": "0.24.0",
     "particles.js": "^2.0.0",
     "shortid": "^2.2.16",
-    "vue": "3.0.11",
+    "vue": "3.1.1",
     "vue-class-component": "^8.0.0-0",
     "vue-i18n": "^9.1.6",
     "vue-router": "4.0.8",
@@ -38,29 +37,20 @@
     "vuex-module-decorators": "^1.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.3",
-    "@babel/core": "^7.14.3",
-    "@babel/plugin-transform-runtime": "^7.14.3",
-    "@babel/preset-env": "^7.14.4",
-    "@babel/preset-typescript": "^7.13.0",
+    "@babel/core": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@types/accounting": "^0.4.1",
     "@types/crypto-js": "^4.0.1",
-    "@types/lodash": "^4.14.161",
+    "@types/lodash-es": "^4.17.4",
     "@types/shortid": "^0.0.29",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
-    "@vue/babel-plugin-jsx": "^1.0.6",
-    "@vue/cli-plugin-babel": "^4.5.11",
-    "@vue/cli-plugin-eslint": "^4.5.11",
-    "@vue/cli-plugin-router": "^4.5.11",
-    "@vue/cli-plugin-typescript": "^4.5.11",
-    "@vue/cli-service": "^4.5.11",
-    "@vue/compiler-sfc": "3.0.11",
+    "@vitejs/plugin-vue": "^1.2.3",
+    "@vue/compiler-sfc": "3.1.1",
     "@vue/component-compiler-utils": "^3.2.0",
-    "babel-loader": "^8.2.2",
-    "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-preset-vue": "^2.0.2",
     "chalk": "^4.1.1",
@@ -68,23 +58,23 @@
     "cp-cli": "^2.0.0",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "6.8.0",
+    "eslint": "^7.20.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-vue": "^7.10.0",
     "handlebars": "^4.7.7",
-    "handlebars-loader": "^1.7.1",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
-    "monaco-editor-webpack-plugin": "3.1.0",
     "plop": "^2.7.4",
     "rimraf": "^3.0.2",
     "sass": "^1.34.1",
-    "sass-loader": "^10.0.1",
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^22.0.0",
-    "typescript": "^4.2.3",
-    "webpack": "^4.44.1"
+    "typescript": "^4.3.2",
+    "vite": "^2.3.7",
+    "vite-plugin-handlebars": "^1.5.1",
+    "vite-plugin-monaco-editor-nls": "^1.0.8",
+    "vue-tsc": "^0.1.7"
   },
   "config": {
     "commitizen": {
@@ -93,7 +83,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,ts,vue}": [
-      "vue-cli-service lint"
+      "eslint --fix"
     ]
   },
   "repository": {
@@ -104,8 +94,8 @@
   "author": "Allen",
   "license": "MIT",
   "browserslist": [
-    "> 1%",
+    "> 2%",
     "last 2 versions",
-    "not dead"
+    "not IE 11"
   ]
 }

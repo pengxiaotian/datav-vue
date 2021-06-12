@@ -2,7 +2,7 @@ import {
   VuexModule, Module, Mutation, Action, getModule, config,
 } from 'vuex-module-decorators'
 import store from '@/store'
-import _ from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import { ProjectGroupType, ProjectGroup } from '@/domains/project'
 import * as api from '@/api/project'
 
@@ -74,7 +74,7 @@ class Project extends VuexModule implements IProjectState {
     if (g) {
       // TODO: 这里只是简单 cloneDeep，实际应该在后端完成
       const p = g.children.find(m => m.id === payload.pid)!
-      const copy_p = _.cloneDeep(p)
+      const copy_p = cloneDeep(p)
       copy_p.id = Math.round(Math.random() * 1000)
       copy_p.name += '_copy'
       g.children.push(copy_p)

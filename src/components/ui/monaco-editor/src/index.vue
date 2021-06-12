@@ -48,7 +48,7 @@
 <script lang='ts'>
 import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, PropType, watch } from 'vue'
 import * as monaco from 'monaco-editor'
-import debounce from 'lodash/debounce'
+import { debounce } from 'lodash-es'
 import { generateId, copyText } from '@/utils/util'
 import { MessageUtil } from '@/utils/message-util'
 import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode, formatDocument } from './editor-config'

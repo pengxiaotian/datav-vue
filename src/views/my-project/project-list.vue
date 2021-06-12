@@ -55,7 +55,7 @@ import {
   defineComponent, ref, PropType,
   computed, toRef, provide,
 } from 'vue'
-import _ from 'lodash'
+import { sortBy } from 'lodash-es'
 import { ProjectGroup } from '@/domains/project'
 import MyScreen from './my-screen.vue'
 import PublishScreen from './publish-screen.vue'
@@ -93,7 +93,7 @@ export default defineComponent({
         list = list.filter(m => m.name.toLowerCase().includes(text))
       }
 
-      return _.sortBy(list, sort.value)
+      return sortBy(list, sort.value)
     })
 
     provide('publish', (appId: number) => {

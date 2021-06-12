@@ -70,7 +70,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed } from 'vue'
-import _ from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { MessageUtil } from '@/utils/message-util'
@@ -87,7 +87,7 @@ export default defineComponent({
     const visiblePanel = computed(() => ToolbarModule.comList.show)
 
     const categories = computed(() => {
-      const list: CategoryType[] = _.cloneDeep(classifications)
+      const list: CategoryType[] = cloneDeep(classifications)
       const first = { type: 'all', name: '全部', icon: 'v-icon-app' }
       list.forEach(item => {
         item.expand = ''

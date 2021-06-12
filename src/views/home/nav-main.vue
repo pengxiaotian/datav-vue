@@ -17,7 +17,7 @@
 import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
 import type { PropType } from 'vue'
 import { useRoute } from 'vue-router'
-import _ from 'lodash'
+import { debounce } from 'lodash-es'
 import { NavCanvas } from './nav-canvas'
 
 interface NavDataType {
@@ -49,7 +49,7 @@ export default defineComponent({
       }
     }
 
-    const debNavResize = _.debounce(() => {
+    const debNavResize = debounce(() => {
       if (nc) {
         nc.resize()
       }
