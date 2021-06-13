@@ -6,6 +6,8 @@ declare module '*.vue' {
   export default component
 }
 
+declare module 'particles.vue3'
+
 declare type Nullable<T> = T | null;
 
 declare type CustomizedHTMLElement<T> = HTMLElement & T

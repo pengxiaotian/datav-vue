@@ -57,7 +57,7 @@ export default ({ mode }: ConfigEnv) => {
         'monaco-editor/esm/vs/language/css/css.worker',
         'monaco-editor/esm/vs/language/html/html.worker',
         'monaco-editor/esm/vs/language/typescript/ts.worker',
-        'particles.js',
+        'particles.vue3',
         'shortid',
         'vue',
         'vue-class-component',

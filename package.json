@@ -27,7 +27,7 @@
     "js-cookie": "^2.2.1",
     "lodash-es": "^4.17.21",
     "monaco-editor": "0.24.0",
-    "particles.js": "^2.0.0",
+    "particles.vue3": "^1.11.0",
     "shortid": "^2.2.16",
     "vue": "3.1.1",
     "vue-class-component": "^8.0.0-0",
