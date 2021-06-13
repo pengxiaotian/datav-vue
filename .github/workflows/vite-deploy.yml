@@ -20,7 +20,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-        node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: yarn bootstrap
@@ -39,7 +39,7 @@ jobs:
       - name: Step Node.js 12
         uses: actions/setup-node@v2
         with:
-        node-version: '12'
+          node-version: '12'
 
       - name: Install dependencies
         run: yarn bootstrap
