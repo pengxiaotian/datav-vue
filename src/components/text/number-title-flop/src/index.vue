@@ -8,8 +8,8 @@
         {{ prefixText }}
       </span>
       <span
-        v-for="(n, index) in realNumber"
-        :key="index"
+        v-for="(n, i) in realNumber"
+        :key="i"
         :style="[n === separatingSymbol ? separateCharStyle : numberStyle]"
       >
         {{ n }}
@@ -23,6 +23,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, ref, toRef, computed, watchEffect } from 'vue'
+import type { CSSProperties } from 'vue'
 import { TweenLite } from 'gsap'
 import Accounting from 'accounting'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
@@ -90,14 +91,15 @@ export default defineComponent({
       if (value.length < numbers.digit) {
         value = (Array(numbers.digit).join('0') + value).slice(-numbers.digit)
       }
-      return numbers.separatingChart
+      const rn = numbers.separatingChart
         ? value.replace(/(?=\B(\d{3})+($|\.))/g, separatingSymbol.value)
         : value
+      return rn.split('')
     })
 
     const wrapperStyle = computed(() => {
       const arrangement = config.value.arrangement as ArrangementType
-      let style: Partial<CSSStyleDeclaration> = {
+      let style: Partial<CSSProperties> = {
         width: `${attr.value.w}px`,
         height: `${attr.value.h}px`,
       }
@@ -129,13 +131,13 @@ export default defineComponent({
 
     const titleStyle = computed(() => {
       const { textStyle } = config.value.title
-      const style: Partial<CSSStyleDeclaration> = {
+      const style: Partial<CSSProperties> = {
         display: 'block',
         alignItems: 'center',
         fontFamily: `${textStyle.fontFamily}, Arial, sans-serif`,
         fontSize: `${textStyle.fontSize}px`,
         color: textStyle.color,
-        fontWeight: textStyle.fontWeight,
+        fontWeight: textStyle.fontWeight as any,
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
@@ -168,7 +170,7 @@ export default defineComponent({
 
     const counterStyle = computed(() => {
       const { title, counter, numbers } = config.value
-      const style: Partial<CSSStyleDeclaration> = {
+      const style: Partial<CSSProperties> = {
         display: 'flex',
         alignItems: 'baseline',
         textAlign: 'center',
@@ -201,7 +203,7 @@ export default defineComponent({
         fontSize: `${prefix.textStyle.fontSize}px`,
         fontWeight: prefix.textStyle.fontWeight,
         VerticalAlign: 'super',
-      }
+      } as CSSProperties
     })
 
     const suffixStyle = computed(() => {
@@ -212,12 +214,12 @@ export default defineComponent({
         fontSize: `${suffix.textStyle.fontSize}px`,
         fontWeight: suffix.textStyle.fontWeight,
         VerticalAlign: 'super',
-      }
+      } as CSSProperties
     })
 
     const numberStyle = computed(() => {
       const { numbers } = config.value
-      const style: Partial<CSSStyleDeclaration> = {
+      const style: Partial<CSSProperties> = {
         display: 'inline-block',
         textIndent: '0.02em',
         letterSpacing: '0.02em',
@@ -225,7 +227,7 @@ export default defineComponent({
         lineHeight: 'normal',
         backgroundColor: numbers.bgColor,
         fontSize: `${numbers.textStyle.fontSize}px`,
-        fontWeight: numbers.textStyle.fontWeight,
+        fontWeight: numbers.textStyle.fontWeight as any,
         marginRight: `${numbers.marginRight}em`,
         borderRadius: `${numbers.bgRadius}px`,
       }
@@ -237,14 +239,14 @@ export default defineComponent({
 
     const separateCharStyle = computed(() => {
       const { numbers } = config.value
-      const style: Partial<CSSStyleDeclaration> = {
+      const style: Partial<CSSProperties> = {
         display: 'inline-block',
         textIndent: '0.02em',
         letterSpacing: '0.02em',
         height: 'auto',
         lineHeight: 'normal',
         fontSize: `${numbers.textStyle.fontSize}px`,
-        fontWeight: numbers.textStyle.fontWeight,
+        fontWeight: numbers.textStyle.fontWeight as any,
         marginRight: `${numbers.marginRight}em`,
         borderRadius: `${numbers.bgRadius}px`,
       }

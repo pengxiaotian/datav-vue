@@ -15,7 +15,7 @@
         <div class="template-list">
           <div class="template-item --blank">
             <div class="template-image">
-              <el-button type="primary" icon="el-icon-plus" @click="confirmCreate(0)">
+              <el-button type="primary" icon="el-icon-plus" @click="confirmCreate(null)">
                 创建项目
               </el-button>
             </div>
@@ -179,7 +179,7 @@ export default defineComponent({
         })
     })
 
-    const confirmCreate = (tpl: ProjectTemplate) => {
+    const confirmCreate = (tpl: ProjectTemplate | null) => {
       template.value = tpl
       visibleCreateDialog.value = true
     }

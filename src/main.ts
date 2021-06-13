@@ -13,10 +13,6 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 
-if (import.meta.env.DEV) {
-  import('../handlebars/register')
-}
-
 const app = createApp(App)
 app.use(i18n)
 app.use(store)

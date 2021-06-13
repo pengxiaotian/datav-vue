@@ -28,7 +28,7 @@ export default defineComponent({
   name: 'DisplayApiStatus',
   props: {
     status: {
-      type: String as PropType<ApiStatus>,
+      type: String as PropType<ApiStatus | string>,
       default: ApiStatus.incomplete,
     },
     loadingText: {

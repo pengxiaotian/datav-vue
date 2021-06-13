@@ -30,6 +30,8 @@ export class ProjectGroup {
   type: ProjectGroupType
   children: Project[]
 
+  editing?: boolean
+
   constructor(id = 0, name = '', children: Project[] = []) {
     this.id = id
     this.name = name

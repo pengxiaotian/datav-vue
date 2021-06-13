@@ -85,9 +85,10 @@ import { MessageUtil } from '@/utils/message-util'
 import { pascalCase } from '@/utils/util'
 import Handlebars from 'handlebars'
 import { DatavComponent } from '@/components/datav-component'
+import '@/pages/templates/register'
 import PropsConfigForm from '../components/props-config-form.vue'
 import PropsConfigPanel from '../components/props-config-panel.vue'
-import { plainText as configTpl } from './config-tpl.hbs'
+import { plainText as configTpl } from '../templates/config-tpl.hbs'
 
 export default defineComponent({
   name: 'PropsConfig',
@@ -109,8 +110,9 @@ export default defineComponent({
       try {
         if (classPath.value) {
           loading.value = true
-          const comModule = await import(/* webpackChunkName: "datav-com-[request]" */ `../../components/${classPath.value}`)
+          let comModule: any
           if (ext.value === '.ts') {
+            comModule = await import(`../../components/${classPath.value}.ts`)
             if (comModule.default.prototype instanceof DatavComponent) {
               fileName.value = classPath.value.split('/').pop() || ''
               list.value = []
@@ -120,6 +122,7 @@ export default defineComponent({
               throw new Error(`未识别的模块`)
             }
           } else if (ext.value === '.json') {
+            comModule = await import(`../../components/${classPath.value}.json`)
             list.value = comModule.default
           } else {
             throw new Error(`未识别的文件格式`)

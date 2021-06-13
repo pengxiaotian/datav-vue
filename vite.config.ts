@@ -15,15 +15,13 @@ function pathResolve(dir: string) {
 export default ({ mode }: ConfigEnv) => {
   const dirRoot = process.cwd()
 
-  const isDev = mode === 'development'
-
   const env = loadEnv(mode, dirRoot)
 
   return defineConfig({
     base: env.VITE_PUBLIC_PATH,
     plugins: [
       vue(),
-      (isDev ? plainText(/\.hbs$/) : undefined),
+      plainText(/\.hbs$/),
     ],
     server: {
       host: '0.0.0.0',
@@ -70,7 +68,7 @@ export default ({ mode }: ConfigEnv) => {
     },
     build: {
       sourcemap: false,
-      outDir: 'site',
+      outDir: 'website',
     },
     esbuild: {
     },
