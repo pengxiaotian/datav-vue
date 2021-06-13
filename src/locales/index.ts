@@ -42,7 +42,7 @@ export async function loadLocaleMessages(locale: string) {
 
   try {
     // load locale messages with dynamic import
-    const messages = await import(/* webpackChunkName: "lang-[request]" */ `./lang/${locale}.js` )
+    const messages = await import(`./lang/${locale}.js` )
 
     // set locale and locale message
     i18n.global.setLocaleMessage(locale, messages.default)

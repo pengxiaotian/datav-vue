@@ -53,7 +53,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .data-center-panel {
   position: relative;
@@ -66,7 +66,7 @@ export default defineComponent({
   top: 60px;
   bottom: 60px;
   width: 100%;
-  padding-bottom: 30px;
+  padding-bottom: 160px;
   overflow-x: hidden;
   overflow-y: auto;
 }

@@ -59,6 +59,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, getCurrentInstance } from 'vue'
+import type { CSSProperties } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
 import { EditorModule } from '@/store/modules/editor'
 import {
@@ -129,8 +130,8 @@ export default defineComponent({
     const points = computed<{
       [k in Direction]: {
         name: string
-        style: Partial<CSSStyleDeclaration>
-        rotateStyle?: Partial<CSSStyleDeclaration>
+        style: Partial<CSSProperties>
+        rotateStyle?: Partial<CSSProperties>
       }
     }>(() => {
       const transform = `scale(${1 / scale.value}, ${1 / scale.value})`

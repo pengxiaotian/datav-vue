@@ -26,7 +26,7 @@ export const useContextMenu = (opts?: { beforeClose?: Function; }) => {
     }
   })
 
-  const showMenu = (ev: PointerEvent) => {
+  const showMenu = (ev: MouseEvent) => {
     ev.preventDefault()
 
     if (selectedCom.value) {

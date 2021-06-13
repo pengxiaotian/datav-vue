@@ -1,7 +1,7 @@
 import {
   VuexModule, Module, Mutation, Action, getModule, config,
 } from 'vuex-module-decorators'
-import _ from 'lodash'
+import { cloneDeep, debounce  } from 'lodash-es'
 import store from '@/store'
 import { Project, ProjectConfig } from '@/domains/project'
 import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
@@ -259,7 +259,7 @@ class Editor extends VuexModule implements IEditorState {
   private COPY_COM(id: string) {
     // 模拟后端复制
     const getNewCom = (com: DatavComponent, parentId?: string) => {
-      const ncom = _.cloneDeep(com)
+      const ncom = cloneDeep(com)
       ncom.id = generateId(ncom.name)
       ncom.alias += '_copy'
       ncom.attr.x += 30
@@ -290,7 +290,7 @@ class Editor extends VuexModule implements IEditorState {
 
   @Action
   public async autoCanvasScale(payload: { offsetX: number; }) {
-    const resize = _.debounce(() => {
+    const resize = debounce(() => {
       const width = document.documentElement.clientWidth - payload.offsetX
       const height = document.documentElement.clientHeight - 42
 

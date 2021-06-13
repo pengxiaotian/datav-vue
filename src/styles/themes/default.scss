@@ -1,7 +1,7 @@
 @import 'var';
 
 /* 改变 icon 字体路径变量，必需 */
-$--font-path: '~element-plus/lib/theme-chalk/fonts';
+$--font-path: 'element-plus/lib/theme-chalk/fonts';
 
 $--color-primary: $color-primary;
 
@@ -9,4 +9,4 @@ $--color-primary: $color-primary;
 -------------------------- */
 $--dialog-background-color: $dialog-bgcolor;
 
-@import "~element-plus/packages/theme-chalk/src/index";
+@import "node_modules/element-plus/packages/theme-chalk/src/index";

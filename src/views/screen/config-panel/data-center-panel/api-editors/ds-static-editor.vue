@@ -2,6 +2,7 @@
   <div class="ds-wrapper ds-static">
     <g-monaco-editor
       language="json"
+      :auto-format="true"
       :code="apiDataConfig.config.data"
       @blur="updateData"
     />

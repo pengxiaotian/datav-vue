@@ -118,6 +118,7 @@
           <g-monaco-editor
             language="json"
             :read-only="true"
+            :auto-format="true"
             :code="datav_data"
             :height="250"
             full-screen-title="数据响应结果"

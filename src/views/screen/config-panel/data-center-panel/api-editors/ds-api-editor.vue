@@ -40,6 +40,7 @@
       <g-monaco-editor
         language="json"
         :height="120"
+        :auto-format="true"
         :code="apiDataConfig.config.apiHeaders"
         @blur="updateApiHeaders"
       />
@@ -49,6 +50,7 @@
       <g-monaco-editor
         language="json"
         :height="120"
+        :auto-format="true"
         :code="apiDataConfig.config.apiBody"
         @blur="updateApiBody"
       />
@@ -97,7 +99,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .ds-api {
   .url-info {

@@ -117,7 +117,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .canvas-ruler-wp {
   position: fixed;

@@ -14,25 +14,25 @@ const navRoutes: Array<RouteRecordRaw> = [
       {
         path: 'project',
         name: 'MyProject',
-        component: () => import(/* webpackChunkName: "my-project" */ '@/views/my-project/index.vue'),
+        component: () => import('@/views/my-project/index.vue'),
         meta: { title: '我的可视化' },
       },
       {
         path: 'data',
         name: 'MyData',
-        component: () => import(/* webpackChunkName: "my-data" */ '@/views/my-data/index.vue'),
+        component: () => import('@/views/my-data/index.vue'),
         meta: { title: '我的数据' },
       },
       {
         path: 'com',
         name: 'MyCom',
-        component: () => import(/* webpackChunkName: "my-com" */ '@/views/my-com/index.vue'),
+        component: () => import('@/views/my-com/index.vue'),
         meta: { title: '我的组件' },
       },
       {
         path: 'case',
         name: 'MyCase',
-        component: () => import(/* webpackChunkName: "my-case" */ '@/views/my-case/index.vue'),
+        component: () => import('@/views/my-case/index.vue'),
         meta: { title: '教程' },
       },
     ],
@@ -44,31 +44,31 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/create-screen',
     name: 'CreateScreen',
-    component: () => import(/* webpackChunkName: "create-screen" */ '@/views/my-project/create-screen.vue'),
+    component: () => import('@/views/my-project/create-screen.vue'),
     meta: { title: '创建' },
   },
   {
     path: '/screen/:projectId',
     name: 'Screen',
     props: true,
-    component: () => import(/* webpackChunkName: "screen" */ '@/views/screen/index.vue'),
+    component: () => import('@/views/screen/index.vue'),
     meta: { title: '编辑器' },
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
+    component: () => import('@/views/login/index.vue'),
     meta: { title: '登录' },
   },
   {
     path: '/:catchAll(.*)',
     name: '404',
-    component: () => import(/* webpackChunkName: "404" */ '@/views/error/404.vue'),
+    component: () => import('@/views/error/404.vue'),
     meta: { title: '404' },
   },
 ]
 
-if (process.env.NODE_ENV === 'development') {
+if (import.meta.env.DEV) {
   routes.unshift(
     {
       path: '/dev/props-config',

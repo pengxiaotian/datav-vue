@@ -82,7 +82,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .edit-container {
   position: relative;
@@ -95,7 +95,7 @@ export default defineComponent({
   z-index: 1;
   height: 100%;
   overflow: hidden;
-  background: url('~@/assets/images/bg-canvas.png');
+  background: url('@/assets/images/bg-canvas.png');
   flex-wrap: nowrap;
 }
 
