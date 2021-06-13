@@ -157,7 +157,7 @@ export default defineComponent({
     const visibleCreateDialog = ref(false)
     const visiblePreviewDialog = ref(false)
     const projectName = ref('')
-    const template = ref<Partial<ProjectTemplate>>({})
+    const template = ref<Partial<ProjectTemplate> | null>({})
     const groupId = ref(0)
     const groups = ref([new ProjectGroup(0, '未分组')])
     const saveLoading = ref(false)
@@ -228,7 +228,7 @@ export default defineComponent({
         const res = await createProject({
           name: projectName.value,
           groupId: groupId.value,
-          templateId: template.value.id,
+          templateId: template.value?.id ?? 0,
         })
         if (res.data.code === 0) {
           visibleCreateDialog.value = false

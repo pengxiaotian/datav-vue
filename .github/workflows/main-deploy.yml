@@ -16,8 +16,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup node
-        uses: actions/setup-node@v1
+      - name: Step Node.js 12
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
 
       - name: Install dependencies
         run: yarn bootstrap
@@ -30,7 +32,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: dist
+          FOLDER: website
           GIT_CONFIG_NAME: pengxiaotian
           GIT_CONFIG_EMAIL: 673923162@qq.com
           COMMIT_MESSAGE: website deploy
