@@ -64,13 +64,13 @@ self.MonacoEnvironment = {
     if (label === 'json') {
       return new jsonWorker()
     }
-    if (label === 'css' || label === 'scss' || label === 'less') {
+    if (['css', 'scss', 'less'].includes(label)) {
       return new cssWorker()
     }
-    if (label === 'html' || label === 'handlebars' || label === 'razor') {
+    if (['html', 'handlebars', 'razor'].includes(label)) {
       return new htmlWorker()
     }
-    if (label === 'typescript' || label === 'javascript') {
+    if (['typescript', 'javascript'].includes(label)) {
       return new tsWorker()
     }
     return new editorWorker()

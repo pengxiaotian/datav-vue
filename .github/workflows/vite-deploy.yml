@@ -1,4 +1,4 @@
-name: Deploy Demo Website
+name: Vite Deploy
 
 on:
   push:
@@ -6,30 +6,7 @@ on:
       - vite
 
 jobs:
-  vite-build:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12, 14]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: yarn bootstrap
-
-      - name: Build Website
-        run: yarn build
-
-  deploy:
-    needs: vite-build
+  vite-deploy:
     runs-on: ubuntu-latest
 
     steps:

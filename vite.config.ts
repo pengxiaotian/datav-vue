@@ -17,6 +17,8 @@ export default ({ mode }: ConfigEnv) => {
 
   const env = loadEnv(mode, dirRoot)
 
+  const prefix = 'monaco-editor/esm/vs'
+
   return defineConfig({
     base: env.VITE_PUBLIC_PATH,
     plugins: [
@@ -50,11 +52,11 @@ export default ({ mode }: ConfigEnv) => {
         'html2canvas',
         'js-cookie',
         'lodash-es',
-        'monaco-editor/esm/vs/editor/editor.worker',
-        'monaco-editor/esm/vs/language/json/json.worker',
-        'monaco-editor/esm/vs/language/css/css.worker',
-        'monaco-editor/esm/vs/language/html/html.worker',
-        'monaco-editor/esm/vs/language/typescript/ts.worker',
+        `${prefix}/editor/editor.worker`,
+        `${prefix}/language/json/json.worker`,
+        `${prefix}/language/css/css.worker`,
+        `${prefix}/language/html/html.worker`,
+        `${prefix}/language/typescript/ts.worker`,
         'particles.vue3',
         'shortid',
         'vue',
@@ -69,6 +71,17 @@ export default ({ mode }: ConfigEnv) => {
     build: {
       sourcemap: false,
       outDir: 'website',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            editorWorker: [`${prefix}/editor/editor.worker`],
+            jsonWorker: [`${prefix}/language/json/json.worker`],
+            cssWorker: [`${prefix}/language/css/css.worker`],
+            htmlWorker: [`${prefix}/language/html/html.worker`],
+            tsWorker: [`${prefix}/language/typescript/ts.worker`],
+          },
+        },
+      },
     },
     esbuild: {
     },
