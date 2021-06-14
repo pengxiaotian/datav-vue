@@ -1,1 +1,0 @@
-import{T as e,W as d,$ as o}from"./index.5140d2fc.js";import"./editor.worker.3eb73e22.js";const r={name:"NotFound"},t=o()(((o,r,t,a,s,n)=>(e(),d("div",null," 404 "))));r.render=t,r.__scopeId="data-v-1843d8f5";export default r;
