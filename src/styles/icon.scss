@@ -13,6 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-keyboard:before {
+  content: "\e6fb";
+}
+
+.v-icon-toolbox:before {
+  content: "\e7a3";
+}
+
 .v-icon-fullscreen-exit:before {
   content: "\eca9";
 }
@@ -111,10 +119,6 @@
 
 .v-icon-move-down:before {
   content: "\eb86";
-}
-
-.v-icon-shortcut:before {
-  content: "\e61a";
 }
 
 .v-icon-lock:before {

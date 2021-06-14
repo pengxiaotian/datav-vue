@@ -27,10 +27,10 @@
           :enterable="false"
         >
           <div
-            :class="['head-btn mr4', { '--selected': comList }]"
-            @click="changeComsPanel"
+            :class="['head-btn mr4', { '--selected': components }]"
+            @click="changeComponentsPanel"
           >
-            <i :class="['v-icon-box com-list-icon', { '--rotate': !comList }]"></i>
+            <i :class="['v-icon-box com-list-icon', { '--rotate': !components }]"></i>
           </div>
         </el-tooltip>
         <el-tooltip
@@ -44,6 +44,19 @@
             @click="changeConfigPanel"
           >
             <i class="v-icon-rpanel head-btn-icon"></i>
+          </div>
+        </el-tooltip>
+        <el-tooltip
+          content="工具箱"
+          effect="blue"
+          :open-delay="500"
+          :enterable="false"
+        >
+          <div
+            :class="['head-btn mr4', { '--selected': toolbox }]"
+            @click="changeToolboxPanel"
+          >
+            <i class="v-icon-toolbox head-btn-icon"></i>
           </div>
         </el-tooltip>
       </div>
@@ -117,7 +130,7 @@ import { EditorModule } from '@/store/modules/editor'
 import HeadLoading from './head-loading.vue'
 
 export default defineComponent({
-  name: 'Toolbar',
+  name: 'HeaderToolber',
   components: {
     HeadLoading,
   },
@@ -128,22 +141,28 @@ export default defineComponent({
     layer() {
       return ToolbarModule.layer.show
     },
-    comList() {
-      return ToolbarModule.comList.show
+    components() {
+      return ToolbarModule.components.show
     },
     config() {
       return ToolbarModule.config.show
+    },
+    toolbox() {
+      return ToolbarModule.toolbox.show
     },
   },
   methods: {
     changeLayerPanel() {
       ToolbarModule.setPanelState({ type: PanelType.layer, value: !this.layer })
     },
-    changeComsPanel() {
-      ToolbarModule.setPanelState({ type: PanelType.comList, value: !this.comList })
+    changeComponentsPanel() {
+      ToolbarModule.setPanelState({ type: PanelType.components, value: !this.components })
     },
     changeConfigPanel() {
       ToolbarModule.setPanelState({ type: PanelType.config, value: !this.config })
+    },
+    changeToolboxPanel() {
+      ToolbarModule.setPanelState({ type: PanelType.toolbox, value: !this.toolbox })
     },
   },
 })
@@ -272,9 +291,7 @@ export default defineComponent({
     color: $header-icon-color;
   }
 }
-</style>
 
-<style lang="scss">
 @keyframes com-rotate {
   0% {
     transform: rotateZ(0);
