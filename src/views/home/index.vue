@@ -64,9 +64,6 @@ export default defineComponent({
       onNavChange,
     }
   },
-  mounted() {
-    this
-  },
 })
 </script>
 

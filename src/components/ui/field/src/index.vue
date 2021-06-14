@@ -45,13 +45,8 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    tooltip: {
-      type: String,
-    },
-    toggle: {
-      type: Boolean,
-      default: false,
-    },
+    tooltip: String,
+    toggle: Boolean,
     modelValue: {
       type: Boolean,
       default: true,
@@ -60,10 +55,7 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
-    nest: {
-      type: Boolean,
-      default: false,
-    },
+    nest: Boolean,
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
@@ -78,10 +70,8 @@ export default defineComponent({
     })
 
     const contentStyle = computed(() => {
-      // const isNest = props.nest || props.level === 1
       return {
         span: props.nest ? 24 : 0,
-        offset: props.nest ? 0 : 0,
       }
     })
 
