@@ -11,7 +11,8 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue'
 import '@/assets/live2d/live2d.min.js'
 
 /*
@@ -29,28 +30,22 @@ https://github.com/pengxiaotian/live2d_api
 
 const apiPath = 'https://live2d.fghrsh.net/api'
 
-export default {
+export default defineComponent({
   name: 'Live2d',
-  data() {
-    return {
-      cover: true,
-    }
-  },
-  mounted() {
-    // this.loadModel(1, 86)
-    this.loadRandModel()
-    this.initPassword()
-  },
-  methods: {
-    loadModel(modelId, modelTexturesId) {
+  setup() {
+    const cover = ref(true)
+
+    const loadModel = (modelId, modelTexturesId) => {
+      // @ts-ignore
       loadlive2d('live2d', `${apiPath}/get/?id=${modelId}-${modelTexturesId}`)
 
       setTimeout(() => {
-        this.cover = false
+        cover.value = false
       }, 2000)
-    },
-    loadRandModel() {
-      this.cover = true
+    }
+
+    const loadRandModel = () => {
+      cover.value = true
 
       fetch(`${apiPath}/rand/?id=7`)
         .then(response => response.json())
@@ -58,23 +53,34 @@ export default {
           fetch(`${apiPath}/rand_textures/?id=${model.id}-1`)
             .then(response => response.json())
             .then(({ textures }) => {
-              this.loadModel(model.id, textures.id)
+              loadModel(model.id, textures.id)
             })
         })
-    },
-    initPassword() {
+    }
+
+    const initPassword = () => {
       const pwd = document.querySelector('input[type=password]')
       if (pwd) {
         pwd.addEventListener('focus', () => {
-          this.cover = true
+          cover.value = true
         })
         pwd.addEventListener('blur', () => {
-          this.cover = false
+          cover.value = false
         })
       }
-    },
+    }
+
+    onMounted(() => {
+      // loadModel(1, 86)
+      loadRandModel()
+      initPassword()
+    })
+
+    return {
+      cover,
+    }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -60,12 +60,10 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, defineAsyncComponent } from 'vue'
 import { UserStore } from '@/domains/user'
 import { useRouter, useRoute } from 'vue-router'
 import { config } from '@/config'
-import BackgroundParticles from './background-particles.vue'
-import live2d from './live2d.vue'
 
 const validateUsername = (rule: any, value: string, callback: Function) => {
   if (!['admin', 'editor'].includes(value)) {
@@ -95,8 +93,8 @@ const getOtherQuery = (query: any) => {
 export default defineComponent({
   name: 'Login',
   components: {
-    BackgroundParticles,
-    live2d,
+    BackgroundParticles: defineAsyncComponent(() => import('./background-particles.vue')),
+    live2d: defineAsyncComponent(() => import('./live2d.vue')),
   },
   setup() {
     const loginForm = ref({

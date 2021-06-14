@@ -114,7 +114,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, nextTick } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { bgImg, coverImg } from '@/data/images'
@@ -173,23 +173,27 @@ export default defineComponent({
 
       const { transform } = dom.style
       dom.style.transform = 'scale(1) translate(0px, 0px)'
-      try {
-        cover.value.loading = true
-        const res = await html2canvas(dom, {
-          scale: 1,
-          logging: false,
-          allowTaint: true,
-          useCORS: true,
-          scrollX: 0,
-          scrollY: 0,
-        })
-        dom.style.transform = transform
-        await uploadCover(dataURLtoBlob(res.toDataURL()))
-      } catch (error) {
-        MessageUtil.error(error.toString())
-      } finally {
-        cover.value.loading = false
-      }
+
+      await nextTick()
+
+      setTimeout(async () => {
+        try {
+          cover.value.loading = true
+          const res = await html2canvas(dom, {
+            scale: 1.2,
+            logging: false,
+            useCORS: true,
+            backgroundColor: null,
+          })
+
+          dom.style.transform = transform
+          await uploadCover(dataURLtoBlob(res.toDataURL()))
+        } catch (error) {
+          MessageUtil.error(error.toString())
+        } finally {
+          cover.value.loading = false
+        }
+      }, 500)
     }
 
     const beforeUpload = async (file: any) => {

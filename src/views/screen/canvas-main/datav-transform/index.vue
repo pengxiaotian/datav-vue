@@ -30,7 +30,7 @@
           ></div>
         </div>
         <template v-for="(v, k) in points" :key="k">
-          <i v-if="v.rotateStyle" :class="`${v.name}-handler`">
+          <i v-if="v.rotateStyle" :class="`${v.name}-handler`" data-html2canvas-ignore>
             <span
               class="rotate-handler"
               :style="v.rotateStyle"
@@ -43,7 +43,7 @@
               ></span>
             </span>
           </i>
-          <i v-else :class="`${v.name}-handler`">
+          <i v-else :class="`${v.name}-handler`" data-html2canvas-ignore>
             <span
               class="control-point"
               :style="v.style"
