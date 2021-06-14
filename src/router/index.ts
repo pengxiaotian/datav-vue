@@ -62,9 +62,9 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/:catchAll(.*)',
-    name: '404',
-    component: () => import('@/views/error/404.vue'),
-    meta: { title: '404' },
+    name: 'NotFound',
+    component: () => import('@/views/error/index.vue'),
+    meta: { title: '找不到页面' },
   },
 ]
 
