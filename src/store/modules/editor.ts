@@ -292,7 +292,7 @@ class Editor extends VuexModule implements IEditorState {
   public async autoCanvasScale(payload: { offsetX: number; offsetY: number; }) {
     const resize = debounce(() => {
       const width = document.documentElement.clientWidth - payload.offsetX
-      const height = document.documentElement.clientHeight - 42 - payload.offsetY
+      const height = document.documentElement.clientHeight - 42 - 35 - payload.offsetY
 
       const a = (width - 120) / this.pageConfig.width
       const b = (height - 140) / this.pageConfig.height
@@ -312,7 +312,7 @@ class Editor extends VuexModule implements IEditorState {
   @Action
   public async setCanvasScale(payload: { scale: number; offsetX: number; offsetY: number; }) {
     let width = document.documentElement.clientWidth - payload.offsetX
-    let height = document.documentElement.clientHeight - 42 - payload.offsetY
+    let height = document.documentElement.clientHeight - 42 - 35 - payload.offsetY
     const scale = Math.min(Math.max(payload.scale, 20), 200) / 100
 
     // 方便计算滚动条 和 标尺

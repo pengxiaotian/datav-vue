@@ -41,13 +41,13 @@ const createCanvas = (el: HTMLCanvasElement | null, width: number, height: numbe
 }
 
 // 计算指示线位置
-const getLinePos = (el: HTMLElement, options: RulerOption, cx: number, cy: number) => {
+const getLinePos = (wp: HTMLElement, el: HTMLElement, options: RulerOption, cx: number, cy: number) => {
   const { height, scale, offset } = options
   let dist = 0
   if (options.direction == 'TB') {
-    dist = cx - (el.parentElement?.offsetLeft || 0)
+    dist = cx - (el.parentElement?.offsetLeft || 0) + wp.scrollLeft
   } else {
-    dist = cy - (el.parentElement?.offsetTop || 0)
+    dist = cy - (el.parentElement?.offsetTop || 0) + wp.scrollTop
   }
 
   dist = dist - height + options.indicatorLineWidth
@@ -72,6 +72,7 @@ class GuideLine {
   coor = -1
 
   constructor(
+    private wp: HTMLElement,
     private el: HTMLElement,
     private options: RulerOption,
     ev: MouseEvent | null,
@@ -141,8 +142,8 @@ class GuideLine {
   }
 
   setLine(e: MouseEvent | null, coor = 0) {
-    const { el, options, guideLine } = this
-    const pos = e ? getLinePos(el, options, e.clientX, e.clientY) : getPosByCoor(coor, options)
+    const { wp, el, options, guideLine } = this
+    const pos = e ? getLinePos(wp, el, options, e.clientX, e.clientY) : getPosByCoor(coor, options)
     if (options.direction === 'TB') {
       guideLine.style.left = pixelize(pos.dist)
     } else {
@@ -188,6 +189,7 @@ class GuideLine {
 }
 
 export class RulerBuilder {
+  wp: HTMLElement
   el: HTMLElement
   canvas: HTMLCanvasElement
   ctx: CanvasRenderingContext2D
@@ -219,6 +221,7 @@ export class RulerBuilder {
   }
 
   constructor(container: HTMLElement, options: Partial<RulerOption>) {
+    this.wp = document.querySelector('#canvas-wp')
     this.el = container
     this.options = { ...this.options, ...options }
 
@@ -308,7 +311,7 @@ export class RulerBuilder {
 
   // 画指示线
   constructIndicator() {
-    const { el, options, canvas } = this
+    const { wp, el, options, canvas } = this
     const indicator = document.createElement('div')
     const indicatorValue = document.createElement('span')
     addClass(indicator, 'ruler-indicator')
@@ -320,7 +323,7 @@ export class RulerBuilder {
     el.appendChild(indicator)
 
     const move = (e: MouseEvent) => {
-      const pos = getLinePos(el, options, e.clientX, e.clientY)
+      const pos = getLinePos(wp, el, options, e.clientX, e.clientY)
       indicator.style.left = pixelize(pos.dist)
       indicatorValue.textContent = `${pos.coor}`
     }
@@ -340,15 +343,15 @@ export class RulerBuilder {
     ev.preventDefault()
     ev.stopPropagation()
 
-    const { el, options } = this
-    this.guideLines.push(new GuideLine(el, options, ev))
+    const { wp, el, options } = this
+    this.guideLines.push(new GuideLine(wp, el, options, ev))
   }
 
   // 设置指定参考线
   setGuideLines(lines: number[]) {
-    const { el, options } = this
+    const { wp, el, options } = this
     lines.forEach(coor => {
-      this.guideLines.push(new GuideLine(el, options, null, coor))
+      this.guideLines.push(new GuideLine(wp, el, options, null, coor))
     })
   }
 

@@ -10,8 +10,8 @@
         <toolbox-panel />
         <g-loading :spinning="loading">
           <canvas-main />
+          <footer-toolbar />
         </g-loading>
-        <footer-toolbar />
       </el-container>
       <config-panel />
     </el-container>
