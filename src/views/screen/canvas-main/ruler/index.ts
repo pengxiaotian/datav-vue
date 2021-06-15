@@ -42,12 +42,14 @@ const createCanvas = (el: HTMLCanvasElement | null, width: number, height: numbe
 
 // 计算指示线位置
 const getLinePos = (el: HTMLElement, options: RulerOption, cx: number, cy: number) => {
+  // /(?<=\()(.+)(?=px\))/ig
+  const scrollOffset = parseFloat(el.style.transform.match(/(?<=X\()(.+)/ig)[0])
   const { height, scale, offset } = options
   let dist = 0
   if (options.direction == 'TB') {
-    dist = cx - (el.parentElement?.offsetLeft || 0)
+    dist = cx - (el.parentElement?.offsetLeft || 0) - scrollOffset
   } else {
-    dist = cy - (el.parentElement?.offsetTop || 0)
+    dist = cy - (el.parentElement?.offsetTop || 0) - scrollOffset
   }
 
   dist = dist - height + options.indicatorLineWidth

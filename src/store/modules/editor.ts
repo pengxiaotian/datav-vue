@@ -296,10 +296,9 @@ class Editor extends VuexModule implements IEditorState {
 
       const a = (width - 120) / this.pageConfig.width
       const b = (height - 140) / this.pageConfig.height
-      const c = parseFloat((a > b ? b : a).toFixed(6))
-      const scale = Math.max(c, 0.2)
+      const scale = parseFloat((a > b ? b : a).toFixed(6)) * 100
 
-      this.SET_CANVAS({ scale, width, height })
+      this.setCanvasScale({ scale, ...payload })
     }, 200)
 
     if (!window.onresize) {
@@ -313,7 +312,7 @@ class Editor extends VuexModule implements IEditorState {
   public async setCanvasScale(payload: { scale: number; offsetX: number; offsetY: number; }) {
     let width = document.documentElement.clientWidth - payload.offsetX
     let height = document.documentElement.clientHeight - 42 - payload.offsetY
-    const scale = Math.min(Math.max(payload.scale, 20), 200) / 100
+    const scale = Math.min(Math.max(payload.scale, 10), 200) / 100
 
     // 方便计算滚动条 和 标尺
     const deltaW = this.pageConfig.width * scale

@@ -32,15 +32,18 @@ export default defineComponent({
     const hScroll = ref(0)
     const vScroll = ref(0)
 
+    const cw = document.documentElement.clientWidth
+
     watchEffect(() => {
       if (hRulerWpRef.value && vRulerWpRef.value) {
         const { canvas, guideLine } = EditorModule
+        const hWidth = Math.max(canvas.width, cw)
         if (hRuler.value) {
-          hRuler.value.setSize(canvas.width, 20, canvas.scale)
+          hRuler.value.setSize(hWidth, 20, canvas.scale)
         } else {
           hRuler.value = new RulerBuilder(hRulerWpRef.value, {
             direction: 'TB',
-            width: canvas.width,
+            width: hWidth,
             scale: canvas.scale,
             coorChange: (action, nCoor, oCoor) => {
               if (action === 'add') {
@@ -58,7 +61,7 @@ export default defineComponent({
         }
 
         if (vRuler.value) {
-          vRuler.value.setSize(canvas.width, 20, canvas.scale)
+          vRuler.value.setSize(canvas.height, 20, canvas.scale)
         } else {
           vRuler.value = new RulerBuilder(vRulerWpRef.value, {
             direction: 'LR',

@@ -11,6 +11,7 @@
       :step="step"
       class="is-controls-right"
       @update:model-value="handleInput"
+      @change="handleChange"
     />
     <span v-if="label" class="g-input-number-caption">
       {{ label }}
@@ -54,14 +55,19 @@ export default defineComponent({
       default: true,
     },
   },
-  emits: [UPDATE_MODEL_EVENT],
+  emits: [UPDATE_MODEL_EVENT, 'change'],
   setup(props, ctx) {
     const handleInput = (value: number) => {
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
+    const handleChange = (currentValue: number, oldValue: number) => {
+      ctx.emit('change', currentValue, oldValue)
+    }
+
     return {
       handleInput,
+      handleChange,
     }
   },
 })

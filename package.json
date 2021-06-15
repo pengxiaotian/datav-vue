@@ -10,6 +10,7 @@
     "dev": "cross-env NODE_ENV=development vite",
     "build": "NODE_ENV=production vue-tsc --noEmit && vite build",
     "build:fast": "NODE_ENV=production vite build",
+    "serve": "vite preview",
     "lint": "yarn lint:type && yarn lint:code && yarn lint:css",
     "lint:type": "vue-tsc --noEmit",
     "lint:code": "eslint --fix 'src/**/*.{js,ts,vue}'",

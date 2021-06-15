@@ -10,12 +10,14 @@
               label="宽度"
               :min="100"
               :max="20000"
+              @change="onSizeChange"
             />
             <g-input-number
               v-model="pageConfig.height"
               label="高度"
               :min="100"
               :max="20000"
+              @change="onSizeChange"
             />
           </g-field>
           <g-field label="背景颜色">
@@ -114,7 +116,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, nextTick } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { bgImg, coverImg } from '@/data/images'
@@ -171,23 +173,23 @@ export default defineComponent({
         return
       }
 
+      // 这里直接操作的 dom
       const { transform } = dom.style
       dom.style.transform = 'scale(1) translate(0px, 0px)'
-
-      await nextTick()
-
+      cover.value.loading = true
       setTimeout(async () => {
         try {
-          cover.value.loading = true
           const res = await html2canvas(dom, {
             scale: 1.2,
             logging: false,
             useCORS: true,
             backgroundColor: null,
+            scrollX: 0,
+            scrollY: 0,
           })
 
           dom.style.transform = transform
-          await uploadCover(dataURLtoBlob(res.toDataURL()))
+          await uploadCover(dataURLtoBlob(res.toDataURL('image/jpeg', 0.8)))
         } catch (error) {
           MessageUtil.error(error.toString())
         } finally {
@@ -246,6 +248,13 @@ export default defineComponent({
       }
     }
 
+    const onSizeChange = () => {
+      EditorModule.autoCanvasScale({
+        offsetX: ToolbarModule.getPanelOffsetX,
+        offsetY: ToolbarModule.getPanelOffsetY,
+      })
+    }
+
     return {
       pageConfig,
       ZoomMode,
@@ -258,6 +267,7 @@ export default defineComponent({
       onSuccess,
       onError,
       onPaste,
+      onSizeChange,
     }
   },
 })

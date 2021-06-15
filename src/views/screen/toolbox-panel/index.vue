@@ -75,6 +75,7 @@ export default defineComponent({
   &.--hide {
     height: 0;
     overflow: hidden;
+    border-bottom: none;
   }
 }
 
