@@ -1,19 +1,5 @@
 <template>
   <el-footer height="32px" class="bottom-sider">
-    <div class="btn-box">
-      <span class="btn-text">参考线</span>
-      <el-switch v-model="referLine.enable" class="btn-sw" />
-    </div>
-    <div class="btn-box">
-      <span class="btn-text">对齐线</span>
-      <el-tooltip placement="top" effect="blue">
-        <template #content>
-          组件数量多时，容易卡顿，<br>建议关闭
-        </template>
-        <i class="v-icon-help"></i>
-      </el-tooltip>
-      <el-switch v-model="alignLine.enable" class="btn-sw" />
-    </div>
     <el-popover
       width="235"
       placement="top"
@@ -21,7 +7,7 @@
       popper-class="editor-popover"
     >
       <template #reference>
-        <i class="v-icon-shortcut shortcut-btn"></i>
+        <i class="v-icon-keyboard shortcut-btn"></i>
       </template>
       <div class="shortcut-wp">
         <div class="shortcut-item">
@@ -54,7 +40,7 @@
         :visible="visibleScaleList"
         width="56"
         placement="top"
-        trigger="manual"
+        trigger="click"
         popper-class="editor-popover"
         :show-arrow="false"
       >
@@ -88,7 +74,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { defineComponent, ref, watch, onMounted, onUnmounted } from 'vue'
 import { isMac } from '@/utils/util'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
@@ -101,8 +87,6 @@ export default defineComponent({
     const inputScale = ref(20)
     const visibleScaleList = ref(false)
     const useSlider = ref(false)
-    const referLine = computed(() => EditorModule.referLine)
-    const alignLine = computed(() => EditorModule.alignLine)
 
     const hideScaleList = () => {
       visibleScaleList.value = false
@@ -115,14 +99,16 @@ export default defineComponent({
     }
 
     const submitScale = async (val: number) => {
+      const offset = {
+        offsetX: ToolbarModule.getPanelOffsetX,
+        offsetY: ToolbarModule.getPanelOffsetY,
+      }
       if (val === -1) {
-        EditorModule.autoCanvasScale({
-          offsetX: ToolbarModule.getPanelOffsetX,
-        })
+        EditorModule.autoCanvasScale(offset)
       } else {
         EditorModule.setCanvasScale({
           scale: val === 0 ? inputScale.value : val,
-          offsetX: ToolbarModule.getPanelOffsetX,
+          ...offset,
         })
       }
 
@@ -148,12 +134,13 @@ export default defineComponent({
           if (key === 'arrowleft') {
             setPanelState({ type: PanelType.layer, value: !ToolbarModule.layer.show })
           } else if (key === 'arrowup') {
-            setPanelState({ type: PanelType.comList, value: !ToolbarModule.comList.show })
+            setPanelState({ type: PanelType.components, value: !ToolbarModule.components.show })
           } else if (key === 'arrowright') {
             setPanelState({ type: PanelType.config, value: !ToolbarModule.config.show })
           } else if (key === 'a') {
             EditorModule.autoCanvasScale({
               offsetX: ToolbarModule.getPanelOffsetX,
+              offsetY: ToolbarModule.getPanelOffsetY,
             })
           }
 
@@ -177,8 +164,6 @@ export default defineComponent({
       visibleScaleList,
       showScaleList,
       useSlider,
-      referLine,
-      alignLine,
       submitScale,
     }
   },
@@ -186,7 +171,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .bottom-sider {
   position: absolute;
@@ -309,23 +294,6 @@ export default defineComponent({
     &:not(:first-child) {
       border-top: $border-outline;
     }
-  }
-}
-
-.btn-box {
-  display: flex;
-  align-items: center;
-  height: 28px;
-  line-height: 28px;
-  margin-right: 20px;
-  color: $footer-color;
-
-  .btn-text {
-    margin-right: 2px;
-  }
-
-  .btn-sw {
-    margin-left: 3px;
   }
 }
 </style>

@@ -117,7 +117,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .canvas-ruler-wp {
   position: fixed;
@@ -164,7 +164,7 @@ export default defineComponent({
 
   .h-container {
     left: 20px;
-    cursor: col-resize;
+    cursor: ew-resize;
     transform: translateX(0);
 
     .ruler-line {
@@ -191,7 +191,7 @@ export default defineComponent({
   }
 
   .v-container {
-    cursor: row-resize;
+    cursor: ns-resize;
     transform: rotate(90deg) translateX(0);
     transform-origin: 0 100% 0;
 

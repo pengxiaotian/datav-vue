@@ -1,6 +1,5 @@
 
-import _ from 'lodash'
-import { isPlainObject, isArray, isNumber, isString } from '@/utils/util'
+import { isPlainObject, isArray, isNumber, isString, isBool } from '@/utils/util'
 
 
 export enum PropDataType {
@@ -97,7 +96,7 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       pc.type = PropDataType.number
       pc.component = ComponentType.number
       pc.defaultValue = val
-    } else if (_.isBoolean(val)) {
+    } else if (isBool(val)) {
       pc.type = PropDataType.boolean
       pc.component = ComponentType.switch
       pc.defaultValue = val

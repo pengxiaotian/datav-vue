@@ -28,7 +28,7 @@ export default defineComponent({
   name: 'DisplayApiStatus',
   props: {
     status: {
-      type: String as PropType<ApiStatus>,
+      type: String as PropType<ApiStatus | string>,
       default: ApiStatus.incomplete,
     },
     loadingText: {
@@ -94,8 +94,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
-@import '~@/styles/loading';
+@import '@/styles/themes/var';
+@import '@/styles/loading';
 
 .status-icon {
   @include square-loading-icon();

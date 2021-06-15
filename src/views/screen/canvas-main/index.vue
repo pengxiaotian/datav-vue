@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
+import type { CSSProperties } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
 import { createComponent } from '@/components/datav'
 import AlignLine from './align-line.vue'
@@ -48,7 +49,7 @@ export default defineComponent({
       return {
         width: `${canvas.value.width}px`,
         height: `${canvas.value.height}px`,
-      }
+      } as CSSProperties
     })
 
     const canvasPanelStyle = computed(() => {
@@ -57,9 +58,9 @@ export default defineComponent({
         width: `${pageConfig.value.width}px`,
         height: `${pageConfig.value.height}px`,
         transform: `scale(${canvas.value.scale}) translate(0px, 0px)`,
-        'background-image': `url(${pageConfig.value.bgimage})`,
-        'background-color': pageConfig.value.bgcolor,
-      }
+        backgroundImage: `url(${pageConfig.value.bgimage})`,
+        backgroundColor: pageConfig.value.bgcolor,
+      } as CSSProperties
     })
 
     const dropToAddCom = (event: any) => {

@@ -16,3 +16,8 @@ export enum ApiStatus {
   completed='completed',
   incomplete='incomplete'
 }
+
+export enum ApiRequestMethod {
+  GET = 'GET',
+  POST = 'POST',
+}

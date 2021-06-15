@@ -116,9 +116,9 @@ class GuideLine {
     const { coor: oldCoor } = this
     const move = (e: MouseEvent) => {
       if (options.direction === 'TB') {
-        document.body.style.cursor = 'col-resize'
+        document.body.style.cursor = 'ew-resize'
       } else {
-        document.body.style.cursor = 'row-resize'
+        document.body.style.cursor = 'ns-resize'
       }
       this.setLine(e)
     }

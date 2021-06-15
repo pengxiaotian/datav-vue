@@ -189,7 +189,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .my-screen {
   margin: 16px 32px 16px 0;

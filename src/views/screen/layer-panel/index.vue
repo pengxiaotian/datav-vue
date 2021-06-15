@@ -132,7 +132,7 @@
             </div>
           </div>
         </template>
-        <div class="last-flex-item" @click="selectCom(0)"></div>
+        <div class="last-flex-item" @click="selectCom('')"></div>
       </div>
       <div class="layer-toolbar layer-toolbar-bottom">
         <i

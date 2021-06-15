@@ -11,10 +11,18 @@ export type Direction = 'lt' | 't' | 'rt' | 'r' | 'rb' | 'b' | 'lb' | 'l'
  * 双向指示
  */
 export type BidirectionalCursor = 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'nwse-resize'
+
 /**
  * 单向指示
  */
 export type DirectionCursor = 'nw-resize' | 'n-resize' | 'ne-resize' | 'e-resize' | 'se-resize' | 's-resize' | 'sw-resize' | 'w-resize'
+
+export type ResizeMode = 'normal' | 'stretch'
+
+interface IPoint {
+  x: number
+  y: number
+}
 
 // 八个方位点对应的初始角度
 const initialDirectionAngle: {
@@ -73,44 +81,11 @@ export const getCursors = (startAngle: number) => {
   return result as Record<Direction, BidirectionalCursor>
 }
 
-export const setHover = (com: DatavComponent, hovered: boolean) => {
-  com.hovered = hovered
-}
-
-/**
- * 角度转弧度
- * Math.PI = 180 度
- * @param angle
- * @returns {number}
- */
-function angleToRadian(angle) {
+function angleToRadian(angle: number) {
   return angle * Math.PI / 180
 }
-/**
- * 计算根据圆心旋转后的点的坐标
- * @param   {Object}  point  旋转前的点坐标
- * @param   {Object}  center 旋转中心
- * @param   {Number}  rotate 旋转的角度
- * @return  {Object}         旋转后的坐标
- * https://www.zhihu.com/question/67425734/answer/252724399 旋转矩阵公式
- */
-export function calculateRotatedPointCoordinate(point, center, rotate) {
-  /**
-   * 旋转公式：
-   *  点a(x, y)
-   *  旋转中心c(x, y)
-   *  旋转后点n(x, y)
-   *  旋转角度θ                tan ??
-   * nx = cosθ * (ax - cx) - sinθ * (ay - cy) + cx
-   * ny = sinθ * (ax - cx) + cosθ * (ay - cy) + cy
-   */
-  return {
-    x: (point.x - center.x) * Math.cos(angleToRadian(rotate)) - (point.y - center.y) * Math.sin(angleToRadian(rotate)) + center.x,
-    y: (point.x - center.x) * Math.sin(angleToRadian(rotate)) + (point.y - center.y) * Math.cos(angleToRadian(rotate)) + center.y,
-  }
-}
 
-export function getCenterPoint(p1, p2) {
+function getCenterPoint(p1: IPoint, p2: IPoint): IPoint {
   return {
     x: p1.x + ((p2.x - p1.x) / 2),
     y: p1.y + ((p2.y - p1.y) / 2),
@@ -118,109 +93,170 @@ export function getCenterPoint(p1, p2) {
 }
 
 /**
- * 计算缩放后位置大小
- * @param direction 拖拽方向
- * @param style 当前位置和大小
- * @param startPoint 拖拽起始点位置
- * @param symmetricPoint 对称点坐标
- * @param endPoint 当前拖拽位置
- * @returns {{}|any}
+ * 计算根据圆心旋转后的点的坐标
+ * ```
+ * // https://github.com/woai3c/Front-end-articles/issues/20
+ * nx = cosθ * (ax - cx) - sinθ * (ay - cy) + cx
+ * ny = sinθ * (ax - cx) + cosθ * (ay - cy) + cy
+ * ```
+ * @param point 旋转前的点坐标
+ * @param center 旋转中心
+ * @param rotate 旋转的角度
+ * @returns 旋转后的坐标
  */
-export function calcResizeInfo(direction, style, startPoint, symmetricPoint, endPoint) {
-  // 拖拽角上的点
-  if (direction.length === 2) {
-    const newCenter = getCenterPoint(endPoint, symmetricPoint)
-    const thatPoint = calculateRotatedPointCoordinate(symmetricPoint, newCenter, -style.rotate)
-    const thisPoint = calculateRotatedPointCoordinate(endPoint, newCenter, -style.rotate)
-    const newStyle = {
-      x: undefined,
-      y: undefined,
-      width: undefined,
-      height: undefined,
-    }
-    // 判断: 左或者右
-    if (direction[0] === 'l') {
-      newStyle.x = Math.round(thisPoint.x / style.scale)
-      newStyle.width = Math.round((thatPoint.x - thisPoint.x) / style.scale)
-    } else if (direction[0] === 'r') {
-      newStyle.x = Math.round(thatPoint.x / style.scale)
-      newStyle.width = Math.round((thisPoint.x - thatPoint.x) / style.scale)
-    }
-    // 判断: 上或者下
-    if (direction[1] === 't') {
-      newStyle.y = Math.round(thisPoint.y / style.scale)
-      newStyle.height = Math.round((thatPoint.y - thisPoint.y) / style.scale)
-    } else if (direction[1] === 'b') {
-      newStyle.y = Math.round(thatPoint.y / style.scale)
-      newStyle.height = Math.round((thisPoint.y - thatPoint.y) / style.scale)
-    }
-    return newStyle
-  }
-
-  // 拖拽边上的点
-  if (direction.length === 1) {
-    const newStyle = JSON.parse(JSON.stringify(style))
-    const thisPoint = calculateRotatedPointCoordinate(endPoint, startPoint, -style.rotate)
-
-    // 拖拽上下两边
-    if (direction === 't' || direction === 'b') {
-      const thatPoint = calculateRotatedPointCoordinate({ x: startPoint.x, y: thisPoint.y }, startPoint, style.rotate)
-      const height = Math.sqrt((thatPoint.x - symmetricPoint.x) ** 2 + (thatPoint.y - symmetricPoint.y) ** 2)
-      if (height > 0) {
-        const center = { x: thatPoint.x - (thatPoint.x - symmetricPoint.x) / 2, y: thatPoint.y + (symmetricPoint.y - thatPoint.y) / 2 }
-        newStyle.width = Math.round(style.width / style.scale)
-        newStyle.height = Math.round(height / style.scale)
-        newStyle.x = Math.round((center.x - (style.width / 2)) / style.scale)
-        newStyle.y = Math.round((center.y - (height / 2)) / style.scale)
-      }
-    }
-
-    // 拖拽左右两边
-    if (direction === 'l' || direction === 'r') {
-      const thatPoint = calculateRotatedPointCoordinate({ x: thisPoint.x, y: startPoint.y }, startPoint, style.rotate)
-      const width = Math.sqrt((thatPoint.x - symmetricPoint.x) ** 2 + (thatPoint.y - symmetricPoint.y) ** 2)
-      if (width > 0) {
-        const center = { x: thatPoint.x - (thatPoint.x - symmetricPoint.x) / 2, y: thatPoint.y + (symmetricPoint.y - thatPoint.y) / 2 }
-        newStyle.width = Math.round(width / style.scale)
-        newStyle.height = Math.round(style.height / style.scale)
-        newStyle.x = Math.round((center.x - (width / 2)) / style.scale)
-        newStyle.y = Math.round((center.y - (style.height / 2)) / style.scale)
-      }
-    }
-    return newStyle
+function calcRotatedPoint(point: IPoint, center: IPoint, rotate: number): IPoint {
+  const rad = angleToRadian(rotate)
+  return {
+    x: (point.x - center.x) * Math.cos(rad) - (point.y - center.y) * Math.sin(rad) + center.x,
+    y: (point.x - center.x) * Math.sin(rad) + (point.y - center.y) * Math.cos(rad) + center.y,
   }
 }
 
-const setAttr = (ev: MouseEvent, dir: Direction | null, com: DatavComponent, scale: number, grid: number) => {
+/**
+ * 拖拽角时计算缩放后位置大小
+ * @param direction 拖拽方向
+ * @param attr 开始时的基本信息
+ * @param curPositon 当前拖拽位置
+ * @param symmetricPoint 对称点坐标
+ * @param scale 缩放比例
+ */
+function calcResizeForCorner(direction: Direction, attr: ComponentAttr, curPositon: IPoint, symmetricPoint: IPoint, scale: number, pos: Partial<ComponentAttr>) {
+  const newCenterPoint = getCenterPoint(curPositon, symmetricPoint)
+  const newCornerPoint = calcRotatedPoint(symmetricPoint, newCenterPoint, -attr.deg)
+  const newDiagonalPoint = calcRotatedPoint(curPositon, newCenterPoint, -attr.deg)
+
+  if (direction[0] === 'l') {
+    pos.x = Math.round(newDiagonalPoint.x / scale)
+    pos.w = Math.round((newCornerPoint.x - newDiagonalPoint.x) / scale)
+  } else if (direction[0] === 'r') {
+    pos.x = Math.round(newCornerPoint.x / scale)
+    pos.w = Math.round((newDiagonalPoint.x - newCornerPoint.x) / scale)
+  }
+
+  if (direction[1] === 't') {
+    pos.y = Math.round(newDiagonalPoint.y / scale)
+    pos.h = Math.round((newCornerPoint.y - newDiagonalPoint.y) / scale)
+  } else if (direction[1] === 'b') {
+    pos.y = Math.round(newCornerPoint.y / scale)
+    pos.h = Math.round((newDiagonalPoint.y - newCornerPoint.y) / scale)
+  }
+}
+
+/**
+ * 拖拽边时计算缩放后位置大小
+ * @param direction 拖拽方向
+ * @param attr 开始时的基本信息
+ * @param curPositon 当前拖拽位置
+ * @param startPoint 拖拽起始点位置
+ * @param symmetricPoint 对称点坐标
+ * @param scale 缩放比例
+ */
+function calcResizeForEdge(dir: Direction, attr: ComponentAttr, startPoint: IPoint, curPositon: IPoint, symmetricPoint: IPoint, scale: number, pos: Partial<ComponentAttr>) {
+  const newDiagonalPoint = calcRotatedPoint(curPositon, startPoint, -attr.deg)
+  if (dir === 't' || dir === 'b') {
+    const newCornerPoint = calcRotatedPoint({ x: startPoint.x, y: newDiagonalPoint.y }, startPoint, attr.deg)
+    // 勾股定理
+    const height = Math.sqrt((newCornerPoint.x - symmetricPoint.x) ** 2 + (newCornerPoint.y - symmetricPoint.y) ** 2)
+    if (height > 0) {
+      const center = {
+        x: newCornerPoint.x - (newCornerPoint.x - symmetricPoint.x) / 2,
+        y: newCornerPoint.y + (symmetricPoint.y - newCornerPoint.y) / 2,
+      }
+      pos.h = Math.round(height / scale)
+      pos.x = Math.round(center.x / scale - attr.w / 2)
+      pos.y = Math.round((center.y - height / 2) / scale)
+    }
+  }
+
+  if (dir === 'l' || dir === 'r') {
+    const newCornerPoint = calcRotatedPoint({ x: newDiagonalPoint.x, y: startPoint.y }, startPoint, attr.deg)
+    const width = Math.sqrt((newCornerPoint.x - symmetricPoint.x) ** 2 + (newCornerPoint.y - symmetricPoint.y) ** 2)
+    if (width > 0) {
+      const center = {
+        x: newCornerPoint.x - (newCornerPoint.x - symmetricPoint.x) / 2,
+        y: newCornerPoint.y + (symmetricPoint.y - newCornerPoint.y) / 2,
+      }
+      pos.w = Math.round(width / scale)
+      pos.x = Math.round((center.x - width / 2) / scale)
+      pos.y = Math.round(center.y / scale - attr.h / 2)
+    }
+  }
+}
+
+/**
+ * 计算缩放后位置大小 - 自然模式
+ * @param dir 拖拽方向
+ * @param attr 开始时的基本信息
+ * @param startPoint 拖拽起始点位置
+ * @param curPositon 当前拖拽位置
+ * @param scale 缩放比例
+ */
+function calcResizeForNormal(dir: Direction, attr: ComponentAttr, startPoint: IPoint, curPositon: IPoint, scale: number, pos: Partial<ComponentAttr>) {
+  if (dir === 't') {
+    pos.h = Math.round(attr.h + (startPoint.y - curPositon.y) / scale)
+    pos.y = Math.round(attr.y + (curPositon.y - startPoint.y) / scale)
+  } else if (dir === 'rt') {
+    pos.h = Math.round(attr.h + (startPoint.y - curPositon.y) / scale)
+    pos.w = Math.round(attr.w + (startPoint.x - curPositon.x) / scale)
+    pos.x = Math.round(attr.x + (curPositon.x - startPoint.x) / scale)
+    pos.y = Math.round(attr.y + (curPositon.y - startPoint.y) / scale)
+  } else if (dir === 'r') {
+    pos.w = Math.round(attr.w + (curPositon.x - startPoint.x) / scale)
+  } else if (dir === 'rb') {
+    pos.h = Math.round(attr.h + (curPositon.y - startPoint.y) / scale)
+    pos.w = Math.round(attr.w + (curPositon.x - startPoint.x) / scale)
+  } else if (dir === 'b') {
+    pos.h = Math.round(attr.h + (curPositon.y - startPoint.y) / scale)
+  } else if (dir === 'lb') {
+    pos.h = Math.round(attr.h + (curPositon.y - startPoint.y) / scale)
+    pos.w = Math.round(attr.w + (startPoint.x - curPositon.x) / scale)
+    pos.x = Math.round(attr.x + (curPositon.x - startPoint.x) / scale)
+  } else if (dir === 'l') {
+    pos.w = Math.round(attr.w + (startPoint.x - curPositon.x) / scale)
+    pos.x = Math.round(attr.x + (curPositon.x - startPoint.x) / scale)
+  } else if (dir === 'lt') {
+    pos.h = Math.round(attr.h + (startPoint.y - curPositon.y) / scale)
+    pos.w = Math.round(attr.w + (startPoint.x - curPositon.x) / scale)
+    pos.x = Math.round(attr.x + (curPositon.x - startPoint.x) / scale)
+    pos.y = Math.round(attr.y + (curPositon.y - startPoint.y) / scale)
+  }
+}
+
+const setAttr = (ev: MouseEvent, dir: Direction | null, com: DatavComponent, scale: number, grid: number, resizeMode: ResizeMode) => {
   const attr = { ...com.attr }
   const pos = Object.create(null) as Partial<ComponentAttr>
 
-  const style = {
-    x: Math.round(attr.x * scale),
-    y: Math.round(attr.y * scale),
-    width: Math.round(attr.w * scale),
-    height: Math.round(attr.h * scale),
-    rotate: attr.deg,
-    scale: scale,
+  let layoutRect: DOMRect // 画布位移信息
+  let startPoint: IPoint // 当前点击坐标
+  let symmetricPoint: IPoint // 对称点的坐标
+  if (resizeMode === 'stretch') {
+    const center = { x: (attr.x + attr.w / 2) * scale, y: (attr.y + attr.h / 2) * scale }
+    layoutRect = document.getElementById('canvas-coms').getBoundingClientRect()
+    startPoint = { x: ev.clientX - layoutRect.left, y: ev.clientY - layoutRect.top }
+    symmetricPoint = { x: center.x - (startPoint.x - center.x), y: center.y - (startPoint.y - center.y) }
   }
-  // 组件中心点
-  const center = { x: style.x + style.width / 2, y: style.y + style.height / 2 }
-  // 获取画布位移信息
-  const layoutRect = document.querySelector('#canvas-coms').getBoundingClientRect()
-  // 当前点击坐标
-  const startPoint = { x: ev.clientX - layoutRect.left, y: ev.clientY - layoutRect.top }
-  // 获取对称点的坐标
-  const symmetricPoint = { x: center.x - (startPoint.x - center.x), y: center.y - (startPoint.y - center.y) }
+
   const move = (e: MouseEvent) => {
-    if (dir !== null) {
-      const endPoint = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
-      const newPosition = calcResizeInfo(dir, style, startPoint, symmetricPoint, endPoint)
-      pos.x = newPosition.x
-      pos.y = newPosition.y
-      pos.w = newPosition.width
-      pos.h = newPosition.height
+    if (dir) {
+      if (resizeMode === 'normal') {
+        calcResizeForNormal(
+          dir,
+          attr,
+          { x: ev.clientX, y: ev.clientY },
+          { x: e.clientX, y: e.clientY },
+          scale,
+          pos,
+        )
+      } else {
+        const curPositon = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
+        if (dir.length === 1) {
+          calcResizeForEdge(dir, attr, startPoint, curPositon, symmetricPoint, scale, pos)
+        } else {
+          calcResizeForCorner(dir, attr, curPositon, symmetricPoint, scale, pos)
+        }
+      }
     } else {
-      // grid 是每次移动固定格数
+      // 每次移动固定格数
       pos.x = attr.x + Math.round((e.clientX - ev.clientX) / scale / grid) * grid
       pos.y = attr.y + Math.round((e.clientY - ev.clientY) / scale / grid) * grid
     }
@@ -242,11 +278,12 @@ const setAttr = (ev: MouseEvent, dir: Direction | null, com: DatavComponent, sca
 }
 
 export const handleZoom = (ev: MouseEvent, dir: Direction, com: DatavComponent, scale: number) => {
-  setAttr(ev, dir, com, scale, 0)
+  const mode = EditorModule.isNormalResizeMode ? 'normal' : 'stretch'
+  setAttr(ev, dir, com, scale, 0, mode)
 }
 
 export const handleMove = (ev: MouseEvent, com: DatavComponent, scale: number, grid: number) => {
-  setAttr(ev, null, com, scale, grid)
+  setAttr(ev, null, com, scale, grid, null)
 }
 
 export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponent) => {

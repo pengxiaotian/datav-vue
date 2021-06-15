@@ -15,7 +15,7 @@
         <div class="template-list">
           <div class="template-item --blank">
             <div class="template-image">
-              <el-button type="primary" icon="el-icon-plus" @click="confirmCreate(0)">
+              <el-button type="primary" icon="el-icon-plus" @click="confirmCreate(null)">
                 创建项目
               </el-button>
             </div>
@@ -157,7 +157,7 @@ export default defineComponent({
     const visibleCreateDialog = ref(false)
     const visiblePreviewDialog = ref(false)
     const projectName = ref('')
-    const template = ref<Partial<ProjectTemplate>>({})
+    const template = ref<Partial<ProjectTemplate> | null>({})
     const groupId = ref(0)
     const groups = ref([new ProjectGroup(0, '未分组')])
     const saveLoading = ref(false)
@@ -179,7 +179,7 @@ export default defineComponent({
         })
     })
 
-    const confirmCreate = (tpl: ProjectTemplate) => {
+    const confirmCreate = (tpl: ProjectTemplate | null) => {
       template.value = tpl
       visibleCreateDialog.value = true
     }
@@ -228,7 +228,7 @@ export default defineComponent({
         const res = await createProject({
           name: projectName.value,
           groupId: groupId.value,
-          templateId: template.value.id,
+          templateId: template.value?.id ?? 0,
         })
         if (res.data.code === 0) {
           visibleCreateDialog.value = false
@@ -268,7 +268,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 @font-face {
   font-family: "Orbitron-Bold";

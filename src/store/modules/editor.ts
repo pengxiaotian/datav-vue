@@ -1,7 +1,7 @@
 import {
   VuexModule, Module, Mutation, Action, getModule, config,
 } from 'vuex-module-decorators'
-import _ from 'lodash'
+import { cloneDeep, debounce  } from 'lodash-es'
 import store from '@/store'
 import { Project, ProjectConfig } from '@/domains/project'
 import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
@@ -34,6 +34,7 @@ export interface AlignLine {
 }
 
 export interface IEditorState {
+  editMode: boolean
   screen: Screen
   pageConfig: ProjectConfig
   coms: DatavComponent[]
@@ -54,6 +55,7 @@ export interface IEditorState {
   contextMenu: {
     show: boolean
   }
+  isNormalResizeMode: boolean
 }
 
 /* endregion */
@@ -83,6 +85,8 @@ const selectCom = (coms: DatavComponent[], id?: string) => {
 
 @Module({ dynamic: true, store, name: 'editor' })
 class Editor extends VuexModule implements IEditorState {
+  editMode = false
+
   public screen = {
     id: 0,
     name: '',
@@ -134,6 +138,8 @@ class Editor extends VuexModule implements IEditorState {
   contextMenu = {
     show: false,
   }
+
+  isNormalResizeMode = true
 
   public get selectedCom() {
     return this.coms.find(m => m.selected)
@@ -226,6 +232,16 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
+  public setEditMode() {
+    this.editMode = true
+  }
+
+  @Mutation
+  public changeResizeMode(isNormal: boolean) {
+    this.isNormalResizeMode = isNormal
+  }
+
+  @Mutation
   private DELETE_COM(com: DatavComponent) {
     if (com.type === ComType.com) {
       this.coms.splice(findComIndex(this.coms, com.id), 1)
@@ -243,7 +259,7 @@ class Editor extends VuexModule implements IEditorState {
   private COPY_COM(id: string) {
     // 模拟后端复制
     const getNewCom = (com: DatavComponent, parentId?: string) => {
-      const ncom = _.cloneDeep(com)
+      const ncom = cloneDeep(com)
       ncom.id = generateId(ncom.name)
       ncom.alias += '_copy'
       ncom.attr.x += 30
@@ -273,10 +289,10 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Action
-  public async autoCanvasScale(payload: { offsetX: number; }) {
-    const resize = _.debounce(() => {
+  public async autoCanvasScale(payload: { offsetX: number; offsetY: number; }) {
+    const resize = debounce(() => {
       const width = document.documentElement.clientWidth - payload.offsetX
-      const height = document.documentElement.clientHeight - 42
+      const height = document.documentElement.clientHeight - 42 - payload.offsetY
 
       const a = (width - 120) / this.pageConfig.width
       const b = (height - 140) / this.pageConfig.height
@@ -294,9 +310,9 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Action
-  public async setCanvasScale(payload: { scale: number; offsetX: number; }) {
+  public async setCanvasScale(payload: { scale: number; offsetX: number; offsetY: number; }) {
     let width = document.documentElement.clientWidth - payload.offsetX
-    let height = document.documentElement.clientHeight - 42
+    let height = document.documentElement.clientHeight - 42 - payload.offsetY
     const scale = Math.min(Math.max(payload.scale, 20), 200) / 100
 
     // 方便计算滚动条 和 标尺

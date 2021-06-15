@@ -35,9 +35,7 @@ export default defineComponent({
     animation: headLadingAnimation 1s infinite ease-out;
   }
 }
-</style>
 
-<style lang="scss">
 @keyframes headLadingAnimation {
   from {
     transform: translateX(-100%);

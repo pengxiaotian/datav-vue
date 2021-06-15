@@ -7,8 +7,9 @@ config.rawError = true
 
 export enum PanelType {
   layer = 'layer',
-  comList = 'comList',
+  components = 'components',
   config = 'config',
+  toolbox = 'toolbox'
 }
 
 const panelStateKey = 'panel-state'
@@ -18,7 +19,7 @@ function getPanelState(key: PanelType) {
     const val = localStorage.getItem(panelStateKey) || ''
     return JSON.parse(val)[key] === '1'
   } catch (error) {
-    return key !== PanelType.comList
+    return key !== PanelType.components
   }
 }
 
@@ -43,10 +44,13 @@ export interface IToolbarState {
   layer: {
     show: boolean
   }
-  comList: {
+  components: {
     show: boolean
   }
   config: {
+    show: boolean
+  }
+  toolbox: {
     show: boolean
   }
   loading: number
@@ -60,12 +64,16 @@ class Toolbar extends VuexModule implements IToolbarState {
     show: getPanelState(PanelType.layer),
   }
 
-  comList = {
-    show: getPanelState(PanelType.comList),
+  components = {
+    show: getPanelState(PanelType.components),
   }
 
   config = {
     show: getPanelState(PanelType.config),
+  }
+
+  toolbox = {
+    show: getPanelState(PanelType.toolbox),
   }
 
   loading = 0
@@ -76,7 +84,7 @@ class Toolbar extends VuexModule implements IToolbarState {
       offsetX += 200
     }
 
-    if (this.comList.show) {
+    if (this.components.show) {
       offsetX += 233
     }
 
@@ -87,17 +95,29 @@ class Toolbar extends VuexModule implements IToolbarState {
     return offsetX
   }
 
+  public get getPanelOffsetY() {
+    let offsetY = 0
+    if (this.toolbox.show) {
+      offsetY += 40
+    }
+
+    return offsetY
+  }
+
   @Mutation
   private SET_PANEL_STATE(payload: { type: PanelType; value: boolean; }) {
     switch (payload.type) {
-      case PanelType.comList:
-        this.comList.show = payload.value
+      case PanelType.components:
+        this.components.show = payload.value
         break
       case PanelType.config:
         this.config.show = payload.value
         break
       case PanelType.layer:
         this.layer.show = payload.value
+        break
+      case PanelType.toolbox:
+        this.toolbox.show = payload.value
         break
     }
 

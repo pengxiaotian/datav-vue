@@ -1,6 +1,6 @@
 <template>
-  <el-aside width="auto" :class="['com-panel-wp', { '--hide': !visiblePanel }]">
-    <div class="com-panel">
+  <el-aside width="auto" :class="['component-panel-wp', { '--hide': !visiblePanel }]">
+    <div class="components-panel">
       <div class="panel-title">
         <span class="panel-text">组件列表</span>
         <i class="v-icon-back close-btn" @click="changeVisible"></i>
@@ -70,7 +70,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed } from 'vue'
-import _ from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { MessageUtil } from '@/utils/message-util'
@@ -80,14 +80,14 @@ import { createComponent } from '@/components/datav'
 type CategoryType = { expand?: string; } & typeof classifications[0]
 
 export default defineComponent({
-  name: 'ComListPanel',
+  name: 'ComponentsPanel',
   setup() {
     const searchText = ref('')
     const favoriteComs = ref([])
-    const visiblePanel = computed(() => ToolbarModule.comList.show)
+    const visiblePanel = computed(() => ToolbarModule.components.show)
 
     const categories = computed(() => {
-      const list: CategoryType[] = _.cloneDeep(classifications)
+      const list: CategoryType[] = cloneDeep(classifications)
       const first = { type: 'all', name: '全部', icon: 'v-icon-app' }
       list.forEach(item => {
         item.expand = ''
@@ -114,7 +114,7 @@ export default defineComponent({
     })
 
     const changeVisible = () => {
-      ToolbarModule.setPanelState({ type: PanelType.comList, value: !visiblePanel.value })
+      ToolbarModule.setPanelState({ type: PanelType.components, value: !visiblePanel.value })
     }
 
     const toAddCom = (comName: string, used: boolean) => {

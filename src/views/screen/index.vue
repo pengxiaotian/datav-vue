@@ -1,12 +1,13 @@
 <template>
   <el-container class="edit-container">
     <el-header style="height: auto; padding: 0;">
-      <toolbar />
+      <header-toolbar />
     </el-header>
     <el-container class="edit-main-wp">
       <layer-panel />
-      <com-list-panel />
+      <components-panel />
       <el-container class="edit-main">
+        <toolbox-panel />
         <g-loading :spinning="loading">
           <canvas-main />
         </g-loading>
@@ -23,24 +24,22 @@ import { defineComponent, computed, onMounted, ref } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { useMock } from '@/data/mock'
-import toolbar from './toolbar/index.vue'
-import LayerPanel from './layer-panel/index.vue'
-import ComListPanel from './com-list-panel/index.vue'
-import ConfigPanel from './config-panel/index.vue'
-import CanvasMain from './canvas-main/index.vue'
+import { loadAsyncComponent } from '@/utils/async-component'
+import HeaderToolbar from './header-toolbar/index.vue'
 import FooterToolbar from './footer-toolbar/index.vue'
 import EditorContextMenu from './editor-context-menu/index.vue'
 
 export default defineComponent({
   name: 'Screen',
   components: {
-    toolbar,
-    LayerPanel,
-    ComListPanel,
-    ConfigPanel,
-    CanvasMain,
+    HeaderToolbar,
     FooterToolbar,
     EditorContextMenu,
+    CanvasMain: loadAsyncComponent(() => import('./canvas-main/index.vue')),
+    LayerPanel: loadAsyncComponent(() => import('./layer-panel/index.vue')),
+    ComponentsPanel: loadAsyncComponent(() => import('./components-panel/index.vue')),
+    ConfigPanel: loadAsyncComponent(() => import('./config-panel/index.vue')),
+    ToolboxPanel: loadAsyncComponent(() => import('./toolbox-panel/index.vue')),
   },
   props: {
     projectId: {
@@ -50,6 +49,8 @@ export default defineComponent({
   },
   setup(props) {
     const loading = ref(true)
+
+    EditorModule.setEditMode()
 
     const screenId = computed(() => {
       return typeof props.projectId === 'string'
@@ -65,6 +66,7 @@ export default defineComponent({
         loading.value = false
         EditorModule.autoCanvasScale({
           offsetX: ToolbarModule.getPanelOffsetX,
+          offsetY: ToolbarModule.getPanelOffsetY,
         })
       })
 
@@ -80,7 +82,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 .edit-container {
   position: relative;
@@ -93,7 +95,7 @@ export default defineComponent({
   z-index: 1;
   height: 100%;
   overflow: hidden;
-  background: url('~@/assets/images/bg-canvas.png');
+  background: url('@/assets/images/bg-canvas.png');
   flex-wrap: nowrap;
 }
 

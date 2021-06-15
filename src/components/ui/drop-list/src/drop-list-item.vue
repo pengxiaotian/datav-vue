@@ -19,7 +19,7 @@ export default defineComponent({
     icon: String,
   },
   setup() {
-    const handleClick = inject('hidePopover')
+    const handleClick = inject('hidePopover') as () => void
 
     return {
       handleClick,

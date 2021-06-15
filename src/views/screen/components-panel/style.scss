@@ -1,8 +1,8 @@
-@import '~@/styles/themes/var';
+@import '@/styles/themes/var';
 
 $panel_width: 233px;
 
-.com-panel-wp {
+.component-panel-wp {
   flex: none;
   z-index: 4;
   width: $panel_width !important;
@@ -13,7 +13,7 @@ $panel_width: 233px;
   transition: width 0.3s ease;
 }
 
-.com-panel {
+.components-panel {
   position: relative;
   display: flex;
   width: $panel_width;
@@ -90,10 +90,10 @@ $panel_width: 233px;
   }
 }
 
-.com-panel-wp.--hide {
+.component-panel-wp.--hide {
   width: 0 !important;
 
-  .com-panel {
+  .components-panel {
     transform: translateX(-100%);
   }
 }
