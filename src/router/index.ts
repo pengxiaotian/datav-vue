@@ -2,13 +2,14 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { config } from '@/config'
 import { getToken } from '@/utils/token-util'
 import { UserStore } from '@/domains/user'
+import Home from '@/views/home/index.vue'
 
 const navRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
     redirect: '/project',
-    component: import('@/views/home/index.vue'),
+    component: Home,
     children: [
       {
         path: 'project',
