@@ -64,10 +64,10 @@ export default defineComponent({
 
       EditorModule.loadComs(screenId.value).finally(() => {
         loading.value = false
-        EditorModule.autoCanvasScale({
+        EditorModule.autoCanvasScale(() => ({
           offsetX: ToolbarModule.getPanelOffsetX,
           offsetY: ToolbarModule.getPanelOffsetY,
-        })
+        }))
       })
 
       useMock()

@@ -249,10 +249,10 @@ export default defineComponent({
     }
 
     const onSizeChange = () => {
-      EditorModule.autoCanvasScale({
+      EditorModule.autoCanvasScale(() => ({
         offsetX: ToolbarModule.getPanelOffsetX,
         offsetY: ToolbarModule.getPanelOffsetY,
-      })
+      }))
     }
 
     return {

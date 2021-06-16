@@ -289,16 +289,17 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Action
-  public async autoCanvasScale(payload: { offsetX: number; offsetY: number; }) {
+  public async autoCanvasScale(payload: () => { offsetX: number; offsetY: number; }) {
     const resize = debounce(() => {
-      const width = document.documentElement.clientWidth - payload.offsetX
-      const height = document.documentElement.clientHeight - 42 - 32 - payload.offsetY
+      const offset = payload()
+      const width = document.documentElement.clientWidth - offset.offsetX
+      const height = document.documentElement.clientHeight - 42 - 32 - offset.offsetY
 
       const a = (width - 120) / this.pageConfig.width
       const b = (height - 140) / this.pageConfig.height
       const scale = parseFloat((a > b ? b : a).toFixed(6)) * 100
 
-      this.setCanvasScale({ scale, ...payload })
+      this.setCanvasScale({ scale, ...offset })
     }, 200)
 
     window.onresize = resize

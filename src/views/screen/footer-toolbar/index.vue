@@ -98,17 +98,18 @@ export default defineComponent({
       document.addEventListener('click', hideScaleList, false)
     }
 
+    const getPanelOffset = () => ({
+      offsetX: ToolbarModule.getPanelOffsetX,
+      offsetY: ToolbarModule.getPanelOffsetY,
+    })
+
     const submitScale = async (val: number) => {
-      const offset = {
-        offsetX: ToolbarModule.getPanelOffsetX,
-        offsetY: ToolbarModule.getPanelOffsetY,
-      }
       if (val === -1) {
-        EditorModule.autoCanvasScale(offset)
+        EditorModule.autoCanvasScale(getPanelOffset)
       } else {
         EditorModule.setCanvasScale({
           scale: val === 0 ? inputScale.value : val,
-          ...offset,
+          ...getPanelOffset(),
         })
       }
 
@@ -138,10 +139,7 @@ export default defineComponent({
           } else if (key === 'arrowright') {
             setPanelState({ type: PanelType.config, value: !ToolbarModule.config.show })
           } else if (key === 'a') {
-            EditorModule.autoCanvasScale({
-              offsetX: ToolbarModule.getPanelOffsetX,
-              offsetY: ToolbarModule.getPanelOffsetY,
-            })
+            EditorModule.autoCanvasScale(getPanelOffset)
           }
 
           ev.preventDefault()
