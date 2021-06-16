@@ -61,7 +61,6 @@ export default defineComponent({
   top: 60px;
   bottom: 120px;
   width: 100%;
-  overflow-y: auto;
 }
 
 .scroll-container {

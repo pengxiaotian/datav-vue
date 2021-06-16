@@ -1,24 +1,25 @@
 import { createApp } from 'vue'
 
-import ElementPlus from 'element-plus'
-import locale from 'element-plus/lib/locale/lang/zh-cn'
-import '@/styles/index.scss'
-
 import i18n from '@/locales'
 
-import DatavCharts from '@/components'
-import GUI from '@/components/ui'
+import ElementPlus from '@/components/element-plus'
+import locale from 'element-plus/lib/locale/lang/zh-cn'
 
-import App from './App.vue'
+import GUI from '@/components/ui'
+import '@/styles/index.scss'
+
+import DatavCharts from '@/components'
+
 import store from './store'
-import router from './router'
+import router from './routes'
+import App from './App.vue'
 
 const app = createApp(App)
 app.use(i18n)
-app.use(store)
-app.use(router)
 app.use(ElementPlus, { locale, size: 'medium', zIndex: 3000 })
 app.use(GUI)
 app.use(DatavCharts)
+app.use(store)
+app.use(router)
 
 app.mount('#app')

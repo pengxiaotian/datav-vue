@@ -5,8 +5,6 @@ $--font-path: 'element-plus/lib/theme-chalk/fonts';
 
 $--color-primary: $color-primary;
 
-/* Dialog
--------------------------- */
-$--dialog-background-color: $dialog-bgcolor;
+// @import "node_modules/element-plus/packages/theme-chalk/src/index";
 
-@import "node_modules/element-plus/packages/theme-chalk/src/index";
+@import "node_modules/element-plus/packages/theme-chalk/src/base.scss"

@@ -1,6 +1,6 @@
 @import "themes/var";
 
-.tooltip-popover.el-popover {
+.tooltip-popover.el-popover.el-popper.is-light {
   padding: 6px 10px;
   background: $tooltip-popover-bgcolor;
   box-shadow: 0 0 4px $tooltip-popover-shadow-color;
