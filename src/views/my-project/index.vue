@@ -1,82 +1,80 @@
 <template>
-  <g-loading :spinning="loading">
-    <div class="my-project">
-      <div class="project-main">
-        <div class="project-manage">
-          <div class="manage-title">
-            <div class="my-project project-group">
-              <span style="margin-left: 2px;">我的分组</span>
-              <i class="el-icon-plus btn-add-icon" @click="adding = true"></i>
-            </div>
-            <div
-              class="my-project project-all"
-              :class="{ 'project-checked-color': selectedGroupId === group.id }"
-              @click="toggleProject(group.id)"
+  <div class="my-project">
+    <div class="project-main">
+      <div class="project-manage">
+        <div class="manage-title">
+          <div class="my-project project-group">
+            <span style="margin-left: 2px;">我的分组</span>
+            <i class="el-icon-plus btn-add-icon" @click="adding = true"></i>
+          </div>
+          <div
+            class="my-project project-all"
+            :class="{ 'project-checked-color': selectedGroupId === group.id }"
+            @click="toggleProject(group.id)"
+          >
+            <span>{{ group.name }}</span>
+            <span class="project-num">{{ group.children.length }}</span>
+          </div>
+          <div v-if="adding" class="new-group">
+            <input
+              v-focus
+              class="edit-input"
+              @blur="onAddInputBlur"
+              @keyup.enter="addGroup"
             >
-              <span>{{ group.name }}</span>
-              <span class="project-num">{{ group.children.length }}</span>
-            </div>
-            <div v-if="adding" class="new-group">
+          </div>
+        </div>
+
+        <div class="manage-main" :class="{ draging: draging }">
+          <div
+            class="main-project"
+            :class="{ 'project-checked-color': selectedGroupId === ungroup.id }"
+            @click="toggleProject(ungroup.id)"
+            @dragover.prevent
+            @dragenter="onDragEnter"
+            @dragleave="onDragLeave"
+            @drop="onDrop($event, ungroup)"
+          >
+            <span class="project-name project-ungrouped">{{ ungroup.name }}</span>
+            <span class="project-num">{{ ungroup.children.length }}</span>
+          </div>
+
+          <div
+            v-for="g in groups"
+            :key="g.id"
+            class="main-project group-project"
+            :class="{ 'project-checked-color': selectedGroupId === g.id }"
+            @click="toggleProject(g.id)"
+            @dragover.prevent
+            @dragenter="onDragEnter"
+            @dragleave="onDragLeave"
+            @drop="onDrop($event, g)"
+          >
+            <template v-if="g.editing">
               <input
                 v-focus
+                :default-value="g.name"
                 class="edit-input"
-                @blur="onAddInputBlur"
-                @keyup.enter="addGroup"
+                @blur="onEditInputBlur($event, g)"
+                @keyup.enter="editGroup($event, g)"
               >
-            </div>
+            </template>
+            <template v-else>
+              <span class="project-name">{{ g.name }}</span>
+              <span class="project-num">{{ g.children.length }}</span>
+              <span class="group-btns">
+                <i class="v-icon-edit" @click="g.editing = true"></i>
+                <i class="v-icon-delete" @click="confirmDeleteGroup(g)"></i>
+              </span>
+            </template>
           </div>
-
-          <div class="manage-main" :class="{ draging: draging }">
-            <div
-              class="main-project"
-              :class="{ 'project-checked-color': selectedGroupId === ungroup.id }"
-              @click="toggleProject(ungroup.id)"
-              @dragover.prevent
-              @dragenter="onDragEnter"
-              @dragleave="onDragLeave"
-              @drop="onDrop($event, ungroup)"
-            >
-              <span class="project-name project-ungrouped">{{ ungroup.name }}</span>
-              <span class="project-num">{{ ungroup.children.length }}</span>
-            </div>
-
-            <div
-              v-for="g in groups"
-              :key="g.id"
-              class="main-project group-project"
-              :class="{ 'project-checked-color': selectedGroupId === g.id }"
-              @click="toggleProject(g.id)"
-              @dragover.prevent
-              @dragenter="onDragEnter"
-              @dragleave="onDragLeave"
-              @drop="onDrop($event, g)"
-            >
-              <template v-if="g.editing">
-                <input
-                  v-focus
-                  :default-value="g.name"
-                  class="edit-input"
-                  @blur="onEditInputBlur($event, g)"
-                  @keyup.enter="editGroup($event, g)"
-                >
-              </template>
-              <template v-else>
-                <span class="project-name">{{ g.name }}</span>
-                <span class="project-num">{{ g.children.length }}</span>
-                <span class="group-btns">
-                  <i class="v-icon-edit" @click="g.editing = true"></i>
-                  <i class="v-icon-delete" @click="confirmDeleteGroup(g)"></i>
-                </span>
-              </template>
-            </div>
-          </div>
-        </div>
-        <div class="project-screen-list">
-          <project-list :group="selectedGroup" />
         </div>
       </div>
+      <div class="project-screen-list">
+        <project-list :group="selectedGroup" />
+      </div>
     </div>
-  </g-loading>
+  </div>
 </template>
 
 <script lang='ts'>
