@@ -71,7 +71,9 @@
         </div>
       </div>
       <div class="project-screen-list">
-        <project-list :group="selectedGroup" />
+        <g-loading :spinning="loading">
+          <project-list :group="selectedGroup" />
+        </g-loading>
       </div>
     </div>
   </div>
