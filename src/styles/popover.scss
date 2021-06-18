@@ -4,15 +4,15 @@
   min-width: auto;
 
   &.is-light {
-    background: $popover-dark-bgcolor;
+    background: $popover-bgcolor-dark;
   }
 
   // TODO:  el-popover 只支持 light
   @each $placement, $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top') {
     &.is-light[data-popper-placement^='#{$placement}'] {
       .el-popper__arrow::before {
-        border-color: $popover-dark-bgcolor;
-        background: $popover-dark-bgcolor;
+        border-color: $popover-bgcolor-dark;
+        background: $popover-bgcolor-dark;
       }
     }
   }
@@ -27,8 +27,8 @@
   @each $placement, $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top') {
     &.is-light[data-popper-placement^='#{$placement}'] {
       .el-popper__arrow::before {
-        border-color: $editor-popover-bgcolor;
-        background: $editor-popover-bgcolor;
+        border-color: $popover-bgcolor;
+        background: $popover-bgcolor;
       }
     }
   }

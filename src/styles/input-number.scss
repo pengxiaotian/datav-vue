@@ -8,8 +8,8 @@
 
     &:not(.is-disabled):hover {
       z-index: 2;
-      color: $input-hover-color;
-      border-color: $input-hover-color;
+      color: $input-color-hover;
+      border-color: $input-color-hover;
     }
   }
 
@@ -20,8 +20,8 @@
 
     &:not(.is-disabled):hover {
       z-index: 2;
-      color: $input-hover-color;
-      border-color: $input-hover-color;
+      color: $input-color-hover;
+      border-color: $input-color-hover;
     }
   }
 
@@ -55,8 +55,8 @@
 
       &:not(.is-disabled):hover {
         z-index: 2;
-        color: $input-hover-color;
-        border-color: $input-hover-color;
+        color: $input-color-hover;
+        border-color: $input-color-hover;
       }
     }
 
@@ -67,8 +67,8 @@
 
       &:not(.is-disabled):hover {
         z-index: 2;
-        color: $input-hover-color;
-        border-color: $input-hover-color;
+        color: $input-color-hover;
+        border-color: $input-color-hover;
       }
     }
 
@@ -102,7 +102,7 @@
   font-size: $font-size;
   height: 16px;
   line-height: 16px;
-  color: $input-font-color-description;
+  color: $input-description-font-color;
 
   @include utils-ellipsis();
 }

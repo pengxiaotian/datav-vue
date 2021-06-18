@@ -34,7 +34,7 @@
   cursor: pointer;
 
   &:hover {
-    color: $field-hover-color;
+    color: $hover-color;
   }
 }
 
@@ -50,7 +50,7 @@
     cursor: pointer;
 
     &:hover {
-      color: $field-hover-color;
+      color: $hover-color;
     }
   }
 }
@@ -86,7 +86,7 @@
     margin-bottom: 4px;
 
     .g-field {
-      color: $field-font-secondary-color;
+      color: $field-font-color-secondary;
     }
   }
 }

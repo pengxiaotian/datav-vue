@@ -38,11 +38,11 @@
 
       &:hover {
         border-left-color: $color-primary;
-        background: $drop-list-popover-hover-bgcolor;
+        background: $drop-list-popover-bgcolor-hover;
       }
 
       &:not(:first-child) {
-        border-top: 1px solid $drop-list-popover-hover-bgcolor;
+        border-top: 1px solid $drop-list-popover-bgcolor-hover;
       }
     }
 

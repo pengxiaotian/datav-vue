@@ -239,7 +239,7 @@ export default defineComponent({
     width: 80%;
     height: 50px;
     line-height: 22px;
-    background: $background-dark-color;
+    background: $background-color-dark;
     cursor: pointer;
     resize: none;
   }
@@ -248,7 +248,7 @@ export default defineComponent({
     width: 80%;
     height: 25px;
     line-height: 25px;
-    background: $background-dark-color;
+    background: $background-color-dark;
     cursor: text;
   }
 

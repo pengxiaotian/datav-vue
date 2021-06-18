@@ -223,7 +223,7 @@ export default defineComponent({
       .search-input {
         @include utils-ellipsis;
 
-        background: $background-dark-color;
+        background: $background-color-dark;
         color: #fff;
         padding: 0 10px;
         line-height: 30px;
@@ -232,7 +232,8 @@ export default defineComponent({
         border: 1px solid transparent;
         transition: 0.2s;
 
-        &:hover {
+        &:hover,
+        &:focus {
           border: $border-primary;
           box-shadow: $shadow;
         }

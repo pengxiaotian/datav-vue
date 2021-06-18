@@ -25,7 +25,7 @@
   }
 
   .el-tabs__active-bar {
-    background-color: $tabs-bar-active-bgcolor;
+    background-color: $tabs-bar-bgcolor-active;
 
     &.is-left {
       right: auto;
@@ -37,12 +37,12 @@
     color: $tabs-font-color;
 
     &:hover {
-      color: $tabs-font-hover-color;
+      color: $hover-color;
     }
 
     &.is-active {
-      color: $tabs-font-hover-color;
-      background: $tabs-active-bgcolor;
+      color: $hover-color;
+      background: $tabs-bgcolor-active;
     }
   }
 
@@ -73,18 +73,18 @@
       background: $datav-tabs-nav-bgcolor;
 
       &:hover {
-        color: $tabs-font-hover-color;
+        color: $hover-color;
       }
 
       &.is-active {
-        color: $tabs-font-hover-color;
+        color: $hover-color;
         border-top: 2px solid $color-primary;
-        background: $datav-tabs-nav-active-bgcolor;
+        background: $datav-tabs-nav-bgcolor-active;
       }
     }
   }
 
   .el-tabs__content {
-    background: $datav-tabs-nav-active-bgcolor;
+    background: $datav-tabs-nav-bgcolor-active;
   }
 }

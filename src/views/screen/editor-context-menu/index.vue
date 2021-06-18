@@ -167,9 +167,9 @@ export default defineComponent({
   border-left: 2px solid transparent;
 
   &:hover {
-    color: $context-menu-hover-color;
-    background-color: $context-menu-hover-bgcolor;
-    border-left: 2px solid $context-menu-hover-color;
+    color: $context-menu-color-hover;
+    background-color: $context-menu-bgcolor-hover;
+    border-left: 2px solid $context-menu-color-hover;
   }
 
   .menu-icon {
@@ -177,7 +177,7 @@ export default defineComponent({
   }
 
   &.disable {
-    color: $context-menu-disable-color;
+    color: $context-menu-color-disable;
     pointer-events: none;
     cursor: auto;
   }

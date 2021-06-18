@@ -280,7 +280,7 @@ export default defineComponent({
   transition: 0.2s;
 
   &:hover {
-    background: $header-btn-hover-bgcolor;
+    background: $header-btn-bgcolor-hover;
   }
 
   &.--selected {

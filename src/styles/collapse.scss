@@ -81,16 +81,16 @@
     margin-bottom: 1px;
 
     .g-field-title {
-      color: $field-font-color-3;
+      color: $field-font-color-thirdly;
     }
 
     .el-collapse-item__header {
-      color: $field-font-secondary-color;
+      color: $field-font-color-secondary;
       background-color: $field-collapse-item-bgcolor;
 
       .g-field-title,
       .g-field-title-with-description {
-        color: $field-font-secondary-color;
+        color: $field-font-color-secondary;
       }
     }
   }

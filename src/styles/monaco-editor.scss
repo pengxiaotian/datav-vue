@@ -51,7 +51,7 @@
   height: 240px;
   padding: 0;
   overflow: hidden;
-  border: 1px solid $datav-editor-border-color;
+  border: 1px solid $monaco-border-color;
   background: $background-color;
 
   .datav-editor-actions {
@@ -66,7 +66,7 @@
     .action-btn {
       padding: 4px;
       font-size: 12px;
-      color: $datav-editor-action-color;
+      color: $monaco-action-color;
       cursor: pointer;
       transition: color 0.2s;
 
@@ -79,7 +79,7 @@
   &.--read-only {
     .margin,
     .monaco-editor-background {
-      background-color: $monaco-readonly-bgcolor;
+      background-color: $monaco-bgcolor-readonly;
     }
   }
 }

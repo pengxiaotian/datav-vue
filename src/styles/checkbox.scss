@@ -9,12 +9,12 @@
     outline: $border-outline;
 
     &:hover {
-      border-color: $checkbox-checked-border-color;
+      border-color: $checkbox-border-color-checked;
       background-color: rgba(38, 129, 255, 0.3);
     }
 
     &::after {
-      border-color: $checkbox-checked-border-color;
+      border-color: $checkbox-border-color-checked;
     }
   }
 

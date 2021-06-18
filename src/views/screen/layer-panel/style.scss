@@ -94,7 +94,7 @@ $panel_width: 200px;
 
     &.standard:not(.enable):hover {
       cursor: pointer;
-      background: $layer-toolbar-hover-bgcolor;
+      background: $layer-toolbar-bgcolor-hover;
       opacity: 0.5 !important;
     }
   }
@@ -167,8 +167,8 @@ $panel_width: 200px;
 
   &.hided,
   &.locked {
-    color: $layer-manager-hide-color;
-    background: $layer-manager-hide-bgcolor;
+    color: $layer-manager-color-hide;
+    background: $layer-manager-bgcolor-hide;
   }
 
   &.hovered {

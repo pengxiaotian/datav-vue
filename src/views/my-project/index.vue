@@ -403,7 +403,7 @@ export default defineComponent({
   .edit-input {
     @include utils-ellipsis;
 
-    background: $background-dark-color;
+    background: $background-color-dark;
     color: #fff;
     padding: 0 10px;
     line-height: 30px;

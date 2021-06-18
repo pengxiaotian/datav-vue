@@ -256,7 +256,7 @@ export default defineComponent({
           transition: color 0.2s;
 
           &:hover {
-            color: $icon-hover-color;
+            color: $hover-color;
           }
 
           [class^="v-icon-"] {
@@ -287,7 +287,7 @@ export default defineComponent({
         transition: color 0.2s;
 
         &:hover {
-          color: $icon-hover-color;
+          color: $hover-color;
         }
       }
     }
@@ -314,7 +314,7 @@ export default defineComponent({
       position: relative;
       justify-content: space-between;
       color: #fff;
-      background: $background-dark-color;
+      background: $background-color-dark;
       padding: 0 10px;
 
       .screen-name-input {
@@ -340,7 +340,7 @@ export default defineComponent({
           }
 
           &:focus {
-            background: $background-dark-color;
+            background: $background-color-dark;
           }
         }
       }

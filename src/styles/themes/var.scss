@@ -12,16 +12,6 @@ $color-error: $red-6;
 $color-info: $color-gray;
 $color-primary-secondary: mix($color-white, $color-primary, 15%); // #4794ff
 
-// Base
-$font-color: #bcc9d4;
-$font-color-secondary: #a1aeb3;
-$font-color-placeholder: #c0c4cc;
-$font-size: 12px;
-$header-font-size: $font-size;
-$hover-color: $color-primary;
-$nav-color: #b9c2cc;
-$nav-border-color: #27343e;
-
 // Animation
 $ease-base-out: cubic-bezier(0.7, 0.3, 0.1, 1);
 $ease-base-in: cubic-bezier(0.9, 0, 0.3, 0.7);
@@ -42,41 +32,20 @@ $animation-duration-slow: 0.3s; // Modal
 $animation-duration-base: 0.2s;
 $animation-duration-fast: 0.1s; // Tooltip
 
+// Base
+$font-color: #bcc9d4;
+$font-color-secondary: #a1aeb3;
+$font-color-placeholder: #c0c4cc;
+$font-size: 12px;
+$header-font-size: $font-size;
+$hover-color: $color-primary;
+$nav-color: #b9c2cc;
+$nav-border-color: #27343e;
+
 // Background
 $background-color: #171b22;
-$background-dark-color: #1d262e;
+$background-color-dark: #1d262e;
 $background-color-secondary: #303640;
-
-// Input
-$input-font-color: $font-color;
-$input-bgcolor: $color-dark;
-$input-border-color: #0b0c0d;
-$input-font-color-description: #5c6366;
-$input-hover-color: $color-primary;
-$input-prepend-bgcolor: #39414d;
-$input-bgcolor-disabled: $color-dark;
-$input-font-color-disabled: #424447;
-$input-border-disabled: 1px solid #323437;
-
-// Checkbox
-$checkbox-checked-border-color: $color-primary;
-
-// Scrollbar
-$scrollbar-thumb-bg: #434b55;
-$scrollbar-thumb-width: 4px;
-$scrollbar-thumb-height: 4px;
-
-// tooltip-popover
-$tooltip-popover-color: #fff;
-$tooltip-popover-bgcolor: #1b3964;
-$tooltip-popover-shadow-color: #000;
-
-// drop-list-popover
-$drop-list-popover-bgcolor: $color-dark;
-$drop-list-popover-hover-bgcolor: #1a1b1d;
-
-// Popover
-$popover-dark-bgcolor: $color-dark;
 
 // Border
 $border-color: #3a4659;
@@ -90,21 +59,49 @@ $shadow-color: #000;
 $shadow: 0 0 10px -6px $shadow-color;
 $shadow-secondary: 0 0 8px -4px $shadow-color;
 
+// Input
+$input-color-hover: $color-primary;
+$input-font-color: $font-color;
+$input-font-color-disabled: #424447;
+$input-description-font-color: #5c6366;
+$input-prepend-bgcolor: #39414d;
+$input-border-color: #0b0c0d;
+$input-border-disabled: 1px solid #323437;
+$input-bgcolor: $color-dark;
+$input-bgcolor-disabled: $color-dark;
+
+// Checkbox
+$checkbox-border-color-checked: $color-primary;
+
+// Scrollbar
+$scrollbar-thumb-color: #434b55;
+$scrollbar-thumb-width: 4px;
+$scrollbar-thumb-height: 4px;
+
+// tooltip-popover
+$tooltip-popover-color: #fff;
+$tooltip-popover-bgcolor: #1b3964;
+$tooltip-popover-shadow-color: #000;
+
+// drop-list-popover
+$drop-list-popover-bgcolor: $color-dark;
+$drop-list-popover-bgcolor-hover: #1a1b1d;
+
+// Popover
+$popover-bgcolor: #303640;
+$popover-bgcolor-dark: $color-dark;
+
 // Icon
 $icon-color: $color-white;
-$icon-hover-color: $color-primary;
-
-// State
-$state-color: #576369;
 
 // Message
 $message-font-color: #fff;
-$message-success-bgcolor: #1b3964;
-$message-success-border-color: $color-primary;
-$message-warning-bgcolor: #593c27;
-$message-warning-border-color: $color-warning;
-$message-error-bgcolor: #5d2b3e;
-$message-error-border-color: $color-error;
+$message-bgcolor-success: #1b3964;
+$message-bgcolor-warning: #593c27;
+$message-bgcolor-error: #5d2b3e;
+$message-border-color-success: $color-primary;
+$message-border-color-warning: $color-warning;
+$message-border-color-error: $color-error;
 
 // MessageBox
 $message-box-bgcolor: #303640;
@@ -118,7 +115,7 @@ $slider-track-color: linear-gradient(to right, $slider-color, $color-primary);
 
 // Button
 $button-font-color: $color-white;
-$button-active-shade-percent: 10% !default;
+$button-shade-percent-active: 10% !default;
 $button-font-color-disabled: rgba(255, 255, 255, 0.5);
 $button-border-color-disabled: #323437;
 $button-bgcolor-disabled: #262c33;
@@ -138,34 +135,33 @@ $switch-border-color: #303740;
 $select-font-color: #a1aeb3;
 $select-bgcolor: #111417;
 $select-option-bgcolor: #1d2126;
-$select-option-hover-bgcolor: #1b3964;
-$select-selected-color: #fff;
+$select-option-bgcolor-hover: #1b3964;
+$select-color-selected: #fff;
 
 // Tabs
-$tabs-nav-bgcolor: #191c21;
-$tabs-bar-active-bgcolor: $color-primary;
 $tabs-font-color: $font-color;
-$tabs-font-hover-color: $color-primary;
-$tabs-active-bgcolor: #14161a;
+$tabs-bgcolor-active: #14161a;
+$tabs-nav-bgcolor: #191c21;
+$tabs-bar-bgcolor-active: $color-primary;
 $tabs-content-bgcolor: #13161a;
 $datav-tabs-nav-bgcolor: #13161a;
-$datav-tabs-nav-active-bgcolor: #1d2126;
+$datav-tabs-nav-bgcolor-active: #1d2126;
 
 // Collapse
 $collapse-font-color: $font-color;
 $collapse-bgcolor: #13161a;
 $collapse-border-color: #141210;
 
-// MonacoEditor
-$monaco-suggest-color: #d4d4d4;
-$monaco-readonly-bgcolor: #1f2329;
-$datav-editor-border-color: #282f3a;
-$datav-editor-action-color: #bfbfbf;
-$monaco-fullscreen-dialog-bgcolor: #222425;
-
 // Drawer
 $drawer-bgcolor: #1d2126;
 $drawer-title-color: $color-primary;
+
+// MonacoEditor
+$monaco-border-color: #282f3a;
+$monaco-suggest-color: #d4d4d4;
+$monaco-bgcolor-readonly: #1f2329;
+$monaco-fullscreen-dialog-bgcolor: #222425;
+$monaco-action-color: #bfbfbf;
 
 /* Editor
 -------------------------- */
@@ -174,7 +170,7 @@ $header-color: #a1aeb3;
 $header-icon-color: #fff;
 $header-bgcolor: #1d1e1f;
 $header-btn-bgcolor: #303640;
-$header-btn-hover-bgcolor: #414750;
+$header-btn-bgcolor-hover: #414750;
 
 // Layer
 $panel-bgcolor: #1d2126;
@@ -184,12 +180,12 @@ $panel-img-border-color: #37bfff;
 $layer-bgcolor: #2e343c;
 $layer-font-color: #fff;
 $layer-toolbar-bgcolor: #20242a;
-$layer-toolbar-hover-bgcolor: #3a4650;
+$layer-toolbar-bgcolor-hover: #3a4650;
 $layer-toolbar-icon-color: #282f3a;
 $layer-toolbar-border: 1px solid #282f3a;
 $layer-manager-bgcolor: #1b1f25;
-$layer-manager-hide-color: #576369;
-$layer-manager-hide-bgcolor: #1c1f25;
+$layer-manager-bgcolor-hide: #1c1f25;
+$layer-manager-color-hide: #576369;
 $layer-thumbail-bgcolor: #282a30;
 $layer-input-bgcolor: #363c48;
 
@@ -202,43 +198,45 @@ $config-dot-bgcolor: #7d8081;
 
 $page-config-font-color: #fff;
 $page-config-bgcolor: #1c2026;
-$page-config-secondary-bgcolor: #262c33;
+$page-config-bgcolor-secondary: #262c33;
 
 // ContextMenu
 $context-menu-font-color: $font-color;
+$context-menu-color-hover: #00baff;
+$context-menu-color-disable: #576369;
 $context-menu-bgcolor: #27343e;
-$context-menu-hover-color: #00baff;
-$context-menu-hover-bgcolor: #1d262e;
-$context-menu-disable-color: #576369;
+$context-menu-bgcolor-hover: #1d262e;
 $context-menu-divider-bgcolor: #3a4659;
 
 // Footer
 $footer-bgcolor: #222528;
 $footer-color: $font-color;
-$footer-hover-color: $color-primary;
-$footer-shortcut-bgcolor: #262b33;
 $footer-shortcut-color: #08a1db;
-$footer-shortcut-hover-color: #0b0c0d;
-
-$editor-popover-bgcolor: #303640;
+$footer-shortcut-color-hover: #0b0c0d;
+$footer-shortcut-bgcolor: #262b33;
 
 /* Editor End
 -------------------------- */
 
+// State
+$state-color: #576369;
+
 // DataV GUI
 $field-font-size: $font-size;
 $field-font-color: #fff;
-$field-font-secondary-color: #c3d3d9;
-$field-font-color-3: #737c80;
+$field-font-color-secondary: #c3d3d9;
+$field-font-color-thirdly: #737c80;
 $field-height: 28px;
 $field-help-color: #a1aeb3;
-$field-hover-color: $color-primary;
 $field-container-width: 192px;
+$field-collapse-header-bgcolor: #1c2026;
+$field-collapse-arrow-color: #a1aeb3;
+$field-collapse-item-bgcolor: #111417;
 
 $upload-font-color: #fff;
 $upload-tip-color: $font-color;
 $upload-bgcolor: $color-dark;
-$upload-hover-bgcolor: $background-color-secondary;
+$upload-bgcolor-hover: $background-color-secondary;
 
 $gui-component-bgcolor: $color-dark;
 $gui-component-color: #a1aeb3;
@@ -249,7 +247,3 @@ $ruler-tag-bg: rgba(64, 116, 180, 1);
 $ruler-line-bg: rgba(0, 173, 255, 0.84);
 $ruler-mark-color: #3a4659;
 $ruler-font-color: rgba(161, 174, 179, 0.8);
-
-$field-collapse-header-bgcolor: #1c2026;
-$field-collapse-arrow-color: #a1aeb3;
-$field-collapse-item-bgcolor: #111417;

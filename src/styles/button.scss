@@ -17,8 +17,8 @@
 
   &:active {
     color: $button-font-color;
-    background: mix($color-black, $color-primary, $button-active-shade-percent);
-    border-color: mix($color-black, $color-primary, $button-active-shade-percent);
+    background: mix($color-black, $color-primary, $button-shade-percent-active);
+    border-color: mix($color-black, $color-primary, $button-shade-percent-active);
     outline: none;
   }
 }

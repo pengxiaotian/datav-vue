@@ -285,8 +285,8 @@ export default defineComponent({
     transition: 0.2s;
 
     &:hover {
-      color: $footer-hover-color;
-      background: $footer-shortcut-hover-color;
+      color: $hover-color;
+      background: $footer-shortcut-color-hover;
     }
 
     &:not(:first-child) {

@@ -319,7 +319,7 @@ export default defineComponent({
     left: 6%;
     width: 91%;
     height: 1px;
-    background: $page-config-secondary-bgcolor;
+    background: $page-config-bgcolor-secondary;
     content: '';
   }
 }
@@ -370,7 +370,7 @@ export default defineComponent({
 }
 
 .upload-tip {
-  color: $input-font-color-description;
+  color: $input-description-font-color;
   margin-top: 4px;
   display: -webkit-box;
   word-break: break-word;

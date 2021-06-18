@@ -21,8 +21,8 @@
 }
 
 .el-message--error {
-  background-color: $message-error-bgcolor;
-  border-color: $message-error-border-color;
+  background-color: $message-bgcolor-error;
+  border-color: $message-border-color-error;
 
   .el-message__content {
     font-size: 12px;
@@ -32,8 +32,8 @@
 }
 
 .el-message--success {
-  background-color: $message-success-bgcolor;
-  border-color: $message-success-border-color;
+  background-color: $message-bgcolor-success;
+  border-color: $message-border-color-success;
 
   .el-message__content {
     font-size: 12px;
@@ -43,8 +43,8 @@
 }
 
 .el-message--warning {
-  background-color: $message-warning-bgcolor;
-  border-color: $message-warning-border-color;
+  background-color: $message-bgcolor-warning;
+  border-color: $message-border-color-warning;
 
   .el-message__content {
     font-size: 12px;
