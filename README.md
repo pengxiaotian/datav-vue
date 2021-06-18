@@ -39,6 +39,7 @@
 
 ## CheckList
 
+```
 - 页面功能
 - [x] 登录页
   * [x] 看板娘
@@ -105,7 +106,7 @@
   * [ ] 全屏切换
   * [ ] Tab选择器
   * [ ] 日期选择器
-
+```
 
 ## 安装与使用
 
@@ -118,6 +119,9 @@ yarn dev
 
 # 构建发布
 yarn build
+
+# 本地预览，需要先执行 build
+yarn serve
 ```
 
 ### 新建可视化组件
@@ -175,11 +179,12 @@ yarn cz
 
 例子：
 ```
-[TYPE](SCOPE):DESCRIPTION#[ISSUE]
-# example feat(button): add type 'button' for form usage #1234
+type(scope?): subject (#issue)
+
+# example: feat(core): add type 'bar' for datav (#123)
 ```
 
-Git提交模板配置：`./commitlint.config.js`
+Git提交模板配置：`./commitlint.config.js` & `./changelog.config.js`
 
 ## 国际化
 目前只有 `登录页` 进行了国际化设置，有需要可自行添加。

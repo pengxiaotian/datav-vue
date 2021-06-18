@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A Data Visualization Project For Vue3.x",
   "scripts": {
-    "cz": "npx git-cz",
+    "cz": "git cz",
     "gc": "bash ./scripts/gc.sh",
     "new": "plop --plopfile ./plop-templates/plopfile.js",
     "bootstrap": "yarn --frozen-lockfile",
@@ -56,10 +56,10 @@
     "@vue/component-compiler-utils": "^3.2.0",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.3",
-    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.20.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-vue": "^7.10.0",
+    "git-cz": "^4.7.6",
     "handlebars": "^4.7.7",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
@@ -77,7 +77,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "git-cz"
     }
   },
   "lint-staged": {
