@@ -70,6 +70,8 @@ const getPosByCoor = (coor: number, options: RulerOption) => {
 }
 
 class GuideLine {
+  static isMoveing = false
+
   guideLine: HTMLElement
   coor = -1
 
@@ -111,6 +113,7 @@ class GuideLine {
   }
 
   moving(ev: MouseEvent) {
+    GuideLine.isMoveing = true
     const { options } = this
     ev.preventDefault()
     ev.stopPropagation()
@@ -126,6 +129,7 @@ class GuideLine {
     }
 
     const up = () => {
+      GuideLine.isMoveing = false
       document.body.style.cursor = ''
       off(document, 'mousemove', move)
       off(document, 'mouseup', up)
@@ -310,6 +314,9 @@ export class RulerBuilder {
 
   // 画指示线
   constructIndicator() {
+    if (GuideLine.isMoveing) {
+      return
+    }
     const { el, options, canvas } = this
     const indicator = document.createElement('div')
     const indicatorValue = document.createElement('span')
