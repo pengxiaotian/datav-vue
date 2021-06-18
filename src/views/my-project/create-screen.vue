@@ -272,8 +272,7 @@ export default defineComponent({
 
 @font-face {
   font-family: "Orbitron-Bold";
-  src: url('../../styles/fonts/orbitron-bold.ttf') format('truetype'),
-    url('../../styles/fonts/orbitron-bold.otf') format('opentype');
+  src: url('../../styles/fonts/orbitron-bold.ttf') format('truetype');
 }
 
 @mixin cover-img {
