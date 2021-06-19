@@ -313,7 +313,7 @@ export class RulerBuilder {
   }
 
   // 画指示线
-  constructIndicator() {
+  constructIndicator(ev: MouseEvent) {
     if (GuideLine.isMoveing) {
       return
     }
@@ -328,10 +328,16 @@ export class RulerBuilder {
     this.indicatorValue = indicatorValue
     el.appendChild(indicator)
 
-    const move = (e: MouseEvent) => {
+    const updateLinePos = (e: MouseEvent) => {
       const pos = getLinePos(el, options, e.clientX, e.clientY)
       indicator.style.left = pixelize(pos.dist)
       indicatorValue.textContent = `${pos.coor}`
+    }
+
+    updateLinePos(ev)
+
+    const move = (e: MouseEvent) => {
+      updateLinePos(e)
     }
 
     const out = () => {
