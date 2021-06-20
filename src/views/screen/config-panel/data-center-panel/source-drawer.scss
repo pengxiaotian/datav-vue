@@ -111,36 +111,6 @@
   }
 }
 
-.datav-new-select {
-  width: 100%;
-  margin: 10px 0;
-
-  .el-input__inner {
-    height: 30px;
-    line-height: 30px;
-    padding-left: 14px;
-    background: #0e1013;
-    border: $config-panel-border;
-
-    &:hover {
-      border-color: $color-primary;
-    }
-  }
-}
-
-.datav-new-select-option.el-select__popper {
-  border-top: none !important;
-  margin-top: -12px !important;
-
-  > .datav-new-select-option {
-    min-width: 458px !important;
-  }
-
-  .el-popper__arrow {
-    display: none;
-  }
-}
-
 .ds-preview-content {
   position: relative;
   width: 400px;

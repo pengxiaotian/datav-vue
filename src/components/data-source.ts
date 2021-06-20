@@ -1,11 +1,35 @@
-import { ApiType } from '@/utils/enums/data-source'
 import { generateId, isString } from '@/utils/util'
+import { FilterConfig } from '@/components/data-filter'
+
+export enum ApiType {
+  /**
+   * 静态数据
+   */
+  static = 'static',
+  /**
+   * api
+   */
+  api = 'api',
+}
+
+export enum ApiStatus {
+  loading = 'loading',
+  success = 'success',
+  failed = 'failed',
+  completed='completed',
+  incomplete='incomplete'
+}
 
 export enum FieldStatus {
   loading = 'loading',
   success = 'success',
   failed = 'failed',
   optional = 'optional',
+}
+
+export enum ApiRequestMethod {
+  GET = 'GET',
+  POST = 'POST',
 }
 
 export interface FieldConfig {
@@ -22,10 +46,6 @@ export interface ApiConfig {
    */
   render: string
   description: string
-  config: {
-    useFilter: boolean
-    pageFilters: any[]
-  }
   useAutoUpdate: boolean
   autoUpdate: number
 }
@@ -47,10 +67,6 @@ export function setApiConfig<K extends keyof ApiConfigMap>(
       fields: {},
       render: 'render',
       description: '',
-      config: {
-        useFilter: false,
-        pageFilters: [],
-      },
       useAutoUpdate: false,
       autoUpdate: 1,
       ...options,
@@ -80,9 +96,16 @@ export interface ApiDataConfig {
   comId: string
   type: ApiType
   config: {
-    local: boolean
-    cookie: boolean
-  } & Record<string, any>
+    useFilter: boolean
+    pageFilters: FilterConfig[]
+    data: string
+    api?: string
+    apiMethod?: ApiRequestMethod
+    apiHeaders?: string
+    apiBody?: string
+    local?: boolean
+    cookie?: boolean
+  }
 }
 
 export interface ApiDataConfigMap {
@@ -105,8 +128,8 @@ export function setApiData<K extends keyof ApiDataConfigMap>(
       comId,
       type,
       config: {
-        local: false,
-        cookie: false,
+        useFilter: false,
+        pageFilters: [],
         ...castDataBySourceType(type, data),
       },
     }
@@ -115,18 +138,29 @@ export function setApiData<K extends keyof ApiDataConfigMap>(
   return api
 }
 
+export function createApiData(data?: any) {
+  return {
+    api: '',
+    apiMethod: ApiRequestMethod.GET,
+    apiHeaders: '{}',
+    apiBody: '{}',
+    cookie: false,
+    local: false,
+    ...(data ?? {}),
+  }
+}
+
 /**
  * 通过数据源类型转换数据
  */
-export function castDataBySourceType(type: ApiType, data: any) {
-  const ret: Record<string, any> = Object.create(null)
+function castDataBySourceType(type: ApiType, data: any) {
+  const ret: ApiDataConfig['config'] = Object.create(null)
   switch (type) {
     case ApiType.static:
       ret.data = isString(data) ? data : JSON.stringify(data)
       break
     case ApiType.api:
-      ret.api = data
-      break
+      return createApiData(data)
     default:
       throw Error(`Unknown ApiType: ${type}`)
   }

@@ -27,6 +27,12 @@
       font-weight: 600;
     }
 
+    &.is-focus {
+      .el-input__inner {
+        border-color: $color-primary;
+      }
+    }
+
     &.is-disabled {
       .el-input__inner {
         color: $font-color;
@@ -108,6 +114,47 @@
       position: absolute;
       left: 4px;
       vertical-align: middle;
+    }
+  }
+}
+
+.datav-new-select {
+  width: 100%;
+  margin: 10px 0;
+
+  .el-input {
+    .el-input__inner {
+      height: 30px;
+      line-height: 30px;
+      padding-left: 14px;
+      background: $datav-data-form-bgcolor;
+      border: $config-panel-border;
+
+      &:hover {
+        border-color: $color-primary;
+      }
+    }
+  }
+}
+
+.datav-new-select-option.el-select__popper {
+  border-top: none !important;
+  margin-top: -12px !important;
+
+  > .datav-new-select-option {
+    margin: 0 -1px;
+    padding: 0 1px;
+  }
+
+  .el-popper__arrow {
+    display: none;
+  }
+}
+
+.filter-select {
+  .el-input {
+    .el-input__inner {
+      border: $datav-data-filter-border;
     }
   }
 }

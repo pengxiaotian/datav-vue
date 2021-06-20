@@ -83,7 +83,7 @@ export const setDatavData = async (comId: string, sourceName: string, aConfig: A
   if (!isError) {
     try {
       // 使用过滤器筛选数据
-      const { config } = aConfig
+      const { config } = adConfig
       if (config.useFilter) {
         res = execFilter(FilterModule.dataFilters, config.pageFilters, res)
       }

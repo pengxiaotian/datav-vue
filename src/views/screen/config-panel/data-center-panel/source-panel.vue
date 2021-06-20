@@ -133,8 +133,7 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, ComputedRef, inject, provide } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
-import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources } from '@/components/data-source'
-import { ApiStatus } from '@/utils/enums/data-source'
+import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources, ApiStatus } from '@/components/data-source'
 import { ApiModule } from '@/store/modules/api'
 import { setDatavData } from '@/mixins/data-center'
 import DisplayApiStatus from '../components/display-api-status.vue'

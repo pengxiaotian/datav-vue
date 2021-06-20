@@ -23,6 +23,7 @@
 import { defineComponent, computed, onMounted, ref } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
+import { FilterModule } from '@/store/modules/filter'
 import { useMock } from '@/data/mock'
 import { loadAsyncComponent } from '@/utils/async-component'
 import HeaderToolbar from './header-toolbar/index.vue'
@@ -69,6 +70,8 @@ export default defineComponent({
           offsetY: ToolbarModule.getPanelOffsetY,
         }))
       })
+
+      FilterModule.loadFilters(screenId.value)
 
       useMock()
     })

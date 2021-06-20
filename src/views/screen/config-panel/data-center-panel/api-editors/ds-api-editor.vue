@@ -66,8 +66,7 @@
 
 <script lang='ts'>
 import { defineComponent, ComputedRef, inject } from 'vue'
-import { ApiDataConfig } from '@/components/data-source'
-import { ApiRequestMethod } from '@/utils/enums/data-source'
+import { ApiDataConfig, ApiRequestMethod } from '@/components/data-source'
 
 export default defineComponent({
   name: 'DsApiEditor',

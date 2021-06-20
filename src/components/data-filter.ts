@@ -5,7 +5,12 @@ export interface FilterConfig {
 
 export interface DataFilter {
   id: number
+  name: string
   code: string
+  origin: string
+  projectId: number
+  createAt: string
+  updateAt: string
 }
 
 export function execFilter(dataFilters: DataFilter[], filterConfigs: FilterConfig[], data: any) {

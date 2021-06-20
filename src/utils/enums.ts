@@ -1,9 +1,3 @@
-export enum ComType {
-  com = 'com',
-  subCom = 'subCom',
-  layer = 'layer',
-}
-
 export enum MoveType {
   up,
   down,

@@ -1,7 +1,12 @@
 import { generateId } from '@/utils/util'
 import { findComByName } from '@/data/system-components'
-import { ComType } from '@/utils/enums/com-enums'
 import { ApiConfigMap, ApiDataConfigMap } from './data-source'
+
+export enum ComType {
+  com = 'com',
+  subCom = 'subCom',
+  layer = 'layer',
+}
 
 export interface ComponentAttr {
   x: number

@@ -2,8 +2,7 @@ import {
   VuexModule, Module, Mutation, Action, getModule, config,
 } from 'vuex-module-decorators'
 import store from '@/store'
-import { FieldStatus, ApiConfigMap, ApiConfig, ApiDataConfig } from '@/components/data-source'
-import { ApiType, ApiRequestMethod } from '@/utils/enums/data-source'
+import { FieldStatus, ApiConfigMap, ApiConfig, ApiDataConfig, ApiType, ApiRequestMethod } from '@/components/data-source'
 import { isUrl, toJson } from '@/utils/util'
 import dcRequest from '@/utils/dc-request'
 

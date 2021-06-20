@@ -18,6 +18,7 @@
             <el-select
               v-model="apiDataConfig.type"
               size="mini"
+              filterable
               class="datav-new-select"
               popper-class="datav-new-select-option"
               @change="changeSource"
@@ -67,6 +68,9 @@
         <span class="use-filter-text">数据过滤器</span>
         <span class="tutorial-popup">教程</span>
       </div>
+
+      <filter-config />
+
       <field-grid :fields="apiConfig.fields" />
       <div
         class="step-title"
@@ -92,16 +96,17 @@
 <script lang='ts'>
 import { defineComponent, ref, ComputedRef, inject, computed } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
-import { ApiType, ApiRequestMethod } from '@/utils/enums/data-source'
 import { loadAsyncComponent } from '@/utils/async-component'
-import { createDataSources, ApiConfig, ApiDataConfig } from '@/components/data-source'
+import { createDataSources, ApiConfig, ApiDataConfig, ApiType, createApiData } from '@/components/data-source'
 import { ApiModule } from '@/store/modules/api'
 import { setDatavData } from '@/mixins/data-center'
+import FilterConfig from '@/views/screen/data-filter/filter-config.vue'
 import FieldGrid from '../components/field-grid.vue'
 
 export default defineComponent({
   name: 'SourceDrawer',
   components: {
+    FilterConfig,
     FieldGrid,
     DsStaticEditor: loadAsyncComponent(() => import('./api-editors/ds-static-editor.vue')),
     DsApiEditor: loadAsyncComponent(() => import('./api-editors/ds-api-editor.vue')),
@@ -137,10 +142,7 @@ export default defineComponent({
             if (apiDataConfig.value.config.api === undefined) {
               apiDataConfig.value.config = {
                 ...apiDataConfig.value.config,
-                api: '',
-                apiMethod: ApiRequestMethod.GET,
-                apiHeaders: '{}',
-                apiBody: '{}',
+                ...createApiData(),
               }
             }
           }
