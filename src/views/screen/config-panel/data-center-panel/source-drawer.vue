@@ -62,7 +62,7 @@
 
       <div class="step-title" :class="{ '--error': dataStatus.errFilter }">
         <el-checkbox
-          v-model="apiConfig.useAutoUpdate"
+          v-model="apiDataConfig.config.useFilter"
           class="use-filter-btn"
         />
         <span class="use-filter-text">数据过滤器</span>

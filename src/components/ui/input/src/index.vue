@@ -6,6 +6,7 @@
     class="g-input"
     :class="{ 'is-disabled': disabled }"
     :disabled="disabled"
+    :autofocus="autofocus"
     @input="handleInput"
     @blur="handleBlur"
     @keypress.enter="handleKeyEnter"
@@ -13,7 +14,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 export default defineComponent({
@@ -24,6 +25,7 @@ export default defineComponent({
       default: '',
     },
     disabled: Boolean,
+    autofocus: Boolean,
   },
   emits: [UPDATE_MODEL_EVENT, 'change'],
   setup(props, ctx) {
@@ -42,6 +44,12 @@ export default defineComponent({
     const handleKeyEnter = () => {
       inputRef.value.blur()
     }
+
+    onMounted(() => {
+      if (props.autofocus) {
+        inputRef.value?.focus()
+      }
+    })
 
     return {
       inputRef,

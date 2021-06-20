@@ -35,3 +35,22 @@
     }
   }
 }
+
+.el-popper.is-blue.filter-dep-info {
+  position: relative;
+  padding: 6px;
+  border-radius: 2px;
+  background: $font-color;
+  color: #000102;
+  box-shadow: 0 0 6px -3px #000;
+  max-width: 240px;
+
+  .el-popper__arrow {
+    &::before {
+      content: " ";
+      width: 8px;
+      height: 8px;
+      background: $font-color;
+    }
+  }
+}

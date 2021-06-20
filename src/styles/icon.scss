@@ -12,6 +12,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-close:before {
+  content: "\e619";
+}
+
+.v-icon-drag:before {
+  content: "\e66d";
+}
+
 .v-icon-keyboard:before {
   content: "\e6fb";
 }

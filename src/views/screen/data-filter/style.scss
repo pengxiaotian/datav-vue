@@ -1,0 +1,244 @@
+@import '@/styles/themes/var';
+
+.filter-wp {
+  position: relative;
+  padding: 10px;
+  background: $datav-data-form-bgcolor;
+  border: $config-panel-border;
+
+  .filter-list {
+    transition: opacity 0.2s;
+  }
+
+  .ds-panel-filter {
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  &.--disabled {
+    pointer-events: none;
+
+    .filter-list {
+      opacity: 0.4;
+    }
+  }
+}
+
+.collapse-panel-wp {
+  color: #aaa;
+  cursor: default;
+  transition: border-color 0.2s;
+
+  .panel-header {
+    padding-left: 6px;
+    display: flex;
+    height: 30px;
+    line-height: 30px;
+    align-items: center;
+    position: relative;
+    border: 1px solid #566273;
+    color: #bcc9d4;
+    background: #262c33;
+    transition: border-color 0.2s;
+
+    .panel-title {
+      display: flex;
+      flex: 1;
+    }
+  }
+
+  .toggle-btn {
+    width: 30px;
+    height: 100%;
+    cursor: pointer;
+    text-align: center;
+    line-height: 30px;
+    border-left: 1px solid #566273;
+    transition: border-color 0.2s;
+    font-size: 0;
+
+    .toggle-icon {
+      font-size: 14px;
+      line-height: 28px;
+      font-weight: 600;
+      transition: 0.2s;
+      transform: rotate(0deg);
+      transform-origin: center;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+.filter-item {
+  margin: 10px 0;
+  box-shadow: 0 0 10px -3px #000;
+  transition: opacity 0.2s;
+
+  .panel-header {
+    padding-left: 2px;
+
+    .enable-checkbox {
+      margin-right: 5px;
+    }
+
+    .del-btn,
+    .edit-btn,
+    .save-btn {
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.1s;
+    }
+
+    &:hover {
+      .del-btn,
+      .edit-btn,
+      .save-btn {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+
+  .filter-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .filter-name {
+      position: relative;
+      width: 150px;
+    }
+
+    .filter-name-text {
+      width: 100%;
+      height: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .filter-name-input {
+      display: block;
+      height: 22px;
+      background: #1d2023;
+      width: 92%;
+
+      &:hover,
+      &:focus {
+        border: $border-primary;
+      }
+    }
+
+    .action-wp {
+      width: 30px;
+      text-align: center;
+      padding: 0 5px;
+
+      [class^="v-icon-"]:hover {
+        color: $color-primary;
+      }
+
+      &.--edit {
+        width: 40px;
+        text-align: left;
+      }
+    }
+
+    .edit-btn {
+      width: 40px;
+      cursor: pointer;
+    }
+
+    .drag-btn {
+      display: block;
+      height: 30px;
+      width: 16px;
+      text-align: center;
+      cursor: move;
+    }
+
+    .filter-count {
+      flex: 1;
+    }
+
+    .filter-dot {
+      position: absolute;
+      left: -24px;
+      top: 5px;
+      width: 6px;
+      height: 6px;
+      padding: 8px;
+      border-radius: 20px;
+      background: $color-primary;
+      background-clip: content-box;
+      box-sizing: content-box;
+      transition: 0.2s;
+    }
+  }
+
+  &.--draggable {
+    .panel-header {
+      padding-left: 2px;
+    }
+  }
+}
+
+.filter-dragging-wp {
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.add-filter {
+  display: flex;
+
+  .filter-select {
+    flex: 1;
+    margin: 0;
+  }
+}
+
+.new-filter-btn {
+  width: 30px;
+  margin-left: 10px;
+  line-height: 26px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid $datav-data-filter-color;
+  transition: border-color 0.1s;
+
+  .icon-add {
+    font-size: 12px;
+    font-weight: 700;
+    transition: color 0.1s;
+  }
+
+  &:hover {
+    border-color: $hover-color;
+
+    .icon-add {
+      color: $hover-color;
+    }
+  }
+}
+
+.drag-indicator {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 2px;
+  padding: 0 5px;
+  background: $hover-color;
+  border-radius: 1px;
+  transition: 0.2s ease;
+  background-clip: content-box;
+}
