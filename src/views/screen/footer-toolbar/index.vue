@@ -63,7 +63,7 @@
     <div class="scale-slider-wp">
       <el-slider
         v-model="scale"
-        :min="20"
+        :min="10"
         :max="200"
         :step="5"
         :show-tooltip="false"
