@@ -3,16 +3,16 @@
   border-color: $color-primary;
   background: transparent;
 
-  &:hover {
-    color: $button-font-color;
-    background: $color-primary;
-    border-color: $color-primary;
-  }
-
   &:focus {
     color: $color-primary;
     background: transparent;
     border-color: $color-primary;
+  }
+
+  &:hover {
+    color: $button-font-color;
+    background-color: $blue-5;
+    border-color: $blue-5;
   }
 
   &:active {
@@ -20,6 +20,21 @@
     background: mix($color-black, $color-primary, $button-shade-percent-active);
     border-color: mix($color-black, $color-primary, $button-shade-percent-active);
     outline: none;
+  }
+}
+
+.el-button--primary {
+  background-color: $color-primary;
+  border-color: $color-primary;
+
+  &:hover {
+    background-color: $blue-5;
+    border-color: $blue-5;
+  }
+
+  &:active {
+    background-color: $blue-6;
+    border-color: $blue-6;
   }
 }
 
