@@ -15,6 +15,10 @@
     margin-bottom: 10px;
   }
 
+  .filter-editor {
+    border: none;
+  }
+
   &.--disabled {
     pointer-events: none;
 
@@ -70,6 +74,14 @@
       color: $color-primary;
     }
   }
+
+  &.--spread {
+    .panel-header {
+      .toggle-icon {
+        transform: rotate(90deg);
+      }
+    }
+  }
 }
 
 .filter-item {
@@ -78,8 +90,6 @@
   transition: opacity 0.2s;
 
   .panel-header {
-    padding-left: 2px;
-
     .enable-checkbox {
       margin-right: 5px;
     }
@@ -179,12 +189,99 @@
       background-clip: content-box;
       box-sizing: content-box;
       transition: 0.2s;
+
+      &.--none {
+        display: none;
+      }
+    }
+  }
+
+  .filter-actions {
+    position: relative;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background: #262c33;
+    border-top: 1px solid #566273;
+    padding: 0 5px;
+
+    .saved,
+    .unsaved {
+      position: absolute;
+      top: 0;
+      height: 36px;
+      left: 10px;
+      line-height: 36px;
+      font-size: 12px;
+      cursor: default;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        height: 6px;
+        width: 6px;
+        vertical-align: 1px;
+        margin-right: 4px;
+        border-radius: 3px;
+        background: $color-error;
+      }
+    }
+
+    .bolder-btn {
+      font-weight: 700;
+      width: 66px;
+      padding: 0 5px;
+      min-height: 24px;
+      line-height: 24px;
+      font-size: 12px;
     }
   }
 
   &.--draggable {
     .panel-header {
       padding-left: 2px;
+    }
+  }
+
+  &.--create {
+    .panel-header {
+      .toggle-btn {
+        pointer-events: none;
+
+        .toggle-icon {
+          color: #aaa;
+        }
+      }
+    }
+
+    .filter-title {
+      .filter-name-text {
+        cursor: default;
+      }
+    }
+  }
+}
+
+.panel-content-wp {
+  height: 274px;
+  overflow: hidden;
+  background: $datav-data-form-bgcolor;
+  border: 1px solid #566273;
+  border-top: none;
+  transition: border-color 0.2s;
+
+  .fake-code {
+    font-family: Menlo-Regular, monospace;
+    color: #ccc;
+    padding-left: 8px;
+    height: 28px;
+    line-height: 28px;
+    background: $datav-data-form-bgcolor;
+    margin-bottom: 0;
+
+    .--keyword {
+      color: #569cd6;
     }
   }
 }

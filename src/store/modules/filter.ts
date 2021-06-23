@@ -32,7 +32,9 @@ class Filter extends VuexModule implements IFilterState {
   @Mutation
   private UPDATE_FILTER(payload: DataFilter) {
     const df = this.dataFilters.find(m => m.id === payload.id)
-    Object.assign(df, payload)
+    df.name = payload.name
+    df.code = payload.code
+    df.origin = payload.origin
   }
 
   @Mutation
@@ -62,6 +64,7 @@ class Filter extends VuexModule implements IFilterState {
       if (res.data.code === 0) {
         payload.id = res.data.data
         this.CREATE_FILTER(payload)
+        return res.data.data as number
       } else {
         throw Error(res.data.message)
       }

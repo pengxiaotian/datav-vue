@@ -1,5 +1,17 @@
 @import "themes/var";
 
+.el-tabs {
+  height: 100%;
+
+  .el-tabs__content {
+    height: 100%;
+
+    .el-tab-pane {
+      height: 100%;
+    }
+  }
+}
+
 .el-tabs--left {
   display: flex;
   height: 100%;

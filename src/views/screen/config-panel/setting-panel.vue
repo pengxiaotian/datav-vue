@@ -53,14 +53,15 @@ export default defineComponent({
 .setting-panel {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .setting-panel-content {
+  width: 100%;
   position: absolute;
   top: 60px;
-  bottom: 120px;
-  width: 100%;
+  bottom: 66px;
+  overflow-y: auto;
 }
 
 .scroll-container {

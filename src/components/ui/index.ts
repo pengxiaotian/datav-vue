@@ -1,4 +1,5 @@
 import type { App } from 'vue'
+import { loadAsyncComponent } from '@/utils/async-component'
 import GDropList from './drop-list'
 import GDropListItem from './drop-list-item'
 import GDropListPopover from './drop-list-popover'
@@ -10,7 +11,6 @@ import GField from './field'
 import GColorPicker from './color-picker'
 import GUploadImage from './upload-image'
 import GLangSelect from './lang-select'
-import GMonacoEditor from './monaco-editor'
 import GFieldCollapse from './field-collapse'
 
 import Focus from '@/directives/focus'
@@ -27,7 +27,6 @@ const components = [
   GColorPicker,
   GUploadImage,
   GLangSelect,
-  GMonacoEditor,
   GFieldCollapse,
 ]
 
@@ -39,6 +38,8 @@ const install = (app: App): void => {
   components.forEach(component => {
     app.component(component.name, component)
   })
+
+  app.component('GMonacoEditor', loadAsyncComponent(() => import('./monaco-editor')))
 
   plugins.forEach(plugin => {
     app.use(plugin)

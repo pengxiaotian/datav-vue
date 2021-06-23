@@ -11,7 +11,6 @@ export interface DataFilter {
   projectId: number
   createAt: string
   updateAt: string
-  editing?: boolean
 }
 
 export function execFilter(dataFilters: DataFilter[], filterConfigs: FilterConfig[], data: any) {

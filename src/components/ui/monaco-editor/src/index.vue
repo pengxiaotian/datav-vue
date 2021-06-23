@@ -4,7 +4,7 @@
     class="datav-editor"
     :class="[{
       '--read-only': readOnly,
-    }]"
+    }, editorClass]"
   >
     <div class="datav-editor-actions">
       <i
@@ -109,6 +109,7 @@ export default defineComponent({
       type: Number,
       default: 240,
     },
+    editorClass: String,
     fullScreenTitle: {
       type: String,
       default: '全屏模式',
@@ -198,6 +199,7 @@ export default defineComponent({
       if (fullEditor) {
         if (editor && !props.readOnly) {
           editor.setValue(fullEditor.getValue())
+          editor.focus()
         }
 
         fullEditor.dispose()

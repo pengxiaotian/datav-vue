@@ -6,61 +6,16 @@
     }"
   >
     <div class="filter-list">
-      <div
+      <filter-collapse-panel
         v-for="df in selectedFilters"
         :key="df.id"
-        class="collapse-panel-wp filter-item --draggable ds-panel-filter"
-      >
-        <div class="panel-header">
-          <div class="panel-title">
-            <div class="filter-title">
-              <i class="v-icon-drag drag-btn" draggable></i>
-              <el-checkbox
-                :model-value="enabledFilters[df.id]"
-                class="enable-checkbox"
-                @change="(val) => onUsedChange(df.id, val)"
-              />
-              <div class="filter-name">
-                <g-input
-                  v-if="df.editing"
-                  :model-value="df.name"
-                  :autofocus="true"
-                  class="filter-name-input"
-                  @change="(val) => editFilterName(val, df)"
-                />
-                <div v-else class="filter-name-text" :title="df.name">
-                  {{ df.name }}
-                </div>
-              </div>
-              <div class="action-wp --edit">
-                <g-tooltip-popover content="重命名">
-                  <i class="v-icon-edit edit-btn" @click="df.editing = true"></i>
-                </g-tooltip-popover>
-              </div>
-              <div class="filter-count">
-                <el-tooltip
-                  :content="usedFilters[df.id].join(', ')"
-                  effect="blue"
-                  :enterable="false"
-                  placement="top"
-                  popper-class="filter-dep-info"
-                >
-                  <span>{{ usedFilters[df.id].length }} 个组件正在调用</span>
-                </el-tooltip>
-              </div>
-              <div class="action-wp">
-                <g-tooltip-popover content="删除">
-                  <i class="v-icon-close del-btn" @click="delFilter(df.id)"></i>
-                </g-tooltip-popover>
-              </div>
-              <div class="filter-dot"></div>
-            </div>
-          </div>
-          <div class="toggle-btn">
-            <i class="el-icon-arrow-right toggle-icon"></i>
-          </div>
-        </div>
-      </div>
+        :data-filter="df"
+      />
+      <filter-collapse-panel
+        v-if="newDataFilter"
+        :data-filter="newDataFilter"
+        is-new
+      />
       <div class="add-filter">
         <el-select
           :model-value="filterId"
@@ -78,7 +33,7 @@
             :value="item.id"
           />
         </el-select>
-        <div class="new-filter-btn">
+        <div class="new-filter-btn" @click="addFilter">
           <i class="el-icon-plus icon-add"></i>
         </div>
       </div>
@@ -89,20 +44,36 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, ComputedRef, inject, computed } from 'vue'
+import { defineComponent, ref, computed, ComputedRef, provide, inject } from 'vue'
 import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
 import { ApiDataConfig } from '@/components/data-source'
+import { DataFilter } from '@/components/data-filter'
+import FilterCollapsePanel from './filter-collapse-panel.vue'
 
 export default defineComponent({
   name: 'FilterConfig',
+  components: {
+    FilterCollapsePanel,
+  },
   setup() {
     const filterId = ref<number | undefined>(undefined)
+    const newDataFilter = ref<DataFilter | null>(null)
 
     const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
     const dataFilters = computed(() => {
       const ids = apiDataConfig.value.config.pageFilters.map(m => m.id)
       return FilterModule.dataFilters.filter(m => !ids.includes(m.id))
+    })
+
+    const selectedFilters = computed(() => {
+      return apiDataConfig.value.config.pageFilters.reduce((prev, curr) => {
+        const df = FilterModule.dataFilters.find(m => m.id == curr.id)
+        if (df) {
+          prev.push(df)
+        }
+        return prev
+      }, [] as DataFilter[])
     })
 
     const usedFilters = computed(() => {
@@ -122,11 +93,6 @@ export default defineComponent({
       })
 
       return map
-    })
-
-    const selectedFilters = computed(() => {
-      const ids = apiDataConfig.value.config.pageFilters.map(m => m.id)
-      return FilterModule.dataFilters.filter(m => ids.includes(m.id))
     })
 
     const enabledFilters = computed(() => {
@@ -149,29 +115,60 @@ export default defineComponent({
       if (newName) {
         df.name = newName
       }
-      delete df.editing
     }
 
-    const delFilter = (id: number) => {
-      apiDataConfig.value.config.pageFilters = apiDataConfig.value.config.pageFilters.filter(m => m.id !== id)
+    const addFilter = () => {
+      if (!newDataFilter.value) {
+        newDataFilter.value = {
+          id: 0,
+          name: '新建过滤器',
+          code: 'return data;',
+          origin: 'return data;',
+          projectId: 0,
+          createAt: '',
+          updateAt: '',
+        }
+      }
     }
+
+    const removeFilter = (id: number) => {
+      if (id > 0) {
+        apiDataConfig.value.config.pageFilters = apiDataConfig.value.config.pageFilters.filter(m => m.id !== id)
+      } else {
+        newDataFilter.value = null
+      }
+    }
+
+    const saveFilter = async (data: DataFilter) => {
+      if (data.id > 0) {
+        await FilterModule.updateFilter(data)
+      } else {
+        const newId = await FilterModule.createFilter(data)
+        apiDataConfig.value.config.pageFilters.push({ id: newId, enabled: true })
+        newDataFilter.value = null
+      }
+    }
+
+    provide('usedFilters', usedFilters)
+    provide('enabledFilters', enabledFilters)
+    provide('onUsedChange', onUsedChange)
+    provide('editFilterName', editFilterName)
+    provide('removeFilter', removeFilter)
+    provide('saveFilter', saveFilter)
 
     return {
       filterId,
       apiDataConfig,
       dataFilters,
-      usedFilters,
       selectedFilters,
-      enabledFilters,
+      newDataFilter,
       selectFilter,
-      onUsedChange,
-      editFilterName,
-      delFilter,
+      addFilter,
     }
   },
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import './style.scss';
 </style>
