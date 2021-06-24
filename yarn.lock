@@ -5592,6 +5592,11 @@ num2fraction@^1.2.2:
   resolved "https://registry.npmjs.org/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
   integrity sha1-b2gragJ6Tp3fpFZM0lidHU5mnt4=
 
+number-precision@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/number-precision/-/number-precision-1.5.0.tgz#eca1e3657cc7de3778987f2d22aa9dea4be238d5"
+  integrity sha512-CxmQK1FFj3G3YXS4PDZSz3+IvtNESpuMwK6JY+y4IIDBbyY1ldkvk2nqBzDJj+EKFXZrrmL/fObqtSoB8b/jZQ==
+
 object-assign@^4.0.1, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"

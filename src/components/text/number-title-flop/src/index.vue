@@ -26,6 +26,7 @@ import { defineComponent, PropType, ref, toRef, computed, watchEffect } from 'vu
 import type { CSSProperties } from 'vue'
 import { TweenLite } from 'gsap'
 import Accounting from 'accounting'
+import NP from 'number-precision'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
 import { NumberTitleFlop } from './number-title-flop'
@@ -88,12 +89,23 @@ export default defineComponent({
     const realNumber = computed(() => {
       const { numbers } = config.value
       let value = Accounting.toFixed(numVal.value, numbers.decimal)
-      if (value.length < numbers.digit) {
-        value = (Array(numbers.digit).join('0') + value).slice(-numbers.digit)
+      const hasDecimal = value.includes('.')
+      let [lStr, rStr = ''] = value.split('.')
+      if (numbers.digit > 0) {
+        const _digit = numbers.digit - rStr.length
+        if (_digit > 0) {
+          lStr = (Array(_digit).join('0') + lStr).slice(-_digit)
+        } else {
+          lStr = '0'
+          rStr = rStr.slice(0, _digit || -1)
+        }
       }
-      const rn = numbers.separatingChart
-        ? value.replace(/(?=\B(\d{3})+($|\.))/g, separatingSymbol.value)
-        : value
+
+      if (numbers.separatingChart) {
+        lStr = lStr.replace(/(?=\B(\d{3})+($|\.))/g, separatingSymbol.value)
+      }
+
+      const rn = hasDecimal ? `${lStr}${decimalSymbol.value}${rStr}` : lStr
       return rn.split('')
     })
 
@@ -260,7 +272,7 @@ export default defineComponent({
       const { numbers } = config.value
       let num: number = dv_data.value[dv_field.value.value] || 0
       const divisor = numbers.divisor || 0
-      if (divisor !== 0) num /= divisor
+      if (divisor !== 0) num = NP.divide(num, divisor)
 
       if (numbers.animation) {
         TweenLite.to(numVal, duration.value / 1000, { value: num })
