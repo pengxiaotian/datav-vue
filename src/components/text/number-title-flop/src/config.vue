@@ -397,7 +397,7 @@
         <el-slider
           v-model="config.numbers.decimal"
           :min="0"
-          :max="10"
+          :max="9"
           :step="1"
           :show-tooltip="false"
           show-input

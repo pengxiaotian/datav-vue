@@ -597,7 +597,7 @@
           "toggleCol": "",
           "defaultValue": 0,
           "min": 0,
-          "max": 10,
+          "max": 9,
           "step": 1
         },
         "path": "numbers.decimal"

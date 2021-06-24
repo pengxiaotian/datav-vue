@@ -152,6 +152,7 @@ export default defineComponent({
       } else {
         code.value = props.dataFilter.origin
         isEdited.value = false
+        collapse.value = false
       }
     }
 
