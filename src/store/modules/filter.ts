@@ -1,6 +1,7 @@
 import {
   VuexModule, Module, Mutation, Action, getModule, config,
 } from 'vuex-module-decorators'
+import dayjs from 'dayjs'
 import store from '@/store'
 import { DataFilter } from '@/components/data-filter'
 import * as api from '@/api/filter'
@@ -32,9 +33,21 @@ class Filter extends VuexModule implements IFilterState {
   @Mutation
   private UPDATE_FILTER(payload: DataFilter) {
     const df = this.dataFilters.find(m => m.id === payload.id)
-    df.name = payload.name
-    df.code = payload.code
-    df.origin = payload.origin
+    Object.assign(df, {
+      name: payload.name,
+      code: payload.code,
+      origin: payload.origin,
+      updateAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    })
+  }
+
+  @Mutation
+  private UPDATE_FILTER_NAME(payload: Pick<DataFilter, 'id' | 'name'>) {
+    const df = this.dataFilters.find(m => m.id === payload.id)
+    Object.assign(df, {
+      name: payload.name,
+      updateAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    })
   }
 
   @Mutation
@@ -60,7 +73,7 @@ class Filter extends VuexModule implements IFilterState {
   @Action
   public async createFilter(payload: DataFilter) {
     try {
-      const res = await api.createFilter(payload.projectId, payload)
+      const res = await api.createFilter(payload)
       if (res.data.code === 0) {
         payload.id = res.data.data
         this.CREATE_FILTER(payload)
@@ -76,7 +89,7 @@ class Filter extends VuexModule implements IFilterState {
   @Action
   public async updateFilter(payload: DataFilter) {
     try {
-      const res = await api.updateFilter(payload.projectId, payload)
+      const res = await api.updateFilter(payload)
       if (res.data.code === 0) {
         this.UPDATE_FILTER(payload)
       } else {
@@ -88,11 +101,25 @@ class Filter extends VuexModule implements IFilterState {
   }
 
   @Action
-  public async deleteFilter(payload: Pick<DataFilter, 'id' | 'projectId'>) {
+  public async updateFilterName(payload: Pick<DataFilter, 'id' | 'name'>) {
     try {
-      const res = await api.deleteFilter(payload.projectId, payload.id)
+      const res = await api.updateFilterName(payload)
       if (res.data.code === 0) {
-        this.DELETE_FILTER(payload.id)
+        this.UPDATE_FILTER_NAME(payload)
+      } else {
+        throw Error(res.data.message)
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  @Action
+  public async deleteFilter(payload: number) {
+    try {
+      const res = await api.deleteFilter(payload)
+      if (res.data.code === 0) {
+        this.DELETE_FILTER(payload)
       } else {
         throw Error(res.data.message)
       }

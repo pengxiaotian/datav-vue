@@ -2,7 +2,7 @@
   <div
     class="filter-wp"
     :class="{
-      '--disabled': apiDataConfig.config.useFilter
+      '--disabled': !apiDataConfig.config.useFilter
     }"
   >
     <div class="filter-list">
@@ -61,13 +61,15 @@ export default defineComponent({
     const newDataFilter = ref<DataFilter | null>(null)
 
     const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
+    const refreshData = inject('refreshData') as () => Promise<void>
+
     const dataFilters = computed(() => {
-      const ids = apiDataConfig.value.config.pageFilters.map(m => m.id)
+      const ids = apiDataConfig.value.pageFilters.map(m => m.id)
       return FilterModule.dataFilters.filter(m => !ids.includes(m.id))
     })
 
     const selectedFilters = computed(() => {
-      return apiDataConfig.value.config.pageFilters.reduce((prev, curr) => {
+      return apiDataConfig.value.pageFilters.reduce((prev, curr) => {
         const df = FilterModule.dataFilters.find(m => m.id == curr.id)
         if (df) {
           prev.push(df)
@@ -82,7 +84,7 @@ export default defineComponent({
       coms.forEach(com => {
         for (const key in com.apiData) {
           const ad = com.apiData[key] as ApiDataConfig
-          ad.config.pageFilters.forEach(m => {
+          ad.pageFilters.forEach(m => {
             if (map[m.id]) {
               map[m.id].push(com.alias)
             } else {
@@ -96,24 +98,29 @@ export default defineComponent({
     })
 
     const enabledFilters = computed(() => {
-      return apiDataConfig.value.config.pageFilters.reduce((prev, curr) => {
+      return apiDataConfig.value.pageFilters.reduce((prev, curr) => {
         prev[curr.id] = curr.enabled
         return prev
       }, {} as Record<number, boolean>)
     })
 
     const selectFilter = (id: number) => {
-      apiDataConfig.value.config.pageFilters.push({ id, enabled: true })
+      apiDataConfig.value.pageFilters.push({ id, enabled: true })
+      refreshData()
     }
 
     const onUsedChange = (id: number, val: boolean) => {
-      apiDataConfig.value.config.pageFilters.find(m => m.id === id).enabled = val
+      apiDataConfig.value.pageFilters.find(m => m.id === id).enabled = val
+      refreshData()
     }
 
-    const editFilterName = (val: string, df: any) => {
+    const editFilterName = (val: string, df: DataFilter) => {
       const newName = val.trim()
-      if (newName) {
+      if (newName && df.name !== newName) {
         df.name = newName
+        if (df.id > 0) {
+          FilterModule.updateFilterName(df)
+        }
       }
     }
 
@@ -133,7 +140,8 @@ export default defineComponent({
 
     const removeFilter = (id: number) => {
       if (id > 0) {
-        apiDataConfig.value.config.pageFilters = apiDataConfig.value.config.pageFilters.filter(m => m.id !== id)
+        apiDataConfig.value.pageFilters = apiDataConfig.value.pageFilters.filter(m => m.id !== id)
+        refreshData()
       } else {
         newDataFilter.value = null
       }
@@ -142,10 +150,14 @@ export default defineComponent({
     const saveFilter = async (data: DataFilter) => {
       if (data.id > 0) {
         await FilterModule.updateFilter(data)
+        if (enabledFilters[data.id]) {
+          refreshData()
+        }
       } else {
         const newId = await FilterModule.createFilter(data)
-        apiDataConfig.value.config.pageFilters.push({ id: newId, enabled: true })
+        apiDataConfig.value.pageFilters.push({ id: newId, enabled: true })
         newDataFilter.value = null
+        refreshData()
       }
     }
 

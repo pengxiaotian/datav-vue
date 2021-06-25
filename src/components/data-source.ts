@@ -97,7 +97,6 @@ export interface ApiDataConfig {
   type: ApiType
   config: {
     useFilter: boolean
-    pageFilters: FilterConfig[]
     data: string
     api?: string
     apiMethod?: ApiRequestMethod
@@ -106,6 +105,7 @@ export interface ApiDataConfig {
     local?: boolean
     cookie?: boolean
   }
+  pageFilters: FilterConfig[] // 放在外面方便 watch
 }
 
 export interface ApiDataConfigMap {
@@ -127,9 +127,9 @@ export function setApiData<K extends keyof ApiDataConfigMap>(
       id: generateId(),
       comId,
       type,
+      pageFilters: [],
       config: {
         useFilter: false,
-        pageFilters: [],
         ...castDataBySourceType(type, data),
       },
     }

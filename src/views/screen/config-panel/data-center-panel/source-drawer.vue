@@ -8,7 +8,7 @@
       <p class="source-drawer-title">设置数据源</p>
     </template>
     <template v-if="visible">
-      <div class="step-title" :class="{ '--error': dataStatus.errSource }">
+      <div class="step-title" :class="{ '--error': !!dataStatus.errSource }">
         数据源
       </div>
       <div class="datasource-selector">
@@ -60,7 +60,7 @@
         </template>
       </el-popover>
 
-      <div class="step-title" :class="{ '--error': dataStatus.errFilter }">
+      <div class="step-title" :class="{ '--error': !!dataStatus.errFilter }">
         <el-checkbox
           v-model="apiDataConfig.config.useFilter"
           class="use-filter-btn"
@@ -75,7 +75,7 @@
       <div
         class="step-title"
         :class="{
-          '--error': dataStatus.errSource || dataStatus.errFilter
+          '--error': !!dataStatus.errSource || !!dataStatus.errFilter
         }"
       >
         <span>数据响应结果</span>
@@ -94,7 +94,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, ComputedRef, inject, computed } from 'vue'
+import { defineComponent, ref, computed, ComputedRef, provide, inject } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
 import { loadAsyncComponent } from '@/utils/async-component'
 import { createDataSources, ApiConfig, ApiDataConfig, ApiType, createApiData } from '@/components/data-source'
@@ -127,7 +127,8 @@ export default defineComponent({
     const apiName = inject('apiName') as string
 
     const dataStatus = computed(() => {
-      return ApiModule.dataStatusMap[com.value.id] || {}
+      const data = ApiModule.dataStatusMap[com.value.id]
+      return data ? data[apiName] : {}
     })
 
     const dataOrign = computed(() => {
@@ -157,9 +158,12 @@ export default defineComponent({
       return data ? data[apiName] : ''
     })
 
-    const refreshData = () => {
-      setDatavData(com.value.id, apiName, apiConfig.value, apiDataConfig.value)
+    const refreshData = async () => {
+      await setDatavData(com.value.id, apiName, apiConfig.value, apiDataConfig.value)
     }
+
+    provide('refreshData', refreshData)
+    provide('dataStatus', dataStatus)
 
     return {
       visible,

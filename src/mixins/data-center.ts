@@ -8,6 +8,7 @@ import { ApiModule } from '@/store/modules/api'
 import { DatavComponent } from '@/components/datav-component'
 import { ApiConfig, ApiDataConfig, FieldConfig, FieldStatus } from '@/components/data-source'
 import { execFilter } from '@/components/data-filter'
+import { DatavError } from '@/domains/error'
 
 const hasOwnProperty = Object.prototype.hasOwnProperty
 const hasOwn = (val: any, key: string) => hasOwnProperty.call(val, key)
@@ -20,7 +21,7 @@ export const getFieldMap = (fields: Record<string, FieldConfig>) => {
   return fieldMap
 }
 
-export const setFieldStatus = (fields: Record<string, FieldConfig>, status: FieldStatus) => {
+const setFieldStatus = (fields: Record<string, FieldConfig>, status: FieldStatus) => {
   return Object.keys(fields)
     .reduce((prev, curr) => {
       prev[curr] = status
@@ -28,7 +29,7 @@ export const setFieldStatus = (fields: Record<string, FieldConfig>, status: Fiel
     }, Object.create(null)) as Record<string, FieldStatus>
 }
 
-export const checkDataSchema = (data: any, fields: Record<string, FieldConfig>) => {
+const checkDataSchema = (data: any, fields: Record<string, FieldConfig>) => {
   let _data = null
   if (isPlainObject(data)) {
     _data = data
@@ -61,7 +62,7 @@ export const setDatavData = async (comId: string, sourceName: string, aConfig: A
   })
 
   // 初始化数据状态
-  ApiModule.setDataStatus({ comId, data: {} })
+  ApiModule.setDataStatus({ comId, data: { [sourceName]: {} } })
 
   let isError = false
   let res: any
@@ -77,20 +78,27 @@ export const setDatavData = async (comId: string, sourceName: string, aConfig: A
   } catch (error) {
     isError = true
     res = { isError, message: `${error}` }
-    ApiModule.setDataStatus({ comId, data: { errSource: true } })
+    ApiModule.setDataStatus({ comId, data: { [sourceName]: { errSource: res.message } } })
   }
 
   if (!isError) {
     try {
       // 使用过滤器筛选数据
-      const { config } = adConfig
-      if (config.useFilter) {
-        res = execFilter(FilterModule.dataFilters, config.pageFilters, res)
+      if (adConfig.config.useFilter) {
+        res = execFilter(FilterModule.dataFilters, adConfig.pageFilters, res)
       }
     } catch (error) {
       isError = true
       res = { isError, message: `${error}` }
-      ApiModule.setDataStatus({ comId, data: { errFilter: true } })
+      const targetId = error instanceof DatavError ? error.cause.targetId : 0
+      ApiModule.setDataStatus({
+        comId,
+        data: {
+          [sourceName]: {
+            errFilter: { [targetId]: error.message },
+          },
+        },
+      })
     }
   }
 
@@ -144,7 +152,8 @@ export const useDataCenter = (com: DatavComponent) => {
       timers.value.push(timer)
     }
 
-    watch([ac, adc], () => {
+    // not watch DataFilter
+    watch([ac, () => adc.type, adc.config], () => {
       setDatavData(com.id, name, ac, adc)
     }, {
       deep: true,

@@ -14,7 +14,7 @@ type ApiKeyName = keyof ApiConfigMap
 
 type ApiData = Partial<Record<ApiKeyName, any>>
 
-type ApiDataStatus = Record<string, boolean>
+export type ApiDataStatus = Partial<Record<ApiKeyName, any>>
 
 type ApiFieldStatus = Partial<Record<ApiKeyName, Record<string, FieldStatus>>>
 
@@ -61,7 +61,13 @@ class Api extends VuexModule implements IApiState {
 
   @Mutation
   private SET_DATA_STATUS(payload: { comId: string; data: ApiDataStatus; }) {
-    this.dataStatusMap[payload.comId] = payload.data
+    for (const [keyName, value] of Object.entries(payload.data)) {
+      if (this.dataStatusMap[payload.comId]) {
+        this.dataStatusMap[payload.comId][keyName] = value
+      } else {
+        this.dataStatusMap[payload.comId] = { [keyName]: value }
+      }
+    }
   }
 
   @Mutation

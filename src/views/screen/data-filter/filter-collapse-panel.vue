@@ -1,9 +1,12 @@
 <template>
   <div
-    class="collapse-panel-wp filter-item --draggable ds-panel-filter"
+    class="collapse-panel-wp filter-item ds-panel-filter"
     :class="{
-      '--spread': collapse || isNew,
       '--create': isNew,
+      '--spread': collapse || isNew,
+      '--draggable': !isNew,
+      '--unused': !isEnabled,
+      '--error': !!errMsg,
     }"
   >
     <div class="panel-header">
@@ -12,9 +15,9 @@
           <template v-if="!isNew">
             <i class="v-icon-drag drag-btn" draggable></i>
             <el-checkbox
-              :model-value="enabledFilters[dataFilter.id]"
+              :model-value="isEnabled"
               class="enable-checkbox"
-              @change="(val) => onUsedChange(dataFilter.id, val)"
+              @change="switchEnabled"
             />
           </template>
           <div class="filter-name">
@@ -52,7 +55,21 @@
               <i class="v-icon-close del-btn" @click="removeFilter(dataFilter.id)"></i>
             </g-tooltip-popover>
           </div>
-          <div class="filter-dot" :class="{ '--none': isNew }"></div>
+          <template v-if="isEnabled">
+            <template v-if="errMsg">
+              <el-tooltip
+                :content="errMsg"
+                effect="blue"
+                :enterable="false"
+                placement="left"
+                popper-class="is-error"
+              >
+                <div class="filter-dot a"></div>
+              </el-tooltip>
+            </template>
+            <div v-else class="filter-dot b"></div>
+          </template>
+          <div v-else class="filter-dot c" :class="{ '--none': isNew }"></div>
         </div>
       </div>
       <div class="toggle-btn" @click="toggleEditor">
@@ -102,9 +119,9 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ComputedRef, ref, inject } from 'vue'
-import { DataFilter } from '@/components/data-filter'
+import { defineComponent, PropType, ComputedRef, ref, inject, computed } from 'vue'
 import { MessageUtil } from '@/utils/message-util'
+import { DataFilter } from '@/components/data-filter'
 
 export default defineComponent({
   name: 'FilterCollapsePanel',
@@ -123,13 +140,29 @@ export default defineComponent({
     const loading = ref(false)
     const code = ref(props.dataFilter.origin)
 
+    const dataStatus = inject('dataStatus') as ComputedRef<any>
+    const errMsg = computed(() => {
+      let msg = ''
+      const err = dataStatus.value.errFilter
+      if (err && err[props.dataFilter.id]) {
+        msg = err[props.dataFilter.id]
+      }
+      return msg
+    })
+
     const usedFilters = inject('usedFilters') as ComputedRef<Record<number, string[]>>
     const enabledFilters = inject('enabledFilters') as ComputedRef<Record<number, boolean>>
 
     const onUsedChange = inject('onUsedChange') as (id: number, val: boolean) => void
-    const editFilterName = inject('editFilterName') as (val: string, df: any) => void
+    const editFilterName = inject('editFilterName') as (val: string, df: DataFilter) => void
     const removeFilter = inject('removeFilter') as (id: number) => void
     const saveFilter = inject('saveFilter') as (data: DataFilter) => Promise<void>
+
+    const isEnabled = computed(() => (enabledFilters.value[props.dataFilter.id] ?? false))
+
+    const switchEnabled = (val: boolean) => {
+      onUsedChange(props.dataFilter.id, val)
+    }
 
     const editName = (val: string) => {
       editing.value = false
@@ -151,8 +184,11 @@ export default defineComponent({
         removeFilter(0)
       } else {
         code.value = props.dataFilter.origin
-        isEdited.value = false
-        collapse.value = false
+        if (isEdited.value) {
+          isEdited.value = false
+        } else {
+          collapse.value = false
+        }
       }
     }
 
@@ -166,13 +202,13 @@ export default defineComponent({
         loading.value = true
         props.dataFilter.origin = code.value
         props.dataFilter.code = `
-    if (!data) {  return data; }
-    return filter(...arguments);
-    function filter(data) {
-      ${code.value}
-      return data;
-    }
-`
+          if (!data) {  return data; }
+          return filter(...arguments);
+          function filter(data) {
+            ${code.value}
+            return data;
+          }
+        `
         await saveFilter(props.dataFilter)
         collapse.value = false
         isEdited.value = false
@@ -195,11 +231,13 @@ export default defineComponent({
       collapse,
       isOpened,
       isEdited,
+      isEnabled,
       usedFilters,
       enabledFilters,
-      onUsedChange,
-      removeFilter,
+      errMsg,
+      switchEnabled,
       editName,
+      removeFilter,
       changeCode,
       updateCode,
       cancelEdit,
@@ -209,7 +247,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss" scoped>
-@import '@/styles/themes/var';
-</style>

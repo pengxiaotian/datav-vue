@@ -1,17 +1,21 @@
 import request from '@/utils/request'
 
 export function getFilters(projectId: number) {
-  return request.get(`/project/${projectId}/filter`)
+  return request.get(`/filter?projectId=${projectId}`)
 }
 
-export function createFilter(projectId: number, data: any) {
-  return request.post(`/project/${projectId}/filter`, data)
+export function createFilter(data: any) {
+  return request.post('/filter', data)
 }
 
-export function updateFilter(projectId: number, data: any) {
-  return request.put(`/project/${projectId}/filter/${data.id}`, data)
+export function updateFilter(data: any) {
+  return request.put(`/filter/${data.id}`, data)
 }
 
-export function deleteFilter(projectId: number, id: number) {
-  return request.delete(`/project/${projectId}/filter/${id}`)
+export function updateFilterName(data: any) {
+  return request.put(`/filter/${data.id}/name`, data)
+}
+
+export function deleteFilter(id: number) {
+  return request.delete(`/filter/${id}`)
 }
