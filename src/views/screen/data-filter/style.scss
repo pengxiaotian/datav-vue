@@ -261,6 +261,15 @@
       }
     }
   }
+
+  &.--unused .filter-title .filter-dot {
+    background-color: #444;
+  }
+
+  &.--error .filter-title .filter-dot {
+    cursor: pointer;
+    background-color: $color-error;
+  }
 }
 
 .panel-content-wp {

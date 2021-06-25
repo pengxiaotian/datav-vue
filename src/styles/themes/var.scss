@@ -4,6 +4,7 @@ $color-white: #fff;
 $color-black: #000;
 $color-gray: #90a0ae;
 $color-dark: #262c33;
+$color-red: #f15532;
 
 $color-primary: $blue-6;
 $color-success: $green-6;
@@ -101,7 +102,7 @@ $message-bgcolor-warning: #593c27;
 $message-bgcolor-error: #5d2b3e;
 $message-border-color-success: $color-primary;
 $message-border-color-warning: $color-warning;
-$message-border-color-error: $color-error;
+$message-border-color-error: $color-red;
 
 // MessageBox
 $message-box-bgcolor: #303640;

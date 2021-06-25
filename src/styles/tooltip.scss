@@ -36,6 +36,20 @@
   }
 }
 
+.el-popper.is-blue.is-error {
+  background: $color-error;
+  max-width: 300px;
+
+  .el-popper__arrow {
+    &::before {
+      content: " ";
+      width: 8px;
+      height: 8px;
+      background: $color-error;
+    }
+  }
+}
+
 .el-popper.is-blue.filter-dep-info {
   position: relative;
   padding: 6px;

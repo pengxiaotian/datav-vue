@@ -27,7 +27,12 @@
 
   &.is-checked {
     .el-checkbox__inner {
+      border-color: $color-primary;
       background-color: transparent;
+
+      &:hover {
+        background-color: rgba(38, 129, 255, 0.3);
+      }
     }
   }
 
