@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import './mock/project'
 
 export function getProjects() {
   return request.get('/project')

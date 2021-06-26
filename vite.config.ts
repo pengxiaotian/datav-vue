@@ -57,6 +57,7 @@ export default ({ mode }: ConfigEnv) => {
       include: [
         'accounting',
         'axios',
+        'axios-mock-adapter',
         'crypto-js',
         'dayjs',
         'echarts',
@@ -65,6 +66,7 @@ export default ({ mode }: ConfigEnv) => {
         'html2canvas',
         'js-cookie',
         'lodash-es',
+        'mockjs',
         `${prefix}/editor/editor.worker`,
         `${prefix}/language/json/json.worker`,
         `${prefix}/language/css/css.worker`,
@@ -73,7 +75,6 @@ export default ({ mode }: ConfigEnv) => {
         'particles.vue3',
         'shortid',
         'vue',
-        'vue-class-component',
         'vue-i18n',
         'vue-router',
         'vuex',

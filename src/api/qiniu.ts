@@ -1,14 +1,14 @@
 import CryptoJS from 'crypto-js'
-import { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import request from '@/utils/request'
-import { isDev } from '@/utils/env'
+import './mock/qiniu'
 
 export function getToken() {
   return request.get('/qiniu/upload/token')
 }
 
 export function upload(url: string, data: any, config?: AxiosRequestConfig) {
-  return request.post(url, data,
+  return axios.create().post(url, data,
     {
       withCredentials: false,
       ...(config || {}),
@@ -97,7 +97,7 @@ export function genToken() {
 export async function getTokenByEnv(): Promise<string> {
   try {
     let res
-    if (isDev) {
+    if (import.meta.env.DEV) {
       res = genToken()
     } else {
       res = await getToken()

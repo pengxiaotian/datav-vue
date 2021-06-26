@@ -1,7 +1,8 @@
 import request from '@/utils/request'
+import './mock/coms'
 
 export function getComs(projectId: number) {
-  return request.get(`/coms?projectId=${projectId}`)
+  return request.get('/coms', { params: { projectId } })
 }
 
 export function deleteCom(id: string) {

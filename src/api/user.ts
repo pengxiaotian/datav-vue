@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import './mock/user'
 
 export function login(username: string, password: string) {
   return request.post('/user/login', { username, password })
