@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="panelRef"
     class="collapse-panel-wp filter-item ds-panel-filter"
     :class="{
       '--create': isNew,
@@ -8,12 +9,18 @@
       '--unused': !isEnabled,
       '--error': !!errMsg,
     }"
+    @dragenter="dragEnter"
   >
     <div class="panel-header">
       <div class="panel-title">
         <div class="filter-title">
           <template v-if="!isNew">
-            <i class="v-icon-drag drag-btn" draggable></i>
+            <i
+              class="v-icon-drag drag-btn"
+              draggable="true"
+              @dragstart="dragStart"
+              @dragend="dragEnd"
+            ></i>
             <el-checkbox
               :model-value="isEnabled"
               class="enable-checkbox"
@@ -44,6 +51,7 @@
                 effect="blue"
                 :enterable="false"
                 placement="top"
+                :open-delay="500"
                 popper-class="filter-dep-info"
               >
                 <span>{{ usedFilters[dataFilter.id].length }} 个组件正在调用</span>
@@ -64,12 +72,12 @@
                 placement="left"
                 popper-class="is-error"
               >
-                <div class="filter-dot a"></div>
+                <div class="filter-dot"></div>
               </el-tooltip>
             </template>
-            <div v-else class="filter-dot b"></div>
+            <div v-else class="filter-dot"></div>
           </template>
-          <div v-else class="filter-dot c" :class="{ '--none': isNew }"></div>
+          <div v-else class="filter-dot" :class="{ '--none': isNew }"></div>
         </div>
       </div>
       <div class="toggle-btn" @click="toggleEditor">
@@ -131,8 +139,10 @@ export default defineComponent({
       required: true,
     },
     isNew: Boolean,
+    index: Number,
   },
   setup(props) {
+    const panelRef = ref(null)
     const editing = ref(props.isNew)
     const collapse = ref(props.isNew)
     const isOpened = ref(props.isNew)
@@ -157,6 +167,7 @@ export default defineComponent({
     const editFilterName = inject('editFilterName') as (val: string, df: DataFilter) => void
     const removeFilter = inject('removeFilter') as (id: number) => void
     const saveFilter = inject('saveFilter') as (data: DataFilter) => Promise<void>
+    const updateIndicator = inject('updateIndicator') as (visible: boolean, index: number, el: any) => void
 
     const isEnabled = computed(() => (enabledFilters.value[props.dataFilter.id] ?? false))
 
@@ -224,7 +235,26 @@ export default defineComponent({
       collapse.value = !collapse.value
     }
 
+    const dragStart = (ev: any) => {
+      const node = ev.target.parentNode.parentNode.parentNode.parentElement
+      const nodewp = document.querySelector('.filter-dragging-wp')
+      nodewp.innerHTML = ''
+      nodewp.appendChild(node.cloneNode(true))
+      ev.dataTransfer.setDragImage(nodewp, 30, 15)
+    }
+
+    const dragEnd = () => {
+      const nodewp = document.querySelector('.filter-dragging-wp')
+      nodewp.innerHTML = ''
+      updateIndicator(false, props.index, panelRef.value)
+    }
+
+    const dragEnter = () => {
+      updateIndicator(true, props.index, panelRef.value)
+    }
+
     return {
+      panelRef,
       code,
       loading,
       editing,
@@ -243,6 +273,9 @@ export default defineComponent({
       cancelEdit,
       saveData,
       toggleEditor,
+      dragStart,
+      dragEnd,
+      dragEnter,
     }
   },
 })

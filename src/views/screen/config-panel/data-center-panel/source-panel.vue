@@ -91,7 +91,6 @@
         <div class="data-flow-wp">
           <div class="ds-line">
             <div class="ds-title">
-              <span class="ds-title-text">数据源</span>
               <span class="ds-type-text">{{ datasources[apiDataConfig.type] }}</span>
             </div>
             <el-button

@@ -7,16 +7,18 @@
   >
     <div class="filter-list">
       <filter-collapse-panel
-        v-for="df in selectedFilters"
+        v-for="(df, idx) in selectedFilters"
         :key="df.id"
+        :index="idx"
         :data-filter="df"
       />
       <filter-collapse-panel
         v-if="newDataFilter"
         :data-filter="newDataFilter"
+        :index="selectedFilters.length"
         is-new
       />
-      <div class="add-filter">
+      <div ref="addPanelRef" class="add-filter" @dragenter="dragEnter">
         <el-select
           :model-value="filterId"
           size="mini"
@@ -39,7 +41,13 @@
       </div>
     </div>
     <div class="filter-dragging-wp"></div>
-    <div class="drag-indicator"></div>
+    <div
+      class="drag-indicator"
+      :style="{
+        display: dragInfo.visible ? 'block' : 'none',
+        top: dragInfo.top
+      }"
+    ></div>
   </div>
 </template>
 
@@ -59,6 +67,13 @@ export default defineComponent({
   setup() {
     const filterId = ref<number | undefined>(undefined)
     const newDataFilter = ref<DataFilter | null>(null)
+    const addPanelRef = ref(null)
+    const dragInfo = ref({
+      visible: false,
+      top: '4px',
+      from: 0,
+      to: 0,
+    })
 
     const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
     const refreshData = inject('refreshData') as () => Promise<void>
@@ -150,7 +165,7 @@ export default defineComponent({
     const saveFilter = async (data: DataFilter) => {
       if (data.id > 0) {
         await FilterModule.updateFilter(data)
-        if (enabledFilters[data.id]) {
+        if (enabledFilters.value[data.id]) {
           refreshData()
         }
       } else {
@@ -161,12 +176,35 @@ export default defineComponent({
       }
     }
 
+    const sortFilter = () => {
+      const { from, to } = dragInfo.value
+      const list = apiDataConfig.value.pageFilters
+      list.splice(to, 0, ...list.splice(from, 1))
+      refreshData()
+    }
+
+    const updateIndicator = (visible: boolean, index: number, el: HTMLElement) => {
+      dragInfo.value.visible = visible
+      dragInfo.value.top = `${el.offsetTop - 6}px`
+      if (visible) {
+        dragInfo.value.to = index
+      } else {
+        dragInfo.value.from = index
+        sortFilter()
+      }
+    }
+
+    const dragEnter = () => {
+      updateIndicator(true, selectedFilters.value.length, addPanelRef.value)
+    }
+
     provide('usedFilters', usedFilters)
     provide('enabledFilters', enabledFilters)
     provide('onUsedChange', onUsedChange)
     provide('editFilterName', editFilterName)
     provide('removeFilter', removeFilter)
     provide('saveFilter', saveFilter)
+    provide('updateIndicator', updateIndicator)
 
     return {
       filterId,
@@ -174,8 +212,11 @@ export default defineComponent({
       dataFilters,
       selectedFilters,
       newDataFilter,
+      addPanelRef,
+      dragInfo,
       selectFilter,
       addFilter,
+      dragEnter,
     }
   },
 })
