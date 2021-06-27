@@ -178,9 +178,11 @@ export default defineComponent({
 
     const sortFilter = () => {
       const { from, to } = dragInfo.value
-      const list = apiDataConfig.value.pageFilters
-      list.splice(to, 0, ...list.splice(from, 1))
-      refreshData()
+      if (from !== to) {
+        const list = apiDataConfig.value.pageFilters
+        list.splice(to, 0, ...list.splice(from, 1))
+        refreshData()
+      }
     }
 
     const updateIndicator = (visible: boolean, index: number, el: HTMLElement) => {

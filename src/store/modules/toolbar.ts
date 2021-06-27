@@ -81,7 +81,7 @@ class Toolbar extends VuexModule implements IToolbarState {
   }
 
   filter = {
-    show: getPanelState(PanelType.filter),
+    show: false,
   }
 
   loading = 0
@@ -128,9 +128,6 @@ class Toolbar extends VuexModule implements IToolbarState {
         break
       case PanelType.toolbox:
         this.toolbox.show = payload.value
-        break
-      case PanelType.filter:
-        this.filter.show = payload.value
         break
     }
 
