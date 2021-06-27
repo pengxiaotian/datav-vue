@@ -205,7 +205,7 @@ export default defineComponent({
       ToolbarModule.setPanelState({ type: PanelType.toolbox, value: !this.toolbox })
     },
     changeFilterPanel() {
-      ToolbarModule.setPanelState({ type: PanelType.filter, value: !this.filter })
+      ToolbarModule.filter.show = !this.filter
     },
   },
 })

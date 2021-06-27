@@ -6,6 +6,7 @@
     <el-container class="edit-main-wp">
       <layer-panel />
       <components-panel />
+      <filter-manager-drawer />
       <el-container class="edit-main">
         <toolbox-panel />
         <g-loading :spinning="loading">
@@ -41,6 +42,7 @@ export default defineComponent({
     ComponentsPanel: loadAsyncComponent(() => import('./components-panel/index.vue')),
     ConfigPanel: loadAsyncComponent(() => import('./config-panel/index.vue')),
     ToolboxPanel: loadAsyncComponent(() => import('./toolbox-panel/index.vue')),
+    FilterManagerDrawer: loadAsyncComponent(() => import('./data-filter/filter-manager-drawer.vue')),
   },
   props: {
     projectId: {
