@@ -24,7 +24,7 @@
 - [国内 Gitee](https://gitee.com/pengxiaotian/datav-vue)
 
 ### 预览
-- [DataV 在线预览](http://datav.pengxiaotian.com)
+- [DataV 在线预览](https://datav.pengxiaotian.com)
 
 #### 登录页
 ![登录页](./demo/login.png)

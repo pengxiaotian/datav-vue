@@ -52,7 +52,7 @@ adapter.onGet('/coms')
           },
         },
         'children': null,
-        'img': 'http://files.pengxiaotian.com/com/main-title.png',
+        'img': 'https://files.pengxiaotian.com/com/main-title.png',
         'apis': {
           'source': {
             'autoUpdate': 1,

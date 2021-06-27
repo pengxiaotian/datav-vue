@@ -93,7 +93,7 @@
     "type": "git",
     "url": "git@github.com:pengxiaotian/datav-vue.git"
   },
-  "homepage": "http://pengxiaotian.github.io/datav",
+  "homepage": "https://datav.pengxiaotian.com",
   "author": "Xiaotian (Allen) Peng",
   "license": "MIT",
   "browserslist": [

@@ -21,7 +21,7 @@ adapter.onGet('/user/info')
     'message': 'ok',
     'data': {
       'name': '美人骨',
-      'avatar': 'http://files.pengxiaotian.com/avatar.jpeg',
+      'avatar': '//files.pengxiaotian.com/avatar.jpeg',
       'role': 1,
     },
   }))
