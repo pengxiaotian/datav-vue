@@ -9,7 +9,8 @@ export enum PanelType {
   layer = 'layer',
   components = 'components',
   config = 'config',
-  toolbox = 'toolbox'
+  toolbox = 'toolbox',
+  filter = 'filter'
 }
 
 const panelStateKey = 'panel-state'
@@ -53,6 +54,9 @@ export interface IToolbarState {
   toolbox: {
     show: boolean
   }
+  filter: {
+    show: boolean
+  }
   loading: number
 }
 
@@ -76,6 +80,10 @@ class Toolbar extends VuexModule implements IToolbarState {
     show: getPanelState(PanelType.toolbox),
   }
 
+  filter = {
+    show: getPanelState(PanelType.filter),
+  }
+
   loading = 0
 
   public get getPanelOffsetX() {
@@ -86,6 +94,8 @@ class Toolbar extends VuexModule implements IToolbarState {
 
     if (this.components.show) {
       offsetX += 233
+    } else {
+      offsetX += 45
     }
 
     if (this.config.show) {
@@ -118,6 +128,9 @@ class Toolbar extends VuexModule implements IToolbarState {
         break
       case PanelType.toolbox:
         this.toolbox.show = payload.value
+        break
+      case PanelType.filter:
+        this.filter.show = payload.value
         break
     }
 

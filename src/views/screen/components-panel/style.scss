@@ -33,9 +33,21 @@ $panel_width: 233px;
     align-items: center;
     justify-content: space-between;
 
-    .close-btn {
+    .panel-text {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .btn-icon {
+      width: 22px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: color 0.2s;
+      transition: 0.2s;
 
       &:hover {
         color: $color-primary;
@@ -91,11 +103,7 @@ $panel_width: 233px;
 }
 
 .component-panel-wp.--hide {
-  width: 0 !important;
-
-  .components-panel {
-    transform: translateX(-100%);
-  }
+  width: 45px !important;
 }
 
 .com-tab-icon {
@@ -117,12 +125,4 @@ $panel_width: 233px;
   font-size: 12px;
   color: $layer-font-color;
   text-align: center;
-}
-
-.com-search-wp {
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 32px;
-  background: $tabs-nav-bgcolor;
 }

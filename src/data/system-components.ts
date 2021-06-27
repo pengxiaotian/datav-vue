@@ -163,7 +163,7 @@ export const title = {
 export const list = {
   type: 'list',
   name: '列表',
-  icon: 'v-icon-list',
+  icon: 'v-icon-view-list',
   data: [
     {
       name: 'VCarouselTable',

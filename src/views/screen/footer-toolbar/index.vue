@@ -43,6 +43,7 @@
         trigger="click"
         popper-class="editor-popover"
         :show-arrow="false"
+        :offset="5"
       >
         <div class="scale-value-list">
           <div

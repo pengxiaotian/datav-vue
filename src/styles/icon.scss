@@ -12,6 +12,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-view-list:before {
+  content: "\e62f";
+}
+
+.v-icon-view-grid:before {
+  content: "\e604";
+}
+
+.v-icon-mobile:before {
+  content: "\e660";
+}
+
+.v-icon-magic:before {
+  content: "\ea1f";
+}
+
 .v-icon-close:before {
   content: "\e619";
 }
@@ -142,14 +158,6 @@
 
 .v-icon-move-bottom:before {
   content: "\eb88";
-}
-
-.v-icon-list:before {
-  content: "\e637";
-}
-
-.v-icon-app:before {
-  content: "\e624";
 }
 
 .v-icon-delete:before {

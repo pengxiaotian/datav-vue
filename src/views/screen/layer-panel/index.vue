@@ -6,17 +6,17 @@
         <div class="layer-layout">
           <i
             title="缩略图版"
-            class="v-icon-app btn-icon"
+            class="v-icon-view-grid btn-icon"
             :class="[{ selected: !showText }]"
             @click="showText = false"
           ></i>
           <i
             title="文字版"
-            class="v-icon-list btn-icon"
+            class="v-icon-view-list btn-icon"
             :class="[{ selected: showText }]"
             @click="showText = true"
           ></i>
-          <i class="v-icon-back btn-icon" @click="changeVisible"></i>
+          <i title="收起" class="v-icon-back btn-icon" @click="changeVisible"></i>
         </div>
       </div>
       <div class="layer-toolbar layer-toolbar-top">

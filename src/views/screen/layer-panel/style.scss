@@ -46,13 +46,14 @@ $panel_width: 200px;
   position: absolute;
   top: 0;
   right: 1px;
-  font-size: 0;
   letter-spacing: 4px;
 
   .btn-icon {
     text-indent: 0;
     cursor: pointer;
     transition: color 0.2s;
+    width: 20px;
+    display: inline-block;
 
     &:hover {
       color: #fff;

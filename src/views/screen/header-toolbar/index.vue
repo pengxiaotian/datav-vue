@@ -6,59 +6,96 @@
           <i class="v-icon-back"></i>
         </div>
       </el-tooltip>
-      <div class="editor-config">
-        <el-tooltip
-          content="图层"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <div
-            :class="['head-btn mr4', { '--selected': layer }]"
-            @click="changeLayerPanel"
+      <div class="editor-header-wp">
+        <div class="editor-config">
+          <el-tooltip
+            content="图层"
+            effect="blue"
+            :open-delay="500"
+            :enterable="false"
           >
-            <i class="v-icon-layer head-btn-icon"></i>
-          </div>
-        </el-tooltip>
-        <el-tooltip
-          content="组件列表"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <div
-            :class="['head-btn mr4', { '--selected': components }]"
-            @click="changeComponentsPanel"
+            <div
+              :class="['head-btn mr4', { '--selected': layer }]"
+              @click="changeLayerPanel"
+            >
+              <i class="v-icon-layer head-btn-icon"></i>
+            </div>
+          </el-tooltip>
+          <el-tooltip
+            content="组件列表"
+            effect="blue"
+            :open-delay="500"
+            :enterable="false"
           >
-            <i :class="['v-icon-box com-list-icon', { '--rotate': !components }]"></i>
-          </div>
-        </el-tooltip>
-        <el-tooltip
-          content="右侧面板"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <div
-            :class="['head-btn mr4', { '--selected': config }]"
-            @click="changeConfigPanel"
+            <div
+              :class="['head-btn mr4', { '--selected': components }]"
+              @click="changeComponentsPanel"
+            >
+              <i :class="['v-icon-box com-list-icon', { '--rotate': !components }]"></i>
+            </div>
+          </el-tooltip>
+          <el-tooltip
+            content="右侧面板"
+            effect="blue"
+            :open-delay="500"
+            :enterable="false"
           >
-            <i class="v-icon-rpanel head-btn-icon"></i>
-          </div>
-        </el-tooltip>
-        <el-tooltip
-          content="工具箱"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <div
-            :class="['head-btn mr4', { '--selected': toolbox }]"
-            @click="changeToolboxPanel"
+            <div
+              :class="['head-btn mr4', { '--selected': config }]"
+              @click="changeConfigPanel"
+            >
+              <i class="v-icon-rpanel head-btn-icon"></i>
+            </div>
+          </el-tooltip>
+          <el-tooltip
+            content="工具箱"
+            effect="blue"
+            :open-delay="500"
+            :enterable="false"
           >
-            <i class="v-icon-toolbox head-btn-icon"></i>
-          </div>
-        </el-tooltip>
+            <div
+              :class="['head-btn mr4', { '--selected': toolbox }]"
+              @click="changeToolboxPanel"
+            >
+              <i class="v-icon-toolbox head-btn-icon"></i>
+            </div>
+          </el-tooltip>
+        </div>
+        <div class="drawer-actions">
+          <el-tooltip
+            content="数据过滤器"
+            effect="blue"
+            :open-delay="500"
+            :enterable="false"
+          >
+            <div
+              :class="['head-btn mr4', { '--selected': filter }]"
+              @click="changeFilterPanel"
+            >
+              <i class="v-icon-filter head-btn-icon"></i>
+            </div>
+          </el-tooltip>
+          <el-tooltip
+            content="美化工具箱"
+            effect="blue"
+            :open-delay="500"
+            :enterable="false"
+          >
+            <div :class="['head-btn mr4']">
+              <i class="v-icon-magic head-btn-icon"></i>
+            </div>
+          </el-tooltip>
+          <el-tooltip
+            content="迁移至移动端"
+            effect="blue"
+            :open-delay="500"
+            :enterable="false"
+          >
+            <div :class="['head-btn mr4']">
+              <i class="v-icon-mobile head-btn-icon"></i>
+            </div>
+          </el-tooltip>
+        </div>
       </div>
       <div class="screen-info">
         <i class="v-icon-workspace workspace-icon" @click="$router.push('/')"></i>
@@ -150,6 +187,9 @@ export default defineComponent({
     toolbox() {
       return ToolbarModule.toolbox.show
     },
+    filter() {
+      return ToolbarModule.filter.show
+    },
   },
   methods: {
     changeLayerPanel() {
@@ -163,6 +203,9 @@ export default defineComponent({
     },
     changeToolboxPanel() {
       ToolbarModule.setPanelState({ type: PanelType.toolbox, value: !this.toolbox })
+    },
+    changeFilterPanel() {
+      ToolbarModule.setPanelState({ type: PanelType.filter, value: !this.filter })
     },
   },
 })
@@ -202,10 +245,24 @@ export default defineComponent({
     }
   }
 
+  .editor-header-wp {
+    display: flex;
+    overflow: hidden;
+    margin-left: 10px;
+    transition: width 0.3s ease;
+  }
+
   .editor-config {
     display: flex;
-    width: 170px;
-    margin-left: 10px;
+    width: 300px;
+    align-items: center;
+    transition: 0.3s ease;
+  }
+
+  .drawer-actions {
+    width: 120px;
+    height: 40px;
+    display: flex;
     align-items: center;
   }
 

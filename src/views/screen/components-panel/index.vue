@@ -2,15 +2,32 @@
   <el-aside width="auto" :class="['component-panel-wp', { '--hide': !visiblePanel }]">
     <div class="components-panel">
       <div class="panel-title">
-        <span class="panel-text">组件列表</span>
-        <i class="v-icon-back close-btn" @click="changeVisible"></i>
+        <span class="panel-text">{{ visiblePanel ? '全部组件' : '组件' }}</span>
+        <el-tooltip
+          content="搜索"
+          placement="top"
+          effect="blue"
+          :open-delay="500"
+          :enterable="false"
+        >
+          <i title="搜索" class="v-icon-search btn-icon"></i>
+        </el-tooltip>
+        <el-tooltip
+          content="收起"
+          placement="top"
+          effect="blue"
+          :open-delay="500"
+          :enterable="false"
+        >
+          <i title="收起" class="v-icon-back btn-icon" @click="changeVisible"></i>
+        </el-tooltip>
       </div>
-      <el-tabs tab-position="left">
+      <el-tabs tab-position="left" @tab-click="handleTabClick">
         <el-tab-pane v-for="cate in categories" :key="cate.type">
           <template #label>
             <el-tooltip
               :content="cate.name"
-              placement="left"
+              placement="right"
               effect="blue"
               :open-delay="500"
               :enterable="false"
@@ -56,14 +73,6 @@
           </el-collapse>
         </el-tab-pane>
       </el-tabs>
-      <div class="com-search-wp">
-        <el-input
-          v-model="searchText"
-          placeholder="搜索组件"
-          size="small"
-          clearable
-        />
-      </div>
     </div>
   </el-aside>
 </template>
@@ -88,7 +97,7 @@ export default defineComponent({
 
     const categories = computed(() => {
       const list: CategoryType[] = cloneDeep(classifications)
-      const first = { type: 'all', name: '全部', icon: 'v-icon-app' }
+      const first = { type: 'all', name: '全部', icon: 'v-icon-view-grid' }
       list.forEach(item => {
         item.expand = ''
         if (item.data.length > 1) {
@@ -117,6 +126,12 @@ export default defineComponent({
       ToolbarModule.setPanelState({ type: PanelType.components, value: !visiblePanel.value })
     }
 
+    const handleTabClick = () => {
+      if (!visiblePanel.value) {
+        ToolbarModule.setPanelState({ type: PanelType.components, value: true })
+      }
+    }
+
     const toAddCom = (comName: string, used: boolean) => {
       if (used) {
         const { pageConfig } = EditorModule
@@ -135,13 +150,13 @@ export default defineComponent({
       ev.dataTransfer.setDragImage(node, node.clientWidth / 2, node.clientHeight / 2)
     }
 
-
     return {
       searchText,
       favoriteComs,
       visiblePanel,
-      changeVisible,
       categories,
+      changeVisible,
+      handleTabClick,
       toAddCom,
       dragStart,
     }
@@ -151,5 +166,4 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import './style';
-
 </style>
