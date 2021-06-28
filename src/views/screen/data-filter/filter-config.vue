@@ -17,6 +17,9 @@
         :data-filter="newDataFilter"
         :index="selectedFilters.length"
         is-new
+        :draggable="false"
+        :has-feedback="false"
+        removable
       />
       <div ref="addPanelRef" class="add-filter" @dragenter="dragEnter">
         <el-select
@@ -95,15 +98,19 @@ export default defineComponent({
 
     const usedFilters = computed(() => {
       const coms = [...EditorModule.coms, ...EditorModule.subComs]
-      const map = Object.create(null) as Record<number, string[]>
+      const map = Object.create(null) as Record<number, { ids: string[]; names: string[]; }>
       coms.forEach(com => {
         for (const key in com.apiData) {
           const ad = com.apiData[key] as ApiDataConfig
           ad.pageFilters.forEach(m => {
             if (map[m.id]) {
-              map[m.id].push(com.alias)
+              map[m.id].ids.push(com.id)
+              map[m.id].names.push(com.alias)
             } else {
-              map[m.id] = [com.alias]
+              map[m.id] = {
+                ids: [com.id],
+                names: [com.alias],
+              }
             }
           })
         }

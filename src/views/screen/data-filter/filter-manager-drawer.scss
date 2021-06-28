@@ -34,4 +34,19 @@
       line-height: 19px;
     }
   }
+
+  .panel-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .info-text {
+      max-width: 360px;
+      margin-bottom: 15px;
+      color: #eee;
+      font-size: 14px;
+    }
+  }
 }

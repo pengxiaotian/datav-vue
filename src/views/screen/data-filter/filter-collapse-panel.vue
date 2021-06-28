@@ -5,8 +5,8 @@
     :class="{
       '--create': isNew,
       '--spread': collapse || isNew,
-      '--draggable': !isNew,
-      '--unused': !isEnabled,
+      '--draggable': draggable,
+      '--unused': hasFeedback && !isEnabled,
       '--error': !!errMsg,
     }"
     @dragenter="dragEnter"
@@ -14,7 +14,7 @@
     <div class="panel-header">
       <div class="panel-title">
         <div class="filter-title">
-          <template v-if="!isNew">
+          <template v-if="draggable">
             <i
               class="v-icon-drag drag-btn"
               draggable="true"
@@ -45,25 +45,33 @@
             </g-tooltip-popover>
           </div>
           <div class="filter-count">
-            <template v-if="!isNew">
+            <template v-if="!isNew && usedFilters[dataFilter.id]">
               <el-tooltip
-                :content="usedFilters[dataFilter.id].join(', ')"
+                :content="usedFilters[dataFilter.id].names.join(', ')"
                 effect="blue"
                 :enterable="false"
                 placement="top"
                 :open-delay="500"
                 popper-class="filter-dep-info"
               >
-                <span>{{ usedFilters[dataFilter.id].length }} 个组件正在调用</span>
+                <span>{{ usedFilters[dataFilter.id].names.length }} 个组件正在调用</span>
               </el-tooltip>
             </template>
           </div>
-          <div class="action-wp">
+          <div class="action-wp" :class="{ '--flex': publish }">
+            <template v-if="publish">
+              <g-tooltip-popover content="创建代码片段">
+                <i class="v-icon-release save-btn"></i>
+              </g-tooltip-popover>
+            </template>
             <g-tooltip-popover content="删除">
-              <i class="v-icon-close del-btn" @click="removeFilter(dataFilter.id)"></i>
+              <i
+                :class="`v-icon-${removable ? 'delete' : 'close'} del-btn`"
+                @click="removeFilter(dataFilter.id)"
+              ></i>
             </g-tooltip-popover>
           </div>
-          <template v-if="isEnabled">
+          <template v-if="hasFeedback">
             <template v-if="errMsg">
               <el-tooltip
                 :content="errMsg"
@@ -77,7 +85,7 @@
             </template>
             <div v-else class="filter-dot"></div>
           </template>
-          <div v-else class="filter-dot" :class="{ '--none': isNew }"></div>
+          <div v-else class="filter-dot --none"></div>
         </div>
       </div>
       <div class="toggle-btn" @click="toggleEditor">
@@ -102,6 +110,7 @@
             <p class="fake-code --end">}</p>
             <div class="filter-actions">
               <div v-if="isEdited" class="unsaved">未保存</div>
+              <div v-else-if="showTime" class="saved">上次保存: {{ dataFilter.updateAt }}</div>
               <el-button size="mini" class="bolder-btn" @click="cancelEdit">
                 {{
                   dataFilter.id === 0 ? '取消' : isEdited ? '撤销' : '取消'
@@ -138,8 +147,19 @@ export default defineComponent({
       type: Object as PropType<DataFilter>,
       required: true,
     },
+    draggable: {
+      type: Boolean,
+      default: true,
+    },
+    hasFeedback: {
+      type: Boolean,
+      default: true,
+    },
+    removable: Boolean,
+    publish: Boolean,
     isNew: Boolean,
     index: Number,
+    showTime: Boolean,
   },
   setup(props) {
     const panelRef = ref(null)
@@ -150,26 +170,26 @@ export default defineComponent({
     const loading = ref(false)
     const code = ref(props.dataFilter.origin)
 
-    const dataStatus = inject('dataStatus') as ComputedRef<any>
+    const dataStatus = inject('dataStatus', null) as ComputedRef<any>
     const errMsg = computed(() => {
       let msg = ''
-      const err = dataStatus.value.errFilter
+      const err = dataStatus?.value.errFilter
       if (err && err[props.dataFilter.id]) {
         msg = err[props.dataFilter.id]
       }
       return msg
     })
 
-    const usedFilters = inject('usedFilters') as ComputedRef<Record<number, string[]>>
-    const enabledFilters = inject('enabledFilters') as ComputedRef<Record<number, boolean>>
+    const usedFilters = inject('usedFilters') as ComputedRef<Record<number, { ids: string[]; names: string[]; }>>
+    const enabledFilters = inject('enabledFilters', null) as ComputedRef<Record<number, boolean>>
 
-    const onUsedChange = inject('onUsedChange') as (id: number, val: boolean) => void
+    const onUsedChange = inject('onUsedChange', null) as (id: number, val: boolean) => void
     const editFilterName = inject('editFilterName') as (val: string, df: DataFilter) => void
     const removeFilter = inject('removeFilter') as (id: number) => void
     const saveFilter = inject('saveFilter') as (data: DataFilter) => Promise<void>
-    const updateIndicator = inject('updateIndicator') as (visible: boolean, index: number, el: any) => void
+    const updateIndicator = inject('updateIndicator', null) as (visible: boolean, index: number, el: any) => void
 
-    const isEnabled = computed(() => (enabledFilters.value[props.dataFilter.id] ?? false))
+    const isEnabled = computed(() => (enabledFilters?.value[props.dataFilter.id] ?? false))
 
     const switchEnabled = (val: boolean) => {
       onUsedChange(props.dataFilter.id, val)
@@ -221,8 +241,8 @@ export default defineComponent({
           }
         `
         await saveFilter(props.dataFilter)
-        collapse.value = false
         isEdited.value = false
+        MessageUtil.success('数据过滤器已保存')
       } catch (error) {
         MessageUtil.error(MessageUtil.format(error))
       } finally {
@@ -263,7 +283,6 @@ export default defineComponent({
       isEdited,
       isEnabled,
       usedFilters,
-      enabledFilters,
       errMsg,
       switchEnabled,
       editName,

@@ -15,10 +15,6 @@
     margin-bottom: 10px;
   }
 
-  .filter-editor {
-    border: none;
-  }
-
   &.--disabled {
     pointer-events: none;
 
@@ -158,6 +154,13 @@
         width: 40px;
         text-align: left;
       }
+
+      &.--flex {
+        width: 50px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
     }
 
     .edit-btn {
@@ -228,6 +231,10 @@
       }
     }
 
+    .saved::before {
+      background: $color-primary;
+    }
+
     .bolder-btn {
       font-weight: 700;
       width: 66px;
@@ -236,6 +243,10 @@
       line-height: 24px;
       font-size: 12px;
     }
+  }
+
+  .filter-editor {
+    border: none;
   }
 
   &.--draggable {
