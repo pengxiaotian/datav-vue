@@ -1,114 +1,262 @@
 <template>
-  <el-container class="edit-container">
-    <el-header style="height: auto; padding: 0;">
-      <header-toolbar />
-    </el-header>
-    <el-container class="edit-main-wp">
-      <layer-panel />
-      <components-panel />
-      <filter-manager-drawer />
-      <el-container class="edit-main">
-        <toolbox-panel />
-        <g-loading :spinning="loading">
-          <canvas-main />
-        </g-loading>
-        <footer-toolbar />
-      </el-container>
-      <config-panel />
-    </el-container>
-  </el-container>
-  <editor-context-menu />
+  <div
+    id="datav-loading"
+    :style="{
+      background: 'rgb(15, 42, 66)',
+      display: loading ? 'block' : 'none',
+    }"
+  >
+    <a target="_blank" href="javascript:;">
+      <img class="datav-logo" src="@/assets/images/loading.gif">
+    </a>
+  </div>
+  <div class="datav-layout" :style="{ visibility: loading ? 'hidden' : 'visible' }">
+    <a
+      v-if="pageConfig.useWatermark"
+      href="/"
+      target="_blank"
+      class="datav-watermark"
+    >
+      <img src="@/assets/logo.png">
+    </a>
+    <div class="scene">
+      <div
+        v-for="com in coms"
+        :key="com.id"
+        :style="{
+          left: com.attr.x + 'px',
+          top: com.attr.y + 'px',
+          width: com.attr.w + 'px',
+          height: com.attr.h + 'px',
+          opacity: com.attr.opacity,
+          transform: `rotate(${com.attr.deg}deg) ${com.attr.filpH ? 'scaleX(-1)' : ''} ${com.attr.filpV ? 'scaleY(-1)' : ''}`,
+        }"
+        class="-datav-com absolute"
+      >
+        <component :is="com.name" :com="com" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, onMounted, ref } from 'vue'
-import { ToolbarModule } from '@/store/modules/toolbar'
+import { defineComponent, ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { EditorModule } from '@/store/modules/editor'
 import { FilterModule } from '@/store/modules/filter'
-import { useMock } from '@/data/mock'
-import { loadAsyncComponent } from '@/utils/async-component'
-import HeaderToolbar from './header-toolbar/index.vue'
-import FooterToolbar from './footer-toolbar/index.vue'
-import EditorContextMenu from './editor-context-menu/index.vue'
+import { ProjectConfig } from '@/domains/project'
+import { ZoomMode } from '@/utils/enums'
+import { setStyle, on } from '@/utils/dom'
+import { getScreen } from '@/api/screen'
 
 export default defineComponent({
-  name: 'Screen',
-  components: {
-    HeaderToolbar,
-    FooterToolbar,
-    EditorContextMenu,
-    CanvasMain: loadAsyncComponent(() => import('./canvas-main/index.vue')),
-    LayerPanel: loadAsyncComponent(() => import('./layer-panel/index.vue')),
-    ComponentsPanel: loadAsyncComponent(() => import('./components-panel/index.vue')),
-    ConfigPanel: loadAsyncComponent(() => import('./config-panel/index.vue')),
-    ToolboxPanel: loadAsyncComponent(() => import('./toolbox-panel/index.vue')),
-    FilterManagerDrawer: loadAsyncComponent(() => import('./data-filter/filter-manager-drawer.vue')),
-  },
+  name: 'Preview',
   props: {
-    projectId: {
+    screenId: {
       type: [String, Number],
       required: true,
     },
   },
   setup(props) {
     const loading = ref(true)
+    const pageConfig = computed(() => EditorModule.pageConfig)
+    const coms = computed(() => EditorModule.coms)
 
-    EditorModule.setEditMode()
+    const resizeAuto = (width: number, height: number) => {
+      const cw = document.documentElement.clientWidth
+      const ch = document.documentElement.clientHeight
+      const ratioX = cw / width
+      const ratioY = ch / height
+      setStyle(document.body, {
+        transform: `scale(${ratioX}, ${ratioY})`,
+        transformOrigin: 'left top',
+        backgroundSize: '100% 100%',
+      } as CSSStyleDeclaration)
+    }
 
-    const screenId = computed(() => {
-      return typeof props.projectId === 'string'
-        ? parseInt(props.projectId) : props.projectId
-    })
+    const resizeWidth = (width: number) => {
+      const ratio = document.documentElement.clientWidth / width
+      setStyle(document.body, {
+        transform: `scale(${ratio})`,
+        transformOrigin: 'left top',
+        backgroundSize: '100%',
+      } as CSSStyleDeclaration)
+    }
 
-    onMounted(() => {
-      EditorModule.loadScreen(screenId.value).finally(() => {
-        document.title = `${EditorModule.screen.name} | 编辑器`
-      })
+    const resizeHeight = (width: number, height: number) => {
+      const cw = document.documentElement.clientWidth
+      const ch = document.documentElement.clientHeight
+      const ratio = ch / height
+      const gap = (cw - width * ratio) / 2
+      setStyle(document.body, {
+        transform: `scale(${ratio})`,
+        transformOrigin: 'left top',
+        backgroundSize: `${(width / cw * ratio) * 100}% 100%`,
+        backgroundPosition: `${gap.toFixed(3)}px top`,
+        marginLeft: `${gap.toFixed(3)}px`,
+      } as CSSStyleDeclaration)
+    }
 
-      EditorModule.loadComs(screenId.value).finally(() => {
-        loading.value = false
-        EditorModule.autoCanvasScale(() => ({
-          offsetX: ToolbarModule.getPanelOffsetX,
-          offsetY: ToolbarModule.getPanelOffsetY,
-        }))
-      })
+    const resizeFull = (width: number, height: number) => {
+      const cw = document.documentElement.clientWidth
+      const ch = document.documentElement.clientHeight
+      const ratio = ch / height
+      const gap = (cw - width * ratio) / 2
+      setStyle(document.body, {
+        transform: `scale(${ratio})`,
+        transformOrigin: 'left top',
+        backgroundSize: `${(width / cw * ratio) * 100}% 100%`,
+        backgroundPosition: `${gap.toFixed(3)}px top`,
+        // marginLeft: `${gap.toFixed(3)}px`,
+      } as CSSStyleDeclaration)
 
-      FilterModule.loadFilters(screenId.value)
+      document.documentElement.style.overflowX = 'scroll'
+    }
 
-      useMock()
+    const resizeNone = () => {
+      setStyle(document.body, {
+        overflow: 'hidden',
+        position: 'relative',
+      } as CSSStyleDeclaration)
+    }
+
+    const resize = (config: ProjectConfig) => {
+      switch (config.zoomMode) {
+        case ZoomMode.auto:
+          resizeAuto(config.width, config.height)
+          break
+        case ZoomMode.width:
+          resizeWidth(config.width)
+          break
+        case ZoomMode.height:
+          resizeHeight(config.width, config.height)
+          break
+        case ZoomMode.full:
+          resizeFull(config.width, config.height)
+          break
+        default:
+          resizeNone()
+          break
+      }
+    }
+
+    const initPageInfo = (config: ProjectConfig) => {
+      document.title = EditorModule.screen.name
+      document.querySelector('meta[name="viewport"]')
+        .setAttribute('content', `width=${config.width}`)
+
+      setStyle(document.documentElement, {
+        overflowX: 'hidden',
+        overflowY: 'visible',
+      } as CSSStyleDeclaration)
+
+      setStyle(document.body, {
+        width: `${config.width}px`,
+        height: `${config.height}px`,
+        backgroundImage: `url(${pageConfig.value.bgimage})`,
+        backgroundColor: pageConfig.value.bgcolor,
+      } as CSSStyleDeclaration)
+
+      resize(config)
+    }
+
+    const router = useRouter()
+
+    onMounted(async () => {
+      try {
+        const data = await getScreen(+props.screenId)
+        if (data) {
+          EditorModule.SET_SCREEN(data.project)
+          initPageInfo(pageConfig.value)
+
+          FilterModule.SET_FILTERS(data.dataFilters)
+          EditorModule.SET_COMS(data.coms)
+
+          setTimeout(() => {
+            loading.value = false
+          }, 500)
+
+          on(window, 'resize', () => {
+            resize(pageConfig.value)
+          })
+        } else {
+          throw new Error('404')
+        }
+      } catch (error) {
+        router.replace({
+          name: 'NotFound',
+          params: { catchAll: 'error' },
+        })
+      }
     })
 
     return {
       loading,
-      screenId,
+      pageConfig,
+      coms,
     }
   },
 })
 </script>
 
-<style lang="scss" scoped>
-@import '@/styles/themes/var';
+<style lang="scss">
+html,
+body {
+  min-width: auto;
+}
 
-.edit-container {
-  position: relative;
+#datav-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-}
-
-.edit-main-wp {
-  position: relative;
-  z-index: 1;
-  height: 100%;
-  overflow: hidden;
-  background: url('@/assets/images/bg-canvas.png');
-  flex-wrap: nowrap;
-}
-
-.edit-main {
-  position: relative;
+  background: #0f2a42;
   z-index: 2;
+
+  .datav-logo,
+  .text-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .datav-logo {
+    width: 120px;
+  }
+
+  .text-logo {
+    margin-top: 73px;
+    width: 100px;
+  }
+}
+
+.datav-layout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  overflow: hidden;
-  flex-direction: column;
+  visibility: hidden;
+
+  .-datav-com.absolute {
+    position: absolute !important;
+    margin: 0 !important;
+  }
+}
+
+.datav-watermark {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 99999999;
+  width: 50px;
+
+  img {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+  }
 }
 </style>

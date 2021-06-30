@@ -100,7 +100,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import { createDataSources, ApiConfig, ApiDataConfig, ApiType, createApiData } from '@/components/data-source'
 import { ApiModule } from '@/store/modules/api'
 import { setDatavData } from '@/mixins/data-center'
-import FilterConfig from '@/views/screen/data-filter/filter-config.vue'
+import FilterConfig from '@/views/screen-editor/data-filter/filter-config.vue'
 import FieldGrid from '../components/field-grid.vue'
 
 export default defineComponent({

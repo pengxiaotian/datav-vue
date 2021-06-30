@@ -39,6 +39,12 @@ const navRoutes: Array<RouteRecordRaw> = [
 ]
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index.vue'),
+    meta: { title: '登录' },
+  },
   ...navRoutes,
   {
     path: '/create-screen',
@@ -50,28 +56,20 @@ const routes: Array<RouteRecordRaw> = [
     path: '/admin/screen/:projectId',
     name: 'ScreenEditor',
     props: true,
-    component: () => import('@/views/screen/index.vue'),
+    component: () => import('@/views/screen-editor/index.vue'),
     meta: { title: '编辑器' },
   },
   {
     path: '/screen/:screenId',
     name: 'Screen',
     props: true,
-    component: () => import('@/views/preview/index.vue'),
-    meta: { title: '...' },
+    component: () => import('@/views/screen/index.vue'),
   },
   {
     path: '/screen/preview/:screenId',
     name: 'Preview',
     props: true,
-    component: () => import('@/views/preview/index.vue'),
-    meta: { title: '预览' },
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login/index.vue'),
-    meta: { title: '登录' },
+    component: () => import('@/views/screen/index.vue'),
   },
   {
     path: '/:catchAll(.*)*',
