@@ -10,6 +10,17 @@
   white-space: nowrap;
 }
 
+@mixin utils-ellipsis-n($n: 2) {
+  .ellipsis#{$n} {
+    display: -webkit-box;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $n;
+    -webkit-box-orient: vertical;
+  }
+}
+
 @mixin utils-close-btn($color: $message-font-color, $hover-color: $color-primary) {
   font-size: 18px;
   color: $color;

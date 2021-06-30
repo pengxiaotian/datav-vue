@@ -23,7 +23,7 @@ body {
 body {
   font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif !important;
   font-size: $font-size;
-  background: $background-color !important;
+  background: $background-color;
   -webkit-font-smoothing: antialiased;
 
   &::-webkit-scrollbar {
@@ -56,17 +56,4 @@ ul {
 #app {
   width: 100%;
   height: 100%;
-}
-
-// .datav-com ::v-deep(.datav-wrapper) {
-//   pointer-events: none !important;
-// }
-
-.ellipsis2 {
-  display: -webkit-box;
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
 }

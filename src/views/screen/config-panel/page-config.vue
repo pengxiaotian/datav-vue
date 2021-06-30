@@ -37,7 +37,7 @@
           <g-field label="页面缩放方式">
             <el-radio-group v-model="pageConfig.zoomMode" size="mini">
               <el-tooltip effect="blue" content="全屏铺满">
-                <el-radio-button :label="ZoomMode.full">
+                <el-radio-button :label="ZoomMode.auto">
                   <i class="v-icon-fullscreen"></i>
                 </el-radio-button>
               </el-tooltip>
@@ -52,7 +52,7 @@
                 </el-radio-button>
               </el-tooltip>
               <el-tooltip effect="blue" content="等比缩放高度铺满（可滚动）">
-                <el-radio-button :label="ZoomMode.auto">
+                <el-radio-button :label="ZoomMode.full">
                   <i class="v-icon-adapt-auto"></i>
                 </el-radio-button>
               </el-tooltip>

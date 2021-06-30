@@ -1,4 +1,5 @@
 @import '@/styles/themes/var';
+@import '@/styles/mixins/util';
 
 .api-editor {
   .api-editor-title {
@@ -38,6 +39,10 @@
     .api-fold-icon {
       transform: rotate(90deg);
     }
+  }
+
+  @at-root {
+    @include utils-ellipsis-n(2);
   }
 }
 

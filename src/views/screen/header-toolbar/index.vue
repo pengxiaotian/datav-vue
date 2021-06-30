@@ -146,7 +146,7 @@
         >
           <div class="head-btn ml4">
             <router-link
-              :to="{ name: 'Screen', params: { projectId: screen.id } }"
+              :to="{ name: 'Preview', params: { screenId: screen.id } }"
               target="_blank"
               class="full-a"
             >

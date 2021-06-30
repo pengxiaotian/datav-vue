@@ -1,3 +1,5 @@
+import { camelize, isObject } from './util'
+
 const trim = function(s: string) {
   return (s || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
 }
@@ -74,6 +76,59 @@ export function removeClass(el: HTMLElement, cls: string): void {
   }
 }
 
+
+// Here I want to use the type CSSStyleDeclaration, but the definition for CSSStyleDeclaration
+// has { [index: number]: string } in its type annotation, which does not satisfy the method
+// camelize(s: string)
+// Same as the return type
+export const getStyle = function(
+  element: HTMLElement,
+  styleName: string,
+): string {
+  if (!element || !styleName) return null
+  styleName = camelize(styleName)
+  if (styleName === 'float') {
+    styleName = 'cssFloat'
+  }
+  try {
+    const style = element.style[styleName]
+    if (style) return style
+    const computed = document.defaultView.getComputedStyle(element, '')
+    return computed ? computed[styleName] : ''
+  } catch (e) {
+    return element.style[styleName]
+  }
+}
+
+export function setStyle(
+  element: HTMLElement,
+  styleName: CSSStyleDeclaration | string,
+  value?: string,
+): void {
+  if (!element || !styleName) return
+
+  if (isObject(styleName)) {
+    Object.keys(styleName).forEach(prop => {
+      setStyle(element, prop, styleName[prop])
+    })
+  } else {
+    styleName = camelize(styleName)
+    element.style[styleName] = value
+  }
+}
+
+export function removeStyle(element: HTMLElement, style: CSSStyleDeclaration | string) {
+  if (!element || !style) return
+
+  if (isObject(style)) {
+    Object.keys(style).forEach(prop => {
+      setStyle(element, prop, '')
+    })
+  } else {
+    setStyle(element, style, '')
+  }
+}
+
 export const getOffsetTop = (el: HTMLElement) => {
   let offset = 0
   let parent = el
@@ -85,5 +140,3 @@ export const getOffsetTop = (el: HTMLElement) => {
 
   return offset
 }
-
-export const stop = (e: Event) => e.stopPropagation()

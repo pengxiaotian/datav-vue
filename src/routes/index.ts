@@ -54,6 +54,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: '编辑器' },
   },
   {
+    path: '/screen/preview/:screenId',
+    name: 'Preview',
+    props: true,
+    component: () => import('@/views/preview/index.vue'),
+    meta: { title: '预览' },
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login/index.vue'),
