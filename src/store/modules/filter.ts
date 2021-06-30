@@ -21,7 +21,7 @@ class Filter extends VuexModule implements IFilterState {
   public dataFilters: DataFilter[] = []
 
   @Mutation
-  private LOAD_FILTERS(payload: DataFilter[]) {
+  public SET_FILTERS(payload: DataFilter[]) {
     this.dataFilters = payload
   }
 
@@ -61,7 +61,7 @@ class Filter extends VuexModule implements IFilterState {
     try {
       const res = await api.getFilters(payload)
       if (res.data.code === 0) {
-        this.LOAD_FILTERS(res.data.data)
+        this.SET_FILTERS(res.data.data)
       } else {
         throw Error(res.data.message)
       }

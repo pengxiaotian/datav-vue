@@ -146,7 +146,7 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  private SET_SCREEN(payload: Project) {
+  public SET_SCREEN(payload: Project) {
     this.screen = {
       id: payload.id,
       name: payload.name,
@@ -156,7 +156,7 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  private SET_COMS(payload: DatavComponent[]) {
+  public SET_COMS(payload: DatavComponent[]) {
     const coms: DatavComponent[] = []
     const subComs: DatavComponent[] = []
     payload.forEach(c => {

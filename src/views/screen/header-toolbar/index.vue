@@ -108,7 +108,7 @@
           :open-delay="500"
           :enterable="false"
         >
-          <div class="head-btn ml4">
+          <div class="head-btn ml4" @click="saveScreen">
             <i class="v-icon-save head-btn-icon"></i>
           </div>
         </el-tooltip>
@@ -144,7 +144,7 @@
           :open-delay="500"
           :enterable="false"
         >
-          <div class="head-btn ml4">
+          <div class="head-btn ml4" @click="saveScreen">
             <router-link
               :to="{ name: 'Preview', params: { screenId: screen.id } }"
               target="_blank"
@@ -163,6 +163,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
+import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
 import HeadLoading from './head-loading.vue'
 
@@ -206,6 +207,27 @@ export default defineComponent({
     },
     changeFilterPanel() {
       ToolbarModule.filter.show = !this.filter
+    },
+    saveScreen() {
+      // TODO: mock api
+      const key = 'DataV-Preview'
+      localStorage.removeItem(key)
+
+      const data = {
+        project: {
+          ...EditorModule.screen,
+          config: {
+            ...EditorModule.pageConfig,
+          },
+        },
+        dataFilters: [...FilterModule.dataFilters],
+        coms: [
+          ...EditorModule.coms,
+          ...EditorModule.subComs,
+        ],
+      }
+
+      localStorage.setItem(key, JSON.stringify(data))
     },
   },
 })

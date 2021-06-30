@@ -41,11 +41,13 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { EditorModule } from '@/store/modules/editor'
 import { FilterModule } from '@/store/modules/filter'
 import { ProjectConfig } from '@/domains/project'
 import { ZoomMode } from '@/utils/enums'
 import { setStyle, on } from '@/utils/dom'
+import { getComs } from '@/api/coms'
 
 export default defineComponent({
   name: 'Preview',
@@ -158,19 +160,39 @@ export default defineComponent({
       resize(config)
     }
 
+    const router = useRouter()
+
     onMounted(async () => {
-      await EditorModule.loadScreen(+props.screenId)
-      initPageInfo(pageConfig.value)
+      const key = 'DataV-Preview'
+      try {
+        // TODO: mock api
+        await getComs(+props.screenId)
 
-      await FilterModule.loadFilters(+props.screenId)
+        const dataStr = localStorage.getItem(key)
+        if (dataStr) {
+          const data = JSON.parse(dataStr)
+          EditorModule.SET_SCREEN(data.project)
+          initPageInfo(pageConfig.value)
 
-      EditorModule.loadComs(+props.screenId).finally(() => {
-        loading.value = false
-      })
+          FilterModule.SET_FILTERS(data.dataFilters)
+          EditorModule.SET_COMS(data.coms)
 
-      on(window, 'resize', () => {
-        resize(pageConfig.value)
-      })
+          setTimeout(() => {
+            loading.value = false
+          }, 1500)
+
+          on(window, 'resize', () => {
+            resize(pageConfig.value)
+          })
+        } else {
+          throw new Error('404')
+        }
+      } catch (error) {
+        router.replace({
+          name: 'NotFound',
+          params: { catchAll: 'error' },
+        })
+      }
     })
 
     return {

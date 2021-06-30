@@ -67,7 +67,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: '登录' },
   },
   {
-    path: '/:catchAll(.*)',
+    path: '/:catchAll(.*)*',
     name: 'NotFound',
     component: () => import('@/views/error/index.vue'),
     meta: { title: '找不到页面' },
