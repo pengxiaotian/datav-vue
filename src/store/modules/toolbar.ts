@@ -151,7 +151,7 @@ class Toolbar extends VuexModule implements IToolbarState {
 
   @Action
   public removeLoading() {
-    this.SET_LOADING(this.loading - 1)
+    this.SET_LOADING(Math.max(this.loading - 1, 0))
   }
 
   @Action

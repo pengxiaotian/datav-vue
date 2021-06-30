@@ -3,6 +3,7 @@
     v-model="visible"
     title="发布"
     width="435px"
+    :append-to-body="true"
     @close="closeDialog"
   >
     <div
@@ -145,7 +146,7 @@ export default defineComponent({
           password.value = data.password
         }
       } catch (error) {
-        console.log(error)
+        MessageUtil.error('读取大屏发布信息失败')
       }
     })
 

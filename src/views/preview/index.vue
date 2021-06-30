@@ -47,7 +47,7 @@ import { FilterModule } from '@/store/modules/filter'
 import { ProjectConfig } from '@/domains/project'
 import { ZoomMode } from '@/utils/enums'
 import { setStyle, on } from '@/utils/dom'
-import { getComs } from '@/api/coms'
+import { getScreen } from '@/api/screen'
 
 export default defineComponent({
   name: 'Preview',
@@ -163,14 +163,9 @@ export default defineComponent({
     const router = useRouter()
 
     onMounted(async () => {
-      const key = 'DataV-Preview'
       try {
-        // TODO: mock api
-        await getComs(+props.screenId)
-
-        const dataStr = localStorage.getItem(key)
-        if (dataStr) {
-          const data = JSON.parse(dataStr)
+        const data = await getScreen(+props.screenId)
+        if (data) {
           EditorModule.SET_SCREEN(data.project)
           initPageInfo(pageConfig.value)
 
@@ -179,7 +174,7 @@ export default defineComponent({
 
           setTimeout(() => {
             loading.value = false
-          }, 1500)
+          }, 500)
 
           on(window, 'resize', () => {
             resize(pageConfig.value)

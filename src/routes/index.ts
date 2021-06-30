@@ -47,11 +47,18 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: '创建' },
   },
   {
-    path: '/screen/:projectId',
-    name: 'Screen',
+    path: '/admin/screen/:projectId',
+    name: 'ScreenEditor',
     props: true,
     component: () => import('@/views/screen/index.vue'),
     meta: { title: '编辑器' },
+  },
+  {
+    path: '/screen/:screenId',
+    name: 'Screen',
+    props: true,
+    component: () => import('@/views/preview/index.vue'),
+    meta: { title: '...' },
   },
   {
     path: '/screen/preview/:screenId',

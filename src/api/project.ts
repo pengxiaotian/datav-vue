@@ -54,5 +54,5 @@ export function publishApp(id: number, data: any) {
 }
 
 export function getShareUrl(id: number) {
-  return `${window.location.origin + '/screen/' + id}`
+  return `${window.location.origin + '/#/screen/' + id}`
 }

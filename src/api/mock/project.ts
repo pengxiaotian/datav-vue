@@ -44,14 +44,14 @@ adapter.onPost('/project')
   }))
 
 // 修改项目名称
-adapter.onPut(/\/project\/\d+\/name/)
+adapter.onPut(/\/project\/\d+\/name$/)
   .reply(200, Mock.mock({
     'code': 0,
     'message': 'ok',
   }))
 
 // 项目基本信息
-adapter.onGet(/\/project\/\d+/)
+adapter.onGet(/\/project\/\d+$/)
   .reply(200, Mock.mock({
     'code': 0,
     'message': 'ok',
@@ -76,7 +76,7 @@ adapter.onGet(/\/project\/\d+/)
   }))
 
 // 删除项目
-adapter.onDelete(/\/project\/\d+/)
+adapter.onDelete(/\/project\/\d+$/)
   .reply(200, Mock.mock({
     'code': 0,
     'message': 'ok',
@@ -91,28 +91,28 @@ adapter.onPost('/project/group')
   }))
 
 // 删除组
-adapter.onDelete(/\/project\/group\/\d+/)
+adapter.onDelete(/\/project\/group\/\d+$/)
   .reply(200, Mock.mock({
     'code': 0,
     'message': 'ok',
   }))
 
 // 修改组名称
-adapter.onPut(/\/project\/group\/\d+\/name/)
+adapter.onPut(/\/project\/group\/\d+\/name$/)
   .reply(200, Mock.mock({
     'code': 0,
     'message': 'ok',
   }))
 
 // 修改组
-adapter.onPut(/\/project\/\d+\/group/)
+adapter.onPut(/\/project\/\d+\/group$/)
   .reply(200, Mock.mock({
     'code': 0,
     'message': 'ok',
   }))
 
 // 复制项目
-adapter.onPost(/\/project\/\d+\/copy/)
+adapter.onPost(/\/project\/\d+\/copy$/)
   .reply(200, Mock.mock({
     'code': 0,
     'message': 'ok',
@@ -139,7 +139,7 @@ adapter.onGet('/project/template')
   }))
 
 // 获取发布信息
-adapter.onGet(/\/project\/\d+\/publish/)
+adapter.onGet(/\/project\/\d+\/publish$/)
   .reply(200, Mock.mock({
     'code': 0,
     'message': 'ok',
@@ -150,7 +150,7 @@ adapter.onGet(/\/project\/\d+\/publish/)
   }))
 
 // 发布
-adapter.onPost(/\/project\/\d+\/publish/)
+adapter.onPost(/\/project\/\d+\/publish$/)
   .reply(200, Mock.mock({
     'code': 0,
     'message': 'ok',

@@ -134,7 +134,7 @@
           :open-delay="500"
           :enterable="false"
         >
-          <div class="head-btn ml4">
+          <div class="head-btn ml4" @click="goPublish">
             <i class="v-icon-release head-btn-icon"></i>
           </div>
         </el-tooltip>
@@ -144,20 +144,15 @@
           :open-delay="500"
           :enterable="false"
         >
-          <div class="head-btn ml4" @click="saveScreen">
-            <router-link
-              :to="{ name: 'Preview', params: { screenId: screen.id } }"
-              target="_blank"
-              class="full-a"
-            >
-              <i class="v-icon-preview head-btn-icon"></i>
-            </router-link>
+          <div class="head-btn ml4" @click="goPreview">
+            <i class="v-icon-preview head-btn-icon"></i>
           </div>
         </el-tooltip>
       </div>
     </el-col>
   </el-row>
   <head-loading />
+  <publish-screen v-model="visiblePublish" :project-id="publishAppId" />
 </template>
 
 <script lang="ts">
@@ -165,12 +160,22 @@ import { defineComponent } from 'vue'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
+import { saveScreen } from '@/api/screen'
+import { MessageUtil } from '@/utils/message-util'
 import HeadLoading from './head-loading.vue'
+import PublishScreen from '../../my-project/publish-screen.vue'
 
 export default defineComponent({
   name: 'HeaderToolber',
   components: {
     HeadLoading,
+    PublishScreen,
+  },
+  data() {
+    return {
+      visiblePublish: false,
+      publishAppId: 0,
+    }
   },
   computed: {
     screen() {
@@ -208,26 +213,44 @@ export default defineComponent({
     changeFilterPanel() {
       ToolbarModule.filter.show = !this.filter
     },
-    saveScreen() {
-      // TODO: mock api
-      const key = 'DataV-Preview'
-      localStorage.removeItem(key)
-
-      const data = {
-        project: {
-          ...EditorModule.screen,
-          config: {
-            ...EditorModule.pageConfig,
+    goPublish() {
+      this.visiblePublish = true
+      this.publishAppId = this.screen.id
+    },
+    async saveScreen() {
+      ToolbarModule.addLoading()
+      try {
+        const data = {
+          project: {
+            ...EditorModule.screen,
+            config: {
+              ...EditorModule.pageConfig,
+            },
           },
-        },
-        dataFilters: [...FilterModule.dataFilters],
-        coms: [
-          ...EditorModule.coms,
-          ...EditorModule.subComs,
-        ],
+          dataFilters: [...FilterModule.dataFilters],
+          coms: [
+            ...EditorModule.coms,
+            ...EditorModule.subComs,
+          ],
+        }
+        await saveScreen(data)
+        MessageUtil.success('大屏已保存')
+      } catch (error) {
+        MessageUtil.error('保存大屏失败：' + error)
+      } finally {
+        ToolbarModule.removeLoading()
       }
+    },
+    async goPreview() {
+      await this.saveScreen()
 
-      localStorage.setItem(key, JSON.stringify(data))
+      const route = this.$router.resolve({
+        name: 'Preview',
+        params: {
+          screenId: this.screen.id,
+        },
+      })
+      window.open(route.href, '_blank', 'noopener, noreferrer')
     },
   },
 })

@@ -233,7 +233,7 @@ export default defineComponent({
         if (res.data.code === 0) {
           visibleCreateDialog.value = false
           visiblePreviewDialog.value = false
-          router.push({ name: 'Screen', params: { projectId: res.data.data } })
+          router.push({ name: 'ScreenEditor', params: { projectId: res.data.data } })
         } else {
           throw Error(res.data.message)
         }
