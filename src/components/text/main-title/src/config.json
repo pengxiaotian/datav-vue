@@ -1,0 +1,346 @@
+[
+  {
+    "key": "title",
+    "config": {
+      "type": "string",
+      "component": "input",
+      "alias": "标题名",
+      "tip": "支持从数据中获取标题内容，详见数据面板",
+      "displayMode": "flat",
+      "toggleCol": "",
+      "defaultValue": "我是标题数据",
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "title"
+  },
+  {
+    "key": "textStyle",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "文本样式",
+      "tip": "",
+      "displayMode": "nest",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "textStyle",
+    "children": [
+      {
+        "key": "fontFamily",
+        "config": {
+          "type": "string",
+          "component": "fontFamily",
+          "alias": "字体",
+          "tip": "请选择您系统有的字体,如果您系统无此字体,标题将会显示默认字体",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "Microsoft Yahei",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "textStyle.fontFamily"
+      },
+      {
+        "key": "fontSize",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "字号",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 24,
+          "min": 12,
+          "max": 100,
+          "step": 1
+        },
+        "path": "textStyle.fontSize"
+      },
+      {
+        "key": "color",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "颜色",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "#fff",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "textStyle.color"
+      },
+      {
+        "key": "fontWeight",
+        "config": {
+          "type": "string",
+          "component": "fontWeight",
+          "alias": "字体粗细",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "normal",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "textStyle.fontWeight"
+      }
+    ],
+    "cols": [
+      "fontFamily",
+      "fontSize",
+      "color",
+      "fontWeight"
+    ]
+  },
+  {
+    "key": "textAlign",
+    "config": {
+      "type": "string",
+      "component": "justify",
+      "alias": "对齐方式",
+      "tip": "",
+      "displayMode": "flat",
+      "toggleCol": "",
+      "defaultValue": "center",
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "textAlign"
+  },
+  {
+    "key": "writingMode",
+    "config": {
+      "type": "string",
+      "component": "writingMode",
+      "alias": "文字排列方式",
+      "tip": "",
+      "displayMode": "flat",
+      "toggleCol": "",
+      "defaultValue": "horizontal-tb",
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "writingMode"
+  },
+  {
+    "key": "letterSpacing",
+    "config": {
+      "type": "number",
+      "component": "number",
+      "alias": "文字间隔",
+      "tip": "",
+      "displayMode": "flat",
+      "toggleCol": "",
+      "defaultValue": 0,
+      "min": -88888,
+      "max": 88888,
+      "step": 0.5
+    },
+    "path": "letterSpacing"
+  },
+  {
+    "key": "backgroundStyle",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "背景样式",
+      "tip": "",
+      "displayMode": "nest",
+      "toggleCol": "show",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "backgroundStyle",
+    "children": [
+      {
+        "key": "show",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": false,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "backgroundStyle.show"
+      },
+      {
+        "key": "bgColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "背景色",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "#008bff",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "backgroundStyle.bgColor"
+      },
+      {
+        "key": "borderRadius",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "圆角",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 15,
+          "min": 0,
+          "max": 88888,
+          "step": 1
+        },
+        "path": "backgroundStyle.borderRadius"
+      },
+      {
+        "key": "borderColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "边框颜色",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "#fff",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "backgroundStyle.borderColor"
+      },
+      {
+        "key": "borderStyle",
+        "config": {
+          "type": "string",
+          "component": "lineStyle",
+          "alias": "边框粗细",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "solid",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "backgroundStyle.borderStyle"
+      },
+      {
+        "key": "borderWidth",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "边框粗细",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 1,
+          "min": 0,
+          "max": 88888,
+          "step": 1
+        },
+        "path": "backgroundStyle.borderWidth"
+      }
+    ],
+    "cols": [
+      "show",
+      "bgColor",
+      "borderRadius",
+      "borderColor",
+      "borderStyle",
+      "borderWidth"
+    ]
+  },
+  {
+    "key": "ellipsis",
+    "config": {
+      "type": "boolean",
+      "component": "switch",
+      "alias": "省略号",
+      "tip": "溢出文本加省略号",
+      "displayMode": "flat",
+      "toggleCol": "",
+      "defaultValue": false,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "ellipsis"
+  },
+  {
+    "key": "urlConfig",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "超链接配置",
+      "tip": "点击标题区域可跳转至设定的超链接",
+      "displayMode": "nest",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "urlConfig",
+    "children": [
+      {
+        "key": "url",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "超链接",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "urlConfig.url"
+      },
+      {
+        "key": "isBlank",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "是否新开窗口",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": false,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "urlConfig.isBlank"
+      }
+    ],
+    "cols": [
+      "url",
+      "isBlank"
+    ]
+  }
+]

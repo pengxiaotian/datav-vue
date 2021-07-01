@@ -35,7 +35,7 @@
       <g-field
         :level="2"
         label="标题名"
-        tooltip="支持从数据中获取标题内容,详见数据面板"
+        tooltip="支持从数据中获取标题内容，详见数据面板"
       >
         <el-input
           v-model="config.title.content"
@@ -120,7 +120,7 @@
     >
       <g-field
         :level="2"
-        tooltip="请选择您系统有的字体,如果您系统无此字体,标题将会显示默认字体"
+        tooltip="请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体"
         label="字体"
       >
         <el-select

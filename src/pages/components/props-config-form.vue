@@ -101,10 +101,12 @@ export default defineComponent({
     const displayModes = ref({ ...DisplayMode })
     const querySearch = (queryString: string, cb: Function) => {
       const results = [
-        '请选择您系统有的字体,如果您系统无此字体,标题将会显示默认字体',
-        '支持从数据中获取标题内容,详见数据面板',
+        '请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体',
+        '支持从数据中获取标题内容，详见数据面板',
         '分隔符最长一位，超出一位取第一位，无法以数字为分隔符',
         '当传入数据不变时始终开启动画',
+        '溢出文本加省略号',
+        '点击标题区域可跳转至设定的超链接',
       ].map(value => ({ value }))
       cb(results)
     }

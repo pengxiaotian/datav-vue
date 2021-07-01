@@ -9,7 +9,7 @@
           <el-input
             v-model.trim="classPath"
             size="large"
-            placeholder="输入组件目录, 如: text/main-title/src/main-title"
+            placeholder="输入组件目录, 如: text/main-title"
             style="width: 60%;"
           >
             <template #prepend>src/components/</template>
@@ -38,7 +38,10 @@
             <template #header>
               <div class="card-header__actions">
                 <span>属性配置</span>
-                <el-button @click="genTemplate">生成模板代码</el-button>
+                <div>
+                  <el-button @click="genConfig">生成配置代码</el-button>
+                  <el-button @click="genTemplate">生成模板代码</el-button>
+                </div>
               </div>
             </template>
             <props-config-form :configs="list" />
@@ -54,7 +57,7 @@
                 <div style="padding: 12px;">
                   <g-monaco-editor
                     language="json"
-                    :code="list"
+                    :code="configCode"
                     :height="500"
                     :read-only="true"
                     :auto-format="true"
@@ -97,13 +100,14 @@ export default defineComponent({
     PropsConfigPanel,
   },
   setup() {
-    const classPath = ref('text/number-title-flop/src/number-title-flop')
+    const classPath = ref('')
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')
     const ext = ref<'.ts' | '.json'>('.ts')
 
     const list = ref<PropDto[]>([])
+    const configCode = ref('{}')
     const templateCode = ref('<template></template>')
 
     const loadModule = async () => {
@@ -112,9 +116,11 @@ export default defineComponent({
           loading.value = true
           let comModule: any
           if (ext.value === '.ts') {
-            comModule = await import(`../../components/${classPath.value}.ts`)
+            const name = classPath.value.split('/').pop()
+            const path = `${classPath.value}/src/${name}`
+            comModule = await import(`../../components/${path}.ts`)
             if (comModule.default.prototype instanceof DatavComponent) {
-              fileName.value = classPath.value.split('/').pop() || ''
+              fileName.value = name
               list.value = []
               const dvc = new comModule.default()
               initPropData(dvc.config, list.value, '')
@@ -122,12 +128,25 @@ export default defineComponent({
               throw new Error(`未识别的模块`)
             }
           } else if (ext.value === '.json') {
-            comModule = await import(`../../components/${classPath.value}.json`)
+            const path = `${classPath.value}/src/config`
+            comModule = await import(`../../components/${path}.json`)
             list.value = comModule.default
           } else {
             throw new Error(`未识别的文件格式`)
           }
         }
+      } catch (error) {
+        MessageUtil.error(error?.toString())
+      } finally {
+        loading.value = false
+      }
+    }
+
+    const genConfig = () => {
+      try {
+        loading.value = true
+        configCode.value = JSON.stringify(list.value, null, 2)
+        activeTab.value = 'code'
       } catch (error) {
         MessageUtil.error(error?.toString())
       } finally {
@@ -160,8 +179,10 @@ export default defineComponent({
       activeTab,
       loading,
       list,
+      configCode,
       templateCode,
       loadModule,
+      genConfig,
       genTemplate,
     }
   },

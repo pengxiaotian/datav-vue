@@ -21,8 +21,12 @@ export default defineComponent({
   setup(props) {
     useDataCenter(props.com)
 
-    const datav_data = computed(() => {
-      return ApiModule.dataMap[props.com.id]
+    const dv_data = computed(() => {
+      return ApiModule.dataMap[props.com.id]?.source ?? {}
+    })
+
+    const dv_field = computed(() => {
+      return getFieldMap(props.com.apis.source.fields)
     })
 
     const config = toRef(props.com, 'config')
