@@ -19,7 +19,7 @@
           <g-drop-list-popover>
             <span class="user-link-wrap">
               <el-avatar :size="20" :src="avatar + '?imageView2/1/w/80/h/80'">
-                <img src="@/assets/images/placeholder.png">
+                <img src="/images/avatar-placeholder.png">
               </el-avatar>
               <span class="user-link">
                 {{ userName }} <i class="el-icon-caret-bottom"></i>
@@ -38,7 +38,7 @@
     </div>
     <div class="datav-nav">
       <div class="header-img">
-        <img class="nav-img-text" src="@/assets/images/nav-img-text.png">
+        <img class="nav-img-text" src="/images/nav-img-text.png">
         <div class="nav-img"></div>
       </div>
     </div>
@@ -228,7 +228,7 @@ export default defineComponent({
     height: 290px;
     background-size: cover;
     background-position: center;
-    background-image: url('@/assets/images/nav-img.png');
+    background-image: url('/images/nav-img.png');
   }
 }
 </style>

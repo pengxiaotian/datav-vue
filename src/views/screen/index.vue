@@ -7,7 +7,7 @@
     }"
   >
     <a target="_blank" href="javascript:;">
-      <img class="datav-logo" src="@/assets/images/loading.gif">
+      <img class="datav-logo" src="/images/loading.gif">
     </a>
   </div>
   <div class="datav-layout" :style="{ visibility: loading ? 'hidden' : 'visible' }">
@@ -17,7 +17,7 @@
       target="_blank"
       class="datav-watermark"
     >
-      <img src="@/assets/logo.png">
+      <img :src="LOGO">
     </a>
     <div class="scene">
       <div
@@ -48,6 +48,7 @@ import { ProjectConfig } from '@/domains/project'
 import { ZoomMode } from '@/utils/enums'
 import { setStyle, on } from '@/utils/dom'
 import { getScreen } from '@/api/screen'
+import { LOGO } from '@/data/images'
 
 export default defineComponent({
   name: 'Preview',
@@ -191,6 +192,7 @@ export default defineComponent({
     })
 
     return {
+      LOGO,
       loading,
       pageConfig,
       coms,

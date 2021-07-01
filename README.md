@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./src/assets/logo.png">
+  <img src="./public/logo.png">
 </p>
 <h1 align="center">DataV Vue</h1>
 <p align="center">

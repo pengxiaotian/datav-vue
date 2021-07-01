@@ -326,7 +326,7 @@ export default defineComponent({
     }
 
     .project-checked-color {
-      background-image: url('@/assets/images/nav-menu-img.png');
+      background-image: url('/images/nav-menu-img.png');
       background-repeat: round;
 
       &:hover {

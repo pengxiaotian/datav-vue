@@ -141,7 +141,7 @@
 <script lang='ts'>
 import { defineComponent, ref, onMounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
-import { coverImg } from '@/data/images'
+import { LOGO } from '@/data/images'
 import { ProjectGroup, ProjectTemplate } from '@/domains/project'
 import { getProjectTemplate, getProjects, createProject } from '@/api/project'
 import { MessageUtil } from '@/utils/message-util'
@@ -151,7 +151,7 @@ export default defineComponent({
   name: 'CreateScreen',
   setup() {
     const loading = ref(true)
-    const bgCoverImg = ref(coverImg)
+    const bgCoverImg = ref(LOGO)
     const templates = ref<ProjectTemplate[]>([])
 
     const visibleCreateDialog = ref(false)
@@ -269,10 +269,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/themes/var';
+@import "@/styles/mixins/function.scss";
 
 @font-face {
   font-family: "Orbitron-Bold";
-  src: url('../../styles/fonts/orbitron-bold.ttf') format('truetype');
+  src: url('@/styles/fonts/orbitron-bold.ttf') format('truetype');
 }
 
 @mixin cover-img {
@@ -284,7 +285,7 @@ export default defineComponent({
   height: 100%;
   width: 100%;
   background-color: #131e2d;
-  background-image: url(//files.pengxiaotian.com/datav/datav-vue-logo.png);
+  background-image: url(com-cdn('datav/datav-vue-logo.png'));
   background-repeat: no-repeat;
   background-position: center;
   background-size: 50%;

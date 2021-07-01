@@ -7,7 +7,7 @@
         target="_blank"
         class="new-project"
       >
-        <img src="@/assets/images/new-project.png">
+        <img src="/images/new-project.png">
         <span class="project-type ellipsis">PC端创建</span>
       </router-link>
     </div>

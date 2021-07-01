@@ -100,7 +100,7 @@ export default defineComponent({
   z-index: 1;
   height: 100%;
   overflow: hidden;
-  background: url('@/assets/images/bg-canvas.png');
+  background: url('/images/bg-canvas.png');
   flex-wrap: nowrap;
 }
 

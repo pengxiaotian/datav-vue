@@ -41,6 +41,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import '@/styles/themes/var';
+@import '@/styles/mixins/function';
 
 .datav-error {
   display: flex;
@@ -54,7 +55,7 @@ export default defineComponent({
     min-height: 768px;
     background-size: cover;
     background-position: center;
-    background-image: url(//files.pengxiaotian.com/datav/error-bg-3838-2136.png);
+    background-image: url(com-cdn('datav/error-bg-3838-2136.png'));
   }
 
   .back-home {

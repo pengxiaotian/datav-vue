@@ -1,11 +1,5 @@
-// 背景图
-const bgImg = `${import.meta.env.VITE_APP_QINIU_FILE}/datav/bj.png`
-
-// 封面图
-const coverImg = `${import.meta.env.VITE_APP_QINIU_FILE}/datav/datav-vue-logo.png`
-
-// 拖拽图
-const dragImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAABQCAMAAADVyVCaAAAAM1BMVEVHcEwXvP8b1/8TV20UQVEZzf8Tn/8UiaMWqc4VkrEZw/AWsv8Vj7EUqf8YuOITRFYViKUfZVF5AAAACnRSTlMA////////Jt+CR+EzygAAAL9JREFUWMPt2FsOwjAMRNGGuKX0kbL/1bIBQv0YR0Kau4Ejz0+kTBNjjLGxPTptTxwh33uv6cTVXtmEVNhUXQI31dwlYFP1CdhUPwg51nQCNNWMyH+FNhIkhhIFQBQSUltNJup2JF+hEyKEUggQWsFPqAU3oRe8hEFwEhbhjtjjguweopVeMGLAFTbDR5gMJ2ExvITBcBN6w0+ojRviBLwXZ4BQGiFC93bHCEkfisRIYvkPYiGBIRDx/5Mxxsb2AVpUNS9SI1eoAAAAAElFTkSuQmCC'
+// DataV Logo
+const LOGO = `${import.meta.env.VITE_APP_QINIU_FILE}/datav/datav-vue-logo.png`
 
 const boxs = [
   {
@@ -94,9 +88,7 @@ const decorateImgs = decorates.map(m => ({
 }))
 
 export {
-  bgImg,
-  coverImg,
-  dragImg,
+  LOGO,
   boxImgs,
   decorateImgs,
 }

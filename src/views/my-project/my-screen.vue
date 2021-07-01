@@ -81,7 +81,7 @@ import { defineComponent, PropType, toRefs, computed, ref, inject } from 'vue'
 import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
-import { coverImg, dragImg } from '@/data/images'
+import { LOGO } from '@/data/images'
 
 export default defineComponent({
   name: 'MyScreen',
@@ -104,7 +104,7 @@ export default defineComponent({
         }
       }
       return {
-        'background-image': `url(${coverImg})`,
+        'background-image': `url(${LOGO})`,
         'background-size': '50%',
         'background-position': 'center center',
         'background-repeat': 'no-repeat',
@@ -150,7 +150,7 @@ export default defineComponent({
     const publish = inject('publish') as Function
 
     const image = new Image()
-    image.src = dragImg
+    image.src = '/images/drag-thumbnail.png'
 
     const onDragStart = (event: DragEvent) => {
       dragStart()

@@ -119,7 +119,7 @@
 import { defineComponent, ref, computed } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
-import { bgImg, coverImg } from '@/data/images'
+import { LOGO } from '@/data/images'
 import { ZoomMode } from '@/utils/enums'
 import html2canvas from 'html2canvas'
 import { uploadHost, previewHost, validAllowImg, dataURLtoBlob } from '@/utils/upload-util'
@@ -134,7 +134,7 @@ export default defineComponent({
 
     const cover = ref({
       loading: false,
-      img: coverImg,
+      img: LOGO,
       uploadHost,
     })
     const uploadLoading = ref(false)
@@ -144,7 +144,7 @@ export default defineComponent({
     })
 
     const resetBGImage = () => {
-      pageConfig.value.bgimage = bgImg
+      pageConfig.value.bgimage = `${import.meta.env.VITE_APP_QINIU_FILE}/datav/bj.png`
     }
 
     const uploadCover = async (blob: Blob) => {

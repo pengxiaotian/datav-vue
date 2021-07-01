@@ -84,6 +84,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/mixins/function.scss";
+
 .live2d-wrap {
   position: relative;
   clip-path: circle(120px at center);
@@ -95,7 +97,7 @@ export default defineComponent({
     top: 0;
     transform: translateY(-20%);
     transition: all 0.5s ease-in-out;
-    background-image: url('@/assets/logo.png');
+    background-image: url(com-cdn('datav/datav-vue-logo.png'));
     background-color: #2c3e50;
     background-repeat: no-repeat;
     background-size: 25%;
