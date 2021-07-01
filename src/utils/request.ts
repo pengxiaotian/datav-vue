@@ -1,7 +1,9 @@
 import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import MockApi from '@/api/mock'
 
 const instance = axios.create({
-  baseURL: '/', // import.meta.env.VITE_APP_BASE_API
+  baseURL: import.meta.env.PROD ? '/' : import.meta.env.VITE_APP_BASE_API,
   timeout: 10000,
   withCredentials: true,
 })
@@ -38,5 +40,10 @@ instance.interceptors.response.use(
     return error
   },
 )
+
+if (import.meta.env.PROD) {
+  const mockAdapter = new MockAdapter(instance, { delayResponse: 500 })
+  MockApi(mockAdapter)
+}
 
 export default instance

@@ -11,7 +11,7 @@ interface UploadOption {
 }
 
 export const uploadHost = import.meta.env.VITE_APP_QINIU_UPLOAD || ''
-export const previewHost = import.meta.env.VITE_APP_QINIU_FILE || ''
+export const previewHost = import.meta.env.VITE_APP_CDN || ''
 
 export const validAllowImg = (file: FileInfo, option: Partial<UploadOption>) => {
   const opt: UploadOption = {

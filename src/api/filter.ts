@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import './mock/filter'
 
 export function getFilters(projectId: number) {
   return request.get('/filter', { params: { projectId } })

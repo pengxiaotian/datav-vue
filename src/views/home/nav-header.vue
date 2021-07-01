@@ -38,7 +38,7 @@
     </div>
     <div class="datav-nav">
       <div class="header-img">
-        <img class="nav-img-text" src="/images/nav-img-text.png">
+        <img class="nav-img-text" :src="`${cdn}/datav/nav-img-text.png`">
         <div class="nav-img"></div>
       </div>
     </div>
@@ -49,6 +49,8 @@
 import { defineComponent } from 'vue'
 import { UserStore } from '@/domains/user'
 import { useRouter } from 'vue-router'
+
+const cdn = import.meta.env.VITE_APP_CDN
 
 export default defineComponent({
   name: 'NavHeader',
@@ -69,6 +71,7 @@ export default defineComponent({
     }
 
     return {
+      cdn,
       userName: name,
       avatar,
       logout,
@@ -79,6 +82,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/styles/themes/var';
+@import '@/styles/mixins/function';
 
 .datav-hearder {
   display: flex;
@@ -228,7 +232,7 @@ export default defineComponent({
     height: 290px;
     background-size: cover;
     background-position: center;
-    background-image: url('/images/nav-img.png');
+    background-image: url(com-cdn('datav/nav-img.png'));
   }
 }
 </style>

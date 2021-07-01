@@ -83,6 +83,8 @@ import { Project } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
 import { LOGO } from '@/data/images'
 
+const cdn = import.meta.env.VITE_APP_CDN
+
 export default defineComponent({
   name: 'MyScreen',
   props: {
@@ -150,7 +152,7 @@ export default defineComponent({
     const publish = inject('publish') as Function
 
     const image = new Image()
-    image.src = '/images/drag-thumbnail.png'
+    image.src = `${cdn}/datav/drag-thumbnail.png`
 
     const onDragStart = (event: DragEvent) => {
       dragStart()

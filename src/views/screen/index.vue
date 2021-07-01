@@ -7,7 +7,7 @@
     }"
   >
     <a target="_blank" href="javascript:;">
-      <img class="datav-logo" src="/images/loading.gif">
+      <img class="datav-logo" :src="`${cdn}/datav/datav-loading.gif`">
     </a>
   </div>
   <div class="datav-layout" :style="{ visibility: loading ? 'hidden' : 'visible' }">
@@ -49,6 +49,8 @@ import { ZoomMode } from '@/utils/enums'
 import { setStyle, on } from '@/utils/dom'
 import { getScreen } from '@/api/screen'
 import { LOGO } from '@/data/images'
+
+const cdn = import.meta.env.VITE_APP_CDN
 
 export default defineComponent({
   name: 'Preview',
@@ -192,6 +194,7 @@ export default defineComponent({
     })
 
     return {
+      cdn,
       LOGO,
       loading,
       pageConfig,

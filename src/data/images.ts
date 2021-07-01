@@ -1,5 +1,5 @@
 // DataV Logo
-const LOGO = `${import.meta.env.VITE_APP_QINIU_FILE}/datav/datav-vue-logo.png`
+const LOGO = `${import.meta.env.VITE_APP_CDN}/datav/datav-vue-logo.png`
 
 const boxs = [
   {
@@ -78,13 +78,13 @@ const decorates = [
 
 const boxImgs = boxs.map(m => ({
   ...m,
-  src: `${import.meta.env.VITE_APP_QINIU_FILE}/box/${m.src}`,
+  src: `${import.meta.env.VITE_APP_CDN}/box/${m.src}`,
   slice: [...m.width, ...m.slice],
 }))
 
 const decorateImgs = decorates.map(m => ({
   ...m,
-  src: `${import.meta.env.VITE_APP_QINIU_FILE}/decoration/${m.src}`,
+  src: `${import.meta.env.VITE_APP_CDN}/decoration/${m.src}`,
 }))
 
 export {

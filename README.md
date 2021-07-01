@@ -26,6 +26,10 @@
 ### 预览
 - [DataV 在线预览](https://datav.pengxiaotian.com)
 
+> 因 [RAP2](https://github.com/thx/rap2-delos) 只支持 `HTTP`, 所以只在开发环境中使用
+
+> 生产环境使用 [Mockjs](https://github.com/nuysoft/Mock) 代替
+
 #### 登录页
 ![登录页](./demo/login.png)
 

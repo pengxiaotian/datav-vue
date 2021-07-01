@@ -7,7 +7,7 @@
         target="_blank"
         class="new-project"
       >
-        <img src="/images/new-project.png">
+        <img :src="`${cdn}/datav/new-project.png`">
         <span class="project-type ellipsis">PC端创建</span>
       </router-link>
     </div>
@@ -60,6 +60,8 @@ import { ProjectGroup } from '@/domains/project'
 import MyScreen from './my-screen.vue'
 import PublishScreen from './publish-screen.vue'
 
+const cdn = import.meta.env.VITE_APP_CDN
+
 export default defineComponent({
   name: 'ProjectList',
   components: {
@@ -102,6 +104,7 @@ export default defineComponent({
     })
 
     return {
+      cdn,
       searchText,
       sort,
       sorts,

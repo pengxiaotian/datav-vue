@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import './mock/screen'
 
 const PreviewKey = 'DataV-Preview'
 

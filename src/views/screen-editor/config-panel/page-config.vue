@@ -102,7 +102,7 @@
             <div class="screen-preview">
               <img v-if="pageConfig.screenshot" :src="pageConfig.screenshot">
               <img v-else :src="cover.img" style="object-fit: contain; opacity: 0.25; filter: grayscale(1);">
-              <input readonly class="screen-preview-paste" @paste="onPaste">
+              <input readonly="true" class="screen-preview-paste" @paste="onPaste">
             </div>
             <span class="upload-tip">*选中封面，从剪贴板粘贴</span>
           </g-field>
@@ -127,6 +127,8 @@ import { getTokenByEnv, upload } from '@/api/qiniu'
 import { MessageUtil } from '@/utils/message-util'
 import { generateId } from '@/utils/util'
 
+const cdn = import.meta.env.VITE_APP_CDN
+
 export default defineComponent({
   name: 'PageConfig',
   setup() {
@@ -144,7 +146,7 @@ export default defineComponent({
     })
 
     const resetBGImage = () => {
-      pageConfig.value.bgimage = `${import.meta.env.VITE_APP_QINIU_FILE}/datav/bj.png`
+      pageConfig.value.bgimage = `${cdn}/datav/bj.png`
     }
 
     const uploadCover = async (blob: Blob) => {

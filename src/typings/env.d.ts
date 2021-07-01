@@ -5,5 +5,5 @@ interface ImportMetaEnv {
   VITE_APP_QINIU_SK: string
   VITE_APP_QINIU_BUCKET: string
   VITE_APP_QINIU_UPLOAD: string
-  VITE_APP_QINIU_FILE: string
+  VITE_APP_CDN: string
 }

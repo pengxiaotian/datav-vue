@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import './mock/coms'
 
 export function getComs(projectId: number) {
   return request.get('/coms', { params: { projectId } })

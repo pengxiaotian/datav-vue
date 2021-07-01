@@ -1,7 +1,6 @@
 import CryptoJS from 'crypto-js'
 import axios, { AxiosRequestConfig } from 'axios'
 import request from '@/utils/request'
-import './mock/qiniu'
 
 export function getToken() {
   return request.get('/qiniu/upload/token')

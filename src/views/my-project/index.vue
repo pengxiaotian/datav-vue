@@ -256,6 +256,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/themes/var';
 @import '@/styles/mixins/util';
+@import '@/styles/mixins/function';
 
 .my-project {
   position: relative;
@@ -326,7 +327,7 @@ export default defineComponent({
     }
 
     .project-checked-color {
-      background-image: url('/images/nav-menu-img.png');
+      background-image: url(com-cdn('datav/nav-menu-img.png'));
       background-repeat: round;
 
       &:hover {
