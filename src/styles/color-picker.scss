@@ -6,6 +6,10 @@
 
 .el-color-picker__trigger {
   border: none;
+
+  .el-color-picker__color {
+    border-color: $popover-bgcolor-dark;
+  }
 }
 
 .el-color-picker__panel.el-popper.is-dark {

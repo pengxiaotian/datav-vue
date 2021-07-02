@@ -1,0 +1,575 @@
+[
+  {
+    "key": "global",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "全局样式",
+      "tip": "",
+      "displayMode": "nest",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "global",
+    "children": [
+      {
+        "key": "date",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "日期",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "2021-07-01",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "global.date"
+      },
+      {
+        "key": "fontFamily",
+        "config": {
+          "type": "string",
+          "component": "fontFamily",
+          "alias": "字体",
+          "tip": "请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "Microsoft Yahei",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "global.fontFamily"
+      }
+    ],
+    "cols": [
+      "date",
+      "fontFamily"
+    ]
+  },
+  {
+    "key": "input",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "文本框",
+      "tip": "",
+      "displayMode": "nest",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "input",
+    "children": [
+      {
+        "key": "size",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "大小",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "input.size",
+        "children": [
+          {
+            "key": "width",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "宽度",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 180,
+              "min": 40,
+              "max": 1000,
+              "step": 5
+            },
+            "path": "input.size.width"
+          },
+          {
+            "key": "height",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "高度",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 30,
+              "min": 20,
+              "max": 100,
+              "step": 5
+            },
+            "path": "input.size.height"
+          }
+        ],
+        "cols": [
+          "width",
+          "height"
+        ]
+      },
+      {
+        "key": "border",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "边框",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "input.border",
+        "children": [
+          {
+            "key": "width",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "宽度",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 1,
+              "min": 1,
+              "max": 10,
+              "step": 1
+            },
+            "path": "input.border.width"
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "#ccc",
+              "min": 0,
+              "max": 100,
+              "step": 1
+            },
+            "path": "input.border.color"
+          },
+          {
+            "key": "radius",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "圆角",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 0,
+              "min": 0,
+              "max": 100,
+              "step": 0.5
+            },
+            "path": "input.border.radius"
+          }
+        ],
+        "cols": [
+          "width",
+          "color",
+          "radius"
+        ]
+      },
+      {
+        "key": "bgColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "背景颜色",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "#01becc",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "input.bgColor"
+      },
+      {
+        "key": "fontSize",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "文字字号",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 18,
+          "min": 12,
+          "max": 60,
+          "step": 1
+        },
+        "path": "input.fontSize"
+      },
+      {
+        "key": "fontColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "文字颜色",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "#fff",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "input.fontColor"
+      },
+      {
+        "key": "separator",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "时间分隔符",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "-",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "input.separator"
+      },
+      {
+        "key": "pos",
+        "config": {
+          "type": "string",
+          "component": "hAlign",
+          "alias": "文字位置",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "left",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "input.pos"
+      }
+    ],
+    "cols": [
+      "size",
+      "border",
+      "bgColor",
+      "fontSize",
+      "fontColor",
+      "separator",
+      "pos"
+    ]
+  },
+  {
+    "key": "calendar",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "日历",
+      "tip": "",
+      "displayMode": "nest",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1
+    },
+    "path": "calendar",
+    "children": [
+      {
+        "key": "fontSize",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "文字字号",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": 14,
+          "min": 12,
+          "max": 60,
+          "step": 1
+        },
+        "path": "calendar.fontSize"
+      },
+      {
+        "key": "fontColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "文字颜色",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "#fff",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "calendar.fontColor"
+      },
+      {
+        "key": "bgColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "日历背景",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "#126973",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "calendar.bgColor"
+      },
+      {
+        "key": "selectBGColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "选择器背景",
+          "tip": "",
+          "displayMode": "flat",
+          "toggleCol": "",
+          "defaultValue": "#01becc",
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "calendar.selectBGColor"
+      },
+      {
+        "key": "border",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "外边框",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "calendar.border",
+        "children": [
+          {
+            "key": "width",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "宽度",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 1,
+              "min": 0,
+              "max": 100,
+              "step": 1
+            },
+            "path": "calendar.border.width"
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "#ccc",
+              "min": 0,
+              "max": 100,
+              "step": 1
+            },
+            "path": "calendar.border.color"
+          },
+          {
+            "key": "radius",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "圆角",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 5,
+              "min": 0,
+              "max": 100,
+              "step": 1
+            },
+            "path": "calendar.border.radius"
+          }
+        ],
+        "cols": [
+          "width",
+          "color",
+          "radius"
+        ]
+      },
+      {
+        "key": "paddingBorder",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "内边框",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "calendar.paddingBorder",
+        "children": [
+          {
+            "key": "width",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "宽度",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 1,
+              "min": 0,
+              "max": 100,
+              "step": 1
+            },
+            "path": "calendar.paddingBorder.width"
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": "#ccc",
+              "min": 0,
+              "max": 100,
+              "step": 1
+            },
+            "path": "calendar.paddingBorder.color"
+          },
+          {
+            "key": "padding",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "内边距",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 6,
+              "min": 0,
+              "max": 100,
+              "step": 0.5
+            },
+            "path": "calendar.paddingBorder.padding"
+          }
+        ],
+        "cols": [
+          "width",
+          "color",
+          "padding"
+        ]
+      },
+      {
+        "key": "select",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "选择器内边距",
+          "tip": "",
+          "displayMode": "nest",
+          "toggleCol": "",
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        "path": "calendar.select",
+        "children": [
+          {
+            "key": "time",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "时间",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 2,
+              "min": 0,
+              "max": 100,
+              "step": 0.5
+            },
+            "path": "calendar.select.time"
+          },
+          {
+            "key": "today",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "今",
+              "tip": "",
+              "displayMode": "flat",
+              "toggleCol": "",
+              "defaultValue": 4,
+              "min": 0,
+              "max": 100,
+              "step": 0.5
+            },
+            "path": "calendar.select.today"
+          }
+        ],
+        "cols": [
+          "time",
+          "today"
+        ]
+      }
+    ],
+    "cols": [
+      "fontSize",
+      "fontColor",
+      "bgColor",
+      "selectBGColor",
+      "border",
+      "paddingBorder",
+      "select"
+    ]
+  }
+]

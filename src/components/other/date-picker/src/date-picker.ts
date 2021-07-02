@@ -9,8 +9,10 @@ import {
  */
 export class DatePicker extends DatavComponent {
   config = {
-    date: '2021-07-01',
-    fontFamily: 'Microsoft Yahei',
+    global: {
+      date: '2021-07-01',
+      fontFamily: 'Microsoft Yahei',
+    },
     input: {
       size: {
         width: 180,
@@ -21,7 +23,7 @@ export class DatePicker extends DatavComponent {
         color: '#ccc',
         radius: 0,
       },
-      bGColor: '#01becc',
+      bgColor: '#01becc',
       fontSize: 18,
       fontColor: '#fff',
       separator: '-',
@@ -30,7 +32,7 @@ export class DatePicker extends DatavComponent {
     calendar: {
       fontSize: 14,
       fontColor: '#fff',
-      bGColor: '#126973',
+      bgColor: '#126973',
       selectBGColor: '#01becc',
       border: {
         width: 1,
@@ -69,9 +71,7 @@ export class DatePicker extends DatavComponent {
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = setApiData(this.id, {} as any, 'source', {
-      date: '',
-    })
+    this.apiData = setApiData(this.id, {} as any, 'source', {})
 
     this.events = {}
 

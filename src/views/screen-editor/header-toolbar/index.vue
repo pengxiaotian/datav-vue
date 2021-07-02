@@ -250,7 +250,11 @@ export default defineComponent({
           screenId: this.screen.id,
         },
       })
-      window.open(route.href, '_blank', 'noopener, noreferrer')
+      const a = document.createElement('a')
+      a.rel = 'noopener, noreferrer'
+      a.href = route.href
+      a.target = '_blank'
+      a.click()
     },
   },
 })
