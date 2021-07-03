@@ -23,6 +23,13 @@
     width: 9px;
     height: 9px;
   }
+
+  &.--large {
+    .el-slider__button {
+      width: 12px;
+      height: 12px;
+    }
+  }
 }
 
 .g-slider.el-slider {
@@ -35,6 +42,7 @@
     color: $input-font-color;
     background: $input-bgcolor;
     border-right: $border-outline;
+    width: 20px;
 
     &:not(.is-disabled):hover {
       z-index: 2;
@@ -47,6 +55,7 @@
     color: $input-font-color;
     background: $input-bgcolor;
     border-left: $border-outline;
+    width: 20px;
 
     &:not(.is-disabled):hover {
       z-index: 2;
@@ -102,5 +111,22 @@
         text-align: left;
       }
     }
+  }
+}
+
+.g-slider-wrap {
+  display: flex;
+  justify-content: space-between;
+
+  .g-slider.el-slider .el-slider__runway {
+    width: 92px;
+  }
+
+  .g-input-number.--inline {
+    width: 88px;
+  }
+
+  .g-input-number__suffix {
+    right: 20px;
   }
 }

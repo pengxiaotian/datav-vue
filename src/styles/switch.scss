@@ -9,20 +9,22 @@
   }
 
   .el-switch__core {
-    height: 16px;
+    width: 26px !important;
+    height: 12px;
     background: $switch-bgcolor;
     border: 1px solid $switch-border-color;
 
     .el-switch__action {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
+      top: 0;
     }
   }
 
   &.is-checked {
     .el-switch__core {
       .el-switch__action {
-        margin-left: -12px;
+        margin-left: -8px;
       }
     }
   }

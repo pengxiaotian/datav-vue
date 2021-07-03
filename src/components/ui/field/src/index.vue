@@ -3,7 +3,9 @@
     :class="[
       'g-field-wp',
       `--lv${level}`,
-      { '--disable': toggle && !modelValue }
+      {
+        '--disable': disabled || (toggle && !modelValue)
+      }
     ]"
   >
     <el-col class="g-field" v-bind="labelStyle">
@@ -30,6 +32,9 @@
     </el-col>
     <el-col class="g-field-container" v-bind="contentStyle">
       <slot></slot>
+      <span v-if="caption" class="g-field-caption" :title="caption">
+        {{ caption }}
+      </span>
     </el-col>
   </el-row>
 </template>
@@ -56,6 +61,8 @@ export default defineComponent({
       default: 1,
     },
     nest: Boolean,
+    caption: String,
+    disabled: Boolean,
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {

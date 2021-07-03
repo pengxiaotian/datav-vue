@@ -89,4 +89,20 @@
       color: $field-font-color-secondary;
     }
   }
+
+  &.--disable {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.g-field-caption {
+  font-size: 12px;
+  color: $input-description-font-color;
+  height: 16px;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
