@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "A Data Visualization Project For Vue3.x",
   "scripts": {
-    "cz": "git cz",
     "gc": "bash ./scripts/gc.sh",
     "new": "plop --plopfile ./plop-templates/plopfile.js",
     "bootstrap": "yarn --frozen-lockfile",
@@ -63,7 +62,6 @@
     "eslint": "^7.20.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-vue": "^7.10.0",
-    "git-cz": "^4.7.6",
     "handlebars": "^4.7.7",
     "husky": "^6.0.0",
     "lint-staged": "^11.0.0",
@@ -77,11 +75,6 @@
     "vite": "^2.3.8",
     "vite-plugin-plain-text": "^1.1.4",
     "vue-tsc": "^0.2.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "git-cz"
-    }
   },
   "lint-staged": {
     "src/**/*.{js,ts,vue}": [

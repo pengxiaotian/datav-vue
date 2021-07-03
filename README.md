@@ -173,21 +173,6 @@ yarn new component
 yarn new store
 ```
 
-### Git提交模板
-
-```bash
-yarn cz
-```
-
-例子：
-```
-type(scope?): subject (#issue)
-
-# example: feat(core): add type 'bar' for datav (#123)
-```
-
-Git提交模板配置：`./commitlint.config.js` & `./changelog.config.js`
-
 ## 国际化
 目前只有 `登录页` 进行了国际化设置，有需要可自行添加。
 
