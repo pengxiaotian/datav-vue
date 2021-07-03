@@ -1,33 +1,12 @@
 import type { App } from 'vue'
+import { defineAsyncComponent } from 'vue'
 import { loadAsyncComponent } from '@/utils/async-component'
-import GDropList from './drop-list'
-import GDropListItem from './drop-list-item'
-import GDropListPopover from './drop-list-popover'
-import GTooltipPopover from './tooltip-popover'
 import GLoading from './loading'
-import GInput from './input'
-import GInputNumber from './input-number'
-import GField from './field'
-import GColorPicker from './color-picker'
-import GUploadImage from './upload-image'
-import GLangSelect from './lang-select'
-import GFieldCollapse from './field-collapse'
 
 import Focus from '@/directives/focus'
 
 const components = [
-  GDropList,
-  GDropListItem,
-  GDropListPopover,
-  GTooltipPopover,
   GLoading,
-  GInput,
-  GInputNumber,
-  GField,
-  GColorPicker,
-  GUploadImage,
-  GLangSelect,
-  GFieldCollapse,
 ]
 
 const plugins = [
@@ -35,10 +14,25 @@ const plugins = [
 ]
 
 const install = (app: App): void => {
+  // sync register
   components.forEach(component => {
     app.component(component.name, component)
   })
 
+  // async register
+  app.component('GDropList', defineAsyncComponent(() => import('./drop-list')))
+  app.component('GDropListItem', defineAsyncComponent(() => import('./drop-list-item')))
+  app.component('GDropListPopover', defineAsyncComponent(() => import('./drop-list-popover')))
+  app.component('GTooltipPopover', defineAsyncComponent(() => import('./tooltip-popover')))
+  app.component('GInput', defineAsyncComponent(() => import('./input')))
+  app.component('GInputNumber', defineAsyncComponent(() => import('./input-number')))
+  app.component('GField', defineAsyncComponent(() => import('./field')))
+  app.component('GColorPicker', defineAsyncComponent(() => import('./color-picker')))
+  app.component('GUploadImage', defineAsyncComponent(() => import('./upload-image')))
+  app.component('GLangSelect', defineAsyncComponent(() => import('./lang-select')))
+  app.component('GFieldCollapse', defineAsyncComponent(() => import('./field-collapse')))
+
+  // async registry with loading
   app.component('GMonacoEditor', loadAsyncComponent(() => import('./monaco-editor')))
 
   plugins.forEach(plugin => {
