@@ -147,7 +147,8 @@
       "defaultValue": 0,
       "min": -88888,
       "max": 88888,
-      "step": 0.5
+      "step": 0.5,
+      "suffix": "px"
     },
     "path": "letterSpacing"
   },
@@ -211,7 +212,8 @@
           "defaultValue": 15,
           "min": 0,
           "max": 88888,
-          "step": 1
+          "step": 1,
+          "suffix": "px"
         },
         "path": "backgroundStyle.borderRadius"
       },
@@ -259,7 +261,8 @@
           "defaultValue": 1,
           "min": 0,
           "max": 88888,
-          "step": 1
+          "step": 1,
+          "suffix": "px"
         },
         "path": "backgroundStyle.borderWidth"
       }

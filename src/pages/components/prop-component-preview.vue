@@ -11,6 +11,7 @@
     :max="max"
     :step="step"
     :is-inline="false"
+    :suffix="suffix"
   />
   <el-checkbox
     v-else-if="componentType === componentTypes.checkbox"
@@ -264,6 +265,7 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
+    suffix: String,
   },
   setup(props) {
     const componentTypes = ref({ ...ComponentType })

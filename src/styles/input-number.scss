@@ -52,6 +52,7 @@
       border-right: none;
       border-left: $border-outline;
       border-radius: 0 0 4px;
+      width: 20px;
 
       &:not(.is-disabled):hover {
         z-index: 2;
@@ -64,6 +65,7 @@
       line-height: 13px;
       border-bottom: $border-outline;
       border-radius: 0 4px 0 0;
+      width: 20px;
 
       &:not(.is-disabled):hover {
         z-index: 2;
@@ -74,7 +76,7 @@
 
     .el-input {
       .el-input__inner {
-        padding-right: 35px;
+        padding-right: 25px;
         padding-left: 7px;
         color: #fff;
         text-align: left;
@@ -91,12 +93,24 @@
     }
   }
 
+  &.has-suffix {
+    position: relative;
+
+    .el-input-number--mini.is-controls-right {
+      .el-input {
+        .el-input__inner {
+          padding-right: 42px;
+        }
+      }
+    }
+  }
+
   & + & {
     margin-left: 8px;
   }
 }
 
-.g-input-number-caption {
+.g-input-number__caption {
   display: block;
   width: 100%;
   font-size: $font-size;
@@ -105,4 +119,13 @@
   color: $input-description-font-color;
 
   @include utils-ellipsis();
+}
+
+.g-input-number__suffix {
+  position: absolute;
+  font-size: 12px;
+  color: $input-description-font-color;
+  top: 0;
+  right: 25px;
+  width: 14px;
 }

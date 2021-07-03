@@ -105,6 +105,7 @@
         :max="88888"
         :step="0.5"
         :is-inline="false"
+        suffix="px"
       />
     </g-field>
     <g-field-collapse
@@ -130,6 +131,7 @@
           :max="88888"
           :step="1"
           :is-inline="false"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -166,6 +168,7 @@
           :max="88888"
           :step="1"
           :is-inline="false"
+          suffix="px"
         />
       </g-field>
     </g-field-collapse>

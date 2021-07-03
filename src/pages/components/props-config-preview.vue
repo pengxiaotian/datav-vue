@@ -26,6 +26,7 @@
         :min="item.config.min"
         :max="item.config.max"
         :step="item.config.step"
+        :suffix="item.config.suffix"
       />
     </g-field>
   </template>

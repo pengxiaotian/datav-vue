@@ -10,6 +10,9 @@
   :max="{{config.max}}"
   :step="{{config.step}}"
   :is-inline="false"
+  {{#if config.suffix}}
+  suffix="{{config.suffix}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.checkbox)}}
 <el-checkbox

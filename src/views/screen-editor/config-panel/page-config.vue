@@ -64,7 +64,12 @@
             </el-radio-group>
           </g-field>
           <g-field label="栅格间距" tooltip="每次移动的距离，单位px">
-            <g-input-number v-model="pageConfig.grid" :min="1" :max="20" />
+            <g-input-number
+              v-model="pageConfig.grid"
+              :min="1"
+              :max="20"
+              suffix="px"
+            />
           </g-field>
         </div>
 

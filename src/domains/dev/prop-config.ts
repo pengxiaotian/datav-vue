@@ -52,6 +52,7 @@ export interface PropConfig {
   min: number
   max: number
   step: number
+  suffix: string
 }
 
 export const createPropConfig = () => {
@@ -66,6 +67,7 @@ export const createPropConfig = () => {
     min: 0,
     max: 100,
     step: 1,
+    suffix: '',
   }
 
   return data

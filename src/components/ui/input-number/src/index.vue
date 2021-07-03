@@ -1,7 +1,13 @@
 <template>
   <div
     class="g-input-number"
-    :class="[`--${size}`, { '--inline': isInline }]"
+    :class="[
+      `--${size}`,
+      {
+        '--inline': isInline,
+        'has-suffix': !!suffix,
+      }
+    ]"
   >
     <el-input-number
       :model-value="modelValue"
@@ -13,8 +19,11 @@
       @update:model-value="handleInput"
       @change="handleChange"
     />
-    <span v-if="label" class="g-input-number-caption">
+    <span v-if="label" class="g-input-number__caption">
       {{ label }}
+    </span>
+    <span v-if="suffix" class="g-input-number__suffix">
+      {{ suffix }}
     </span>
   </div>
 </template>
@@ -54,6 +63,7 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    suffix: String,
   },
   emits: [UPDATE_MODEL_EVENT, 'change'],
   setup(props, ctx) {

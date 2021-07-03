@@ -50,6 +50,11 @@
               <el-input-number v-model="item.config.step" />
             </el-form-item>
           </template>
+          <template v-if="item.config.component === componentTypes.number">
+            <el-form-item label="单位">
+              <el-input v-model="item.config.suffix" />
+            </el-form-item>
+          </template>
         </template>
         <el-form-item label="显示模式">
           <el-select v-model="item.config.displayMode">
