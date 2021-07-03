@@ -3,7 +3,7 @@
     <el-input
       :model-value="modelValue"
       placeholder="请输入图片地址"
-      prefix-icon="el-icon-link"
+      prefix-icon="v-icon-link"
       size="mini"
       clearable
       @update:model-value="handleInput"
@@ -11,7 +11,7 @@
     <el-upload
       v-loading="loading"
       element-loading-text="正在上传..."
-      element-loading-spinner="el-icon-loading"
+      element-loading-spinner="v-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.7)"
       drag
       accept="image/*"

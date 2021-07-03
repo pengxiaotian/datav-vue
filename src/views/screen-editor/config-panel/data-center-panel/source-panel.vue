@@ -7,7 +7,7 @@
   >
     <div class="api-editor-title">
       <div class="api-desc ellipsis2" @click="toggle">
-        <i v-if="collapse" class="el-icon-arrow-right api-fold-icon"></i>
+        <i v-if="collapse" class="v-icon-arrow-right api-fold-icon"></i>
         {{ apiConfig.description || '数据接口' }}
       </div>
       <div class="api-status success">
@@ -104,7 +104,7 @@
           <div class="ds-line mt5">
             <span>数据响应结果 ( 只读 ) </span>
             <el-tooltip content="刷新数据" placement="left" effect="blue">
-              <i class="el-icon-refresh refresh-btn" @click="refreshData"></i>
+              <i class="v-icon-refresh refresh-btn" @click="refreshData"></i>
             </el-tooltip>
           </div>
           <div class="ds-dots">

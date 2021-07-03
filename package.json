@@ -76,7 +76,6 @@
     "typescript": "^4.3.2",
     "vite": "^2.3.8",
     "vite-plugin-plain-text": "^1.1.4",
-    "vite-plugin-style-import": "^1.0.0",
     "vue-tsc": "^0.2.0"
   },
   "config": {

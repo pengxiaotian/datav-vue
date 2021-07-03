@@ -22,7 +22,7 @@
                 <img src="/images/avatar-placeholder.png">
               </el-avatar>
               <span class="user-link">
-                {{ userName }} <i class="el-icon-caret-bottom"></i>
+                {{ userName }} <i class="v-icon-arrow-down"></i>
               </span>
             </span>
             <template #droplist>

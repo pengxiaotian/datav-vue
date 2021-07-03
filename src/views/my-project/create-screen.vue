@@ -15,7 +15,7 @@
         <div class="template-list">
           <div class="template-item --blank">
             <div class="template-image">
-              <el-button type="primary" icon="el-icon-plus" @click="confirmCreate(null)">
+              <el-button type="primary" icon="v-icon-plus" @click="confirmCreate(null)">
                 创建项目
               </el-button>
             </div>
@@ -99,8 +99,8 @@
       <div class="preview-gif">
         <div class="gif-wp">
           <img class="snapshot-gif" :src="template.snapshot">
-          <i class="el-icon-arrow-left prev-icon" @click="prevPreviewTemplate"></i>
-          <i class="el-icon-arrow-right next-icon" @click="nextPreviewTemplate"></i>
+          <i class="v-icon-arrow-left prev-icon" @click="prevPreviewTemplate"></i>
+          <i class="v-icon-arrow-right next-icon" @click="nextPreviewTemplate"></i>
         </div>
         <div class="preview-create">
           <div class="create-dialog">
@@ -127,10 +127,10 @@
             type="primary"
             size="mini"
             :loading="saveLoading"
-            style="margin-top: 30px;"
+            class="preview-create-btn"
             @click="doCreate"
           >
-            创建大屏 <i class="el-icon-arrow-right"></i>
+            创建大屏 <i class="v-icon-arrow-right next-icon"></i>
           </el-button>
         </div>
       </div>
@@ -676,6 +676,14 @@ export default defineComponent({
       overflow: hidden;
       padding-left: 20px;
     }
+  }
+}
+
+.preview-create-btn {
+  margin-top: 30px;
+
+  .v-icon-arrow-right {
+    font-size: 12px;
   }
 }
 </style>

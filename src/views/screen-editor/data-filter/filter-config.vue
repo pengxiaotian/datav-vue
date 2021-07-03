@@ -16,10 +16,10 @@
         v-if="newDataFilter"
         :data-filter="newDataFilter"
         :index="selectedFilters.length"
-        is-new
+        :is-new="true"
         :draggable="false"
         :has-feedback="false"
-        removable
+        :removable="true"
       />
       <div ref="addPanelRef" class="add-filter" @dragenter="dragEnter">
         <el-select
@@ -39,7 +39,7 @@
           />
         </el-select>
         <div class="new-filter-btn" @click="addFilter">
-          <i class="el-icon-plus icon-add"></i>
+          <i class="v-icon-plus icon-add"></i>
         </div>
       </div>
     </div>

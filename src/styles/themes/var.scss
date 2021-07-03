@@ -13,7 +13,6 @@ $color-success: $green-6;
 $color-warning: $warn-6;
 $color-error: $red-6;
 $color-info: $color-gray;
-$color-primary-secondary: mix($color-white, $color-primary, 15%); // #4794ff
 
 // Animation
 $ease-base-out: cubic-bezier(0.7, 0.3, 0.1, 1);
@@ -41,7 +40,7 @@ $font-color-secondary: #a1aeb3;
 $font-color-placeholder: #c0c4cc;
 $font-size: 12px;
 $header-font-size: $font-size;
-$hover-color: $color-primary;
+$hover-color: #409fff;
 $nav-color: #b9c2cc;
 $nav-border-color: #27343e;
 

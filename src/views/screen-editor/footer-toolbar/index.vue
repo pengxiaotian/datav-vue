@@ -43,7 +43,7 @@
         trigger="click"
         popper-class="editor-popover"
         :show-arrow="false"
-        :offset="5"
+        :offset="8"
       >
         <div class="scale-value-list">
           <div
@@ -57,7 +57,7 @@
           <div class="scale-value-item" @click="submitScale(-1)">自适应</div>
         </div>
         <template #reference>
-          <i class="el-icon-arrow-down open-icon" @click.stop="showScaleList"></i>
+          <i class="v-icon-arrow-down open-icon" @click.stop="showScaleList"></i>
         </template>
       </el-popover>
     </div>
@@ -228,12 +228,12 @@ export default defineComponent({
 
     .open-icon {
       position: absolute;
-      top: -7px;
-      right: -9px;
+      top: -9px;
+      right: -10px;
       padding: 10px;
       font-weight: bold;
       color: $footer-color;
-      transform: scale(0.7);
+      transform: scale(0.5);
     }
   }
 

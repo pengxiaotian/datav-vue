@@ -232,11 +232,6 @@ export const interact = {
       alias: '全屏切换',
       img: `${import.meta.env.VITE_APP_CDN}/com/full-screen.png`,
       used: true,
-    }, {
-      name: 'VTabSelect',
-      alias: 'Tab选择器',
-      img: `${import.meta.env.VITE_APP_CDN}/com/tab-select.png`,
-      used: true,
     },
   ],
 }
@@ -250,6 +245,11 @@ export const other = {
       name: 'VDatePicker',
       alias: '日期选择器',
       img: `${import.meta.env.VITE_APP_CDN}/com/date-picker.jpg`,
+      used: true,
+    }, {
+      name: 'VTabSelect',
+      alias: 'Tab选择器',
+      img: `${import.meta.env.VITE_APP_CDN}/com/tab-select.png`,
       used: true,
     },
   ],

@@ -19,7 +19,7 @@
           name="username"
           type="text"
           autocomplete="on"
-          prefix-icon="el-icon-s-custom"
+          prefix-icon="v-icon-user"
         />
       </el-form-item>
       <el-tooltip
@@ -33,7 +33,7 @@
             v-model="loginForm.password"
             placeholder="请输入密码"
             name="password"
-            prefix-icon="el-icon-key"
+            prefix-icon="v-icon-key"
             show-password
             @keyup="checkCapslock"
             @blur="capsTooltip = false"

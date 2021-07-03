@@ -11,7 +11,7 @@
       :style="`transform: rotate(90deg) translateX(-${vScroll}px);`"
     ></div>
     <div title="切换参考线" class="ruler-corner" @click="toggleGuides">
-      <i class="v-icon-line-show" style="z-index: 10;"></i>
+      <i :class="`v-icon-line-${visible ? 'show' : 'hide'}`" style="z-index: 10;"></i>
     </div>
   </div>
 </template>
@@ -109,6 +109,7 @@ export default defineComponent({
     })
 
     return {
+      visible,
       hRulerWpRef,
       vRulerWpRef,
       toggleGuides,

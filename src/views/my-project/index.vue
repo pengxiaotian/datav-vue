@@ -5,7 +5,7 @@
         <div class="manage-title">
           <div class="my-project project-group">
             <span style="margin-left: 2px;">我的分组</span>
-            <i class="el-icon-plus btn-add-icon" @click="adding = true"></i>
+            <i class="v-icon-plus btn-add-icon" @click="adding = true"></i>
           </div>
           <div
             class="my-project project-all"

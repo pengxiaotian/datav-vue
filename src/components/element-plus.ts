@@ -53,7 +53,10 @@ import {
   ElLoading,
   ElMessage,
   ElMessageBox,
+
+  locale,
 } from 'element-plus'
+import lang from 'element-plus/lib/locale/lang/zh-cn'
 
 const components = [
   ElAside,
@@ -112,8 +115,10 @@ const plugins = [
   ElMessageBox,
 ]
 
-const install = (app: App, option: any): void => {
-  app.config.globalProperties.$ELEMENT = option
+const install = (app: App): void => {
+  locale(lang)
+
+  app.config.globalProperties.$ELEMENT = { size: 'medium' }
 
   components.forEach(component => {
     app.component(component.name, component)

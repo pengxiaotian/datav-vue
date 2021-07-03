@@ -2,7 +2,7 @@
   <div class="setting-panel">
     <config-title :com-name="com.name" :com-alias="com.alias">
       <div class="search-config" @click="toSearch">
-        <i class="el-icon-search search-icon"></i>
+        <i class="v-icon-search search-icon"></i>
         <span>搜索配置</span>
       </div>
     </config-title>

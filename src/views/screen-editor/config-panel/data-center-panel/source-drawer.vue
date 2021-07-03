@@ -79,7 +79,7 @@
         }"
       >
         <span>数据响应结果</span>
-        <i class="el-icon-refresh refresh-btn" @click="refreshData"></i>
+        <i class="v-icon-refresh refresh-btn" @click="refreshData"></i>
       </div>
       <div class="data-response">
         <g-monaco-editor

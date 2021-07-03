@@ -15,7 +15,7 @@
           rel="noopener noreferrer"
           class="filter-doc"
         >
-          <i class="el-icon-document"></i><span>帮助文档</span>
+          <i class="v-icon-document"></i><span>帮助文档</span>
         </router-link>
       </p>
     </template>
@@ -23,10 +23,10 @@
       <filter-collapse-panel
         v-if="newDataFilter"
         :data-filter="newDataFilter"
-        is-new
+        :is-new="true"
         :draggable="false"
         :has-feedback="false"
-        removable
+        :removable="true"
       />
       <filter-collapse-panel
         v-for="df in dataFilters"
@@ -34,9 +34,9 @@
         :data-filter="df"
         :draggable="false"
         :has-feedback="false"
-        publish
-        removable
-        show-time
+        :publish="true"
+        :removable="true"
+        :show-time="true"
       />
       <div v-if="dataFilters.length === 0 && !newDataFilter" class="panel-info">
         <p class="info-text">过滤器列表为空，请创建后使用</p>

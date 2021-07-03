@@ -3,13 +3,52 @@
   src: url('./fonts/datav-icons.woff2') format('woff2');
 }
 
+[class*=" el-icon-"],
+[class^="el-icon-"],
 [class*=" v-icon-"],
 [class^="v-icon-"] {
   font-family: "datav-icons" !important;
   font-size: 14px;
   font-style: normal;
+  display: inline-block;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.v-icon-editor-canvas:before {
+  content: "\e6a0";
+}
+
+.v-icon-nodal:before {
+  content: "\e699";
+}
+
+.v-icon-refresh:before {
+  content: "\e86b";
+}
+
+.v-icon-document:before {
+  content: "\e8c2";
+}
+
+.v-icon-plus:before {
+  content: "\e661";
+}
+
+.v-icon-user:before {
+  content: "\e75f";
+}
+
+.v-icon-key:before {
+  content: "\e7af";
+}
+
+.v-icon-caret-bottom:before {
+  content: "\e663";
+}
+
+.v-icon-link:before {
+  content: "\e6c8";
 }
 
 .v-icon-view-list:before {
@@ -26,10 +65,6 @@
 
 .v-icon-magic:before {
   content: "\ea1f";
-}
-
-.v-icon-close:before {
-  content: "\e619";
 }
 
 .v-icon-drag:before {
@@ -101,11 +136,11 @@
 }
 
 .v-icon-show:before {
-  content: "\e64d";
+  content: "\e6c0";
 }
 
 .v-icon-unlock:before {
-  content: "\e8e9";
+  content: "\e6d0";
 }
 
 .v-icon-line-show:before {
@@ -145,11 +180,11 @@
 }
 
 .v-icon-lock:before {
-  content: "\e608";
+  content: "\e6d3";
 }
 
 .v-icon-hide:before {
-  content: "\e610";
+  content: "\e6c9";
 }
 
 .v-icon-move-top:before {
@@ -181,7 +216,7 @@
 }
 
 .v-icon-back:before {
-  content: "\e641";
+  content: "\e618";
 }
 
 .v-icon-video:before {
@@ -193,7 +228,7 @@
 }
 
 .v-icon-complete:before {
-  content: "\e605";
+  content: "\e6d1";
 }
 
 .v-icon-interact:before {
@@ -261,11 +296,11 @@
 }
 
 .v-icon-title:before {
-  content: "\e62c";
+  content: "\e650";
 }
 
 .v-icon-save:before {
-  content: "\e7ef";
+  content: "\e61f";
 }
 
 .v-icon-search:before {
@@ -281,7 +316,7 @@
 }
 
 .v-icon-map:before {
-  content: "\e62b";
+  content: "\e6cb";
 }
 
 .v-icon-chart-line:before {
@@ -305,12 +340,57 @@
   animation: rotating 2s linear infinite;
 }
 
-.v-icon--right {
-  margin-left: 5px;
+.el-icon-close:before,
+.v-icon-close:before {
+  content: "\e619";
 }
 
-.v-icon--left {
-  margin-right: 5px;
+.el-icon-success:before,
+.v-icon-check:before {
+  content: "\e606";
+}
+
+.el-icon-error:before,
+.v-icon-error:before {
+  content: "\e607";
+}
+
+.el-icon-warning:before,
+.v-icon-warning:before {
+  content: "\e609";
+}
+
+.el-icon-info:before,
+.v-icon-info:before {
+  content: "\ef5d";
+}
+
+.el-icon-arrow-up:before,
+.v-icon-arrow-up:before {
+  content: "\ef5e";
+}
+
+.el-icon-arrow-down:before,
+.v-icon-arrow-down:before {
+  content: "\e82d";
+}
+
+.el-icon-arrow-left:before,
+.v-icon-arrow-left:before {
+  content: "\e82e";
+}
+
+.el-icon-arrow-right:before,
+.v-icon-arrow-right:before {
+  content: "\ef5c";
+}
+
+.el-icon-plus:before {
+  content: "+";
+}
+
+.el-icon-minus:before {
+  content: "-";
 }
 
 @keyframes rotating {

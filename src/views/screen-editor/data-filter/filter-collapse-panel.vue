@@ -89,7 +89,7 @@
         </div>
       </div>
       <div class="toggle-btn" @click="toggleEditor">
-        <i class="el-icon-arrow-right toggle-icon"></i>
+        <i class="v-icon-arrow-right toggle-icon"></i>
       </div>
     </div>
     <template v-if="isOpened">

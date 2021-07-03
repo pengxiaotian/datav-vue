@@ -25,7 +25,7 @@
             <span class="sort-text" :title="sorts[sort]">
               {{ sorts[sort] }}
             </span>
-            <i class="el-icon-caret-bottom arrow-icon"></i>
+            <i class="v-icon-arrow-down arrow-icon"></i>
           </div>
           <template #droplist>
             <g-drop-list>

@@ -72,7 +72,7 @@
     transition: color 0.2s;
 
     &:hover {
-      color: $color-primary-secondary;
+      color: $hover-color;
     }
   }
 
@@ -95,7 +95,7 @@
     transition: color 0.2s;
 
     &:hover {
-      color: $color-primary-secondary;
+      color: $hover-color;
     }
   }
 
@@ -106,7 +106,7 @@
     transition: color 0.2s;
 
     &:hover {
-      color: $color-primary-secondary;
+      color: $hover-color;
     }
   }
 }

@@ -8,7 +8,7 @@
           effect="blue"
           :content="`${comTitle}文档`"
         >
-          <i class="el-icon-document com-doc-icon"></i>
+          <i class="v-icon-document com-doc-icon"></i>
         </el-tooltip>
       </div>
       <div class="version-tag">

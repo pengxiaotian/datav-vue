@@ -1,11 +1,28 @@
 <template>
-  <el-row class="edit-header-wrap">
-    <el-col class="edit-header">
-      <el-tooltip content="返回" effect="blue" :enterable="false">
-        <div class="back-btn" @click="$router.push('/')">
-          <i class="v-icon-back"></i>
+  <div class="datav-header">
+    <div class="head-btn-group view-btn-group">
+      <el-tooltip
+        content="画布编辑器"
+        effect="blue"
+        :open-delay="500"
+        :enterable="false"
+      >
+        <div class="head-btn --selected">
+          <i class="v-icon-editor-canvas head-btn-icon"></i>
         </div>
       </el-tooltip>
+      <el-tooltip
+        content="蓝图编辑器"
+        effect="blue"
+        :open-delay="500"
+        :enterable="false"
+      >
+        <div class="head-btn --disabled">
+          <i class="v-icon-nodal head-btn-icon"></i>
+        </div>
+      </el-tooltip>
+    </div>
+    <div class="datav-edit-header">
       <div class="editor-header-wp">
         <div class="editor-config">
           <el-tooltip
@@ -149,8 +166,8 @@
           </div>
         </el-tooltip>
       </div>
-    </el-col>
-  </el-row>
+    </div>
+  </div>
   <head-loading />
   <publish-screen v-model="visiblePublish" :project-id="publishAppId" />
 </template>
@@ -263,41 +280,99 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/themes/var';
 
-.edit-header-wrap {
-  overflow: hidden;
-}
-
-.edit-header {
+.datav-header {
   position: relative;
-  z-index: 100;
-  display: flex;
-  height: 40px;
+  height: 41px;
   padding-right: 8px;
+  display: flex;
+  z-index: 100;
   align-items: center;
+  user-select: none;
   color: $header-color;
   background: $header-bgcolor;
   border-bottom: $border-dark;
-  user-select: none;
 
-  .back-btn {
-    width: 40px;
-    height: 100%;
-    line-height: 40px;
-    color: $color-primary;
-    text-align: center;
-    cursor: pointer;
-    border-right: $border-dark;
-    transition: 0.2s;
+  .view-btn-group {
+    margin: 0 15px;
+    z-index: 1;
+  }
+}
 
-    &:hover {
-      background: #22262d;
+.head-btn {
+  width: 40px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
+  background: $header-btn-bgcolor;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 235, 235, 0.1),
+    0 0 0 1px #181818;
+  transition: 0.2s;
+
+  .head-btn-icon {
+    color: $header-icon-color;
+
+    &:not(:first-child) {
+      border-left: 1px solid rgba(255, 235, 235, 0.1);
     }
   }
+
+  &:not(.--disabled):hover {
+    background: $header-btn-bgcolor-hover;
+  }
+
+  &.--selected {
+    background: $color-primary;
+
+    & + .head-btn {
+      border-left-color: transparent;
+    }
+
+    &:not(.--disabled):hover {
+      background: $color-primary;
+    }
+  }
+
+  &.--disabled {
+    cursor: not-allowed;
+
+    .head-btn-icon {
+      opacity: 0.2;
+    }
+  }
+}
+
+.head-btn-group {
+  display: flex;
+  box-sizing: border-box;
+  background: $header-bgcolor;
+  border: 1px solid rgba(255, 235, 235, 0.1);
+  box-shadow: 0 0 0 1px #181818;
+
+  .head-btn {
+    width: 45px;
+    border-radius: 0;
+    box-shadow: none;
+    height: 22px;
+    line-height: 22px;
+    border-left: 1px solid transparent;
+  }
+}
+
+.datav-edit-header {
+  width: 100%;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  height: 40px;
+  z-index: 100;
 
   .editor-header-wp {
     display: flex;
     overflow: hidden;
-    margin-left: 10px;
     transition: width 0.3s ease;
   }
 
@@ -309,7 +384,7 @@ export default defineComponent({
   }
 
   .drawer-actions {
-    width: 120px;
+    width: 90px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -327,18 +402,18 @@ export default defineComponent({
 
   .screen-info {
     position: absolute;
-    top: 0;
     left: 50%;
-    max-width: 500px;
-    overflow: hidden;
-    font-size: 14px;
-    line-height: 40px;
-    color: $header-color;
+    top: 0;
+    transform: translateX(-50%);
     text-align: center;
+    cursor: default;
+    font-size: 14px;
+    max-width: 500px;
+    color: $header-color;
+    line-height: 40px;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    cursor: default;
-    transform: translateX(-50%);
 
     .workspace-icon {
       padding-right: 8px;
@@ -350,8 +425,8 @@ export default defineComponent({
     position: absolute;
     top: 0;
     right: 8px;
+    width: 300px;
     display: flex;
-    width: 500px;
     justify-content: flex-end;
     align-items: center;
     height: 40px;
@@ -370,31 +445,6 @@ export default defineComponent({
 
   .mr4 {
     margin-right: 4px;
-  }
-}
-
-.head-btn {
-  width: 40px;
-  height: 24px;
-  line-height: 24px;
-  text-align: center;
-  cursor: pointer;
-  background: $header-btn-bgcolor;
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 235, 235, 0.1),
-    0 0 0 1px #181818;
-  transition: 0.2s;
-
-  &:hover {
-    background: $header-btn-bgcolor-hover;
-  }
-
-  &.--selected {
-    background: $color-primary;
-  }
-
-  .head-btn-icon {
-    color: $header-icon-color;
   }
 }
 
