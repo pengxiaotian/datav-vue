@@ -30,6 +30,7 @@
           height: com.attr.h + 'px',
           opacity: com.attr.opacity,
           transform: `rotate(${com.attr.deg}deg) ${com.attr.filpH ? 'scaleX(-1)' : ''} ${com.attr.filpV ? 'scaleY(-1)' : ''}`,
+          filter: styleFilter,
         }"
         class="-datav-com absolute"
       >
@@ -64,6 +65,14 @@ export default defineComponent({
     const loading = ref(true)
     const pageConfig = computed(() => EditorModule.pageConfig)
     const coms = computed(() => EditorModule.coms)
+    const styleFilter = computed(() => {
+      const sf = EditorModule.styleFilterParams
+      let filter = ''
+      if (sf.enable) {
+        filter = `hue-rotate(${sf.hue}deg) contrast(${sf.contrast}%) opacity(${sf.opacity}%) saturate(${sf.saturate}%) brightness(${sf.brightness}%)`
+      }
+      return filter
+    })
 
     const resizeAuto = (width: number, height: number) => {
       const cw = document.documentElement.clientWidth
@@ -199,6 +208,7 @@ export default defineComponent({
       loading,
       pageConfig,
       coms,
+      styleFilter,
     }
   },
 })

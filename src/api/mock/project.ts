@@ -73,6 +73,14 @@ export default (adapter: MockAdapter) => {
         'groupId': 0,
         'createAt': '@datetime',
         'updateAt': '@datetime',
+        'styleFilterParams': {
+          'enable': false,
+          'hue': 0,
+          'saturate': 100,
+          'brightness': 100,
+          'contrast': 100,
+          'opacity': 100,
+        },
       },
     }))
 

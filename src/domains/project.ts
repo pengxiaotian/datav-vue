@@ -14,12 +14,22 @@ export interface ProjectConfig {
   useWatermark: boolean
 }
 
+export interface StyleFilter {
+  enable: boolean
+  hue: number
+  saturate: number
+  brightness: number
+  contrast: number
+  opacity: number
+}
+
 export interface Project {
   id: number
   name: string
   share: string
   groupId: number
   config: ProjectConfig
+  styleFilterParams: StyleFilter
   createAt: string
   updateAt: string
 }

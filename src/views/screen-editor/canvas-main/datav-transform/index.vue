@@ -114,9 +114,15 @@ export default defineComponent({
 
     const comStyle = computed(() => {
       const { hided, attr } = props.com
+      const sf = EditorModule.styleFilterParams
+      let filter = ''
+      if (sf.enable) {
+        filter = `hue-rotate(${sf.hue}deg) contrast(${sf.contrast}%) opacity(${sf.opacity}%) saturate(${sf.saturate}%) brightness(${sf.brightness}%)`
+      }
       return {
         display: hided ? 'none' : 'block',
         transform: `scaleX(${attr.filpH ? -1 : 1}) scaleY(${attr.filpV ? -1 : 1}) rotateZ(360deg)`,
+        filter,
       }
     })
 
