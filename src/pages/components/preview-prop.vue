@@ -1,5 +1,5 @@
 <template>
-  <template v-for="item in configs" :key="item.key">
+  <template v-for="item in config" :key="item.key">
     <g-field-collapse
       v-if="item.children"
       :label="item.config.alias"
@@ -7,8 +7,8 @@
       :toggle="!!item.config.toggleCol"
       :model-value="true"
     >
-      <props-config-preview
-        :configs="item.children"
+      <preview-prop
+        :config="item.children"
         :toggle-col="item.config.toggleCol"
         :level="2"
       />
@@ -19,7 +19,7 @@
       :tooltip="item.config.tip"
       :level="level"
     >
-      <prop-component-preview
+      <preview-prop-item
         :data-type="item.config.type"
         :component-type="item.config.component"
         :default-value="item.config.defaultValue"
@@ -50,15 +50,15 @@ import {
   fillTypes,
 } from '@/data/select-options'
 import { boxImgs, decorateImgs } from '@/data/images'
-import PropComponentPreview from './prop-component-preview.vue'
+import PreviewPropItem from './preview-prop-item.vue'
 
 export default defineComponent({
-  name: 'PropsConfigPreview',
+  name: 'PreviewProp',
   components: {
-    PropComponentPreview,
+    PreviewPropItem,
   },
   props: {
-    configs: {
+    config: {
       type: Array as PropType<PropDto[]>,
       required: true,
     },

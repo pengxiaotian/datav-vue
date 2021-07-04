@@ -1,7 +1,7 @@
 <template>
   <el-collapse class="pc-collapse collapse-arrow-left">
     <el-collapse-item
-      v-for="item in configs"
+      v-for="item in config"
       :key="item.key"
       :title="item.path"
       :name="item.key"
@@ -33,7 +33,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="组件预览">
-            <prop-component
+            <config-form-item
               :data-type="item.config.type"
               :component-type="item.config.component"
               :default-value="item.config.defaultValue"
@@ -75,9 +75,9 @@
         </el-form-item>
       </el-form>
 
-      <props-config-form
+      <config-form
         v-if="item.children"
-        :configs="item.children"
+        :config="item.children"
         :toggle-col="item.config.toggleCol"
       />
     </el-collapse-item>
@@ -87,15 +87,15 @@
 <script lang='ts'>
 import { defineComponent, PropType, ref } from 'vue'
 import { PropDto, ComponentType, DisplayMode } from '@/domains/dev/prop-config'
-import PropComponent from './prop-component.vue'
+import ConfigFormItem from './config-form-item.vue'
 
 export default defineComponent({
-  name: 'PropsConfigForm',
+  name: 'ConfigForm',
   components: {
-    PropComponent,
+    ConfigFormItem,
   },
   props: {
-    configs: {
+    config: {
       type: Array as PropType<PropDto[]>,
       required: true,
     },

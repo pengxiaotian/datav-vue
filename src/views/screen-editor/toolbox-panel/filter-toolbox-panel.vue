@@ -1,5 +1,5 @@
 <template>
-  <div class="toolbox-filter-panel">
+  <div class="filter-toolbox-panel">
     <div class="content">
       <div class="gui-wrap">
         <g-field
@@ -129,7 +129,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/themes/var';
 
-.toolbox-filter-panel {
+.filter-toolbox-panel {
   background: #1d2125;
 
   .content {

@@ -218,7 +218,7 @@ import {
 import { boxImgs, decorateImgs } from '@/data/images'
 
 export default defineComponent({
-  name: 'PropComponent',
+  name: 'ConfigFormItem',
   props: {
     dataType: {
       type: String as PropType<PropDataType>,

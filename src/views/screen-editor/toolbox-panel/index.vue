@@ -16,7 +16,7 @@
             <el-switch v-model="styleFilterParams.enable" />
           </div>
         </template>
-        <toolbox-filter-panel :style-filter-params="styleFilterParams" />
+        <filter-toolbox-panel :style-filter-params="styleFilterParams" />
       </el-popover>
       <div class="btn-box">
         <el-tooltip
@@ -54,12 +54,12 @@ import { defineComponent, computed, ref, watch } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { MessageUtil } from '@/utils/message-util'
-import ToolboxFilterPanel from './toolbox-filter-panel.vue'
+import FilterToolboxPanel from './filter-toolbox-panel.vue'
 
 export default defineComponent({
   name: 'ToolboxPanel',
   components: {
-    ToolboxFilterPanel,
+    FilterToolboxPanel,
   },
   setup() {
     const visiblePanel = computed(() => ToolbarModule.toolbox.show)

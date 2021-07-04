@@ -240,7 +240,7 @@ import {
 import { boxImgs, decorateImgs } from '@/data/images'
 
 export default defineComponent({
-  name: 'PropComponentPreview',
+  name: 'PreviewPropItem',
   props: {
     dataType: {
       type: String as PropType<PropDataType>,

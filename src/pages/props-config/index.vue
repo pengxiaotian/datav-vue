@@ -44,14 +44,14 @@
                 </div>
               </div>
             </template>
-            <props-config-form :configs="list" />
+            <config-form :config="list" />
           </el-card>
         </el-col>
         <el-col :span="12">
           <el-card>
             <el-tabs v-model="activeTab" type="card">
               <el-tab-pane label="配置预览" name="config">
-                <props-config-panel :configs="list" />
+                <config-preview :config="list" />
               </el-tab-pane>
               <el-tab-pane label="配置代码（config.json）" name="code" lazy>
                 <div style="padding: 12px;">
@@ -89,15 +89,15 @@ import { pascalCase } from '@/utils/util'
 import Handlebars from 'handlebars'
 import { DatavComponent } from '@/components/datav-component'
 import '@/pages/templates/register'
-import PropsConfigForm from '../components/props-config-form.vue'
-import PropsConfigPanel from '../components/props-config-panel.vue'
+import ConfigForm from '../components/config-form.vue'
+import ConfigPreview from '../components/config-preview.vue'
 import { plainText as configTpl } from '../templates/config-tpl.hbs'
 
 export default defineComponent({
   name: 'PropsConfig',
   components: {
-    PropsConfigForm,
-    PropsConfigPanel,
+    ConfigForm,
+    ConfigPreview,
   },
   setup() {
     const classPath = ref('')

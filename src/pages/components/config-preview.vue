@@ -3,7 +3,7 @@
     <div class="setting-panel-content">
       <div class="scroll-container">
         <div class="setting-panel-gui">
-          <props-config-preview :configs="configs" />
+          <preview-prop :config="config" />
         </div>
       </div>
     </div>
@@ -13,15 +13,15 @@
 <script lang='ts'>
 import { defineComponent, PropType } from 'vue'
 import { PropDto } from '@/domains/dev/prop-config'
-import PropsConfigPreview from './props-config-preview.vue'
+import PreviewProp from './preview-prop.vue'
 
 export default defineComponent({
-  name: 'PropsConfigPanel',
+  name: 'ConfigPreview',
   components: {
-    PropsConfigPreview,
+    PreviewProp,
   },
   props: {
-    configs: {
+    config: {
       type: Array as PropType<PropDto[]>,
       required: true,
     },
