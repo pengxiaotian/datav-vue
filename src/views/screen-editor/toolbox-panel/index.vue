@@ -85,14 +85,12 @@ export default defineComponent({
 
     watch(() => styleFilterParams.value.enable, (nv: boolean) => {
       visibleFilterPanel.value = nv
+      MessageUtil.success(nv ? '滤镜已开启应用' : '滤镜已关闭')
     })
 
     watch(() => visibleFilterPanel.value, (nv: boolean) => {
       if (nv) {
         document.addEventListener('click', hideFilterPanel)
-        MessageUtil.success('滤镜已开启应用')
-      } else {
-        MessageUtil.success('滤镜已关闭')
       }
     })
 
