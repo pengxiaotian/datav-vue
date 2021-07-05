@@ -67,11 +67,11 @@ export class DatePicker extends DatavComponent {
       createField('date', { description: '默认日期', optional: true }),
     ]
 
-    this.apis = setApiConfig({} as any, 'source', {
+    this.apis = setApiConfig({}, 'source', {
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = setApiData(this.id, {} as any, 'source', {})
+    this.apiData = setApiData(this.id, {}, 'source', {})
 
     this.events = {}
 

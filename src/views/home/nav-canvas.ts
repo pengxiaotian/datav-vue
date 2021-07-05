@@ -37,7 +37,7 @@ export class NavCanvas {
   }
 
   initCanvas(canvas: HTMLCanvasElement, width: number, height: number) {
-    const ctx = canvas.getContext('2d')!
+    const ctx = canvas.getContext('2d')
     const { devicePixelRatio } = window
     canvas.width = width * devicePixelRatio
     canvas.height = height * devicePixelRatio
@@ -48,34 +48,34 @@ export class NavCanvas {
 
   calcTabs() {
     const { opt, tabs } = this
-    const b: number[] = []
-    let c = 0
+    const ws: number[] = []
+    let totalWidth = 0
     tabs.forEach(node => {
-      b.push(c)
-      c += node.offsetWidth
+      ws.push(totalWidth)
+      totalWidth += node.offsetWidth
     })
 
-    b[0] = -20
-    b.push(c)
+    ws[0] = -20
+    ws.push(totalWidth)
 
-    this.tabWidthList = b
+    this.tabWidthList = ws
     this.tabHeight = tabs[0].offsetHeight + 0
     opt.height = this.tabHeight + 20
     opt.width = window.innerWidth
   }
 
   createPattern(canvas: HTMLCanvasElement) {
-    const b = 140, c = 63, d = 1
-    const e = document.createElement('canvas')
+    const w = 140, h = 63, r = 1
+    const imgCanvas = document.createElement('canvas')
 
-    e.width = b
-    e.height = c
-    e.style.width = b / d + 'px'
-    e.style.height = c / d + 'px'
+    imgCanvas.width = w
+    imgCanvas.height = h
+    imgCanvas.style.width = w / r + 'px'
+    imgCanvas.style.height = h / r + 'px'
 
-    const ctx = e.getContext('2d')!
+    const ctx = imgCanvas.getContext('2d')
     //缩放 宽高 100%
-    ctx.scale(d, d)
+    ctx.scale(r, r)
     ctx.lineWidth = 0.4
     for (let g = 3, h = 0.8, j = 1; 30 > j; j++) {
     //设置或返回用于笔触的颜色、渐变或模式
@@ -85,7 +85,7 @@ export class NavCanvas {
       //把路径移动到画布中的指定点，不创建线条
       ctx.moveTo(0, j * g)
       //添加一个新点，然后在画布中创建从该点到最后指定点的线条
-      ctx.lineTo(b, j * g)
+      ctx.lineTo(w, j * g)
       //绘制已定义的路径
       ctx.stroke()
       //创建从当前点回到起始点的路径
@@ -96,7 +96,7 @@ export class NavCanvas {
       }
     }
 
-    this.pattern = canvas.getContext('2d')!.createPattern(e, 'repeat-x')
+    this.pattern = canvas.getContext('2d').createPattern(imgCanvas, 'repeat-x')
   }
 
   calcAVGSpeed(a: number) {
@@ -117,7 +117,7 @@ export class NavCanvas {
 
   drawHightlight(index: number) {
     const { opt } = this
-    const ctx = this.canvas.getContext('2d')!
+    const ctx = this.canvas.getContext('2d')
     const d = 0.3
 
     //clearRect 在给定的矩形内清除指定的像素,这里清完了

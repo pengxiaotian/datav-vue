@@ -26,11 +26,11 @@ export class {{ pascalCase name }} extends DatavComponent {
       createField('value', { description: '', optional: true }),
     ]
 
-    this.apis = setApiConfig({} as any, 'source', {
+    this.apis = setApiConfig({}, 'source', {
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = setApiData(this.id, {} as any, 'source', {
+    this.apiData = setApiData(this.id, {}, 'source', {
       value: 'api data',
     })
 

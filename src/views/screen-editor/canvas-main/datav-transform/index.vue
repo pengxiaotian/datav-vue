@@ -209,7 +209,7 @@ export default defineComponent({
     }
 
     const onRotate = (ev: MouseEvent) => {
-      handleRotate(ev, instance!.vnode.el as HTMLElement, props.com)
+      handleRotate(ev, instance.vnode.el as HTMLElement, props.com)
     }
 
     const { showMenu } = useContextMenu()

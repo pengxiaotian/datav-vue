@@ -100,11 +100,11 @@ export class NumberTitleFlop extends DatavComponent {
       }),
     ]
 
-    this.apis = setApiConfig({} as any, 'source', {
+    this.apis = setApiConfig({}, 'source', {
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = setApiData(this.id, {} as any, 'source', {
+    this.apiData = setApiData(this.id, {}, 'source', {
       title: '',
       value: '12345.67',
     })

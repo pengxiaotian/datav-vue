@@ -48,11 +48,11 @@ export class MainTitle extends DatavComponent {
       createField('url', { description: '超链接', optional: true }),
     ]
 
-    this.apis = setApiConfig({} as any, 'source', {
+    this.apis = setApiConfig({}, 'source', {
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = setApiData(this.id, {} as any, 'source', {
+    this.apiData = setApiData(this.id, {}, 'source', {
       title: '我是标题数据',
       url: '',
     })

@@ -58,7 +58,7 @@ export interface ApiConfigMap {
  * 设置数据接口配置
  */
 export function setApiConfig<K extends keyof ApiConfigMap>(
-  api: ApiConfigMap,
+  api: Partial<ApiConfigMap>,
   name: K,
   options: Partial<ApiConfigMap[K]>,
 ) {
@@ -73,7 +73,7 @@ export function setApiConfig<K extends keyof ApiConfigMap>(
     }
   }
 
-  return api
+  return api as ApiConfigMap
 }
 
 /**
@@ -117,7 +117,7 @@ export interface ApiDataConfigMap {
  */
 export function setApiData<K extends keyof ApiDataConfigMap>(
   comId: string,
-  api: ApiDataConfigMap,
+  api: Partial<ApiDataConfigMap>,
   name: K,
   data: any,
   type = ApiType.static,
@@ -135,7 +135,7 @@ export function setApiData<K extends keyof ApiDataConfigMap>(
     }
   }
 
-  return api
+  return api as ApiDataConfigMap
 }
 
 export function createApiData(data?: any) {
