@@ -58,6 +58,8 @@ export abstract class DatavComponent {
 
   abstract events: Record<string, any>
 
+  // abstract actions: Record<string, any>
+
   constructor(name: string, attr: Partial<ComponentAttr>, type = ComType.com) {
     this.id = generateId(name)
     this.name = `V${name}`

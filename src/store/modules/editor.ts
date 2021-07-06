@@ -3,7 +3,7 @@ import {
 } from 'vuex-module-decorators'
 import { cloneDeep, debounce  } from 'lodash-es'
 import store from '@/store'
-import { Project, ProjectConfig, StyleFilter } from '@/domains/project'
+import { Project, ProjectConfig } from '@/domains/project'
 import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { getProject } from '@/api/project'
 import { ComType, DatavComponent } from '@/components/datav-component'
@@ -37,7 +37,6 @@ export interface IEditorState {
   editMode: boolean
   screen: Screen
   pageConfig: ProjectConfig
-  styleFilterParams: StyleFilter
   coms: DatavComponent[]
   subComs: DatavComponent[]
   canvas: {
@@ -104,15 +103,14 @@ class Editor extends VuexModule implements IEditorState {
     screenshot: '',
     zoomMode: 0,
     useWatermark: false,
-  }
-
-  styleFilterParams: StyleFilter = {
-    enable: false,
-    hue: 0,
-    saturate: 100,
-    brightness: 100,
-    contrast: 100,
-    opacity: 100,
+    styleFilterParams: {
+      enable: false,
+      hue: 0,
+      saturate: 100,
+      brightness: 100,
+      contrast: 100,
+      opacity: 100,
+    },
   }
 
   coms: DatavComponent[] = [];
@@ -165,7 +163,6 @@ class Editor extends VuexModule implements IEditorState {
     }
 
     this.pageConfig = { ...payload.config }
-    this.styleFilterParams = { ...payload.styleFilterParams }
   }
 
   @Mutation

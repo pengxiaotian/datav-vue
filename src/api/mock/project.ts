@@ -68,19 +68,19 @@ export default (adapter: MockAdapter) => {
           'zoomMode': 1,
           'useWatermark': true,
           'grid': 8,
+          'styleFilterParams': {
+            'enable': false,
+            'hue': 0,
+            'saturate': 100,
+            'brightness': 100,
+            'contrast': 100,
+            'opacity': 100,
+          },
         },
         'share|0-1': '@url',
         'groupId': 0,
         'createAt': '@datetime',
         'updateAt': '@datetime',
-        'styleFilterParams': {
-          'enable': false,
-          'hue': 0,
-          'saturate': 100,
-          'brightness': 100,
-          'contrast': 100,
-          'opacity': 100,
-        },
       },
     }))
 

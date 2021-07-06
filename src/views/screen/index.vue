@@ -66,7 +66,7 @@ export default defineComponent({
     const pageConfig = computed(() => EditorModule.pageConfig)
     const coms = computed(() => EditorModule.coms)
     const styleFilter = computed(() => {
-      const sf = EditorModule.styleFilterParams
+      const sf = pageConfig.value.styleFilterParams
       let filter = ''
       if (sf.enable) {
         filter = `hue-rotate(${sf.hue}deg) contrast(${sf.contrast}%) opacity(${sf.opacity}%) saturate(${sf.saturate}%) brightness(${sf.brightness}%)`

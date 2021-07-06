@@ -243,9 +243,6 @@ export default defineComponent({
             config: {
               ...EditorModule.pageConfig,
             },
-            styleFilterParams: {
-              ...EditorModule.styleFilterParams,
-            },
           },
           dataFilters: [...FilterModule.dataFilters],
           coms: [

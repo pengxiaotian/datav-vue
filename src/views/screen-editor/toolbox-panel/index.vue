@@ -67,7 +67,7 @@ export default defineComponent({
     const referLine = computed(() => EditorModule.referLine)
     const alignLine = computed(() => EditorModule.alignLine)
     const visibleFilterPanel = ref(false)
-    const styleFilterParams = computed(() => EditorModule.styleFilterParams)
+    const styleFilterParams = computed(() => EditorModule.pageConfig.styleFilterParams)
 
     const toggleFilterPanel = () => {
       visibleFilterPanel.value = !visibleFilterPanel.value

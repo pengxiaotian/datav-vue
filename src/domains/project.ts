@@ -3,17 +3,6 @@ export enum ProjectGroupType {
   group = 1
 }
 
-export interface ProjectConfig {
-  width: number
-  height: number
-  bgcolor: string
-  bgimage: string
-  grid: number
-  screenshot: string
-  zoomMode: number
-  useWatermark: boolean
-}
-
 export interface StyleFilter {
   enable: boolean
   hue: number
@@ -23,13 +12,24 @@ export interface StyleFilter {
   opacity: number
 }
 
+export interface ProjectConfig {
+  width: number
+  height: number
+  bgcolor: string
+  bgimage: string
+  grid: number
+  screenshot: string
+  zoomMode: number
+  useWatermark: boolean
+  styleFilterParams: StyleFilter
+}
+
 export interface Project {
   id: number
   name: string
   share: string
   groupId: number
   config: ProjectConfig
-  styleFilterParams: StyleFilter
   createAt: string
   updateAt: string
 }
