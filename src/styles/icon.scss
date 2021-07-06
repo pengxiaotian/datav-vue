@@ -331,13 +331,14 @@
   content: "\e6df";
 }
 
-.v-icon-loading:before {
-  content: "\e61c";
-}
-
+.el-icon-loading,
 .v-icon-loading {
   display: inline-block;
   animation: rotating 2s linear infinite;
+
+  &:before {
+    content: "\e61c";
+  }
 }
 
 .el-icon-close:before,
