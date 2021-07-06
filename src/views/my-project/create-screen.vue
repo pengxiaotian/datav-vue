@@ -71,7 +71,7 @@
     </div>
     <template #footer>
       <el-button @click="visibleCreateDialog = false">取消</el-button>
-      <el-button type="primary" :loading="true" @click="doCreate">
+      <el-button type="primary" :loading="saveLoading" @click="doCreate">
         创建
       </el-button>
     </template>
