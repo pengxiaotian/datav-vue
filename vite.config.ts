@@ -25,16 +25,12 @@ export default ({ mode }: ConfigEnv) => {
       vue(),
       plainText(/\.hbs$/),
       styleImport({
-        exclude: 'icon.scss',
         libs: [{
           libraryName: 'element-plus',
           esModule: true,
           ensureStyleFile: true,
           resolveStyle: name => {
             return `element-plus/packages/theme-chalk/src/${name.slice(3)}.scss`
-          },
-          resolveComponent: name => {
-            return `element-plus/lib/${name}`
           },
         }],
       }),
