@@ -1,56 +1,5 @@
 @import 'var';
 
-/* 改变 icon 字体路径变量，必需 */
-// $--font-path: 'element-plus/lib/theme-chalk/fonts';
-
-$--color-primary: $color-primary;
-
 // @import "element-plus/packages/theme-chalk/src/index";
 
 @import "element-plus/packages/theme-chalk/src/common/transition.scss";
-@import "element-plus/packages/theme-chalk/src/dialog.scss";
-@import "element-plus/packages/theme-chalk/src/autocomplete.scss";
-@import "element-plus/packages/theme-chalk/src/dropdown.scss";
-@import "element-plus/packages/theme-chalk/src/dropdown-menu.scss";
-@import "element-plus/packages/theme-chalk/src/dropdown-item.scss";
-@import "element-plus/packages/theme-chalk/src/input.scss";
-@import "element-plus/packages/theme-chalk/src/input-number.scss";
-@import "element-plus/packages/theme-chalk/src/radio.scss";
-@import "element-plus/packages/theme-chalk/src/radio-group.scss";
-@import "element-plus/packages/theme-chalk/src/radio-button.scss";
-@import "element-plus/packages/theme-chalk/src/checkbox.scss";
-@import "element-plus/packages/theme-chalk/src/checkbox-button.scss";
-@import "element-plus/packages/theme-chalk/src/checkbox-group.scss";
-@import "element-plus/packages/theme-chalk/src/switch.scss";
-@import "element-plus/packages/theme-chalk/src/select.scss";
-@import "element-plus/packages/theme-chalk/src/color-picker.scss";
-@import "element-plus/packages/theme-chalk/src/button.scss";
-@import "element-plus/packages/theme-chalk/src/button-group.scss";
-@import "element-plus/packages/theme-chalk/src/popover.scss";
-@import "element-plus/packages/theme-chalk/src/tooltip.scss";
-@import "element-plus/packages/theme-chalk/src/message-box.scss";
-@import "element-plus/packages/theme-chalk/src/form.scss";
-@import "element-plus/packages/theme-chalk/src/form-item.scss";
-@import "element-plus/packages/theme-chalk/src/tabs.scss";
-@import "element-plus/packages/theme-chalk/src/tab-pane.scss";
-@import "element-plus/packages/theme-chalk/src/tag.scss";
-@import "element-plus/packages/theme-chalk/src/slider.scss";
-@import "element-plus/packages/theme-chalk/src/loading.scss";
-@import "element-plus/packages/theme-chalk/src/row.scss";
-@import "element-plus/packages/theme-chalk/src/col.scss";
-@import "element-plus/packages/theme-chalk/src/upload.scss";
-@import "element-plus/packages/theme-chalk/src/message.scss";
-@import "element-plus/packages/theme-chalk/src/card.scss";
-@import "element-plus/packages/theme-chalk/src/scrollbar.scss";
-@import "element-plus/packages/theme-chalk/src/collapse.scss";
-@import "element-plus/packages/theme-chalk/src/collapse-item.scss";
-@import "element-plus/packages/theme-chalk/src/container.scss";
-@import "element-plus/packages/theme-chalk/src/header.scss";
-@import "element-plus/packages/theme-chalk/src/aside.scss";
-@import "element-plus/packages/theme-chalk/src/main.scss";
-@import "element-plus/packages/theme-chalk/src/footer.scss";
-@import "element-plus/packages/theme-chalk/src/infinite-scroll.scss";
-@import "element-plus/packages/theme-chalk/src/avatar.scss";
-@import "element-plus/packages/theme-chalk/src/drawer.scss";
-@import "element-plus/packages/theme-chalk/src/popconfirm.scss";
-@import "element-plus/packages/theme-chalk/src/empty.scss";
