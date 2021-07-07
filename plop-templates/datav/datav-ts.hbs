@@ -1,8 +1,10 @@
 import { DatavComponent } from '@/components/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
-  createField, setApiConfig, setApiData,
+  setApiConfig, setApiData,
 } from '@/components/data-source'
+import { createField } from '@/components/data-field'
+import { DataEventConfig } from '@/components/data-event'
 
 /**
  * {{ pascalCase name }}
@@ -13,7 +15,9 @@ export class {{ pascalCase name }} extends DatavComponent {
   apis: ApiConfigMap
   apiData: ApiDataConfigMap
 
-  events: Record<string, any> = {}
+  events: Record<string, DataEventConfig>
+
+  actions: Record<string, DataEventConfig>
 
   constructor() {
     super('{{ pascalCase name }}', { w: 200, h: 200 })
@@ -33,6 +37,10 @@ export class {{ pascalCase name }} extends DatavComponent {
     this.apiData = setApiData(this.id, {}, 'source', {
       value: 'api data',
     })
+
+    this.events = {}
+
+    this.actions = {}
 
     return this
   }

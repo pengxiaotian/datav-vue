@@ -1,6 +1,7 @@
 import { generateId } from '@/utils/util'
 import { findComByName } from '@/data/system-components'
 import { ApiConfigMap, ApiDataConfigMap } from './data-source'
+import { DataEventConfig } from './data-event'
 
 export enum ComType {
   com = 'com',
@@ -56,9 +57,15 @@ export abstract class DatavComponent {
   abstract apis: ApiConfigMap
   abstract apiData: ApiDataConfigMap
 
-  abstract events: Record<string, any>
+  /**
+   * 事件
+   */
+  abstract events: Record<string, DataEventConfig>
 
-  // abstract actions: Record<string, any>
+  /**
+   * 动作
+   */
+  abstract actions: Record<string, DataEventConfig>
 
   constructor(name: string, attr: Partial<ComponentAttr>, type = ComType.com) {
     this.id = generateId(name)

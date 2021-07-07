@@ -81,6 +81,12 @@ export default (adapter: MockAdapter) => {
         'groupId': 0,
         'createAt': '@datetime',
         'updateAt': '@datetime',
+        'flow': {},
+        'variables': {
+          'componentsView': {},
+          'publishersView': {},
+          'subscribersView': {},
+        },
       },
     }))
 

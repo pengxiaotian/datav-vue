@@ -1,5 +1,6 @@
 import { generateId, isString } from '@/utils/util'
 import { FilterConfig } from '@/components/data-filter'
+import { FieldConfig } from '@/components/data-field'
 
 export enum ApiType {
   /**
@@ -30,13 +31,6 @@ export enum FieldStatus {
 export enum ApiRequestMethod {
   GET = 'GET',
   POST = 'POST',
-}
-
-export interface FieldConfig {
-  type: string
-  description: string
-  optional?: boolean
-  map?: string
 }
 
 export interface ApiConfig {
@@ -74,21 +68,6 @@ export function setApiConfig<K extends keyof ApiConfigMap>(
   }
 
   return api as ApiConfigMap
-}
-
-/**
- * 创建字段
- */
-export function createField(name: string, config?: Partial<FieldConfig>) {
-  return {
-    [name]: {
-      type: 'string',
-      map: '',
-      description: '',
-      optional: false,
-      ...(config || {}),
-    },
-  }
 }
 
 export interface ApiDataConfig {

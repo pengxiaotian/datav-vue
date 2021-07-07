@@ -1,12 +1,13 @@
 import { DatavComponent } from '@/components/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
-  createField, setApiConfig, setApiData,
+  setApiConfig, setApiData,
 } from '@/components/data-source'
-
+import { createField } from '@/components/data-field'
+import { DataEventConfig } from '@/components/data-event'
 
 /**
- * 数字翻牌器
+ * NumberTitleFlop
  */
 export class NumberTitleFlop extends DatavComponent {
   config = {
@@ -73,7 +74,9 @@ export class NumberTitleFlop extends DatavComponent {
   apis: ApiConfigMap
   apiData: ApiDataConfigMap
 
-  events: Record<string, any> = {}
+  events: Record<string, DataEventConfig>
+
+  actions: Record<string, DataEventConfig>
 
   constructor() {
     super('NumberTitleFlop', { w: 350, h: 100 })
@@ -108,6 +111,10 @@ export class NumberTitleFlop extends DatavComponent {
       title: '',
       value: '12345.67',
     })
+
+    this.events = {}
+
+    this.actions = {}
 
     return this
   }

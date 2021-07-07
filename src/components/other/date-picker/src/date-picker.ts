@@ -1,8 +1,10 @@
 import { DatavComponent } from '@/components/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
-  createField, setApiConfig, setApiData,
+  setApiConfig, setApiData,
 } from '@/components/data-source'
+import { createField } from '@/components/data-field'
+import { DataEventConfig } from '@/components/data-event'
 
 /**
  * DatePicker
@@ -54,7 +56,9 @@ export class DatePicker extends DatavComponent {
   apis: ApiConfigMap
   apiData: ApiDataConfigMap
 
-  events: Record<string, any> = {}
+  events: Record<string, DataEventConfig>
+
+  actions: Record<string, DataEventConfig>
 
   constructor() {
     super('DatePicker', { w: 250, h: 50 })
@@ -73,7 +77,15 @@ export class DatePicker extends DatavComponent {
 
     this.apiData = setApiData(this.id, {}, 'source', {})
 
-    this.events = {}
+    this.events = {
+      changed: {
+        type: 'string',
+        description: '当日期变化时',
+        fields: Object.assign({}, ...fields),
+      },
+    }
+
+    this.actions = {}
 
     return this
   }

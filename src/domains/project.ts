@@ -32,6 +32,32 @@ export interface Project {
   config: ProjectConfig
   createAt: string
   updateAt: string
+  flow: Record<string, any>
+  variables: {
+    /**
+     * 定义事件中 emit 出的变量
+     */
+    componentsView: {
+      [key: string]: {
+        [key: string]: {
+          enable: boolean
+          fields: Record<string, string>
+        }
+      }
+    }
+    /**
+     * 发布事件的组件
+     *
+     * 形如: { [变量名]: [组件id, ...] }
+     */
+    publishersView: Record<string, string[]>
+    /**
+     * 订阅事件的组件
+     *
+     * 形如: { [变量名]: [组件id, ...] }
+     */
+    subscribersView: Record<string, string[]>
+  }
 }
 
 export class ProjectGroup {

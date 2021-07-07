@@ -1,9 +1,14 @@
 import { DatavComponent } from '@/components/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
-  createField, setApiConfig, setApiData,
+  setApiConfig, setApiData,
 } from '@/components/data-source'
+import { createField } from '@/components/data-field'
+import { DataEventConfig } from '@/components/data-event'
 
+/**
+ * MainTitle
+ */
 export class MainTitle extends DatavComponent {
   config = {
     title: '我是标题数据',
@@ -34,7 +39,9 @@ export class MainTitle extends DatavComponent {
   apis: ApiConfigMap
   apiData: ApiDataConfigMap
 
-  events: Record<string, any> = {}
+  events: Record<string, DataEventConfig>
+
+  actions: Record<string, DataEventConfig>
 
   constructor() {
     super('MainTitle', { w: 300, h: 56 })
@@ -56,6 +63,10 @@ export class MainTitle extends DatavComponent {
       title: '我是标题数据',
       url: '',
     })
+
+    this.events = {}
+
+    this.actions = {}
 
     return this
   }
