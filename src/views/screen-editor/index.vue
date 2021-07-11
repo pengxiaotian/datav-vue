@@ -23,6 +23,7 @@
 <script lang='ts'>
 import { defineComponent, computed, onMounted, ref } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
+import { DebugModule } from '@/store/modules/debug'
 import { EditorModule } from '@/store/modules/editor'
 import { FilterModule } from '@/store/modules/filter'
 import { useMock } from '@/data/mock'
@@ -53,6 +54,7 @@ export default defineComponent({
   setup(props) {
     const loading = ref(true)
 
+    DebugModule.enableDebug()
     EditorModule.setEditMode()
 
     const screenId = computed(() => {

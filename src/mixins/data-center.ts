@@ -1,15 +1,18 @@
-import { ref, toRefs, watch, onUnmounted } from 'vue'
+import { ref, toRefs, watch, onUnmounted, getCurrentInstance } from 'vue'
 import { MessageUtil } from '@/utils/message-util'
 import { isPlainObject, isArray } from '@/utils/util'
 import { EditorModule } from '@/store/modules/editor'
 import { FilterModule } from '@/store/modules/filter'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { ApiModule } from '@/store/modules/api'
+import { DebugModule } from '@/store/modules/debug'
 import { DatavComponent } from '@/components/datav-component'
 import { FieldConfig } from '@/components/data-field'
 import { ApiConfig, ApiDataConfig, FieldStatus } from '@/components/data-source'
 import { execFilter } from '@/components/data-filter'
 import { DatavError } from '@/domains/error'
+// import { BlueprintModule } from '@/store/modules/blueprint'
+import { DataVComponentInternalInstance } from '@/typings/datav'
 
 const hasOwnProperty = Object.prototype.hasOwnProperty
 const hasOwn = (val: any, key: string) => hasOwnProperty.call(val, key)
@@ -51,19 +54,19 @@ const checkDataSchema = (data: any, fields: Record<string, FieldConfig>) => {
     }, Object.create(null)) as Record<string, FieldStatus>
 }
 
-export const setDatavData = async (comId: string, sourceName: string, aConfig: ApiConfig, adConfig: ApiDataConfig) => {
+export const setDatavData = async (comId: string, apiName: string, aConfig: ApiConfig, adConfig: ApiDataConfig) => {
   ToolbarModule.addLoading()
 
   // 初始化字段状态
-  ApiModule.setFieldStatus({
+  DebugModule.setFieldStatus({
     comId,
     fields: {
-      [sourceName]: setFieldStatus(aConfig.fields, FieldStatus.loading),
+      [apiName]: setFieldStatus(aConfig.fields, FieldStatus.loading),
     },
   })
 
   // 初始化数据状态
-  ApiModule.setDataStatus({ comId, data: { [sourceName]: {} } })
+  DebugModule.setDataStatus({ comId, data: { [apiName]: null } })
 
   let isError = false
   let res: any
@@ -71,15 +74,16 @@ export const setDatavData = async (comId: string, sourceName: string, aConfig: A
   try {
     // 获取源数据
     res = await ApiModule.requestData({ comId, aConfig, adConfig })
-
-    // 只在编辑模式下保存源数据
-    if (EditorModule.editMode) {
-      ApiModule.setOrigin({ comId, data: { [sourceName]: res } })
-    }
+    DebugModule.setOrigin({ comId, data: { [apiName]: res } })
   } catch (error) {
     isError = true
     res = { isError, message: `${error}` }
-    ApiModule.setDataStatus({ comId, data: { [sourceName]: { errSource: res.message } } })
+    DebugModule.setDataStatus({
+      comId,
+      data: {
+        [apiName]: { api: res.message },
+      },
+    })
   }
 
   if (!isError) {
@@ -92,11 +96,11 @@ export const setDatavData = async (comId: string, sourceName: string, aConfig: A
       isError = true
       res = { isError, message: `${error}` }
       const targetId = error instanceof DatavError ? error.cause.targetId : 0
-      ApiModule.setDataStatus({
+      DebugModule.setDataStatus({
         comId,
         data: {
-          [sourceName]: {
-            errFilter: { [targetId]: error.message },
+          [apiName]: {
+            filter: { [targetId]: error.message },
           },
         },
       })
@@ -107,18 +111,18 @@ export const setDatavData = async (comId: string, sourceName: string, aConfig: A
     MessageUtil.error(res.message)
   }
 
-  if (aConfig.render === 'render') {
-    ApiModule.setData({ comId, data: { [sourceName]: res } })
-  } else {
-    MessageUtil.error(`${aConfig.render} is not a function`)
-  }
+  // 传入组件的数据
+  ApiModule.setData({ comId, data: { [apiName]: res } })
+
+  // 当数据接口请求完成时
+  // BlueprintModule.onApiRequestCompleted()
 
   // TODO: remove mock
   setTimeout(() => {
-    ApiModule.setFieldStatus({
+    DebugModule.setFieldStatus({
       comId,
       fields: {
-        [sourceName]: isError
+        [apiName]: isError
           ? setFieldStatus(aConfig.fields, FieldStatus.failed)
           : checkDataSchema(res, aConfig.fields),
       },
@@ -128,6 +132,7 @@ export const setDatavData = async (comId: string, sourceName: string, aConfig: A
 }
 
 export const useDataCenter = (com: DatavComponent) => {
+  const instance = getCurrentInstance() as DataVComponentInternalInstance
   const { apis, apiData } = toRefs(com)
   const timers = ref<number[]>([])
 
@@ -137,28 +142,29 @@ export const useDataCenter = (com: DatavComponent) => {
 
   for (const [name, ac] of Object.entries(apis.value)) {
     const adc = apiData.value[name]
-    // 自动更新
-    if (ac.useAutoUpdate && ac.autoUpdate > 0) {
-      let timer = setInterval(
-        <TimerHandler>(() => {
-          if (!ac.useAutoUpdate) {
-            clearInterval(timer)
-            timer = null
-          }
-
-          setDatavData(com.id, name, ac, adc)
-        }),
-        ac.autoUpdate * 1000,
-      )
-      timers.value.push(timer)
+    // 编辑模式下 不执行自动更新
+    if (EditorModule.editMode) {
+      watch([ac, () => adc.type, adc.config], () => {
+        setDatavData(com.id, name, ac, adc)
+      }, {
+        deep: true,
+        immediate: true,
+      })
+    } else {
+      if (ac.useAutoUpdate && ac.autoUpdate > 0) {
+        const timer = setInterval(
+          <TimerHandler>(() => {
+            setDatavData(com.id, name, ac, adc)
+          }),
+          ac.autoUpdate * 1000,
+        )
+        timers.value.push(timer)
+      }
     }
+  }
 
-    // not watch DataFilter
-    watch([ac, () => adc.type, adc.config], () => {
-      setDatavData(com.id, name, ac, adc)
-    }, {
-      deep: true,
-      immediate: true,
-    })
+  // ------初始化默认公共动作------
+  instance.requestData = () => {
+    // some code
   }
 }

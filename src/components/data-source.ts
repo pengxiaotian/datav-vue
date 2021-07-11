@@ -48,10 +48,12 @@ export interface ApiConfigMap {
   source: ApiConfig
 }
 
+export type ApiKeyName = keyof ApiConfigMap
+
 /**
  * 设置数据接口配置
  */
-export function setApiConfig<K extends keyof ApiConfigMap>(
+export function setApiConfig<K extends ApiKeyName>(
   api: Partial<ApiConfigMap>,
   name: K,
   options: Partial<ApiConfigMap[K]>,
@@ -84,7 +86,7 @@ export interface ApiDataConfig {
     local?: boolean
     cookie?: boolean
   }
-  pageFilters: FilterConfig[] // 放在外面方便 watch
+  pageFilters: FilterConfig[]
 }
 
 export interface ApiDataConfigMap {
@@ -94,7 +96,7 @@ export interface ApiDataConfigMap {
 /**
  * 设置源数据
  */
-export function setApiData<K extends keyof ApiDataConfigMap>(
+export function setApiData<K extends ApiKeyName>(
   comId: string,
   api: Partial<ApiDataConfigMap>,
   name: K,
@@ -109,42 +111,42 @@ export function setApiData<K extends keyof ApiDataConfigMap>(
       pageFilters: [],
       config: {
         useFilter: false,
-        ...castDataBySourceType(type, data),
+        data: '',
       },
     }
+    castDataBySourceType(type, api.source.config, data)
   }
 
   return api as ApiDataConfigMap
 }
 
-export function createApiData(data?: any) {
-  return {
-    api: '',
-    apiMethod: ApiRequestMethod.GET,
-    apiHeaders: '{}',
-    apiBody: '{}',
-    cookie: false,
-    local: false,
-    ...(data ?? {}),
+export function createDataConfigForApi(config: ApiDataConfig['config']) {
+  if (config.api === undefined) {
+    Object.assign(config, {
+      api: '',
+      apiMethod: ApiRequestMethod.GET,
+      apiHeaders: '{}',
+      apiBody: '{}',
+      cookie: false,
+      local: false,
+    })
   }
 }
 
 /**
  * 通过数据源类型转换数据
  */
-function castDataBySourceType(type: ApiType, data: any) {
-  const ret: ApiDataConfig['config'] = Object.create(null)
+function castDataBySourceType(type: ApiType, config: ApiDataConfig['config'], data: any) {
   switch (type) {
     case ApiType.static:
-      ret.data = isString(data) ? data : JSON.stringify(data)
+      config.data = isString(data) ? data : JSON.stringify(data)
       break
     case ApiType.api:
-      return createApiData(data)
+      createDataConfigForApi(config)
+      break
     default:
       throw Error(`Unknown ApiType: ${type}`)
   }
-
-  return ret
 }
 
 export function createDataSources() {

@@ -173,7 +173,7 @@ export default defineComponent({
     const dataStatus = inject('dataStatus', null) as ComputedRef<any>
     const errMsg = computed(() => {
       let msg = ''
-      const err = dataStatus?.value.errFilter
+      const err = dataStatus?.value.filter
       if (err && err[props.dataFilter.id]) {
         msg = err[props.dataFilter.id]
       }

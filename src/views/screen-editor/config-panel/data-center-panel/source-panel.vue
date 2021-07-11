@@ -133,6 +133,7 @@
 import { defineComponent, ref, computed, ComputedRef, inject, provide } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
 import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources, ApiStatus } from '@/components/data-source'
+import { DebugModule } from '@/store/modules/debug'
 import { ApiModule } from '@/store/modules/api'
 import { setDatavData } from '@/mixins/data-center'
 import DisplayApiStatus from '../components/display-api-status.vue'
@@ -171,7 +172,7 @@ export default defineComponent({
     })
 
     const fieldsStatus = computed(() => {
-      const comFields = ApiModule.fieldStatusMap[com.value.id]
+      const comFields = DebugModule.fieldStatusMap[com.value.id]
       return comFields ? comFields[props.apiName] : {}
     })
 

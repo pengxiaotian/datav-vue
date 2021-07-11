@@ -8,7 +8,7 @@
       <p class="source-drawer-title">设置数据源</p>
     </template>
     <template v-if="visible">
-      <div class="step-title" :class="{ '--error': !!dataStatus.errSource }">
+      <div class="step-title" :class="{ '--error': !!dataStatus.api }">
         数据源
       </div>
       <div class="datasource-selector">
@@ -60,7 +60,7 @@
         </template>
       </el-popover>
 
-      <div class="step-title" :class="{ '--error': !!dataStatus.errFilter }">
+      <div class="step-title" :class="{ '--error': !!dataStatus.filter }">
         <el-checkbox
           v-model="apiDataConfig.config.useFilter"
           class="use-filter-btn"
@@ -75,7 +75,7 @@
       <div
         class="step-title"
         :class="{
-          '--error': !!dataStatus.errSource || !!dataStatus.errFilter
+          '--error': !!dataStatus.api || !!dataStatus.filter
         }"
       >
         <span>数据响应结果</span>
@@ -97,7 +97,8 @@
 import { defineComponent, ref, computed, ComputedRef, provide, inject } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
 import { loadAsyncComponent } from '@/utils/async-component'
-import { createDataSources, ApiConfig, ApiDataConfig, ApiType, createApiData } from '@/components/data-source'
+import { createDataSources, ApiConfig, ApiDataConfig, ApiType, createDataConfigForApi } from '@/components/data-source'
+import { DebugModule } from '@/store/modules/debug'
 import { ApiModule } from '@/store/modules/api'
 import { setDatavData } from '@/mixins/data-center'
 import FilterConfig from '@/views/screen-editor/data-filter/filter-config.vue'
@@ -127,26 +128,19 @@ export default defineComponent({
     const apiName = inject('apiName') as string
 
     const dataStatus = computed(() => {
-      const data = ApiModule.dataStatusMap[com.value.id]
+      const data = DebugModule.dataStatusMap[com.value.id]
       return data ? data[apiName] : {}
     })
 
     const dataOrign = computed(() => {
-      const comData = ApiModule.originMap[com.value.id]
+      const comData = DebugModule.originMap[com.value.id]
       return comData ? comData[apiName] : ''
     })
 
     const changeSource = (val: ApiType) => {
       switch (val) {
         case ApiType.api:
-          {
-            if (apiDataConfig.value.config.api === undefined) {
-              apiDataConfig.value.config = {
-                ...apiDataConfig.value.config,
-                ...createApiData(),
-              }
-            }
-          }
+          createDataConfigForApi(apiDataConfig.value.config)
           break
         default:
           break
