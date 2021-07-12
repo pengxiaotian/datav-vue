@@ -142,24 +142,22 @@ export const useDataCenter = (com: DatavComponent) => {
 
   for (const [name, ac] of Object.entries(apis.value)) {
     const adc = apiData.value[name]
+    watch([ac, () => adc.type, adc.config], () => {
+      setDatavData(com.id, name, ac, adc)
+    }, {
+      deep: true,
+      immediate: true,
+    })
+
     // 编辑模式下 不执行自动更新
-    if (EditorModule.editMode) {
-      watch([ac, () => adc.type, adc.config], () => {
-        setDatavData(com.id, name, ac, adc)
-      }, {
-        deep: true,
-        immediate: true,
-      })
-    } else {
-      if (ac.useAutoUpdate && ac.autoUpdate > 0) {
-        const timer = setInterval(
-          <TimerHandler>(() => {
-            setDatavData(com.id, name, ac, adc)
-          }),
-          ac.autoUpdate * 1000,
-        )
-        timers.value.push(timer)
-      }
+    if (!EditorModule.editMode && ac.useAutoUpdate && ac.autoUpdate > 0) {
+      const timer = setInterval(
+        <TimerHandler>(() => {
+          setDatavData(com.id, name, ac, adc)
+        }),
+        ac.autoUpdate * 1000,
+      )
+      timers.value.push(timer)
     }
   }
 

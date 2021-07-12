@@ -22,16 +22,6 @@ export interface ProjectConfig {
   zoomMode: number
   useWatermark: boolean
   styleFilterParams: StyleFilter
-}
-
-export interface Project {
-  id: number
-  name: string
-  share: string
-  groupId: number
-  config: ProjectConfig
-  createAt: string
-  updateAt: string
   flow: Record<string, any>
   variables: {
     /**
@@ -58,6 +48,16 @@ export interface Project {
      */
     subscribersView: Record<string, string[]>
   }
+}
+
+export interface Project {
+  id: number
+  name: string
+  share: string
+  groupId: number
+  config: ProjectConfig
+  createAt: string
+  updateAt: string
 }
 
 export class ProjectGroup {

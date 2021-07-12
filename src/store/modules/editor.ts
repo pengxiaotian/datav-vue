@@ -111,6 +111,12 @@ class Editor extends VuexModule implements IEditorState {
       contrast: 100,
       opacity: 100,
     },
+    flow: {},
+    variables: {
+      componentsView: {},
+      publishersView: {},
+      subscribersView: {},
+    },
   }
 
   coms: DatavComponent[] = [];

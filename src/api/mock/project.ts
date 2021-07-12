@@ -76,17 +76,17 @@ export default (adapter: MockAdapter) => {
             'contrast': 100,
             'opacity': 100,
           },
+          'flow': {},
+          'variables': {
+            'componentsView': {},
+            'publishersView': {},
+            'subscribersView': {},
+          },
         },
         'share|0-1': '@url',
         'groupId': 0,
         'createAt': '@datetime',
         'updateAt': '@datetime',
-        'flow': {},
-        'variables': {
-          'componentsView': {},
-          'publishersView': {},
-          'subscribersView': {},
-        },
       },
     }))
 

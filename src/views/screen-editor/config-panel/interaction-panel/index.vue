@@ -8,8 +8,7 @@
             <i
               class="v-icon-arrow-right"
               :class="visible ? 'events-down' : 'events-up'"
-            ></i>
-            交互事件
+            ></i>{{ '交互事件' }}
           </div>
           <span class="extra">
             <router-link
@@ -85,10 +84,12 @@ export default defineComponent({
   }
 
   .events-up {
+    margin-right: 2px;
     transition: 0.2s transform ease-in;
   }
 
   .events-down {
+    margin-right: 2px;
     transition: 0.2s transform ease-in;
     transform: rotate(90deg);
   }
