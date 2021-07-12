@@ -35,21 +35,6 @@
 <script lang='ts'>
 import { defineComponent, PropType } from 'vue'
 import { PropDto } from '@/domains/dev/prop-config'
-import {
-  fontFamilys,
-  fontWeights,
-  fontStyles,
-  hAligns,
-  vAligns,
-  writingModes,
-  justifyContents,
-  aligns,
-  angles,
-  locations,
-  lineStyles,
-  fillTypes,
-} from '@/data/select-options'
-import { boxImgs, decorateImgs } from '@/data/images'
 import PreviewPropItem from './preview-prop-item.vue'
 
 export default defineComponent({
@@ -67,24 +52,6 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
-  },
-  setup() {
-    return {
-      fontFamilys,
-      fontWeights,
-      fontStyles,
-      hAligns,
-      vAligns,
-      writingModes,
-      justifyContents,
-      aligns,
-      angles,
-      locations,
-      lineStyles,
-      fillTypes,
-      boxImgs,
-      decorateImgs,
-    }
   },
 })
 </script>

@@ -199,7 +199,7 @@
     size="mini"
   >
     <el-option
-      v-for="item in boxImgs"
+      v-for="item in []"
       :key="item.id"
       :label="item.src"
       :value="item.id"
@@ -211,7 +211,7 @@
     size="mini"
   >
     <el-option
-      v-for="item in decorateImgs"
+      v-for="item in []"
       :key="item.id"
       :label="item.src"
       :value="item.id"
@@ -237,7 +237,6 @@ import {
   lineStyles,
   fillTypes,
 } from '@/data/select-options'
-import { boxImgs, decorateImgs } from '@/data/images'
 
 export default defineComponent({
   name: 'PreviewPropItem',
@@ -313,8 +312,6 @@ export default defineComponent({
       locations,
       lineStyles,
       fillTypes,
-      boxImgs,
-      decorateImgs,
     }
   },
 })
