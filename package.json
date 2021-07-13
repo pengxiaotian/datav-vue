@@ -1,7 +1,7 @@
 {
   "name": "datav-vue",
-  "version": "0.1.0",
-  "description": "A Data Visualization Project For Vue3.x",
+  "version": "0.0.1",
+  "description": "A Powerful Data Visualization Tool",
   "scripts": {
     "gc": "bash ./scripts/gc.sh",
     "new": "plop --plopfile ./plop-templates/plopfile.js",

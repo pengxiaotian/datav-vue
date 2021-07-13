@@ -8,7 +8,7 @@
   </a>
   <br>
 </p>
-<p align="center">一个基于 Vue3.x 的数据可视化项目</p>
+<p align="center">一款数据可视化应用搭建工具</p>
 
 * 💪 Vue 3.0+
 * 🔥 TypeScript 4.2+
@@ -207,6 +207,10 @@ setup() {
 }
 ...
 ```
+
+## 许可
+
+DataV Vue 使用 [MIT license](https://opensource.org/licenses/MIT) 许可证书。
 
 ## 注意
 
