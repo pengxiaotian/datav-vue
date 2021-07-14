@@ -8,7 +8,7 @@ import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { getProject } from '@/api/project'
 import { ComType, DatavComponent } from '@/components/datav-component'
 import { MoveType } from '@/utils/enums'
-import { generateId } from '@/utils/util'
+import { generateId, getTextParams } from '@/utils/util'
 import { calcIntersectingLines } from '@/utils/intersecting-line-util'
 
 config.rawError = true
@@ -255,6 +255,39 @@ class Editor extends VuexModule implements IEditorState {
   @Mutation
   public changeResizeMode(isNormal: boolean) {
     this.isNormalResizeMode = isNormal
+  }
+
+  @Mutation
+  public setSubscribersView(payload: { id: string; data: string; }) {
+    const { id, data } = payload
+    const sv = this.pageConfig.variables.subscribersView
+    const keys = getTextParams(data).map(m => m.substr(1))
+    const svkeys = Object.keys(sv)
+    if (keys.length > 0) {
+      for (const key of (new Set([...keys, ...svkeys]))) {
+        if (!keys.includes(key)) {
+          sv[key] = sv[key].filter(m => m !== id)
+          if (sv[key].length === 0) {
+            delete sv[key]
+          }
+        } else if (!svkeys.includes(key)) {
+          if (sv[key]) {
+            sv[key].push(id)
+          } else {
+            sv[key] = [id]
+          }
+        } else if (!sv[key].includes(id)) {
+          sv[key].push(id)
+        }
+      }
+    } else {
+      for (const key of svkeys) {
+        sv[key] = sv[key].filter(m => m !== id)
+        if (sv[key].length === 0) {
+          delete sv[key]
+        }
+      }
+    }
   }
 
   @Mutation

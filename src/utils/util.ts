@@ -206,5 +206,5 @@ export const copyText = (text: string) => {
  */
 export const getTextParams = (text: string) => {
   const reg = /:([\d\w\u4e00-\u9fa5_$@*]+)/ig
-  return text.match(reg)
+  return text.match(reg) ?? []
 }

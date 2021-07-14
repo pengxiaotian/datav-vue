@@ -67,15 +67,22 @@
 <script lang='ts'>
 import { defineComponent, ComputedRef, inject } from 'vue'
 import { ApiDataConfig, ApiRequestMethod } from '@/components/data-source'
+import { DatavComponent } from '@/components/datav-component'
+import { EditorModule } from '@/store/modules/editor'
 
 export default defineComponent({
   name: 'DsApiEditor',
   setup() {
+    const com = inject('com') as ComputedRef<DatavComponent>
     const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
     const apiMethods = ApiRequestMethod
 
     const updateData = (data: any) => {
       apiDataConfig.value.config.api = data.value
+      EditorModule.setSubscribersView({
+        id: com.value.id,
+        data: data.value,
+      })
     }
 
     const updateApiHeaders = (data: any) => {

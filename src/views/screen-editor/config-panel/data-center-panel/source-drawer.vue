@@ -129,7 +129,7 @@ export default defineComponent({
 
     const dataStatus = computed(() => {
       const data = DebugModule.dataStatusMap[com.value.id]
-      return data ? data[apiName] : {}
+      return data ? data[apiName] ?? {} : {}
     })
 
     const dataOrign = computed(() => {
