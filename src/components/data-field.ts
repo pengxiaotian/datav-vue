@@ -12,7 +12,7 @@ export interface FieldConfig {
   description: string
   optional?: boolean
   map?: string
-  new?: boolean
+  custom?: boolean
 }
 
 /**

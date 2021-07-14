@@ -21,9 +21,9 @@
         </div>
         <div v-show="visible" class="event-list">
           <event-item
-            v-for="(item, key) in com.events"
-            :key="key"
-            :item="item"
+            v-for="eitem in eventList"
+            :key="eitem.name"
+            :item="eitem"
           />
         </div>
       </div>
@@ -33,8 +33,11 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, ComputedRef, inject, ref } from 'vue'
+import { defineComponent, computed, ComputedRef, inject, ref, provide, onMounted, watch } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
+import { EventItemConfig } from '@/components/data-event'
+import { EditorModule } from '@/store/modules/editor'
+import { ArrayToObject, StringArrayToObject } from '@/utils/util'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
 import EventItem from './event-item.vue'
@@ -54,10 +57,127 @@ export default defineComponent({
       return Object.keys(com.value.events)
     })
 
+    const eventList = ref<EventItemConfig[]>([])
+    let events = ref(EditorModule.pageConfig.variables.componentsView[com.value.id])
+
+    const createField = (name: string, mapName: string, description: string, custom = false) => {
+      return {
+        name,
+        map: mapName || name,
+        description,
+        custom,
+      }
+    }
+
+    const initEvent = (eventName: string) => {
+      if (!events.value) {
+        events.value = {}
+      }
+
+      if (!events.value[eventName]) {
+        const fields = Object.keys(com.value.events[eventName].fields)
+        events.value[eventName] = {
+          enable: false,
+          fields: StringArrayToObject(fields),
+        }
+      }
+    }
+
+    const mergeEventFields = () => {
+      const list: EventItemConfig[] = []
+      for (const [key, value] of Object.entries(com.value.events)) {
+        const config: EventItemConfig = {
+          name: key,
+          description: value.description,
+          enable: false,
+          fields: Object.entries(value.fields)
+            .map(([name, fc]) => createField(name, '', fc.description)),
+        }
+
+        if (events.value) {
+          const eventItem = events.value[key]
+          if (eventItem) {
+            config.enable = eventItem.enable
+            for (const [fn, fm] of Object.entries(eventItem.fields)) {
+              const field = config.fields.find(m => m.name === fn)
+              if (field) {
+                field.map = fm
+              } else {
+                config.fields.push(createField(fn, fm, '', true))
+              }
+            }
+          }
+        }
+
+        list.push(config)
+      }
+      eventList.value.push(...list)
+    }
+
+    const addField = (eventName: string) => {
+      const eventItem = eventList.value.find(m => m.name === eventName)
+      if (!eventItem.fields.some(m => m.name === '')) {
+        eventItem.fields.push(createField('', '', '', true))
+      }
+    }
+
+    const deleteField = (eventName: string, idx: number) => {
+      const eventItem = eventList.value.find(m => m.name === eventName)
+      const fieldName = eventItem.fields.splice(idx, 1)[0].name
+      if (fieldName) {
+        delete events.value[eventName].fields[fieldName]
+      }
+    }
+
+    const updateField = (eventName: string, fields: { name: string; map: string; }[]) => {
+      initEvent(eventName)
+      events.value[eventName].fields = ArrayToObject(fields, 'name', 'map')
+    }
+
+    const toggleEnable = (eventName: string, enable: boolean) => {
+      initEvent(eventName)
+      const eventItem = events.value[eventName]
+      eventItem.enable = enable
+      const pv = EditorModule.pageConfig.variables.publishersView
+      for (const key in eventItem.fields) {
+        if (!pv[key]) {
+          pv[key] = []
+        }
+
+        if (enable) {
+          if (!eventItem.fields[key]) {
+            eventItem.fields[key] = key
+          }
+          if (!pv[key].includes(com.value.id)) {
+            pv[key].push(com.value.id)
+          }
+        } else {
+          pv[key] = pv[key].filter(m => m !== com.value.id)
+          if (pv[key].length === 0) {
+            delete pv[key]
+          }
+        }
+      }
+    }
+
+    provide('addField', addField)
+    provide('deleteField', deleteField)
+    provide('updateField', updateField)
+    provide('toggleEnable', toggleEnable)
+
+    watch(events, () => {
+      EditorModule.pageConfig.variables.componentsView[com.value.id] = events.value
+    })
+
+    onMounted(() => {
+      mergeEventFields()
+    })
+
     return {
       com,
       eventKeys,
       visible,
+      eventList,
     }
   },
 })

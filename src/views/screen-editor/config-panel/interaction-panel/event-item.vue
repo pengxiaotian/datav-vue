@@ -6,7 +6,7 @@
         :class="visible ? 'events-down' : 'events-up'"
       ></i>
       <div class="event-text">{{ item.description }}</div>
-      <el-checkbox v-model="isEnabled" class="enable-checkbox">
+      <el-checkbox v-model="isEnabled" class="enable-checkbox" @change="onEnableChange">
         启用
       </el-checkbox>
     </div>
@@ -24,22 +24,37 @@
           </tr>
         </thead>
         <tbody class="variables-tbody">
-          <tr v-for="(f, key, idx) in item.fields" :key="idx">
-            <template v-if="f.new">
+          <tr v-for="(f, idx) in item.fields" :key="idx">
+            <template v-if="f.custom">
               <td class="variable-input">
-                <input type="text" placeholder="可自定义">
+                <g-input
+                  :model-value="f.name"
+                  placeholder="可自定义"
+                  class="attr-input"
+                  @change="updateField(f, 'name', $event)"
+                />
               </td>
               <td class="variable-input">
-                <input type="text" placeholder="可自定义">
+                <g-input
+                  :model-value="f.map"
+                  placeholder="可自定义"
+                  class="attr-input"
+                  @change="updateField(f, 'map', $event)"
+                />
               </td>
               <td class="variable-btn">
-                <i class="v-icon-delete delete-btn" @click="deleteField(key)"></i>
+                <i class="v-icon-delete delete-btn" @click="deleteField(idx)"></i>
               </td>
             </template>
             <template v-else>
-              <td>{{ key }}</td>
+              <td>{{ f.name }}</td>
               <td class="variable-input">
-                <input type="text" placeholder="可自定义">
+                <g-input
+                  :model-value="f.map"
+                  placeholder="可自定义"
+                  class="attr-input"
+                  @change="updateField(f, 'map', $event)"
+                />
               </td>
               <td class="desc">{{ f.description }}</td>
             </template>
@@ -56,29 +71,45 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, PropType } from 'vue'
-import { DataEventConfig } from '@/components/data-event'
-import { createField } from '@/components/data-field'
+import { defineComponent, ref, PropType, inject } from 'vue'
+import { EventItemConfig } from '@/components/data-event'
 
 export default defineComponent({
   name: 'EventItem',
   props: {
     item: {
-      type: Object as PropType<DataEventConfig>,
+      type: Object as PropType<EventItemConfig>,
       required: true,
     },
   },
   setup(props) {
     const visible = ref(true)
-    const isEnabled = ref(false)
+    const isEnabled = ref(props.item.enable)
+
+    const doAddField = inject('addField') as (eventName: string) => void
+    const doDeleteField = inject('deleteField') as (eventName: string, idx: number) => void
+    const doUpdateField = inject('updateField') as (eventName: string, fields: { name: string; map: string;}[]) => void
+    const doToggleEnable = inject('toggleEnable') as (eventName: string, enable: boolean) => void
 
     const addField = () => {
-      const field = createField('', { new: true })
-      props.item.fields[''] = field['']
+      doAddField(props.item.name)
     }
 
-    const deleteField = (key: string) => {
-      delete props.item.fields[key]
+    const deleteField = (idx: number) => {
+      doDeleteField(props.item.name, idx)
+    }
+
+    const updateField = (field: any, key: string, value: string) => {
+      field[key] = value
+      const list = props.item.fields
+        .filter(m => m.name)
+        .map(m => ({ name: m.name, map: m.map }))
+      doUpdateField(props.item.name, list)
+    }
+
+    const onEnableChange = (enable: boolean) => {
+      props.item.enable = enable
+      doToggleEnable(props.item.name, enable)
     }
 
     return {
@@ -86,6 +117,8 @@ export default defineComponent({
       isEnabled,
       addField,
       deleteField,
+      updateField,
+      onEnableChange,
     }
   },
 })
@@ -148,7 +181,7 @@ export default defineComponent({
         }
       }
 
-      .variable-input input[type="text"] {
+      .variable-input .attr-input {
         width: 66px;
         height: 24px;
         padding: 0 5px;
@@ -160,7 +193,7 @@ export default defineComponent({
         white-space: nowrap;
       }
 
-      .variable-btn i {
+      .variable-btn .delete-btn {
         cursor: pointer;
 
         &:hover {

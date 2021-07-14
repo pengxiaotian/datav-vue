@@ -157,6 +157,20 @@ export function toObject<T>(arr: Array<T>): Record<string, T> {
   return res
 }
 
+export function ArrayToObject<T>(arr: Array<T>, key: string, value: string): Record<string, string> {
+  return arr.reduce((prev, curr) => {
+    prev[curr[key]] = curr[value]
+    return prev
+  }, {})
+}
+
+export function StringArrayToObject(arr: string[]): Record<string, string> {
+  return arr.reduce((prev, curr) => {
+    prev[curr] = curr
+    return prev
+  }, {})
+}
+
 export function toJson<T>(data: any, defaultValue: T) {
   try {
     if (!data) {
@@ -185,4 +199,12 @@ export const copyText = (text: string) => {
   } catch (error) {
     return false
   }
+}
+
+/**
+ * 获取字符串中 :value 形式的参数
+ */
+export const getTextParams = (text: string) => {
+  const reg = /:([\d\w\u4e00-\u9fa5_$@*]+)/ig
+  return text.match(reg)
 }

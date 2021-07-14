@@ -9,7 +9,7 @@
               <i class="v-icon-setting"></i>
             </el-tooltip>
           </template>
-          <setting-panel />
+          <setting-panel :key="selectedCom.id" />
         </el-tab-pane>
         <el-tab-pane lazy>
           <template #label>
@@ -17,7 +17,7 @@
               <i class="v-icon-cloud"></i>
             </el-tooltip>
           </template>
-          <data-center-panel />
+          <data-center-panel :key="selectedCom.id" />
         </el-tab-pane>
         <el-tab-pane lazy>
           <template #label>
@@ -25,7 +25,7 @@
               <i class="v-icon-interact"></i>
             </el-tooltip>
           </template>
-          <interaction-panel />
+          <interaction-panel :key="selectedCom.id" />
         </el-tab-pane>
       </el-tabs>
     </div>
