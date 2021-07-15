@@ -258,34 +258,56 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
+  public setPublishersView(payload: { id: string; keys: string[]; enable: boolean; }) {
+    const { id, keys, enable } = payload
+    const pv = this.pageConfig.variables.publishersView
+    const pvkeys = Object.keys(pv)
+    const allKeys = new Set([...keys, ...pvkeys])
+    allKeys.forEach(key => {
+      if (enable) {
+        if (!pvkeys.includes(key)) {
+          pv[key] = [id]
+        } else if (!pv[key].includes(id)) {
+          pv[key].push(id)
+        } else if (!keys.includes(key)) {
+          pv[key] = pv[key].filter(m => m !== id)
+        }
+      } else {
+        if (pvkeys.includes(key)) {
+          pv[key] = pv[key].filter(m => m !== id)
+        }
+      }
+
+      if (pv[key].length === 0) {
+        delete pv[key]
+      }
+    })
+  }
+
+  @Mutation
   public setSubscribersView(payload: { id: string; data: string; }) {
     const { id, data } = payload
     const sv = this.pageConfig.variables.subscribersView
     const keys = getTextParams(data).map(m => m.substr(1))
     const svkeys = Object.keys(sv)
-    if (keys.length > 0) {
-      for (const key of (new Set([...keys, ...svkeys]))) {
-        if (!keys.includes(key)) {
-          sv[key] = sv[key].filter(m => m !== id)
-          if (sv[key].length === 0) {
-            delete sv[key]
-          }
-        } else if (!svkeys.includes(key)) {
-          if (sv[key]) {
-            sv[key].push(id)
-          } else {
-            sv[key] = [id]
-          }
+    const allKeys = new Set([...keys, ...svkeys])
+    for (const key of allKeys) {
+      if (keys.length > 0) {
+        if (!svkeys.includes(key)) {
+          sv[key] = [id]
         } else if (!sv[key].includes(id)) {
           sv[key].push(id)
+        } else if (!keys.includes(key)) {
+          sv[key] = sv[key].filter(m => m !== id)
+        }
+      } else {
+        if (svkeys.includes(key)) {
+          sv[key] = sv[key].filter(m => m !== id)
         }
       }
-    } else {
-      for (const key of svkeys) {
-        sv[key] = sv[key].filter(m => m !== id)
-        if (sv[key].length === 0) {
-          delete sv[key]
-        }
+
+      if (sv[key].length === 0) {
+        delete sv[key]
       }
     }
   }

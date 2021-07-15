@@ -126,38 +126,44 @@ export default defineComponent({
       const fieldName = eventItem.fields.splice(idx, 1)[0].name
       if (fieldName) {
         delete events.value[eventName].fields[fieldName]
+
+        const eItem = events.value[eventName]
+        if (eItem.enable) {
+          EditorModule.setPublishersView({
+            id: com.value.id,
+            keys: Object.entries(eItem.fields).map(m => m[1] || m[0]),
+            enable: true,
+          })
+        }
       }
     }
 
     const updateField = (eventName: string, fields: { name: string; map: string; }[]) => {
       initEvent(eventName)
       events.value[eventName].fields = ArrayToObject(fields, 'name', 'map')
+
+      if (events.value[eventName].enable) {
+        EditorModule.setPublishersView({
+          id: com.value.id,
+          keys: fields.map(m => m.map || m.name),
+          enable: true,
+        })
+      }
     }
 
     const toggleEnable = (eventName: string, enable: boolean) => {
       initEvent(eventName)
       const eventItem = events.value[eventName]
       eventItem.enable = enable
-      const pv = EditorModule.pageConfig.variables.publishersView
+      const keys: string[] = []
       for (const key in eventItem.fields) {
-        if (!pv[key]) {
-          pv[key] = []
+        if (enable && !eventItem.fields[key]) {
+          eventItem.fields[key] = key
         }
-
-        if (enable) {
-          if (!eventItem.fields[key]) {
-            eventItem.fields[key] = key
-          }
-          if (!pv[key].includes(com.value.id)) {
-            pv[key].push(com.value.id)
-          }
-        } else {
-          pv[key] = pv[key].filter(m => m !== com.value.id)
-          if (pv[key].length === 0) {
-            delete pv[key]
-          }
-        }
+        keys.push(eventItem.fields[key])
       }
+
+      EditorModule.setPublishersView({ id: com.value.id, keys, enable })
     }
 
     provide('addField', addField)
