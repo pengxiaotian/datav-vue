@@ -103,7 +103,7 @@ export default defineComponent({
       type: Object,
       default: () => {},
     },
-    completions: Array,
+    completions: Array as PropType<Array<string>>,
     extra: Object,
     height: {
       type: Number,

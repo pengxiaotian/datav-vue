@@ -33,6 +33,7 @@
       line-numbers="off"
       :height="120"
       :code="apiDataConfig.config.api"
+      :completions="variables"
       @blur="updateData"
     />
     <div class="post-request-data">
@@ -77,6 +78,8 @@ export default defineComponent({
     const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
     const apiMethods = ApiRequestMethod
 
+    const variables = Object.keys(EditorModule.pageConfig.variables.publishersView)
+
     const updateData = (data: any) => {
       apiDataConfig.value.config.api = data.value
       EditorModule.setSubscribersView({
@@ -96,6 +99,7 @@ export default defineComponent({
     return {
       apiDataConfig,
       apiMethods,
+      variables,
       updateData,
       updateApiHeaders,
       updateApiBody,

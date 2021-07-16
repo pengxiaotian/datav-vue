@@ -6,8 +6,8 @@
 }
 
 .monaco-editor .suggest-widget {
-  width: 200px !important;
-  color: $monaco-suggest-color !important;
+  // TODO: 不生效
+  width: 200px;
 }
 
 .monaco-editor .monaco-editor-overlaymessage {

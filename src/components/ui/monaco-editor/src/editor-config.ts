@@ -64,23 +64,43 @@ export const registerDatavDarkTheme = () => {
 
 type CompletionItem = monaco.languages.CompletionItem
 
-export const registerApiCompletion = (languageId: languageType, callbackids?: any[]) => {
-  if (languageId === 'plaintext' && callbackids) {
+let suggestLabels: string[] = []
+const createSuggestions = (range: monaco.IRange) => {
+  const suggestions: CompletionItem[] = []
+  for (let i = 0; i < suggestLabels.length; i++) {
+    const id = suggestLabels[i]
+    suggestions.push({
+      label: `:${id}`,
+      insertText: id,
+      kind: monaco.languages.CompletionItemKind.Variable,
+      detail: 'CallbackId',
+      range,
+    })
+  }
+  return suggestions
+}
+
+const registerCompletionMap = new Map()
+export const registerApiCompletion = (languageId: languageType, callbackIds: string[]) => {
+  if (callbackIds && callbackIds.length > 0) {
+    suggestLabels = callbackIds
+    if (registerCompletionMap.has(languageId)) {
+      return
+    }
+    registerCompletionMap.set(languageId, 1)
+
     monaco.languages.registerCompletionItemProvider(languageId, {
       triggerCharacters: [':'],
-      provideCompletionItems() {
-        const suggestions: CompletionItem[] = []
-        for (let i = 0; i < callbackids.length; i++) {
-          const id = callbackids[i]
-          suggestions.push(<CompletionItem>{
-            label: `:${id}`,
-            insertText: id,
-            kind: monaco.languages.CompletionItemKind.Variable,
-            detail: 'callbackid',
-          })
+      provideCompletionItems(model, position) {
+        const word = model.getWordUntilPosition(position)
+        const range = {
+          startLineNumber: position.lineNumber,
+          endLineNumber: position.lineNumber,
+          startColumn: word.startColumn,
+          endColumn: word.endColumn,
         }
         return {
-          suggestions,
+          suggestions: createSuggestions(range),
         }
       },
     })
