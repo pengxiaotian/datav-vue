@@ -14,6 +14,7 @@ type ApiData = Partial<Record<ApiKeyName, any>>
 
 export interface IApiState {
   dataMap: Record<string, ApiData>
+  variables: Record<string, any>
 }
 
 /* endregion */
@@ -21,6 +22,8 @@ export interface IApiState {
 @Module({ dynamic: true, store, name: 'api' })
 class Api extends VuexModule implements IApiState {
   public dataMap: Record<string, ApiData> = {}
+
+  public variables: Record<string, any> = {}
 
   @Mutation
   private SET_DATA(payload: { comId: string; data: ApiData; }) {
@@ -33,9 +36,27 @@ class Api extends VuexModule implements IApiState {
     }
   }
 
+  @Mutation
+  private SET_VARIABLES(payload: Record<string, any>) {
+    this.variables = {
+      ...this.variables,
+      ...payload,
+    }
+  }
+
   @Action
   public async setData(payload: { comId: string; data: ApiData; }) {
     this.SET_DATA(payload)
+  }
+
+  @Action
+  public async setVariables(payload: { fields: Record<string, string>; data: Record<string, any>; }) {
+    const res = {}
+    for (const key in payload.fields) {
+      const alias = payload.fields[key] || key
+      res[alias] = payload.data[key]
+    }
+    this.SET_VARIABLES(res)
   }
 
   @Action

@@ -11,7 +11,7 @@ import { FieldConfig } from '@/components/data-field'
 import { ApiConfig, ApiDataConfig, FieldStatus } from '@/components/data-source'
 import { execFilter } from '@/components/data-filter'
 import { DatavError } from '@/domains/error'
-// import { BlueprintModule } from '@/store/modules/blueprint'
+import { BlueprintModule } from '@/store/modules/blueprint'
 import { DataVComponentInternalInstance } from '@/typings/datav'
 
 const hasOwnProperty = Object.prototype.hasOwnProperty
@@ -136,9 +136,46 @@ export const useDataCenter = (com: DatavComponent) => {
   const { apis, apiData } = toRefs(com)
   const timers = ref<number[]>([])
 
-  onUnmounted(() => {
+  const autoRefreshData = () => {
+    for (const [name, ac] of Object.entries(apis.value)) {
+      if (ac.useAutoUpdate && ac.autoUpdate > 0) {
+        const timer = setInterval(
+          <TimerHandler>(() => {
+            setDatavData(com.id, name, ac, apiData.value[name])
+          }),
+          ac.autoUpdate * 1000,
+        )
+        timers.value.push(timer)
+      }
+    }
+  }
+
+  const stopAutoRefreshData = () => {
     timers.value.forEach(t => clearInterval(t))
-  })
+  }
+
+  // 订阅的变量发生变化时刷新
+  const onSubVariablesChange = (fields: Record<string, string>) => {
+    const sv = EditorModule.pageConfig.variables.subscribersView
+    for (const fname in fields) {
+      const key = fields[fname] || fname
+      sv[key]?.forEach(comId => {
+        BlueprintModule.datavComponents[comId]?.$DATAV_requestData()
+      })
+    }
+  }
+
+  const datavEmit = (eventName: string, data: Record<string, any>) => {
+    const cv = EditorModule.pageConfig.variables.componentsView[com.id]
+    if (!cv) {
+      return
+    }
+    const eventItem = cv[eventName]
+    if (eventItem && eventItem.enable) {
+      ApiModule.setVariables({ fields: eventItem.fields, data })
+      onSubVariablesChange(eventItem.fields)
+    }
+  }
 
   for (const [name, ac] of Object.entries(apis.value)) {
     const adc = apiData.value[name]
@@ -148,21 +185,34 @@ export const useDataCenter = (com: DatavComponent) => {
       deep: true,
       immediate: true,
     })
-
-    // 编辑模式下 不执行自动更新
-    if (!EditorModule.editMode && ac.useAutoUpdate && ac.autoUpdate > 0) {
-      const timer = setInterval(
-        <TimerHandler>(() => {
-          setDatavData(com.id, name, ac, adc)
-        }),
-        ac.autoUpdate * 1000,
-      )
-      timers.value.push(timer)
-    }
   }
 
+  if (!EditorModule.editMode) {
+    autoRefreshData()
+  }
+
+  onUnmounted(() => {
+    stopAutoRefreshData()
+    BlueprintModule.removeDatavComponent(com.id)
+  })
+
   // ------初始化默认公共动作------
-  instance.requestData = () => {
-    // some code
+  instance.$DATAV_requestData = () => {
+    stopAutoRefreshData()
+
+    const arr: Promise<void>[] = []
+    for (const [name, ac] of Object.entries(apis.value)) {
+      arr.push(setDatavData(com.id, name, ac, apiData.value[name]))
+    }
+    Promise.all(arr).then(() => {
+      autoRefreshData()
+    })
+  }
+
+  // 保存每个组件实例
+  BlueprintModule.setDatavComponentInstance({ key: com.id, ins: instance })
+
+  return {
+    datavEmit,
   }
 }

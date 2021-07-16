@@ -80,7 +80,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    useDataCenter(props.com)
+    const { datavEmit } = useDataCenter(props.com)
 
     const dv_data = computed(() => {
       return ApiModule.dataMap[props.com.id]?.source ?? {}
@@ -353,6 +353,16 @@ export default defineComponent({
     }
 
     calendar(ynow.value, mnow.value)
+
+    // 当日期变化时
+    watch(viewDate, nv => {
+      datavEmit(
+        'changed',
+        {
+          ...dv_data.value,
+          date: nv,
+        })
+    })
 
     return {
       visible,

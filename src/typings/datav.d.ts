@@ -5,5 +5,5 @@ export declare interface DataVComponentInternalInstance extends ComponentInterna
   /**
    * 请求数据接口
    */
-  requestData: Function
+  $DATAV_requestData: Function
 }
