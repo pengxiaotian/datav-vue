@@ -208,3 +208,16 @@ export const getTextParams = (text: string) => {
   const reg = /:([\d\w\u4e00-\u9fa5_$@*]+)/ig
   return text.match(reg) ?? []
 }
+
+/**
+ * 替换字符串中 :value 形式的参数
+ */
+export const replaceTextParams = (text: string, data: Record<string, string>) => {
+  if (Object.keys(data).length === 0) {
+    return text
+  }
+  const reg = /:([\d\w\u4e00-\u9fa5_$@*]+)/ig
+  return text.replace(reg, (key: string) => {
+    return data[key.substr(1)] ?? key
+  })
+}

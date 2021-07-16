@@ -3,7 +3,7 @@ import {
 } from 'vuex-module-decorators'
 import store from '@/store'
 import { ApiKeyName, ApiConfig, ApiDataConfig, ApiType, ApiRequestMethod } from '@/components/data-source'
-import { isUrl, toJson } from '@/utils/util'
+import { isUrl, toJson, replaceTextParams } from '@/utils/util'
 import dcRequest from '@/utils/dc-request'
 
 config.rawError = true
@@ -79,10 +79,12 @@ class Api extends VuexModule implements IApiState {
           headers: toJson(config.apiHeaders, {}),
           withCredentials: config.cookie,
         }
+
+        const url = replaceTextParams(config.api, this.variables)
         if (config.apiMethod === ApiRequestMethod.GET) {
-          res = await dcRequest.get(config.api, conf)
+          res = await dcRequest.get(url, conf)
         } else {
-          res = await dcRequest.post(config.api, toJson(config.apiBody, {}), conf)
+          res = await dcRequest.post(url, toJson(config.apiBody, {}), conf)
         }
       } catch {
         throw Error('connectFailed')
