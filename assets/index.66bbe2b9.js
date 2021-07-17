@@ -1,0 +1,1 @@
+import{d as a,o as s,c as t,a as n,r as e}from"./index.7a1b8f24.js";var o=a({name:"GDropList"});const r={class:"drop-list-wp"},i={class:"item-container"};o.render=function(a,o,d,l,c,m){return s(),t("div",r,[n("div",i,[e(a.$slots,"default")])])},o.install=a=>{a.component(o.name,o)};export default o;
