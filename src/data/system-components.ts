@@ -1,71 +1,128 @@
 export const bar = {
   type: 'bar',
-  name: '柱图',
+  name: '柱状图',
   icon: 'v-icon-chart-bar',
   data: [
     {
       name: 'VBasicBar',
-      alias: '基本柱状图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/basic-bar.png`,
-      used: true,
+      alias: '柱状图',
+      img: `${import.meta.env.VITE_APP_CDN}/com/basic-bar-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/basic-bar-368-208.png`,
+      used: false,
     }, {
       name: 'VArcBar',
-      alias: '弧形柱图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/arc-bar.png`,
-      used: true,
+      alias: '玉环图',
+      img: `${import.meta.env.VITE_APP_CDN}/com/arc-bar-160-116.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/arc-bar-368-208.png`,
+      used: false,
+    }, {
+      name: 'VLineBarChart',
+      alias: '折线柱图',
+      img: `${import.meta.env.VITE_APP_CDN}/com/line-bar-chart-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/line-bar-chart-368-208.png`,
+      used: false,
     }, {
       name: 'VBarWithLine',
       alias: '折线柱图(多)',
       img: `${import.meta.env.VITE_APP_CDN}/com/bar-with-line.png`,
-      used: true,
-    }, {
-      name: 'VLineBarChart',
-      alias: '折线柱图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/line-bar-chart.png`,
-      used: true,
-    }, {
+      thum: `${import.meta.env.VITE_APP_CDN}/com/bar-with-line.png`,
+      used: false,
+    },
+  ],
+}
+
+export const horizontalBar = {
+  type: 'horizontal-bar',
+  name: '条形图',
+  icon: 'v-icon-chart-bar',
+  data: [
+    {
       name: 'VHoriBasicBar',
       alias: '水平基本柱状图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/hori-basic-bar.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/hori-basic-bar-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/hori-basic-bar-368-208.png`,
+      used: false,
     },
   ],
 }
 
 export const line = {
   type: 'line',
-  name: '折线',
+  name: '折线图',
   icon: 'v-icon-chart-line',
   data: [
     {
       name: 'VBasicLine',
       alias: '基本折线图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/basic-line.png`,
-      used: true,
-    }, {
+      img: `${import.meta.env.VITE_APP_CDN}/com/basic-line-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/basic-line-368-208.png`,
+      used: false,
+    },
+  ],
+}
+
+export const area = {
+  type: 'area',
+  name: '区域图',
+  icon: 'v-icon-chart-line',
+  data: [
+    {
       name: 'VBasicArea',
       alias: '区域图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/basic-area.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/basic-area-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/basic-area-368-208.png`,
+      used: false,
     },
   ],
 }
 
 export const pie = {
   type: 'pie',
-  name: '饼图',
+  name: '饼环图',
   icon: 'v-icon-chart-pie',
   data: [
     {
       name: 'VBasicPie',
       alias: '基本饼图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/basic-pie.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/basic-pie-160-116.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/basic-pie-368-208.png`,
+      used: false,
     }, {
       name: 'VPieOneValue',
-      alias: '指标占比图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/pie-one-value.png`,
-      used: true,
+      alias: '指标占比饼图',
+      img: `${import.meta.env.VITE_APP_CDN}/com/pie-one-value-160-116.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/pie-one-value-368-208.png`,
+      used: false,
+    },
+  ],
+}
+
+export const relation = {
+  type: 'relation',
+  name: '关系图',
+  icon: 'v-icon-relation',
+  data: [
+    {
+      name: 'VTree',
+      alias: '树图',
+      img: `${import.meta.env.VITE_APP_CDN}/com/tree.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com/tree.png`,
+      used: false,
+    },
+  ],
+}
+
+export const otherChart = {
+  type: 'other-chart',
+  name: '其他',
+  icon: 'v-icon-other',
+  data: [
+    {
+      name: 'VWordCloud',
+      alias: '词云',
+      img: `${import.meta.env.VITE_APP_CDN}/com/word-cloud-160-116.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/word-cloud-370-208.png`,
+      used: false,
     },
   ],
 }
@@ -78,40 +135,30 @@ export const map = {
     {
       name: 'VChina2d',
       alias: '基础平面地图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/2d-china.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/2d-china-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/2d-china-368-208.png`,
+      used: false,
       children: [
         {
-          name: 'VChina2dEffectScatter',
-          alias: '动态气泡层',
-          img: `${import.meta.env.VITE_APP_CDN}/com/2d-china.png`,
-          used: true,
+          name: 'VChina2dBubbles',
+          alias: '呼吸气泡层',
+          img: `${import.meta.env.VITE_APP_CDN}/com/2d-china-bubbles-180-180.png`,
+          thum: `${import.meta.env.VITE_APP_CDN}/com/2d-china-bubbles-180-180.png`,
+          used: false,
         }, {
           name: 'VChina2dFlyLines',
           alias: '飞线层',
-          img: `${import.meta.env.VITE_APP_CDN}/com/2d-china.png`,
-          used: true,
+          img: `${import.meta.env.VITE_APP_CDN}/com/2d-china-fly-lines-180-180.png`,
+          thum: `${import.meta.env.VITE_APP_CDN}/com/2d-china-fly-lines-180-180.png`,
+          used: false,
         },
       ],
     }, {
-      name: 'VBasicLine',
-      alias: '世界',
-      img: `${import.meta.env.VITE_APP_CDN}/com/3d-world.png`,
+      name: 'VWorld3d',
+      alias: '3D平面世界地图',
+      img: `${import.meta.env.VITE_APP_CDN}/com/3d-world-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/3d-world-368-208.png`,
       used: false,
-    },
-  ],
-}
-
-export const img = {
-  type: 'img',
-  name: '图片',
-  icon: 'v-icon-img',
-  data: [
-    {
-      name: 'VMainImg',
-      alias: '单张图片',
-      img: `${import.meta.env.VITE_APP_CDN}/com/main-img.png`,
-      used: true,
     },
   ],
 }
@@ -124,38 +171,33 @@ export const title = {
     {
       name: 'VMainTitle',
       alias: '通用标题',
-      img: `${import.meta.env.VITE_APP_CDN}/com/main-title.png`,
+      img: `${import.meta.env.VITE_APP_CDN}/com/main-title-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/main-title-370-208.png`,
       used: true,
     }, {
       name: 'VMarquee',
       alias: '跑马灯',
-      img: `${import.meta.env.VITE_APP_CDN}/com/marquee.png`,
-      used: true,
-    }, {
-      name: 'VWordCloud',
-      alias: '词云',
-      img: `${import.meta.env.VITE_APP_CDN}/com/word-cloud.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/marquee-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/marquee-370-208.png`,
+      used: false,
     }, {
       name: 'VNumberTitleFlop',
       alias: '数字翻牌器',
-      img: `${import.meta.env.VITE_APP_CDN}/com/number-title-flop.png`,
+      img: `${import.meta.env.VITE_APP_CDN}/com/number-title-flop-160-116.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/number-title-flop-370-208.png`,
       used: true,
     }, {
       name: 'VParagraph',
       alias: '多行文本',
-      img: `${import.meta.env.VITE_APP_CDN}/com/paragraph.png`,
-      used: true,
-    }, {
-      name: 'VPercentageBar',
-      alias: '进度条',
-      img: `${import.meta.env.VITE_APP_CDN}/com/percentage-bar.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/paragraph-160-116.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/paragraph-370-208.png`,
+      used: false,
     }, {
       name: 'VTimer',
       alias: '时间器',
-      img: `${import.meta.env.VITE_APP_CDN}/com/timer.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/timer-160-116.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/timer-370-208.png`,
+      used: false,
     },
   ],
 }
@@ -168,27 +210,60 @@ export const list = {
     {
       name: 'VCarouselTable',
       alias: '轮播列表',
-      img: `${import.meta.env.VITE_APP_CDN}/com/carousel-table.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/carousel-table-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/carousel-table-370-208.png`,
+      used: false,
     }, {
       name: 'VTableBar',
       alias: '轮播列表柱状图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/table-bar.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/table-bar-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/table-bar-370-208.png`,
+      used: false,
     },
   ],
 }
 
-export const relation = {
-  type: 'relation',
-  name: '关系',
-  icon: 'v-icon-relation',
+export const button = {
+  type: 'button',
+  name: '按钮类',
+  icon: 'v-icon-interact',
   data: [
     {
-      name: 'VTree',
-      alias: '树图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/tree.png`,
-      used: true,
+      name: 'VFullScreen',
+      alias: '全屏切换',
+      img: `${import.meta.env.VITE_APP_CDN}/com/full-screen-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/full-screen-368-208.png`,
+      used: false,
+    },
+  ],
+}
+
+export const select = {
+  type: 'select',
+  name: '选择类',
+  icon: 'v-icon-interact',
+  data: [
+    {
+      name: 'VTabList',
+      alias: 'Tab列表',
+      img: `${import.meta.env.VITE_APP_CDN}/com/tab-list-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/tab-list-368-208.png`,
+      used: false,
+    },
+  ],
+}
+
+export const interactData = {
+  type: 'interact-data',
+  name: '数据类',
+  icon: 'v-icon-interact',
+  data: [
+    {
+      name: 'VPercentageBar',
+      alias: '进度条',
+      img: `${import.meta.env.VITE_APP_CDN}/com/percentage-bar-332-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/percentage-bar-370-208.png`,
+      used: false,
     },
   ],
 }
@@ -199,39 +274,29 @@ export const material = {
   icon: 'v-icon-material',
   data: [
     {
-      name: 'VDecoration',
-      alias: '装饰',
-      img: `${import.meta.env.VITE_APP_CDN}/com/decoration.png`,
-      used: true,
+      name: 'VBGBox',
+      alias: '自定义背景块',
+      img: `${import.meta.env.VITE_APP_CDN}/com/bg-box-334-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/bg-box-370-208.png`,
+      used: false,
     }, {
       name: 'VBorderBox',
       alias: '边框',
-      img: `${import.meta.env.VITE_APP_CDN}/com/border-box.png`,
-      used: true,
+      img: `${import.meta.env.VITE_APP_CDN}/com/border-box-162-116.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/border-box-370-208.png`,
+      used: false,
     }, {
-      name: 'VBGBox',
-      alias: '自定义背景',
-      img: `${import.meta.env.VITE_APP_CDN}/com/bg-box.png`,
-      used: true,
-    },
-  ],
-}
-
-export const interact = {
-  type: 'interact',
-  name: '交互',
-  icon: 'v-icon-interact',
-  data: [
-    {
-      name: 'VTabList',
-      alias: 'Tab列表',
-      img: `${import.meta.env.VITE_APP_CDN}/com/tab-list.png`,
-      used: true,
+      name: 'VDecoration',
+      alias: '装饰',
+      img: `${import.meta.env.VITE_APP_CDN}/com/decoration-162-116.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/decoration-370-208.png`,
+      used: false,
     }, {
-      name: 'VFullScreen',
-      alias: '全屏切换',
-      img: `${import.meta.env.VITE_APP_CDN}/com/full-screen.png`,
-      used: true,
+      name: 'VMainImg',
+      alias: '单张图片',
+      img: `${import.meta.env.VITE_APP_CDN}/com/main-img-334-144.png`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/main-img-370-208.png`,
+      used: false,
     },
   ],
 }
@@ -245,12 +310,14 @@ export const other = {
       name: 'VDatePicker',
       alias: '日期选择器',
       img: `${import.meta.env.VITE_APP_CDN}/com/date-picker.jpg`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/time-selector.jpg`,
       used: true,
     }, {
       name: 'VTabSelect',
       alias: 'Tab选择器',
       img: `${import.meta.env.VITE_APP_CDN}/com/tab-select.png`,
-      used: true,
+      thum: `${import.meta.env.VITE_APP_CDN}/com/tab-select.png`,
+      used: false,
     },
   ],
 }
@@ -258,9 +325,9 @@ export const other = {
 export const classifications = [
   {
     type: 'regular',
-    name: '常规图表',
+    name: '图表',
     icon: 'v-icon-chart',
-    data: [bar, line, pie],
+    data: [bar, horizontalBar, line, area, pie, relation],
   },
   {
     type: 'map',
@@ -269,34 +336,28 @@ export const classifications = [
     data: [map],
   },
   {
-    type: 'media',
-    name: '媒体',
-    icon: 'v-icon-media',
-    data: [img],
+    type: 'info',
+    name: '信息',
+    icon: 'v-icon-com-info',
+    data: [title],
   },
   {
-    type: 'text',
-    name: '文本',
-    icon: 'v-icon-font',
-    data: [title, list],
-  },
-  {
-    type: 'relation',
-    name: '关系网络',
-    icon: 'v-icon-relation',
-    data: [relation],
-  },
-  {
-    type: 'material',
-    name: '素材',
-    icon: 'v-icon-material',
-    data: [material],
+    type: 'table',
+    name: '表格',
+    icon: 'v-icon-table',
+    data: [list],
   },
   {
     type: 'interact',
     name: '交互',
     icon: 'v-icon-interact',
-    data: [interact],
+    data: [button, select, interactData],
+  },
+  {
+    type: 'media',
+    name: '媒体',
+    icon: 'v-icon-media',
+    data: [material],
   },
   {
     type: 'other',

@@ -183,43 +183,49 @@ $panel_width: 200px;
   }
 
   .layer-item-thumbail {
-    display: block;
     width: 53px;
     height: 34px;
-    background: $layer-thumbail-bgcolor;
-    border: $border;
     flex: none;
+    display: block;
+    border: $border;
+    background: $layer-thumbail-bgcolor;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
   }
 
   .layer-manager-thumbail {
-    margin-left: 6px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     flex: auto;
+    width: 0;
+    margin-left: 6px;
   }
 
   .layer-item-span {
-    overflow: hidden;
-    text-indent: 7px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     flex: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .layer-item-text {
+      flex: 0 1 auto;
+      text-indent: 7px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .layer-item-input {
-    height: 20px;
+    width: 100%;
+    color: $font-color;
     padding: 0 4px;
-    overflow: hidden;
-    font-size: 12px;
+    height: 20px;
     line-height: 20px;
-    color: $panel-font-color;
-    text-indent: 2px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     background: 0 0;
     border: none;
     outline: 0;
+    font-size: 12px;
+    text-indent: 2px;
 
     &:focus {
       color: #fff;

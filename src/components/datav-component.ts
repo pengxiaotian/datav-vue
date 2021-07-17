@@ -75,7 +75,7 @@ export abstract class DatavComponent {
     const obj = findComByName(this.name)!
     this.alias = obj.com.alias
     this.icon = obj.category.icon
-    this.img = obj.com.img
+    this.img = obj.com.thum
 
     this.attr = { ...this.attr, ...attr }
   }

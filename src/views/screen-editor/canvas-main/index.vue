@@ -8,6 +8,7 @@
           id="canvas-coms"
           class="canvas-panel"
           :style="canvasPanelStyle"
+          @dragover="dragOver"
           @drop="dropToAddCom"
         >
           <datav-transform
@@ -82,8 +83,9 @@ export default defineComponent({
       EditorModule.selectCom()
     }
 
-    document.ondragover = (ev: DragEvent) => {
+    const dragOver = (ev: DragEvent) => {
       ev.preventDefault()
+      ev.stopPropagation()
       ev.dataTransfer.dropEffect = 'copy'
     }
 
@@ -93,6 +95,7 @@ export default defineComponent({
       canvasPanelStyle,
       dropToAddCom,
       cancelSelectCom,
+      dragOver,
     }
   },
 })

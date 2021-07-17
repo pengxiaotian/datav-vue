@@ -53,7 +53,7 @@ export default (adapter: MockAdapter) => {
             },
           },
           'children': null,
-          'img': 'https://files.pengxiaotian.com/com/main-title.png',
+          'img': '//files.pengxiaotian.com/com/main-title-370-208.png',
           'apis': {
             'source': {
               'autoUpdate': 1,

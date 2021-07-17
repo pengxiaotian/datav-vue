@@ -1,6 +1,6 @@
 @import '@/styles/themes/var';
 
-$panel_width: 233px;
+$panel_width: 324px;
 
 .component-panel-wp {
   flex: none;
@@ -11,6 +11,18 @@ $panel_width: 233px;
   background: $panel-bgcolor;
   box-shadow: 1px 0 #000;
   transition: width 0.3s ease;
+
+  &.--hide {
+    width: 45px !important;
+  }
+
+  .favorite-empty {
+    padding: 10px;
+    margin: 30px 0 0 0;
+    font-size: 12px;
+    color: $layer-font-color;
+    text-align: center;
+  }
 }
 
 .components-panel {
@@ -55,74 +67,146 @@ $panel_width: 233px;
     }
   }
 
-  .menu-item {
-    display: inline-block;
-    width: 80px;
-    margin: 5px;
-    color: $panel-font-color;
-    vertical-align: top;
-    cursor: pointer;
-    user-select: none;
+  .components-panel-wrapper {
     flex: 1;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
-    .menu-item-img {
-      position: relative;
-      width: 100%;
-      height: 45px;
-      overflow: hidden;
+  .com-tab-icon {
+    color: #fff;
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  .com-tab-title {
+    font-size: 12px;
+    width: 100%;
+    line-height: 16px;
+    color: $font-color;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    font-weight: normal;
+  }
+
+  .el-tabs__item {
+    height: auto;
+    line-height: normal;
+    padding: 14px 5px !important;
+
+    &.is-left {
       text-align: center;
-      pointer-events: none;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      border: 1px solid transparent;
-      box-sizing: content-box;
-      transition: border-color 0.2s;
-      background-clip: content-box;
     }
 
-    .menu-item-text {
-      display: -webkit-box;
-      padding: 0;
-      margin-top: 3px;
-      margin-bottom: 17px;
-      overflow: hidden;
-      font-size: 12px;
-      line-height: 1.2;
-      text-align: left;
-      text-overflow: ellipsis;
-      -webkit-box-orient: vertical;
-    }
-
-    &:hover {
-      .menu-item-img {
-        border-color: $panel-img-border-color;
+    &.is-active {
+      .com-tab-icon,
+      .com-tab-title {
+        color: $color-primary;
       }
     }
   }
-}
 
-.component-panel-wp.--hide {
-  width: 45px !important;
-}
+  .el-tabs-l2 {
+    .el-tabs__header {
+      width: 60px;
 
-.com-tab-icon {
-  font-size: 16px;
-}
+      .el-tabs__nav-wrap {
+        background: $tabs-bgcolor-active;
+      }
+    }
 
-.collpase-hd-text {
-  margin-left: 5px;
-  font-size: 12px;
-}
+    .el-tabs__active-bar {
+      display: none;
+    }
 
-.collpase-hd-icon {
-  padding-left: 5px;
-}
+    .el-tabs__item {
+      text-align: left !important;
+      padding: 16px 7px !important;
 
-.favorite-empty {
-  padding: 10px;
-  margin: 30px 0 0 0;
-  font-size: 12px;
-  color: $layer-font-color;
-  text-align: center;
+      &.is-active {
+        background: $panel-bgcolor-dark;
+      }
+    }
+  }
+
+  .components-single-menu-wp {
+    background: $panel-bgcolor-dark;
+    min-height: 100%;
+  }
+
+  .components-single-menu {
+    padding: 16px;
+    background: $panel-bgcolor-dark;
+  }
+
+  .components-single-menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .components-multi-menu {
+    height: 100%;
+    background: $panel-bgcolor-dark;
+  }
+
+  .components-item {
+    cursor: pointer;
+    display: inline-block;
+    color: $panel-font-color;
+    vertical-align: top;
+    user-select: none;
+    flex: none;
+    margin-bottom: 16px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+
+    .components-item-text {
+      font-size: 12px;
+      padding: 0 5px;
+      text-align: left;
+      overflow: hidden;
+      background: #212326;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      line-height: 22px;
+    }
+
+    .components-item-img {
+      overflow: hidden;
+      width: 100%;
+      background-clip: content-box;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #17191c;
+      position: relative;
+      text-align: center;
+      box-sizing: content-box;
+      transition: border-color 0.2s;
+      height: 45px;
+    }
+
+    &.single {
+      width: 47%;
+
+      .components-item-img {
+        height: 58px;
+      }
+    }
+
+    &.double {
+      width: 100%;
+
+      .components-item-img {
+        height: 72px;
+      }
+    }
+  }
 }

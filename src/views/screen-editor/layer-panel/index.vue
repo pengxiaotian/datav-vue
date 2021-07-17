@@ -76,7 +76,7 @@
               @keydown.enter="com.renameing = false"
             >
             <span v-else class="layer-item-span">
-              {{ com.alias }}
+              <span class="layer-item-text">{{ com.alias }}</span>
             </span>
             <i
               v-if="com.hided"
@@ -104,7 +104,12 @@
             @mouseleave="com.hovered = false"
             @contextmenu="showMenu"
           >
-            <img class="layer-item-thumbail" :src="com.img">
+            <div
+              class="layer-item-thumbail"
+              :alt="com.alias"
+              :style="`background-image: url(${com.img})`"
+            >
+            </div>
             <div class="layer-manager-thumbail">
               <input
                 v-if="com.renameing"
@@ -115,7 +120,7 @@
                 @keydown.enter="com.renameing = false"
               >
               <span v-else class="layer-item-span">
-                {{ com.alias }}
+                <span class="layer-item-text">{{ com.alias }}</span>
               </span>
             </div>
             <div class="layer-thumbail-item">
@@ -266,5 +271,4 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import './style';
-
 </style>

@@ -93,7 +93,7 @@ class Toolbar extends VuexModule implements IToolbarState {
     }
 
     if (this.components.show) {
-      offsetX += 233
+      offsetX += 324
     } else {
       offsetX += 45
     }

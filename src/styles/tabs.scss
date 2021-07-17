@@ -10,16 +10,29 @@
       height: 100%;
     }
   }
+
+  .el-tabs__nav-next,
+  .el-tabs__nav-prev {
+    color: #f2f2f2;
+    transition: 0.2s;
+
+    &:hover {
+      color: $color-primary;
+      background: $tabs-nav-bgcolor-hover;
+    }
+  }
 }
 
 .el-tabs--left {
   display: flex;
   height: 100%;
-  margin-top: 5px;
 
-  .el-tabs__header.is-left {
+  .el-tabs__header {
     width: 48px;
-    margin-right: 0;
+
+    &.is-left {
+      margin-right: 0;
+    }
   }
 
   .el-tabs__nav-wrap {
@@ -44,6 +57,18 @@
     }
   }
 
+  // .el-tabs__nav-scroll {
+  //   overflow-x: hidden;
+  //   overflow-y: scroll;
+
+  //   &::-webkit-scrollbar {
+  //     display: none;
+  //     height: 0;
+  //     width: 0;
+  //     background: 0 0;
+  //   }
+  // }
+
   .el-tabs__item {
     padding: 0 16px;
     color: $tabs-font-color;
@@ -53,7 +78,7 @@
     }
 
     &.is-active {
-      color: $hover-color;
+      color: $color-primary;
       background: $tabs-bgcolor-active;
     }
   }
