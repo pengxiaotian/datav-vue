@@ -142,38 +142,38 @@ export default defineComponent({
     }>(() => {
       const transform = `scale(${1 / scale.value}, ${1 / scale.value})`
       return {
-        't': {
+        t: {
           name: 'top',
           style: { cursor: cursor.value.t, transform },
         },
-        'rt': {
+        rt: {
           name: 'top-right',
           style: { cursor: cursor.value.rt },
           rotateStyle: { 'transform-origin': '25% 75%',  transform },
         },
-        'r': {
+        r: {
           name: 'right',
           style: { cursor: cursor.value.r, transform },
         },
-        'rb': {
+        rb: {
           name: 'bottom-right',
           style: { cursor: cursor.value.rb },
           rotateStyle: { 'transform-origin': '25% 25%',  transform },
         },
-        'b': {
+        b: {
           name: 'bottom',
           style: { cursor: cursor.value.b, transform },
         },
-        'lb': {
+        lb: {
           name: 'bottom-left',
           style: { cursor: cursor.value.lb },
           rotateStyle: { 'transform-origin': '75% 25%',  transform },
         },
-        'l': {
+        l: {
           name: 'left',
           style: { cursor: cursor.value.l, transform },
         },
-        'lt': {
+        lt: {
           name: 'top-left',
           style: { cursor: cursor.value.lt },
           rotateStyle: { 'transform-origin': '75% 75%',  transform },

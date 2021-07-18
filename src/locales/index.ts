@@ -7,7 +7,7 @@ const loadedLanguages = ['zh-CN']
 
 export const SUPPORT_LOCALES = {
   'zh-CN': '中文',
-  'en': 'English',
+  en: 'English',
 }
 
 const i18n = createI18n({
