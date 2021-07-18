@@ -7,7 +7,7 @@ export default (adapter: MockAdapter) => {
     .reply(200, Mock.mock({
       'code': 0,
       'message': 'ok',
-      'data|2': [
+      'data': [
         {
           'id': '@guid',
           'type': 'com',
@@ -53,7 +53,7 @@ export default (adapter: MockAdapter) => {
             },
           },
           'children': null,
-          'img': '//files.pengxiaotian.com/com/main-title-370-208.png',
+          'img': '//files.pengxiaotian.com/com-thum/main-title-370-208.png',
           'apis': {
             'source': {
               'autoUpdate': 1,

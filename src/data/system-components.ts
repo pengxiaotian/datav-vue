@@ -112,8 +112,8 @@ export const relation = {
   ],
 }
 
-export const otherChart = {
-  type: 'other-chart',
+export const chart = {
+  type: 'chart',
   name: '其他',
   icon: 'v-icon-other',
   data: [
@@ -274,11 +274,11 @@ export const material = {
   icon: 'v-icon-material',
   data: [
     {
-      name: 'VBGBox',
+      name: 'VBgBox',
       alias: '自定义背景块',
       img: `${import.meta.env.VITE_APP_CDN}/com/bg-box-334-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/bg-box-370-208.png`,
-      used: false,
+      used: true,
     }, {
       name: 'VBorderBox',
       alias: '边框',
@@ -327,7 +327,7 @@ export const classifications = [
     type: 'regular',
     name: '图表',
     icon: 'v-icon-chart',
-    data: [bar, horizontalBar, line, area, pie, relation],
+    data: [bar, horizontalBar, line, area, pie, relation, chart],
   },
   {
     type: 'map',
@@ -336,7 +336,7 @@ export const classifications = [
     data: [map],
   },
   {
-    type: 'info',
+    type: 'text',
     name: '信息',
     icon: 'v-icon-com-info',
     data: [title],

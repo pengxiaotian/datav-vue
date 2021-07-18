@@ -16,20 +16,14 @@ module.exports = {
       type: 'list',
       name: 'category',
       message: 'component category:',
-      choices: ['bar', 'line', 'pie', 'map', 'text', 'relation', 'media', 'material', 'interact', 'other'],
+      choices: ['bar', 'horizontal-bar', 'line', 'area', 'pie', 'relation', 'chart', 'map', 'text', 'table', 'button', 'select', 'interact-data', 'media', 'other'],
       default: 'other',
     },
     {
       when: (value) => value.category === 'other',
       type: 'input',
       name: 'otherName',
-      message: 'other name:',
-      validate(value) {
-        if (!value || value.trim === '') {
-          return 'name is required';
-        }
-        return true;
-      },
+      message: '(optional) other name:',
     },
   ],
   actions: (data) => {

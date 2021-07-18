@@ -24,6 +24,10 @@
       border: $border-outline;
       color: $gui-component-color;
       background: $gui-component-bgcolor;
+
+      &:hover {
+        border-color: $color-primary;
+      }
     }
   }
 
@@ -32,5 +36,11 @@
     background-color: $color-primary;
     border-color: $color-primary;
     box-shadow: -1px 0 0 0 $color-primary;
+
+    &:hover {
+      background-color: $hover-color;
+      border-color: $hover-color;
+      box-shadow: -1px 0 0 0 $hover-color;
+    }
   }
 }
