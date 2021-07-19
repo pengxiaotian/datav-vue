@@ -30,7 +30,11 @@
         {{ label }}
       </label>
     </el-col>
-    <el-col class="g-field-container" v-bind="contentStyle">
+    <el-col
+      class="g-field-container"
+      :class="{ '--flat': isFlat }"
+      v-bind="contentStyle"
+    >
       <slot></slot>
       <span v-if="caption" class="g-field-caption" :title="caption">
         {{ caption }}
@@ -63,6 +67,7 @@ export default defineComponent({
     nest: Boolean,
     caption: String,
     disabled: Boolean,
+    isFlat: Boolean,
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {

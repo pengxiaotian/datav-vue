@@ -1,20 +1,27 @@
 <template>
-  <input
-    ref="inputRef"
-    :value="modelValue"
-    autocomplete="off"
-    class="g-input"
-    :class="{ 'is-disabled': disabled }"
-    :disabled="disabled"
-    :autofocus="autofocus"
-    @input="handleInput"
-    @blur="handleBlur"
-    @keypress.enter="handleKeyEnter"
+  <div
+    class="datav-gui g-input"
+    :class="[
+      `--${size}`,
+      {
+        '--inline': isInline,
+      }
+    ]"
   >
+    <el-input
+      :model-value="modelValue"
+      :size="size"
+      @update:model-value="handleInput"
+      @change="handleChange"
+    />
+    <span v-if="label" class="g-input__caption">
+      {{ label }}
+    </span>
+  </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 export default defineComponent({
@@ -24,38 +31,30 @@ export default defineComponent({
       type: [String, Number],
       default: '',
     },
+    label: {
+      type: String,
+      default: '',
+    },
+    size: {
+      type: String,
+      default: 'mini',
+    },
+    isInline: Boolean,
     disabled: Boolean,
-    autofocus: Boolean,
   },
   emits: [UPDATE_MODEL_EVENT, 'change'],
   setup(props, ctx) {
-    const inputRef = ref(null)
-
-    const handleInput = (event: any) => {
-      const { value } = event.target
-
+    const handleInput = (value: string | number) => {
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
-    const handleBlur = (event: any) => {
-      ctx.emit('change', event.target.value)
+    const handleChange = (currentValue: string | number) => {
+      ctx.emit('change', currentValue)
     }
-
-    const handleKeyEnter = () => {
-      inputRef.value.blur()
-    }
-
-    onMounted(() => {
-      if (props.autofocus) {
-        inputRef.value?.focus()
-      }
-    })
 
     return {
-      inputRef,
       handleInput,
-      handleBlur,
-      handleKeyEnter,
+      handleChange,
     }
   },
 })

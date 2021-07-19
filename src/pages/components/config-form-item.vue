@@ -15,10 +15,22 @@
     v-else-if="componentType === componentTypes.switch"
     v-model="boolValue"
   />
+  <template v-else-if="componentType === componentTypes.radio">
+    <el-radio-group v-model="strValue">
+      <el-radio-button
+        v-for="em in enums"
+        :key="em"
+        :label="em"
+      >
+        {{ em }}
+      </el-radio-button>
+    </el-radio-group>
+  </template>
   <g-color-picker
     v-else-if="componentType === componentTypes.color"
     v-model="strValue"
     size="medium"
+    :is-inline="false"
   />
   <el-slider
     v-else-if="componentType === componentTypes.slider"
@@ -173,28 +185,6 @@
       :value="item.id"
     />
   </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.box"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in []"
-      :key="item.id"
-      :label="item.src"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.decorate"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in []"
-      :key="item.id"
-      :label="item.src"
-      :value="item.id"
-    />
-  </el-select>
   <span v-else>--</span>
 </template>
 
@@ -229,6 +219,10 @@ export default defineComponent({
     },
     defaultValue: {
       type: [String, Number, Boolean, Array, Object],
+    },
+    enums: {
+      type: Array as PropType<string[]>,
+      default: () => [],
     },
   },
   setup(props) {

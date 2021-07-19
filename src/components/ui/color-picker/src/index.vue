@@ -1,18 +1,31 @@
 <template>
-  <div class="g-color-picker">
-    <el-input
-      :model-value="modelValue"
-      :size="size"
-      @update:model-value="handleInput"
-    />
-    <el-color-picker
-      :model-value="modelValue"
-      :size="size"
-      show-alpha
-      :predefine="predefine"
-      popper-class="is-dark"
-      @update:model-value="handleInput"
-    />
+  <div
+    class="datav-gui g-color-picker"
+    :class="[
+      `--${size}`,
+      {
+        '--inline': isInline,
+      }
+    ]"
+  >
+    <div class="g-color-picker__inner">
+      <el-input
+        :model-value="modelValue"
+        :size="size"
+        @update:model-value="handleInput"
+      />
+      <el-color-picker
+        :model-value="modelValue"
+        :size="size"
+        show-alpha
+        :predefine="predefine"
+        popper-class="is-dark"
+        @update:model-value="handleInput"
+      />
+    </div>
+    <span v-if="label" class="g-input__caption">
+      {{ label }}
+    </span>
   </div>
 </template>
 
@@ -32,6 +45,11 @@ export default defineComponent({
       default: 'mini',
     },
     predefine: Array,
+    label: {
+      type: String,
+      default: '',
+    },
+    isInline: Boolean,
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {

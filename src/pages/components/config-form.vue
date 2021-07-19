@@ -37,6 +37,7 @@
               :data-type="item.config.type"
               :component-type="item.config.component"
               :default-value="item.config.defaultValue"
+              :enums="item.config.enums"
             />
           </el-form-item>
           <template v-if="item.config.component === componentTypes.number || item.config.component === componentTypes.slider">
@@ -55,6 +56,28 @@
               <el-input v-model="item.config.suffix" />
             </el-form-item>
           </template>
+          <template v-if="item.config.component === componentTypes.radio">
+            <el-form-item label="枚举值">
+              <el-select
+                v-model="item.config.enums"
+                multiple
+                filterable
+                allow-create
+                default-first-option
+              />
+            </el-form-item>
+          </template>
+          <template v-if="enums.length > 0">
+            <el-form-item label="条件显示">
+              <el-select v-model="item.config.whichEnum">
+                <el-option
+                  v-for="em in enums"
+                  :key="em"
+                  :value="em"
+                />
+              </el-select>
+            </el-form-item>
+          </template>
         </template>
         <el-form-item label="显示模式">
           <el-select v-model="item.config.displayMode">
@@ -65,8 +88,19 @@
             />
           </el-select>
         </el-form-item>
+        <el-form-item
+          v-if="item.config.displayMode == 'nest'"
+          label="工具栏"
+        >
+          <el-select v-model="item.config.features" multiple>
+            <el-option
+              v-for="tt in toolboxTypes"
+              :key="tt"
+              :value="tt"
+            />
+          </el-select>
+        </el-form-item>
         <el-form-item label="提示">
-          <!-- <el-input v-model="item.config.tip" /> -->
           <el-autocomplete
             v-model="item.config.tip"
             :fetch-suggestions="querySearch"
@@ -79,6 +113,7 @@
         v-if="item.children"
         :config="item.children"
         :toggle-col="item.config.toggleCol"
+        :enums="item.config.enums"
       />
     </el-collapse-item>
   </el-collapse>
@@ -86,7 +121,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, ref } from 'vue'
-import { PropDto, ComponentType, DisplayMode } from '@/domains/dev/prop-config'
+import { PropDto, ComponentType, DisplayMode, ToolboxType } from '@/domains/dev/prop-config'
 import ConfigFormItem from './config-form-item.vue'
 
 export default defineComponent({
@@ -100,10 +135,15 @@ export default defineComponent({
       required: true,
     },
     toggleCol: String,
+    enums: {
+      type: Array as PropType<string[]>,
+      default: () => [],
+    },
   },
   setup() {
     const componentTypes = ref({ ...ComponentType })
     const displayModes = ref({ ...DisplayMode })
+    const toolboxTypes = ref({ ...ToolboxType })
     const querySearch = (queryString: string, cb: Function) => {
       const results = [
         '请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体',
@@ -119,6 +159,7 @@ export default defineComponent({
     return {
       componentTypes,
       displayModes,
+      toolboxTypes,
       querySearch,
     }
   },

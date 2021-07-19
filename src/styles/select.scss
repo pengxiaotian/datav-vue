@@ -56,6 +56,27 @@
       border-color: $color-primary;
     }
   }
+
+  .el-select__tags {
+    .el-tag {
+      background-color: $input-bgcolor;
+      border-color: $input-border-color;
+      color: $font-color;
+
+      .el-icon-close {
+        transition: 0.3s ease;
+        transform: scale(0.6);
+        background-color: transparent;
+
+        &:hover {
+          background-color: transparent;
+          color: $hover-color;
+          transform-origin: center;
+          transform: scale(0.6) rotateZ(90deg);
+        }
+      }
+    }
+  }
 }
 
 .el-select__popper {
@@ -115,6 +136,15 @@
       position: absolute;
       left: 4px;
       vertical-align: middle;
+    }
+  }
+}
+
+.el-select-dropdown.is-multiple {
+  .el-select-dropdown__item {
+    &.selected {
+      color: $select-color-selected;
+      background: transparent;
     }
   }
 }

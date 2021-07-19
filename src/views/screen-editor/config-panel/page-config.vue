@@ -4,12 +4,13 @@
     <div class="config-manager-body">
       <div class="page-config">
         <div class="page-config-wp">
-          <g-field label="屏幕大小">
+          <g-field label="屏幕大小" :is-flat="true">
             <g-input-number
               v-model="pageConfig.width"
               label="宽度"
               :min="100"
               :max="20000"
+              :is-inline="true"
               @change="onSizeChange"
             />
             <g-input-number
@@ -17,6 +18,7 @@
               label="高度"
               :min="100"
               :max="20000"
+              :is-inline="true"
               @change="onSizeChange"
             />
           </g-field>
@@ -35,7 +37,7 @@
 
         <div class="page-config-wp">
           <g-field label="页面缩放方式">
-            <el-radio-group v-model="pageConfig.zoomMode" size="mini">
+            <el-radio-group v-model="pageConfig.zoomMode" class="--split">
               <el-tooltip effect="blue" content="全屏铺满">
                 <el-radio-button :label="ZoomMode.auto">
                   <i class="v-icon-fullscreen"></i>
@@ -332,7 +334,7 @@ export default defineComponent({
 }
 
 .cover-btn {
-  width: 91px;
+  width: 93px;
 
   .v-icon-loading {
     font-size: 12px;
@@ -349,7 +351,7 @@ export default defineComponent({
 
 .screen-preview {
   position: relative;
-  width: 182px;
+  width: 186px;
   height: 108px;
   margin-top: 8px;
 

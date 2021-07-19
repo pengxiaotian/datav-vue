@@ -100,7 +100,7 @@ export default defineComponent({
     ConfigPreview,
   },
   setup() {
-    const classPath = ref('')
+    const classPath = ref('media/bg-box')
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')

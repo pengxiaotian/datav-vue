@@ -28,7 +28,7 @@
             />
           </template>
           <div class="filter-name">
-            <g-input
+            <new-input
               v-if="editing"
               :model-value="dataFilter.name"
               :autofocus="true"

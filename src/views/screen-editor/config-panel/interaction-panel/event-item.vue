@@ -27,7 +27,7 @@
           <tr v-for="(f, idx) in item.fields" :key="idx">
             <template v-if="f.custom">
               <td class="variable-input">
-                <g-input
+                <new-input
                   :model-value="f.name"
                   placeholder="可自定义"
                   class="attr-input"
@@ -35,7 +35,7 @@
                 />
               </td>
               <td class="variable-input">
-                <g-input
+                <new-input
                   :model-value="f.map"
                   placeholder="可自定义"
                   class="attr-input"
@@ -49,7 +49,7 @@
             <template v-else>
               <td>{{ f.name }}</td>
               <td class="variable-input">
-                <g-input
+                <new-input
                   :model-value="f.map"
                   placeholder="可自定义"
                   class="attr-input"

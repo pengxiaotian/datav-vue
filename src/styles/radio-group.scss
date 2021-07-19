@@ -2,31 +2,20 @@
 
 .el-radio-group {
   .el-radio-button {
-    & + .el-radio-button {
-      margin-left: 6px;
-    }
-
-    &:first-child {
-      .el-radio-button__inner {
-        border-radius: 0;
-        border-left: $border-outline;
-      }
-    }
-  }
-
-  .el-radio-button--mini {
     .el-radio-button__inner {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4px 8px;
+      padding: 6px 8px;
       border-radius: 0;
-      border: $border-outline;
+      font-size: 12px;
+      outline: $border-outline;
+      border: none;
       color: $gui-component-color;
       background: $gui-component-bgcolor;
 
       &:hover {
-        border-color: $color-primary;
+        background-color: $background-color-secondary;
       }
     }
   }
@@ -34,13 +23,35 @@
   .el-radio-button__orig-radio:checked + .el-radio-button__inner {
     color: #fff;
     background-color: $color-primary;
-    border-color: $color-primary;
     box-shadow: -1px 0 0 0 $color-primary;
 
     &:hover {
       background-color: $hover-color;
-      border-color: $hover-color;
       box-shadow: -1px 0 0 0 $hover-color;
+    }
+  }
+
+  &.--split {
+    .el-radio-button {
+      .el-radio-button__inner {
+        padding: 4px 8px;
+
+        &:hover {
+          outline-color: $color-primary;
+        }
+      }
+
+      & + .el-radio-button {
+        margin-left: 7px;
+      }
+    }
+
+    .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+      outline-color: $color-primary;
+
+      &:hover {
+        outline-color: $hover-color;
+      }
     }
   }
 }

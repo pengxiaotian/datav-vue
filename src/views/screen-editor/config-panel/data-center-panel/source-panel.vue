@@ -47,7 +47,7 @@
                   </el-tooltip>
                 </td>
                 <td class="column-item attr-value">
-                  <g-input
+                  <new-input
                     :model-value="fc.map"
                     placeholder="可自定义"
                     class="attr-input"
@@ -79,7 +79,7 @@
           <el-checkbox v-model="apiConfig.useAutoUpdate" class="auto-update-checkbox">
             自动更新选项
           </el-checkbox>
-          <g-input
+          <new-input
             :model-value="apiConfig.autoUpdate"
             type="number"
             :disabled="!apiConfig.useAutoUpdate"

@@ -1,35 +1,36 @@
 <template>
   <div
-    class="datav-gui g-input-number"
+    class="datav-gui g-select"
     :class="[
       `--${size}`,
       {
         '--inline': isInline,
-        'has-suffix': !!suffix,
+        '--disabled': disabled,
       }
     ]"
   >
-    <el-input-number
+    <el-select
       :model-value="modelValue"
       :size="size"
-      :min="min"
-      :max="max"
-      :step="step"
-      class="is-controls-right"
+      :disabled="disabled"
       @update:model-value="handleInput"
       @change="handleChange"
-    />
+    >
+      <el-option
+        v-for="item in data"
+        :key="item.id"
+        :label="item.value"
+        :value="item.id"
+      />
+    </el-select>
     <span v-if="label" class="g-input__caption">
       {{ label }}
-    </span>
-    <span v-if="suffix" class="g-input-number__suffix">
-      {{ suffix }}
     </span>
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 export default defineComponent({
@@ -39,6 +40,10 @@ export default defineComponent({
       type: Number,
       default: 0,
     },
+    data: {
+      type: Array as PropType<{ id: string | number; value: string | number; }[]>,
+      default: () => [],
+    },
     label: {
       type: String,
       default: '',
@@ -47,29 +52,17 @@ export default defineComponent({
       type: String,
       default: 'mini',
     },
-    min: {
-      type: Number,
-      default: -Infinity,
-    },
-    max: {
-      type: Number,
-      default: Infinity,
-    },
-    step: {
-      type: Number,
-      default: 1,
-    },
     isInline: Boolean,
-    suffix: String,
+    disabled: Boolean,
   },
   emits: [UPDATE_MODEL_EVENT, 'change'],
   setup(props, ctx) {
-    const handleInput = (value: number) => {
+    const handleInput = (value: string | number) => {
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
-    const handleChange = (currentValue: number, oldValue: number) => {
-      ctx.emit('change', currentValue, oldValue)
+    const handleChange = (currentValue: string | number) => {
+      ctx.emit('change', currentValue)
     }
 
     return {

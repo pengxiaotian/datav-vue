@@ -62,12 +62,22 @@
     display: block;
     max-width: unset;
     flex: 0 0 $field-container-width;
+    padding-right: 4px;
+  }
+
+  &.--flat {
+    width: $field-container-width + 4px;
+
+    &.el-col-0 {
+      flex: 0 0 $field-container-width + 4px;
+      padding-right: 0;
+    }
   }
 }
 
 .g-field-wp {
   display: flex;
-  padding: 4px 8px 4px;
+  padding: 4px 4px 4px 8px;
 
   &:first-child {
     padding-top: 16px;

@@ -2,11 +2,13 @@ import type { App } from 'vue'
 import { defineAsyncComponent } from 'vue'
 import { loadAsyncComponent } from '@/utils/async-component'
 import GLoading from './loading'
+import NewInput from './input/src/new-input.vue'
 
 import Focus from '@/directives/focus'
 
 const components = [
   GLoading,
+  NewInput,
 ]
 
 const plugins = [
@@ -26,6 +28,7 @@ const install = (app: App): void => {
   app.component('GTooltipPopover', defineAsyncComponent(() => import('./tooltip-popover')))
   app.component('GInput', defineAsyncComponent(() => import('./input')))
   app.component('GInputNumber', defineAsyncComponent(() => import('./input-number')))
+  app.component('GSelect', defineAsyncComponent(() => import('./select')))
   app.component('GField', defineAsyncComponent(() => import('./field')))
   app.component('GColorPicker', defineAsyncComponent(() => import('./color-picker')))
   app.component('GUploadImage', defineAsyncComponent(() => import('./upload-image')))

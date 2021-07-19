@@ -1,19 +1,30 @@
 <template>
   <div class="basic-setting-wp">
-    <g-field label="图表尺寸">
-      <g-input-number v-model="attr.w" :min="0" :max="8888" />
-      <g-input-number v-model="attr.h" :min="0" :max="8888" />
+    <g-field label="图表尺寸" :is-flat="true">
+      <g-input-number
+        v-model="attr.w"
+        :min="0"
+        :max="8888"
+        :is-inline="true"
+      />
+      <g-input-number
+        v-model="attr.h"
+        :min="0"
+        :max="8888"
+        :is-inline="true"
+      />
     </g-field>
-    <g-field label="图表位置">
-      <g-input-number v-model="attr.x" />
-      <g-input-number v-model="attr.y" />
+    <g-field label="图表位置" :is-flat="true">
+      <g-input-number v-model="attr.x" :is-inline="true" />
+      <g-input-number v-model="attr.y" :is-inline="true" />
     </g-field>
-    <g-field label="旋转角度">
+    <g-field label="旋转角度" :is-flat="true">
       <g-input-number
         v-model="attr.deg"
         :min="0"
         :max="360"
         :step="1"
+        :is-inline="true"
       />
       <el-checkbox-group v-model="filps" size="mini" @change="onFilpChange">
         <el-tooltip effect="blue" content="垂直翻转" :enterable="false">

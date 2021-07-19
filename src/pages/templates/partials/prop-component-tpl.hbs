@@ -194,30 +194,6 @@
     :value="item.id"
   />
 </el-select>
-{{else if (eq config.component componentTypes.box)}}
-<el-select
-  v-model="config.{{path}}"
-  size="mini"
->
-  <el-option
-    v-for="item in []"
-    :key="item.id"
-    :label="item.src"
-    :value="item.id"
-  />
-</el-select>
-{{else if (eq config.component componentTypes.decorate)}}
-<el-select
-  v-model="config.{{path}}"
-  size="mini"
->
-  <el-option
-    v-for="item in []"
-    :key="item.id"
-    :label="item.src"
-    :value="item.id"
-  />
-</el-select>
 {{else}}
 <span>--</span>
 {{/if}}

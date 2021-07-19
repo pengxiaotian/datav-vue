@@ -43,7 +43,7 @@
           >
             <textarea
               :value="shareUrl"
-              class="g-input share-input"
+              class="new-input share-input"
               readonly
               placeholder="开启发布分享后可获取访问链接"
               @click="copyUrl"
@@ -55,7 +55,7 @@
         </div>
         <div class="label-color">访问密码</div>
         <div class="share-pwd">
-          <g-input
+          <new-input
             v-model="password"
             :type="passwordType"
             placeholder="设置访问密码"
@@ -212,7 +212,7 @@ export default defineComponent({
     letter-spacing: 1.09px;
     color: #fff;
     white-space: nowrap;
-    padding: 16px 0 10px;
+    padding: 10px 0;
   }
 
   .share-switch {
@@ -227,6 +227,12 @@ export default defineComponent({
     letter-spacing: 1.09px;
     color: $color-primary;
     text-decoration: none;
+  }
+
+  .share-verify {
+    .label-color {
+      padding-top: 16px;
+    }
   }
 
   .link-content,

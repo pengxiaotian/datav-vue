@@ -1,8 +1,9 @@
 <template>
-  <el-input
+  <g-input
     v-if="componentType === componentTypes.input"
     v-model="strValue"
-    size="mini"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
   />
   <g-input-number
     v-else-if="componentType === componentTypes.number"
@@ -10,8 +11,15 @@
     :min="min"
     :max="max"
     :step="step"
-    :is-inline="false"
     :suffix="suffix"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-color-picker
+    v-else-if="componentType === componentTypes.color"
+    v-model="strValue"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
   />
   <el-checkbox
     v-else-if="componentType === componentTypes.checkbox"
@@ -21,10 +29,15 @@
     v-else-if="componentType === componentTypes.switch"
     v-model="boolValue"
   />
-  <g-color-picker
-    v-else-if="componentType === componentTypes.color"
-    v-model="strValue"
-  />
+  <!-- <template v-else-if="componentType === componentTypes.radio">
+    <el-radio-group v-model="strValue">
+      <el-radio-button
+        :label="ZoomMode.auto"
+      >
+        <i class="v-icon-fullscreen"></i>
+      </el-radio-button>
+    </el-radio-group>
+  </template> -->
   <el-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
@@ -36,187 +49,98 @@
     input-size="mini"
     class="g-slider"
   />
-  <el-select
+  <g-select
     v-else-if="componentType === componentTypes.select"
     v-model="strValue"
+    :data="[]"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
     disabled
-    size="mini"
-  >
-    <el-option
-      v-for="item in []"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+  />
+  <g-select
     v-else-if="componentType === componentTypes.fontFamily"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in fontFamilys"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="fontFamilys"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.fontWeight"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in fontWeights"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="fontWeights"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.fontStyle"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in fontStyles"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="fontStyles"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.hAlign"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in hAligns"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="hAligns"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.vAlign"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in vAligns"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="vAligns"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.writingMode"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in writingModes"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="writingModes"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.justify"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in justifyContents"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="justifyContents"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.align"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in aligns"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="aligns"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.angle"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in angles"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="angles"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.location"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in locations"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="locations"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.lineStyle"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in lineStyles"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
+    :data="lineStyles"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
     v-else-if="componentType === componentTypes.fillType"
     v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in fillTypes"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.box"
-    v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in []"
-      :key="item.id"
-      :label="item.src"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.decorate"
-    v-model="strValue"
-    size="mini"
-  >
-    <el-option
-      v-for="item in []"
-      :key="item.id"
-      :label="item.src"
-      :value="item.id"
-    />
-  </el-select>
+    :data="fillTypes"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
   <span v-else>--</span>
 </template>
 
@@ -265,6 +189,8 @@ export default defineComponent({
       default: 1,
     },
     suffix: String,
+    label: String,
+    isFlat: Boolean,
   },
   setup(props) {
     const componentTypes = ref({ ...ComponentType })

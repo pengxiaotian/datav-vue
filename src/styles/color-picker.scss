@@ -18,8 +18,10 @@
 }
 
 .g-color-picker {
-  display: flex;
-  justify-content: space-between;
+  .g-color-picker__inner {
+    display: flex;
+    justify-content: space-between;
+  }
 
   .el-color-picker {
     margin-left: -28px;

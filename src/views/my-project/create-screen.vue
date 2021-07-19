@@ -53,7 +53,7 @@
       <p class="name-title">
         <span class="required">*</span>数据大屏名称
       </p>
-      <g-input
+      <new-input
         v-model="projectName"
         placeholder="请输入大屏名称"
         spellcheck="false"
@@ -107,7 +107,7 @@
             <p class="name-title">
               <span class="required">*</span>数据大屏名称
             </p>
-            <g-input
+            <new-input
               v-model="projectName"
               placeholder="请输入大屏名称"
               spellcheck="false"

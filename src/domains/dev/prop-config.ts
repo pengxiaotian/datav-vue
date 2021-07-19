@@ -17,6 +17,7 @@ export enum ComponentType {
   number = 'number',
   checkbox = 'checkbox',
   switch = 'switch',
+  radio = 'radio',
   color = 'color',
   slider = 'slider',
   select = 'select',
@@ -32,13 +33,20 @@ export enum ComponentType {
   location = 'location',
   lineStyle = 'lineStyle',
   fillType = 'fillType',
-  box = 'box',
-  decorate = 'decorate'
 }
 
 export enum DisplayMode {
+  single = 'single',
   flat = 'flat',
   nest = 'nest',
+}
+
+export enum ToolboxType {
+  vertical = 'vertical',
+  horizontal = 'horizontal',
+  copy = 'copy',
+  add = 'add',
+  remove = 'remove',
 }
 
 export interface PropConfig {
@@ -47,12 +55,15 @@ export interface PropConfig {
   alias: string
   tip: string
   displayMode: DisplayMode
+  features: ToolboxType[]
   toggleCol: string
   defaultValue: any
   min: number
   max: number
   step: number
   suffix: string
+  enums: string[]
+  whichEnum: string
 }
 
 export const createPropConfig = () => {
@@ -61,13 +72,16 @@ export const createPropConfig = () => {
     component: ComponentType.none,
     alias: '',
     tip: '',
-    displayMode: DisplayMode.flat,
+    displayMode: DisplayMode.single,
+    features: [],
     toggleCol: '',
     defaultValue: null,
     min: 0,
     max: 100,
     step: 1,
     suffix: '',
+    enums: [],
+    whichEnum: '',
   }
 
   return data
@@ -106,14 +120,14 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       pc.type = PropDataType.object
       pc.displayMode = DisplayMode.nest
       dto.children = []
-      dto.cols = Object.keys(val)
+      dto.cols = key === '0' ? [] : Object.keys(val)
       initPropData(val, dto.children, dto.path)
     } else if (isArray(val) && val.length > 0) {
       pc.type = PropDataType.array
       pc.displayMode = DisplayMode.nest
       dto.children = []
-      dto.cols = Object.keys(val[0])
-      initPropData(val, dto.children, dto.path)
+      // dto.cols = Object.keys(val[0])
+      initPropData([val[0]], dto.children, dto.path)
     }
     arr.push(dto)
   }
