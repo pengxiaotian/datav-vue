@@ -140,7 +140,8 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, ref, computed } from 'vue'
-import { PropDto, ComponentType, DisplayMode, ToolboxType } from '@/domains/dev/prop-config'
+import { PropDto, ComponentType, DisplayMode } from '@/domains/dev/prop-config'
+import { ToolboxType } from '@/utils/enums'
 import ConfigFormItem from './config-form-item.vue'
 
 export default defineComponent({

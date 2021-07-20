@@ -1,5 +1,6 @@
 
 import { isPlainObject, isArray, isNumber, isString, isBool } from '@/utils/util'
+import { ToolboxType } from '@/utils/enums'
 
 
 export enum PropDataType {
@@ -39,14 +40,6 @@ export enum DisplayMode {
   single = 'single',
   flat = 'flat',
   nest = 'nest',
-}
-
-export enum ToolboxType {
-  vertical = 'vertical',
-  horizontal = 'horizontal',
-  copy = 'copy',
-  add = 'add',
-  remove = 'remove',
 }
 
 export interface PropConfig {

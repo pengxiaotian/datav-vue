@@ -1,0 +1,39 @@
+.g-field-collapse-panel {
+  > div > .el-collapse-item__header {
+    .g-field-collapse-panel-toolbox {
+      color: $font-color;
+      margin-left: auto;
+
+      .toolbox-icon {
+        margin-left: 6px;
+        padding: 4px;
+        transition: transform 0.3s ease-in-out;
+
+        &:hover,
+        &.--selected {
+          color: $color-primary;
+        }
+
+        &.v-icon-plus:hover {
+          transform: rotate(90deg);
+        }
+      }
+
+      .g-field-collapse-panel-toolbox-split {
+        margin-left: 6px;
+        display: inline-block;
+        width: 1px;
+        height: 8px;
+        border-left: 1px solid rgba(52, 52, 52, 0.5);
+      }
+    }
+  }
+
+  &.--has-toolbox {
+    > div > .el-collapse-item__header {
+      .el-collapse-item__arrow {
+        margin: 0 8px 0 6px;
+      }
+    }
+  }
+}

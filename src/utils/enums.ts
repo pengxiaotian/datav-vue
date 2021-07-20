@@ -27,3 +27,11 @@ export enum ZoomMode {
    */
   disabled,
 }
+
+export enum ToolboxType {
+  vertical = 'vertical',
+  horizontal = 'horizontal',
+  copy = 'copy',
+  add = 'add',
+  remove = 'remove',
+}

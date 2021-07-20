@@ -21,6 +21,7 @@
           :tooltip="item.config.tip"
           :toggle="!!item.config.toggleCol"
           :model-value="true"
+          :features="item.config.features"
         >
           <preview-prop
             :config="item.children"
