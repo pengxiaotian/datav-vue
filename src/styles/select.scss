@@ -27,6 +27,15 @@
       font-size: 12px;
     }
 
+    .el-icon-circle-close {
+      font-size: 12px;
+      transition: 0.3s ease;
+
+      &:hover {
+        transform: rotateZ(90deg);
+      }
+    }
+
     &.is-focus {
       .el-input__inner {
         border-color: $color-primary;
@@ -145,6 +154,10 @@
     &.selected {
       color: $select-color-selected;
       background: transparent;
+
+      &.hover {
+        background-color: $select-option-bgcolor-hover;
+      }
     }
   }
 }

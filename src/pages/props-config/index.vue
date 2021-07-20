@@ -34,7 +34,11 @@
     <el-main>
       <el-row :gutter="24">
         <el-col :span="12">
-          <el-card>
+          <el-card
+            :body-style="{
+              height: 'calc(100vh - 4px)',
+            }"
+          >
             <template #header>
               <div class="card-header__actions">
                 <span>属性配置</span>

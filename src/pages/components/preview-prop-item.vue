@@ -29,15 +29,18 @@
     v-else-if="componentType === componentTypes.switch"
     v-model="boolValue"
   />
-  <!-- <template v-else-if="componentType === componentTypes.radio">
-    <el-radio-group v-model="strValue">
-      <el-radio-button
-        :label="ZoomMode.auto"
-      >
-        <i class="v-icon-fullscreen"></i>
-      </el-radio-button>
-    </el-radio-group>
-  </template> -->
+  <el-radio-group
+    v-else-if="componentType === componentTypes.radio"
+    v-model="strValue"
+  >
+    <el-radio-button
+      v-for="em in enums"
+      :key="em"
+      :label="em"
+    >
+      {{ em }}
+    </el-radio-button>
+  </el-radio-group>
   <el-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
@@ -191,6 +194,20 @@ export default defineComponent({
     suffix: String,
     label: String,
     isFlat: Boolean,
+    enums: {
+      type: Array as PropType<string[]>,
+      default: () => [],
+    },
+    whichEnum: {
+      type: Object as PropType<{
+        field: string
+        value: string
+      }>,
+      default: () => ({
+        field: '',
+        value: '',
+      }),
+    },
   },
   setup(props) {
     const componentTypes = ref({ ...ComponentType })

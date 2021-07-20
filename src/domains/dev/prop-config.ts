@@ -63,7 +63,10 @@ export interface PropConfig {
   step: number
   suffix: string
   enums: string[]
-  whichEnum: string
+  whichEnum: {
+    field: string
+    value: string
+  }
 }
 
 export const createPropConfig = () => {
@@ -81,7 +84,10 @@ export const createPropConfig = () => {
     step: 1,
     suffix: '',
     enums: [],
-    whichEnum: '',
+    whichEnum: {
+      field: '',
+      value: '',
+    },
   }
 
   return data

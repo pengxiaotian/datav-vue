@@ -8,12 +8,21 @@
       :disabled="toggleCol === item.key"
     >
       <el-form label-width="150px">
-        <el-form-item label="名称">
+        <el-form-item label="名称" label-width="150px">
           <el-input v-model="item.config.alias" />
         </el-form-item>
+        <el-form-item label="显示模式" label-width="150px">
+          <el-select v-model="item.config.displayMode">
+            <el-option
+              v-for="dm in displayModes"
+              :key="dm"
+              :value="dm"
+            />
+          </el-select>
+        </el-form-item>
         <template v-if="item.children">
-          <el-form-item label="控制显示的属性名">
-            <el-select v-model="item.config.toggleCol" :clearable="true">
+          <el-form-item label="控制显示的属性名" label-width="150px">
+            <el-select v-model="item.config.toggleCol" clearable>
               <el-option
                 v-for="c in item.cols"
                 :key="c"
@@ -23,7 +32,7 @@
           </el-form-item>
         </template>
         <template v-else>
-          <el-form-item label="组件类型">
+          <el-form-item label="组件类型" label-width="150px">
             <el-select v-model="item.config.component">
               <el-option
                 v-for="ct in componentTypes"
@@ -32,7 +41,7 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="组件预览">
+          <el-form-item label="组件预览" label-width="150px">
             <config-form-item
               :data-type="item.config.type"
               :component-type="item.config.component"
@@ -41,23 +50,23 @@
             />
           </el-form-item>
           <template v-if="item.config.component === componentTypes.number || item.config.component === componentTypes.slider">
-            <el-form-item label="最小值">
+            <el-form-item label="最小值" label-width="150px">
               <el-input-number v-model="item.config.min" />
             </el-form-item>
-            <el-form-item label="最大值">
+            <el-form-item label="最大值" label-width="150px">
               <el-input-number v-model="item.config.max" />
             </el-form-item>
-            <el-form-item label="步长">
+            <el-form-item label="步长" label-width="150px">
               <el-input-number v-model="item.config.step" />
             </el-form-item>
           </template>
           <template v-if="item.config.component === componentTypes.number">
-            <el-form-item label="单位">
+            <el-form-item label="单位" label-width="150px">
               <el-input v-model="item.config.suffix" />
             </el-form-item>
           </template>
           <template v-if="item.config.component === componentTypes.radio">
-            <el-form-item label="枚举值">
+            <el-form-item label="枚举值" label-width="150px">
               <el-select
                 v-model="item.config.enums"
                 multiple
@@ -67,30 +76,41 @@
               />
             </el-form-item>
           </template>
-          <template v-if="enums.length > 0">
-            <el-form-item label="条件显示">
-              <el-select v-model="item.config.whichEnum">
+        </template>
+        <el-form-item v-if="hasRadio" label="条件显示" label-width="150px">
+          <el-row>
+            <el-col :span="11">
+              <el-select
+                v-model="item.config.whichEnum.field"
+                clearable
+                placeholder="枚举字段"
+              >
                 <el-option
-                  v-for="em in enums"
+                  v-for="f in fields"
+                  :key="f"
+                  :value="f"
+                />
+              </el-select>
+            </el-col>
+            <el-col :span="11" :offset="2">
+              <el-select
+                v-model="item.config.whichEnum.value"
+                clearable
+                placeholder="枚举值"
+              >
+                <el-option
+                  v-for="em in getEnums(item.config.whichEnum.field)"
                   :key="em"
                   :value="em"
                 />
               </el-select>
-            </el-form-item>
-          </template>
-        </template>
-        <el-form-item label="显示模式">
-          <el-select v-model="item.config.displayMode">
-            <el-option
-              v-for="dm in displayModes"
-              :key="dm"
-              :value="dm"
-            />
-          </el-select>
+            </el-col>
+          </el-row>
         </el-form-item>
         <el-form-item
           v-if="item.config.displayMode == 'nest'"
           label="工具栏"
+          label-width="150px"
         >
           <el-select v-model="item.config.features" multiple>
             <el-option
@@ -100,7 +120,7 @@
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="提示">
+        <el-form-item label="提示" label-width="150px">
           <el-autocomplete
             v-model="item.config.tip"
             :fetch-suggestions="querySearch"
@@ -113,14 +133,13 @@
         v-if="item.children"
         :config="item.children"
         :toggle-col="item.config.toggleCol"
-        :enums="item.config.enums"
       />
     </el-collapse-item>
   </el-collapse>
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, PropType, ref, computed } from 'vue'
 import { PropDto, ComponentType, DisplayMode, ToolboxType } from '@/domains/dev/prop-config'
 import ConfigFormItem from './config-form-item.vue'
 
@@ -135,15 +154,20 @@ export default defineComponent({
       required: true,
     },
     toggleCol: String,
-    enums: {
-      type: Array as PropType<string[]>,
-      default: () => [],
-    },
   },
-  setup() {
+  setup(props) {
     const componentTypes = ref({ ...ComponentType })
     const displayModes = ref({ ...DisplayMode })
     const toolboxTypes = ref({ ...ToolboxType })
+
+    const fields = computed(() => {
+      return props.config.map(m => m.key)
+    })
+
+    const hasRadio = computed(() => {
+      return props.config.some(m => m.config.component === 'radio')
+    })
+
     const querySearch = (queryString: string, cb: Function) => {
       const results = [
         '请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体',
@@ -156,11 +180,19 @@ export default defineComponent({
       cb(results)
     }
 
+    const getEnums = (field: string) => {
+      const config = props.config.find(m => m.key === field)
+      return config ? config.config.enums : []
+    }
+
     return {
       componentTypes,
       displayModes,
       toolboxTypes,
+      fields,
+      hasRadio,
       querySearch,
+      getEnums,
     }
   },
 })

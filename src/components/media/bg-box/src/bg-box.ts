@@ -31,6 +31,7 @@ export class BgBox extends DatavComponent {
       linearGradient: {
         width: 2,
         color: {
+          angle: 135,
           stops: [
             {
               offset: 0,
@@ -41,7 +42,6 @@ export class BgBox extends DatavComponent {
               color: '#008BFF',
             },
           ],
-          angle: 135,
         },
       },
       imageType: 'custom',
