@@ -21,13 +21,60 @@
           :tooltip="item.config.tip"
           :toggle="!!item.config.toggleCol"
           :model-value="true"
-          :features="item.config.features"
         >
           <preview-prop
             :config="item.children"
             :toggle-col="item.config.toggleCol"
             :level="2"
           />
+        </g-field-collapse>
+        <g-field-collapse
+          v-if="item.config.displayMode === 'nest-array'"
+          :label="item.config.alias"
+          :tooltip="item.config.tip"
+          :toggle="!!item.config.toggleCol"
+          :model-value="true"
+          mode="layout"
+          :features="item.config.features"
+          :default-layout="item.config.layout"
+          :list="item.children"
+          default-new-value="['']"
+        >
+          <!-- <g-field
+            v-if="item.config.displayMode === 'flat'"
+            :label="item.config.alias"
+            :tooltip="item.config.tip"
+            :level="2"
+            :is-flat="true"
+          >
+            <preview-prop
+              :config="item.children"
+              :toggle-col="item.config.toggleCol"
+              :level="2"
+            />
+          </g-field> -->
+          <template #default="slotProps">
+            <g-field
+              v-if="slotProps.item.config.displayMode === 'flat'"
+              :label="slotProps.item.config.alias"
+              :tooltip="slotProps.item.config.tip"
+              :level="2"
+              :is-flat="true"
+            >
+              <preview-prop
+                :config="slotProps.item.children"
+                :toggle-col="slotProps.item.config.toggleCol"
+                :is-flat="true"
+                :level="2"
+              />
+            </g-field>
+            <preview-prop
+              v-else
+              :config="slotProps.item.children"
+              :toggle-col="slotProps.item.config.toggleCol"
+              :level="2"
+            />
+          </template>
         </g-field-collapse>
         <g-field
           v-else-if="item.config.displayMode === 'flat'"

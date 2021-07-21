@@ -36,13 +36,16 @@ $animation-duration-fast: 0.1s; // Tooltip
 
 // Base
 $font-color: #bcc9d4;
-$font-color-secondary: #a1aeb3;
 $font-color-placeholder: #c0c4cc;
+$font-color-disabled: #424447;
 $font-size: 12px;
 $header-font-size: $font-size;
 $hover-color: #409fff;
 $nav-color: #b9c2cc;
 $nav-border-color: #27343e;
+$gui-font-color: #a1aeb3;
+$gui-font-color-2: #a1aeb3;
+$gui-hover-color: #26a5ff;
 
 // Background
 $background-color: #171b22;
@@ -64,7 +67,6 @@ $shadow-secondary: 0 0 8px -4px $shadow-color;
 // Input
 $input-color-hover: $color-primary;
 $input-font-color: $font-color;
-$input-font-color-disabled: #424447;
 $input-description-font-color: #5c6366;
 $input-prepend-bgcolor: #39414d;
 $input-border-color: #0b0c0d;
@@ -228,14 +230,15 @@ $state-color: #576369;
 // DataV GUI
 $field-font-size: $font-size;
 $field-font-color: #fff;
-$field-font-color-secondary: #c3d3d9;
-$field-font-color-thirdly: #737c80;
+$field-font-color-2: #c3d3d9;
+$field-font-color-3: #737c80;
 $field-height: 28px;
 $field-help-color: #a1aeb3;
 $field-container-width: 192px;
 $field-collapse-header-bgcolor: #1c2026;
 $field-collapse-arrow-color: #a1aeb3;
 $field-collapse-item-bgcolor: #111417;
+$field-border-color: rgba(52, 52, 52, 0.5);
 
 $upload-font-color: #fff;
 $upload-tip-color: $font-color;

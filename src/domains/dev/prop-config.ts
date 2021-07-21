@@ -40,6 +40,7 @@ export enum DisplayMode {
   single = 'single',
   flat = 'flat',
   nest = 'nest',
+  nestArray = 'nest-array',
 }
 
 export interface PropConfig {
@@ -49,6 +50,7 @@ export interface PropConfig {
   tip: string
   displayMode: DisplayMode
   features: ToolboxType[]
+  layout: ToolboxType.horizontal | ToolboxType.vertical
   toggleCol: string
   defaultValue: any
   min: number
@@ -70,6 +72,7 @@ export const createPropConfig = () => {
     tip: '',
     displayMode: DisplayMode.single,
     features: [],
+    layout: ToolboxType.horizontal,
     toggleCol: '',
     defaultValue: null,
     min: 0,
@@ -126,7 +129,7 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       pc.displayMode = DisplayMode.nest
       dto.children = []
       // dto.cols = Object.keys(val[0])
-      initPropData([val[0]], dto.children, dto.path)
+      initPropData(val, dto.children, dto.path)
     }
     arr.push(dto)
   }

@@ -57,14 +57,14 @@
     line-height: 40px;
     color: #fff;
     background: $field-collapse-header-bgcolor;
-    border-bottom-color: rgba(52, 52, 52, 0.5);
+    border-bottom-color: $field-border-color;
   }
 
   .el-collapse-item__wrap {
     padding: 0;
     // padding-right: 8px;
     background-color: $field-collapse-item-bgcolor;
-    border-bottom-color: rgba(52, 52, 52, 0.5);
+    border-bottom-color: $field-border-color;
   }
 
   .el-collapse-item__content {
@@ -77,16 +77,16 @@
     margin-bottom: 1px;
 
     .g-field-title {
-      color: $field-font-color-thirdly;
+      color: $field-font-color-3;
     }
 
     .el-collapse-item__header {
-      color: $field-font-color-secondary;
+      color: $field-font-color-2;
       background-color: $field-collapse-item-bgcolor;
 
       .g-field-title,
       .g-field-title-with-description {
-        color: $field-font-color-secondary;
+        color: $field-font-color-2;
       }
     }
   }

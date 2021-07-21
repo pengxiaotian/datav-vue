@@ -3,6 +3,7 @@
     .g-field-collapse-panel-toolbox {
       color: $font-color;
       margin-left: auto;
+      line-height: 20px;
 
       .toolbox-icon {
         margin-left: 6px;
@@ -17,6 +18,11 @@
         &.v-icon-plus:hover {
           transform: rotate(90deg);
         }
+
+        &.--disabled {
+          color: $font-color-disabled;
+          cursor: not-allowed;
+        }
       }
 
       .g-field-collapse-panel-toolbox-split {
@@ -24,7 +30,7 @@
         display: inline-block;
         width: 1px;
         height: 8px;
-        border-left: 1px solid rgba(52, 52, 52, 0.5);
+        border-left: 1px solid $field-border-color;
       }
     }
   }
@@ -35,5 +41,14 @@
         margin: 0 8px 0 6px;
       }
     }
+  }
+
+  .g-field-collapse-panel-empty {
+    padding: 12px;
+    padding-left: 28px;
+    font-size: $font-size;
+    color: $field-font-color-3;
+    height: 40px;
+    line-height: 40px;
   }
 }

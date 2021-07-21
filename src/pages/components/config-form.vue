@@ -107,19 +107,26 @@
             </el-col>
           </el-row>
         </el-form-item>
-        <el-form-item
-          v-if="item.config.displayMode == 'nest'"
-          label="工具栏"
-          label-width="150px"
-        >
-          <el-select v-model="item.config.features" multiple>
-            <el-option
-              v-for="tt in toolboxTypes"
-              :key="tt"
-              :value="tt"
-            />
-          </el-select>
-        </el-form-item>
+        <template v-if="item.config.displayMode == 'nest-array'">
+          <el-form-item label="工具栏" label-width="150px">
+            <el-select v-model="item.config.features" multiple>
+              <el-option
+                v-for="tt in toolboxTypes"
+                :key="tt"
+                :value="tt"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="默认布局" label-width="150px">
+            <el-select v-model="item.config.layout">
+              <el-option
+                v-for="tt in [toolboxTypes.horizontal, toolboxTypes.vertical]"
+                :key="tt"
+                :value="tt"
+              />
+            </el-select>
+          </el-form-item>
+        </template>
         <el-form-item label="提示" label-width="150px">
           <el-autocomplete
             v-model="item.config.tip"

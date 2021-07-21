@@ -1,0 +1,61 @@
+.g-field-tabs {
+  &.el-tabs--border-card {
+    background: $field-collapse-header-bgcolor;
+    border: none;
+    border-bottom: 1px solid $field-border-color;
+    box-shadow: unset;
+
+    .el-tabs__header {
+      background-color: $field-collapse-item-bgcolor;
+      border-bottom-color: $field-border-color;
+
+      .el-tabs__item {
+        font-size: 12px;
+        color: $gui-font-color;
+        height: 36px;
+        line-height: 36px;
+        padding: 0 15px;
+        user-select: none;
+
+        &::before {
+          content: "";
+          position: absolute;
+          display: inline-block;
+          bottom: 4px;
+          height: 4px;
+          width: 4px;
+          border-radius: 1px;
+          left: calc(50% - 4px);
+          background: $color-primary;
+          transition: all 0.2s;
+          opacity: 0;
+        }
+
+        &.is-active {
+          color: $color-primary;
+          background-color: transparent;
+          border-color: transparent;
+
+          &::before {
+            opacity: 1;
+          }
+        }
+
+        &:hover {
+          color: $gui-hover-color;
+        }
+      }
+    }
+
+    .el-tabs__content {
+      padding: 0;
+      background-color: $field-collapse-item-bgcolor;
+    }
+  }
+
+  &.--column {
+    .g-field-tabs-column-item {
+      border-bottom: 1px solid $field-border-color;
+    }
+  }
+}
