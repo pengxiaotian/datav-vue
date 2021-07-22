@@ -78,10 +78,10 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, toRefs, computed, ref, inject } from 'vue'
+import { globalConfig } from '@/config'
 import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
-import { LOGO } from '@/data/images'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
@@ -106,7 +106,7 @@ export default defineComponent({
         }
       }
       return {
-        'background-image': `url(${LOGO})`,
+        'background-image': `url(${globalConfig.logo})`,
         'background-size': '50%',
         'background-position': 'center center',
         'background-repeat': 'no-repeat',

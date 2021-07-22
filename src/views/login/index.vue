@@ -63,7 +63,6 @@
 import { defineComponent, ref, watch, defineAsyncComponent } from 'vue'
 import { UserStore } from '@/domains/user'
 import { useRouter, useRoute } from 'vue-router'
-import { config } from '@/config'
 
 const validateUsername = (rule: any, value: string, callback: Function) => {
   if (!['admin', 'editor'].includes(value)) {
@@ -164,7 +163,6 @@ export default defineComponent({
       otherQuery,
       checkCapslock,
       handleLogin,
-      title: ref(config.title),
     }
   },
 })

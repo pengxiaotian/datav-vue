@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { config } from '@/config'
+import { globalConfig } from '@/config'
 import { getToken } from '@/utils/token-util'
 import { UserStore } from '@/domains/user'
 
@@ -101,9 +101,9 @@ const whiteList = ['/login', '/auth-redirect', '/dev'] // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
   // set page title
   if (to.meta && to.meta.title) {
-    document.title = `${to.meta.title} | ${config.title}`
+    document.title = `${to.meta.title} | ${globalConfig.title}`
   } else {
-    document.title = config.title
+    document.title = globalConfig.title
   }
 
   const hasToken = getToken()

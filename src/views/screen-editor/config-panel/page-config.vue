@@ -124,9 +124,9 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed } from 'vue'
+import { globalConfig } from '@/config'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
-import { LOGO } from '@/data/images'
 import { ZoomMode } from '@/utils/enums'
 import html2canvas from 'html2canvas'
 import { uploadHost, previewHost, validAllowImg, dataURLtoBlob } from '@/utils/upload-util'
@@ -143,7 +143,7 @@ export default defineComponent({
 
     const cover = ref({
       loading: false,
-      img: LOGO,
+      img: globalConfig.logo,
       uploadHost,
     })
     const uploadLoading = ref(false)

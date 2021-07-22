@@ -1,6 +1,3 @@
-// DataV Logo
-const LOGO = `${import.meta.env.VITE_APP_CDN}/datav/datav-vue-logo.png`
-
 const boxs = [
   {
     id: 1, src: `box1-126-154.png`, width: [71, 23], slice: [], repeat: 'initial',
@@ -88,7 +85,6 @@ const decorateImgs = decorates.map(m => ({
 }))
 
 export {
-  LOGO,
   boxImgs,
   decorateImgs,
 }

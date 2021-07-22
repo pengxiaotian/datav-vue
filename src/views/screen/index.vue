@@ -43,13 +43,13 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { globalConfig } from '@/config'
 import { EditorModule } from '@/store/modules/editor'
 import { FilterModule } from '@/store/modules/filter'
 import { ProjectConfig } from '@/domains/project'
 import { ZoomMode } from '@/utils/enums'
 import { setStyle, on } from '@/utils/dom'
 import { getScreen } from '@/api/screen'
-import { LOGO } from '@/data/images'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
@@ -204,7 +204,7 @@ export default defineComponent({
 
     return {
       cdn,
-      LOGO,
+      LOGO: globalConfig.logo,
       loading,
       pageConfig,
       coms,
