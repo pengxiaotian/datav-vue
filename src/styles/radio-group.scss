@@ -10,7 +10,8 @@
       justify-content: center;
       padding: 6px 8px;
       border-radius: 0;
-      font-size: 12px;
+      font-size: $font-size;
+      font-weight: normal;
       outline: $border-outline;
       border: none;
       color: $gui-component-color;
@@ -24,8 +25,8 @@
 
   .el-radio-button__orig-radio:checked + .el-radio-button__inner {
     color: #fff;
-    background-color: $color-primary;
-    box-shadow: -1px 0 0 0 $color-primary;
+    background-color: $gui-primary-color;
+    box-shadow: -1px 0 0 0 $gui-primary-color;
 
     &:hover {
       background-color: $hover-color;
@@ -39,7 +40,7 @@
         padding: 4px 8px;
 
         &:hover {
-          outline-color: $color-primary;
+          outline-color: $gui-primary-color;
         }
       }
 
@@ -49,7 +50,7 @@
     }
 
     .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-      outline-color: $color-primary;
+      outline-color: $gui-primary-color;
 
       &:hover {
         outline-color: $hover-color;

@@ -4,8 +4,8 @@
     "config": {
       "type": "number",
       "component": "number",
-      "alias": "",
-      "tip": "",
+      "alias": "圆角",
+      "tip": "当应用渐变边框或图片边框时，圆角失效",
       "displayMode": "single",
       "features": [],
       "layout": "horizontal",
@@ -14,7 +14,7 @@
       "min": 0,
       "max": 100,
       "step": 1,
-      "suffix": "",
+      "suffix": "px",
       "enums": [],
       "whichEnum": {
         "field": "",
@@ -30,15 +30,21 @@
     "config": {
       "type": "array",
       "component": "none",
-      "alias": "dfdf",
+      "alias": "填充",
       "tip": "",
       "displayMode": "nest-array",
-      "features": [],
+      "features": [
+        "vertical",
+        "horizontal",
+        "copy",
+        "add",
+        "remove"
+      ],
       "layout": "horizontal",
       "toggleCol": "",
       "defaultValue": null,
       "min": 0,
-      "max": 100,
+      "max": 5,
       "step": 1,
       "suffix": "",
       "enums": [],
@@ -56,9 +62,9 @@
         "config": {
           "type": "object",
           "component": "none",
-          "alias": "",
+          "alias": "填充",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
@@ -81,8 +87,8 @@
             "key": "fill",
             "config": {
               "type": "string",
-              "component": "input",
-              "alias": "",
+              "component": "color",
+              "alias": "填充",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -108,7 +114,7 @@
             "config": {
               "type": "number",
               "component": "number",
-              "alias": "",
+              "alias": "透明度",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -118,7 +124,7 @@
               "min": 0,
               "max": 100,
               "step": 1,
-              "suffix": "",
+              "suffix": "%",
               "enums": [],
               "whichEnum": {
                 "field": "",
@@ -139,12 +145,12 @@
     "config": {
       "type": "object",
       "component": "none",
-      "alias": "vbvb",
+      "alias": "边框",
       "tip": "",
       "displayMode": "nest",
       "features": [],
       "layout": "horizontal",
-      "toggleCol": "",
+      "toggleCol": "show",
       "defaultValue": null,
       "min": 0,
       "max": 100,
@@ -191,7 +197,7 @@
         "config": {
           "type": "string",
           "component": "radio",
-          "alias": "cvbcb",
+          "alias": "边框类型",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -203,9 +209,9 @@
           "step": 1,
           "suffix": "",
           "enums": [
-            "zz",
-            "ff",
-            "dd"
+            "flat",
+            "linearGradient",
+            "image"
           ],
           "whichEnum": {
             "field": "",
@@ -221,9 +227,9 @@
         "config": {
           "type": "object",
           "component": "none",
-          "alias": "",
+          "alias": "边框配置",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
@@ -235,7 +241,7 @@
           "enums": [],
           "whichEnum": {
             "field": "type",
-            "value": "zz"
+            "value": "flat"
           },
           "defaultNewValue": "{}"
         },
@@ -247,7 +253,7 @@
             "config": {
               "type": "number",
               "component": "number",
-              "alias": "",
+              "alias": "粗细",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -257,7 +263,7 @@
               "min": 0,
               "max": 100,
               "step": 1,
-              "suffix": "",
+              "suffix": "px",
               "enums": [],
               "whichEnum": {
                 "field": "",
@@ -272,8 +278,8 @@
             "key": "style",
             "config": {
               "type": "string",
-              "component": "input",
-              "alias": "",
+              "component": "lineStyle",
+              "alias": "样式",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -298,8 +304,8 @@
             "key": "color",
             "config": {
               "type": "string",
-              "component": "input",
-              "alias": "",
+              "component": "color",
+              "alias": "颜色",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -332,7 +338,7 @@
         "config": {
           "type": "object",
           "component": "none",
-          "alias": "sdfdf",
+          "alias": "边框配置",
           "tip": "",
           "displayMode": "nest",
           "features": [],
@@ -346,7 +352,7 @@
           "enums": [],
           "whichEnum": {
             "field": "type",
-            "value": "ff"
+            "value": "linearGradient"
           },
           "defaultNewValue": "{}"
         },
@@ -358,7 +364,7 @@
             "config": {
               "type": "number",
               "component": "number",
-              "alias": "",
+              "alias": "粗细",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -368,7 +374,7 @@
               "min": 0,
               "max": 100,
               "step": 1,
-              "suffix": "",
+              "suffix": "px",
               "enums": [],
               "whichEnum": {
                 "field": "",
@@ -384,7 +390,7 @@
             "config": {
               "type": "object",
               "component": "none",
-              "alias": "",
+              "alias": "渐变色",
               "tip": "",
               "displayMode": "nest",
               "features": [],
@@ -410,7 +416,7 @@
                 "config": {
                   "type": "number",
                   "component": "number",
-                  "alias": "",
+                  "alias": "角度",
                   "tip": "",
                   "displayMode": "single",
                   "features": [],
@@ -418,9 +424,9 @@
                   "toggleCol": "",
                   "defaultValue": 135,
                   "min": 0,
-                  "max": 100,
+                  "max": 360,
                   "step": 1,
-                  "suffix": "",
+                  "suffix": "deg",
                   "enums": [],
                   "whichEnum": {
                     "field": "",
@@ -436,10 +442,16 @@
                 "config": {
                   "type": "array",
                   "component": "none",
-                  "alias": "",
+                  "alias": "节点",
                   "tip": "",
                   "displayMode": "nest-array",
-                  "features": [],
+                  "features": [
+                    "vertical",
+                    "horizontal",
+                    "copy",
+                    "add",
+                    "remove"
+                  ],
                   "layout": "horizontal",
                   "toggleCol": "",
                   "defaultValue": null,
@@ -462,9 +474,9 @@
                     "config": {
                       "type": "object",
                       "component": "none",
-                      "alias": "",
+                      "alias": "节点",
                       "tip": "",
-                      "displayMode": "nest",
+                      "displayMode": "flat",
                       "features": [],
                       "layout": "horizontal",
                       "toggleCol": "",
@@ -488,7 +500,7 @@
                         "config": {
                           "type": "number",
                           "component": "number",
-                          "alias": "",
+                          "alias": "位置",
                           "tip": "",
                           "displayMode": "single",
                           "features": [],
@@ -513,8 +525,8 @@
                         "key": "color",
                         "config": {
                           "type": "string",
-                          "component": "input",
-                          "alias": "",
+                          "component": "color",
+                          "alias": "颜色",
                           "tip": "",
                           "displayMode": "single",
                           "features": [],
@@ -556,8 +568,8 @@
         "key": "imageType",
         "config": {
           "type": "string",
-          "component": "input",
-          "alias": "",
+          "component": "radio",
+          "alias": "配置方式",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -568,10 +580,13 @@
           "max": 100,
           "step": 1,
           "suffix": "",
-          "enums": [],
+          "enums": [
+            "preset",
+            "custom"
+          ],
           "whichEnum": {
-            "field": "",
-            "value": ""
+            "field": "type",
+            "value": "image"
           },
           "defaultNewValue": "{}"
         },
@@ -582,8 +597,8 @@
         "key": "presetImage",
         "config": {
           "type": "string",
-          "component": "input",
-          "alias": "",
+          "component": "select",
+          "alias": "边框配置",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -596,8 +611,8 @@
           "suffix": "",
           "enums": [],
           "whichEnum": {
-            "field": "",
-            "value": ""
+            "field": "imageType",
+            "value": "preset"
           },
           "defaultNewValue": "{}"
         },
@@ -609,9 +624,9 @@
         "config": {
           "type": "object",
           "component": "none",
-          "alias": "",
+          "alias": "自定义边框",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
@@ -622,8 +637,8 @@
           "suffix": "",
           "enums": [],
           "whichEnum": {
-            "field": "",
-            "value": ""
+            "field": "imageType",
+            "value": "custom"
           },
           "defaultNewValue": "{}"
         },
@@ -634,8 +649,8 @@
             "key": "source",
             "config": {
               "type": "string",
-              "component": "input",
-              "alias": "",
+              "component": "upload-image",
+              "alias": "图片",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -661,7 +676,7 @@
             "config": {
               "type": "string",
               "component": "input",
-              "alias": "",
+              "alias": "切片",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -687,7 +702,7 @@
             "config": {
               "type": "string",
               "component": "input",
-              "alias": "",
+              "alias": "宽度",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -713,7 +728,7 @@
             "config": {
               "type": "string",
               "component": "input",
-              "alias": "",
+              "alias": "外扩",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -738,8 +753,8 @@
             "key": "repeat",
             "config": {
               "type": "string",
-              "component": "input",
-              "alias": "",
+              "component": "repeatType",
+              "alias": "平铺类型",
               "tip": "",
               "displayMode": "single",
               "features": [],
@@ -785,7 +800,7 @@
     "config": {
       "type": "object",
       "component": "none",
-      "alias": "",
+      "alias": "滤镜",
       "tip": "",
       "displayMode": "nest",
       "features": [],
@@ -811,7 +826,7 @@
         "config": {
           "type": "string",
           "component": "input",
-          "alias": "",
+          "alias": "模糊",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -842,7 +857,7 @@
     "config": {
       "type": "object",
       "component": "none",
-      "alias": "",
+      "alias": "背景过滤器",
       "tip": "",
       "displayMode": "nest",
       "features": [],
@@ -868,7 +883,7 @@
         "config": {
           "type": "string",
           "component": "input",
-          "alias": "",
+          "alias": "磨玻璃模糊",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -899,8 +914,8 @@
     "config": {
       "type": "object",
       "component": "none",
-      "alias": "",
-      "tip": "",
+      "alias": "超链接配置",
+      "tip": "点击图片区域可跳转至设定的超链接",
       "displayMode": "nest",
       "features": [],
       "layout": "horizontal",
@@ -925,7 +940,7 @@
         "config": {
           "type": "string",
           "component": "input",
-          "alias": "",
+          "alias": "超链接",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -951,7 +966,7 @@
         "config": {
           "type": "boolean",
           "component": "switch",
-          "alias": "",
+          "alias": "是否新打开窗口",
           "tip": "",
           "displayMode": "single",
           "features": [],

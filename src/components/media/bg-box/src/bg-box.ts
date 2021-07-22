@@ -47,7 +47,7 @@ export class BgBox extends DatavComponent {
       imageType: 'custom',
       presetImage: 'box38',
       customImage: {
-        source: 'https://datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/a7c93134c5e1440c58b1a7a3b675009b.png',
+        source: 'https://files.pengxiaotian.com/datav/custom-bg-border.png',
         slice: '32 37 fill',
         width: '32px 37px',
         outset: '0',
@@ -88,5 +88,22 @@ export class BgBox extends DatavComponent {
     return this
   }
 }
+
+export const borderTypes = [
+  { id: 'flat', value: '纯色' },
+  { id: 'linearGradient', value: '渐变' },
+  { id: 'image', value: '图片' },
+]
+
+export const imageTypes = [
+  { id: 'preset', value: '预设边框' },
+  { id: 'custom', value: '自定义边框' },
+]
+
+export const presetImages = [
+  {
+    id: 'box38', value: '框38', src: `https://files.pengxiaotian.com/bg-box/box38-380-180.png`, width: '14px', outset: '0', slice: '14 fill', repeat: 'stretch',
+  },
+]
 
 export default BgBox

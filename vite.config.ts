@@ -38,7 +38,7 @@ export default ({ mode }: ConfigEnv) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `$--color-primary: #2681ff;`,
+          additionalData: `$--color-primary: #2483ff;`,
         },
       },
     },
