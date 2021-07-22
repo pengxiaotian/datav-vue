@@ -11,8 +11,8 @@
         :step="item.config.step"
         :suffix="item.config.suffix"
         :label="item.config.alias"
-        :is-flat="true"
         :enums="item.config.enums"
+        :is-flat="true"
       />
       <template v-else-if="item.children">
         <g-field-collapse
@@ -29,30 +29,17 @@
           />
         </g-field-collapse>
         <g-field-collapse
-          v-if="item.config.displayMode === 'nest-array'"
+          v-else-if="item.config.displayMode === 'nest-array'"
           :label="item.config.alias"
           :tooltip="item.config.tip"
           :toggle="!!item.config.toggleCol"
           :model-value="true"
           mode="layout"
-          :features="item.config.features"
           :default-layout="item.config.layout"
+          :features="item.config.features"
           :list="item.children"
           default-new-value="['']"
         >
-          <!-- <g-field
-            v-if="item.config.displayMode === 'flat'"
-            :label="item.config.alias"
-            :tooltip="item.config.tip"
-            :level="2"
-            :is-flat="true"
-          >
-            <preview-prop
-              :config="item.children"
-              :toggle-col="item.config.toggleCol"
-              :level="2"
-            />
-          </g-field> -->
           <template #default="slotProps">
             <g-field
               v-if="slotProps.item.config.displayMode === 'flat'"

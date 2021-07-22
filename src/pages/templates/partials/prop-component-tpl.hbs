@@ -1,34 +1,56 @@
 {{#if (eq config.component componentTypes.input)}}
-<el-input
-  v-model="config.{{path}}"
-  size="mini"
+<g-input
+  v-model="{{ getPath path virtualPath }}"
+  {{#if isFlat}}
+  is-inline
+  label="{{config.alias}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.number)}}
 <g-input-number
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   :min="{{config.min}}"
   :max="{{config.max}}"
   :step="{{config.step}}"
-  :is-inline="false"
   {{#if config.suffix}}
   suffix="{{config.suffix}}"
+  {{/if}}
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
+{{else if (eq config.component componentTypes.color)}}
+<g-color-picker
+  v-model="{{ getPath path virtualPath }}"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.checkbox)}}
 <el-checkbox
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
 />
 {{else if (eq config.component componentTypes.switch)}}
 <el-switch
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
 />
-{{else if (eq config.component componentTypes.color)}}
-<g-color-picker
-  v-model="config.{{path}}"
-/>
+{{else if (eq config.component componentTypes.radio)}}
+<el-radio-group
+  v-model="{{ getPath path virtualPath }}"
+>
+  <el-radio-button
+    v-for="em in {{{ enumsToTpl config.enums }}}"
+    :key="em"
+    :label="em"
+  >
+    \{{ em }}
+  </el-radio-button>
+</el-radio-group>
 {{else if (eq config.component componentTypes.slider)}}
 <el-slider
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   :min="{{config.min}}"
   :max="{{config.max}}"
   :step="{{config.step}}"
@@ -39,7 +61,7 @@
 />
 {{else if (eq config.component componentTypes.select)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   disabled
   size="mini"
 >
@@ -52,7 +74,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.fontFamily)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -64,7 +86,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.fontWeight)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -76,7 +98,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.fontStyle)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -88,7 +110,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.hAlign)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -100,7 +122,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.vAlign)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -112,7 +134,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.writingMode)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -124,7 +146,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.justify)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -136,7 +158,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.align)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -148,7 +170,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.angle)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -160,7 +182,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.location)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -172,7 +194,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.lineStyle)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option
@@ -184,7 +206,7 @@
 </el-select>
 {{else if (eq config.component componentTypes.fillType)}}
 <el-select
-  v-model="config.{{path}}"
+  v-model="{{ getPath path virtualPath }}"
   size="mini"
 >
   <el-option

@@ -62,6 +62,7 @@ export interface PropConfig {
     field: string
     value: string
   }
+  defaultNewValue: string
 }
 
 export const createPropConfig = () => {
@@ -84,6 +85,7 @@ export const createPropConfig = () => {
       field: '',
       value: '',
     },
+    defaultNewValue: '{}',
   }
 
   return data
@@ -93,6 +95,7 @@ export interface PropDto {
   key: string
   config: PropConfig
   path: string
+  virtualPath: string
   children?: PropDto[]
   cols?: string[]
 }
@@ -101,10 +104,16 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
   const entries = Object.entries(data)
   for (const [key, val] of entries) {
     const pc = createPropConfig()
+    const path = prev ? `${prev}.${key}` : key
+    let virtualPath = ''
+    if (prev && prev.endsWith('.0')) {
+      virtualPath = `slotProps.item.${key}`
+    }
     const dto: PropDto = {
       key,
       config: pc,
-      path: prev ? `${prev}.${key}` : key,
+      path,
+      virtualPath,
     }
     if (isString(val)) {
       pc.type = PropDataType.string
@@ -129,7 +138,7 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       pc.displayMode = DisplayMode.nest
       dto.children = []
       // dto.cols = Object.keys(val[0])
-      initPropData(val, dto.children, dto.path)
+      initPropData([val[0]], dto.children, dto.path)
     }
     arr.push(dto)
   }

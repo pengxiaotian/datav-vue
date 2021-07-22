@@ -1,1 +1,981 @@
-[]
+[
+  {
+    "key": "borderRadius",
+    "config": {
+      "type": "number",
+      "component": "number",
+      "alias": "",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "defaultValue": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "defaultNewValue": "{}"
+    },
+    "path": "borderRadius",
+    "virtualPath": ""
+  },
+  {
+    "key": "fills",
+    "config": {
+      "type": "array",
+      "component": "none",
+      "alias": "dfdf",
+      "tip": "",
+      "displayMode": "nest-array",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "defaultNewValue": "{}"
+    },
+    "path": "fills",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "0",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "fills.0",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "fill",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": "#003a8c",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "fills.0.fill",
+            "virtualPath": "slotProps.item.fill"
+          },
+          {
+            "key": "opacity",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": 10,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "fills.0.opacity",
+            "virtualPath": "slotProps.item.opacity"
+          }
+        ],
+        "cols": []
+      }
+    ]
+  },
+  {
+    "key": "border",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "vbvb",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "defaultNewValue": "{}"
+    },
+    "path": "border",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "show",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": true,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "border.show",
+        "virtualPath": ""
+      },
+      {
+        "key": "type",
+        "config": {
+          "type": "string",
+          "component": "radio",
+          "alias": "cvbcb",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "flat",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [
+            "zz",
+            "ff",
+            "dd"
+          ],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "border.type",
+        "virtualPath": ""
+      },
+      {
+        "key": "flat",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "type",
+            "value": "zz"
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "border.flat",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "width",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": 1,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.flat.width",
+            "virtualPath": ""
+          },
+          {
+            "key": "style",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": "solid",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.flat.style",
+            "virtualPath": ""
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": "#008bff",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.flat.color",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "width",
+          "style",
+          "color"
+        ]
+      },
+      {
+        "key": "linearGradient",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "sdfdf",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "type",
+            "value": "ff"
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "border.linearGradient",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "width",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": 2,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.linearGradient.width",
+            "virtualPath": ""
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "object",
+              "component": "none",
+              "alias": "",
+              "tip": "",
+              "displayMode": "nest",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": null,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.linearGradient.color",
+            "virtualPath": "",
+            "children": [
+              {
+                "key": "angle",
+                "config": {
+                  "type": "number",
+                  "component": "number",
+                  "alias": "",
+                  "tip": "",
+                  "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "defaultValue": 135,
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "defaultNewValue": "{}"
+                },
+                "path": "border.linearGradient.color.angle",
+                "virtualPath": ""
+              },
+              {
+                "key": "stops",
+                "config": {
+                  "type": "array",
+                  "component": "none",
+                  "alias": "",
+                  "tip": "",
+                  "displayMode": "nest-array",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "defaultValue": null,
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "defaultNewValue": "{}"
+                },
+                "path": "border.linearGradient.color.stops",
+                "virtualPath": "",
+                "children": [
+                  {
+                    "key": "0",
+                    "config": {
+                      "type": "object",
+                      "component": "none",
+                      "alias": "",
+                      "tip": "",
+                      "displayMode": "nest",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "defaultValue": null,
+                      "min": 0,
+                      "max": 100,
+                      "step": 1,
+                      "suffix": "",
+                      "enums": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "defaultNewValue": "{}"
+                    },
+                    "path": "border.linearGradient.color.stops.0",
+                    "virtualPath": "",
+                    "children": [
+                      {
+                        "key": "offset",
+                        "config": {
+                          "type": "number",
+                          "component": "number",
+                          "alias": "",
+                          "tip": "",
+                          "displayMode": "single",
+                          "features": [],
+                          "layout": "horizontal",
+                          "toggleCol": "",
+                          "defaultValue": 0,
+                          "min": 0,
+                          "max": 100,
+                          "step": 1,
+                          "suffix": "",
+                          "enums": [],
+                          "whichEnum": {
+                            "field": "",
+                            "value": ""
+                          },
+                          "defaultNewValue": "{}"
+                        },
+                        "path": "border.linearGradient.color.stops.0.offset",
+                        "virtualPath": "slotProps.item.offset"
+                      },
+                      {
+                        "key": "color",
+                        "config": {
+                          "type": "string",
+                          "component": "input",
+                          "alias": "",
+                          "tip": "",
+                          "displayMode": "single",
+                          "features": [],
+                          "layout": "horizontal",
+                          "toggleCol": "",
+                          "defaultValue": "#00DEFF",
+                          "min": 0,
+                          "max": 100,
+                          "step": 1,
+                          "suffix": "",
+                          "enums": [],
+                          "whichEnum": {
+                            "field": "",
+                            "value": ""
+                          },
+                          "defaultNewValue": "{}"
+                        },
+                        "path": "border.linearGradient.color.stops.0.color",
+                        "virtualPath": "slotProps.item.color"
+                      }
+                    ],
+                    "cols": []
+                  }
+                ]
+              }
+            ],
+            "cols": [
+              "angle",
+              "stops"
+            ]
+          }
+        ],
+        "cols": [
+          "width",
+          "color"
+        ]
+      },
+      {
+        "key": "imageType",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "custom",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "border.imageType",
+        "virtualPath": ""
+      },
+      {
+        "key": "presetImage",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "box38",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "border.presetImage",
+        "virtualPath": ""
+      },
+      {
+        "key": "customImage",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "border.customImage",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "source",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": "https://datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/a7c93134c5e1440c58b1a7a3b675009b.png",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.customImage.source",
+            "virtualPath": ""
+          },
+          {
+            "key": "slice",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": "32 37 fill",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.customImage.slice",
+            "virtualPath": ""
+          },
+          {
+            "key": "width",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": "32px 37px",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.customImage.width",
+            "virtualPath": ""
+          },
+          {
+            "key": "outset",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": "0",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.customImage.outset",
+            "virtualPath": ""
+          },
+          {
+            "key": "repeat",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": "no-repeat",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "defaultNewValue": "{}"
+            },
+            "path": "border.customImage.repeat",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "source",
+          "slice",
+          "width",
+          "outset",
+          "repeat"
+        ]
+      }
+    ],
+    "cols": [
+      "show",
+      "type",
+      "flat",
+      "linearGradient",
+      "imageType",
+      "presetImage",
+      "customImage"
+    ]
+  },
+  {
+    "key": "filter",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "defaultNewValue": "{}"
+    },
+    "path": "filter",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "blur",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "0px",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "filter.blur",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "blur"
+    ]
+  },
+  {
+    "key": "backdropFilter",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "defaultNewValue": "{}"
+    },
+    "path": "backdropFilter",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "blur",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "0px",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "backdropFilter.blur",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "blur"
+    ]
+  },
+  {
+    "key": "urlConfig",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "defaultNewValue": "{}"
+    },
+    "path": "urlConfig",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "url",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "urlConfig.url",
+        "virtualPath": ""
+      },
+      {
+        "key": "ifBlank",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": false,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "defaultNewValue": "{}"
+        },
+        "path": "urlConfig.ifBlank",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "url",
+      "ifBlank"
+    ]
+  }
+]

@@ -119,12 +119,12 @@ export default defineComponent({
         if (classPath.value) {
           loading.value = true
           let comModule: any
+          const name = classPath.value.split('/').pop()
+          fileName.value = name
           if (ext.value === '.ts') {
-            const name = classPath.value.split('/').pop()
             const path = `${classPath.value}/src/${name}`
             comModule = await import(`../../components/${path}.ts`)
             if (comModule.default.prototype instanceof DatavComponent) {
-              fileName.value = name
               list.value = []
               const dvc = new comModule.default()
               initPropData(dvc.config, list.value, '')

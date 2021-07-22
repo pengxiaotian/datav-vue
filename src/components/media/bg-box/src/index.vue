@@ -6,7 +6,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
-import { useDataCenter } from '@/mixins/data-center'
+import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
 import { BgBox } from './bg-box'
 

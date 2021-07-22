@@ -126,6 +126,9 @@
               />
             </el-select>
           </el-form-item>
+          <el-form-item label="默认新值" label-width="150px">
+            <el-input v-model="item.config.defaultNewValue" />
+          </el-form-item>
         </template>
         <el-form-item label="提示" label-width="150px">
           <el-autocomplete

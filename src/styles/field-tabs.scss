@@ -9,12 +9,30 @@
       background-color: $field-collapse-item-bgcolor;
       border-bottom-color: $field-border-color;
 
+      .el-tabs__nav-next,
+      .el-tabs__nav-prev {
+        line-height: 36px;
+        padding: 0 4px;
+        color: $field-font-color-2;
+
+        .el-icon-arrow-left,
+        .el-icon-arrow-right {
+          font-size: 12px;
+        }
+
+        &:hover {
+          color: $gui-hover-color;
+          background: transparent;
+        }
+      }
+
       .el-tabs__item {
         font-size: 12px;
         color: $gui-font-color;
         height: 36px;
         line-height: 36px;
         padding: 0 15px;
+        margin-top: 0;
         user-select: none;
 
         &::before {

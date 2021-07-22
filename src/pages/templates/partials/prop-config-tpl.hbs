@@ -1,6 +1,15 @@
 {{#each configs as | item |}}
-{{#if item.children}}
+{{#if ../isFlat}}
+{{> prop-component-tpl
+  componentTypes=../componentTypes
+  isFlat=true
+}}
+{{else if item.children}}
+  {{#if (eq item.config.displayMode 'nest')}}
 <g-field-collapse
+  {{#if item.config.whichEnum.field}}
+  v-if="config.{{goBack item.path 2}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  {{/if}}
   {{#if item.config.toggleCol}}
   v-model="config.{{item.path}}.{{item.config.toggleCol}}"
   :toggle="true"
@@ -11,14 +20,82 @@
   label="{{item.config.alias}}"
 >
   {{> prop-config-tpl
-    configs=item.children
     componentTypes=../componentTypes
+    configs=item.children
     toggleCol=item.config.toggleCol
     level=2
   }}
 </g-field-collapse>
+  {{else if (eq item.config.displayMode 'nest-array')}}
+<g-field-collapse
+  {{#if item.config.whichEnum.field}}
+  v-if="config.{{goBack item.path 2}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  {{/if}}
+  {{#if item.config.tip}}
+  tooltip="{{{item.config.tip}}}"
+  {{/if}}
+  label="{{item.config.alias}}"
+  mode="layout"
+  default-layout="{{item.config.layout}}"
+  :features="{{{enumsToTpl item.config.features}}}"
+  :list="config.{{item.path}}"
+  default-new-value="{{{item.config.defaultNewValue}}}"
+>
+  <template #default="slotProps">
+    {{#if (eq item.children.0.config.displayMode 'flat')}}
+    <g-field
+      label="{{item.children.0.config.alias}}"
+      tooltip="{{item.children.0.config.tip}}"
+      :level="2"
+      :is-flat="true"
+    >
+      {{> prop-config-tpl
+        componentTypes=../componentTypes
+        configs=item.children.0.children
+        toggleCol=item.children.0.config.toggleCol
+        level=2
+        isFlat=true
+      }}
+    </g-field>
+    {{else}}
+    {{> prop-config-tpl
+        componentTypes=../componentTypes
+        configs=item.children.0.children
+        toggleCol=item.children.0.config.toggleCol
+        level=2
+        isFlat=false
+    }}
+    {{/if}}
+  </template>
+</g-field-collapse>
+  {{else if (eq item.config.displayMode 'flat')}}
+<g-field
+  {{#if item.config.whichEnum.field}}
+  v-if="config.{{goBack item.path 2}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  {{/if}}
+  {{#if (neq ../level 1)}}
+  :level="{{../level}}"
+  {{/if}}
+  {{#if item.config.tip}}
+  tooltip="{{{item.config.tip}}}"
+  {{/if}}
+  label="{{item.config.alias}}"
+  :is-flat="true"
+>
+  {{> prop-config-tpl
+    componentTypes=../componentTypes
+    configs=item.children
+    toggleCol=item.config.toggleCol
+    level=2
+    isFlat=true
+  }}
+</g-field>
+  {{/if}}
 {{else if (neq ../toggleCol item.key)}}
 <g-field
+  {{#if item.config.whichEnum.field}}
+  v-if="config.{{goBack item.path 2}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  {{/if}}
   {{#if (neq ../level 1)}}
   :level="{{../level}}"
   {{/if}}
