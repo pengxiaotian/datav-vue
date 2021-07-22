@@ -19,7 +19,15 @@
     }
 
     .el-input__suffix {
-      right: 0;
+      right: 1px;
+
+      .el-input__suffix-inner {
+        background: $upload-bgcolor;
+      }
+
+      .el-input__icon {
+        font-size: 12px;
+      }
     }
   }
 

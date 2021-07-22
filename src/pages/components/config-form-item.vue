@@ -185,6 +185,10 @@
       :value="item.id"
     />
   </el-select>
+  <g-upload-image
+    v-else-if="componentType === componentTypes.uploadImage"
+    v-model="strValue"
+  />
   <span v-else>--</span>
 </template>
 

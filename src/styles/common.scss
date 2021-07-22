@@ -3,5 +3,9 @@
     display: inline-block;
     width: 98px;
     padding: 0 4px 4px;
+
+    &.--single {
+      width: 196px;
+    }
   }
 }

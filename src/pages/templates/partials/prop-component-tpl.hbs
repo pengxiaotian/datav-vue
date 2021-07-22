@@ -60,162 +60,131 @@
   class="g-slider"
 />
 {{else if (eq config.component componentTypes.select)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
+  :data="[]"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
   disabled
-  size="mini"
->
-  <el-option
-    v-for="item in []"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+/>
 {{else if (eq config.component componentTypes.fontFamily)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in fontFamilys"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="fontFamilys"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.fontWeight)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in fontWeights"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="fontWeights"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.fontStyle)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in fontStyles"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="fontStyles"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.hAlign)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in hAligns"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="hAligns"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.vAlign)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in vAligns"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="vAligns"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.writingMode)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in writingModes"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="writingModes"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.justify)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in justifyContents"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="justifyContents"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.align)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in aligns"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="aligns"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.angle)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in angles"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="angles"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.location)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in locations"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="locations"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.lineStyle)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in lineStyles"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="lineStyles"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.fillType)}}
-<el-select
+<g-select
   v-model="{{ getPath path virtualPath }}"
-  size="mini"
->
-  <el-option
-    v-for="item in fillTypes"
-    :key="item.id"
-    :label="item.value"
-    :value="item.id"
-  />
-</el-select>
+  :data="fillTypes"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
+{{else if (eq config.component componentTypes.uploadImage)}}
+<g-upload-image
+  v-model="{{ getPath path virtualPath }}"
+  {{#if isFlat}}
+  is-inline
+  label="{{label}}"
+  {{/if}}
+/>
 {{else}}
 <span>--</span>
 {{/if}}

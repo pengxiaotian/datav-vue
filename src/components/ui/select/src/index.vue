@@ -34,10 +34,10 @@ import { defineComponent, PropType } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 export default defineComponent({
-  name: 'GInputNumber',
+  name: 'GSelect',
   props: {
     modelValue: {
-      type: Number,
+      type: [String, Number],
       default: 0,
     },
     data: {

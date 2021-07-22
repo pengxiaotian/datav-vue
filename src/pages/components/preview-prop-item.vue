@@ -144,6 +144,12 @@
     :is-inline="isFlat"
     :label="isFlat ? label : ''"
   />
+  <g-upload-image
+    v-else-if="componentType === componentTypes.uploadImage"
+    v-model="strValue"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
   <span v-else>--</span>
 </template>
 

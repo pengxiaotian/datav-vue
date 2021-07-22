@@ -1,5 +1,12 @@
 <template>
-  <div class="g-upload">
+  <div
+    class="datav-gui g-upload"
+    :class="[
+      {
+        '--inline --single': isInline,
+      }
+    ]"
+  >
     <el-input
       :model-value="modelValue"
       placeholder="请输入图片地址"
@@ -29,6 +36,9 @@
         <div>点击或拖拽文件到这里更换</div>
       </div>
     </el-upload>
+    <span v-if="label" class="g-input__caption">
+      {{ label }}
+    </span>
   </div>
 </template>
 
@@ -63,6 +73,11 @@ export default defineComponent({
       type: String,
       default: previewHost,
     },
+    label: {
+      type: String,
+      default: '',
+    },
+    isInline: Boolean,
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
