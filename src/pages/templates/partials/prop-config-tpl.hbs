@@ -5,7 +5,7 @@
   isFlat=true
 }}
 {{else if item.children}}
-  {{#if (eq item.config.displayMode 'nest')}}
+{{#if (eq item.config.displayMode 'nest')}}
 <g-field-collapse
   {{#if item.config.whichEnum.field}}
   v-if="config.{{goBack item.path 2}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
@@ -26,7 +26,7 @@
     level=2
   }}
 </g-field-collapse>
-  {{else if (eq item.config.displayMode 'nest-array')}}
+{{else if (eq item.config.displayMode 'nest-array')}}
 <g-field-collapse
   {{#if item.config.whichEnum.field}}
   v-if="config.{{goBack item.path 2}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
@@ -39,6 +39,8 @@
   default-layout="{{item.config.layout}}"
   :features="{{{enumsToTpl item.config.features}}}"
   :list="config.{{item.path}}"
+  :min="{{item.config.min}}"
+  :max="{{item.config.max}}"
   default-new-value="{{{item.config.defaultNewValue}}}"
 >
   <template #default="slotProps">
@@ -68,7 +70,7 @@
     {{/if}}
   </template>
 </g-field-collapse>
-  {{else if (eq item.config.displayMode 'flat')}}
+{{else if (eq item.config.displayMode 'flat')}}
 <g-field
   {{#if item.config.whichEnum.field}}
   v-if="config.{{goBack item.path 2}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
@@ -90,7 +92,7 @@
     isFlat=true
   }}
 </g-field>
-  {{/if}}
+{{/if}}
 {{else if (neq ../toggleCol item.key)}}
 <g-field
   {{#if item.config.whichEnum.field}}

@@ -117,6 +117,12 @@
               />
             </el-select>
           </el-form-item>
+          <el-form-item label="最小项数" label-width="150px">
+            <el-input-number v-model="item.config.min" />
+          </el-form-item>
+          <el-form-item label="最大项数" label-width="150px">
+            <el-input-number v-model="item.config.max" />
+          </el-form-item>
           <el-form-item label="默认布局" label-width="150px">
             <el-select v-model="item.config.layout">
               <el-option

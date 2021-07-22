@@ -38,7 +38,9 @@
           :default-layout="item.config.layout"
           :features="item.config.features"
           :list="item.children"
-          default-new-value="['']"
+          :min="item.config.min"
+          :max="item.config.max"
+          :default-new-value="item.config.defaultNewValue"
         >
           <template #default="slotProps">
             <g-field

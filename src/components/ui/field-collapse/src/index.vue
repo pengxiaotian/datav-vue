@@ -51,28 +51,57 @@
             v-if="showToolboxSplit"
             class="g-field-collapse-panel-toolbox-split"
           ></span>
-          <i
-            v-if="showToolboxCopy"
-            class="v-icon-copy toolbox-icon"
-            :class="{ '--disabled': !hasData }"
-            @click.stop="copyData"
-          ></i>
-          <i
-            v-if="showToolboxAdd"
-            class="v-icon-plus toolbox-icon"
-            @click.stop="addData"
-          ></i>
-          <i
-            v-if="showToolboxDel"
-            class="v-icon-delete toolbox-icon"
-            :class="{ '--disabled': !hasData }"
-            @click.stop="deleteData"
-          ></i>
+
+          <template v-if="showToolboxCopy">
+            <el-tooltip
+              effect="blue"
+              placement="top"
+              :offset="2"
+              :disabled="!copyState.disabled"
+              :content="copyState.msg"
+            >
+              <i
+                class="v-icon-copy toolbox-icon"
+                :class="{ '--disabled': copyState.disabled }"
+                @click.stop="copyData"
+              ></i>
+            </el-tooltip>
+          </template>
+          <template v-if="showToolboxAdd">
+            <el-tooltip
+              effect="blue"
+              placement="top"
+              :offset="2"
+              :disabled="!addState.disabled"
+              :content="addState.msg"
+            >
+              <i
+                class="v-icon-plus toolbox-icon"
+                :class="{ '--disabled': addState.disabled }"
+                @click.stop="addData"
+              ></i>
+            </el-tooltip>
+          </template>
+          <template v-if="showToolboxDel">
+            <el-tooltip
+              effect="blue"
+              placement="top"
+              :offset="2"
+              :disabled="!deleteState.disabled"
+              :content="deleteState.msg"
+            >
+              <i
+                class="v-icon-delete toolbox-icon"
+                :class="{ '--disabled': deleteState.disabled }"
+                @click.stop="deleteData"
+              ></i>
+            </el-tooltip>
+          </template>
         </div>
       </template>
 
       <template v-if="mode === 'layout'">
-        <template v-if="hasData">
+        <template v-if="list && list.length > 0">
           <el-tabs
             v-if="isLayoutRow"
             v-model="activeTab"
@@ -143,6 +172,14 @@ export default defineComponent({
       default: () => [],
     },
     list: Array,
+    min: {
+      type: Number,
+      default: 0,
+    },
+    max: {
+      type: Number,
+      default: 1000,
+    },
     defaultNewValue: String,
   },
   emits: [UPDATE_MODEL_EVENT],
@@ -150,10 +187,6 @@ export default defineComponent({
     const activeNames = ref([])
     const activeTab = ref('0')
     const isLayoutRow = ref(props.defaultLayout === ToolboxType.horizontal)
-
-    const hasData = computed(() => {
-      return props.list && props.list.length > 0
-    })
 
     const visibleToolbox = computed(() => {
       return activeNames.value.length > 0 && props.features.length > 0
@@ -184,19 +217,46 @@ export default defineComponent({
         && (showToolboxCopy.value || showToolboxAdd.value || showToolboxDel.value)
     })
 
+    const copyState = computed(() => {
+      const disabled = !props.list || props.list.length <= props.min || props.list.length >= props.max
+      const msg = disabled ? '不可复制' : ''
+      return {
+        disabled,
+        msg,
+      }
+    })
+
+    const addState = computed(() => {
+      const disabled = !props.list || props.list.length >= props.max
+      const msg = disabled ? '已至最大项数' : ''
+      return {
+        disabled,
+        msg,
+      }
+    })
+
+    const deleteState = computed(() => {
+      const disabled = !props.list || props.list.length <= props.min
+      const msg = disabled ? '已至最小项数' : ''
+      return {
+        disabled,
+        msg,
+      }
+    })
+
     const toggleVisible = (nv: boolean) => {
       ctx.emit(UPDATE_MODEL_EVENT, nv)
     }
 
     const copyData = () => {
-      if (hasData.value) {
+      if (!copyState.value.disabled) {
         const idx = Math.min(+activeTab.value, props.list.length - 1)
         props.list.push(cloneDeep(props.list[idx]))
       }
     }
 
     const deleteData = () => {
-      if (hasData.value) {
+      if (!deleteState.value.disabled) {
         const idx = Math.min(+activeTab.value, props.list.length - 1)
         props.list.splice(idx, 1)
         activeTab.value = '0'
@@ -204,7 +264,7 @@ export default defineComponent({
     }
 
     const addData = () => {
-      if (props.defaultNewValue) {
+      if (props.defaultNewValue && !addState.value.disabled) {
         props.list.push(JSON.parse(props.defaultNewValue))
       }
     }
@@ -219,7 +279,6 @@ export default defineComponent({
       activeNames,
       activeTab,
       isLayoutRow,
-      hasData,
       visibleToolbox,
       showToolboxRow,
       showToolboxCol,
@@ -227,6 +286,9 @@ export default defineComponent({
       showToolboxAdd,
       showToolboxDel,
       showToolboxSplit,
+      copyState,
+      addState,
+      deleteState,
       toggleVisible,
       copyData,
       addData,

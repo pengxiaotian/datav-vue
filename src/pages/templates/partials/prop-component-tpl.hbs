@@ -17,7 +17,7 @@
   {{/if}}
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.color)}}
@@ -25,7 +25,7 @@
   v-model="{{ getPath path virtualPath }}"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.checkbox)}}
@@ -65,7 +65,7 @@
   :data="[]"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
   disabled
 />
@@ -75,7 +75,7 @@
   :data="fontFamilys"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.fontWeight)}}
@@ -84,7 +84,7 @@
   :data="fontWeights"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.fontStyle)}}
@@ -93,7 +93,7 @@
   :data="fontStyles"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.hAlign)}}
@@ -102,7 +102,7 @@
   :data="hAligns"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.vAlign)}}
@@ -111,7 +111,7 @@
   :data="vAligns"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.writingMode)}}
@@ -120,7 +120,7 @@
   :data="writingModes"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.justify)}}
@@ -129,7 +129,7 @@
   :data="justifyContents"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.align)}}
@@ -138,7 +138,7 @@
   :data="aligns"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.angle)}}
@@ -147,7 +147,7 @@
   :data="angles"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.location)}}
@@ -156,7 +156,7 @@
   :data="locations"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.lineStyle)}}
@@ -165,7 +165,7 @@
   :data="lineStyles"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.fillType)}}
@@ -174,7 +174,7 @@
   :data="fillTypes"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.uploadImage)}}
@@ -182,7 +182,7 @@
   v-model="{{ getPath path virtualPath }}"
   {{#if isFlat}}
   is-inline
-  label="{{label}}"
+  label="{{config.alias}}"
   {{/if}}
 />
 {{else}}
