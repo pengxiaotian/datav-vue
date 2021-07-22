@@ -34,6 +34,7 @@ export enum ComponentType {
   location = 'location',
   lineStyle = 'lineStyle',
   fillType = 'fillType',
+  repeatType='repeatType',
   uploadImage = 'upload-image',
 }
 

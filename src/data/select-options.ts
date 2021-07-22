@@ -82,3 +82,10 @@ export const fillTypes = [
   { id: 'solid', value: '实体填充' },
   { id: 'linear', value: '渐变填充' },
 ]
+
+export const repeatTypes = [
+  { id: 'no-repeat', value: '不重复，拉伸满' },
+  { id: 'repeat', value: '水平和垂直重复' },
+  { id: 'repeat-x', value: '水平重复' },
+  { id: 'repeat-y', value: '垂直重复' },
+]

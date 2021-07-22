@@ -177,6 +177,15 @@
   label="{{config.alias}}"
   {{/if}}
 />
+{{else if (eq config.component componentTypes.repeatType)}}
+<g-select
+  v-model="{{ getPath path virtualPath }}"
+  :data="repeatTypes"
+  {{#if isFlat}}
+  is-inline
+  label="{{config.alias}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.uploadImage)}}
 <g-upload-image
   v-model="{{ getPath path virtualPath }}"

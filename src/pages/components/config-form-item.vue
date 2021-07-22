@@ -185,6 +185,17 @@
       :value="item.id"
     />
   </el-select>
+  <el-select
+    v-else-if="componentType === componentTypes.repeatType"
+    v-model="strValue"
+  >
+    <el-option
+      v-for="item in repeatTypes"
+      :key="item.id"
+      :label="item.value"
+      :value="item.id"
+    />
+  </el-select>
   <g-upload-image
     v-else-if="componentType === componentTypes.uploadImage"
     v-model="strValue"
@@ -208,6 +219,7 @@ import {
   locations,
   lineStyles,
   fillTypes,
+  repeatTypes,
 } from '@/data/select-options'
 
 export default defineComponent({
@@ -275,6 +287,7 @@ export default defineComponent({
       locations,
       lineStyles,
       fillTypes,
+      repeatTypes,
     }
   },
 })

@@ -4,31 +4,31 @@
 
 // Element Plus
 @import "./button";
-@import "./popover";
-@import "./message";
-@import "./message-box";
-@import "./dialog";
-@import "./switch";
-@import "./tooltip";
+@import "./input";
+@import "./input-number";
 @import "./select";
-@import "./tabs";
-@import "./collapse";
-@import "./slider";
 @import "./radio-group";
 @import "./checkbox";
 @import "./checkbox-group";
+@import "./color-picker";
+@import "./switch";
+@import "./popover";
+@import "./slider";
+@import "./tabs";
+@import "./collapse";
+@import "./message";
+@import "./message-box";
+@import "./tooltip";
 @import "./card";
+@import "./dialog";
 @import "./drawer";
 
 // DataV UI
+@import "./loading";
 @import "./tooltip-popover";
 @import "./drop-list-popover";
-@import "./loading";
-@import "./input";
-@import "./input-number";
 @import "./field";
 @import "./field-collapse";
 @import "./field-tabs";
-@import "./color-picker";
 @import "./upload";
 @import "./monaco-editor";

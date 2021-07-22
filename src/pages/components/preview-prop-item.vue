@@ -144,6 +144,13 @@
     :is-inline="isFlat"
     :label="isFlat ? label : ''"
   />
+  <g-select
+    v-else-if="componentType === componentTypes.repeatType"
+    v-model="strValue"
+    :data="repeatTypes"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
   <g-upload-image
     v-else-if="componentType === componentTypes.uploadImage"
     v-model="strValue"
@@ -169,6 +176,7 @@ import {
   locations,
   lineStyles,
   fillTypes,
+  repeatTypes,
 } from '@/data/select-options'
 
 export default defineComponent({
@@ -261,6 +269,7 @@ export default defineComponent({
       locations,
       lineStyles,
       fillTypes,
+      repeatTypes,
     }
   },
 })

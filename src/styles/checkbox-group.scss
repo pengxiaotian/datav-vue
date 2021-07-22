@@ -41,6 +41,11 @@
       border: $border-outline;
       color: $gui-component-color;
       background: $gui-component-bgcolor;
+
+      &:hover {
+        border-color: $color-primary;
+        background-color: $background-color-secondary;
+      }
     }
   }
 }
