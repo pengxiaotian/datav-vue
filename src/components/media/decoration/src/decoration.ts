@@ -45,379 +45,379 @@ export const presetImages: {
   }
 } = {
   gif1: {
-    url: 'https://files.pengxiaotian.com/deco/gif1-1920-1080.gif',
+    url: 'https://img.alicdn.com/tps/TB1tFMtPXXXXXXyXpXXXXXXXXXX-1920-1080.gif',
     css: {
       'background-position': 'left bottom',
     },
   },
   gif2: {
-    url: 'https://files.pengxiaotian.com/deco/gif2-1920-1080.gif',
+    url: 'https://img.alicdn.com/tps/TB1Pg3pPXXXXXcxXpXXXXXXXXXX-1920-1080.gif',
     css: {
       'background-position': 'center',
     },
   },
   gif3: {
-    url: 'https://files.pengxiaotian.com/deco/gif3-1080-824.gif',
+    url: 'https://img.alicdn.com/tps/TB1XLAgPXXXXXbCXFXXXXXXXXXX-1080-824.gif',
     css: {
       'background-position': 'right top',
     },
   },
   gif4: {
-    url: 'https://files.pengxiaotian.com/deco/gif4-1080-824.gif',
+    url: 'https://img.alicdn.com/tps/TB1LArQPXXXXXcLapXXXXXXXXXX-1080-824.gif',
     css: {
       'background-position': 'right bottom',
     },
   },
   gif5: {
-    url: 'https://files.pengxiaotian.com/deco/gif5-1920-1080.gif',
+    url: 'https://img.alicdn.com/tps/TB18er0PXXXXXXwapXXXXXXXXXX-1920-1080.gif',
     css: {
       'background-position': 'left top',
     },
   },
   gif6: {
-    url: 'https://files.pengxiaotian.com/deco/gif6-1626-356.gif',
+    url: 'https://img.alicdn.com/tps/TB12FP6PXXXXXczXVXXXXXXXXXX-1626-356.gif',
     css: {
       'background-position': 'center',
     },
   },
   gif7: {
-    url: 'https://files.pengxiaotian.com/deco/gif7-94-1461.gif',
+    url: 'https://img.alicdn.com/tps/TB1ZXD8PXXXXXX1aXXXXXXXXXXX-94-1461.gif',
     css: {
       'background-size': 'contain',
       'background-position': 'left top',
     },
   },
   gif8: {
-    url: 'https://files.pengxiaotian.com/deco/gif8-500-54.gif',
+    url: 'https://img.alicdn.com/tps/TB1Z8MHPFXXXXacaXXXXXXXXXXX-500-54.gif',
     css: {
       'background-size': 'contain',
       'background-position': 'left top',
     },
   },
   gif9: {
-    url: 'https://files.pengxiaotian.com/deco/gif9-500-64.gif',
+    url: 'https://img.alicdn.com/tps/TB1tIIKPFXXXXXIXVXXXXXXXXXX-500-64.gif',
     css: {
       'background-size': 'contain',
       'background-position': 'left top',
     },
   },
   gif10: {
-    url: 'https://files.pengxiaotian.com/deco/gif10-782-259.gif',
+    url: 'https://img.alicdn.com/tps/TB10bUCPFXXXXajapXXXXXXXXXX-782-259.gif',
     css: {
       'background-size': 'contain',
       'background-position': 'left top',
     },
   },
   gif11: {
-    url: 'https://files.pengxiaotian.com/deco/gif11-280-800.png',
+    url: 'https://img.alicdn.com/tfs/TB15JPjtMTqK1RjSZPhXXXfOFXa-280-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif12: {
-    url: 'https://files.pengxiaotian.com/deco/gif12-254-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1_PYmtMHqK1RjSZJnXXbNLpXa-254-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif13: {
-    url: 'https://files.pengxiaotian.com/deco/gif13-800-171.png',
+    url: 'https://img.alicdn.com/tfs/TB16KbftSzqK1RjSZPxXXc4tVXa-800-171.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif14: {
-    url: 'https://files.pengxiaotian.com/deco/gif14-800-103.png',
+    url: 'https://img.alicdn.com/tfs/TB1Zo2ntQvoK1RjSZFwXXciCFXa-800-103.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif15: {
-    url: 'https://files.pengxiaotian.com/deco/gif15-800-143.png',
+    url: 'https://img.alicdn.com/tfs/TB1R7fqtMHqK1RjSZFkXXX.WFXa-800-143.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif16: {
-    url: 'https://files.pengxiaotian.com/deco/gif16-800-154.png',
+    url: 'https://img.alicdn.com/tfs/TB1A26ntHvpK1RjSZFqXXcXUVXa-800-154.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif17: {
-    url: 'https://files.pengxiaotian.com/deco/gif17-254-800.png',
+    url: 'https://img.alicdn.com/tfs/TB19EDvtNYaK1RjSZFnXXa80pXa-254-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif18: {
-    url: 'https://files.pengxiaotian.com/deco/gif18-800-143.png',
+    url: 'https://img.alicdn.com/tfs/TB115YhtMDqK1RjSZSyXXaxEVXa-800-143.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif19: {
-    url: 'https://files.pengxiaotian.com/deco/gif19-113-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1F3bqtQzoK1RjSZFlXXai4VXa-113-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif20: {
-    url: 'https://files.pengxiaotian.com/deco/gif20-840-700.png',
+    url: 'https://img.alicdn.com/tfs/TB1pZLmtFzqK1RjSZFCXXbbxVXa-840-700.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif21: {
-    url: 'https://files.pengxiaotian.com/deco/gif21-368-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1NT_ltFzqK1RjSZFoXXbfcXXa-368-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif22: {
-    url: 'https://files.pengxiaotian.com/deco/gif22-800-103.png',
+    url: 'https://img.alicdn.com/tfs/TB1YUbltFzqK1RjSZFoXXbfcXXa-800-103.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif23: {
-    url: 'https://files.pengxiaotian.com/deco/gif23-800-86.png',
+    url: 'https://img.alicdn.com/tfs/TB1AgnntQvoK1RjSZPfXXXPKFXa-800-86.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif24: {
-    url: 'https://files.pengxiaotian.com/deco/gif24-456-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1mtbmtFzqK1RjSZFCXXbbxVXa-456-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif25: {
-    url: 'https://files.pengxiaotian.com/deco/gif25-132-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1eOYKtNnaK1RjSZFtXXbC2VXa-132-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif26: {
-    url: 'https://files.pengxiaotian.com/deco/gif26-184-800.png',
+    url: 'https://img.alicdn.com/tfs/TB101HktSzqK1RjSZFHXXb3CpXa-184-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif27: {
-    url: 'https://files.pengxiaotian.com/deco/gif27-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1t_PftRLoK1RjSZFuXXXn0XXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif28: {
-    url: 'https://files.pengxiaotian.com/deco/gif28-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1m5_KtNnaK1RjSZFtXXbC2VXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif29: {
-    url: 'https://files.pengxiaotian.com/deco/gif29-254-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1KtritHPpK1RjSZFFXXa5PpXa-254-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif30: {
-    url: 'https://files.pengxiaotian.com/deco/gif30-500-500.png',
+    url: 'https://img.alicdn.com/tfs/TB1oujktMHqK1RjSZFPXXcwapXa-500-500.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif31: {
-    url: 'https://files.pengxiaotian.com/deco/gif31-1000-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1WxTntQvoK1RjSZPfXXXPKFXa-1000-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif32: {
-    url: 'https://files.pengxiaotian.com/deco/gif32-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1aQPltMHqK1RjSZFgXXa7JXXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif33: {
-    url: 'https://files.pengxiaotian.com/deco/gif33-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1HYbwtNYaK1RjSZFnXXa80pXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif34: {
-    url: 'https://files.pengxiaotian.com/deco/gif34-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1dg2jtMTqK1RjSZPhXXXfOFXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif35: {
-    url: 'https://files.pengxiaotian.com/deco/gif35-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1Y6zntHvpK1RjSZFqXXcXUVXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif36: {
-    url: 'https://files.pengxiaotian.com/deco/gif36-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1.sLotQvoK1RjSZFwXXciCFXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif37: {
-    url: 'https://files.pengxiaotian.com/deco/gif37-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1OhvktMHqK1RjSZFPXXcwapXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif38: {
-    url: 'https://files.pengxiaotian.com/deco/gif38-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1aU_itNTpK1RjSZFGXXcHqFXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif39: {
-    url: 'https://files.pengxiaotian.com/deco/gif39-1200-1200.png',
+    url: 'https://img.alicdn.com/tfs/TB1iFrotQPoK1RjSZKbXXX1IXXa-1200-1200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif40: {
-    url: 'https://files.pengxiaotian.com/deco/gif40-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1uSTjtH2pK1RjSZFsXXaNlXXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif41: {
-    url: 'https://files.pengxiaotian.com/deco/gif41-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1nXLptQvoK1RjSZFDXXXY3pXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif42: {
-    url: 'https://files.pengxiaotian.com/deco/gif42-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB1ZMDntHrpK1RjSZTEXXcWAVXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif43: {
-    url: 'https://files.pengxiaotian.com/deco/gif43-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB1MtTmtFzqK1RjSZFoXXbfcXXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif44: {
-    url: 'https://files.pengxiaotian.com/deco/gif44-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB1UffotQvoK1RjSZFwXXciCFXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif45: {
-    url: 'https://files.pengxiaotian.com/deco/gif45-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB1LdnitSzqK1RjSZFLXXcn2XXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif46: {
-    url: 'https://files.pengxiaotian.com/deco/gif46-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB1o.fKtNnaK1RjSZFtXXbC2VXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif47: {
-    url: 'https://files.pengxiaotian.com/deco/gif47-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB19K_mtSzqK1RjSZFpXXakSXXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif48: {
-    url: 'https://files.pengxiaotian.com/deco/gif48-300-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1tefhtNTpK1RjSZR0XXbEwXXa-300-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif49: {
-    url: 'https://files.pengxiaotian.com/deco/gif49-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB1MAYktSzqK1RjSZFHXXb3CpXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif50: {
-    url: 'https://files.pengxiaotian.com/deco/gif50-800-65.png',
+    url: 'https://img.alicdn.com/tfs/TB1VefitSzqK1RjSZFLXXcn2XXa-800-65.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif51: {
-    url: 'https://files.pengxiaotian.com/deco/gif51-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB1iirptNTpK1RjSZFMXXbG_VXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif52: {
-    url: 'https://files.pengxiaotian.com/deco/gif52-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1lFbktH2pK1RjSZFsXXaNlXXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif53: {
-    url: 'https://files.pengxiaotian.com/deco/gif53-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB1m7zmtFzqK1RjSZFCXXbbxVXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif54: {
-    url: 'https://files.pengxiaotian.com/deco/gif54-800-200.png',
+    url: 'https://img.alicdn.com/tfs/TB1Df6mtFzqK1RjSZFoXXbfcXXa-800-200.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
     },
   },
   gif55: {
-    url: 'https://files.pengxiaotian.com/deco/gif55-800-800.png',
+    url: 'https://img.alicdn.com/tfs/TB1sg6mtSzqK1RjSZFpXXakSXXa-800-800.png',
     css: {
       'background-position': 'center',
       'background-size': 'contain',
