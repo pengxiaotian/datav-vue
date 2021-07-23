@@ -12,7 +12,6 @@
       placeholder="请输入图片地址"
       prefix-icon="v-icon-link"
       size="mini"
-      clearable
       @update:model-value="handleInput"
     />
     <el-upload
@@ -30,10 +29,23 @@
       :on-error="onError"
       :data="form"
     >
-      <img v-if="modelValue && !iserr" :src="modelValue">
-      <div v-else class="g-upload-tip">
-        <i class="v-icon-img"></i>
-        <div>点击或拖拽文件到这里更换</div>
+      <div
+        class="g-upload-image-wrap"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
+      >
+        <div class="g-upload-image-content">
+          <img v-if="modelValue && !iserr" :src="modelValue">
+          <div v-else class="g-upload-tip">
+            <i class="v-icon-img"></i>
+            <div>点击或拖拽文件到这里更换</div>
+          </div>
+        </div>
+        <div v-if="visibleCover" class="g-upload-image-cover">
+          <span>更改</span>
+          <p style="padding: 0 10px;">|</p>
+          <span @click.stop="removeImage">删除</span>
+        </div>
       </div>
     </el-upload>
     <span v-if="label" class="g-input__caption">
@@ -87,6 +99,7 @@ export default defineComponent({
       token: '',
     })
     const iserr = ref(false)
+    const visibleCover = ref(false)
 
     const beforeUpload = async (file: any) => {
       const valid = validAllowImg(file, {
@@ -140,16 +153,35 @@ export default defineComponent({
       }
     }
 
+    const handleMouseEnter = () => {
+      if (props.modelValue) {
+        visibleCover.value = true
+      }
+    }
+
+    const handleMouseLeave = () => {
+      visibleCover.value = false
+    }
+
+    const removeImage = () => {
+      handleInput('')
+      visibleCover.value = false
+    }
+
     watch(() => props.modelValue, zoomImage)
 
     return {
       loading,
       form,
       iserr,
+      visibleCover,
       beforeUpload,
       onSuccess,
       onError,
       handleInput,
+      handleMouseEnter,
+      handleMouseLeave,
+      removeImage,
     }
   },
 })

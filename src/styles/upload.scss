@@ -32,7 +32,6 @@
     align-items: center;
     justify-content: center;
     height: 120px;
-    padding: 10px;
     margin-top: 3px;
     background: $upload-bgcolor;
     border: $border-outline;
@@ -43,12 +42,19 @@
     }
   }
 
+  .g-upload-image-wrap,
   .el-upload-dragger {
     width: 100%;
     height: 100%;
     background-color: transparent;
     border: none;
     border-radius: 0;
+  }
+
+  .g-upload-image-content {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
 
     img {
       width: 100%;
@@ -57,22 +63,30 @@
     }
   }
 
-  .g-upload-image-content {
+  .g-upload-image-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: $gui-cover-color;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 120px;
+    font-size: $font-size;
+    color: $gui-font-color;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    span {
+      cursor: pointer;
+
+      &:hover {
+        color: $gui-hover-color;
+      }
     }
   }
 
   .g-upload-tip {
-    color: $upload-tip-color;
+    color: $gui-font-color;
 
     .v-icon-img {
       margin-bottom: 5px;

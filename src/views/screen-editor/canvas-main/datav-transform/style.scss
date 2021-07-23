@@ -73,7 +73,7 @@
       content: "";
       position: absolute;
       z-index: 1;
-      background: $gui-transform-border-color;
+      background: $gui-primary-color;
 
       @if ($placement == 'top' or $placement == 'bottom') {
         width: 100%;
@@ -163,7 +163,7 @@
       bottom: 0;
       left: 0;
       z-index: -1;
-      border: 1px dashed $gui-transform-border-color;
+      border: 1px dashed $gui-primary-color;
     }
   }
 
