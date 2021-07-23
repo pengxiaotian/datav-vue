@@ -1,7 +1,7 @@
 <template>
   <el-popover
     v-model:visible="visible"
-    placement="top"
+    :placement="placement"
     trigger="click"
     :width="188"
     :show-arrow="false"
@@ -78,6 +78,10 @@ export default defineComponent({
       default: '',
     },
     isInline: Boolean,
+    placement: {
+      type: String,
+      default: 'left',
+    },
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
