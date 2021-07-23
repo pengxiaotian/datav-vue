@@ -73,6 +73,9 @@ export default defineComponent({
           com.attr.x = event.offsetX - com.attr.w / 2
           com.attr.y = event.offsetY - com.attr.h / 2
           EditorModule.addCom(com)
+            .then(() => {
+              EditorModule.selectCom(com.id)
+            })
         }
       } catch {
         // TODO

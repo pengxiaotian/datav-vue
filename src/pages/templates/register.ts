@@ -5,9 +5,9 @@ import { plainText as propComponentTpl } from './partials/prop-component-tpl.hbs
 // ------Helpers------
 Handlebars.registerHelper('eq', (a, b) => a === b)
 Handlebars.registerHelper('neq', (a, b) => a !== b)
-Handlebars.registerHelper('getPath', (path, vpath) => {
-  return vpath ? vpath : `config.${path}`
-})
+Handlebars.registerHelper('getPath', (path, vpath) => (vpath ? vpath : `config.${path}`))
+Handlebars.registerHelper('capitalize', str => (str.charAt(0).toUpperCase() + str.slice(1)))
+Handlebars.registerHelper('includes', (arr, val) => arr.includes(val))
 Handlebars.registerHelper('enumsToTpl', (arr: string[]) => {
   let str = '['
   arr.forEach((item, i) => {

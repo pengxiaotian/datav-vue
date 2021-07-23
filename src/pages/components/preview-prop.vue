@@ -40,7 +40,6 @@
           :list="item.children"
           :min="item.config.min"
           :max="item.config.max"
-          :default-new-value="item.config.defaultNewValue"
         >
           <template #default="slotProps">
             <g-field

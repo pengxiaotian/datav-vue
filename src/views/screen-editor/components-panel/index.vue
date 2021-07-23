@@ -159,6 +159,9 @@ export default defineComponent({
         com.attr.x = Math.floor((pageConfig.width - com.attr.w) / 2)
         com.attr.y = Math.floor((pageConfig.height - com.attr.h) / 2)
         EditorModule.addCom(com)
+          .then(() => {
+            EditorModule.selectCom(com.id)
+          })
       } else {
         MessageUtil.warning('正在开发中。。。')
       }

@@ -180,7 +180,10 @@ export default defineComponent({
       type: Number,
       default: 1000,
     },
-    defaultNewValue: String,
+    addItem: {
+      type: Function,
+      default: () => {},
+    },
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
@@ -264,8 +267,9 @@ export default defineComponent({
     }
 
     const addData = () => {
-      if (props.defaultNewValue && !addState.value.disabled) {
-        props.list.push(JSON.parse(props.defaultNewValue))
+      if (!addState.value.disabled && typeof props.addItem === 'function') {
+        const item = props.addItem() || {}
+        props.list.push(item)
       }
     }
 

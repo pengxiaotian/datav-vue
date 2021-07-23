@@ -77,7 +77,19 @@
             </el-form-item>
           </template>
         </template>
-        <el-form-item v-if="hasRadio" label="条件显示" label-width="150px">
+        <el-form-item v-if="hasRadio" label-width="150px">
+          <template #label>
+            <el-tooltip
+              effect="blue"
+              placement="top"
+              :offset="2"
+              content="复杂逻辑分支判断请在生成的模板代码自行添加"
+            >
+              <label class="g-field-title-with-description" style="color: #a1aeb3;">
+                条件显示
+              </label>
+            </el-tooltip>
+          </template>
           <el-row>
             <el-col :span="11">
               <el-select
@@ -131,9 +143,6 @@
                 :value="tt"
               />
             </el-select>
-          </el-form-item>
-          <el-form-item label="默认新值" label-width="150px">
-            <el-input v-model="item.config.defaultNewValue" />
           </el-form-item>
         </template>
         <el-form-item label="提示" label-width="150px">
