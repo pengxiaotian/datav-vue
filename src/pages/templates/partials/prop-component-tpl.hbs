@@ -194,6 +194,15 @@
   label="{{config.alias}}"
   {{/if}}
 />
+{{else if (eq config.component componentTypes.selectImage)}}
+<g-select-image
+  v-model="{{ getPath path virtualPath }}"
+  :images="[]"
+  {{#if isFlat}}
+  is-inline
+  label="{{config.alias}}"
+  {{/if}}
+/>
 {{else}}
 <span>--</span>
 {{/if}}

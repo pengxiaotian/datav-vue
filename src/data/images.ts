@@ -1,39 +1,3 @@
-const boxs = [
-  {
-    id: 1, src: `box1-126-154.png`, width: [71, 23], slice: [], repeat: 'initial',
-  },
-  {
-    id: 2, src: `box2-79-67.png`, width: [32, 37], slice: ['fill'], repeat: 'initial',
-  },
-  {
-    id: 3, src: `box3-116-115.png`, width: [14], slice: ['fill'], repeat: 'initial',
-  },
-  {
-    id: 4, src: `box4-241-138.png`, width: [14, 100], slice: [], repeat: 'initial',
-  },
-  {
-    id: 5, src: `box5-689-232.png`, width: [46, 305, 117, 33], slice: ['fill'], repeat: 'repeat',
-  },
-  {
-    id: 6, src: `box6-484-101.png`, width: [45, 103, 51, 29], slice: ['fill'], repeat: 'repeat',
-  },
-  {
-    id: 7, src: `box7-986-212.png`, width: [29, 107, 109, 16], slice: ['fill'], repeat: 'repeat',
-  },
-  {
-    id: 8, src: `box8-492-335.png`, width: [15, 11, 16, 8], slice: ['fill'], repeat: 'repeat',
-  },
-  {
-    id: 9, src: `box9-731-407.png`, width: [152, 27, 127, 354], slice: ['fill'], repeat: 'repeat',
-  },
-  {
-    id: 10, src: `box10-524-282.png`, width: [56, 4, 76, 393], slice: ['fill'], repeat: 'repeat',
-  },
-  {
-    id: 11, src: `box11-592-131.png`, width: [17, 24, 18, 19], slice: ['fill'], repeat: 'repeat',
-  },
-]
-
 const decorates = [
   {
     id: 1, src: `deco1-1920-1080.gif`, size: '100%', position: 'left bottom',
@@ -73,18 +37,12 @@ const decorates = [
   },
 ]
 
-const boxImgs = boxs.map(m => ({
-  ...m,
-  src: `${import.meta.env.VITE_APP_CDN}/box/${m.src}`,
-  slice: [...m.width, ...m.slice],
-}))
-
 const decorateImgs = decorates.map(m => ({
   ...m,
   src: `${import.meta.env.VITE_APP_CDN}/decoration/${m.src}`,
 }))
 
 export {
-  boxImgs,
   decorateImgs,
 }
+

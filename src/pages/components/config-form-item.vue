@@ -200,6 +200,11 @@
     v-else-if="componentType === componentTypes.uploadImage"
     v-model="strValue"
   />
+  <g-select-image
+    v-else-if="componentType === componentTypes.selectImage"
+    v-model="strValue"
+    :images="[]"
+  />
   <span v-else>--</span>
 </template>
 

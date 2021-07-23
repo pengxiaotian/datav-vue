@@ -225,19 +225,22 @@ $footer-shortcut-bgcolor: #262b33;
 $state-color: #576369;
 
 // DataV GUI
+$gui-font-size: 12px;
 $gui-font-color: #a1aeb3;
+$gui-font-color-1: #fff;
+$gui-font-color-2: #c3d3d9;
+$gui-font-color-3: #737c80;
 $gui-primary-color: #2483ff;
 $gui-hover-color: #26a5ff;
 $gui-error-color: #ff4f43;
 $gui-active-color: #2693ff;
 $gui-disabled-color: #424447;
 $gui-component-bgcolor: $color-dark;
+$gui-component-bgcolor-hover: $background-color-secondary;
+$gui-component-border-color: #0b0c0d;
 $gui-cover-color: rgba(0, 0, 0, 0.75);
+$gui-bgcolor-dark: #111417;
 
-$field-font-size: $font-size;
-$field-font-color: #fff;
-$field-font-color-2: #c3d3d9;
-$field-font-color-3: #737c80;
 $field-height: 28px;
 $field-help-color: #a1aeb3;
 $field-container-width: 192px;
@@ -245,9 +248,6 @@ $field-collapse-header-bgcolor: #1c2026;
 $field-collapse-arrow-color: #a1aeb3;
 $field-collapse-item-bgcolor: #111417;
 $field-border-color: rgba(52, 52, 52, 0.5);
-
-$upload-bgcolor: $color-dark;
-$upload-bgcolor-hover: $background-color-secondary;
 
 $ruler-bg: #0e1013;
 $ruler-tag-bg: rgba(64, 116, 180, 1);

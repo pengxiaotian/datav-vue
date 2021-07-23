@@ -35,7 +35,8 @@ export enum ComponentType {
   lineStyle = 'lineStyle',
   fillType = 'fillType',
   repeatType='repeatType',
-  uploadImage = 'upload-image',
+  uploadImage = 'uploadImage',
+  selectImage = 'selectImage',
 }
 
 export enum DisplayMode {

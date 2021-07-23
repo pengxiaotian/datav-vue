@@ -1,0 +1,195 @@
+@import "themes/var";
+
+.g-select-image-wrap {
+  width: 188px;
+}
+
+.g-select-image {
+  width: 100%;
+  height: 68px;
+  padding: 5px;
+  padding-right: 0;
+  background: $gui-component-bgcolor;
+  border: 1px solid $gui-component-border-color;
+  font-size: $gui-font-size;
+  color: $gui-font-color-1;
+  outline: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  line-height: 28px;
+
+  .g-select-image-selection {
+    line-height: 28px;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: block;
+    border-radius: 6px;
+    border: 1px solid #d9d9d9;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding-right: 16px;
+    font-size: $gui-font-size;
+    color: $gui-font-color-1;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    border-color: transparent;
+    user-select: none;
+  }
+
+  .g-select-image-selection__inner {
+    height: 100%;
+    width: 100%;
+    line-height: 100%;
+    margin-left: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .g-select-image-selected-wrap {
+    width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+    opacity: 1;
+
+    .g-select-image-img {
+      height: 54px;
+      width: 50%;
+      display: inline-flex;
+      object-fit: contain;
+    }
+
+    > span {
+      padding-left: 5px;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      line-height: 24px;
+    }
+  }
+
+  .g-select-image-arrow {
+    width: auto;
+    top: 11px;
+    height: 26px;
+    position: absolute;
+    right: 1px;
+    outline: 0;
+    user-select: none;
+
+    .v-icon-select-arrow {
+      color: $gui-font-color;
+    }
+  }
+
+  &:hover {
+    background: $gui-component-bgcolor-hover;
+    border: 1px solid $gui-primary-color;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.g-select-image-popover.el-popover.is-light {
+  box-shadow: none;
+  background: $gui-bgcolor-dark;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border: 1px solid $gui-primary-color;
+  border-radius: 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.g-select-image-dropdown-menu-wrap {
+  box-sizing: border-box;
+
+  .g-select-image-dropdown-menu {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 8px;
+    margin-bottom: 8px;
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .g-select-image-dropdown-menu-item {
+      width: 50%;
+      height: 78px;
+      padding: 8px 0 0 8px;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      line-height: 24px;
+      font-size: $gui-font-size;
+      color: $gui-font-color;
+      cursor: pointer;
+
+      .g-select-image-img {
+        width: 100%;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        object-fit: contain;
+
+        &:hover {
+          background: $gui-component-bgcolor-hover;
+          border: 1px solid $gui-primary-color;
+          outline: none;
+          box-shadow: none;
+          color: $gui-font-color-1;
+        }
+      }
+
+      > span {
+        width: 100%;
+        height: 16px;
+        line-height: 16px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
+
+      &.--empty {
+        width: 100%;
+        height: auto;
+
+        > span {
+          font-size: $font-size;
+          color: $gui-font-color-3;
+        }
+      }
+
+      &:hover {
+        border-left: none;
+        background: transparent;
+        color: $gui-font-color-1;
+      }
+    }
+  }
+}

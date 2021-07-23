@@ -33,11 +33,11 @@
     justify-content: center;
     height: 120px;
     margin-top: 3px;
-    background: $upload-bgcolor;
+    background: $gui-component-bgcolor;
     border: $border-outline;
 
     &:hover {
-      background: $upload-bgcolor-hover;
+      background: $gui-component-bgcolor-hover;
       border: 1px solid $color-primary;
     }
   }

@@ -284,13 +284,13 @@ export const material = {
       alias: '边框',
       img: `${import.meta.env.VITE_APP_CDN}/com/border-box-162-116.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/border-box-370-208.png`,
-      used: false,
+      used: true,
     }, {
       name: 'VDecoration',
       alias: '装饰',
       img: `${import.meta.env.VITE_APP_CDN}/com/decoration-162-116.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/decoration-370-208.png`,
-      used: false,
+      used: true,
     }, {
       name: 'VMainImg',
       alias: '单张图片',

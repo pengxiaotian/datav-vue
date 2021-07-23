@@ -157,6 +157,13 @@
     :is-inline="isFlat"
     :label="isFlat ? label : ''"
   />
+  <g-select-image
+    v-else-if="componentType === componentTypes.selectImage"
+    v-model="strValue"
+    :images="[]"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
   <span v-else>--</span>
 </template>
 

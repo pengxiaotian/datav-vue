@@ -1,0 +1,83 @@
+[
+  {
+    "key": "global",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "全局",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
+    },
+    "path": "global",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "img",
+        "config": {
+          "type": "string",
+          "component": "selectImage",
+          "alias": "装饰元素",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "gif1",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.img",
+        "virtualPath": ""
+      },
+      {
+        "key": "opacity",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "透明度",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": 1,
+          "min": 0,
+          "max": 1,
+          "step": 0.1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.opacity",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "img",
+      "opacity"
+    ]
+  }
+]

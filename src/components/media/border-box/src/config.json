@@ -1,0 +1,57 @@
+[
+  {
+    "key": "boxStyle",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "框",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
+    },
+    "path": "boxStyle",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "style",
+        "config": {
+          "type": "string",
+          "component": "selectImage",
+          "alias": "样式",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "box1",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "boxStyle.style",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "style"
+    ]
+  }
+]

@@ -576,7 +576,7 @@
               "key": "presetImage",
               "config": {
                   "type": "string",
-                  "component": "select",
+                  "component": "selectImage",
                   "alias": "边框配置",
                   "tip": "",
                   "displayMode": "single",
@@ -626,7 +626,7 @@
                       "key": "source",
                       "config": {
                           "type": "string",
-                          "component": "upload-image",
+                          "component": "uploadImage",
                           "alias": "图片",
                           "tip": "",
                           "displayMode": "single",

@@ -182,9 +182,9 @@
         :level="2"
         label="边框配置"
       >
-        <g-select
+        <g-select-image
           v-model="config.border.presetImage"
-          :data="presetImages"
+          :images="presetImages"
         />
       </g-field>
       <g-field

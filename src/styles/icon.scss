@@ -15,6 +15,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-select-arrow:before {
+  content: "\e605";
+}
+
 .v-icon-layout-row:before {
   content: "\e6e9";
 }

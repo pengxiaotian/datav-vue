@@ -2,7 +2,7 @@
 
 .g-field {
   display: flex;
-  color: $field-font-color;
+  color: $gui-font-color-1;
 
   &.el-col-0 {
     display: flex;
@@ -11,7 +11,7 @@
 }
 
 .g-field-title {
-  font-size: $field-font-size;
+  font-size: $gui-font-size;
   height: $field-height;
   line-height: $field-height;
   font-weight: normal;
@@ -29,7 +29,7 @@
 .g-field-help {
   padding: 0 3px;
   color: $field-help-color;
-  font-size: $field-font-size;
+  font-size: $gui-font-size;
   line-height: $field-height;
   cursor: pointer;
 
@@ -96,7 +96,7 @@
     margin-bottom: 4px;
 
     .g-field {
-      color: $field-font-color-2;
+      color: $gui-font-color-2;
     }
   }
 
