@@ -20,7 +20,7 @@
       :list="config.fills"
       :min="0"
       :max="5"
-      default-new-value="{}"
+      :add-item="handleAddFillsItem"
     >
       <template #default="slotProps">
         <g-field
@@ -133,7 +133,7 @@
             :list="config.border.linearGradient.color.stops"
             :min="0"
             :max="100"
-            default-new-value="{}"
+            :add-item="handleAddColorStop"
           >
             <template #default="slotProps">
               <g-field
@@ -190,7 +190,7 @@
       <g-field
         v-if="config.border.type === 'image' && config.border.imageType === 'custom'"
         :level="2"
-        label="自定义边框"
+        label="边框配置"
         :is-flat="true"
       >
         <g-upload-image
@@ -288,6 +288,20 @@ export default defineComponent({
   setup(props) {
     const config = toRef(props.com, 'config')
 
+    const handleAddFillsItem = () => {
+      return {
+        fill: '#333',
+        opacity: 10,
+      }
+    }
+
+    const handleAddColorStop = () => {
+      return {
+        offset: 0,
+        color: '#f60',
+      }
+    }
+
     return {
       config,
 
@@ -296,6 +310,8 @@ export default defineComponent({
       borderTypes,
       imageTypes,
       presetImages,
+      handleAddFillsItem,
+      handleAddColorStop,
     }
   },
 })

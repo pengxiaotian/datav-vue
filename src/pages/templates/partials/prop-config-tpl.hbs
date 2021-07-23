@@ -41,7 +41,9 @@
   :list="config.{{item.path}}"
   :min="{{item.config.min}}"
   :max="{{item.config.max}}"
-  default-new-value="{{{item.config.defaultNewValue}}}"
+  {{#if (includes item.config.features 'add')}}
+  :add-item="handleAdd{{capitalize item.key}}Item"
+  {{/if}}
 >
   <template #default="slotProps">
     {{#if (eq item.children.0.config.displayMode 'flat')}}

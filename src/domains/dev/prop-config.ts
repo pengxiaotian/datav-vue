@@ -64,7 +64,6 @@ export interface PropConfig {
     field: string
     value: string
   }
-  defaultNewValue: string
 }
 
 export const createPropConfig = () => {
@@ -87,7 +86,6 @@ export const createPropConfig = () => {
       field: '',
       value: '',
     },
-    defaultNewValue: '{}',
   }
 
   return data
