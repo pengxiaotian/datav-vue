@@ -72,5 +72,6 @@ module.exports = {
     'vue/html-closing-bracket-spacing': 'error',
     'vue/no-mutating-props': 'off',
     'quote-props': ['error', 'as-needed'],
+    'prefer-template': 'error',
   },
 }

@@ -41,8 +41,8 @@ export class NavCanvas {
     const { devicePixelRatio } = window
     canvas.width = width * devicePixelRatio
     canvas.height = height * devicePixelRatio
-    canvas.style.width = width + 'px'
-    canvas.style.height = height + 'px'
+    canvas.style.width = `${width}px`
+    canvas.style.height = `${height}px`
     ctx.scale(devicePixelRatio, devicePixelRatio)
   }
 
@@ -70,8 +70,8 @@ export class NavCanvas {
 
     imgCanvas.width = w
     imgCanvas.height = h
-    imgCanvas.style.width = w / r + 'px'
-    imgCanvas.style.height = h / r + 'px'
+    imgCanvas.style.width = `${w / r}px`
+    imgCanvas.style.height = `${h / r}px`
 
     const ctx = imgCanvas.getContext('2d')
     //缩放 宽高 100%
@@ -79,7 +79,7 @@ export class NavCanvas {
     ctx.lineWidth = 0.4
     for (let g = 3, h = 0.8, j = 1; 30 > j; j++) {
     //设置或返回用于笔触的颜色、渐变或模式
-      ctx.strokeStyle = 'RGBA(22, 120, 160, ' + h + ')'
+      ctx.strokeStyle = `RGBA(22, 120, 160, ${h})`
       //开始一条路径
       ctx.beginPath()
       //把路径移动到画布中的指定点，不创建线条

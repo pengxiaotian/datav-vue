@@ -115,7 +115,7 @@
         </div>
       </div>
       <div class="screen-info">
-        <i class="v-icon-workspace workspace-icon" @click="$router.push('/')"></i>
+        <i class="v-icon-workspace workspace-icon" @click="goHome"></i>
         <span>{{ '工作空间 - ' + screen.name }}</span>
       </div>
       <div class="global-actions">
@@ -230,6 +230,10 @@ export default defineComponent({
     changeFilterPanel() {
       ToolbarModule.filter.show = !this.filter
     },
+    goHome() {
+      const route = this.$router.resolve('/')
+      window.open(route.href, '_blank', 'noopener=yes,noreferrer=yes')
+    },
     goPublish() {
       this.visiblePublish = true
       this.publishAppId = this.screen.id
@@ -253,7 +257,7 @@ export default defineComponent({
         await saveScreen(data)
         MessageUtil.success('大屏已保存')
       } catch (error) {
-        MessageUtil.error('保存大屏失败：' + error)
+        MessageUtil.error(`保存大屏失败：${error}`)
       } finally {
         ToolbarModule.removeLoading()
       }

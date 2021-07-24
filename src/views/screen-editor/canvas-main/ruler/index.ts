@@ -22,7 +22,7 @@ interface RulerOption {
 }
 
 const pixelize = (val: number | string) => {
-  return val + 'px'
+  return `${val}px`
 }
 
 // 创建高分辨率画布
