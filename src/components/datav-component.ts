@@ -85,3 +85,24 @@ export abstract class DatavComponent {
    */
    abstract initData(): this
 }
+
+export abstract class DatavChartSeries {
+  id: string
+  readonly name: string
+  readonly type: string
+
+  constructor (name: string, type: string) {
+    this.id = generateId(name)
+    this.name = name
+    this.type = type
+  }
+}
+
+export abstract class DatavEChartsComponent extends DatavComponent {
+  // series
+  abstract config: Record<string, any> & {
+    series: {
+      series: DatavChartSeries[]
+    }
+  }
+}
