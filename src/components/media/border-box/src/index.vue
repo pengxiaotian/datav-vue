@@ -1,14 +1,12 @@
 <template>
-  <div>
-    BorderBox
+  <div class="datav-wrapper" :style="wraperStyle">
+    <div class="bg-inner" style="background: none; width: 100%; height: 100%;"></div>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
-import { ApiModule } from '@/store/modules/api'
-import { BorderBox } from './border-box'
+import { BorderBox, presetImages } from './border-box'
 
 export default defineComponent({
   name: 'VBorderBox',
@@ -19,20 +17,29 @@ export default defineComponent({
     },
   },
   setup(props) {
-    useDataCenter(props.com)
-
-    const dv_data = computed(() => {
-      return ApiModule.dataMap[props.com.id]?.source ?? {}
-    })
-
-    const dv_field = computed(() => {
-      return getFieldMap(props.com.apis.source.fields)
-    })
-
     const config = toRef(props.com, 'config')
     const attr = toRef(props.com, 'attr')
 
+    const wraperStyle = computed(() => {
+      const style = {
+        transform: 'translateZ(0px)',
+        width: `${attr.value.w}px`,
+        height: `${attr.value.h}px`,
+        opacity: attr.value.opacity,
+        'border-radius': 0,
+        'border-style': 'solid',
+        'border-width': `1px`,
+        background: 'none',
+      }
+      const img = presetImages.find(m => m.id === config.value.boxStyle.style)
+      if (img) {
+        style['border-image'] = `url(${img.src}) ${img.border.slice} / ${img.border.width} / ${img.border.outset} ${img.border.repeat}`
+      }
+      return style
+    })
+
     return {
+      wraperStyle,
     }
   },
 })

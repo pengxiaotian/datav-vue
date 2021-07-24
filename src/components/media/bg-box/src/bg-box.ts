@@ -17,10 +17,6 @@ export class BgBox extends DatavComponent {
         fill: '#003a8c',
         opacity: 10,
       },
-      {
-        fill: '#003a8c',
-        opacity: 12,
-      },
     ],
     border: {
       show: true,

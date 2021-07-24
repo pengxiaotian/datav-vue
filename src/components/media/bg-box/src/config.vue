@@ -7,7 +7,7 @@
       <g-input-number
         v-model="config.borderRadius"
         :min="0"
-        :max="100"
+        :max="888888"
         :step="1"
         suffix="px"
       />

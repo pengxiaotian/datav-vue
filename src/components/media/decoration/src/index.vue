@@ -1,14 +1,12 @@
 <template>
-  <div>
-    Decoration
+  <div class="datav-wrapper" :style="wraperStyle">
+    <div :style="imgBoxStyle"></div>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
-import { ApiModule } from '@/store/modules/api'
-import { Decoration } from './decoration'
+import { Decoration, presetImages } from './decoration'
 
 export default defineComponent({
   name: 'VDecoration',
@@ -19,20 +17,35 @@ export default defineComponent({
     },
   },
   setup(props) {
-    useDataCenter(props.com)
-
-    const dv_data = computed(() => {
-      return ApiModule.dataMap[props.com.id]?.source ?? {}
-    })
-
-    const dv_field = computed(() => {
-      return getFieldMap(props.com.apis.source.fields)
-    })
-
     const config = toRef(props.com, 'config')
     const attr = toRef(props.com, 'attr')
 
+    const wraperStyle = computed(() => {
+      return {
+        transform: 'translateZ(0px)',
+        width: `${attr.value.w}px`,
+        height: `${attr.value.h}px`,
+        opacity: attr.value.opacity,
+      }
+    })
+
+    const imgBoxStyle = computed(() => {
+      const gif = presetImages[config.value.global.img]
+      return {
+        width: '100%',
+        height: '100%',
+        opacity: config.value.global.opacity,
+        'background-image': `url(${gif.url})`,
+        'background-size': '100%',
+        'background-repeat': 'no-repeat',
+        'background-position': 'center',
+        ...gif.css,
+      }
+    })
+
     return {
+      wraperStyle,
+      imgBoxStyle,
     }
   },
 })

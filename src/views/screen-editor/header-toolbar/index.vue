@@ -120,13 +120,13 @@
       </div>
       <div class="global-actions">
         <el-tooltip
-          content="保存"
+          content="生成快照"
           effect="blue"
           :open-delay="500"
           :enterable="false"
         >
           <div class="head-btn ml4" @click="saveScreen">
-            <i class="v-icon-save head-btn-icon"></i>
+            <i class="v-icon-snapshot head-btn-icon"></i>
           </div>
         </el-tooltip>
         <el-tooltip

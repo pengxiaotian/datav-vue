@@ -9,7 +9,7 @@ export interface DatavImageType {
   width?: number
   height?: number
   preview?: string
-  border?: {
+  border: {
     width: string
     outset: string
     slice: string

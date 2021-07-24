@@ -11,7 +11,7 @@ import { DatavImageType } from '@/utils/types'
 export class BorderBox extends DatavComponent {
   config = {
     boxStyle: {
-      style: 'box1',
+      style: 'box15',
     },
   }
 
