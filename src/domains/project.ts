@@ -79,6 +79,7 @@ export class ProjectGroup {
 export interface ProjectTemplate {
   id: number
   name: string
+  description: string
   size: String[]
   snapshot: string
   thumbnail: string

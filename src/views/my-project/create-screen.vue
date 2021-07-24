@@ -104,6 +104,9 @@
         </div>
         <div class="preview-create">
           <div class="create-dialog">
+            <p v-if="template.description" class="template-desc">
+              {{ template.description }}
+            </p>
             <p class="name-title">
               <span class="required">*</span>数据大屏名称
             </p>
@@ -515,6 +518,15 @@ export default defineComponent({
     display: inline-block;
     margin-right: 6px;
     color: $color-red;
+  }
+
+  .template-desc {
+    margin-bottom: 20px;
+    opacity: 0.8;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
   }
 
   .name-title {

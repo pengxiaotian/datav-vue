@@ -107,14 +107,14 @@ export default (adapter: MockAdapter) => {
     }))
 
   // 复制组件
-  adapter.onPost(/\/coms\/\d+\/copy/)
+  adapter.onPost(/\/coms\/\S+\/copy$/)
     .reply(200, Mock.mock({
       code: 0,
       message: 'ok',
     }))
 
   // 删除组件
-  adapter.onDelete(/\/coms\/\d+/)
+  adapter.onDelete(/\/coms\/\S+$/)
     .reply(200, Mock.mock({
       code: 0,
       message: 'ok',

@@ -143,6 +143,7 @@ export default (adapter: MockAdapter) => {
         {
           'id|0-10000': 1,
           name: '@word',
+          description: '模板的描述',
           size: [
             '比例 16:9',
             '1920x1080px',
