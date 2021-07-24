@@ -11,17 +11,19 @@ import { DataEventConfig } from '@/components/data-event'
  */
 export class NumberTitleFlop extends DatavComponent {
   config = {
-    arrangement: 'top',
-    distance: 0,
+    global: {
+      fontFamily: 'Microsoft Yahei',
+      arrangement: 'top',
+      distance: 0,
+    },
     title: {
-      content: '我是标题',
+      content: 'Typesomething',
       textStyle: {
-        fontFamily: 'Microsoft Yahei',
-        fontSize: 15,
-        color: '#fff',
-        fontWeight: 'lighter',
+        fontSize: 18,
+        color: '#79daff',
+        fontWeight: 'normal',
+        textAlign: 'flex-start',
       },
-      textAlign: 'center',
     },
     counter: {
       fontFamily: 'Microsoft Yahei',
@@ -33,25 +35,25 @@ export class NumberTitleFlop extends DatavComponent {
       prefix: {
         content: '￥',
         textStyle: {
-          fontSize: 50,
-          color: '#fff',
-          fontWeight: 'normal',
+          fontSize: 36,
+          color: '#0a73ff',
+          fontWeight: 'bolder',
         },
       },
       suffix: {
-        content: '元',
+        content: '',
         textStyle: {
           fontSize: 30,
           color: '#fff',
-          fontWeight: 'normal',
+          fontWeight: 'bolder',
         },
       },
     },
     numbers: {
       textStyle: {
-        fontSize: 50,
-        color: '#fff600',
-        fontWeight: 'normal',
+        fontSize: 36,
+        color: '#0a73ff',
+        fontWeight: 'bolder',
       },
       marginRight: 0,
       bgColor: 'rgba(51,51,51,0)',
@@ -79,7 +81,7 @@ export class NumberTitleFlop extends DatavComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('NumberTitleFlop', { w: 350, h: 100 })
+    super('NumberTitleFlop', { w: 350, h: 64 })
 
     this.initData()
   }
@@ -109,7 +111,7 @@ export class NumberTitleFlop extends DatavComponent {
 
     this.apiData = setApiData(this.id, {}, 'source', {
       title: '',
-      value: '12345.67',
+      value: '123456.7',
     })
 
     this.events = {}

@@ -1,32 +1,110 @@
 [
   {
-    "key": "arrangement",
+    "key": "global",
     "config": {
-      "type": "string",
-      "component": "select",
-      "alias": "排列方式",
+      "type": "object",
+      "component": "none",
+      "alias": "全局",
       "tip": "",
-      "displayMode": "single",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
-      "defaultValue": "top"
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
     },
-    "path": "arrangement"
-  },
-  {
-    "key": "distance",
-    "config": {
-      "type": "number",
-      "component": "slider",
-      "alias": "间隔",
-      "tip": "",
-      "displayMode": "single",
-      "toggleCol": "",
-      "defaultValue": 0,
-      "min": -100,
-      "max": 500,
-      "step": 0.5
-    },
-    "path": "distance"
+    "path": "global",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "fontFamily",
+        "config": {
+          "type": "string",
+          "component": "fontFamily",
+          "alias": "字体",
+          "tip": "请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "Microsoft Yahei",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.fontFamily",
+        "virtualPath": ""
+      },
+      {
+        "key": "arrangement",
+        "config": {
+          "type": "string",
+          "component": "select",
+          "alias": "排列方式",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": "top",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.arrangement",
+        "virtualPath": ""
+      },
+      {
+        "key": "distance",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "间隔",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": 0,
+          "min": -100,
+          "max": 500,
+          "step": 0.5,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.distance",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "fontFamily",
+      "arrangement",
+      "distance"
+    ]
   },
   {
     "key": "title",
@@ -36,10 +114,22 @@
       "alias": "标题",
       "tip": "",
       "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
-      "defaultValue": null
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
     },
     "path": "title",
+    "virtualPath": "",
     "children": [
       {
         "key": "content",
@@ -47,12 +137,24 @@
           "type": "string",
           "component": "input",
           "alias": "标题名",
-          "tip": "支持从数据中获取标题内容,详见数据面板",
+          "tip": "支持从数据中获取标题内容，详见数据面板",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": "我是标题"
+          "defaultValue": "我是标题",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "title.content"
+        "path": "title.content",
+        "virtualPath": ""
       },
       {
         "key": "textStyle",
@@ -61,25 +163,24 @@
           "component": "none",
           "alias": "文本样式",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": null
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
         "path": "title.textStyle",
+        "virtualPath": "",
         "children": [
-          {
-            "key": "fontFamily",
-            "config": {
-              "type": "string",
-              "component": "fontFamily",
-              "alias": "字体",
-              "tip": "",
-              "displayMode": "single",
-              "toggleCol": "",
-              "defaultValue": "Microsoft Yahei"
-            },
-            "path": "title.textStyle.fontFamily"
-          },
           {
             "key": "fontSize",
             "config": {
@@ -88,66 +189,110 @@
               "alias": "字号",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": 15,
-              "min": 10,
+              "defaultValue": 18,
+              "min": 12,
               "max": 100,
-              "step": 1
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "title.textStyle.fontSize"
+            "path": "title.textStyle.fontSize",
+            "virtualPath": ""
           },
           {
             "key": "color",
             "config": {
               "type": "string",
               "component": "color",
-              "alias": "颜色",
+              "alias": "字体颜色",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": "#fff"
+              "defaultValue": "#79daff",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "title.textStyle.color"
+            "path": "title.textStyle.color",
+            "virtualPath": ""
           },
           {
             "key": "fontWeight",
             "config": {
               "type": "string",
               "component": "fontWeight",
-              "alias": "粗细",
+              "alias": "字体粗细",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": "lighter"
+              "defaultValue": "normal",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "title.textStyle.fontWeight"
+            "path": "title.textStyle.fontWeight",
+            "virtualPath": ""
+          },
+          {
+            "key": "textAlign",
+            "config": {
+              "type": "string",
+              "component": "justify",
+              "alias": "对齐方式",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "defaultValue": "left",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "title.textStyle.textAlign",
+            "virtualPath": ""
           }
         ],
         "cols": [
-          "fontFamily",
           "fontSize",
           "color",
-          "fontWeight"
+          "fontWeight",
+          "textAlign"
         ]
-      },
-      {
-        "key": "textAlign",
-        "config": {
-          "type": "string",
-          "component": "hAlign",
-          "alias": "对齐方式",
-          "tip": "",
-          "displayMode": "single",
-          "toggleCol": "",
-          "defaultValue": "center"
-        },
-        "path": "title.textAlign"
       }
     ],
     "cols": [
       "content",
-      "textStyle",
-      "textAlign"
+      "textStyle"
     ]
   },
   {
@@ -158,10 +303,22 @@
       "alias": "翻牌器",
       "tip": "",
       "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
-      "defaultValue": null
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
     },
     "path": "counter",
+    "virtualPath": "",
     "children": [
       {
         "key": "fontFamily",
@@ -169,12 +326,24 @@
           "type": "string",
           "component": "fontFamily",
           "alias": "字体",
-          "tip": "请选择您系统有的字体,如果您系统无此字体,标题将会显示默认字体",
+          "tip": "请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": "Microsoft Yahei"
+          "defaultValue": "Microsoft Yahei",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "counter.fontFamily"
+        "path": "counter.fontFamily",
+        "virtualPath": ""
       },
       {
         "key": "justifyContent",
@@ -184,10 +353,22 @@
           "alias": "水平对齐",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": "flex-start"
+          "defaultValue": "flex-start",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "counter.justifyContent"
+        "path": "counter.justifyContent",
+        "virtualPath": ""
       },
       {
         "key": "margin",
@@ -196,43 +377,73 @@
           "component": "none",
           "alias": "间距",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": null
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
         "path": "counter.margin",
+        "virtualPath": "",
         "children": [
           {
             "key": "preNum",
             "config": {
               "type": "number",
               "component": "number",
-              "alias": "前缀",
+              "alias": "前缀-数字",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
               "defaultValue": 0,
-              "min": -100,
-              "max": 100,
-              "step": 0.5
+              "min": -1000,
+              "max": 1000,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "counter.margin.preNum"
+            "path": "counter.margin.preNum",
+            "virtualPath": ""
           },
           {
             "key": "numSuff",
             "config": {
               "type": "number",
               "component": "number",
-              "alias": "后缀",
+              "alias": "数字-后缀",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
               "defaultValue": 0,
-              "min": -100,
-              "max": 100,
-              "step": 0.5
+              "min": -1000,
+              "max": 1000,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "counter.margin.numSuff"
+            "path": "counter.margin.numSuff",
+            "virtualPath": ""
           }
         ],
         "cols": [
@@ -248,10 +459,22 @@
           "alias": "前缀",
           "tip": "",
           "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": null
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
         "path": "counter.prefix",
+        "virtualPath": "",
         "children": [
           {
             "key": "content",
@@ -261,10 +484,22 @@
               "alias": "内容",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": "￥"
+              "defaultValue": "￥",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "counter.prefix.content"
+            "path": "counter.prefix.content",
+            "virtualPath": ""
           },
           {
             "key": "textStyle",
@@ -273,11 +508,23 @@
               "component": "none",
               "alias": "文本样式",
               "tip": "",
-              "displayMode": "nest",
+              "displayMode": "flat",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": null
+              "defaultValue": null,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
             "path": "counter.prefix.textStyle",
+            "virtualPath": "",
             "children": [
               {
                 "key": "fontSize",
@@ -287,13 +534,22 @@
                   "alias": "字号",
                   "tip": "",
                   "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
                   "toggleCol": "",
-                  "defaultValue": 50,
-                  "min": 10,
+                  "defaultValue": 36,
+                  "min": 12,
                   "max": 100,
-                  "step": 1
+                  "step": 1,
+                  "suffix": "px",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  }
                 },
-                "path": "counter.prefix.textStyle.fontSize"
+                "path": "counter.prefix.textStyle.fontSize",
+                "virtualPath": ""
               },
               {
                 "key": "color",
@@ -303,10 +559,22 @@
                   "alias": "字体颜色",
                   "tip": "",
                   "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
                   "toggleCol": "",
-                  "defaultValue": "#fff"
+                  "defaultValue": "#0a73ff",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  }
                 },
-                "path": "counter.prefix.textStyle.color"
+                "path": "counter.prefix.textStyle.color",
+                "virtualPath": ""
               },
               {
                 "key": "fontWeight",
@@ -316,10 +584,22 @@
                   "alias": "字体粗细",
                   "tip": "",
                   "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
                   "toggleCol": "",
-                  "defaultValue": "normal"
+                  "defaultValue": "bolder",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  }
                 },
-                "path": "counter.prefix.textStyle.fontWeight"
+                "path": "counter.prefix.textStyle.fontWeight",
+                "virtualPath": ""
               }
             ],
             "cols": [
@@ -342,10 +622,22 @@
           "alias": "后缀",
           "tip": "",
           "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": null
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
         "path": "counter.suffix",
+        "virtualPath": "",
         "children": [
           {
             "key": "content",
@@ -355,10 +647,22 @@
               "alias": "内容",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": "元"
+              "defaultValue": "",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "counter.suffix.content"
+            "path": "counter.suffix.content",
+            "virtualPath": ""
           },
           {
             "key": "textStyle",
@@ -367,11 +671,23 @@
               "component": "none",
               "alias": "文本样式",
               "tip": "",
-              "displayMode": "nest",
+              "displayMode": "flat",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": null
+              "defaultValue": null,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
             "path": "counter.suffix.textStyle",
+            "virtualPath": "",
             "children": [
               {
                 "key": "fontSize",
@@ -381,13 +697,22 @@
                   "alias": "字号",
                   "tip": "",
                   "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
                   "toggleCol": "",
                   "defaultValue": 30,
-                  "min": 10,
+                  "min": 12,
                   "max": 100,
-                  "step": 1
+                  "step": 1,
+                  "suffix": "px",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  }
                 },
-                "path": "counter.suffix.textStyle.fontSize"
+                "path": "counter.suffix.textStyle.fontSize",
+                "virtualPath": ""
               },
               {
                 "key": "color",
@@ -397,10 +722,22 @@
                   "alias": "字体颜色",
                   "tip": "",
                   "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
                   "toggleCol": "",
-                  "defaultValue": "#fff"
+                  "defaultValue": "#fff",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  }
                 },
-                "path": "counter.suffix.textStyle.color"
+                "path": "counter.suffix.textStyle.color",
+                "virtualPath": ""
               },
               {
                 "key": "fontWeight",
@@ -410,10 +747,22 @@
                   "alias": "字体粗细",
                   "tip": "",
                   "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
                   "toggleCol": "",
-                  "defaultValue": "normal"
+                  "defaultValue": "bolder",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  }
                 },
-                "path": "counter.suffix.textStyle.fontWeight"
+                "path": "counter.suffix.textStyle.fontWeight",
+                "virtualPath": ""
               }
             ],
             "cols": [
@@ -445,10 +794,22 @@
       "alias": "数字",
       "tip": "",
       "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
-      "defaultValue": null
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
     },
     "path": "numbers",
+    "virtualPath": "",
     "children": [
       {
         "key": "textStyle",
@@ -458,10 +819,22 @@
           "alias": "文本样式",
           "tip": "",
           "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": null
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
         "path": "numbers.textStyle",
+        "virtualPath": "",
         "children": [
           {
             "key": "fontSize",
@@ -471,13 +844,22 @@
               "alias": "字号",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": 50,
-              "min": 10,
+              "defaultValue": 36,
+              "min": 12,
               "max": 100,
-              "step": 1
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "numbers.textStyle.fontSize"
+            "path": "numbers.textStyle.fontSize",
+            "virtualPath": ""
           },
           {
             "key": "color",
@@ -487,10 +869,22 @@
               "alias": "字体颜色",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": "#fff600"
+              "defaultValue": "#0a73ff",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "numbers.textStyle.color"
+            "path": "numbers.textStyle.color",
+            "virtualPath": ""
           },
           {
             "key": "fontWeight",
@@ -500,10 +894,22 @@
               "alias": "字体粗细",
               "tip": "",
               "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
-              "defaultValue": "normal"
+              "defaultValue": "bolder",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
             },
-            "path": "numbers.textStyle.fontWeight"
+            "path": "numbers.textStyle.fontWeight",
+            "virtualPath": ""
           }
         ],
         "cols": [
@@ -520,13 +926,22 @@
           "alias": "数字间隔",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
           "defaultValue": 0,
           "min": 0,
           "max": 10,
-          "step": 0.5
+          "step": 0.5,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.marginRight"
+        "path": "numbers.marginRight",
+        "virtualPath": ""
       },
       {
         "key": "bgColor",
@@ -534,12 +949,24 @@
           "type": "string",
           "component": "color",
           "alias": "背景色",
-          "tip": "",
+          "tip": "注意：字体颜色为渐变色时，字体背景色将会失效。",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": "rgba(51,51,51,0)"
+          "defaultValue": "rgba(51,51,51,0)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.bgColor"
+        "path": "numbers.bgColor",
+        "virtualPath": ""
       },
       {
         "key": "bgRadius",
@@ -549,13 +976,22 @@
           "alias": "背景圆角",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
           "defaultValue": 6,
           "min": 0,
-          "max": 100,
-          "step": 0.5
+          "max": 1000,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.bgRadius"
+        "path": "numbers.bgRadius",
+        "virtualPath": ""
       },
       {
         "key": "bgSeparating",
@@ -565,10 +1001,22 @@
           "alias": "分隔符背景",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": false
+          "defaultValue": false,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.bgSeparating"
+        "path": "numbers.bgSeparating",
+        "virtualPath": ""
       },
       {
         "key": "digit",
@@ -578,13 +1026,22 @@
           "alias": "默认位数",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
           "defaultValue": 0,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.digit"
+        "path": "numbers.digit",
+        "virtualPath": ""
       },
       {
         "key": "decimal",
@@ -594,13 +1051,22 @@
           "alias": "小数点位数",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
           "defaultValue": 0,
           "min": 0,
-          "max": 9,
-          "step": 1
+          "max": 8,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.decimal"
+        "path": "numbers.decimal",
+        "virtualPath": ""
       },
       {
         "key": "divisor",
@@ -610,39 +1076,72 @@
           "alias": "除数",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
           "defaultValue": 0,
-          "min": null,
-          "max": null,
-          "step": 1
+          "min": -8888888,
+          "max": 8888888,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.divisor"
+        "path": "numbers.divisor",
+        "virtualPath": ""
       },
       {
         "key": "separatingChart",
         "config": {
           "type": "boolean",
           "component": "switch",
-          "alias": "千分位分隔符",
+          "alias": "千位分隔符",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": true
+          "defaultValue": true,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.separatingChart"
+        "path": "numbers.separatingChart",
+        "virtualPath": ""
       },
       {
         "key": "separatingSymbol",
         "config": {
           "type": "string",
           "component": "input",
-          "alias": "千分位分隔符符号",
+          "alias": "千位分隔符符号",
           "tip": "分隔符最长一位，超出一位取第一位，无法以数字为分隔符",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": ","
+          "defaultValue": ",",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.separatingSymbol"
+        "path": "numbers.separatingSymbol",
+        "virtualPath": ""
       },
       {
         "key": "decimalSymbol",
@@ -652,10 +1151,22 @@
           "alias": "小数分隔符符号",
           "tip": "分隔符最长一位，超出一位取第一位，无法以数字为分隔符",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": "."
+          "defaultValue": ".",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.decimalSymbol"
+        "path": "numbers.decimalSymbol",
+        "virtualPath": ""
       },
       {
         "key": "fixedWidth",
@@ -665,13 +1176,47 @@
           "alias": "定宽",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
           "defaultValue": 0,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.fixedWidth"
+        "path": "numbers.fixedWidth",
+        "virtualPath": ""
+      },
+      {
+        "key": "increment",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "数据抖动修正",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "defaultValue": true,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "numbers.increment",
+        "virtualPath": ""
       },
       {
         "key": "animation",
@@ -681,13 +1226,22 @@
           "alias": "开启动画",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
           "defaultValue": true,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.animation"
+        "path": "numbers.animation",
+        "virtualPath": ""
       },
       {
         "key": "sameDataFlip",
@@ -695,28 +1249,49 @@
           "type": "boolean",
           "component": "switch",
           "alias": "始终动画",
-          "tip": "当传入数据不变时始终开启动画",
+          "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
-          "defaultValue": false
+          "defaultValue": false,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.sameDataFlip"
+        "path": "numbers.sameDataFlip",
+        "virtualPath": ""
       },
       {
         "key": "duration",
         "config": {
           "type": "number",
           "component": "number",
-          "alias": "动画时长(ms)",
+          "alias": "动画时长",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
           "defaultValue": 1000,
           "min": 0,
           "max": 100000,
-          "step": 500
+          "step": 500,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
         },
-        "path": "numbers.duration"
+        "path": "numbers.duration",
+        "virtualPath": ""
       }
     ],
     "cols": [
@@ -732,6 +1307,7 @@
       "separatingSymbol",
       "decimalSymbol",
       "fixedWidth",
+      "increment",
       "animation",
       "sameDataFlip",
       "duration"

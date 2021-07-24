@@ -1,6 +1,6 @@
 <template>
   <div class="datav-wrapper" :style="wrapperStyle">
-    <div :style="titleStyle">
+    <div ref="titleRef" :style="titleStyle">
       {{ titleText }}
     </div>
     <div :style="counterStyle">
@@ -29,9 +29,8 @@ import Accounting from 'accounting'
 import NP from 'number-precision'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
+import { calcStrWidth } from '@/utils/util'
 import { NumberTitleFlop } from './number-title-flop'
-
-type ArrangementType = 'top' | 'topcenter' | 'left' | 'bottom' | 'bottomcenter'
 
 export default defineComponent({
   name: 'VNumberTitleFlop',
@@ -43,6 +42,7 @@ export default defineComponent({
   },
   setup(props) {
     useDataCenter(props.com)
+    const titleRef = ref(null)
 
     const dv_data = computed(() => {
       return ApiModule.dataMap[props.com.id]?.source ?? {}
@@ -57,7 +57,7 @@ export default defineComponent({
     const attr = toRef(props.com, 'attr')
 
     const titleText = computed((): string => {
-      return dv_data.value[dv_field.value.title] ?? config.value.title.content
+      return dv_data.value[dv_field.value.title] || config.value.title.content
     })
 
     const prefixText = computed((): string => {
@@ -110,20 +110,19 @@ export default defineComponent({
     })
 
     const wrapperStyle = computed(() => {
-      const arrangement = config.value.arrangement as ArrangementType
-      let style: Partial<CSSProperties> = {
-        width: `${attr.value.w}px`,
-        height: `${attr.value.h}px`,
-      }
+      const arrangement = config.value.global.arrangement
+      let style = {}
       if (arrangement === 'top') {
         style = {
           display: 'block',
           alignItems: 'start',
+          flexDirection: 'column',
         }
       } else if (arrangement === 'left') {
         style = {
           display: 'flex',
           alignItems: 'baseline',
+          flexDirection: 'row',
         }
       } else if (arrangement === 'bottom') {
         style = {
@@ -131,72 +130,62 @@ export default defineComponent({
           alignItems: 'start',
           flexDirection: 'column-reverse',
         }
-      } else if (arrangement === 'bottomcenter') {
-        style = {
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column-reverse',
-        }
       }
-      return style
+      return {
+        width: `${attr.value.w}px`,
+        height: `${attr.value.h}px`,
+        ...style,
+      } as Partial<CSSProperties>
     })
 
     const titleStyle = computed(() => {
+      const { fontFamily, arrangement, distance } = config.value.global
       const { textStyle } = config.value.title
+
       const style: Partial<CSSProperties> = {
-        display: 'block',
+        display: 'flex',
         alignItems: 'center',
-        fontFamily: `${textStyle.fontFamily}, Arial, sans-serif`,
-        fontSize: `${textStyle.fontSize}px`,
         color: textStyle.color,
         fontWeight: textStyle.fontWeight as any,
+        fontFamily: `${fontFamily}, Arial, sans-serif`,
+        fontSize: `${textStyle.fontSize}px`,
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         lineHeight: 'normal',
-        margin: '0',
+        margin: '0px',
+        justifyContent: textStyle.textAlign,
+        width: '100%',
       }
 
-      const arrangement = config.value.arrangement as ArrangementType
-      const distance = config.value.distance
       if (arrangement === 'top') {
-        style.display = 'block'
-        style.overflow = 'hidden'
         style.margin = `0px 0px ${distance}px`
-      } else if (arrangement === 'topcenter') {
-        style.display = 'block'
-        style.overflow = 'hidden'
-        style.margin = `0px 0px ${distance}px`
-        style.textAlign = 'center'
       } else if (arrangement === 'left') {
-        style.display = 'flex'
-        style.overflow = 'visible'
+        style.width = 'auto'
         style.margin = `0px ${distance}px 0px 0px`
-      } else if (arrangement === 'bottom' || arrangement === 'bottomcenter') {
-        style.display = 'flex'
-        style.overflow = 'visible'
+      } else if (arrangement === 'bottom') {
         style.margin = `${distance}px 0px 0px`
       }
       return style
     })
 
     const counterStyle = computed(() => {
-      const { title, counter, numbers } = config.value
+      const { title, counter, numbers, global } = config.value
       const style: Partial<CSSProperties> = {
         display: 'flex',
         alignItems: 'baseline',
+        color: numbers.textStyle.color,
         textAlign: 'center',
         whiteSpace: 'nowrap',
         justifyContent: counter.justifyContent,
-        fontFamily: `${counter.fontFamily}, Arial, sans-serif`,
-        color: numbers.textStyle.color,
+        fontFamily: counter.fontFamily,
         backgroundColor: 'rgba(0, 0, 0, 0)',
-        lineHeight: `${attr.value.h - 7}px`,
       }
 
-      const titleContainerW = title.textStyle.fontSize * titleText.value.length
-      const titleContainerH = title.textStyle.fontSize + 5
-      const arrangement = config.value.arrangement as ArrangementType
+      const titleFont = `${title.textStyle.fontWeight} ${title.textStyle.fontSize}px ${global.fontFamily}, Arial, sans-serif`
+      const titleContainerW = calcStrWidth(titleText.value, titleFont)
+      const titleContainerH = title.textStyle.fontSize + 10
+      const arrangement = global.arrangement
       if (arrangement === 'top' || arrangement === 'bottom') {
         style.width = `${attr.value.w}px`
         style.height = `${attr.value.h - titleContainerH}px`
@@ -215,6 +204,7 @@ export default defineComponent({
         fontSize: `${prefix.textStyle.fontSize}px`,
         fontWeight: prefix.textStyle.fontWeight,
         VerticalAlign: 'super',
+        fontFamily: config.value.global.fontFamily,
       } as CSSProperties
     })
 
@@ -226,6 +216,7 @@ export default defineComponent({
         fontSize: `${suffix.textStyle.fontSize}px`,
         fontWeight: suffix.textStyle.fontWeight,
         VerticalAlign: 'super',
+        fontFamily: config.value.global.fontFamily,
       } as CSSProperties
     })
 
@@ -282,6 +273,7 @@ export default defineComponent({
     })
 
     return {
+      titleRef,
       titleText,
       prefixText,
       suffixText,

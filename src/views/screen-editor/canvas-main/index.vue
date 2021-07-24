@@ -16,7 +16,14 @@
             :key="com.id"
             :com="com"
           >
-            <component :is="com.name" :com="com" />
+            <component
+              :is="com.name"
+              :com="com"
+              :style="{
+                transform: 'translateZ(0px)',
+                opacity: com.attr.opacity,
+              }"
+            />
           </datav-transform>
         </div>
       </div>

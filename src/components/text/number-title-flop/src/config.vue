@@ -1,118 +1,86 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field
-      label="排列方式"
+    <g-field-collapse
+      label="全局"
     >
-      <el-select
-        v-model="config.arrangement"
-        size="mini"
+      <g-field
+        :level="2"
+        tooltip="请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体"
+        label="字体"
       >
-        <el-option
-          v-for="item in arrangements"
-          :key="item.id"
-          :label="item.value"
-          :value="item.id"
+        <g-select
+          v-model="config.global.fontFamily"
+          :data="fontFamilys"
         />
-      </el-select>
-    </g-field>
-    <g-field
-      label="间隔"
-    >
-      <el-slider
-        v-model="config.distance"
-        :min="-100"
-        :max="500"
-        :step="0.5"
-        :show-tooltip="false"
-        show-input
-        input-size="mini"
-        class="g-slider"
-      />
-    </g-field>
+      </g-field>
+      <g-field
+        :level="2"
+        label="排列方式"
+      >
+        <g-select
+          v-model="config.global.arrangement"
+          :data="arrangements"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="间隔"
+      >
+        <el-slider
+          v-model="config.global.distance"
+          :min="-100"
+          :max="500"
+          :step="0.5"
+          :show-tooltip="false"
+          show-input
+          input-size="mini"
+          class="g-slider"
+        />
+      </g-field>
+    </g-field-collapse>
     <g-field-collapse
       label="标题"
     >
       <g-field
         :level="2"
-        label="标题名"
         tooltip="支持从数据中获取标题内容，详见数据面板"
+        label="标题名"
       >
-        <el-input
+        <g-input
           v-model="config.title.content"
-          size="mini"
         />
       </g-field>
-      <g-field-collapse
-        label="文本样式"
-      >
-        <g-field
-          :level="2"
-          label="字体"
-        >
-          <el-select
-            v-model="config.title.textStyle.fontFamily"
-            size="mini"
-          >
-            <el-option
-              v-for="item in fontFamilys"
-              :key="item.id"
-              :label="item.value"
-              :value="item.id"
-            />
-          </el-select>
-        </g-field>
-        <g-field
-          :level="2"
-          label="字号"
-        >
-          <g-input-number
-            v-model="config.title.textStyle.fontSize"
-            :min="10"
-            :max="100"
-            :step="1"
-            :is-inline="false"
-          />
-        </g-field>
-        <g-field
-          :level="2"
-          label="颜色"
-        >
-          <g-color-picker
-            v-model="config.title.textStyle.color"
-          />
-        </g-field>
-        <g-field
-          :level="2"
-          label="粗细"
-        >
-          <el-select
-            v-model="config.title.textStyle.fontWeight"
-            size="mini"
-          >
-            <el-option
-              v-for="item in fontWeights"
-              :key="item.id"
-              :label="item.value"
-              :value="item.id"
-            />
-          </el-select>
-        </g-field>
-      </g-field-collapse>
       <g-field
         :level="2"
-        label="对齐方式"
+        label="文本样式"
+        :is-flat="true"
       >
-        <el-select
-          v-model="config.title.textAlign"
-          size="mini"
-        >
-          <el-option
-            v-for="item in hAligns"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
+        <g-input-number
+          v-model="config.title.textStyle.fontSize"
+          :min="12"
+          :max="100"
+          :step="1"
+          suffix="px"
+          is-inline
+          label="字号"
+        />
+        <g-color-picker
+          v-model="config.title.textStyle.color"
+          is-inline
+          label="字体颜色"
+        />
+        <g-select
+          v-model="config.title.textStyle.fontWeight"
+          :data="fontWeights"
+          is-inline
+          label="字体粗细"
+        />
+        <g-select
+          v-model="config.title.textStyle.textAlign"
+          :data="justifyContents"
+          is-inline
+          label="对齐方式"
+        />
       </g-field>
     </g-field-collapse>
     <g-field-collapse
@@ -123,62 +91,44 @@
         tooltip="请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体"
         label="字体"
       >
-        <el-select
+        <g-select
           v-model="config.counter.fontFamily"
-          size="mini"
-        >
-          <el-option
-            v-for="item in fontFamilys"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
+          :data="fontFamilys"
+        />
       </g-field>
       <g-field
         :level="2"
         label="水平对齐"
       >
-        <el-select
+        <g-select
           v-model="config.counter.justifyContent"
-          size="mini"
-        >
-          <el-option
-            v-for="item in justifyContents"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
+          :data="justifyContents"
+        />
       </g-field>
-      <g-field-collapse
+      <g-field
+        :level="2"
         label="间距"
+        :is-flat="true"
       >
-        <g-field
-          :level="2"
-          label="前缀"
-        >
-          <g-input-number
-            v-model="config.counter.margin.preNum"
-            :min="-100"
-            :max="100"
-            :step="0.5"
-            :is-inline="false"
-          />
-        </g-field>
-        <g-field
-          :level="2"
-          label="后缀"
-        >
-          <g-input-number
-            v-model="config.counter.margin.numSuff"
-            :min="-100"
-            :max="100"
-            :step="0.5"
-            :is-inline="false"
-          />
-        </g-field>
-      </g-field-collapse>
+        <g-input-number
+          v-model="config.counter.margin.preNum"
+          :min="-1000"
+          :max="1000"
+          :step="1"
+          suffix="px"
+          is-inline
+          label="前缀-数字"
+        />
+        <g-input-number
+          v-model="config.counter.margin.numSuff"
+          :min="-1000"
+          :max="1000"
+          :step="1"
+          suffix="px"
+          is-inline
+          label="数字-后缀"
+        />
+      </g-field>
       <g-field-collapse
         label="前缀"
       >
@@ -186,51 +136,36 @@
           :level="2"
           label="内容"
         >
-          <el-input
+          <g-input
             v-model="config.counter.prefix.content"
-            size="mini"
           />
         </g-field>
-        <g-field-collapse
+        <g-field
+          :level="2"
           label="文本样式"
+          :is-flat="true"
         >
-          <g-field
-            :level="2"
+          <g-input-number
+            v-model="config.counter.prefix.textStyle.fontSize"
+            :min="12"
+            :max="100"
+            :step="1"
+            suffix="px"
+            is-inline
             label="字号"
-          >
-            <g-input-number
-              v-model="config.counter.prefix.textStyle.fontSize"
-              :min="10"
-              :max="100"
-              :step="1"
-              :is-inline="false"
-            />
-          </g-field>
-          <g-field
-            :level="2"
+          />
+          <g-color-picker
+            v-model="config.counter.prefix.textStyle.color"
+            is-inline
             label="字体颜色"
-          >
-            <g-color-picker
-              v-model="config.counter.prefix.textStyle.color"
-            />
-          </g-field>
-          <g-field
-            :level="2"
+          />
+          <g-select
+            v-model="config.counter.prefix.textStyle.fontWeight"
+            :data="fontWeights"
+            is-inline
             label="字体粗细"
-          >
-            <el-select
-              v-model="config.counter.prefix.textStyle.fontWeight"
-              size="mini"
-            >
-              <el-option
-                v-for="item in fontWeights"
-                :key="item.id"
-                :label="item.value"
-                :value="item.id"
-              />
-            </el-select>
-          </g-field>
-        </g-field-collapse>
+          />
+        </g-field>
       </g-field-collapse>
       <g-field-collapse
         label="后缀"
@@ -239,51 +174,36 @@
           :level="2"
           label="内容"
         >
-          <el-input
+          <g-input
             v-model="config.counter.suffix.content"
-            size="mini"
           />
         </g-field>
-        <g-field-collapse
+        <g-field
+          :level="2"
           label="文本样式"
+          :is-flat="true"
         >
-          <g-field
-            :level="2"
+          <g-input-number
+            v-model="config.counter.suffix.textStyle.fontSize"
+            :min="12"
+            :max="100"
+            :step="1"
+            suffix="px"
+            is-inline
             label="字号"
-          >
-            <g-input-number
-              v-model="config.counter.suffix.textStyle.fontSize"
-              :min="10"
-              :max="100"
-              :step="1"
-              :is-inline="false"
-            />
-          </g-field>
-          <g-field
-            :level="2"
+          />
+          <g-color-picker
+            v-model="config.counter.suffix.textStyle.color"
+            is-inline
             label="字体颜色"
-          >
-            <g-color-picker
-              v-model="config.counter.suffix.textStyle.color"
-            />
-          </g-field>
-          <g-field
-            :level="2"
+          />
+          <g-select
+            v-model="config.counter.suffix.textStyle.fontWeight"
+            :data="fontWeights"
+            is-inline
             label="字体粗细"
-          >
-            <el-select
-              v-model="config.counter.suffix.textStyle.fontWeight"
-              size="mini"
-            >
-              <el-option
-                v-for="item in fontWeights"
-                :key="item.id"
-                :label="item.value"
-                :value="item.id"
-              />
-            </el-select>
-          </g-field>
-        </g-field-collapse>
+          />
+        </g-field>
       </g-field-collapse>
     </g-field-collapse>
     <g-field-collapse
@@ -298,10 +218,10 @@
         >
           <g-input-number
             v-model="config.numbers.textStyle.fontSize"
-            :min="10"
+            :min="12"
             :max="100"
             :step="1"
-            :is-inline="false"
+            suffix="px"
           />
         </g-field>
         <g-field
@@ -316,17 +236,10 @@
           :level="2"
           label="字体粗细"
         >
-          <el-select
+          <g-select
             v-model="config.numbers.textStyle.fontWeight"
-            size="mini"
-          >
-            <el-option
-              v-for="item in fontWeights"
-              :key="item.id"
-              :label="item.value"
-              :value="item.id"
-            />
-          </el-select>
+            :data="fontWeights"
+          />
         </g-field>
       </g-field-collapse>
       <g-field
@@ -346,6 +259,7 @@
       </g-field>
       <g-field
         :level="2"
+        tooltip="注意：字体颜色为渐变色时，字体背景色将会失效。"
         label="背景色"
       >
         <g-color-picker
@@ -359,8 +273,8 @@
         <el-slider
           v-model="config.numbers.bgRadius"
           :min="0"
-          :max="100"
-          :step="0.5"
+          :max="1000"
+          :step="1"
           :show-tooltip="false"
           show-input
           input-size="mini"
@@ -397,7 +311,7 @@
         <el-slider
           v-model="config.numbers.decimal"
           :min="0"
-          :max="9"
+          :max="8"
           :step="1"
           :show-tooltip="false"
           show-input
@@ -411,12 +325,14 @@
       >
         <g-input-number
           v-model="config.numbers.divisor"
-          :is-inline="false"
+          :min="-8888888"
+          :max="8888888"
+          :step="1"
         />
       </g-field>
       <g-field
         :level="2"
-        label="千分位分隔符"
+        label="千位分隔符"
       >
         <el-switch
           v-model="config.numbers.separatingChart"
@@ -425,11 +341,10 @@
       <g-field
         :level="2"
         tooltip="分隔符最长一位，超出一位取第一位，无法以数字为分隔符"
-        label="千分位分隔符符号"
+        label="千位分隔符符号"
       >
-        <el-input
+        <g-input
           v-model="config.numbers.separatingSymbol"
-          size="mini"
         />
       </g-field>
       <g-field
@@ -437,9 +352,8 @@
         tooltip="分隔符最长一位，超出一位取第一位，无法以数字为分隔符"
         label="小数分隔符符号"
       >
-        <el-input
+        <g-input
           v-model="config.numbers.decimalSymbol"
-          size="mini"
         />
       </g-field>
       <g-field
@@ -451,7 +365,14 @@
           :min="0"
           :max="100"
           :step="1"
-          :is-inline="false"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="数据抖动修正"
+      >
+        <el-switch
+          v-model="config.numbers.increment"
         />
       </g-field>
       <g-field
@@ -462,25 +383,23 @@
           v-model="config.numbers.animation"
         />
       </g-field>
-      <!-- <g-field
+      <g-field
         :level="2"
-        tooltip="当传入数据不变时始终开启动画"
         label="始终动画"
       >
         <el-switch
           v-model="config.numbers.sameDataFlip"
         />
-      </g-field> -->
+      </g-field>
       <g-field
         :level="2"
-        label="动画时长(ms)"
+        label="动画时长"
       >
         <g-input-number
           v-model="config.numbers.duration"
           :min="0"
           :max="100000"
           :step="500"
-          :is-inline="false"
         />
       </g-field>
     </g-field-collapse>
@@ -492,8 +411,17 @@ import { defineComponent, PropType, toRef, computed } from 'vue'
 import {
   fontFamilys,
   fontWeights,
+  fontStyles,
   hAligns,
+  vAligns,
+  writingModes,
   justifyContents,
+  aligns,
+  angles,
+  locations,
+  lineStyles,
+  fillTypes,
+  repeatTypes,
 } from '@/data/select-options'
 import { NumberTitleFlop } from './number-title-flop'
 
@@ -507,13 +435,10 @@ export default defineComponent({
   },
   setup(props) {
     const config = toRef(props.com, 'config')
-
     const arrangements = computed(() => ([
       { id: 'top', value: '标题在上' },
-      { id: 'topcenter', value: '标题在上中' },
       { id: 'left', value: '标题在左' },
       { id: 'bottom', value: '标题在下' },
-      { id: 'bottomcenter', value: '标题在下中' },
     ]))
 
     return {
@@ -522,8 +447,17 @@ export default defineComponent({
 
       fontFamilys,
       fontWeights,
+      fontStyles,
       hAligns,
+      vAligns,
+      writingModes,
       justifyContents,
+      aligns,
+      angles,
+      locations,
+      lineStyles,
+      fillTypes,
+      repeatTypes,
     }
   },
 })

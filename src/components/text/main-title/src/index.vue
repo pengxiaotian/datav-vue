@@ -45,7 +45,6 @@ export default defineComponent({
       const style = {
         width: `${attr.value.w}px`,
         height: `${attr.value.h}px`,
-        opacity: attr.value.opacity,
         'font-family': `${config.value.textStyle.fontFamily}, Arial, sans-serif`,
         'font-size': `${config.value.textStyle.fontSize}px`,
         'font-weight': config.value.textStyle.fontWeight,

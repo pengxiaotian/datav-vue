@@ -49,7 +49,6 @@ export default defineComponent({
         transform: 'translateZ(0px)',
         width: `${attr.value.w}px`,
         height: `${attr.value.h}px`,
-        opacity: attr.value.opacity,
         'border-radius': `${config.value.borderRadius}px`,
         filter: `blur(${config.value.filter.blur})`,
         'backdrop-filter': `blur(${config.value.backdropFilter.blur})`,

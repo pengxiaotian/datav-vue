@@ -25,7 +25,6 @@ export default defineComponent({
         transform: 'translateZ(0px)',
         width: `${attr.value.w}px`,
         height: `${attr.value.h}px`,
-        opacity: attr.value.opacity,
       }
     })
 

@@ -221,3 +221,32 @@ export const replaceTextParams = (text: string, data: Record<string, string>) =>
     return data[key.substr(1)] ?? key
   })
 }
+
+/**
+ * 简单计算字符串长度
+ */
+export const calcStrLen = (str: string) => {
+  let len = 0
+  for (let i = 0; i < str.length; i++) {
+    if (str.charCodeAt(i) > 127 || str.charCodeAt(i) == 94) {
+      len += 2
+    } else {
+      len ++
+    }
+  }
+  return len
+}
+
+/**
+ * 简单计算字符串宽度
+ */
+let TextCanvas: HTMLCanvasElement | null = null
+export const calcStrWidth = (str: string, font: string) => {
+  if (!TextCanvas) {
+    TextCanvas = document.createElement('canvas')
+  }
+  const ctx = TextCanvas.getContext('2d')
+  ctx.font = font
+  ctx.font
+  return ctx.measureText(str).width
+}
