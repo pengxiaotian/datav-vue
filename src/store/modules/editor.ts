@@ -336,7 +336,7 @@ class Editor extends VuexModule implements IEditorState {
   }
 
   @Mutation
-  public setOption(payload: {
+  public setEditorOption(payload: {
     screen?: Partial<Project>
     config?: Partial<PageConfig>
     coms?: DatavComponent[]
@@ -423,7 +423,7 @@ class Editor extends VuexModule implements IEditorState {
       const { data } = await getProject(projectId)
       if (data.code === 0) {
         const { config } = data.data
-        this.setOption({
+        this.setEditorOption({
           screen: {
             id: projectId,
             name: data.data.name,
@@ -454,7 +454,7 @@ class Editor extends VuexModule implements IEditorState {
     try {
       const res = await getComs(projectId)
       if (res.data.code === 0) {
-        this.setOption({
+        this.setEditorOption({
           coms: res.data.data,
         })
       } else {

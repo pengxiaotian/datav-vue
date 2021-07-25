@@ -54,7 +54,7 @@ class Filter extends VuexModule implements IFilterState {
   }
 
   @Mutation
-  public setOption(payload: {
+  public setFilterOption(payload: {
     dataFilters: DataFilter[]
   }) {
     this.dataFilters = payload.dataFilters
@@ -65,7 +65,7 @@ class Filter extends VuexModule implements IFilterState {
     try {
       const res = await api.getFilters(payload)
       if (res.data.code === 0) {
-        this.setOption({
+        this.setFilterOption({
           dataFilters: res.data.data,
         })
       } else {

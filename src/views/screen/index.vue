@@ -178,7 +178,7 @@ export default defineComponent({
       try {
         const data = await getScreen(+props.screenId)
         if (data) {
-          EditorModule.setOption({
+          EditorModule.setEditorOption({
             screen: data.screen,
             config: data.config,
             coms: data.coms,
@@ -187,7 +187,7 @@ export default defineComponent({
 
           initPageInfo(data.config)
 
-          FilterModule.setOption({
+          FilterModule.setFilterOption({
             dataFilters: data.dataFilters,
           })
 

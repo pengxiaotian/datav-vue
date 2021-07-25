@@ -64,7 +64,7 @@ export default defineComponent({
           const { data } = await getSysTemplate(tplId)
           if (data) {
             const { config } = data
-            EditorModule.setOption({
+            EditorModule.setEditorOption({
               screen: {
                 id: +props.projectId,
                 name: data.name,
@@ -80,7 +80,7 @@ export default defineComponent({
               variables: config.variables,
             })
 
-            FilterModule.setOption({
+            FilterModule.setFilterOption({
               dataFilters: config.dataFilters ?? [],
             })
           }
