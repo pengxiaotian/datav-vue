@@ -154,6 +154,7 @@ export default defineComponent({
 
     const toAddCom = (comName: string, used: boolean) => {
       if (used) {
+        ToolbarModule.addLoading()
         const { pageConfig } = EditorModule
         const com = createComponent(comName)
         com.attr.x = Math.floor((pageConfig.width - com.attr.w) / 2)
@@ -161,6 +162,7 @@ export default defineComponent({
         EditorModule.addCom(com)
           .then(() => {
             EditorModule.selectCom(com.id)
+            ToolbarModule.removeLoading()
           })
       } else {
         MessageUtil.warning('正在开发中。。。')

@@ -3,9 +3,10 @@ import {
 } from 'vuex-module-decorators'
 import { cloneDeep, debounce  } from 'lodash-es'
 import store from '@/store'
-import { Project, ProjectConfig } from '@/domains/project'
-import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
+import { Project } from '@/domains/project'
+import { PageConfig, PageVariable } from '@/domains/editor'
 import { getProject } from '@/api/project'
+import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { ComType, DatavComponent } from '@/components/datav-component'
 import { MoveType } from '@/utils/enums'
 import { generateId, getTextParams } from '@/utils/util'
@@ -14,8 +15,6 @@ import { calcIntersectingLines } from '@/utils/intersecting-line-util'
 config.rawError = true
 
 /* region interfaces */
-
-export type Screen = Pick<Project, 'id' | 'name'>
 
 interface MoveComDto {
   id: string
@@ -35,8 +34,8 @@ export interface AlignLine {
 
 export interface IEditorState {
   editMode: boolean
-  screen: Screen
-  pageConfig: ProjectConfig
+  screen: Partial<Project>
+  pageConfig: PageConfig
   coms: DatavComponent[]
   subComs: DatavComponent[]
   canvas: {
@@ -44,17 +43,18 @@ export interface IEditorState {
     width: number
     height: number
   }
-  referLine: {
-    enable: boolean
-  }
   guideLine: {
     h: number[]
     v: number[]
+  }
+  referLine: {
+    enable: boolean
   }
   alignLine: AlignLine
   contextMenu: {
     show: boolean
   }
+  variables: PageVariable
   isNormalResizeMode: boolean
 }
 
@@ -84,25 +84,27 @@ const selectCom = (coms: DatavComponent[], id?: string) => {
 }
 
 
-
 @Module({ dynamic: true, store, name: 'editor' })
 class Editor extends VuexModule implements IEditorState {
   editMode = false
 
-  screen = {
+  screen: Partial<Project> = {
     id: 0,
     name: '',
+    share: '',
+    thumbnail: '',
+    groupId: 0,
   }
 
-  pageConfig: ProjectConfig = {
+  pageConfig: PageConfig = {
     width: 1920,
     height: 1080,
-    bgimage: '',
-    bgcolor: '',
+    bgimage: '//files.pengxiaotian.com/datav/bj.png',
+    bgcolor: 'rgba(13,42,67,0)',
     grid: 8,
     screenshot: '',
-    zoomMode: 0,
-    useWatermark: false,
+    zoomMode: 1,
+    useWatermark: true,
     styleFilterParams: {
       enable: false,
       hue: 0,
@@ -110,12 +112,6 @@ class Editor extends VuexModule implements IEditorState {
       brightness: 100,
       contrast: 100,
       opacity: 100,
-    },
-    flow: {},
-    variables: {
-      componentsView: {},
-      publishersView: {},
-      subscribersView: {},
     },
   }
 
@@ -128,16 +124,16 @@ class Editor extends VuexModule implements IEditorState {
     height: 1080,
   }
 
-  referLine = {
-    enable: true,
-  }
-
   guideLine: {
     h: number[]
     v: number[]
   } = {
     h: [],
     v: [],
+  }
+
+  referLine = {
+    enable: true,
   }
 
   alignLine = {
@@ -155,36 +151,16 @@ class Editor extends VuexModule implements IEditorState {
     show: false,
   }
 
+  variables: PageVariable = {
+    componentsView: {},
+    publishersView: {},
+    subscribersView: {},
+  }
+
   isNormalResizeMode = true
 
   public get selectedCom() {
     return this.coms.find(m => m.selected)
-  }
-
-  @Mutation
-  public SET_SCREEN(payload: Project) {
-    this.screen = {
-      id: payload.id,
-      name: payload.name,
-    }
-
-    this.pageConfig = { ...payload.config }
-  }
-
-  @Mutation
-  public SET_COMS(payload: DatavComponent[]) {
-    const coms: DatavComponent[] = []
-    const subComs: DatavComponent[] = []
-    payload.forEach(c => {
-      if (c.type === ComType.com) {
-        coms.push(c)
-      } else if (c.type === ComType.subCom) {
-        subComs.push(c)
-      }
-    })
-
-    this.coms = coms
-    this.subComs = subComs
   }
 
   @Mutation
@@ -260,7 +236,7 @@ class Editor extends VuexModule implements IEditorState {
   @Mutation
   public setPublishersView(payload: { id: string; keys: string[]; enable: boolean; }) {
     const { id, keys, enable } = payload
-    const pv = this.pageConfig.variables.publishersView
+    const pv = this.variables.publishersView
     const pvkeys = Object.keys(pv)
     const allKeys = new Set([...keys, ...pvkeys])
     allKeys.forEach(key => {
@@ -287,7 +263,7 @@ class Editor extends VuexModule implements IEditorState {
   @Mutation
   public setSubscribersView(payload: { id: string; data: string; }) {
     const { id, data } = payload
-    const sv = this.pageConfig.variables.subscribersView
+    const sv = this.variables.subscribersView
     const keys = getTextParams(data).map(m => m.substr(1))
     const svkeys = Object.keys(sv)
     const allKeys = new Set([...keys, ...svkeys])
@@ -359,6 +335,49 @@ class Editor extends VuexModule implements IEditorState {
     }
   }
 
+  @Mutation
+  public setOption(payload: {
+    screen?: Partial<Project>
+    config?: Partial<PageConfig>
+    coms?: DatavComponent[]
+    variables?: PageVariable
+    guideLine?: {
+      h: number[]
+      v: number[]
+    }
+  }) {
+    if (payload.screen) {
+      this.screen = { ...this.screen, ...payload.screen }
+    }
+
+    if (payload.config) {
+      this.pageConfig = { ...this.pageConfig, ...payload.config }
+    }
+
+    if (payload.coms) {
+      const coms: DatavComponent[] = []
+      const subComs: DatavComponent[] = []
+      payload.coms.forEach(c => {
+        if (c.type === ComType.com) {
+          coms.push(c)
+        } else if (c.type === ComType.subCom) {
+          subComs.push(c)
+        }
+      })
+
+      this.coms = coms
+      this.subComs = subComs
+    }
+
+    if (payload.variables) {
+      this.variables = { ...payload.variables }
+    }
+
+    if (payload.guideLine) {
+      this.guideLine = { ...payload.guideLine }
+    }
+  }
+
   @Action
   public async autoCanvasScale(payload: () => { offsetX: number; offsetY: number; }) {
     const resize = debounce(() => {
@@ -401,11 +420,29 @@ class Editor extends VuexModule implements IEditorState {
   @Action
   public async loadScreen(projectId: number) {
     try {
-      const res = await getProject(projectId)
-      if (res.data.code === 0) {
-        this.SET_SCREEN(res.data.data)
+      const { data } = await getProject(projectId)
+      if (data.code === 0) {
+        const { config } = data.data
+        this.setOption({
+          screen: {
+            id: projectId,
+            name: data.data.name,
+          },
+          config: {
+            bgcolor: config.bgcolor,
+            width: config.width,
+            height: config.height,
+            bgimage: config.bgimage,
+            screenshot: config.screenshot,
+            zoomMode: config.zoomMode,
+            useWatermark: config.useWatermark,
+            grid: config.grid,
+            styleFilterParams: config.styleFilterParams,
+          },
+          variables: config.variables,
+        })
       } else {
-        throw Error(res.data.message)
+        throw Error(data.message)
       }
     } catch (error) {
       throw error
@@ -417,7 +454,9 @@ class Editor extends VuexModule implements IEditorState {
     try {
       const res = await getComs(projectId)
       if (res.data.code === 0) {
-        this.SET_COMS(res.data.data)
+        this.setOption({
+          coms: res.data.data,
+        })
       } else {
         throw Error(res.data.message)
       }

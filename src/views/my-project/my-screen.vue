@@ -2,7 +2,7 @@
   <div class="my-screen">
     <div class="screen">
       <div class="screen-info">
-        <div class="screen-img" :style="thumbnail"></div>
+        <div class="screen-img" :style="thumbnailStyle"></div>
         <div class="screen-edit">
           <div class="screen-button">
             <router-link
@@ -95,14 +95,14 @@ export default defineComponent({
   },
   setup(props) {
     const { deleteProject, copyProject, updateProjectName } = ProjectModule
-    const { id, name, groupId, share, config } = toRefs(props.screen)
+    const { id, name, groupId, share, thumbnail } = toRefs(props.screen)
     const screenName = ref(name.value)
     const oldScreenName = ref(name.value)
 
-    const thumbnail = computed(() => {
-      if (config.value.screenshot) {
+    const thumbnailStyle = computed(() => {
+      if (thumbnail.value) {
         return {
-          'background-image': `url(${config.value.screenshot})`,
+          'background-image': `url(${thumbnail.value})`,
         }
       }
       return {
@@ -175,7 +175,7 @@ export default defineComponent({
 
     return {
       name,
-      thumbnail,
+      thumbnailStyle,
       publishState,
       screenName,
       oldScreenName,

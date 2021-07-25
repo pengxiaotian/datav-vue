@@ -21,12 +21,9 @@ class Filter extends VuexModule implements IFilterState {
   public dataFilters: DataFilter[] = []
 
   @Mutation
-  public SET_FILTERS(payload: DataFilter[]) {
-    this.dataFilters = payload
-  }
-
-  @Mutation
   private CREATE_FILTER(payload: DataFilter) {
+    payload.createAt = dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    payload.updateAt = payload.createAt
     this.dataFilters.push(payload)
   }
 
@@ -56,12 +53,21 @@ class Filter extends VuexModule implements IFilterState {
     this.dataFilters.splice(index, 1)
   }
 
+  @Mutation
+  public setOption(payload: {
+    dataFilters: DataFilter[]
+  }) {
+    this.dataFilters = payload.dataFilters
+  }
+
   @Action
   public async loadFilters(payload: number) {
     try {
       const res = await api.getFilters(payload)
       if (res.data.code === 0) {
-        this.SET_FILTERS(res.data.data)
+        this.setOption({
+          dataFilters: res.data.data,
+        })
       } else {
         throw Error(res.data.message)
       }

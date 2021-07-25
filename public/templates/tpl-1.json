@@ -1,0 +1,33 @@
+{
+  "id": 1,
+  "name": "全部组件示例",
+  "config": {
+    "bgcolor": "rgba(13,42,67,0)",
+    "width": 1920,
+    "height": 1080,
+    "bgimage": "//files.pengxiaotian.com/datav/bj.png",
+    "screenshot": "",
+    "zoomMode": 1,
+    "useWatermark": true,
+    "grid": 8,
+    "styleFilterParams": {
+      "enable": false,
+      "hue": 0,
+      "saturate": 100,
+      "brightness": 100,
+      "contrast": 100,
+      "opacity": 100
+    },
+    "flow": {},
+    "variables": {
+      "componentsView": {},
+      "publishersView": {},
+      "subscribersView": {}
+    },
+    "coms": []
+  },
+  "share": "",
+  "groupId": 0,
+  "createAt": "1987-06-27 01:24:32",
+  "updateAt": "2009-09-30 20:16:54"
+}

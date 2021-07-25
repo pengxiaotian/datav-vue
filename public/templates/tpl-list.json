@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "全部组件示例",
+    "description": "",
+    "size": [
+        "比例 16:9",
+        "1920x1080px"
+    ],
+    "snapshot": "//files.pengxiaotian.com/datav/datav-vue-logo.png",
+    "thumbnail": "//files.pengxiaotian.com/datav/datav-vue-logo.png",
+    "config": {}
+  },
+  {
+    "id": 2,
+    "name": "数字看板",
+    "description": "常规的数字看板，可直接套用于各个行业日常关键业务指标KPI的监控展示",
+    "size": [
+        "比例 16:9",
+        "1920x1080px"
+    ],
+    "snapshot": "//img.alicdn.com/tfs/TB1vRyCQFXXXXXVXFXXXXXXXXXX-1440-1080.jpg",
+    "thumbnail": "//img.alicdn.com/tfs/TB1vRyCQFXXXXXVXFXXXXXXXXXX-1440-1080.jpg",
+    "config": {}
+  }
+]

@@ -242,17 +242,14 @@ export default defineComponent({
       ToolbarModule.addLoading()
       try {
         const data = {
-          project: {
-            ...EditorModule.screen,
-            config: {
-              ...EditorModule.pageConfig,
-            },
-          },
-          dataFilters: [...FilterModule.dataFilters],
+          screen: EditorModule.screen,
+          config: EditorModule.pageConfig,
           coms: [
             ...EditorModule.coms,
             ...EditorModule.subComs,
           ],
+          variables: EditorModule.variables,
+          dataFilters: FilterModule.dataFilters ?? [],
         }
         await saveScreen(data)
         MessageUtil.success('大屏已保存')

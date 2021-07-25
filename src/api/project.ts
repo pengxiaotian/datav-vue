@@ -40,7 +40,7 @@ export function updateProjectGroupName(id: number, name: string) {
   return request.put(`/project/group/${id}/name`, { name })
 }
 
-export function getProjectTemplate() {
+export function getMockTemplates() {
   return request.get('/project/template')
 }
 

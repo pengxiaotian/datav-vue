@@ -36,6 +36,7 @@
 import { defineComponent, computed } from 'vue'
 import type { CSSProperties } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
+import { ToolbarModule } from '@/store/modules/toolbar'
 import { createComponent } from '@/components/datav'
 import AlignLine from './align-line.vue'
 import Ruler from './ruler/index.vue'
@@ -76,12 +77,17 @@ export default defineComponent({
       try {
         const name = event.dataTransfer.getData('text')
         if (name) {
+          ToolbarModule.addLoading()
           let com = createComponent(name)
-          com.attr.x = event.offsetX - com.attr.w / 2
-          com.attr.y = event.offsetY - com.attr.h / 2
+          const { scale } = EditorModule.canvas
+          const offsetX = (event.clientX - ToolbarModule.getPanelOffsetLeft) / scale
+          const offsetY = (event.clientY - ToolbarModule.getPanelOffsetTop) / scale
+          com.attr.x = Math.round(offsetX - com.attr.w / 2)
+          com.attr.y = Math.round(offsetY - com.attr.h / 2)
           EditorModule.addCom(com)
             .then(() => {
               EditorModule.selectCom(com.id)
+              ToolbarModule.removeLoading()
             })
         }
       } catch {

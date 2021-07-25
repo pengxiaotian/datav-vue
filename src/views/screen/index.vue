@@ -46,7 +46,7 @@ import { useRouter } from 'vue-router'
 import { globalConfig } from '@/config'
 import { EditorModule } from '@/store/modules/editor'
 import { FilterModule } from '@/store/modules/filter'
-import { ProjectConfig } from '@/domains/project'
+import { PageConfig } from '@/domains/editor'
 import { ZoomMode } from '@/utils/enums'
 import { setStyle, on } from '@/utils/dom'
 import { getScreen } from '@/api/screen'
@@ -132,7 +132,7 @@ export default defineComponent({
       } as CSSStyleDeclaration)
     }
 
-    const resize = (config: ProjectConfig) => {
+    const resize = (config: PageConfig) => {
       switch (config.zoomMode) {
         case ZoomMode.auto:
           resizeAuto(config.width, config.height)
@@ -152,7 +152,7 @@ export default defineComponent({
       }
     }
 
-    const initPageInfo = (config: ProjectConfig) => {
+    const initPageInfo = (config: PageConfig) => {
       document.title = EditorModule.screen.name
       document.querySelector('meta[name="viewport"]')
         .setAttribute('content', `width=${config.width}`)
@@ -178,11 +178,18 @@ export default defineComponent({
       try {
         const data = await getScreen(+props.screenId)
         if (data) {
-          EditorModule.SET_SCREEN(data.project)
-          initPageInfo(pageConfig.value)
+          EditorModule.setOption({
+            screen: data.screen,
+            config: data.config,
+            coms: data.coms,
+            variables: data.variables,
+          })
 
-          FilterModule.SET_FILTERS(data.dataFilters)
-          EditorModule.SET_COMS(data.coms)
+          initPageInfo(data.config)
+
+          FilterModule.setOption({
+            dataFilters: data.dataFilters,
+          })
 
           setTimeout(() => {
             loading.value = false

@@ -156,7 +156,7 @@ export const useDataCenter = (com: DatavComponent) => {
 
   // 订阅的变量发生变化时刷新
   const onSubVariablesChange = (fields: Record<string, string>) => {
-    const sv = EditorModule.pageConfig.variables.subscribersView
+    const sv = EditorModule.variables.subscribersView
     for (const fname in fields) {
       const key = fields[fname] || fname
       sv[key]?.forEach(comId => {
@@ -166,7 +166,7 @@ export const useDataCenter = (com: DatavComponent) => {
   }
 
   const datavEmit = (eventName: string, data: Record<string, any>) => {
-    const cv = EditorModule.pageConfig.variables.componentsView[com.id]
+    const cv = EditorModule.variables.componentsView[com.id]
     if (!cv) {
       return
     }

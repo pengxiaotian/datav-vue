@@ -21,23 +21,22 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, defineAsyncComponent } from 'vue'
+import { useRoute } from 'vue-router'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { DebugModule } from '@/store/modules/debug'
 import { EditorModule } from '@/store/modules/editor'
 import { FilterModule } from '@/store/modules/filter'
+import { getSysTemplate } from '@/api/templates'
 import { useMock } from '@/data/mock'
 import { loadAsyncComponent } from '@/utils/async-component'
-import HeaderToolbar from './header-toolbar/index.vue'
-import FooterToolbar from './footer-toolbar/index.vue'
-import EditorContextMenu from './editor-context-menu/index.vue'
 
 export default defineComponent({
   name: 'ScreenEditor',
   components: {
-    HeaderToolbar,
-    FooterToolbar,
-    EditorContextMenu,
+    HeaderToolbar: defineAsyncComponent(() => import('./header-toolbar/index.vue')),
+    FooterToolbar: defineAsyncComponent(() => import('./footer-toolbar/index.vue')),
+    EditorContextMenu: defineAsyncComponent(() => import('./editor-context-menu/index.vue')),
     CanvasMain: loadAsyncComponent(() => import('./canvas-main/index.vue')),
     LayerPanel: loadAsyncComponent(() => import('./layer-panel/index.vue')),
     ComponentsPanel: loadAsyncComponent(() => import('./components-panel/index.vue')),
@@ -52,37 +51,62 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const route = useRoute()
     const loading = ref(true)
 
     DebugModule.enableDebug()
     EditorModule.setEditMode()
 
-    const screenId = computed(() => {
-      return typeof props.projectId === 'string'
-        ? parseInt(props.projectId) : props.projectId
-    })
+    onMounted(async () => {
+      try {
+        const tplId = parseInt(route.query.tpl as string)
+        if (tplId > 0) {
+          const { data } = await getSysTemplate(tplId)
+          if (data) {
+            const { config } = data
+            EditorModule.setOption({
+              screen: {
+                id: +props.projectId,
+                name: data.name,
+              },
+              config: {
+                width: config.width,
+                height: config.height,
+                bgimage: config.bgimage,
+                bgcolor: config.bgcolor,
+                styleFilterParams: config.styleFilterParams,
+              },
+              coms: config.coms,
+              variables: config.variables,
+            })
 
-    onMounted(() => {
-      EditorModule.loadScreen(screenId.value).finally(() => {
-        document.title = `${EditorModule.screen.name} | 编辑器`
-      })
-
-      EditorModule.loadComs(screenId.value).finally(() => {
+            FilterModule.setOption({
+              dataFilters: config.dataFilters ?? [],
+            })
+          }
+          if (tplId === 1) {
+            useMock()
+          }
+        } else {
+          const screenId = +props.projectId
+          EditorModule.loadScreen(screenId)
+          FilterModule.loadFilters(screenId)
+          await EditorModule.loadComs(screenId)
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
         loading.value = false
+        document.title = `${EditorModule.screen.name} | 编辑器`
         EditorModule.autoCanvasScale(() => ({
           offsetX: ToolbarModule.getPanelOffsetX,
           offsetY: ToolbarModule.getPanelOffsetY,
         }))
-      })
-
-      FilterModule.loadFilters(screenId.value)
-
-      useMock()
+      }
     })
 
     return {
       loading,
-      screenId,
     }
   },
 })

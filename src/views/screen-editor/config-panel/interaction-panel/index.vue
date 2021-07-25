@@ -58,7 +58,7 @@ export default defineComponent({
     })
 
     const eventList = ref<EventItemConfig[]>([])
-    let events = ref(EditorModule.pageConfig.variables.componentsView[com.value.id])
+    let events = ref(EditorModule.variables.componentsView[com.value.id])
 
     const createField = (name: string, mapName: string, description: string, custom = false) => {
       return {
@@ -172,7 +172,7 @@ export default defineComponent({
     provide('toggleEnable', toggleEnable)
 
     watch(events, () => {
-      EditorModule.pageConfig.variables.componentsView[com.value.id] = events.value
+      EditorModule.variables.componentsView[com.value.id] = events.value
     })
 
     onMounted(() => {

@@ -114,13 +114,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { StyleFilter } from '@/domains/project'
+import { PageStyleFilter } from '@/domains/editor'
 
 export default defineComponent({
   name: 'ToolboxFilterPanel',
   props: {
     styleFilterParams: {
-      type: Object as PropType<StyleFilter>,
+      type: Object as PropType<PageStyleFilter>,
     },
   },
 })

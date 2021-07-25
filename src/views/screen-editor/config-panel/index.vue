@@ -37,12 +37,11 @@ import { defineComponent, computed, provide } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { loadAsyncComponent } from '@/utils/async-component'
-import PageConfig from './page-config.vue'
 
 export default defineComponent({
   name: 'ConfigPanel',
   components: {
-    PageConfig,
+    PageConfig: loadAsyncComponent(() => import('./page-config.vue')),
     SettingPanel: loadAsyncComponent(() => import('./setting-panel.vue')),
     DataCenterPanel: loadAsyncComponent(() => import('./data-center-panel/index.vue')),
     InteractionPanel: loadAsyncComponent(() => import('./interaction-panel/index.vue')),

@@ -78,7 +78,7 @@ export default defineComponent({
     const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
     const apiMethods = ApiRequestMethod
 
-    const variables = Object.keys(EditorModule.pageConfig.variables.publishersView)
+    const variables = Object.keys(EditorModule.variables.publishersView)
 
     const updateData = (data: any) => {
       apiDataConfig.value.config.api = data.value

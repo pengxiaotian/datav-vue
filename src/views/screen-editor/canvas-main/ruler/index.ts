@@ -194,21 +194,21 @@ class GuideLine {
 }
 
 export class RulerBuilder {
-  el: HTMLElement
-  canvas: HTMLCanvasElement
-  ctx: CanvasRenderingContext2D
+  private readonly el: HTMLElement
+  private canvas: HTMLCanvasElement
+  private ctx: CanvasRenderingContext2D
 
-  ruler = {
+  private ruler = {
     width: 0,
     height: 0,
   }
 
-  indicator: HTMLDivElement
-  indicatorValue: HTMLSpanElement
+  private indicator: HTMLDivElement
+  private indicatorValue: HTMLSpanElement
 
-  guideLines: GuideLine[] = []
+  private guideLines: GuideLine[] = []
 
-  options: RulerOption = {
+  private options: RulerOption = {
     direction: 'TB',
     width: 1000,
     height: 20,

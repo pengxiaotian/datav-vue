@@ -146,7 +146,8 @@ import { defineComponent, ref, onMounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { globalConfig } from '@/config'
 import { ProjectGroup, ProjectTemplate } from '@/domains/project'
-import { getProjectTemplate, getProjects, createProject } from '@/api/project'
+import { getProjects, createProject } from '@/api/project'
+import { getSysTemplates } from '@/api/templates'
 import { MessageUtil } from '@/utils/message-util'
 import { scrollToLeft } from '@/utils/animation'
 
@@ -168,11 +169,9 @@ export default defineComponent({
     const scrollRef = ref<any>(null)
 
     onMounted(async () => {
-      const res = await getProjectTemplate()
-      if (res.data.code === 0) {
-        loading.value = false
-        templates.value = res.data.data
-      }
+      const res = await getSysTemplates()
+      loading.value = false
+      templates.value = res.data
 
       getProjects()
         .then(({ data }) => {
@@ -183,7 +182,7 @@ export default defineComponent({
     })
 
     const confirmCreate = (tpl: ProjectTemplate | null) => {
-      template.value = tpl
+      template.value = tpl ?? {}
       visibleCreateDialog.value = true
     }
 
@@ -228,15 +227,24 @@ export default defineComponent({
           return
         }
         saveLoading.value = true
+        const templateId = template.value?.id
         const res = await createProject({
           name: projectName.value,
           groupId: groupId.value,
-          templateId: template.value?.id ?? 0,
+          templateId: templateId ?? 0,
         })
         if (res.data.code === 0) {
           visibleCreateDialog.value = false
           visiblePreviewDialog.value = false
-          router.push({ name: 'ScreenEditor', params: { projectId: res.data.data } })
+          router.push({
+            name: 'ScreenEditor',
+            params: {
+              projectId: res.data.data,
+            },
+            query: {
+              tpl: templateId,
+            },
+          })
         } else {
           throw Error(res.data.message)
         }

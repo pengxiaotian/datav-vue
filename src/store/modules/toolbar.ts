@@ -114,6 +114,30 @@ class Toolbar extends VuexModule implements IToolbarState {
     return offsetY
   }
 
+  public get getPanelOffsetLeft() {
+    let offsetX = 60
+    if (this.layer.show) {
+      offsetX += 200
+    }
+
+    if (this.components.show) {
+      offsetX += 324
+    } else {
+      offsetX += 45
+    }
+
+    return offsetX
+  }
+
+  public get getPanelOffsetTop() {
+    let offsetY = 100
+    if (this.toolbox.show) {
+      offsetY += 40
+    }
+
+    return offsetY
+  }
+
   @Mutation
   private SET_PANEL_STATE(payload: { type: PanelType; value: boolean; }) {
     switch (payload.type) {
