@@ -1,0 +1,173 @@
+{
+  "id": 2,
+  "name": "数字看板",
+  "config": {
+    "bgcolor": "rgba(13,42,67,0)",
+    "width": 1920,
+    "height": 1080,
+    "bgimage": "//files.pengxiaotian.com/datav/bj.png",
+    "screenshot": "",
+    "zoomMode": 1,
+    "useWatermark": true,
+    "grid": 8,
+    "styleFilterParams": {
+      "enable": false,
+      "hue": 0,
+      "saturate": 100,
+      "brightness": 100,
+      "contrast": 100,
+      "opacity": 100
+    },
+    "flow": {},
+    "variables": {
+      "componentsView": {},
+      "publishersView": {},
+      "subscribersView": {}
+    },
+    "coms": [
+      {
+        "locked": false,
+        "hided": false,
+        "selected": false,
+        "hovered": false,
+        "renameing": false,
+        "attr": {
+            "x": 200,
+            "y": 200,
+            "w": 350,
+            "h": 64,
+            "deg": 0,
+            "opacity": 1,
+            "filpV": false,
+            "filpH": false
+        },
+        "projectId": 0,
+        "id": "NumberTitleFlop_zBI5f2FDQA",
+        "name": "VNumberTitleFlop",
+        "type": "com",
+        "alias": "数字翻牌器",
+        "icon": "v-icon-title",
+        "img": "//files.pengxiaotian.com/com-thum/number-title-flop-370-208.png",
+        "config": {
+            "global": {
+                "fontFamily": "Microsoft Yahei",
+                "arrangement": "top",
+                "distance": 0
+            },
+            "title": {
+                "content": "Typesomething",
+                "textStyle": {
+                    "fontSize": 18,
+                    "color": "#79daff",
+                    "fontWeight": "normal",
+                    "textAlign": "flex-start"
+                }
+            },
+            "counter": {
+                "fontFamily": "Microsoft Yahei",
+                "justifyContent": "flex-start",
+                "margin": {
+                    "preNum": 0,
+                    "numSuff": 0
+                },
+                "prefix": {
+                    "content": "￥",
+                    "textStyle": {
+                        "fontSize": 36,
+                        "color": "#0a73ff",
+                        "fontWeight": "bolder"
+                    }
+                },
+                "suffix": {
+                    "content": "",
+                    "textStyle": {
+                        "fontSize": 30,
+                        "color": "#fff",
+                        "fontWeight": "bolder"
+                    }
+                }
+            },
+            "numbers": {
+                "textStyle": {
+                    "fontSize": 36,
+                    "color": "#0a73ff",
+                    "fontWeight": "bolder"
+                },
+                "marginRight": 0,
+                "bgColor": "rgba(51,51,51,0)",
+                "bgRadius": 6,
+                "bgSeparating": false,
+                "digit": 0,
+                "decimal": 0,
+                "divisor": 0,
+                "separatingChart": true,
+                "separatingSymbol": ",",
+                "decimalSymbol": ".",
+                "fixedWidth": 0,
+                "increment": true,
+                "animation": true,
+                "sameDataFlip": false,
+                "duration": 1000
+            }
+        },
+        "apis": {
+            "source": {
+                "fields": {
+                    "title": {
+                        "type": "string",
+                        "map": "",
+                        "description": "标题",
+                        "optional": true
+                    },
+                    "value": {
+                        "type": "string",
+                        "map": "",
+                        "description": "翻牌器数值",
+                        "optional": false
+                    },
+                    "prefix": {
+                        "type": "string",
+                        "map": "",
+                        "description": "翻牌器前缀",
+                        "optional": true
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "map": "",
+                        "description": "翻牌器后缀",
+                        "optional": true
+                    }
+                },
+                "render": "render",
+                "description": "",
+                "useAutoUpdate": false,
+                "autoUpdate": 1
+            }
+        },
+        "apiData": {
+            "source": {
+                "id": "rBJHWz2z3Y",
+                "comId": "NumberTitleFlop_zBI5f2FDQA",
+                "type": "static",
+                "pageFilters": [
+                    {
+                        "id": 75915,
+                        "enabled": true
+                    }
+                ],
+                "config": {
+                    "useFilter": true,
+                    "data": "{\"title\":\"\",\"value\":\"123456.7\"}"
+                }
+            }
+        },
+        "events": {},
+        "actions": {}
+      }
+    ]
+  },
+  "share": "",
+  "groupId": 0,
+  "createAt": "1987-06-27 01:24:32",
+  "updateAt": "2009-09-30 20:16:54"
+}
