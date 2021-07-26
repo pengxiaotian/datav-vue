@@ -205,6 +205,28 @@
     v-model="strValue"
     :images="[]"
   />
+  <el-select
+    v-else-if="componentType === componentTypes.echartsLablePosition"
+    v-model="strValue"
+  >
+    <el-option
+      v-for="item in echartsLablePositions"
+      :key="item.id"
+      :label="item.value"
+      :value="item.id"
+    />
+  </el-select>
+  <el-select
+    v-else-if="componentType === componentTypes.animationEasing"
+    v-model="strValue"
+  >
+    <el-option
+      v-for="item in animationEasings"
+      :key="item.id"
+      :label="item.value"
+      :value="item.id"
+    />
+  </el-select>
   <span v-else>--</span>
 </template>
 
@@ -225,6 +247,8 @@ import {
   lineStyles,
   fillTypes,
   repeatTypes,
+  echartsLablePositions,
+  animationEasings,
 } from '@/data/select-options'
 
 export default defineComponent({
@@ -293,6 +317,8 @@ export default defineComponent({
       lineStyles,
       fillTypes,
       repeatTypes,
+      echartsLablePositions,
+      animationEasings,
     }
   },
 })

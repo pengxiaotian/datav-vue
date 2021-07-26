@@ -1,7 +1,7 @@
 import { DatavComponent } from '@/components/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
-  setApiConfig, setApiData,
+  initApiConfig, initApiData,
 } from '@/components/data-source'
 import { createField } from '@/components/data-field'
 import { DataEventConfig } from '@/components/data-event'
@@ -36,8 +36,8 @@ export class MainTitle extends DatavComponent {
     },
   }
 
-  apis: ApiConfigMap
-  apiData: ApiDataConfigMap
+  apis: Partial<ApiConfigMap>
+  apiData: Partial<ApiDataConfigMap>
 
   events: Record<string, DataEventConfig>
 
@@ -55,11 +55,11 @@ export class MainTitle extends DatavComponent {
       createField('url', { description: '超链接', optional: true }),
     ]
 
-    this.apis = setApiConfig({}, 'source', {
+    this.apis = initApiConfig({
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = setApiData(this.id, {}, 'source', {
+    this.apiData = initApiData(this.id, {
       title: '我是标题数据',
       url: '',
     })

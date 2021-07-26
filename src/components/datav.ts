@@ -7,6 +7,8 @@ import { BgBox } from './media/bg-box/src/bg-box'
 import { BorderBox } from './media/border-box/src/border-box'
 import { Decoration } from './media/decoration/src/decoration'
 
+import { BasicBar } from './bar/basic-bar/src/basic-bar'
+
 export function createComponent(name: string) {
   switch (name.substr(1)) {
     case 'MainTitle':
@@ -21,6 +23,8 @@ export function createComponent(name: string) {
       return new BorderBox()
     case 'Decoration':
       return new Decoration()
+    case 'BasicBar':
+      return new BasicBar()
     default:
       throw Error(`Unknown component type: ${name}.`)
   }

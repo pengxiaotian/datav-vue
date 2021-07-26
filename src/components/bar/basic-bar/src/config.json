@@ -1,1 +1,1851 @@
-[]
+[
+  {
+    "key": "global",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "全局",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
+    },
+    "path": "global",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "fontFamily",
+        "config": {
+          "type": "string",
+          "component": "fontFamily",
+          "alias": "字体",
+          "tip": "请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "Microsoft Yahei",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.fontFamily",
+        "virtualPath": ""
+      },
+      {
+        "key": "innerPadding",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "柱子内间距",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 30,
+          "min": -1000,
+          "max": 1000,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.innerPadding",
+        "virtualPath": ""
+      },
+      {
+        "key": "outerPadding",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "柱子外间距",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 60,
+          "min": -1000,
+          "max": 1000,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.outerPadding",
+        "virtualPath": ""
+      },
+      {
+        "key": "barColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "背景色",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "rgba(255, 255, 255, 0.1)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.barColor",
+        "virtualPath": ""
+      },
+      {
+        "key": "margin",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "边距",
+          "tip": "",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "global.margin",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "top",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "顶部",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 20,
+              "min": -88888,
+              "max": 88888,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "global.margin.top",
+            "virtualPath": ""
+          },
+          {
+            "key": "bottom",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "底部",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 30,
+              "min": -88888,
+              "max": 88888,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "global.margin.bottom",
+            "virtualPath": ""
+          },
+          {
+            "key": "left",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "左侧",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 40,
+              "min": -88888,
+              "max": 88888,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "global.margin.left",
+            "virtualPath": ""
+          },
+          {
+            "key": "right",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "右侧",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 10,
+              "min": -88888,
+              "max": 88888,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "global.margin.right",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "top",
+          "bottom",
+          "left",
+          "right"
+        ]
+      }
+    ],
+    "cols": [
+      "fontFamily",
+      "innerPadding",
+      "outerPadding",
+      "barColor",
+      "margin"
+    ]
+  },
+  {
+    "key": "label",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "值标签",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "show",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
+    },
+    "path": "label",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "show",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": false,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "label.show",
+        "virtualPath": ""
+      },
+      {
+        "key": "position",
+        "config": {
+          "type": "string",
+          "component": "input",
+          "alias": "位置",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "top",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "label.position",
+        "virtualPath": ""
+      },
+      {
+        "key": "textStyle",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "文本样式",
+          "tip": "",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "label.textStyle",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "fontSize",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "字号",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 12,
+              "min": 10,
+              "max": 100,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "label.textStyle.fontSize",
+            "virtualPath": ""
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "rgba(255, 255, 255, 0.6)",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "label.textStyle.color",
+            "virtualPath": ""
+          },
+          {
+            "key": "fontWeight",
+            "config": {
+              "type": "string",
+              "component": "fontWeight",
+              "alias": "字体粗细",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "normal",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "label.textStyle.fontWeight",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "fontSize",
+          "color",
+          "fontWeight"
+        ]
+      },
+      {
+        "key": "offsetX",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "x方向偏移",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 0,
+          "min": -100,
+          "max": 100,
+          "step": 1,
+          "suffix": "px",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "label.offsetX",
+        "virtualPath": ""
+      },
+      {
+        "key": "offsetY",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "y方向偏移",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 0,
+          "min": -100,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "label.offsetY",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "show",
+      "position",
+      "textStyle",
+      "offsetX",
+      "offsetY"
+    ]
+  },
+  {
+    "key": "xAxis",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "X轴",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "show",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
+    },
+    "path": "xAxis",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "show",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": true,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "xAxis.show",
+        "virtualPath": ""
+      },
+      {
+        "key": "textStyle",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "文本样式",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "xAxis.textStyle",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "fontSize",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "字号",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 12,
+              "min": 12,
+              "max": 100,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "xAxis.textStyle.fontSize",
+            "virtualPath": ""
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "rgba(255, 255, 255, 0.6)",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "xAxis.textStyle.color",
+            "virtualPath": ""
+          },
+          {
+            "key": "fontWeight",
+            "config": {
+              "type": "string",
+              "component": "fontWeight",
+              "alias": "字体粗细",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "normal",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "xAxis.textStyle.fontWeight",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "fontSize",
+          "color",
+          "fontWeight"
+        ]
+      },
+      {
+        "key": "label",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "文字",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "xAxis.label",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "margin",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "文字距辅助线距离",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 8,
+              "min": -100,
+              "max": 100,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "xAxis.label.margin",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "margin"
+        ]
+      },
+      {
+        "key": "axisLine",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "轴线",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "show",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "xAxis.axisLine",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "show",
+            "config": {
+              "type": "boolean",
+              "component": "switch",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": true,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "xAxis.axisLine.show",
+            "virtualPath": ""
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "rgba(255, 255, 255, 0.5)",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "xAxis.axisLine.color",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "show",
+          "color"
+        ]
+      },
+      {
+        "key": "axisTick",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "刻度",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "show",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "xAxis.axisTick",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "show",
+            "config": {
+              "type": "boolean",
+              "component": "switch",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": true,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "xAxis.axisTick.show",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "show"
+        ]
+      }
+    ],
+    "cols": [
+      "show",
+      "textStyle",
+      "label",
+      "axisLine",
+      "axisTick"
+    ]
+  },
+  {
+    "key": "yAxis",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "Y轴",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "show",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
+    },
+    "path": "yAxis",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "show",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": true,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "yAxis.show",
+        "virtualPath": ""
+      },
+      {
+        "key": "textStyle",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "文本样式",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "yAxis.textStyle",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "fontSize",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "字号",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 12,
+              "min": 12,
+              "max": 100,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.textStyle.fontSize",
+            "virtualPath": ""
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "rgba(255, 255, 255, 0.6)",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.textStyle.color",
+            "virtualPath": ""
+          },
+          {
+            "key": "fontWeight",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "字体粗细",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "normal",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.textStyle.fontWeight",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "fontSize",
+          "color",
+          "fontWeight"
+        ]
+      },
+      {
+        "key": "label",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "标签",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "yAxis.label",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "category",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "类型",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "value",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.label.category",
+            "virtualPath": ""
+          },
+          {
+            "key": "min",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "最大值",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "auto",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.label.min",
+            "virtualPath": ""
+          },
+          {
+            "key": "max",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "最大值",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "auto",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.label.max",
+            "virtualPath": ""
+          },
+          {
+            "key": "unit",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "单位",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.label.unit",
+            "virtualPath": ""
+          },
+          {
+            "key": "amount",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "数量",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 5,
+              "min": 0,
+              "max": 88888,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.label.amount",
+            "virtualPath": ""
+          },
+          {
+            "key": "margin",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "文字距辅助线距离",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 8,
+              "min": -100,
+              "max": 100,
+              "step": 1,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.label.margin",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "category",
+          "min",
+          "max",
+          "unit",
+          "amount",
+          "margin"
+        ]
+      },
+      {
+        "key": "axisLine",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "轴线",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "show",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "yAxis.axisLine",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "show",
+            "config": {
+              "type": "boolean",
+              "component": "switch",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": true,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.axisLine.show",
+            "virtualPath": ""
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "rgba(255, 255, 255, 0.5)",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.axisLine.color",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "show",
+          "color"
+        ]
+      },
+      {
+        "key": "axisTick",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "刻度",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "show",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "yAxis.axisTick",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "show",
+            "config": {
+              "type": "boolean",
+              "component": "switch",
+              "alias": "",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": true,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "yAxis.axisTick.show",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "show"
+        ]
+      }
+    ],
+    "cols": [
+      "show",
+      "textStyle",
+      "label",
+      "axisLine",
+      "axisTick"
+    ]
+  },
+  {
+    "key": "series",
+    "config": {
+      "type": "array",
+      "component": "none",
+      "alias": "系列",
+      "tip": "",
+      "displayMode": "nest-array",
+      "features": [
+        "vertical",
+        "horizontal",
+        "copy",
+        "add",
+        "remove"
+      ],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
+    },
+    "path": "series",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "0",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "系列",
+          "tip": "",
+          "displayMode": "nest",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "series.0",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "type",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "系列类型",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": true,
+              "defaultValue": "bar",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "series.0.type",
+            "virtualPath": "slotProps.item.type"
+          },
+          {
+            "key": "id",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "id",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": true,
+              "defaultValue": "1",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "series.0.id",
+            "virtualPath": "slotProps.item.id"
+          },
+          {
+            "key": "name",
+            "config": {
+              "type": "string",
+              "component": "input",
+              "alias": "系列名称",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "系列1",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "series.0.name",
+            "virtualPath": "slotProps.item.name"
+          },
+          {
+            "key": "color",
+            "config": {
+              "type": "object",
+              "component": "none",
+              "alias": "颜色配置",
+              "tip": "",
+              "displayMode": "nest",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": null,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              }
+            },
+            "path": "series.0.color",
+            "virtualPath": "slotProps.item.color",
+            "children": [
+              {
+                "key": "type",
+                "config": {
+                  "type": "string",
+                  "component": "radio",
+                  "alias": "填充类型",
+                  "tip": "",
+                  "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "color",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [
+                    "solid",
+                    "gradient"
+                  ],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  }
+                },
+                "path": "series.0.color.type",
+                "virtualPath": ""
+              },
+              {
+                "key": "value",
+                "config": {
+                  "type": "string",
+                  "component": "color",
+                  "alias": "颜色",
+                  "tip": "",
+                  "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "#00baff",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "type",
+                    "value": "solid"
+                  }
+                },
+                "path": "series.0.color.value",
+                "virtualPath": ""
+              },
+              {
+                "key": "from",
+                "config": {
+                  "type": "string",
+                  "component": "color",
+                  "alias": "开始颜色",
+                  "tip": "",
+                  "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "#fff",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "type",
+                    "value": "gradient"
+                  }
+                },
+                "path": "series.0.color.from",
+                "virtualPath": ""
+              },
+              {
+                "key": "to",
+                "config": {
+                  "type": "string",
+                  "component": "color",
+                  "alias": "结束颜色",
+                  "tip": "",
+                  "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "#000",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "suffix": "",
+                  "enums": [],
+                  "whichEnum": {
+                    "field": "type",
+                    "value": "gradient"
+                  }
+                },
+                "path": "series.0.color.to",
+                "virtualPath": ""
+              }
+            ],
+            "cols": [
+              "type",
+              "value",
+              "from",
+              "to"
+            ]
+          }
+        ],
+        "cols": []
+      }
+    ]
+  },
+  {
+    "key": "animation",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "动画",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "enabled",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      }
+    },
+    "path": "animation",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "enabled",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": true,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "animation.enabled",
+        "virtualPath": ""
+      },
+      {
+        "key": "threshold",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "阈值",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 2000,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "animation.threshold",
+        "virtualPath": ""
+      },
+      {
+        "key": "duration",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "持续时间",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 1000,
+          "min": 0,
+          "max": 888888888,
+          "step": 1,
+          "suffix": "ms",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "animation.duration",
+        "virtualPath": ""
+      },
+      {
+        "key": "easing",
+        "config": {
+          "type": "string",
+          "component": "animationEasing",
+          "alias": "缓动效果",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "cubicOut",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "animation.easing",
+        "virtualPath": ""
+      },
+      {
+        "key": "delay",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "延迟",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 0,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "suffix": "ms",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          }
+        },
+        "path": "animation.delay",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "enabled",
+      "threshold",
+      "duration",
+      "easing",
+      "delay"
+    ]
+  }
+]

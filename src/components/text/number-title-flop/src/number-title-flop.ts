@@ -1,7 +1,7 @@
 import { DatavComponent } from '@/components/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
-  setApiConfig, setApiData,
+  initApiConfig, initApiData,
 } from '@/components/data-source'
 import { createField } from '@/components/data-field'
 import { DataEventConfig } from '@/components/data-event'
@@ -73,8 +73,8 @@ export class NumberTitleFlop extends DatavComponent {
     },
   }
 
-  apis: ApiConfigMap
-  apiData: ApiDataConfigMap
+  apis: Partial<ApiConfigMap>
+  apiData: Partial<ApiDataConfigMap>
 
   events: Record<string, DataEventConfig>
 
@@ -105,11 +105,11 @@ export class NumberTitleFlop extends DatavComponent {
       }),
     ]
 
-    this.apis = setApiConfig({}, 'source', {
+    this.apis = initApiConfig({
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = setApiData(this.id, {}, 'source', {
+    this.apiData = initApiData(this.id, {
       title: '',
       value: '123456.7',
     })

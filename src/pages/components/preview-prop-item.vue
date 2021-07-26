@@ -164,6 +164,20 @@
     :is-inline="isFlat"
     :label="isFlat ? label : ''"
   />
+  <g-select
+    v-else-if="componentType === componentTypes.echartsLablePosition"
+    v-model="strValue"
+    :data="echartsLablePositions"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
+  <g-select
+    v-else-if="componentType === componentTypes.animationEasing"
+    v-model="strValue"
+    :data="animationEasings"
+    :is-inline="isFlat"
+    :label="isFlat ? label : ''"
+  />
   <span v-else>--</span>
 </template>
 
@@ -184,6 +198,8 @@ import {
   lineStyles,
   fillTypes,
   repeatTypes,
+  echartsLablePositions,
+  animationEasings,
 } from '@/data/select-options'
 
 export default defineComponent({
@@ -277,6 +293,8 @@ export default defineComponent({
       lineStyles,
       fillTypes,
       repeatTypes,
+      echartsLablePositions,
+      animationEasings,
     }
   },
 })

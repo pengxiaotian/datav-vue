@@ -64,8 +64,8 @@ export class BgBox extends DatavComponent {
     },
   }
 
-  apis: ApiConfigMap
-  apiData: ApiDataConfigMap
+  apis: Partial<ApiConfigMap>
+  apiData: Partial<ApiDataConfigMap>
 
   events: Record<string, DataEventConfig>
 
@@ -78,8 +78,8 @@ export class BgBox extends DatavComponent {
   }
 
   initData() {
-    this.apis = {} as ApiConfigMap
-    this.apiData = {} as ApiDataConfigMap
+    this.apis = {}
+    this.apiData = {}
     this.events = {}
     this.actions = {}
 

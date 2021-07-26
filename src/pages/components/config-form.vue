@@ -152,6 +152,9 @@
             style="width: 100%;"
           />
         </el-form-item>
+        <el-form-item label="隐藏不显示" label-width="150px">
+          <el-checkbox v-model="item.config.isHide" />
+        </el-form-item>
       </el-form>
 
       <config-form

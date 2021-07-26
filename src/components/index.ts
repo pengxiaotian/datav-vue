@@ -1,10 +1,14 @@
 import type { App } from 'vue'
 import VMainTitle from './text/main-title'
 import VNumberTitleFlop from './text/number-title-flop'
+
 import VDatePicker from './other/date-picker'
+
 import VBgBox from './media/bg-box'
 import VBorderBox from './media/border-box'
 import VDecoration from './media/decoration'
+
+import VBasicBar from './bar/basic-bar'
 
 const components = [
   VMainTitle,
@@ -13,6 +17,7 @@ const components = [
   VBgBox,
   VBorderBox,
   VDecoration,
+  VBasicBar,
 ]
 
 const install = (app: App): void => {

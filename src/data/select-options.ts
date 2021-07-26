@@ -1,3 +1,5 @@
+import { AnimationEasing } from '@/utils/enums'
+
 export const fontFamilys = [
   { id: 'Microsoft Yahei', value: '微软雅黑' },
   { id: 'SimSun', value: '宋体' },
@@ -80,7 +82,7 @@ export const lineStyles = [
 
 export const fillTypes = [
   { id: 'solid', value: '实体填充' },
-  { id: 'linear', value: '渐变填充' },
+  { id: 'gradient', value: '渐变填充' },
 ]
 
 export const repeatTypes = [
@@ -89,3 +91,21 @@ export const repeatTypes = [
   { id: 'repeat-x', value: '水平重复' },
   { id: 'repeat-y', value: '垂直重复' },
 ]
+
+export const echartsLablePositions = [
+  { id: 'top', value: '顶部' },
+  { id: 'left', value: '左侧' },
+  { id: 'right', value: '右侧' },
+  { id: 'bottom', value: '底部' },
+  { id: 'inside', value: '内部' },
+  { id: 'insideLeft', value: '内-左侧' },
+  { id: 'insideRight', value: '内-右侧' },
+  { id: 'insideTop', value: '内-顶部' },
+  { id: 'insideBottom', value: '内-底部' },
+  { id: 'insideTopLeft', value: '内-顶部居左' },
+  { id: 'insideBottomLeft', value: '内-底部居左' },
+  { id: 'insideTopRight', value: '内-顶部居右' },
+  { id: 'insideBottomRight', value: '内-顶部居右' },
+]
+
+export const animationEasings = Object.keys(AnimationEasing).map(m => ({ id: m, value: m }))

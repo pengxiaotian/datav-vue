@@ -1,14 +1,21 @@
 import { DatavEChartsComponent, DatavChartSeries } from '@/components/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
-  setApiConfig, setApiData,
+  initApiConfig, initApiData,
 } from '@/components/data-source'
 import { createField } from '@/components/data-field'
 import { DataEventConfig } from '@/components/data-event'
 
 export class BasicBarSeries extends DatavChartSeries {
   constructor(name: string) {
-    super(name, 'bar')
+    super('bar', name)
+  }
+
+  color = {
+    type: 'solid',
+    value: '#00baff',
+    from: '#fff',
+    to: '#000',
   }
 }
 
@@ -22,25 +29,27 @@ export class BasicBar extends DatavEChartsComponent {
       innerPadding: 30,
       outerPadding: 60,
       barColor: 'rgba(255, 255, 255, 0.1)',
-    },
-    margin: {
-      top: 20,
-      bottom: 30,
-      left: 40,
-      right: 10,
+      margin: {
+        top: 20,
+        bottom: 30,
+        left: 40,
+        right: 10,
+      },
     },
     label: {
       show: false,
       position: 'top',
-      color: 'rgba(255, 255, 255, 0.6)',
-      fontSize: 12,
-      fontWeight: 'normal',
+      textStyle: {
+        fontSize: 12,
+        color: 'rgba(255, 255, 255, 0.6)',
+        fontWeight: 'normal',
+      },
       offsetX: 0,
       offsetY: 0,
     },
     xAxis: {
       show: true,
-      textarea: {
+      textStyle: {
         fontSize: 12,
         color: 'rgba(255, 255, 255, 0.6)',
         fontWeight: 'normal',
@@ -54,17 +63,17 @@ export class BasicBar extends DatavEChartsComponent {
       },
       axisTick: {
         show: true,
+        color: 'rgba(255, 255, 255, 0.5)',
       },
     },
     yAxis: {
       show: true,
-      textarea: {
+      textStyle: {
         fontSize: 12,
         color: 'rgba(255, 255, 255, 0.6)',
         fontWeight: 'normal',
       },
       label: {
-        category: 'value',
         min: 'auto',
         max: 'auto',
         unit: '',
@@ -77,15 +86,20 @@ export class BasicBar extends DatavEChartsComponent {
       },
       axisTick: {
         show: true,
+        color: 'rgba(255, 255, 255, 0.5)',
       },
     },
-    series: {
-      series: [] as BasicBarSeries[],
+    series: [new BasicBarSeries('系列1')],
+    animation: {
+      enabled: true,
+      duration: 1000,
+      easing: 'cubicOut',
+      delay: 0,
     },
   }
 
-  apis: ApiConfigMap
-  apiData: ApiDataConfigMap
+  apis: Partial<ApiConfigMap>
+  apiData: Partial<ApiDataConfigMap>
 
   events: Record<string, DataEventConfig>
 
@@ -99,22 +113,19 @@ export class BasicBar extends DatavEChartsComponent {
 
   initData() {
     const fields = [
-      createField('value', { description: '', optional: true }),
+      createField('x', { description: '类目' }),
+      createField('y', { description: '值' }),
     ]
 
-    this.apis = setApiConfig({}, 'source', {
+    this.apis = initApiConfig({
       fields: Object.assign({}, ...fields),
       description: '基本柱状图接口',
     })
 
-    this.apiData = setApiData(this.id, {}, 'source', {
-      value: 'api data',
-    })
+    this.apiData = initApiData(this.id, '', 'bar/basic-bar')
 
     this.events = {}
-
     this.actions = {}
-
     return this
   }
 }

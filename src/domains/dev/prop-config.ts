@@ -37,6 +37,8 @@ export enum ComponentType {
   repeatType='repeatType',
   uploadImage = 'uploadImage',
   selectImage = 'selectImage',
+  echartsLablePosition = 'echartsLablePosition',
+  animationEasing = 'animationEasing'
 }
 
 export enum DisplayMode {
@@ -55,6 +57,7 @@ export interface PropConfig {
   features: ToolboxType[]
   layout: ToolboxType.horizontal | ToolboxType.vertical
   toggleCol: string
+  isHide: boolean
   defaultValue: any
   min: number
   max: number
@@ -77,6 +80,7 @@ export const createPropConfig = () => {
     features: [],
     layout: ToolboxType.horizontal,
     toggleCol: '',
+    isHide: false,
     defaultValue: null,
     min: 0,
     max: 100,
@@ -106,9 +110,14 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
   for (const [key, val] of entries) {
     const pc = createPropConfig()
     const path = prev ? `${prev}.${key}` : key
+
+    // TODO: 简单处理只有一级数组的情况
     let virtualPath = ''
-    if (prev && prev.endsWith('.0')) {
-      virtualPath = `slotProps.item.${key}`
+    if (prev) {
+      const idx = prev.indexOf('.0')
+      if (idx > -1) {
+        virtualPath = `slotProps.item${prev.substr(idx + 2)}.${key}`
+      }
     }
     const dto: PropDto = {
       key,

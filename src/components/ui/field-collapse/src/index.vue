@@ -111,7 +111,7 @@
             <el-tab-pane
               v-for="(item, idx) in list"
               :key="idx"
-              :label="label + idx"
+              :label="label + (idx + 1)"
             >
               <slot :item="item"></slot>
             </el-tab-pane>
@@ -221,7 +221,7 @@ export default defineComponent({
     })
 
     const copyState = computed(() => {
-      const disabled = !props.list || props.list.length <= props.min || props.list.length >= props.max
+      const disabled = !props.list || props.list.length < props.min || props.list.length >= props.max
       const msg = disabled ? '不可复制' : ''
       return {
         disabled,

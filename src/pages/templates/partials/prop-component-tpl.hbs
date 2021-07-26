@@ -203,6 +203,24 @@
   label="{{config.alias}}"
   {{/if}}
 />
+{{else if (eq config.component componentTypes.echartsLablePosition)}}
+<g-select
+  v-model="{{ getPath path virtualPath }}"
+  :data="echartsLablePositions"
+  {{#if isFlat}}
+  is-inline
+  label="{{config.alias}}"
+  {{/if}}
+/>
+{{else if (eq config.component componentTypes.animationEasing)}}
+<g-select
+  v-model="{{ getPath path virtualPath }}"
+  :data="animationEasings"
+  {{#if isFlat}}
+  is-inline
+  label="{{config.alias}}"
+  {{/if}}
+/>
 {{else}}
 <span>--</span>
 {{/if}}

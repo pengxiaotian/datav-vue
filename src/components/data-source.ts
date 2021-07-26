@@ -1,4 +1,5 @@
 import { generateId, isString } from '@/utils/util'
+import { getStaticData } from '@/api/data'
 import { FilterConfig } from '@/components/data-filter'
 import { FieldConfig } from '@/components/data-field'
 
@@ -50,28 +51,6 @@ export interface ApiConfigMap {
 
 export type ApiKeyName = keyof ApiConfigMap
 
-/**
- * 设置数据接口配置
- */
-export function setApiConfig<K extends ApiKeyName>(
-  api: Partial<ApiConfigMap>,
-  name: K,
-  options: Partial<ApiConfigMap[K]>,
-) {
-  if (name === 'source') {
-    api.source = {
-      fields: {},
-      render: 'render',
-      description: '',
-      useAutoUpdate: false,
-      autoUpdate: 1,
-      ...options,
-    }
-  }
-
-  return api as ApiConfigMap
-}
-
 export interface ApiDataConfig {
   id: string
   comId: string
@@ -94,30 +73,56 @@ export interface ApiDataConfigMap {
 }
 
 /**
- * 设置源数据
+ * 初始化数据接口配置
  */
-export function setApiData<K extends ApiKeyName>(
-  comId: string,
-  api: Partial<ApiDataConfigMap>,
-  name: K,
-  data: any,
-  type = ApiType.static,
-) {
-  if (name === 'source') {
-    api.source = {
-      id: generateId(),
+export function initApiConfig(options: Partial<ApiConfigMap['source']>) {
+  const config: Partial<ApiConfigMap> = {
+    source: {
+      fields: {},
+      render: 'render',
+      description: '',
+      useAutoUpdate: false,
+      autoUpdate: 1,
+      ...options,
+    },
+  }
+
+  return config
+}
+
+/**
+ * 初始化源数据
+ */
+export function initApiData(comId: string, data: any, path = '') {
+  const config: Partial<ApiDataConfigMap> = {
+    source: {
       comId,
-      type,
+      id: generateId(),
+      type: ApiType.static,
       pageFilters: [],
       config: {
         useFilter: false,
         data: '',
       },
-    }
-    castDataBySourceType(type, api.source.config, data)
+    },
   }
 
-  return api as ApiDataConfigMap
+  if (path) {
+    getStaticData(path).then(res => {
+      config.source.config.data = JSON.stringify(res.data)
+    })
+  } else {
+    config.source.config.data = isString(data) ? data : JSON.stringify(data)
+  }
+
+  return config
+}
+
+export function createDataSources() {
+  return {
+    [ApiType.static]: '静态数据',
+    [ApiType.api]: 'API',
+  }
 }
 
 export function createDataConfigForApi(config: ApiDataConfig['config']) {
@@ -130,28 +135,5 @@ export function createDataConfigForApi(config: ApiDataConfig['config']) {
       cookie: false,
       local: false,
     })
-  }
-}
-
-/**
- * 通过数据源类型转换数据
- */
-function castDataBySourceType(type: ApiType, config: ApiDataConfig['config'], data: any) {
-  switch (type) {
-    case ApiType.static:
-      config.data = isString(data) ? data : JSON.stringify(data)
-      break
-    case ApiType.api:
-      createDataConfigForApi(config)
-      break
-    default:
-      throw Error(`Unknown ApiType: ${type}`)
-  }
-}
-
-export function createDataSources() {
-  return {
-    [ApiType.static]: '静态数据',
-    [ApiType.api]: 'API',
   }
 }

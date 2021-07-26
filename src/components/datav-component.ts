@@ -54,8 +54,8 @@ export abstract class DatavComponent {
 
   abstract config: Record<string, any>
 
-  abstract apis: ApiConfigMap
-  abstract apiData: ApiDataConfigMap
+  abstract apis: Partial<ApiConfigMap>
+  abstract apiData: Partial<ApiDataConfigMap>
 
   /**
    * 事件
@@ -87,22 +87,31 @@ export abstract class DatavComponent {
 }
 
 export abstract class DatavChartSeries {
-  id: string
-  readonly name: string
   readonly type: string
+  id: string
+  name: string
 
-  constructor (name: string, type: string) {
+  constructor (type: string, name: string) {
+    this.type = type
     this.id = generateId(name)
     this.name = name
-    this.type = type
   }
 }
 
 export abstract class DatavEChartsComponent extends DatavComponent {
-  // series
   abstract config: Record<string, any> & {
-    series: {
-      series: DatavChartSeries[]
+    legend?: Record<string, any>
+    tooltip?: Record<string, any>
+    series: DatavChartSeries[]
+    animation: {
+      enabled: boolean
+      duration: number
+      easing: string
+      delay: number
+      threshold?: number
+      durationUpdate?: number
+      easingUpdate?: string
+      delayUpdate?: number
     }
   }
 }

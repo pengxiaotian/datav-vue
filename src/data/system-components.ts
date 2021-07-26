@@ -8,7 +8,7 @@ export const bar = {
       alias: '柱状图',
       img: `${import.meta.env.VITE_APP_CDN}/com/basic-bar-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/basic-bar-368-208.png`,
-      used: false,
+      used: true,
     }, {
       name: 'VArcBar',
       alias: '玉环图',

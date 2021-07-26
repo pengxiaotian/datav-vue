@@ -1,6 +1,6 @@
 <template>
   <template v-for="item in config" :key="item.key">
-    <template v-if="judgeDisplay(item)">
+    <template v-if="!item.config.isHide && judgeDisplay(item)">
       <preview-prop-item
         v-if="isFlat"
         :data-type="item.config.type"

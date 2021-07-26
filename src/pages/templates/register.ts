@@ -19,6 +19,10 @@ Handlebars.registerHelper('enumsToTpl', (arr: string[]) => {
   })
   return `${str}]`
 })
+Handlebars.registerHelper('getSlotPath', (path: string, vpath: string) => {
+  const str = vpath ? vpath : `config.${path}`
+  return str.substr(0, str.lastIndexOf('.'))
+})
 Handlebars.registerHelper('goBack', (path: string, level = 1) => {
   if (path) {
     const maxLv = path.split('.').length - 1
