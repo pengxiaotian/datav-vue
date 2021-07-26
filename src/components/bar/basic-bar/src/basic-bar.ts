@@ -32,7 +32,7 @@ export class BasicBar extends DatavEChartsComponent {
       margin: {
         top: 20,
         bottom: 30,
-        left: 40,
+        left: 20,
         right: 10,
       },
     },

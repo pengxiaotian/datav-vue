@@ -5,7 +5,7 @@ import { getRandomInt } from '@/utils/util'
 export const useMock = () => {
   const { pageConfig } = EditorModule
 
-  const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration']
+  const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar']
   names.forEach(name => {
     const com = createComponent(name)
     // com.apis.source.useAutoUpdate = true
