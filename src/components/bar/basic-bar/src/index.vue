@@ -7,7 +7,7 @@
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
 import VChart from 'vue-echarts'
-import { use } from 'echarts/core'
+import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent } from 'echarts/components'
@@ -54,9 +54,22 @@ export default defineComponent({
       }
     })
 
+    const chartData = computed(() => {
+      const xdata: number[] = []
+      const ydata: number[] = []
+      dv_data.value.forEach(item => {
+        xdata.push(item[dv_field.value.x])
+        ydata.push(item[dv_field.value.y])
+      })
+
+      return {
+        xdata, ydata,
+      }
+    })
+
     const getSeries = () => {
-      const ydata: number[] = dv_data.value.map(m => m[dv_field.value.y])
       const { global, label, series } = config.value
+      const { ydata } = chartData.value
       let arr = []
       series.forEach((item, i) => {
         arr.push({
@@ -66,7 +79,15 @@ export default defineComponent({
           zlevel: 1,
           z: 10 + i,
           itemStyle: {
-            color: item.color.value,
+            color: item.color.type === 'gradient'
+              ? new graphic.LinearGradient(0, 0, 0, 1, [{
+                offset: 0,
+                color: item.color.from,
+              }, {
+                offset: 1,
+                color: item.color.to,
+              }])
+              : item.color.value,
           },
           label: {
             show: label.show,
@@ -79,6 +100,7 @@ export default defineComponent({
           data: ydata,
         })
       })
+
       const maxNum = Math.max(...ydata)
       arr.push({
         type: 'bar',
@@ -93,8 +115,8 @@ export default defineComponent({
     }
 
     const option = computed(() => {
-      const xdata = dv_data.value.map(m => m[dv_field.value.x])
       const { global, xAxis, yAxis } = config.value
+      const { xdata } = chartData.value
       const opts = {
         textStyle: {
           fontFamily: global.fontFamily,
