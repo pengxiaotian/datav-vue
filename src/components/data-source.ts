@@ -1,5 +1,4 @@
-import { generateId, isString } from '@/utils/util'
-import { getStaticData } from '@/api/data'
+import { generateId } from '@/utils/util'
 import { FilterConfig } from '@/components/data-filter'
 import { FieldConfig } from '@/components/data-field'
 
@@ -93,7 +92,7 @@ export function initApiConfig(options: Partial<ApiConfigMap['source']>) {
 /**
  * 初始化源数据
  */
-export function initApiData(comId: string, data: any, path = '') {
+export function initApiData(comId: string) {
   const config: Partial<ApiDataConfigMap> = {
     source: {
       comId,
@@ -105,14 +104,6 @@ export function initApiData(comId: string, data: any, path = '') {
         data: '',
       },
     },
-  }
-
-  if (path) {
-    getStaticData(path).then(res => {
-      config.source.config.data = JSON.stringify(res.data)
-    })
-  } else {
-    config.source.config.data = isString(data) ? data : JSON.stringify(data)
   }
 
   return config

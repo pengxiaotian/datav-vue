@@ -5,6 +5,7 @@ import {
 } from '@/components/data-source'
 import { createField } from '@/components/data-field'
 import { DataEventConfig } from '@/components/data-event'
+import { getStaticData } from '@/api/data'
 
 /**
  * NumberTitleFlop
@@ -109,16 +110,22 @@ export class NumberTitleFlop extends DatavComponent {
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = initApiData(this.id, {
-      title: '',
-      value: '123456.7',
-    })
+    this.apiData = initApiData(this.id)
 
     this.events = {}
-
     this.actions = {}
 
     return this
+  }
+
+  async loadData() {
+    try {
+      const path = 'text/number-title-flop'
+      const res = await getStaticData(this.id, path)
+      this.apiData.source.config.data = JSON.stringify(res.data)
+    } catch (error) {
+      throw error
+    }
   }
 }
 

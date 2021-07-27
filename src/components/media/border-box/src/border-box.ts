@@ -36,6 +36,8 @@ export class BorderBox extends DatavComponent {
 
     return this
   }
+
+  async loadData() {}
 }
 
 export const presetImages: DatavImageType[] = [

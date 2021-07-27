@@ -83,7 +83,12 @@ export abstract class DatavComponent {
   /**
    * 初始化数据
    */
-   abstract initData(): this
+  abstract initData(): this
+
+  /**
+   * 将静态数据和配置分离 减少 bundle size
+   */
+  abstract loadData(): Promise<void>
 }
 
 export abstract class DatavChartSeries {

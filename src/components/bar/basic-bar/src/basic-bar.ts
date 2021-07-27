@@ -5,6 +5,7 @@ import {
 } from '@/components/data-source'
 import { createField } from '@/components/data-field'
 import { DataEventConfig } from '@/components/data-event'
+import { getStaticData } from '@/api/data'
 
 export class BasicBarSeries extends DatavChartSeries {
   constructor(name: string) {
@@ -122,11 +123,21 @@ export class BasicBar extends DatavEChartsComponent {
       description: '基本柱状图接口',
     })
 
-    this.apiData = initApiData(this.id, '', 'bar/basic-bar')
+    this.apiData = initApiData(this.id)
 
     this.events = {}
     this.actions = {}
     return this
+  }
+
+  async loadData() {
+    try {
+      const path = 'bar/basic-bar'
+      const res = await getStaticData(this.id, path)
+      this.apiData.source.config.data = JSON.stringify(res.data)
+    } catch (error) {
+      throw error
+    }
   }
 }
 

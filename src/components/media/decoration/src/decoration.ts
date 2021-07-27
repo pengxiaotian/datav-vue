@@ -36,6 +36,8 @@ export class Decoration extends DatavComponent {
 
     return this
   }
+
+  async loadData() {}
 }
 
 export const presetImages: {

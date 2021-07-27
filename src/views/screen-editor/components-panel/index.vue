@@ -107,6 +107,7 @@ import { defineComponent, ref, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
+import { BlueprintModule } from '@/store/modules/blueprint'
 import { MessageUtil } from '@/utils/message-util'
 import { classifications } from '@/data/system-components'
 import { createComponent } from '@/components/datav'
@@ -152,18 +153,21 @@ export default defineComponent({
       }
     }
 
-    const toAddCom = (comName: string, used: boolean) => {
+    const toAddCom = async (comName: string, used: boolean) => {
       if (used) {
         ToolbarModule.addLoading()
         const { pageConfig } = EditorModule
         const com = createComponent(comName)
         com.attr.x = Math.floor((pageConfig.width - com.attr.w) / 2)
         com.attr.y = Math.floor((pageConfig.height - com.attr.h) / 2)
-        EditorModule.addCom(com)
-          .then(() => {
-            EditorModule.selectCom(com.id)
-            ToolbarModule.removeLoading()
-          })
+        await EditorModule.addCom(com)
+        EditorModule.selectCom(com.id)
+        ToolbarModule.removeLoading()
+
+        if (com.apis.source) {
+          await com.loadData()
+          BlueprintModule.datavComponents[com.id].$DATAV_requestData()
+        }
       } else {
         MessageUtil.warning('正在开发中。。。')
       }

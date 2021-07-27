@@ -5,6 +5,7 @@ import {
 } from '@/components/data-source'
 import { createField } from '@/components/data-field'
 import { DataEventConfig } from '@/components/data-event'
+import { getStaticData } from '@/api/data'
 
 /**
  * DatePicker
@@ -75,7 +76,7 @@ export class DatePicker extends DatavComponent {
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = initApiData(this.id, {})
+    this.apiData = initApiData(this.id)
 
     this.events = {
       changed: {
@@ -88,6 +89,16 @@ export class DatePicker extends DatavComponent {
     this.actions = {}
 
     return this
+  }
+
+  async loadData() {
+    try {
+      const path = 'other/date-picker'
+      const res = await getStaticData(this.id, path)
+      this.apiData.source.config.data = JSON.stringify(res.data)
+    } catch (error) {
+      throw error
+    }
   }
 }
 

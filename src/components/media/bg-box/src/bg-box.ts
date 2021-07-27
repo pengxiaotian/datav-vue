@@ -85,6 +85,8 @@ export class BgBox extends DatavComponent {
 
     return this
   }
+
+  async loadData() {}
 }
 
 export const borderTypes = [

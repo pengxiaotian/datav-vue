@@ -35,8 +35,9 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import type { CSSProperties } from 'vue'
-import { EditorModule } from '@/store/modules/editor'
 import { ToolbarModule } from '@/store/modules/toolbar'
+import { EditorModule } from '@/store/modules/editor'
+import { BlueprintModule } from '@/store/modules/blueprint'
 import { createComponent } from '@/components/datav'
 import AlignLine from './align-line.vue'
 import Ruler from './ruler/index.vue'
@@ -71,7 +72,7 @@ export default defineComponent({
       } as CSSProperties
     })
 
-    const dropToAddCom = (event: any) => {
+    const dropToAddCom = async (event: any) => {
       event.preventDefault()
 
       try {
@@ -84,11 +85,14 @@ export default defineComponent({
           const offsetY = (event.clientY - ToolbarModule.getPanelOffsetTop) / scale
           com.attr.x = Math.round(offsetX - com.attr.w / 2)
           com.attr.y = Math.round(offsetY - com.attr.h / 2)
-          EditorModule.addCom(com)
-            .then(() => {
-              EditorModule.selectCom(com.id)
-              ToolbarModule.removeLoading()
-            })
+          await EditorModule.addCom(com)
+          EditorModule.selectCom(com.id)
+          ToolbarModule.removeLoading()
+
+          if (com.apis.source) {
+            await com.loadData()
+            BlueprintModule.datavComponents[com.id].$DATAV_requestData()
+          }
         }
       } catch {
         // TODO
