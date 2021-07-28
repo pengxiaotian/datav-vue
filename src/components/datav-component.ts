@@ -107,7 +107,7 @@ export abstract class DatavEChartsComponent extends DatavComponent {
   abstract config: Record<string, any> & {
     legend?: Record<string, any>
     tooltip?: Record<string, any>
-    series: DatavChartSeries[]
+    series: DatavChartSeries | DatavChartSeries[]
     animation: {
       enabled: boolean
       duration: number

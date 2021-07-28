@@ -6,6 +6,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
+import { groupBy } from 'lodash-es'
 import VChart from 'vue-echarts'
 import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -55,29 +56,26 @@ export default defineComponent({
     })
 
     const chartData = computed(() => {
-      const xdata: number[] = []
-      const ydata: number[] = []
-      dv_data.value.forEach(item => {
-        xdata.push(item[dv_field.value.x])
-        ydata.push(item[dv_field.value.y])
-      })
-
+      const groups = groupBy(dv_data.value, item => item[dv_field.value.x])
       return {
-        xdata, ydata,
+        keys: Object.keys(groups),
+        values: Object.values(groups),
       }
     })
 
     const getSeries = () => {
       const { global, label, series } = config.value
-      const { ydata } = chartData.value
-      let arr = []
-      series.forEach((item, i) => {
-        arr.push({
+      const { values } = chartData.value
+      return series.map((item, idx) => {
+        return {
           type: item.type,
           name: item.name,
-          xAxisIndex: 1,
-          zlevel: 1,
-          z: 10 + i,
+          label: {
+            show: label.show,
+            position: label.position,
+            ...label.textStyle,
+            offset: [label.offsetX, label.offsetY],
+          },
           itemStyle: {
             color: item.color.type === 'gradient'
               ? new graphic.LinearGradient(0, 0, 0, 1, [{
@@ -89,34 +87,19 @@ export default defineComponent({
               }])
               : item.color.value,
           },
-          label: {
-            show: label.show,
-            position: label.position,
-            ...label.textStyle,
-            offset: [label.offsetX, label.offsetY],
-          },
           barGap: `${global.innerPadding}%`,
           barCategoryGap: `${global.outerPadding}%`,
-          data: ydata,
-        })
+          showBackground: global.background.show,
+          backgroundStyle: {
+            color: global.background.color,
+          },
+          data: values.map(v => v[idx][dv_field.value.y]),
+        }
       })
-
-      const maxNum = Math.max(...ydata)
-      arr.push({
-        type: 'bar',
-        barWidth: `${100 - global.outerPadding}%`,
-        data: Array.from({ length: ydata.length }, () => maxNum),
-        itemStyle: {
-          color: global.barColor,
-        },
-        silent: true,
-      })
-      return arr
     }
 
     const option = computed(() => {
-      const { global, xAxis, yAxis } = config.value
-      const { xdata } = chartData.value
+      const { global, xAxis, yAxis, animation } = config.value
       const opts = {
         textStyle: {
           fontFamily: global.fontFamily,
@@ -125,75 +108,107 @@ export default defineComponent({
           ...global.margin,
         },
         tooltip: {},
-        xAxis: [{
-          type: 'category',
-          position: 'top',
-          axisLine: {
-            show: false,
-          },
-          axisTick: {
-            show: false,
-          },
-          axisLabel: {
-            show: false,
-          },
-          splitArea: {
-            show: false,
-          },
-          splitLine: {
-            show: false,
-          },
-          data: xdata,
-        }, {
+        xAxis: {
           show: xAxis.show,
           type: 'category',
-          axisLabel: {
-            ...xAxis.textStyle,
-            margin: xAxis.label.margin,
+          name: xAxis.title.show ? xAxis.title.name : '',
+          nameLocation: xAxis.title.location,
+          nameRotate: xAxis.title.display.rotate,
+          nameGap: xAxis.title.display.offset,
+          nameTextStyle: {
+            ...xAxis.title.textStyle,
           },
           axisLine: {
             show: xAxis.axisLine.show,
             lineStyle: {
+              type: xAxis.axisLine.type,
+              width: xAxis.axisLine.width,
               color: xAxis.axisLine.color,
             },
           },
           axisTick: {
             show: xAxis.axisTick.show,
             lineStyle: {
+              type: xAxis.axisTick.type,
+              width: xAxis.axisTick.width,
               color: xAxis.axisTick.color,
             },
             alignWithLabel: true,
           },
-          data: xdata,
-        }],
+          axisLabel: {
+            show: xAxis.axisLabel.show,
+            boundaryGap: xAxis.axisLabel.boundaryGap,
+            interval: xAxis.axisLabel.interval,
+            rotate: xAxis.axisLabel.display.rotate,
+            margin: xAxis.axisLabel.display.margin,
+            align: xAxis.axisLabel.align,
+            ...xAxis.axisLabel.textStyle,
+          },
+          splitLine: {
+            show: xAxis.grid.show,
+            lineStyle: {
+              type: xAxis.grid.line.type === 'dashed'
+                ? [xAxis.grid.line.dashedLength, xAxis.grid.line.dashedSpace]
+                : xAxis.grid.line.type,
+              width: xAxis.grid.line.width,
+              color: xAxis.grid.line.color,
+            },
+          },
+          data: chartData.value.keys,
+        },
         yAxis: {
           show: yAxis.show,
           type: 'value',
-          axisLabel: {
-            ...xAxis.textStyle,
-            margin: yAxis.label.margin,
+          name: yAxis.title.show ? yAxis.title.name : '',
+          nameLocation: yAxis.title.location,
+          nameRotate: yAxis.title.display.rotate,
+          nameGap: yAxis.title.display.offset,
+          nameTextStyle: {
+            ...yAxis.title.textStyle,
           },
-          name: yAxis.label.unit,
-          min: yAxis.label.min,
-          max: yAxis.label.max,
-          splitNumber: yAxis.label.amount,
           axisLine: {
             show: yAxis.axisLine.show,
             lineStyle: {
+              type: yAxis.axisLine.type,
+              width: yAxis.axisLine.width,
               color: yAxis.axisLine.color,
             },
           },
           axisTick: {
             show: yAxis.axisTick.show,
             lineStyle: {
+              type: yAxis.axisTick.type,
+              width: yAxis.axisTick.width,
               color: yAxis.axisTick.color,
             },
             alignWithLabel: true,
           },
-          splitLine: {
-            show: false,
+          axisLabel: {
+            show: yAxis.axisLabel.show,
+            boundaryGap: [`${yAxis.axisLabel.boundaryGap}%`, `${yAxis.axisLabel.boundaryGap}%`],
+            // interval: yAxis.axisLabel.interval,
+            rotate: yAxis.axisLabel.display.rotate,
+            margin: yAxis.axisLabel.display.margin,
+            align: yAxis.axisLabel.align,
+            ...yAxis.axisLabel.textStyle,
           },
+          splitLine: {
+            show: yAxis.grid.show,
+            lineStyle: {
+              type: yAxis.grid.line.type === 'dashed'
+                ? [yAxis.grid.line.dashedLength, yAxis.grid.line.dashedSpace]
+                : yAxis.grid.line.type,
+              width: yAxis.grid.line.width,
+              color: yAxis.grid.line.color,
+            },
+          },
+          // min: yAxis.extent.min,
+          // max: yAxis.extent.max,
         },
+        animation: animation.enabled,
+        animationDuration: animation.duration,
+        animationEasing: animation.easing as any,
+        animationDelay: animation.delay,
         series: getSeries(),
       }
       return opts

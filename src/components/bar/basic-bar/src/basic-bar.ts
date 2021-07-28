@@ -27,14 +27,17 @@ export class BasicBar extends DatavEChartsComponent {
   config = {
     global: {
       fontFamily: 'Microsoft Yahei',
-      innerPadding: 30,
-      outerPadding: 60,
-      barColor: 'rgba(255, 255, 255, 0.1)',
       margin: {
         top: 20,
-        bottom: 30,
-        left: 20,
+        bottom: 50,
+        left: 50,
         right: 10,
+      },
+      innerPadding: 20,
+      outerPadding: 30,
+      background: {
+        show: true,
+        color: 'rgba(255, 255, 255, 0.1)',
       },
     },
     label: {
@@ -50,44 +53,114 @@ export class BasicBar extends DatavEChartsComponent {
     },
     xAxis: {
       show: true,
-      textStyle: {
-        fontSize: 12,
-        color: 'rgba(255, 255, 255, 0.6)',
-        fontWeight: 'normal',
-      },
-      label: {
-        margin: 8,
+      title: {
+        show: true,
+        name: 'X轴',
+        location: 'center',
+        display: {
+          rotate: 0,
+          offset: 20,
+        },
+        textStyle: {
+          fontSize: 12,
+          color: 'rgb(144, 160, 174)',
+          fontWeight: 'normal',
+        },
       },
       axisLine: {
         show: true,
+        type: 'solid',
+        width: 1,
         color: 'rgba(255, 255, 255, 0.5)',
       },
       axisTick: {
         show: true,
+        type: 'solid',
+        width: 1,
         color: 'rgba(255, 255, 255, 0.5)',
+      },
+      axisLabel: {
+        show: true,
+        boundaryGap: true,
+        interval: 'auto',
+        display: {
+          rotate: 0,
+          margin: 10,
+        },
+        align: 'center',
+        textStyle: {
+          fontSize: 12,
+          color: 'rgba(255, 255, 255, 0.6)',
+          fontWeight: 'normal',
+        },
+      },
+      grid: {
+        show: true,
+        line: {
+          type: 'solid',
+          width: 1,
+          color: 'rgba(233, 228, 228, 0.1)',
+          dashedLength: 4,
+          dashedSpace: 4,
+        },
       },
     },
     yAxis: {
       show: true,
-      textStyle: {
-        fontSize: 12,
-        color: 'rgba(255, 255, 255, 0.6)',
-        fontWeight: 'normal',
-      },
-      label: {
+      extent: {
         min: 'auto',
         max: 'auto',
-        unit: '',
-        amount: 5,
-        margin: 8,
+      },
+      title: {
+        show: true,
+        name: 'Y轴',
+        location: 'center',
+        display: {
+          rotate: 90,
+          offset: 20,
+        },
+        textStyle: {
+          fontSize: 12,
+          color: 'rgb(144, 160, 174)',
+          fontWeight: 'normal',
+        },
       },
       axisLine: {
         show: true,
+        type: 'solid',
+        width: 1,
         color: 'rgba(255, 255, 255, 0.5)',
       },
       axisTick: {
         show: true,
+        type: 'solid',
+        width: 1,
         color: 'rgba(255, 255, 255, 0.5)',
+      },
+      axisLabel: {
+        show: true,
+        boundaryGap: 0,
+        interval: 'auto',
+        display: {
+          rotate: 0,
+          margin: 10,
+        },
+        align: 'center',
+        textStyle: {
+          fontSize: 12,
+          color: 'rgba(255, 255, 255, 0.6)',
+          fontWeight: 'normal',
+        },
+      },
+      grid: {
+        show: true,
+        line: {
+          type: 'solid',
+          width: 1,
+          color: 'rgba(233, 228, 228, 0.1)',
+          dashedLength: 4,
+          dashedSpace: 4,
+        },
       },
     },
     series: [new BasicBarSeries('系列1')],
