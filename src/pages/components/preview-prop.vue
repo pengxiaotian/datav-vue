@@ -6,13 +6,13 @@
         :data-type="item.config.type"
         :component-type="item.config.component"
         :default-value="item.config.defaultValue"
-        :min="item.config.min"
-        :max="item.config.max"
+        :min="item.config.InfiniteMin ? -Infinity : item.config.min"
+        :max="item.config.InfiniteMax ? Infinity : item.config.max"
         :step="item.config.step"
         :suffix="item.config.suffix"
         :label="item.config.alias"
         :enums="item.config.enums"
-        :is-flat="true"
+        :inline="item.config.displayMode"
       />
       <template v-else-if="item.children">
         <g-field-collapse
@@ -89,11 +89,12 @@
           :data-type="item.config.type"
           :component-type="item.config.component"
           :default-value="item.config.defaultValue"
-          :min="item.config.min"
-          :max="item.config.max"
+          :min="item.config.InfiniteMin ? -Infinity : item.config.min"
+          :max="item.config.InfiniteMax ? Infinity : item.config.max"
           :step="item.config.step"
           :suffix="item.config.suffix"
           :enums="item.config.enums"
+          :inline="item.config.displayMode"
         />
       </g-field>
     </template>

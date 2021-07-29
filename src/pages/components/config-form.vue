@@ -52,15 +52,21 @@
           <template v-if="item.config.component === componentTypes.number || item.config.component === componentTypes.slider">
             <el-form-item label="最小值" label-width="150px">
               <el-input-number v-model="item.config.min" />
+              <el-checkbox v-model="item.config.InfiniteMin" style="margin-left: 10px;">
+                不限制
+              </el-checkbox>
             </el-form-item>
             <el-form-item label="最大值" label-width="150px">
               <el-input-number v-model="item.config.max" />
+              <el-checkbox v-model="item.config.InfiniteMax" style="margin-left: 10px;">
+                不限制
+              </el-checkbox>
             </el-form-item>
             <el-form-item label="步长" label-width="150px">
               <el-input-number v-model="item.config.step" />
             </el-form-item>
           </template>
-          <template v-if="item.config.component === componentTypes.number">
+          <template v-if="item.config.component === componentTypes.number || item.config.component === componentTypes.slider">
             <el-form-item label="单位" label-width="150px">
               <el-input v-model="item.config.suffix" />
             </el-form-item>

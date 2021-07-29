@@ -2,8 +2,8 @@
   <g-input
     v-if="componentType === componentTypes.input"
     v-model="strValue"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-input-number
     v-else-if="componentType === componentTypes.number"
@@ -12,14 +12,14 @@
     :max="max"
     :step="step"
     :suffix="suffix"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-color-picker
     v-else-if="componentType === componentTypes.color"
     v-model="strValue"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <el-checkbox
     v-else-if="componentType === componentTypes.checkbox"
@@ -41,148 +41,147 @@
       {{ em }}
     </el-radio-button>
   </el-radio-group>
-  <el-slider
+  <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
     :min="min"
     :max="max"
     :step="step"
-    :show-tooltip="false"
-    show-input
-    input-size="mini"
-    class="g-slider"
+    :suffix="suffix"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.select"
     v-model="strValue"
     :data="[]"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
     disabled
   />
   <g-select
     v-else-if="componentType === componentTypes.fontFamily"
     v-model="strValue"
     :data="fontFamilys"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.fontWeight"
     v-model="strValue"
     :data="fontWeights"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.fontStyle"
     v-model="strValue"
     :data="fontStyles"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.hAlign"
     v-model="strValue"
     :data="hAligns"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.vAlign"
     v-model="strValue"
     :data="vAligns"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.writingMode"
     v-model="strValue"
     :data="writingModes"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.justify"
     v-model="strValue"
     :data="justifyContents"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.align"
     v-model="strValue"
     :data="aligns"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.angle"
     v-model="strValue"
     :data="angles"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.location"
     v-model="strValue"
     :data="locations"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.lineStyle"
     v-model="strValue"
     :data="lineStyles"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.fillType"
     v-model="strValue"
     :data="fillTypes"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.repeatType"
     v-model="strValue"
     :data="repeatTypes"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-upload-image
     v-else-if="componentType === componentTypes.uploadImage"
     v-model="strValue"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select-image
     v-else-if="componentType === componentTypes.selectImage"
     v-model="strValue"
     :images="[]"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.echartsLablePosition"
     v-model="strValue"
     :data="echartsLablePositions"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <g-select
     v-else-if="componentType === componentTypes.animationEasing"
     v-model="strValue"
     :data="animationEasings"
-    :is-inline="isFlat"
-    :label="isFlat ? label : ''"
+    :inline="mode"
+    :label="mode ? label : ''"
   />
   <span v-else>--</span>
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref, watch } from 'vue'
+import { defineComponent, PropType, ref, computed, watch } from 'vue'
 import { PropDataType, ComponentType } from '@/domains/dev/prop-config'
 import {
   fontFamilys,
@@ -230,7 +229,10 @@ export default defineComponent({
     },
     suffix: String,
     label: String,
-    isFlat: Boolean,
+    inline: {
+      type: String,
+      default: 'single',
+    },
     enums: {
       type: Array as PropType<string[]>,
       default: () => [],
@@ -253,6 +255,14 @@ export default defineComponent({
     const numValue = ref(0)
     const boolValue = ref(false)
     const arrValue = ref<(string | number)[]>([])
+
+    const mode = computed(() => {
+      if (props.inline === 'inline' || props.inline === 'inline-single') {
+        return props.inline
+      }
+
+      return false
+    })
 
     watch(
       () => props.componentType,
@@ -279,6 +289,7 @@ export default defineComponent({
       numValue,
       boolValue,
       arrValue,
+      mode,
 
       fontFamilys,
       fontWeights,

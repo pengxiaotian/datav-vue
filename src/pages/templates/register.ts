@@ -36,6 +36,13 @@ Handlebars.registerHelper('goBack', (path: string, level = 1) => {
 
   return path
 })
+Handlebars.registerHelper('getInlineMode', val => {
+  if (val === 'inline' || val === 'inline-single') {
+    return val
+  }
+
+  return false
+})
 
 // ------Partials------
 Handlebars.registerPartial('prop-config-tpl', propConfigTpl)

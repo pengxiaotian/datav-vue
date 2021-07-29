@@ -4,7 +4,8 @@
     :class="[
       `--${size}`,
       {
-        '--inline': isInline,
+        '--inline': !!inline,
+        '--single': inline === 'inline-single',
       }
     ]"
   >
@@ -49,7 +50,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    isInline: Boolean,
+    inline: {
+      type: [Boolean, String],
+      default: false,
+    },
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {

@@ -3,7 +3,7 @@
     class="datav-gui g-upload"
     :class="[
       {
-        '--inline --single': isInline,
+        '--inline --single': !!inline,
       }
     ]"
   >
@@ -89,7 +89,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    isInline: Boolean,
+    inline: {
+      type: [Boolean, String],
+      default: false,
+    },
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {

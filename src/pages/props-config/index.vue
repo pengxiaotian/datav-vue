@@ -17,6 +17,7 @@
               <el-select v-model="ext" style="width: 66px;">
                 <el-option value=".ts" />
                 <el-option value=".json" />
+                <el-option value=".ts&.json" />
               </el-select>
             </template>
           </el-input>
@@ -87,7 +88,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
-import { PropDto, initPropData, ComponentType } from '@/domains/dev/prop-config'
+import { PropDto, ComponentType, initPropData, mixinPropData } from '@/domains/dev/prop-config'
 import { MessageUtil } from '@/utils/message-util'
 import { pascalCase } from '@/utils/util'
 import Handlebars from 'handlebars'
@@ -108,33 +109,50 @@ export default defineComponent({
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')
-    const ext = ref<'.ts' | '.json'>('.ts')
+    const ext = ref<'.ts' | '.json' | '.ts&.json'>('.ts')
 
     const list = ref<PropDto[]>([])
     const configCode = ref('{}')
     const templateCode = ref('<template></template>')
 
+    const getConfigByTS = async (comName: string) => {
+      const path = `${classPath.value}/src/${comName}`
+      const comModule = await import(`../../components/${path}.ts`)
+      const arr: PropDto[] = []
+      if (comModule.default.prototype instanceof DatavComponent) {
+        const dvc = new comModule.default()
+        initPropData(dvc.config, arr, '')
+        return arr
+      } else {
+        throw new Error(`未识别的模块`)
+      }
+    }
+
+    const getConfigByJson = async () => {
+      const path = `${classPath.value}/src/config`
+      const comModule = await import(`../../components/${path}.json`)
+      return comModule.default as PropDto[]
+    }
+
+    const getConfigByMixin = async (comName: string) => {
+      const tsList = await getConfigByTS(comName)
+      const jsonList = await getConfigByJson()
+      mixinPropData(tsList, jsonList)
+      return tsList
+    }
+
     const loadModule = async () => {
       try {
         if (classPath.value) {
           loading.value = true
-          let comModule: any
           const name = classPath.value.split('/').pop()
           fileName.value = name
           if (ext.value === '.ts') {
-            const path = `${classPath.value}/src/${name}`
-            comModule = await import(`../../components/${path}.ts`)
-            if (comModule.default.prototype instanceof DatavComponent) {
-              list.value = []
-              const dvc = new comModule.default()
-              initPropData(dvc.config, list.value, '')
-            } else {
-              throw new Error(`未识别的模块`)
-            }
+            list.value = await getConfigByTS(name)
           } else if (ext.value === '.json') {
-            const path = `${classPath.value}/src/config`
-            comModule = await import(`../../components/${path}.json`)
-            list.value = comModule.default
+            list.value = await getConfigByJson()
+          } else if (ext.value === '.ts&.json') {
+            list.value = await getConfigByMixin(name)
           } else {
             throw new Error(`未识别的文件格式`)
           }

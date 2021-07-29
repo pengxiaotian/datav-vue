@@ -3,20 +3,20 @@
     <g-field label="图表尺寸" :is-flat="true">
       <g-input-number
         v-model="attr.w"
-        :min="0"
-        :max="8888"
-        :is-inline="true"
+        :min="100"
+        :max="888888"
+        inline
       />
       <g-input-number
         v-model="attr.h"
-        :min="0"
-        :max="8888"
-        :is-inline="true"
+        :min="100"
+        :max="888888"
+        inline
       />
     </g-field>
     <g-field label="图表位置" :is-flat="true">
-      <g-input-number v-model="attr.x" :is-inline="true" />
-      <g-input-number v-model="attr.y" :is-inline="true" />
+      <g-input-number v-model="attr.x" inline />
+      <g-input-number v-model="attr.y" inline />
     </g-field>
     <g-field label="旋转角度" :is-flat="true">
       <g-input-number
@@ -24,7 +24,7 @@
         :min="0"
         :max="360"
         :step="1"
-        :is-inline="true"
+        inline
       />
       <el-checkbox-group v-model="filps" size="mini" @change="onFilpChange">
         <el-tooltip effect="blue" content="垂直翻转" :enterable="false">
@@ -40,15 +40,11 @@
       </el-checkbox-group>
     </g-field>
     <g-field label="透明度">
-      <el-slider
+      <g-slider
         v-model="attr.opacity"
         :min="0"
         :max="1"
         :step="0.05"
-        :show-tooltip="false"
-        show-input
-        input-size="mini"
-        class="g-slider"
       />
     </g-field>
   </div>

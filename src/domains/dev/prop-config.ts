@@ -46,6 +46,8 @@ export enum DisplayMode {
   flat = 'flat',
   nest = 'nest',
   nestArray = 'nest-array',
+  inline = 'inline',
+  inlineSingle = 'inline-single',
 }
 
 export interface PropConfig {
@@ -62,6 +64,8 @@ export interface PropConfig {
   min: number
   max: number
   step: number
+  InfiniteMin: boolean
+  InfiniteMax: boolean
   suffix: string
   enums: string[]
   whichEnum: {
@@ -85,6 +89,8 @@ export const createPropConfig = () => {
     min: 0,
     max: 100,
     step: 1,
+    InfiniteMin: false,
+    InfiniteMax: false,
     suffix: '',
     enums: [],
     whichEnum: {
@@ -151,5 +157,23 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       initPropData([val[0]], dto.children, dto.path)
     }
     arr.push(dto)
+  }
+}
+
+export const mixinPropData = (tsArr: PropDto[], jsonArr: PropDto[]) => {
+  for (let i = 0; i < tsArr.length; i++) {
+    const tsItem = tsArr[i]
+    const jsonItem = jsonArr[i]
+    if (tsItem.key === jsonItem.key && tsItem.path === jsonItem.path) {
+      tsItem.config = {
+        ...tsItem.config,
+        ...jsonItem.config,
+      }
+    }
+
+    if (tsItem.children && tsItem.children.length > 0
+      && jsonItem.children && jsonItem.children.length > 0) {
+      mixinPropData(tsItem.children, jsonItem.children)
+    }
   }
 }

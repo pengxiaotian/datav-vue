@@ -1,24 +1,24 @@
 <template>
   <div
-    class="datav-gui g-input-number"
+    class="datav-gui g-slider"
     :class="[
       `--${size}`,
       {
-        '--inline': !!inline,
-        '--single': inline === 'inline-single',
+        '--inline --single': !!inline,
         'has-suffix': !!suffix,
       }
     ]"
   >
-    <el-input-number
+    <el-slider
       :model-value="modelValue"
-      :size="size"
       :min="min"
       :max="max"
       :step="step"
-      class="is-controls-right"
+      :show-input="showInput"
+      :input-size="inputSize"
+      :show-tooltip="false"
+      :class="{ 'is-controls-right': controlsPosition === 'right' }"
       @update:model-value="handleInput"
-      @change="handleChange"
     />
     <span v-if="label" class="g-input__caption">
       {{ label }}
@@ -34,17 +34,25 @@ import { defineComponent } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 export default defineComponent({
-  name: 'GInputNumber',
+  name: 'GSlider',
   props: {
     modelValue: {
-      type: Number,
-      default: 0,
+      type: [String, Number],
+      default: '',
     },
     label: {
       type: String,
       default: '',
     },
     size: {
+      type: String,
+      default: 'mini',
+    },
+    showInput: {
+      type: Boolean,
+      default: true,
+    },
+    inputSize: {
       type: String,
       default: 'mini',
     },
@@ -64,22 +72,26 @@ export default defineComponent({
       type: [Boolean, String],
       default: false,
     },
+    controlsPosition: {
+      type: String,
+      default: 'right',
+    },
     suffix: String,
+    disabled: Boolean,
   },
-  emits: [UPDATE_MODEL_EVENT, 'change'],
+  emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
     const handleInput = (value: number) => {
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
-    const handleChange = (currentValue: number, oldValue: number) => {
-      ctx.emit('change', currentValue, oldValue)
-    }
-
     return {
       handleInput,
-      handleChange,
     }
   },
 })
 </script>
+
+<style lang="scss" scoped>
+@import '@/styles/themes/var';
+</style>

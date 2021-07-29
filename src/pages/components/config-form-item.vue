@@ -30,15 +30,11 @@
     v-else-if="componentType === componentTypes.color"
     v-model="strValue"
     size="medium"
-    :is-inline="false"
   />
-  <el-slider
+  <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
-    :show-tooltip="false"
-    show-input
     input-size="medium"
-    class="g-slider"
     style="width: 232px;"
   />
   <el-select

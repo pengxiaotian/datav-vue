@@ -1,10 +1,7 @@
 {{#each configs as | item |}}
 {{#unless item.config.isHide}}
 {{#if ../isFlat}}
-{{> prop-component-tpl
-  componentTypes=../componentTypes
-  isFlat=true
-}}
+{{> prop-component-tpl componentTypes=../componentTypes}}
 {{else if item.children}}
 {{#if (eq item.config.displayMode 'nest')}}
 <g-field-collapse

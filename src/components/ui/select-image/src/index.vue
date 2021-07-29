@@ -14,7 +14,7 @@
         class="datav-gui g-select-image-wrap"
         :class="[
           {
-            '--inline --single': isInline,
+            '--inline --single': !!inline,
           }
         ]"
       >
@@ -77,7 +77,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    isInline: Boolean,
+    inline: {
+      type: [Boolean, String],
+      default: false,
+    },
     placement: {
       type: String,
       default: 'left',

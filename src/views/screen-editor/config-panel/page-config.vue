@@ -10,7 +10,7 @@
               label="宽度"
               :min="100"
               :max="20000"
-              :is-inline="true"
+              inline
               @change="onSizeChange"
             />
             <g-input-number
@@ -18,7 +18,7 @@
               label="高度"
               :min="100"
               :max="20000"
-              :is-inline="true"
+              inline
               @change="onSizeChange"
             />
           </g-field>
