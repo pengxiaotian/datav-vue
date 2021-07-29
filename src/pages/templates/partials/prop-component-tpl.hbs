@@ -134,7 +134,7 @@
   label="{{config.alias}}"
   {{/if}}
 />
-{{else if (eq config.component componentTypes.justify)}}
+{{else if (eq config.component componentTypes.justifyContent)}}
 <g-select
   v-model="{{ getPath path virtualPath }}"
   :data="justifyContents"

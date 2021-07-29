@@ -1,6 +1,7 @@
 
 import { isPlainObject, isArray, isNumber, isString, isBool } from '@/utils/util'
 import { ToolboxType } from '@/utils/enums'
+import { AllOptionKeys } from '@/data/select-options'
 
 
 export enum PropDataType {
@@ -28,13 +29,13 @@ export enum ComponentType {
   hAlign = 'hAlign',
   vAlign = 'vAlign',
   writingMode = 'writingMode',
-  justify = 'justify',
+  justifyContent = 'justifyContent',
   align = 'align',
   angle = 'angle',
   location = 'location',
   lineStyle = 'lineStyle',
   fillType = 'fillType',
-  repeatType='repeatType',
+  repeatType = 'repeatType',
   uploadImage = 'uploadImage',
   selectImage = 'selectImage',
   echartsLablePosition = 'echartsLablePosition',
@@ -176,4 +177,22 @@ export const mixinPropData = (tsArr: PropDto[], jsonArr: PropDto[]) => {
       mixinPropData(tsItem.children, jsonItem.children)
     }
   }
+}
+
+export const getUsedSelectOptions = (dtos: PropDto[]) => {
+  const opts = new Set<string>()
+  const loop = (list: PropDto[]) => {
+    list.forEach(item => {
+      const key = `${item.config.component}s`
+      if (AllOptionKeys.includes(key)) {
+        opts.add(key)
+      }
+      if (item.children && item.children.length > 0) {
+        loop(item.children)
+      }
+    })
+  }
+
+  loop(dtos)
+  return [...opts]
 }

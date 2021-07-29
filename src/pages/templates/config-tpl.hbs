@@ -13,21 +13,9 @@
 <script lang='ts'>
 import { defineComponent, PropType, toRef } from 'vue'
 import {
-  fontFamilys,
-  fontWeights,
-  fontStyles,
-  hAligns,
-  vAligns,
-  writingModes,
-  justifyContents,
-  aligns,
-  angles,
-  locations,
-  lineStyles,
-  fillTypes,
-  repeatTypes,
-  echartsLablePositions,
-  animationEasings,
+  {{#each selectOpts}}
+  {{this}},
+  {{/each}}
 } from '@/data/select-options'
 import { {{comName}} } from './{{fileName}}'
 
@@ -45,21 +33,9 @@ export default defineComponent({
     return {
       config,
 
-      fontFamilys,
-      fontWeights,
-      fontStyles,
-      hAligns,
-      vAligns,
-      writingModes,
-      justifyContents,
-      aligns,
-      angles,
-      locations,
-      lineStyles,
-      fillTypes,
-      repeatTypes,
-      echartsLablePositions,
-      animationEasings,
+      {{#each selectOpts}}
+      {{this}},
+      {{/each}}
     }
   },
 })

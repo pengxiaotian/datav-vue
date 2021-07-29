@@ -109,3 +109,6 @@ export const echartsLablePositions = [
 ]
 
 export const animationEasings = Object.keys(AnimationEasing).map(m => ({ id: m, value: m }))
+
+// 用于生成模板
+export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'locations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings']

@@ -88,7 +88,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
-import { PropDto, ComponentType, initPropData, mixinPropData } from '@/domains/dev/prop-config'
+import { PropDto, ComponentType, initPropData, mixinPropData, getUsedSelectOptions } from '@/domains/dev/prop-config'
 import { MessageUtil } from '@/utils/message-util'
 import { pascalCase } from '@/utils/util'
 import Handlebars from 'handlebars'
@@ -182,6 +182,7 @@ export default defineComponent({
         comName: pascalCase(fileName.value),
         componentTypes: { ...ComponentType },
         configs: list.value,
+        selectOpts: getUsedSelectOptions(list.value),
       }
 
       try {

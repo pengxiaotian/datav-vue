@@ -116,7 +116,7 @@
     />
   </el-select>
   <el-select
-    v-else-if="componentType === componentTypes.justify"
+    v-else-if="componentType === componentTypes.justifyContent"
     v-model="strValue"
   >
     <el-option
