@@ -93,7 +93,7 @@ export default defineComponent({
           backgroundStyle: {
             color: global.background.color,
           },
-          data: values.map(v => v[idx][dv_field.value.y]),
+          data: values.map(v => v[idx] ? v[idx][dv_field.value.y] : null),
         }
       })
     }

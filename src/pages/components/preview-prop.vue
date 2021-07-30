@@ -40,6 +40,7 @@
           :list="item.children"
           :min="item.config.min"
           :max="item.config.max"
+          :tab="item.children[0].config.alias"
         >
           <template #default="slotProps">
             <g-field

@@ -75,5 +75,44 @@
     .g-field-tabs-column-item {
       border-bottom: 1px solid $field-border-color;
     }
+
+    .g-field-tabs-column-item-head {
+      font-size: $gui-font-size;
+      color: $gui-font-color-2;
+      padding-left: 8px;
+      line-height: 16px;
+      cursor: pointer;
+      padding-top: 16px;
+      margin: 0;
+      margin-left: 20px;
+      position: relative;
+      display: inline-block;
+
+      &::before {
+        content: "";
+        position: absolute;
+        display: inline-block;
+        bottom: 8px;
+        left: -4px;
+        height: 4px;
+        width: 4px;
+        border-radius: 1px;
+        background: $gui-primary-color;
+        transition: all 0.2s;
+        opacity: 0;
+      }
+
+      &.--selected {
+        color: $gui-primary-color;
+
+        &::before {
+          opacity: 1;
+        }
+      }
+
+      &:hover {
+        color: $gui-hover-color;
+      }
+    }
   }
 }

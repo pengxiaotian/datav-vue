@@ -43,6 +43,9 @@
   :list="config.{{item.path}}"
   :min="{{item.config.min}}"
   :max="{{item.config.max}}"
+  {{#if item.children.0.config.alias}}
+  tab="{{item.children.0.config.alias}}"
+  {{/if}}
   {{#if (includes item.config.features 'add')}}
   :add-item="handleAdd{{capitalize item.key}}Item"
   {{/if}}

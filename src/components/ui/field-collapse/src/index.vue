@@ -111,7 +111,7 @@
             <el-tab-pane
               v-for="(item, idx) in list"
               :key="idx"
-              :label="label + (idx + 1)"
+              :label="getTabLabel(idx)"
             >
               <slot :item="item"></slot>
             </el-tab-pane>
@@ -122,6 +122,13 @@
               :key="idx"
               class="g-field-tabs-column-item"
             >
+              <span
+                class="g-field-tabs-column-item-head"
+                :class="{ '--selected': idx === +activeTab }"
+                @click="changeTab(idx)"
+              >
+                {{ getTabLabel(idx) }}
+              </span>
               <slot :item="item"></slot>
             </div>
           </div>
@@ -180,6 +187,7 @@ export default defineComponent({
       type: Number,
       default: 1000,
     },
+    tab: String,
     addItem: {
       type: Function,
       default: () => {},
@@ -273,6 +281,14 @@ export default defineComponent({
       }
     }
 
+    const getTabLabel = (idx: number) => {
+      return (props.tab || props.label) + (idx + 1)
+    }
+
+    const changeTab = (idx: number) => {
+      activeTab.value = `${idx}`
+    }
+
     watch(() => props.modelValue, (nv: boolean) => {
       if (!nv) {
         activeNames.value = []
@@ -297,6 +313,8 @@ export default defineComponent({
       copyData,
       addData,
       deleteData,
+      getTabLabel,
+      changeTab,
     }
   },
 })
