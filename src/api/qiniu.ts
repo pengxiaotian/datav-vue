@@ -96,7 +96,7 @@ export function genToken() {
 export async function getTokenByEnv(): Promise<string> {
   try {
     let res
-    if (import.meta.env.DEV) {
+    if (__DEV__) {
       res = genToken()
     } else {
       res = await getToken()

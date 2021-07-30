@@ -56,6 +56,7 @@ export default ({ mode }: ConfigEnv) => {
       // setting vue-i18-next
       // Suppress warning
       __INTLIFY_PROD_DEVTOOLS__: false,
+      __DEV__: process.env.NODE_ENV !== 'production',
     },
     optimizeDeps: {
       include: [

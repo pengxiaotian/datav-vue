@@ -79,7 +79,7 @@ const routes: Array<RouteRecordRaw> = [
   },
 ]
 
-if (import.meta.env.DEV) {
+if (__DEV__) {
   routes.unshift(
     {
       path: '/dev/props-config',
