@@ -8,6 +8,7 @@ Handlebars.registerHelper('neq', (a, b) => a !== b)
 Handlebars.registerHelper('getPath', (path, vpath) => (vpath ? vpath : `config.${path}`))
 Handlebars.registerHelper('capitalize', str => (str.charAt(0).toUpperCase() + str.slice(1)))
 Handlebars.registerHelper('includes', (arr, val) => arr.includes(val))
+Handlebars.registerHelper('hasSelectOpts', (arr, val) => arr.includes(`${val}s`))
 Handlebars.registerHelper('enumsToTpl', (arr: string[]) => {
   let str = '['
   arr.forEach((item, i) => {

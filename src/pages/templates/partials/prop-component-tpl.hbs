@@ -80,123 +80,6 @@
   {{/if}}
   disabled
 />
-{{else if (eq config.component componentTypes.fontFamily)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="fontFamilys"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.fontWeight)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="fontWeights"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.fontStyle)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="fontStyles"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.hAlign)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="hAligns"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.vAlign)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="vAligns"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.writingMode)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="writingModes"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.justifyContent)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="justifyContents"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.align)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="aligns"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.angle)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="angles"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.location)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="locations"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.lineStyle)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="lineStyles"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.fillType)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="fillTypes"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
-{{else if (eq config.component componentTypes.repeatType)}}
-<g-select
-  v-model="{{ getPath path virtualPath }}"
-  :data="repeatTypes"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-/>
 {{else if (eq config.component componentTypes.uploadImage)}}
 <g-upload-image
   v-model="{{ getPath path virtualPath }}"
@@ -214,19 +97,19 @@
   label="{{config.alias}}"
   {{/if}}
 />
-{{else if (eq config.component componentTypes.echartsLablePosition)}}
-<g-select
+{{else if (eq config.component componentTypes.selectSuggest)}}
+<g-select-suggest
   v-model="{{ getPath path virtualPath }}"
-  :data="echartsLablePositions"
+  :data="{{{enumsToTpl config.enums}}}"
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
 />
-{{else if (eq config.component componentTypes.animationEasing)}}
+{{else if (hasSelectOpts selectOpts config.component)}}
 <g-select
   v-model="{{ getPath path virtualPath }}"
-  :data="animationEasings"
+  :data="{{config.component}}s"
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"

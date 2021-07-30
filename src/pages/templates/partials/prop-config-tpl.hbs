@@ -1,7 +1,10 @@
 {{#each configs as | item |}}
 {{#unless item.config.isHide}}
 {{#if ../isFlat}}
-{{> prop-component-tpl componentTypes=../componentTypes}}
+{{> prop-component-tpl
+  componentTypes=../componentTypes
+  selectOpts=../selectOpts
+}}
 {{else if item.children}}
 {{#if (eq item.config.displayMode 'nest')}}
 <g-field-collapse
@@ -19,6 +22,7 @@
 >
   {{> prop-config-tpl
     componentTypes=../componentTypes
+    selectOpts=../selectOpts
     configs=item.children
     toggleCol=item.config.toggleCol
     level=2
@@ -53,6 +57,7 @@
     >
       {{> prop-config-tpl
         componentTypes=../componentTypes
+        selectOpts=../selectOpts
         configs=item.children.0.children
         toggleCol=item.children.0.config.toggleCol
         level=2
@@ -62,6 +67,7 @@
     {{else}}
     {{> prop-config-tpl
         componentTypes=../componentTypes
+        selectOpts=../selectOpts
         configs=item.children.0.children
         toggleCol=item.children.0.config.toggleCol
         level=2
@@ -86,6 +92,7 @@
 >
   {{> prop-config-tpl
     componentTypes=../componentTypes
+    selectOpts=../selectOpts
     configs=item.children
     toggleCol=item.config.toggleCol
     level=2
@@ -106,7 +113,10 @@
   {{/if}}
   label="{{item.config.alias}}"
 >
-  {{> prop-component-tpl componentTypes=../componentTypes}}
+  {{> prop-component-tpl
+    componentTypes=../componentTypes
+    selectOpts=../selectOpts
+  }}
 </g-field>
 {{/if}}
 {{/unless}}

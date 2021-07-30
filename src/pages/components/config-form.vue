@@ -65,8 +65,6 @@
             <el-form-item label="步长" label-width="150px">
               <el-input-number v-model="item.config.step" />
             </el-form-item>
-          </template>
-          <template v-if="item.config.component === componentTypes.number || item.config.component === componentTypes.slider">
             <el-form-item label="单位" label-width="150px">
               <el-input v-model="item.config.suffix" />
             </el-form-item>
@@ -80,6 +78,24 @@
                 allow-create
                 default-first-option
               />
+            </el-form-item>
+          </template>
+          <template v-if="item.config.component === componentTypes.selectSuggest">
+            <el-form-item label="建议值" label-width="150px">
+              <el-select
+                v-model="item.config.enums"
+                multiple
+                filterable
+                allow-create
+                default-first-option
+              >
+                <el-option
+                  v-for="sug in selectSuggests"
+                  :key="sug.id"
+                  :value="sug.id"
+                  :label="sug.value"
+                />
+              </el-select>
             </el-form-item>
           </template>
         </template>
@@ -176,6 +192,7 @@
 import { defineComponent, PropType, ref, computed } from 'vue'
 import { PropDto, ComponentType, DisplayMode } from '@/domains/dev/prop-config'
 import { ToolboxType } from '@/utils/enums'
+import { selectSuggests } from '@/data/select-options'
 import ConfigFormItem from './config-form-item.vue'
 
 export default defineComponent({
@@ -211,6 +228,8 @@ export default defineComponent({
         '当传入数据不变时始终开启动画',
         '溢出文本加省略号',
         '点击标题区域可跳转至设定的超链接',
+        '不设时自适应，可以是绝对值例如 40 或者百分数例如 60%。',
+        '默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。',
       ].map(value => ({ value }))
       cb(results)
     }
@@ -226,6 +245,7 @@ export default defineComponent({
       toolboxTypes,
       fields,
       hasRadio,
+      selectSuggests,
       querySearch,
       getEnums,
     }

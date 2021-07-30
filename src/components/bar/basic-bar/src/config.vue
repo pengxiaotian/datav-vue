@@ -23,7 +23,8 @@
           :min="-1000"
           :max="1000"
           :step="1"
-          is-inline
+          suffix="px"
+          inline="inline"
           label="顶部"
         />
         <g-input-number
@@ -31,7 +32,8 @@
           :min="-1000"
           :max="1000"
           :step="1"
-          is-inline
+          suffix="px"
+          inline="inline"
           label="底部"
         />
         <g-input-number
@@ -39,7 +41,8 @@
           :min="-1000"
           :max="1000"
           :step="1"
-          is-inline
+          suffix="px"
+          inline="inline"
           label="左侧"
         />
         <g-input-number
@@ -47,7 +50,8 @@
           :min="-1000"
           :max="1000"
           :step="1"
-          is-inline
+          suffix="px"
+          inline="inline"
           label="右侧"
         />
       </g-field>
@@ -55,7 +59,7 @@
         :level="2"
         label="组内间距"
       >
-        <g-input-number
+        <g-slider
           v-model="config.global.innerPadding"
           :min="-1000"
           :max="1000"
@@ -67,12 +71,22 @@
         :level="2"
         label="组间间距"
       >
-        <g-input-number
+        <g-slider
           v-model="config.global.outerPadding"
           :min="-1000"
           :max="1000"
           :step="1"
           suffix="px"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        tooltip="不设时自适应，可以是绝对值例如 40 或者百分数例如 60%。"
+        label="柱子宽度"
+      >
+        <g-select-suggest
+          v-model="config.global.barWidth"
+          :data="['auto']"
         />
       </g-field>
       <g-field-collapse
@@ -114,18 +128,19 @@
           :min="12"
           :max="100"
           :step="1"
-          is-inline
+          suffix="px"
+          inline="inline"
           label="字号"
         />
         <g-color-picker
           v-model="config.label.textStyle.color"
-          is-inline
+          inline="inline"
           label="颜色"
         />
         <g-select
           v-model="config.label.textStyle.fontWeight"
           :data="fontWeights"
-          is-inline
+          inline="inline"
           label="字体粗细"
         />
       </g-field>
@@ -133,30 +148,22 @@
         :level="2"
         label="水平偏移"
       >
-        <el-slider
+        <g-slider
           v-model="config.label.offsetX"
           :min="-1000"
           :max="1000"
           :step="1"
-          :show-tooltip="false"
-          show-input
-          input-size="mini"
-          class="g-slider"
         />
       </g-field>
       <g-field
         :level="2"
         label="垂直偏移"
       >
-        <el-slider
+        <g-slider
           v-model="config.label.offsetY"
           :min="-1000"
           :max="1000"
           :step="1"
-          :show-tooltip="false"
-          show-input
-          input-size="mini"
-          class="g-slider"
         />
       </g-field>
     </g-field-collapse>
@@ -184,7 +191,7 @@
         >
           <g-select
             v-model="config.xAxis.title.location"
-            :data="aligns"
+            :data="titleLocations"
           />
         </g-field>
         <g-field
@@ -197,7 +204,8 @@
             :min="0"
             :max="360"
             :step="1"
-            is-inline
+            suffix="度"
+            inline="inline"
             label="旋转"
           />
           <g-input-number
@@ -205,7 +213,8 @@
             :min="-1000"
             :max="1000"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="偏移"
           />
         </g-field>
@@ -219,18 +228,19 @@
             :min="12"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="字号"
           />
           <g-color-picker
             v-model="config.xAxis.title.textStyle.color"
-            is-inline
+            inline="inline"
             label="颜色"
           />
           <g-select
             v-model="config.xAxis.title.textStyle.fontWeight"
             :data="fontWeights"
-            is-inline
+            inline="inline"
             label="字体粗细"
           />
         </g-field>
@@ -258,6 +268,7 @@
             :min="0"
             :max="100"
             :step="1"
+            suffix="px"
           />
         </g-field>
         <g-field
@@ -292,6 +303,7 @@
             :min="0"
             :max="100"
             :step="1"
+            suffix="px"
           />
         </g-field>
         <g-field
@@ -318,10 +330,12 @@
         </g-field>
         <g-field
           :level="2"
+          tooltip="默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。"
           label="间隔"
         >
-          <g-input
+          <g-select-suggest
             v-model="config.xAxis.axisLabel.interval"
+            :data="['auto','0','1','2']"
           />
         </g-field>
         <g-field
@@ -334,15 +348,17 @@
             :min="0"
             :max="100"
             :step="1"
-            is-inline
+            suffix="度"
+            inline="inline"
             label="旋转"
           />
           <g-input-number
             v-model="config.xAxis.axisLabel.display.margin"
-            :min="0"
-            :max="100"
+            :min="-1000"
+            :max="1000"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="偏移"
           />
         </g-field>
@@ -365,18 +381,19 @@
             :min="12"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="字号"
           />
           <g-color-picker
             v-model="config.xAxis.axisLabel.textStyle.color"
-            is-inline
+            inline="inline"
             label="颜色"
           />
           <g-select
             v-model="config.xAxis.axisLabel.textStyle.fontWeight"
             :data="fontWeights"
-            is-inline
+            inline="inline"
             label="字体粗细"
           />
         </g-field>
@@ -394,7 +411,7 @@
           <g-select
             v-model="config.xAxis.grid.line.type"
             :data="lineStyles"
-            is-inline
+            inline="inline"
             label="类型"
           />
           <g-input-number
@@ -402,28 +419,33 @@
             :min="0"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="粗细"
           />
           <g-color-picker
             v-model="config.xAxis.grid.line.color"
-            is-inline
+            inline="inline"
             label="颜色"
           />
           <g-input-number
+            v-if="config.xAxis.grid.line.type === 'dashed'"
             v-model="config.xAxis.grid.line.dashedLength"
             :min="0"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="长度"
           />
           <g-input-number
+            v-if="config.xAxis.grid.line.type === 'dashed'"
             v-model="config.xAxis.grid.line.dashedSpace"
             :min="0"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="间距"
           />
         </g-field>
@@ -439,14 +461,16 @@
         label="显示范围"
         :is-flat="true"
       >
-        <g-input
+        <g-select-suggest
           v-model="config.yAxis.extent.min"
-          is-inline
+          :data="['auto','dataMin']"
+          inline="inline"
           label="最小值"
         />
-        <g-input
+        <g-select-suggest
           v-model="config.yAxis.extent.max"
-          is-inline
+          :data="['auto','dataMax']"
+          inline="inline"
           label="最大值"
         />
       </g-field>
@@ -469,7 +493,7 @@
         >
           <g-select
             v-model="config.yAxis.title.location"
-            :data="aligns"
+            :data="titleLocations"
           />
         </g-field>
         <g-field
@@ -480,17 +504,19 @@
           <g-input-number
             v-model="config.yAxis.title.display.rotate"
             :min="0"
-            :max="100"
+            :max="360"
             :step="1"
-            is-inline
+            suffix="度"
+            inline="inline"
             label="旋转"
           />
           <g-input-number
             v-model="config.yAxis.title.display.offset"
-            :min="0"
-            :max="100"
+            :min="-1000"
+            :max="1000"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="偏移"
           />
         </g-field>
@@ -504,18 +530,19 @@
             :min="12"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="字号"
           />
           <g-color-picker
             v-model="config.yAxis.title.textStyle.color"
-            is-inline
+            inline="inline"
             label="颜色"
           />
           <g-select
             v-model="config.yAxis.title.textStyle.fontWeight"
             :data="fontWeights"
-            is-inline
+            inline="inline"
             label="字体粗细"
           />
         </g-field>
@@ -543,6 +570,7 @@
             :min="0"
             :max="100"
             :step="1"
+            suffix="px"
           />
         </g-field>
         <g-field
@@ -577,6 +605,7 @@
             :min="0"
             :max="100"
             :step="1"
+            suffix="px"
           />
         </g-field>
         <g-field
@@ -607,10 +636,12 @@
         </g-field>
         <g-field
           :level="2"
+          tooltip="默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。"
           label="间隔"
         >
-          <g-input
+          <g-select-suggest
             v-model="config.yAxis.axisLabel.interval"
+            :data="['auto','0','1','2']"
           />
         </g-field>
         <g-field
@@ -623,7 +654,8 @@
             :min="0"
             :max="360"
             :step="1"
-            is-inline
+            suffix="度"
+            inline="inline"
             label="旋转"
           />
           <g-input-number
@@ -631,7 +663,8 @@
             :min="-1000"
             :max="1000"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="偏移"
           />
         </g-field>
@@ -654,18 +687,19 @@
             :min="12"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="字号"
           />
           <g-color-picker
             v-model="config.yAxis.axisLabel.textStyle.color"
-            is-inline
+            inline="inline"
             label="颜色"
           />
           <g-select
             v-model="config.yAxis.axisLabel.textStyle.fontWeight"
             :data="fontWeights"
-            is-inline
+            inline="inline"
             label="字体粗细"
           />
         </g-field>
@@ -683,7 +717,7 @@
           <g-select
             v-model="config.yAxis.grid.line.type"
             :data="lineStyles"
-            is-inline
+            inline="inline"
             label="类型"
           />
           <g-input-number
@@ -691,28 +725,33 @@
             :min="0"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="粗细"
           />
           <g-color-picker
             v-model="config.yAxis.grid.line.color"
-            is-inline
+            inline="inline"
             label="颜色"
           />
           <g-input-number
+            v-if="config.xAxis.grid.line.type === 'dashed'"
             v-model="config.yAxis.grid.line.dashedLength"
             :min="0"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="长度"
           />
           <g-input-number
+            v-if="config.xAxis.grid.line.type === 'dashed'"
             v-model="config.yAxis.grid.line.dashedSpace"
             :min="0"
             :max="100"
             :step="1"
-            is-inline
+            suffix="px"
+            inline="inline"
             label="间距"
           />
         </g-field>
@@ -748,11 +787,11 @@
               v-model="slotProps.item.color.type"
             >
               <el-radio-button
-                v-for="em in ['solid','gradient']"
-                :key="em"
-                :label="em"
+                v-for="em in fillTypes"
+                :key="em.id"
+                :label="em.id"
               >
-                {{ em }}
+                {{ em.value }}
               </el-radio-button>
             </el-radio-group>
           </g-field>
@@ -798,7 +837,6 @@
         <g-input-number
           v-model="config.animation.duration"
           :min="0"
-          :max="88888888"
           :step="100"
           suffix="ms"
         />
@@ -819,7 +857,6 @@
         <g-input-number
           v-model="config.animation.delay"
           :min="0"
-          :max="88888888"
           :step="100"
           suffix="ms"
         />
@@ -832,14 +869,13 @@
 import { defineComponent, PropType, toRef } from 'vue'
 import {
   fontFamilys,
-  fontWeights,
-  hAligns,
-  aligns,
-  locations,
-  lineStyles,
-  fillTypes,
   echartsLablePositions,
+  fontWeights,
+  titleLocations,
+  lineStyles,
+  hAligns,
   animationEasings,
+  fillTypes,
 } from '@/data/select-options'
 import { BasicBar, BasicBarSeries } from './basic-bar'
 
@@ -862,14 +898,13 @@ export default defineComponent({
       config,
 
       fontFamilys,
-      fontWeights,
-      lineStyles,
-      aligns,
-      hAligns,
-      locations,
-      fillTypes,
       echartsLablePositions,
+      fontWeights,
+      titleLocations,
+      lineStyles,
+      hAligns,
       animationEasings,
+      fillTypes,
       handleAddSeriesItem,
     }
   },

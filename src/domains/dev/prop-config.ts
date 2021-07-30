@@ -1,8 +1,27 @@
 
 import { isPlainObject, isArray, isNumber, isString, isBool } from '@/utils/util'
 import { ToolboxType } from '@/utils/enums'
-import { AllOptionKeys } from '@/data/select-options'
+import {
+  fontFamilys,
+  fontWeights,
+  fontStyles,
+  hAligns,
+  vAligns,
+  writingModes,
+  justifyContents,
+  aligns,
+  angles,
+  locations,
+  titleLocations,
+  lineStyles,
+  fillTypes,
+  repeatTypes,
+  echartsLablePositions,
+  animationEasings,
+} from '@/data/select-options'
 
+// 用于生成模板
+export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'locations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings']
 
 export enum PropDataType {
   unknown = 'unknown',
@@ -33,13 +52,15 @@ export enum ComponentType {
   align = 'align',
   angle = 'angle',
   location = 'location',
+  titleLocation = 'titleLocation',
   lineStyle = 'lineStyle',
   fillType = 'fillType',
   repeatType = 'repeatType',
   uploadImage = 'uploadImage',
   selectImage = 'selectImage',
   echartsLablePosition = 'echartsLablePosition',
-  animationEasing = 'animationEasing'
+  animationEasing = 'animationEasing',
+  selectSuggest = 'selectSuggest',
 }
 
 export enum DisplayMode {
@@ -164,8 +185,8 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
 export const mixinPropData = (tsArr: PropDto[], jsonArr: PropDto[]) => {
   for (let i = 0; i < tsArr.length; i++) {
     const tsItem = tsArr[i]
-    const jsonItem = jsonArr[i]
-    if (tsItem.key === jsonItem.key && tsItem.path === jsonItem.path) {
+    const jsonItem = jsonArr.find(m => m.key === tsItem.key && m.path === tsItem.path)
+    if (jsonItem) {
       tsItem.config = {
         ...tsItem.config,
         ...jsonItem.config,
@@ -195,4 +216,72 @@ export const getUsedSelectOptions = (dtos: PropDto[]) => {
 
   loop(dtos)
   return [...opts]
+}
+
+export const getSelectedOptions = (type: ComponentType) => {
+  if (type === ComponentType.fontFamily) {
+    return fontFamilys
+  }
+
+  if (type === ComponentType.fontWeight) {
+    return fontWeights
+  }
+
+  if (type === ComponentType.fontStyle) {
+    return fontStyles
+  }
+
+  if (type === ComponentType.hAlign) {
+    return hAligns
+  }
+
+  if (type === ComponentType.vAlign) {
+    return vAligns
+  }
+
+  if (type === ComponentType.writingMode) {
+    return writingModes
+  }
+
+  if (type === ComponentType.justifyContent) {
+    return justifyContents
+  }
+
+  if (type === ComponentType.align) {
+    return aligns
+  }
+
+  if (type === ComponentType.angle) {
+    return angles
+  }
+
+  if (type === ComponentType.location) {
+    return locations
+  }
+
+  if (type === ComponentType.titleLocation) {
+    return titleLocations
+  }
+
+  if (type === ComponentType.lineStyle) {
+    return lineStyles
+  }
+
+  if (type === ComponentType.fillType) {
+    return fillTypes
+  }
+
+  if (type === ComponentType.repeatType) {
+    return repeatTypes
+  }
+
+  if (type === ComponentType.echartsLablePosition) {
+    return echartsLablePositions
+  }
+
+  if (type === ComponentType.animationEasing) {
+    return animationEasings
+  }
+
+  return []
 }

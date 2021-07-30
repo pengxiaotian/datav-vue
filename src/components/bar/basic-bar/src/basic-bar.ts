@@ -35,6 +35,7 @@ export class BasicBar extends DatavEChartsComponent {
       },
       innerPadding: 20,
       outerPadding: 30,
+      barWidth: 'auto',
       background: {
         show: true,
         color: 'rgba(255, 255, 255, 0.1)',
@@ -97,7 +98,7 @@ export class BasicBar extends DatavEChartsComponent {
       grid: {
         show: true,
         line: {
-          type: 'solid',
+          type: 'dashed',
           width: 1,
           color: 'rgba(233, 228, 228, 0.1)',
           dashedLength: 4,
@@ -112,7 +113,7 @@ export class BasicBar extends DatavEChartsComponent {
         max: 'auto',
       },
       title: {
-        show: true,
+        show: false,
         name: 'Y轴',
         location: 'center',
         display: {
@@ -155,7 +156,7 @@ export class BasicBar extends DatavEChartsComponent {
       grid: {
         show: true,
         line: {
-          type: 'solid',
+          type: 'dashed',
           width: 1,
           color: 'rgba(233, 228, 228, 0.1)',
           dashedLength: 4,
@@ -180,7 +181,7 @@ export class BasicBar extends DatavEChartsComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('BasicBar', { w: 400, h: 200 })
+    super('BasicBar', { w: 500, h: 300 })
 
     this.initData()
   }

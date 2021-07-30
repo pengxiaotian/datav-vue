@@ -51,105 +51,6 @@
     :inline="mode"
     :label="mode ? label : ''"
   />
-  <g-select
-    v-else-if="componentType === componentTypes.select"
-    v-model="strValue"
-    :data="[]"
-    :inline="mode"
-    :label="mode ? label : ''"
-    disabled
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.fontFamily"
-    v-model="strValue"
-    :data="fontFamilys"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.fontWeight"
-    v-model="strValue"
-    :data="fontWeights"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.fontStyle"
-    v-model="strValue"
-    :data="fontStyles"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.hAlign"
-    v-model="strValue"
-    :data="hAligns"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.vAlign"
-    v-model="strValue"
-    :data="vAligns"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.writingMode"
-    v-model="strValue"
-    :data="writingModes"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.justifyContent"
-    v-model="strValue"
-    :data="justifyContents"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.align"
-    v-model="strValue"
-    :data="aligns"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.angle"
-    v-model="strValue"
-    :data="angles"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.location"
-    v-model="strValue"
-    :data="locations"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.lineStyle"
-    v-model="strValue"
-    :data="lineStyles"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.fillType"
-    v-model="strValue"
-    :data="fillTypes"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
-  <g-select
-    v-else-if="componentType === componentTypes.repeatType"
-    v-model="strValue"
-    :data="repeatTypes"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
   <g-upload-image
     v-else-if="componentType === componentTypes.uploadImage"
     v-model="strValue"
@@ -163,17 +64,25 @@
     :inline="mode"
     :label="mode ? label : ''"
   />
-  <g-select
-    v-else-if="componentType === componentTypes.echartsLablePosition"
+  <g-select-suggest
+    v-else-if="componentType === componentTypes.selectSuggest"
     v-model="strValue"
-    :data="echartsLablePositions"
+    :data="enums"
     :inline="mode"
     :label="mode ? label : ''"
   />
   <g-select
-    v-else-if="componentType === componentTypes.animationEasing"
+    v-else-if="componentType === componentTypes.select"
     v-model="strValue"
-    :data="animationEasings"
+    :data="[]"
+    :inline="mode"
+    :label="mode ? label : ''"
+    disabled
+  />
+  <g-select
+    v-else-if="AllOptionKeys.includes(componentType + 's')"
+    v-model="strValue"
+    :data="selectOptions"
     :inline="mode"
     :label="mode ? label : ''"
   />
@@ -182,24 +91,8 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, ref, computed, watch } from 'vue'
-import { PropDataType, ComponentType } from '@/domains/dev/prop-config'
-import {
-  fontFamilys,
-  fontWeights,
-  fontStyles,
-  hAligns,
-  vAligns,
-  writingModes,
-  justifyContents,
-  aligns,
-  angles,
-  locations,
-  lineStyles,
-  fillTypes,
-  repeatTypes,
-  echartsLablePositions,
-  animationEasings,
-} from '@/data/select-options'
+import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '@/domains/dev/prop-config'
+import { selectSuggests } from '@/data/select-options'
 
 export default defineComponent({
   name: 'PreviewPropItem',
@@ -264,6 +157,14 @@ export default defineComponent({
       return false
     })
 
+    const selectOptions = computed(() => {
+      return getSelectedOptions(props.componentType)
+    })
+
+    const suggests = computed(() => {
+      return selectSuggests.filter(m => props.enums.includes(m.id))
+    })
+
     watch(
       () => props.componentType,
       () => {
@@ -290,22 +191,9 @@ export default defineComponent({
       boolValue,
       arrValue,
       mode,
-
-      fontFamilys,
-      fontWeights,
-      fontStyles,
-      hAligns,
-      vAligns,
-      writingModes,
-      justifyContents,
-      aligns,
-      angles,
-      locations,
-      lineStyles,
-      fillTypes,
-      repeatTypes,
-      echartsLablePositions,
-      animationEasings,
+      AllOptionKeys,
+      selectOptions,
+      suggests,
     }
   },
 })

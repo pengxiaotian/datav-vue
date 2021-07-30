@@ -37,6 +37,20 @@
     input-size="medium"
     style="width: 232px;"
   />
+  <g-upload-image
+    v-else-if="componentType === componentTypes.uploadImage"
+    v-model="strValue"
+  />
+  <g-select-image
+    v-else-if="componentType === componentTypes.selectImage"
+    v-model="strValue"
+    :images="[]"
+  />
+  <g-select-suggest
+    v-else-if="componentType === componentTypes.selectSuggest"
+    v-model="strValue"
+    :data="enums"
+  />
   <el-select
     v-else-if="componentType === componentTypes.select"
     v-model="strValue"
@@ -50,174 +64,11 @@
     />
   </el-select>
   <el-select
-    v-else-if="componentType === componentTypes.fontFamily"
+    v-else-if="AllOptionKeys.includes(componentType + 's')"
     v-model="strValue"
   >
     <el-option
-      v-for="item in fontFamilys"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.fontWeight"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in fontWeights"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.fontStyle"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in fontStyles"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.hAlign"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in hAligns"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.vAlign"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in vAligns"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.writingMode"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in writingModes"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.justifyContent"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in justifyContents"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.align"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in aligns"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.angle"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in angles"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.location"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in locations"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.lineStyle"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in lineStyles"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.fillType"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in fillTypes"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.repeatType"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in repeatTypes"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <g-upload-image
-    v-else-if="componentType === componentTypes.uploadImage"
-    v-model="strValue"
-  />
-  <g-select-image
-    v-else-if="componentType === componentTypes.selectImage"
-    v-model="strValue"
-    :images="[]"
-  />
-  <el-select
-    v-else-if="componentType === componentTypes.echartsLablePosition"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in echartsLablePositions"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
-  <el-select
-    v-else-if="componentType === componentTypes.animationEasing"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in animationEasings"
+      v-for="item in selectOptions"
       :key="item.id"
       :label="item.value"
       :value="item.id"
@@ -227,25 +78,8 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref, watch } from 'vue'
-import { PropDataType, ComponentType } from '@/domains/dev/prop-config'
-import {
-  fontFamilys,
-  fontWeights,
-  fontStyles,
-  hAligns,
-  vAligns,
-  writingModes,
-  justifyContents,
-  aligns,
-  angles,
-  locations,
-  lineStyles,
-  fillTypes,
-  repeatTypes,
-  echartsLablePositions,
-  animationEasings,
-} from '@/data/select-options'
+import { defineComponent, PropType, ref, computed, watch } from 'vue'
+import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '@/domains/dev/prop-config'
 
 export default defineComponent({
   name: 'ConfigFormItem',
@@ -274,6 +108,10 @@ export default defineComponent({
     const boolValue = ref(false)
     const arrValue = ref<(string | number)[]>([])
 
+    const selectOptions = computed(() => {
+      return getSelectedOptions(props.componentType)
+    })
+
     watch(
       () => props.componentType,
       () => {
@@ -299,22 +137,8 @@ export default defineComponent({
       numValue,
       boolValue,
       arrValue,
-
-      fontFamilys,
-      fontWeights,
-      fontStyles,
-      hAligns,
-      vAligns,
-      writingModes,
-      justifyContents,
-      aligns,
-      angles,
-      locations,
-      lineStyles,
-      fillTypes,
-      repeatTypes,
-      echartsLablePositions,
-      animationEasings,
+      AllOptionKeys,
+      selectOptions,
     }
   },
 })

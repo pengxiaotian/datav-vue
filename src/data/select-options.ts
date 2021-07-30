@@ -75,9 +75,15 @@ export const locations = [
   { id: 'bottom-right', value: '底部居右' },
 ]
 
+export const titleLocations = [
+  { id: 'start', value: '开头' },
+  { id: 'center', value: '中间' },
+  { id: 'end', value: '末尾' },
+]
+
 export const lineStyles = [
   { id: 'solid', value: '实线' },
-  { id: 'dotted', value: '虚线' },
+  { id: 'dashed', value: '虚线' },
 ]
 
 export const fillTypes = [
@@ -110,5 +116,8 @@ export const echartsLablePositions = [
 
 export const animationEasings = Object.keys(AnimationEasing).map(m => ({ id: m, value: m }))
 
-// 用于生成模板
-export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'locations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings']
+export const selectSuggests = [
+  { id: 'auto', value: '自适应' },
+  { id: 'dataMin', value: '数据最小值' },
+  { id: 'dataMax', value: '数据最大值' },
+]

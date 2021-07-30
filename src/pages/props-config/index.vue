@@ -190,6 +190,7 @@ export default defineComponent({
         templateCode.value = Handlebars.compile(configTpl)(data)
         activeTab.value = 'template'
       } catch (error) {
+        console.log(error)
         MessageUtil.error(error?.toString())
       } finally {
         loading.value = false
