@@ -12,7 +12,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType } from 'vue'
-import { PropDto } from '@/domains/dev/prop-config'
+import { PropDto } from '../props-config/config'
 import PreviewProp from './preview-prop.vue'
 
 export default defineComponent({

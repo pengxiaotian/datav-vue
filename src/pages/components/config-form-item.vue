@@ -79,7 +79,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, ref, computed, watch } from 'vue'
-import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '@/domains/dev/prop-config'
+import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '../props-config/config'
 
 export default defineComponent({
   name: 'ConfigFormItem',

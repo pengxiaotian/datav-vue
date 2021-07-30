@@ -88,12 +88,12 @@
 
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
-import { PropDto, ComponentType, initPropData, mixinPropData, getUsedSelectOptions } from '@/domains/dev/prop-config'
 import { MessageUtil } from '@/utils/message-util'
 import { pascalCase } from '@/utils/util'
 import Handlebars from 'handlebars'
-import { DatavComponent } from '@/components/datav-component'
 import '@/pages/templates/register'
+import { DatavComponent } from '@/components/datav-component'
+import { PropDto, ComponentType, initPropData, mixinPropData, getUsedSelectOptions } from './config'
 import ConfigForm from '../components/config-form.vue'
 import ConfigPreview from '../components/config-preview.vue'
 import { plainText as configTpl } from '../templates/config-tpl.hbs'

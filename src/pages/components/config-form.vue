@@ -190,9 +190,9 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, ref, computed } from 'vue'
-import { PropDto, ComponentType, DisplayMode } from '@/domains/dev/prop-config'
 import { ToolboxType } from '@/utils/enums'
 import { selectSuggests } from '@/data/select-options'
+import { PropDto, ComponentType, DisplayMode } from '../props-config/config'
 import ConfigFormItem from './config-form-item.vue'
 
 export default defineComponent({

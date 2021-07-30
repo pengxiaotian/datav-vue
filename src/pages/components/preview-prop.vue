@@ -103,7 +103,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType } from 'vue'
-import { PropDto } from '@/domains/dev/prop-config'
+import { PropDto } from '../props-config/config'
 import PreviewPropItem from './preview-prop-item.vue'
 
 export default defineComponent({
