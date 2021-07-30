@@ -15,6 +15,34 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-legend-arrow:before {
+  content: "\e67d";
+}
+
+.v-icon-legend-circle:before {
+  content: "\ea48";
+}
+
+.v-icon-legend-rect:before {
+  content: "\e628";
+}
+
+.v-icon-legend-roundRect:before {
+  content: "\e64e";
+}
+
+.v-icon-legend-hexagon:before {
+  content: "\e649";
+}
+
+.v-icon-legend-triangle:before {
+  content: "\e64b";
+}
+
+.v-icon-legend-diamond:before {
+  content: "\e653";
+}
+
 .v-icon-select-arrow:before {
   content: "\e605";
 }

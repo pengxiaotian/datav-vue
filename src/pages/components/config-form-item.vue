@@ -51,6 +51,11 @@
     v-model="strValue"
     :data="enums"
   />
+  <g-select-shape
+    v-else-if="componentType === componentTypes.legendIcon"
+    v-model="strValue"
+    :shapes="selectOptions"
+  />
   <el-select
     v-else-if="componentType === componentTypes.select"
     v-model="strValue"

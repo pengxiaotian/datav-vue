@@ -1,6 +1,6 @@
 <template>
   <div
-    class="datav-gui g-select-suggest"
+    class="datav-gui g-select-shape"
     :class="[
       `--${size}`,
       {
@@ -10,13 +10,24 @@
       }
     ]"
   >
-    <el-autocomplete
+    <el-select
       :model-value="modelValue"
-      :fetch-suggestions="querySearch"
       :size="size"
-      style="width: 100%;"
+      :disabled="disabled"
       @update:model-value="handleInput"
-    />
+    >
+      <el-option
+        v-for="item in shapes"
+        :key="item.id"
+        :label="item.value"
+        :value="item.id"
+      >
+        <span class="g-select-shape-item">
+          <span>{{ item.value }}</span>
+          <i :class="`v-icon-legend-${item.icon}`"></i>
+        </span>
+      </el-option>
+    </el-select>
     <span v-if="label" class="g-input__caption">
       {{ label }}
     </span>
@@ -27,14 +38,23 @@
 import { defineComponent, PropType } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
+interface ShapeType {
+  id: string
+  value: string
+  icon: string
+}
+
 export default defineComponent({
-  name: 'GSelectSuggest',
+  name: 'GSelectShape',
   props: {
     modelValue: {
       type: [String, Number],
       default: 0,
     },
-    data: Array as PropType<(number | string)[]>,
+    shapes: {
+      type: Array as PropType<ShapeType[]>,
+      default: () => [],
+    },
     label: {
       type: String,
       default: '',
@@ -55,14 +75,8 @@ export default defineComponent({
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
-    const querySearch = (qs: string, cb: Function) => {
-      const results = props.data.map(value => ({ value }))
-      cb(results)
-    }
-
     return {
       handleInput,
-      querySearch,
     }
   },
 })

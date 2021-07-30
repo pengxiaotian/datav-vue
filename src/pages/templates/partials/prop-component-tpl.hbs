@@ -106,6 +106,15 @@
   label="{{config.alias}}"
   {{/if}}
 />
+{{else if (eq config.component componentTypes.legendIcon)}}
+<g-select-shape
+  v-model="{{ getPath path virtualPath }}"
+  :shapes="{{config.component}}s"
+  {{#if (getInlineMode config.displayMode)}}
+  inline="{{config.displayMode}}"
+  label="{{config.alias}}"
+  {{/if}}
+/>
 {{else if (hasSelectOpts selectOpts config.component)}}
 <g-select
   v-model="{{ getPath path virtualPath }}"

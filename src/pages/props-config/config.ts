@@ -18,10 +18,11 @@ import {
   repeatTypes,
   echartsLablePositions,
   animationEasings,
+  legendIcons,
 } from '@/data/select-options'
 
 // 用于生成模板
-export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'locations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings']
+export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'locations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'legendIcons']
 
 export enum PropDataType {
   unknown = 'unknown',
@@ -61,6 +62,7 @@ export enum ComponentType {
   echartsLablePosition = 'echartsLablePosition',
   animationEasing = 'animationEasing',
   selectSuggest = 'selectSuggest',
+  legendIcon = 'legendIcon'
 }
 
 export enum DisplayMode {
@@ -281,6 +283,10 @@ export const getSelectedOptions = (type: ComponentType) => {
 
   if (type === ComponentType.animationEasing) {
     return animationEasings
+  }
+
+  if (type === ComponentType.legendIcon) {
+    return legendIcons
   }
 
   return []

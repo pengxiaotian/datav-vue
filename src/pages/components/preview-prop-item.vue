@@ -71,6 +71,13 @@
     :inline="mode"
     :label="mode ? label : ''"
   />
+  <g-select-shape
+    v-else-if="componentType === componentTypes.legendIcon"
+    v-model="strValue"
+    :shapes="selectOptions"
+    :inline="mode"
+    :label="mode ? label : ''"
+  />
   <g-select
     v-else-if="componentType === componentTypes.select"
     v-model="strValue"

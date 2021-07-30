@@ -121,3 +121,18 @@ export const selectSuggests = [
   { id: 'dataMin', value: '数据最小值' },
   { id: 'dataMax', value: '数据最大值' },
 ]
+
+export const legendIcons = [
+  { id: 'circle', value: '圆形', icon: 'circle' },
+  { id: 'rect', value: '矩形', icon: 'rect' },
+  { id: 'roundRect', value: '圆角矩形', icon: 'roundRect' },
+  { id: 'triangle', value: '三矩形', icon: 'triangle' },
+  { id: 'diamond', value: '菱形', icon: 'diamond' },
+  { id: 'arrow', value: '箭头', icon: 'arrow' },
+  { id: 'emptyCircle', value: '空心圆形', icon: 'circle' },
+  { id: 'emptyRect', value: '空心矩形', icon: 'rect' },
+  { id: 'emptyRoundRect', value: '空心圆角矩形', icon: 'roundRect' },
+  { id: 'emptyTriangle', value: '空心三角形', icon: 'triangle' },
+  { id: 'emptyDiamond', value: '空心菱形', icon: 'diamond' },
+  { id: 'emptyArrow', value: '空心箭头', icon: 'arrow' },
+]
