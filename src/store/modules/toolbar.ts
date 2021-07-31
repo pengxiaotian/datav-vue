@@ -25,7 +25,7 @@ function getPanelState(key: PanelType) {
 }
 
 function setPanelState(key: PanelType, value: '0' | '1') {
-  let map: Hash<string> = {}
+  let map = {}
 
   try {
     const val = localStorage.getItem(panelStateKey) || '{}'
