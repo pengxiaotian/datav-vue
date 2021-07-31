@@ -738,6 +738,35 @@
         "virtualPath": ""
       },
       {
+        "key": "type",
+        "config": {
+          "type": "string",
+          "component": "axisType",
+          "alias": "类型",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "category",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": true
+        },
+        "path": "xAxis.type",
+        "virtualPath": ""
+      },
+      {
         "key": "title",
         "config": {
           "type": "object",
@@ -1443,6 +1472,35 @@
             "virtualPath": ""
           },
           {
+            "key": "timeFormat",
+            "config": {
+              "type": "string",
+              "component": "timeFormat",
+              "alias": "显示格式",
+              "tip": "时间请参照 YYYY/MM/DD HH:mm:ss",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "MM/DD",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
+            },
+            "path": "xAxis.axisLabel.timeFormat",
+            "virtualPath": ""
+          },
+          {
             "key": "boundaryGap",
             "config": {
               "type": "boolean",
@@ -1753,6 +1811,7 @@
         ],
         "cols": [
           "show",
+          "timeFormat",
           "boundaryGap",
           "interval",
           "display",
@@ -2010,6 +2069,7 @@
     ],
     "cols": [
       "show",
+      "type",
       "title",
       "axisLine",
       "axisTick",
@@ -2173,6 +2233,35 @@
           "min",
           "max"
         ]
+      },
+      {
+        "key": "splitNumber",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "标签数量",
+          "tip": "这是个预估值，实际显示会做调整，可以设置成 0 强制显示所有标签。",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 0,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
+        },
+        "path": "yAxis.splitNumber",
+        "virtualPath": ""
       },
       {
         "key": "title",
@@ -2880,6 +2969,35 @@
             "virtualPath": ""
           },
           {
+            "key": "valueFormat",
+            "config": {
+              "type": "string",
+              "component": "valueFormat",
+              "alias": "显示格式",
+              "tip": "整数参照 d, 浮点参照 .1f",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "auto",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
+            },
+            "path": "yAxis.axisLabel.valueFormat",
+            "virtualPath": ""
+          },
+          {
             "key": "boundaryGap",
             "config": {
               "type": "number",
@@ -2906,40 +3024,6 @@
               "flatValue": false
             },
             "path": "yAxis.axisLabel.boundaryGap",
-            "virtualPath": ""
-          },
-          {
-            "key": "interval",
-            "config": {
-              "type": "string",
-              "component": "selectSuggest",
-              "alias": "间隔",
-              "tip": "默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。",
-              "displayMode": "single",
-              "features": [],
-              "layout": "horizontal",
-              "toggleCol": "",
-              "isHide": false,
-              "defaultValue": "auto",
-              "min": 0,
-              "max": 100,
-              "step": 1,
-              "InfiniteMin": false,
-              "InfiniteMax": false,
-              "suffix": "",
-              "enums": [
-                "auto",
-                "0",
-                "1",
-                "2"
-              ],
-              "whichEnum": {
-                "field": "",
-                "value": ""
-              },
-              "flatValue": false
-            },
-            "path": "yAxis.axisLabel.interval",
             "virtualPath": ""
           },
           {
@@ -3190,8 +3274,8 @@
         ],
         "cols": [
           "show",
+          "valueFormat",
           "boundaryGap",
-          "interval",
           "display",
           "align",
           "textStyle"
@@ -3448,6 +3532,7 @@
     "cols": [
       "show",
       "extent",
+      "splitNumber",
       "title",
       "axisLine",
       "axisTick",
@@ -3852,7 +3937,7 @@
             "virtualPath": ""
           },
           {
-            "key": "lineStyle",
+            "key": "line",
             "config": {
               "type": "object",
               "component": "none",
@@ -3877,7 +3962,7 @@
               },
               "flatValue": false
             },
-            "path": "tooltip.pointer.lineStyle",
+            "path": "tooltip.pointer.line",
             "virtualPath": "",
             "children": [
               {
@@ -3906,7 +3991,7 @@
                   },
                   "flatValue": false
                 },
-                "path": "tooltip.pointer.lineStyle.type",
+                "path": "tooltip.pointer.line.type",
                 "virtualPath": ""
               },
               {
@@ -3935,7 +4020,7 @@
                   },
                   "flatValue": false
                 },
-                "path": "tooltip.pointer.lineStyle.width",
+                "path": "tooltip.pointer.line.width",
                 "virtualPath": ""
               },
               {
@@ -3964,7 +4049,7 @@
                   },
                   "flatValue": false
                 },
-                "path": "tooltip.pointer.lineStyle.color",
+                "path": "tooltip.pointer.line.color",
                 "virtualPath": ""
               },
               {
@@ -3993,7 +4078,7 @@
                   },
                   "flatValue": false
                 },
-                "path": "tooltip.pointer.lineStyle.dashedLength",
+                "path": "tooltip.pointer.line.dashedLength",
                 "virtualPath": ""
               },
               {
@@ -4022,7 +4107,7 @@
                   },
                   "flatValue": false
                 },
-                "path": "tooltip.pointer.lineStyle.dashedSpace",
+                "path": "tooltip.pointer.line.dashedSpace",
                 "virtualPath": ""
               }
             ],
@@ -4037,7 +4122,7 @@
         ],
         "cols": [
           "show",
-          "lineStyle"
+          "line"
         ]
       }
     ],

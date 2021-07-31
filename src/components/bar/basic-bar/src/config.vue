@@ -172,6 +172,22 @@
       :toggle="true"
       label="X轴"
     >
+      <g-field
+        :level="2"
+        label="类型"
+      >
+        <el-radio-group
+          v-model="config.xAxis.type"
+        >
+          <el-radio-button
+            v-for="em in xAxisTypes"
+            :key="em.id"
+            :label="em.id"
+          >
+            {{ em.value }}
+          </el-radio-button>
+        </el-radio-group>
+      </g-field>
       <g-field-collapse
         v-model="config.xAxis.title.show"
         :toggle="true"
@@ -320,6 +336,17 @@
         :toggle="true"
         label="轴标签"
       >
+        <g-field
+          v-if="config.xAxis.type === 'time'"
+          :level="2"
+          tooltip="时间请参照 YYYY/MM/DD HH:mm:ss"
+          label="显示格式"
+        >
+          <g-select
+            v-model="config.xAxis.axisLabel.timeFormat"
+            :data="timeFormats"
+          />
+        </g-field>
         <g-field
           :level="2"
           label="两端留白"
@@ -474,6 +501,18 @@
           label="最大值"
         />
       </g-field>
+      <g-field
+        :level="2"
+        tooltip="这是个预估值，实际显示会做调整，可以设置成 0 强制显示所有标签。"
+        label="标签数量"
+      >
+        <g-input-number
+          v-model="config.yAxis.splitNumber"
+          :min="0"
+          :max="100"
+          :step="1"
+        />
+      </g-field>
       <g-field-collapse
         v-model="config.yAxis.title.show"
         :toggle="true"
@@ -624,6 +663,16 @@
       >
         <g-field
           :level="2"
+          tooltip="整数参照 d, 浮点参照 .1f"
+          label="显示格式"
+        >
+          <g-select
+            v-model="config.yAxis.axisLabel.valueFormat"
+            :data="valueFormats"
+          />
+        </g-field>
+        <g-field
+          :level="2"
           label="两端间距"
         >
           <g-input-number
@@ -632,16 +681,6 @@
             :max="100"
             :step="1"
             suffix="%"
-          />
-        </g-field>
-        <g-field
-          :level="2"
-          tooltip="默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。"
-          label="间隔"
-        >
-          <g-select-suggest
-            v-model="config.yAxis.axisLabel.interval"
-            :data="['auto','0','1','2']"
           />
         </g-field>
         <g-field
@@ -842,13 +881,13 @@
           :is-flat="true"
         >
           <g-select
-            v-model="config.tooltip.pointer.lineStyle.type"
+            v-model="config.tooltip.pointer.line.type"
             :data="lineStyles"
             inline="inline"
             label="类型"
           />
           <g-input-number
-            v-model="config.tooltip.pointer.lineStyle.width"
+            v-model="config.tooltip.pointer.line.width"
             :min="0"
             :max="100"
             :step="1"
@@ -857,13 +896,13 @@
             label="粗细"
           />
           <g-color-picker
-            v-model="config.tooltip.pointer.lineStyle.color"
+            v-model="config.tooltip.pointer.line.color"
             inline="inline-single"
             label="颜色"
           />
           <g-input-number
-            v-if="config.tooltip.pointer.lineStyle.type === 'dashed'"
-            v-model="config.tooltip.pointer.lineStyle.dashedLength"
+            v-if="config.tooltip.pointer.line.type === 'dashed'"
+            v-model="config.tooltip.pointer.line.dashedLength"
             :min="0"
             :max="100"
             :step="1"
@@ -872,8 +911,8 @@
             label="长度"
           />
           <g-input-number
-            v-if="config.tooltip.pointer.lineStyle.type === 'dashed'"
-            v-model="config.tooltip.pointer.lineStyle.dashedSpace"
+            v-if="config.tooltip.pointer.line.type === 'dashed'"
+            v-model="config.tooltip.pointer.line.dashedSpace"
             :min="0"
             :max="100"
             :step="1"
@@ -1165,14 +1204,17 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+import { defineComponent, PropType, toRef, computed } from 'vue'
 import {
   fontFamilys,
   echartsLablePositions,
   fontWeights,
+  axisTypes,
   titleLocations,
   lineStyles,
+  timeFormats,
   hAligns,
+  valueFormats,
   legendLocations,
   orients,
   legendIcons,
@@ -1192,25 +1234,33 @@ export default defineComponent({
   setup(props) {
     const config = toRef(props.com, 'config')
 
+    const xAxisTypes = computed(() => {
+      return axisTypes.filter(m => m.id !== 'value')
+    })
+
     const handleAddSeriesItem = () => {
       return new BasicBarSeries(`系列${config.value.series.length + 1}`)
     }
 
     return {
       config,
+      xAxisTypes,
+      handleAddSeriesItem,
 
       fontFamilys,
       echartsLablePositions,
       fontWeights,
+      axisTypes,
       titleLocations,
       lineStyles,
+      timeFormats,
       hAligns,
+      valueFormats,
       legendLocations,
       orients,
       legendIcons,
       fillTypes,
       animationEasings,
-      handleAddSeriesItem,
     }
   },
 })

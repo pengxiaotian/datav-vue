@@ -20,10 +20,13 @@ import {
   animationEasings,
   legendIcons,
   orients,
+  axisTypes,
+  valueFormats,
+  timeFormats,
 } from '@/data/select-options'
 
 // 用于生成模板
-export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'legendIcons', 'orients']
+export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'legendIcons', 'orients', 'axisTypes', 'valueFormats', 'timeFormats']
 
 export enum PropDataType {
   unknown = 'unknown',
@@ -64,7 +67,10 @@ export enum ComponentType {
   animationEasing = 'animationEasing',
   selectSuggest = 'selectSuggest',
   legendIcon = 'legendIcon',
-  orient = 'orient'
+  orient = 'orient',
+  axisType = 'axisType',
+  valueFormat = 'valueFormat',
+  timeFormat = 'timeFormat',
 }
 
 export enum DisplayMode {
@@ -295,6 +301,18 @@ export const getSelectedOptions = (type: ComponentType) => {
 
   if (type === ComponentType.orient) {
     return orients
+  }
+
+  if (type === ComponentType.axisType) {
+    return axisTypes
+  }
+
+  if (type === ComponentType.valueFormat) {
+    return valueFormats
+  }
+
+  if (type === ComponentType.timeFormat) {
+    return timeFormats
   }
 
   return []

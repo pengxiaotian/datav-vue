@@ -28,7 +28,7 @@ export class BasicBar extends DatavEChartsComponent {
     global: {
       fontFamily: 'Microsoft Yahei',
       margin: {
-        top: 20,
+        top: 40,
         bottom: 50,
         left: 50,
         right: 10,
@@ -54,6 +54,7 @@ export class BasicBar extends DatavEChartsComponent {
     },
     xAxis: {
       show: true,
+      type: 'category',
       title: {
         show: true,
         name: 'X轴',
@@ -82,6 +83,7 @@ export class BasicBar extends DatavEChartsComponent {
       },
       axisLabel: {
         show: true,
+        timeFormat: 'MM/DD',
         boundaryGap: true,
         interval: 'auto',
         display: {
@@ -112,6 +114,7 @@ export class BasicBar extends DatavEChartsComponent {
         min: 'auto',
         max: 'auto',
       },
+      splitNumber: 0,
       title: {
         show: false,
         name: 'Y轴',
@@ -140,8 +143,8 @@ export class BasicBar extends DatavEChartsComponent {
       },
       axisLabel: {
         show: true,
+        valueFormat: 'auto',
         boundaryGap: 0,
-        interval: 'auto',
         display: {
           rotate: 0,
           margin: 10,
@@ -180,7 +183,7 @@ export class BasicBar extends DatavEChartsComponent {
       },
       pointer: {
         show: true,
-        lineStyle: {
+        line: {
           type: 'dashed',
           width: 1,
           color: '#f5dc69',

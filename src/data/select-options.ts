@@ -118,19 +118,21 @@ export const orients = [
   { id: 'vertical', value: '垂直' },
 ]
 
+export const axisTypes = [
+  { id: 'category', value: '类目型' },
+  { id: 'value', value: '数值型' },
+  { id: 'time', value: '时间型' },
+]
+
 export const legendLocations = [
   { id: 'top-left', value: '顶部居左' },
   { id: 'top-center', value: '顶部居中' },
   { id: 'top-right', value: '顶部居右' },
+  { id: 'middle-left', value: '左侧居中' },
+  { id: 'middle-right', value: '右侧居中' },
   { id: 'bottom-left', value: '底部居左' },
   { id: 'bottom-center', value: '底部居中' },
   { id: 'bottom-right', value: '底部居右' },
-  { id: 'left-left', value: '左侧居顶' },
-  { id: 'left-center', value: '左侧居中' },
-  { id: 'left-right', value: '左侧居底' },
-  { id: 'right-left', value: '右侧居顶' },
-  { id: 'right-center', value: '右侧居中' },
-  { id: 'right-right', value: '右侧居底' },
 ]
 
 export const legendIcons = [
@@ -147,4 +149,30 @@ export const legendIcons = [
   { id: 'emptyTriangle', value: '空心三角形', icon: 'triangle' },
   { id: 'emptyDiamond', value: '空心菱形', icon: 'diamond' },
   { id: 'emptyArrow', value: '空心箭头', icon: 'arrow' },
+]
+
+export const valueFormats = [
+  { id: 'auto', value: '默认' },
+  { id: 'd', value: '11(整数)' },
+  { id: '.1f', value: '11.1(浮点数)' },
+  { id: '.2f', value: '11.11(浮点数)' },
+  { id: '.0%', value: '11%' },
+  { id: '.1%', value: '11.1%' },
+  { id: '.2%', value: '11.11%' },
+  { id: 'th', value: '1,111(千分位)' },
+  { id: '.1t', value: '1,111.1(千分位)' },
+  { id: '.2t', value: '1,111.11(千分位)' },
+]
+
+export const timeFormats = [
+  { id: 'YYYY-MM-DD HH:mm:ss', value: '2012-01-01 02:03:00(年-月-日 时:分:秒)' },
+  { id: 'YYYY-MM-DD', value: '2012-01-01(年-月-日)' },
+  { id: 'YYYY-MM', value: '2012-01(年-月)' },
+  { id: 'MM-DD', value: '01-01(月-日)' },
+  { id: 'YYYY', value: '2012(年)' },
+  { id: 'MM', value: '01(月)' },
+  { id: 'YYYY/MM/DD HH:mm:ss', value: '2012/01/01 02:03:00(年/月/日 时:分:秒)' },
+  { id: 'YYYY/MM/DD', value: '2012/01/01(年/月/日)' },
+  { id: 'YYYY/MM', value: '2012/01(年/月)' },
+  { id: 'MM/DD', value: '01/01(月/日)' },
 ]

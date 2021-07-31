@@ -7,13 +7,15 @@
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
 import { groupBy } from 'lodash-es'
+import dayjs from 'dayjs'
 import VChart from 'vue-echarts'
 import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
-import { GridComponent, TooltipComponent } from 'echarts/components'
+import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
+import { getAutoValue, getLimitValue, valueFormater } from '@/utils/echarts-utils'
 import { BasicBar } from './basic-bar'
 
 use([
@@ -21,6 +23,7 @@ use([
   BarChart,
   GridComponent,
   TooltipComponent,
+  LegendComponent,
 ])
 
 export default defineComponent({
@@ -99,7 +102,16 @@ export default defineComponent({
     }
 
     const option = computed(() => {
-      const { global, xAxis, yAxis, animation } = config.value
+      const { global, xAxis, yAxis, tooltip, legend, animation } = config.value
+      const [legendTop, legendLeft] = legend.position.split('-')
+      const pointerLineStyle = {
+        type: tooltip.pointer.line.type === 'dashed'
+          ? [tooltip.pointer.line.dashedLength, tooltip.pointer.line.dashedSpace]
+          : tooltip.pointer.line.type,
+        width: tooltip.pointer.line.width,
+        color: tooltip.pointer.line.color,
+      }
+
       const opts = {
         textStyle: {
           fontFamily: global.fontFamily,
@@ -107,10 +119,52 @@ export default defineComponent({
         grid: {
           ...global.margin,
         },
-        tooltip: {},
+        tooltip: {
+          show: tooltip.show,
+          textStyle: {
+            ...tooltip.textStyle,
+          },
+          padding: [tooltip.background.padding.v, tooltip.background.padding.h],
+          backgroundColor: tooltip.background.color,
+          trigger: tooltip.pointer.show ? 'axis' : 'item',
+          axisPointer: {
+            type: tooltip.pointer.show ? 'cross' : 'none',
+            label: {
+              show: false,
+            },
+            lineStyle: pointerLineStyle,
+            crossStyle: pointerLineStyle,
+          },
+          borderWidth: 0,
+        },
+        legend: {
+          show: legend.show,
+          top: legendTop,
+          left: legendLeft,
+          orient: legend.orient,
+          textStyle: {
+            ...legend.textStyle,
+          },
+          icon: legend.symbol.show
+            ? legend.symbol.icon === 'auto'
+              ? null : legend.symbol.icon
+            : 'none',
+          itemWidth: legend.symbol.width,
+          itemHeight: legend.symbol.height,
+          itemGap: legend.symbol.gap,
+          type: legend.page.enabled ? 'scroll' : 'plain',
+          width: legend.page.enabled ? legend.page.size.width: 'auto',
+          height: legend.page.enabled ? legend.page.size.height: 'auto',
+          pageIconSize: legend.page.button.size,
+          pageIconColor: legend.page.button.color,
+          pageIconInactiveColor: legend.page.button.inactiveColor,
+          pageTextStyle: {
+            color: legend.page.pageNumColor,
+          },
+        },
         xAxis: {
           show: xAxis.show,
-          type: 'category',
+          type: xAxis.type,
           name: xAxis.title.show ? xAxis.title.name : '',
           nameLocation: xAxis.title.location,
           nameRotate: xAxis.title.display.rotate,
@@ -138,11 +192,17 @@ export default defineComponent({
           axisLabel: {
             show: xAxis.axisLabel.show,
             boundaryGap: xAxis.axisLabel.boundaryGap,
-            interval: xAxis.axisLabel.interval,
+            interval: getAutoValue(xAxis.axisLabel.interval),
             rotate: xAxis.axisLabel.display.rotate,
             margin: xAxis.axisLabel.display.margin,
             align: xAxis.axisLabel.align,
             ...xAxis.axisLabel.textStyle,
+            formatter: (val: string) => {
+              if (xAxis.type === 'time') {
+                return dayjs(val).format(xAxis.axisLabel.timeFormat)
+              }
+              return val
+            },
           },
           splitLine: {
             show: xAxis.grid.show,
@@ -183,14 +243,16 @@ export default defineComponent({
             },
             alignWithLabel: true,
           },
+          boundaryGap: [`${yAxis.axisLabel.boundaryGap}%`, `${yAxis.axisLabel.boundaryGap}%`],
           axisLabel: {
             show: yAxis.axisLabel.show,
-            boundaryGap: [`${yAxis.axisLabel.boundaryGap}%`, `${yAxis.axisLabel.boundaryGap}%`],
-            // interval: yAxis.axisLabel.interval,
             rotate: yAxis.axisLabel.display.rotate,
             margin: yAxis.axisLabel.display.margin,
             align: yAxis.axisLabel.align,
             ...yAxis.axisLabel.textStyle,
+            formatter: (val: string) => {
+              return valueFormater(val, yAxis.axisLabel.valueFormat)
+            },
           },
           splitLine: {
             show: yAxis.grid.show,
@@ -202,8 +264,9 @@ export default defineComponent({
               color: yAxis.grid.line.color,
             },
           },
-          // min: yAxis.extent.min,
-          // max: yAxis.extent.max,
+          min: getLimitValue(yAxis.extent.min),
+          max: getLimitValue(yAxis.extent.max),
+          splitNumber: yAxis.splitNumber > 0 ? yAxis.splitNumber : null,
         },
         animation: animation.enabled,
         animationDuration: animation.duration,
