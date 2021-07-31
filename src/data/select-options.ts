@@ -66,15 +66,6 @@ export const angles = [
   { id: 'vertical', value: '垂直' },
 ]
 
-export const locations = [
-  { id: 'top-center', value: '顶部居中' },
-  { id: 'top-left', value: '顶部居左' },
-  { id: 'top-right', value: '顶部居右' },
-  { id: 'bottom-center', value: '底部居中' },
-  { id: 'bottom-left', value: '底部居左' },
-  { id: 'bottom-right', value: '底部居右' },
-]
-
 export const titleLocations = [
   { id: 'start', value: '开头' },
   { id: 'center', value: '中间' },
@@ -122,7 +113,28 @@ export const selectSuggests = [
   { id: 'dataMax', value: '数据最大值' },
 ]
 
+export const orients = [
+  { id: 'horizontal', value: '水平' },
+  { id: 'vertical', value: '垂直' },
+]
+
+export const legendLocations = [
+  { id: 'top-left', value: '顶部居左' },
+  { id: 'top-center', value: '顶部居中' },
+  { id: 'top-right', value: '顶部居右' },
+  { id: 'bottom-left', value: '底部居左' },
+  { id: 'bottom-center', value: '底部居中' },
+  { id: 'bottom-right', value: '底部居右' },
+  { id: 'left-left', value: '左侧居顶' },
+  { id: 'left-center', value: '左侧居中' },
+  { id: 'left-right', value: '左侧居底' },
+  { id: 'right-left', value: '右侧居顶' },
+  { id: 'right-center', value: '右侧居中' },
+  { id: 'right-right', value: '右侧居底' },
+]
+
 export const legendIcons = [
+  { id: 'auto', value: '自适应', icon: 'auto' },
   { id: 'circle', value: '圆形', icon: 'circle' },
   { id: 'rect', value: '矩形', icon: 'rect' },
   { id: 'roundRect', value: '圆角矩形', icon: 'roundRect' },

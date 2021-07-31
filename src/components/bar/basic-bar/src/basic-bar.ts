@@ -64,7 +64,7 @@ export class BasicBar extends DatavEChartsComponent {
         },
         textStyle: {
           fontSize: 12,
-          color: 'rgb(144, 160, 174)',
+          color: '#90a0ae',
           fontWeight: 'normal',
         },
       },
@@ -122,7 +122,7 @@ export class BasicBar extends DatavEChartsComponent {
         },
         textStyle: {
           fontSize: 12,
-          color: 'rgb(144, 160, 174)',
+          color: '#90a0ae',
           fontWeight: 'normal',
         },
       },
@@ -162,6 +162,61 @@ export class BasicBar extends DatavEChartsComponent {
           dashedLength: 4,
           dashedSpace: 4,
         },
+      },
+    },
+    tooltip: {
+      show: true,
+      textStyle: {
+        fontSize: 14,
+        color: '#fff',
+        fontWeight: 'normal',
+      },
+      background: {
+        padding: {
+          h: 5,
+          v: 5,
+        },
+        color: 'rgba(0, 0, 0, 0.65)',
+      },
+      pointer: {
+        show: true,
+        lineStyle: {
+          type: 'dashed',
+          width: 1,
+          color: '#f5dc69',
+          dashedLength: 4,
+          dashedSpace: 4,
+        },
+      },
+    },
+    legend: {
+      show: true,
+      position: 'top-center',
+      orient: 'horizontal',
+      textStyle: {
+        fontSize: 12,
+        color: '#90a0ae',
+        fontWeight: 'normal',
+      },
+      symbol: {
+        show: true,
+        icon: 'auto',
+        width: 25,
+        height: 14,
+        gap: 10,
+      },
+      page: {
+        enabled: false,
+        size: {
+          width: 100,
+          height: 100,
+        },
+        button: {
+          size: 15,
+          color: '#000',
+          inactiveColor: '#000',
+        },
+        pageNumColor: '#90a0ae',
       },
     },
     series: [new BasicBarSeries('系列1')],

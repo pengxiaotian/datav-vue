@@ -425,7 +425,7 @@
           />
           <g-color-picker
             v-model="config.xAxis.grid.line.color"
-            inline="inline"
+            inline="inline-single"
             label="颜色"
           />
           <g-input-number
@@ -731,11 +731,11 @@
           />
           <g-color-picker
             v-model="config.yAxis.grid.line.color"
-            inline="inline"
+            inline="inline-single"
             label="颜色"
           />
           <g-input-number
-            v-if="config.xAxis.grid.line.type === 'dashed'"
+            v-if="config.yAxis.grid.line.type === 'dashed'"
             v-model="config.yAxis.grid.line.dashedLength"
             :min="0"
             :max="100"
@@ -745,7 +745,7 @@
             label="长度"
           />
           <g-input-number
-            v-if="config.xAxis.grid.line.type === 'dashed'"
+            v-if="config.yAxis.grid.line.type === 'dashed'"
             v-model="config.yAxis.grid.line.dashedSpace"
             :min="0"
             :max="100"
@@ -758,6 +758,304 @@
       </g-field-collapse>
     </g-field-collapse>
     <g-field-collapse
+      v-model="config.tooltip.show"
+      :toggle="true"
+      label="提示框"
+    >
+      <g-field-collapse
+        label="文本样式"
+      >
+        <g-field
+          :level="2"
+          label="字号"
+        >
+          <g-input-number
+            v-model="config.tooltip.textStyle.fontSize"
+            :min="12"
+            :max="100"
+            :step="1"
+            suffix="px"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="颜色"
+        >
+          <g-color-picker
+            v-model="config.tooltip.textStyle.color"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="字体粗细"
+        >
+          <g-select
+            v-model="config.tooltip.textStyle.fontWeight"
+            :data="fontWeights"
+          />
+        </g-field>
+      </g-field-collapse>
+      <g-field-collapse
+        label="弹框背景"
+      >
+        <g-field
+          :level="2"
+          label="背景边距"
+          :is-flat="true"
+        >
+          <g-input-number
+            v-model="config.tooltip.background.padding.h"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="水平"
+          />
+          <g-input-number
+            v-model="config.tooltip.background.padding.v"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="垂直"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="背景色"
+        >
+          <g-color-picker
+            v-model="config.tooltip.background.color"
+          />
+        </g-field>
+      </g-field-collapse>
+      <g-field-collapse
+        v-model="config.tooltip.pointer.show"
+        :toggle="true"
+        label="轴指示器"
+      >
+        <g-field
+          :level="2"
+          label="线型样式"
+          :is-flat="true"
+        >
+          <g-select
+            v-model="config.tooltip.pointer.lineStyle.type"
+            :data="lineStyles"
+            inline="inline"
+            label="类型"
+          />
+          <g-input-number
+            v-model="config.tooltip.pointer.lineStyle.width"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="粗细"
+          />
+          <g-color-picker
+            v-model="config.tooltip.pointer.lineStyle.color"
+            inline="inline-single"
+            label="颜色"
+          />
+          <g-input-number
+            v-if="config.tooltip.pointer.lineStyle.type === 'dashed'"
+            v-model="config.tooltip.pointer.lineStyle.dashedLength"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="长度"
+          />
+          <g-input-number
+            v-if="config.tooltip.pointer.lineStyle.type === 'dashed'"
+            v-model="config.tooltip.pointer.lineStyle.dashedSpace"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="间距"
+          />
+        </g-field>
+      </g-field-collapse>
+    </g-field-collapse>
+    <g-field-collapse
+      v-model="config.legend.show"
+      :toggle="true"
+      label="图例"
+    >
+      <g-field
+        :level="2"
+        label="位置"
+      >
+        <g-select
+          v-model="config.legend.position"
+          :data="legendLocations"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="布局方式"
+      >
+        <el-radio-group
+          v-model="config.legend.orient"
+        >
+          <el-radio-button
+            v-for="em in orients"
+            :key="em.id"
+            :label="em.id"
+          >
+            {{ em.value }}
+          </el-radio-button>
+        </el-radio-group>
+      </g-field>
+      <g-field
+        :level="2"
+        label="文本样式"
+        :is-flat="true"
+      >
+        <g-input-number
+          v-model="config.legend.textStyle.fontSize"
+          :min="0"
+          :max="100"
+          :step="1"
+          suffix="px"
+          inline="inline"
+          label="字号"
+        />
+        <g-color-picker
+          v-model="config.legend.textStyle.color"
+          inline="inline"
+          label="颜色"
+        />
+        <g-select
+          v-model="config.legend.textStyle.fontWeight"
+          :data="fontWeights"
+          inline="inline-single"
+          label="字体粗细"
+        />
+      </g-field>
+      <g-field-collapse
+        v-model="config.legend.symbol.show"
+        :toggle="true"
+        label="图例图标"
+      >
+        <g-field
+          :level="2"
+          label="图标"
+        >
+          <g-select-shape
+            v-model="config.legend.symbol.icon"
+            :shapes="legendIcons"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="宽度"
+        >
+          <g-input-number
+            v-model="config.legend.symbol.width"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="高度"
+        >
+          <g-input-number
+            v-model="config.legend.symbol.height"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="间隔"
+        >
+          <g-input-number
+            v-model="config.legend.symbol.gap"
+            :min="-1000"
+            :max="1000"
+            :step="1"
+            suffix="px"
+          />
+        </g-field>
+      </g-field-collapse>
+      <g-field-collapse
+        v-model="config.legend.page.enabled"
+        :toggle="true"
+        label="翻页功能"
+      >
+        <g-field
+          :level="2"
+          label="容器尺寸"
+          :is-flat="true"
+        >
+          <g-input-number
+            v-model="config.legend.page.size.width"
+            :min="0"
+            :max="1000"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="宽度"
+          />
+          <g-input-number
+            v-model="config.legend.page.size.height"
+            :min="0"
+            :max="1000"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="高度"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="翻页按钮"
+          :is-flat="true"
+        >
+          <g-input-number
+            v-model="config.legend.page.button.size"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="尺寸"
+          />
+          <g-color-picker
+            v-model="config.legend.page.button.color"
+            inline="inline"
+            label="颜色"
+          />
+          <g-color-picker
+            v-model="config.legend.page.button.inactiveColor"
+            inline="inline-single"
+            label="禁用颜色"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="页码颜色"
+        >
+          <g-color-picker
+            v-model="config.legend.page.pageNumColor"
+          />
+        </g-field>
+      </g-field-collapse>
+    </g-field-collapse>
+    <g-field-collapse
       label="系列"
       mode="layout"
       default-layout="horizontal"
@@ -765,6 +1063,7 @@
       :list="config.series"
       :min="1"
       :max="5"
+      tab="系列"
       :add-item="handleAddSeriesItem"
     >
       <template #default="slotProps">
@@ -874,8 +1173,11 @@ import {
   titleLocations,
   lineStyles,
   hAligns,
-  animationEasings,
+  legendLocations,
+  orients,
+  legendIcons,
   fillTypes,
+  animationEasings,
 } from '@/data/select-options'
 import { BasicBar, BasicBarSeries } from './basic-bar'
 
@@ -903,8 +1205,11 @@ export default defineComponent({
       titleLocations,
       lineStyles,
       hAligns,
-      animationEasings,
+      legendLocations,
+      orients,
+      legendIcons,
       fillTypes,
+      animationEasings,
       handleAddSeriesItem,
     }
   },

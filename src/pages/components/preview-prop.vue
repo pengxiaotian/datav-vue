@@ -13,6 +13,7 @@
         :label="item.config.alias"
         :enums="item.config.enums"
         :inline="item.config.displayMode"
+        :flat-value="item.config.flatValue"
       />
       <template v-else-if="item.children">
         <g-field-collapse
@@ -96,6 +97,7 @@
           :suffix="item.config.suffix"
           :enums="item.config.enums"
           :inline="item.config.displayMode"
+          :flat-value="item.config.flatValue"
         />
       </g-field>
     </template>

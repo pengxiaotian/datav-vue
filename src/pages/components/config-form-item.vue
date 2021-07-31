@@ -15,17 +15,18 @@
     v-else-if="componentType === componentTypes.switch"
     v-model="boolValue"
   />
-  <template v-else-if="componentType === componentTypes.radio">
-    <el-radio-group v-model="strValue">
-      <el-radio-button
-        v-for="em in enums"
-        :key="em"
-        :label="em"
-      >
-        {{ em }}
-      </el-radio-button>
-    </el-radio-group>
-  </template>
+  <el-radio-group
+    v-else-if="componentType === componentTypes.radio"
+    v-model="strValue"
+  >
+    <el-radio-button
+      v-for="em in enums"
+      :key="em"
+      :label="em"
+    >
+      {{ em }}
+    </el-radio-button>
+  </el-radio-group>
   <g-color-picker
     v-else-if="componentType === componentTypes.color"
     v-model="strValue"
@@ -68,17 +69,31 @@
       :value="item.id"
     />
   </el-select>
-  <el-select
-    v-else-if="AllOptionKeys.includes(componentType + 's')"
-    v-model="strValue"
-  >
-    <el-option
-      v-for="item in selectOptions"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
+  <template v-else-if="AllOptionKeys.includes(componentType + 's')">
+    <el-radio-group
+      v-if="flatValue"
+      v-model="strValue"
+    >
+      <el-radio-button
+        v-for="em in selectOptions"
+        :key="em.id"
+        :label="em.id"
+      >
+        {{ em.value }}
+      </el-radio-button>
+    </el-radio-group>
+    <el-select
+      v-else
+      v-model="strValue"
+    >
+      <el-option
+        v-for="item in selectOptions"
+        :key="item.id"
+        :label="item.value"
+        :value="item.id"
+      />
+    </el-select>
+  </template>
   <span v-else>--</span>
 </template>
 
@@ -104,6 +119,7 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => [],
     },
+    flatValue: Boolean,
   },
   setup(props) {
     const componentTypes = ref({ ...ComponentType })

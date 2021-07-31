@@ -15,6 +15,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.v-icon-legend-auto:before {
+  content: "\e6bb";
+}
+
 .v-icon-legend-arrow:before {
   content: "\e67d";
 }

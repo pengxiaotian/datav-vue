@@ -86,13 +86,27 @@
     :label="mode ? label : ''"
     disabled
   />
-  <g-select
-    v-else-if="AllOptionKeys.includes(componentType + 's')"
-    v-model="strValue"
-    :data="selectOptions"
-    :inline="mode"
-    :label="mode ? label : ''"
-  />
+  <template v-else-if="AllOptionKeys.includes(componentType + 's')">
+    <el-radio-group
+      v-if="flatValue"
+      v-model="strValue"
+    >
+      <el-radio-button
+        v-for="em in selectOptions"
+        :key="em.id"
+        :label="em.id"
+      >
+        {{ em.value }}
+      </el-radio-button>
+    </el-radio-group>
+    <g-select
+      v-else
+      v-model="strValue"
+      :data="selectOptions"
+      :inline="mode"
+      :label="mode ? label : ''"
+    />
+  </template>
   <span v-else>--</span>
 </template>
 
@@ -147,6 +161,7 @@ export default defineComponent({
         value: '',
       }),
     },
+    flatValue: Boolean,
   },
   setup(props) {
     const componentTypes = ref({ ...ComponentType })

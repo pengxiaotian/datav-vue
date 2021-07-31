@@ -11,7 +11,7 @@ import {
   justifyContents,
   aligns,
   angles,
-  locations,
+  legendLocations,
   titleLocations,
   lineStyles,
   fillTypes,
@@ -19,10 +19,11 @@ import {
   echartsLablePositions,
   animationEasings,
   legendIcons,
+  orients,
 } from '@/data/select-options'
 
 // 用于生成模板
-export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'locations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'legendIcons']
+export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'legendIcons', 'orients']
 
 export enum PropDataType {
   unknown = 'unknown',
@@ -52,7 +53,7 @@ export enum ComponentType {
   justifyContent = 'justifyContent',
   align = 'align',
   angle = 'angle',
-  location = 'location',
+  legendLocation = 'legendLocation',
   titleLocation = 'titleLocation',
   lineStyle = 'lineStyle',
   fillType = 'fillType',
@@ -62,7 +63,8 @@ export enum ComponentType {
   echartsLablePosition = 'echartsLablePosition',
   animationEasing = 'animationEasing',
   selectSuggest = 'selectSuggest',
-  legendIcon = 'legendIcon'
+  legendIcon = 'legendIcon',
+  orient = 'orient'
 }
 
 export enum DisplayMode {
@@ -96,6 +98,7 @@ export interface PropConfig {
     field: string
     value: string
   }
+  flatValue: boolean
 }
 
 export const createPropConfig = () => {
@@ -121,6 +124,7 @@ export const createPropConfig = () => {
       field: '',
       value: '',
     },
+    flatValue: false,
   }
 
   return data
@@ -193,11 +197,11 @@ export const mixinPropData = (tsArr: PropDto[], jsonArr: PropDto[]) => {
         ...tsItem.config,
         ...jsonItem.config,
       }
-    }
 
-    if (tsItem.children && tsItem.children.length > 0
-      && jsonItem.children && jsonItem.children.length > 0) {
-      mixinPropData(tsItem.children, jsonItem.children)
+      if (tsItem.children && tsItem.children.length > 0
+        && jsonItem.children && jsonItem.children.length > 0) {
+        mixinPropData(tsItem.children, jsonItem.children)
+      }
     }
   }
 }
@@ -257,8 +261,8 @@ export const getSelectedOptions = (type: ComponentType) => {
     return angles
   }
 
-  if (type === ComponentType.location) {
-    return locations
+  if (type === ComponentType.legendLocation) {
+    return legendLocations
   }
 
   if (type === ComponentType.titleLocation) {
@@ -287,6 +291,10 @@ export const getSelectedOptions = (type: ComponentType) => {
 
   if (type === ComponentType.legendIcon) {
     return legendIcons
+  }
+
+  if (type === ComponentType.orient) {
+    return orients
   }
 
   return []

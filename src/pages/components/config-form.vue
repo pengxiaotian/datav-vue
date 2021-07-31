@@ -47,7 +47,23 @@
               :component-type="item.config.component"
               :default-value="item.config.defaultValue"
               :enums="item.config.enums"
+              :flat-value="item.config.flatValue"
             />
+          </el-form-item>
+          <el-form-item label-width="150px">
+            <template #label>
+              <el-tooltip
+                effect="blue"
+                placement="top"
+                :offset="2"
+                content="只在组件是 select 系列时生效"
+              >
+                <label class="g-field-title-with-description" style="color: #a1aeb3;">
+                  是否平铺值
+                </label>
+              </el-tooltip>
+            </template>
+            <el-checkbox v-model="item.config.flatValue" />
           </el-form-item>
           <template v-if="item.config.component === componentTypes.number || item.config.component === componentTypes.slider">
             <el-form-item label="最小值" label-width="150px">
@@ -69,7 +85,7 @@
               <el-input v-model="item.config.suffix" />
             </el-form-item>
           </template>
-          <template v-if="item.config.component === componentTypes.radio">
+          <template v-else-if="item.config.component === componentTypes.radio">
             <el-form-item label="枚举值" label-width="150px">
               <el-select
                 v-model="item.config.enums"
@@ -80,7 +96,7 @@
               />
             </el-form-item>
           </template>
-          <template v-if="item.config.component === componentTypes.selectSuggest">
+          <template v-else-if="item.config.component === componentTypes.selectSuggest">
             <el-form-item label="建议值" label-width="150px">
               <el-select
                 v-model="item.config.enums"
@@ -99,7 +115,7 @@
             </el-form-item>
           </template>
         </template>
-        <el-form-item v-if="hasRadio" label-width="150px">
+        <el-form-item label-width="150px">
           <template #label>
             <el-tooltip
               effect="blue"
@@ -192,7 +208,7 @@
 import { defineComponent, PropType, ref, computed } from 'vue'
 import { ToolboxType } from '@/utils/enums'
 import { selectSuggests } from '@/data/select-options'
-import { PropDto, ComponentType, DisplayMode } from '../props-config/config'
+import { PropDto, ComponentType, DisplayMode, getSelectedOptions } from '../props-config/config'
 import ConfigFormItem from './config-form-item.vue'
 
 export default defineComponent({
@@ -216,10 +232,6 @@ export default defineComponent({
       return props.config.map(m => m.key)
     })
 
-    const hasRadio = computed(() => {
-      return props.config.some(m => m.config.component === 'radio')
-    })
-
     const querySearch = (queryString: string, cb: Function) => {
       const results = [
         '请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体',
@@ -235,8 +247,17 @@ export default defineComponent({
     }
 
     const getEnums = (field: string) => {
-      const config = props.config.find(m => m.key === field)
-      return config ? config.config.enums : []
+      if (field) {
+        const config = props.config.find(m => m.key === field)
+        if (config) {
+          if (config.config.component === ComponentType.radio) {
+            return config.config.enums
+          } else {
+            return getSelectedOptions(config.config.component).map(m => m.id)
+          }
+        }
+      }
+      return []
     }
 
     return {
@@ -244,7 +265,6 @@ export default defineComponent({
       displayModes,
       toolboxTypes,
       fields,
-      hasRadio,
       selectSuggests,
       querySearch,
       getEnums,
