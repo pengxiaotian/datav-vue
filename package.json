@@ -24,7 +24,7 @@
     "crypto-js": "^4.0.0",
     "dayjs": "^1.10.5",
     "echarts": "^5.1.1",
-    "element-plus": "^1.0.2-beta.55",
+    "element-plus": "1.0.2-beta.55",
     "gsap": "^3.6.1",
     "html2canvas": "^1.0.0-rc.7",
     "js-cookie": "^2.2.1",

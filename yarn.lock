@@ -2829,7 +2829,7 @@ electron-to-chromium@^1.3.723:
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.752.tgz#0728587f1b9b970ec9ffad932496429aef750d09"
   integrity sha512-2Tg+7jSl3oPxgsBsWKh5H83QazTkmWG/cnNwJplmyZc7KcN61+I10oUgaXSVk/NwfvN3BdkKDR4FYuRBQQ2v0A==
 
-element-plus@^1.0.2-beta.55:
+element-plus@1.0.2-beta.55:
   version "1.0.2-beta.55"
   resolved "https://registry.npmjs.org/element-plus/-/element-plus-1.0.2-beta.55.tgz#d95886649560c4edf21568e6d4a822e4c74fcdd0"
   integrity sha512-I9EYxOA5H9KQ58SpFE0yejGPoAd3ui12wRLLtoS2bHdF9mrep5c6v+2cJwyc9abXGBf2RzZ8tqAp/OCCfdzjlQ==
