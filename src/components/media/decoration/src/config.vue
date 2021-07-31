@@ -16,15 +16,11 @@
         :level="2"
         label="透明度"
       >
-        <el-slider
+        <g-slider
           v-model="config.global.opacity"
           :min="0"
           :max="1"
           :step="0.1"
-          :show-tooltip="false"
-          show-input
-          input-size="mini"
-          class="g-slider"
         />
       </g-field>
     </g-field-collapse>

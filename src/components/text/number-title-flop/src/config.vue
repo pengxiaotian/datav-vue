@@ -26,15 +26,12 @@
         :level="2"
         label="间隔"
       >
-        <el-slider
+        <g-slider
           v-model="config.global.distance"
           :min="-100"
           :max="500"
           :step="0.5"
-          :show-tooltip="false"
-          show-input
-          input-size="mini"
-          class="g-slider"
+          suffix="px"
         />
       </g-field>
     </g-field-collapse>
@@ -61,24 +58,24 @@
           :max="100"
           :step="1"
           suffix="px"
-          is-inline
+          inline="inline"
           label="字号"
         />
         <g-color-picker
           v-model="config.title.textStyle.color"
-          is-inline
+          inline="inline"
           label="字体颜色"
         />
         <g-select
           v-model="config.title.textStyle.fontWeight"
           :data="fontWeights"
-          is-inline
+          inline="inline"
           label="字体粗细"
         />
         <g-select
           v-model="config.title.textStyle.textAlign"
           :data="justifyContents"
-          is-inline
+          inline="inline"
           label="对齐方式"
         />
       </g-field>
@@ -116,7 +113,7 @@
           :max="1000"
           :step="1"
           suffix="px"
-          is-inline
+          inline="inline"
           label="前缀-数字"
         />
         <g-input-number
@@ -125,7 +122,7 @@
           :max="1000"
           :step="1"
           suffix="px"
-          is-inline
+          inline="inline"
           label="数字-后缀"
         />
       </g-field>
@@ -151,18 +148,18 @@
             :max="100"
             :step="1"
             suffix="px"
-            is-inline
+            inline="inline"
             label="字号"
           />
           <g-color-picker
             v-model="config.counter.prefix.textStyle.color"
-            is-inline
+            inline="inline"
             label="字体颜色"
           />
           <g-select
             v-model="config.counter.prefix.textStyle.fontWeight"
             :data="fontWeights"
-            is-inline
+            inline="inline-single"
             label="字体粗细"
           />
         </g-field>
@@ -189,18 +186,18 @@
             :max="100"
             :step="1"
             suffix="px"
-            is-inline
+            inline="inline"
             label="字号"
           />
           <g-color-picker
             v-model="config.counter.suffix.textStyle.color"
-            is-inline
+            inline="inline"
             label="字体颜色"
           />
           <g-select
             v-model="config.counter.suffix.textStyle.fontWeight"
             :data="fontWeights"
-            is-inline
+            inline="inline-single"
             label="字体粗细"
           />
         </g-field>
@@ -246,15 +243,11 @@
         :level="2"
         label="数字间隔"
       >
-        <el-slider
+        <g-slider
           v-model="config.numbers.marginRight"
           :min="0"
           :max="10"
           :step="0.5"
-          :show-tooltip="false"
-          show-input
-          input-size="mini"
-          class="g-slider"
         />
       </g-field>
       <g-field
@@ -270,15 +263,11 @@
         :level="2"
         label="背景圆角"
       >
-        <el-slider
+        <g-slider
           v-model="config.numbers.bgRadius"
           :min="0"
           :max="1000"
           :step="1"
-          :show-tooltip="false"
-          show-input
-          input-size="mini"
-          class="g-slider"
         />
       </g-field>
       <g-field
@@ -293,30 +282,22 @@
         :level="2"
         label="默认位数"
       >
-        <el-slider
+        <g-slider
           v-model="config.numbers.digit"
           :min="0"
           :max="100"
           :step="1"
-          :show-tooltip="false"
-          show-input
-          input-size="mini"
-          class="g-slider"
         />
       </g-field>
       <g-field
         :level="2"
         label="小数点位数"
       >
-        <el-slider
+        <g-slider
           v-model="config.numbers.decimal"
           :min="0"
           :max="8"
           :step="1"
-          :show-tooltip="false"
-          show-input
-          input-size="mini"
-          class="g-slider"
         />
       </g-field>
       <g-field
@@ -325,8 +306,6 @@
       >
         <g-input-number
           v-model="config.numbers.divisor"
-          :min="-8888888"
-          :max="8888888"
           :step="1"
         />
       </g-field>
@@ -369,26 +348,10 @@
       </g-field>
       <g-field
         :level="2"
-        label="数据抖动修正"
-      >
-        <el-switch
-          v-model="config.numbers.increment"
-        />
-      </g-field>
-      <g-field
-        :level="2"
         label="开启动画"
       >
         <el-switch
           v-model="config.numbers.animation"
-        />
-      </g-field>
-      <g-field
-        :level="2"
-        label="始终动画"
-      >
-        <el-switch
-          v-model="config.numbers.sameDataFlip"
         />
       </g-field>
       <g-field
@@ -398,8 +361,8 @@
         <g-input-number
           v-model="config.numbers.duration"
           :min="0"
-          :max="100000"
           :step="500"
+          suffix="ms"
         />
       </g-field>
     </g-field-collapse>
@@ -411,16 +374,7 @@ import { defineComponent, PropType, toRef, computed } from 'vue'
 import {
   fontFamilys,
   fontWeights,
-  fontStyles,
-  hAligns,
-  vAligns,
-  writingModes,
   justifyContents,
-  aligns,
-  angles,
-  lineStyles,
-  fillTypes,
-  repeatTypes,
 } from '@/data/select-options'
 import { NumberTitleFlop } from './number-title-flop'
 
@@ -434,6 +388,7 @@ export default defineComponent({
   },
   setup(props) {
     const config = toRef(props.com, 'config')
+
     const arrangements = computed(() => ([
       { id: 'top', value: '标题在上' },
       { id: 'left', value: '标题在左' },
@@ -446,16 +401,7 @@ export default defineComponent({
 
       fontFamilys,
       fontWeights,
-      fontStyles,
-      hAligns,
-      vAligns,
-      writingModes,
       justifyContents,
-      aligns,
-      angles,
-      lineStyles,
-      fillTypes,
-      repeatTypes,
     }
   },
 })

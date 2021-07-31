@@ -7,13 +7,26 @@
       "alias": "全局样式",
       "tip": "",
       "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
     "path": "global",
+    "virtualPath": "",
     "children": [
       {
         "key": "date",
@@ -23,13 +36,26 @@
           "alias": "日期",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "2021-07-01",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "global.date"
+        "path": "global.date",
+        "virtualPath": ""
       },
       {
         "key": "fontFamily",
@@ -39,13 +65,26 @@
           "alias": "字体",
           "tip": "请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "Microsoft Yahei",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "global.fontFamily"
+        "path": "global.fontFamily",
+        "virtualPath": ""
       }
     ],
     "cols": [
@@ -61,13 +100,26 @@
       "alias": "文本框",
       "tip": "",
       "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
     "path": "input",
+    "virtualPath": "",
     "children": [
       {
         "key": "size",
@@ -76,14 +128,27 @@
           "component": "none",
           "alias": "大小",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
         "path": "input.size",
+        "virtualPath": "",
         "children": [
           {
             "key": "width",
@@ -92,14 +157,27 @@
               "component": "number",
               "alias": "宽度",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 180,
               "min": 40,
               "max": 1000,
-              "step": 5
+              "step": 5,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "input.size.width"
+            "path": "input.size.width",
+            "virtualPath": ""
           },
           {
             "key": "height",
@@ -108,14 +186,27 @@
               "component": "number",
               "alias": "高度",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 30,
               "min": 20,
               "max": 100,
-              "step": 5
+              "step": 5,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "input.size.height"
+            "path": "input.size.height",
+            "virtualPath": ""
           }
         ],
         "cols": [
@@ -130,14 +221,27 @@
           "component": "none",
           "alias": "边框",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
         "path": "input.border",
+        "virtualPath": "",
         "children": [
           {
             "key": "width",
@@ -146,14 +250,27 @@
               "component": "number",
               "alias": "宽度",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 1,
               "min": 1,
               "max": 10,
-              "step": 1
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "input.border.width"
+            "path": "input.border.width",
+            "virtualPath": ""
           },
           {
             "key": "color",
@@ -162,14 +279,27 @@
               "component": "color",
               "alias": "颜色",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "#ccc",
               "min": 0,
               "max": 100,
-              "step": 1
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "input.border.color"
+            "path": "input.border.color",
+            "virtualPath": ""
           },
           {
             "key": "radius",
@@ -178,14 +308,27 @@
               "component": "number",
               "alias": "圆角",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline-single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 0,
               "min": 0,
               "max": 100,
-              "step": 0.5
+              "step": 0.5,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "input.border.radius"
+            "path": "input.border.radius",
+            "virtualPath": ""
           }
         ],
         "cols": [
@@ -202,13 +345,26 @@
           "alias": "背景颜色",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "#01becc",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "input.bgColor"
+        "path": "input.bgColor",
+        "virtualPath": ""
       },
       {
         "key": "fontSize",
@@ -218,13 +374,26 @@
           "alias": "文字字号",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 18,
           "min": 12,
           "max": 60,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "px",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "input.fontSize"
+        "path": "input.fontSize",
+        "virtualPath": ""
       },
       {
         "key": "fontColor",
@@ -234,13 +403,26 @@
           "alias": "文字颜色",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "#fff",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "input.fontColor"
+        "path": "input.fontColor",
+        "virtualPath": ""
       },
       {
         "key": "separator",
@@ -250,13 +432,26 @@
           "alias": "时间分隔符",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "-",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "input.separator"
+        "path": "input.separator",
+        "virtualPath": ""
       },
       {
         "key": "pos",
@@ -266,13 +461,26 @@
           "alias": "文字位置",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "left",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "input.pos"
+        "path": "input.pos",
+        "virtualPath": ""
       }
     ],
     "cols": [
@@ -293,13 +501,26 @@
       "alias": "日历",
       "tip": "",
       "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
     "path": "calendar",
+    "virtualPath": "",
     "children": [
       {
         "key": "fontSize",
@@ -309,13 +530,26 @@
           "alias": "文字字号",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 14,
           "min": 12,
           "max": 60,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "px",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "calendar.fontSize"
+        "path": "calendar.fontSize",
+        "virtualPath": ""
       },
       {
         "key": "fontColor",
@@ -325,13 +559,26 @@
           "alias": "文字颜色",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "#fff",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "calendar.fontColor"
+        "path": "calendar.fontColor",
+        "virtualPath": ""
       },
       {
         "key": "bgColor",
@@ -341,13 +588,26 @@
           "alias": "日历背景",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "#126973",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "calendar.bgColor"
+        "path": "calendar.bgColor",
+        "virtualPath": ""
       },
       {
         "key": "selectBGColor",
@@ -357,13 +617,26 @@
           "alias": "选择器背景",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "#01becc",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "calendar.selectBGColor"
+        "path": "calendar.selectBGColor",
+        "virtualPath": ""
       },
       {
         "key": "border",
@@ -372,14 +645,27 @@
           "component": "none",
           "alias": "外边框",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
         "path": "calendar.border",
+        "virtualPath": "",
         "children": [
           {
             "key": "width",
@@ -388,14 +674,27 @@
               "component": "number",
               "alias": "宽度",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 1,
               "min": 0,
               "max": 100,
-              "step": 1
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "calendar.border.width"
+            "path": "calendar.border.width",
+            "virtualPath": ""
           },
           {
             "key": "color",
@@ -404,14 +703,27 @@
               "component": "color",
               "alias": "颜色",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "#ccc",
               "min": 0,
               "max": 100,
-              "step": 1
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "calendar.border.color"
+            "path": "calendar.border.color",
+            "virtualPath": ""
           },
           {
             "key": "radius",
@@ -420,14 +732,27 @@
               "component": "number",
               "alias": "圆角",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline-single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 5,
               "min": 0,
               "max": 100,
-              "step": 1
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "calendar.border.radius"
+            "path": "calendar.border.radius",
+            "virtualPath": ""
           }
         ],
         "cols": [
@@ -443,14 +768,27 @@
           "component": "none",
           "alias": "内边框",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
         "path": "calendar.paddingBorder",
+        "virtualPath": "",
         "children": [
           {
             "key": "width",
@@ -459,14 +797,27 @@
               "component": "number",
               "alias": "宽度",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 1,
               "min": 0,
               "max": 100,
-              "step": 1
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "calendar.paddingBorder.width"
+            "path": "calendar.paddingBorder.width",
+            "virtualPath": ""
           },
           {
             "key": "color",
@@ -475,14 +826,27 @@
               "component": "color",
               "alias": "颜色",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "#ccc",
               "min": 0,
               "max": 100,
-              "step": 1
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "calendar.paddingBorder.color"
+            "path": "calendar.paddingBorder.color",
+            "virtualPath": ""
           },
           {
             "key": "padding",
@@ -491,14 +855,27 @@
               "component": "number",
               "alias": "内边距",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline-single",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 6,
               "min": 0,
               "max": 100,
-              "step": 0.5
+              "step": 0.5,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "calendar.paddingBorder.padding"
+            "path": "calendar.paddingBorder.padding",
+            "virtualPath": ""
           }
         ],
         "cols": [
@@ -514,14 +891,27 @@
           "component": "none",
           "alias": "选择器内边距",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
         "path": "calendar.select",
+        "virtualPath": "",
         "children": [
           {
             "key": "time",
@@ -530,14 +920,27 @@
               "component": "number",
               "alias": "时间",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 2,
               "min": 0,
               "max": 100,
-              "step": 0.5
+              "step": 0.5,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "calendar.select.time"
+            "path": "calendar.select.time",
+            "virtualPath": ""
           },
           {
             "key": "today",
@@ -546,14 +949,27 @@
               "component": "number",
               "alias": "今",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 4,
               "min": 0,
               "max": 100,
-              "step": 0.5
+              "step": 0.5,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
             },
-            "path": "calendar.select.today"
+            "path": "calendar.select.today",
+            "virtualPath": ""
           }
         ],
         "cols": [

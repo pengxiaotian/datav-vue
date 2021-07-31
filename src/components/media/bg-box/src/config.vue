@@ -7,7 +7,6 @@
       <g-input-number
         v-model="config.borderRadius"
         :min="0"
-        :max="888888"
         :step="1"
         suffix="px"
       />
@@ -20,6 +19,7 @@
       :list="config.fills"
       :min="0"
       :max="5"
+      tab="填充"
       :add-item="handleAddFillsItem"
     >
       <template #default="slotProps">
@@ -31,7 +31,7 @@
         >
           <g-color-picker
             v-model="slotProps.item.fill"
-            is-inline
+            inline="inline"
             label="填充"
           />
           <g-input-number
@@ -40,7 +40,7 @@
             :max="100"
             :step="1"
             suffix="%"
-            is-inline
+            inline="inline"
             label="透明度"
           />
         </g-field>
@@ -79,18 +79,18 @@
           :max="100"
           :step="1"
           suffix="px"
-          is-inline
+          inline="inline"
           label="粗细"
         />
         <g-select
           v-model="config.border.flat.style"
           :data="lineStyles"
-          is-inline
+          inline="inline"
           label="样式"
         />
         <g-color-picker
           v-model="config.border.flat.color"
-          is-inline
+          inline="inline-single"
           label="颜色"
         />
       </g-field>
@@ -133,7 +133,8 @@
             :list="config.border.linearGradient.color.stops"
             :min="0"
             :max="100"
-            :add-item="handleAddColorStop"
+            tab="节点"
+            :add-item="handleAddStopsItem"
           >
             <template #default="slotProps">
               <g-field
@@ -147,12 +148,12 @@
                   :min="0"
                   :max="100"
                   :step="1"
-                  is-inline
+                  inline="inline"
                   label="位置"
                 />
                 <g-color-picker
                   v-model="slotProps.item.color"
-                  is-inline
+                  inline="inline"
                   label="颜色"
                 />
               </g-field>
@@ -195,28 +196,28 @@
       >
         <g-upload-image
           v-model="config.border.customImage.source"
-          is-inline
+          inline="inline"
           label="图片"
         />
         <g-input
           v-model="config.border.customImage.slice"
-          is-inline
+          inline="inline"
           label="切片"
         />
         <g-input
           v-model="config.border.customImage.width"
-          is-inline
+          inline="inline"
           label="宽度"
         />
         <g-input
           v-model="config.border.customImage.outset"
-          is-inline
+          inline="inline"
           label="外扩"
         />
         <g-select
           v-model="config.border.customImage.repeat"
           :data="repeatTypes"
-          is-inline
+          inline="inline"
           label="平铺类型"
         />
       </g-field>
@@ -295,7 +296,7 @@ export default defineComponent({
       }
     }
 
-    const handleAddColorStop = () => {
+    const handleAddStopsItem = () => {
       return {
         offset: 0,
         color: '#f60',
@@ -311,7 +312,7 @@ export default defineComponent({
       imageTypes,
       presetImages,
       handleAddFillsItem,
-      handleAddColorStop,
+      handleAddStopsItem,
     }
   },
 })

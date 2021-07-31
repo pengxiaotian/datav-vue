@@ -4,9 +4,8 @@
       tooltip="支持从数据中获取标题内容，详见数据面板"
       label="标题名"
     >
-      <el-input
+      <g-input
         v-model="config.title"
-        size="mini"
       />
     </g-field>
     <g-field-collapse
@@ -17,17 +16,10 @@
         tooltip="请选择您系统有的字体,如果您系统无此字体,标题将会显示默认字体"
         label="字体"
       >
-        <el-select
+        <g-select
           v-model="config.textStyle.fontFamily"
-          size="mini"
-        >
-          <el-option
-            v-for="item in fontFamilys"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
+          :data="fontFamilys"
+        />
       </g-field>
       <g-field
         :level="2"
@@ -38,7 +30,7 @@
           :min="12"
           :max="100"
           :step="1"
-          :is-inline="false"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -53,48 +45,27 @@
         :level="2"
         label="字体粗细"
       >
-        <el-select
+        <g-select
           v-model="config.textStyle.fontWeight"
-          size="mini"
-        >
-          <el-option
-            v-for="item in fontWeights"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
+          :data="fontWeights"
+        />
       </g-field>
     </g-field-collapse>
     <g-field
       label="对齐方式"
     >
-      <el-select
+      <g-select
         v-model="config.textAlign"
-        size="mini"
-      >
-        <el-option
-          v-for="item in justifyContents"
-          :key="item.id"
-          :label="item.value"
-          :value="item.id"
-        />
-      </el-select>
+        :data="justifyContents"
+      />
     </g-field>
     <g-field
       label="文字排列方式"
     >
-      <el-select
+      <g-select
         v-model="config.writingMode"
-        size="mini"
-      >
-        <el-option
-          v-for="item in writingModes"
-          :key="item.id"
-          :label="item.value"
-          :value="item.id"
-        />
-      </el-select>
+        :data="writingModes"
+      />
     </g-field>
     <g-field
       label="文字间隔"
@@ -104,7 +75,6 @@
         :min="-88888"
         :max="88888"
         :step="0.5"
-        :is-inline="false"
         suffix="px"
       />
     </g-field>
@@ -130,7 +100,6 @@
           :min="0"
           :max="88888"
           :step="1"
-          :is-inline="false"
           suffix="px"
         />
       </g-field>
@@ -146,17 +115,10 @@
         :level="2"
         label="边框粗细"
       >
-        <el-select
+        <g-select
           v-model="config.backgroundStyle.borderStyle"
-          size="mini"
-        >
-          <el-option
-            v-for="item in lineStyles"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
+          :data="lineStyles"
+        />
       </g-field>
       <g-field
         :level="2"
@@ -167,7 +129,6 @@
           :min="0"
           :max="88888"
           :step="1"
-          :is-inline="false"
           suffix="px"
         />
       </g-field>
@@ -188,9 +149,8 @@
         :level="2"
         label="超链接"
       >
-        <el-input
+        <g-input
           v-model="config.urlConfig.url"
-          size="mini"
         />
       </g-field>
       <g-field
@@ -210,8 +170,8 @@ import { defineComponent, PropType, toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
-  writingModes,
   justifyContents,
+  writingModes,
   lineStyles,
 } from '@/data/select-options'
 import { MainTitle } from './main-title'
@@ -232,8 +192,8 @@ export default defineComponent({
 
       fontFamilys,
       fontWeights,
-      writingModes,
       justifyContents,
+      writingModes,
       lineStyles,
     }
   },

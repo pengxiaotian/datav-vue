@@ -7,13 +7,26 @@
       "alias": "标题名",
       "tip": "支持从数据中获取标题内容，详见数据面板",
       "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": "我是标题数据",
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
-    "path": "title"
+    "path": "title",
+    "virtualPath": ""
   },
   {
     "key": "textStyle",
@@ -23,13 +36,26 @@
       "alias": "文本样式",
       "tip": "",
       "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
     "path": "textStyle",
+    "virtualPath": "",
     "children": [
       {
         "key": "fontFamily",
@@ -39,13 +65,26 @@
           "alias": "字体",
           "tip": "请选择您系统有的字体,如果您系统无此字体,标题将会显示默认字体",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "Microsoft Yahei",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "textStyle.fontFamily"
+        "path": "textStyle.fontFamily",
+        "virtualPath": ""
       },
       {
         "key": "fontSize",
@@ -55,13 +94,26 @@
           "alias": "字号",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 24,
           "min": 12,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "px",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "textStyle.fontSize"
+        "path": "textStyle.fontSize",
+        "virtualPath": ""
       },
       {
         "key": "color",
@@ -71,13 +123,26 @@
           "alias": "颜色",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "#fff",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "textStyle.color"
+        "path": "textStyle.color",
+        "virtualPath": ""
       },
       {
         "key": "fontWeight",
@@ -87,13 +152,26 @@
           "alias": "字体粗细",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "normal",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "textStyle.fontWeight"
+        "path": "textStyle.fontWeight",
+        "virtualPath": ""
       }
     ],
     "cols": [
@@ -107,17 +185,30 @@
     "key": "textAlign",
     "config": {
       "type": "string",
-      "component": "justify",
+      "component": "justifyContent",
       "alias": "对齐方式",
       "tip": "",
       "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": "center",
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
-    "path": "textAlign"
+    "path": "textAlign",
+    "virtualPath": ""
   },
   {
     "key": "writingMode",
@@ -127,13 +218,26 @@
       "alias": "文字排列方式",
       "tip": "",
       "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": "horizontal-tb",
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
-    "path": "writingMode"
+    "path": "writingMode",
+    "virtualPath": ""
   },
   {
     "key": "letterSpacing",
@@ -143,14 +247,26 @@
       "alias": "文字间隔",
       "tip": "",
       "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": 0,
       "min": -88888,
       "max": 88888,
       "step": 0.5,
-      "suffix": "px"
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "px",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
-    "path": "letterSpacing"
+    "path": "letterSpacing",
+    "virtualPath": ""
   },
   {
     "key": "backgroundStyle",
@@ -160,13 +276,26 @@
       "alias": "背景样式",
       "tip": "",
       "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "show",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
     "path": "backgroundStyle",
+    "virtualPath": "",
     "children": [
       {
         "key": "show",
@@ -176,13 +305,26 @@
           "alias": "",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": false,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "backgroundStyle.show"
+        "path": "backgroundStyle.show",
+        "virtualPath": ""
       },
       {
         "key": "bgColor",
@@ -192,13 +334,26 @@
           "alias": "背景色",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "#008bff",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "backgroundStyle.bgColor"
+        "path": "backgroundStyle.bgColor",
+        "virtualPath": ""
       },
       {
         "key": "borderRadius",
@@ -208,14 +363,26 @@
           "alias": "圆角",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 15,
           "min": 0,
           "max": 88888,
           "step": 1,
-          "suffix": "px"
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "px",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "backgroundStyle.borderRadius"
+        "path": "backgroundStyle.borderRadius",
+        "virtualPath": ""
       },
       {
         "key": "borderColor",
@@ -225,13 +392,26 @@
           "alias": "边框颜色",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "#fff",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "backgroundStyle.borderColor"
+        "path": "backgroundStyle.borderColor",
+        "virtualPath": ""
       },
       {
         "key": "borderStyle",
@@ -241,13 +421,26 @@
           "alias": "边框粗细",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "solid",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "backgroundStyle.borderStyle"
+        "path": "backgroundStyle.borderStyle",
+        "virtualPath": ""
       },
       {
         "key": "borderWidth",
@@ -257,14 +450,26 @@
           "alias": "边框粗细",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 1,
           "min": 0,
           "max": 88888,
           "step": 1,
-          "suffix": "px"
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "px",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "backgroundStyle.borderWidth"
+        "path": "backgroundStyle.borderWidth",
+        "virtualPath": ""
       }
     ],
     "cols": [
@@ -284,13 +489,26 @@
       "alias": "省略号",
       "tip": "溢出文本加省略号",
       "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": false,
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
-    "path": "ellipsis"
+    "path": "ellipsis",
+    "virtualPath": ""
   },
   {
     "key": "urlConfig",
@@ -300,13 +518,26 @@
       "alias": "超链接配置",
       "tip": "点击标题区域可跳转至设定的超链接",
       "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
-      "step": 1
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
     },
     "path": "urlConfig",
+    "virtualPath": "",
     "children": [
       {
         "key": "url",
@@ -316,13 +547,26 @@
           "alias": "超链接",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "",
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "urlConfig.url"
+        "path": "urlConfig.url",
+        "virtualPath": ""
       },
       {
         "key": "isBlank",
@@ -332,13 +576,26 @@
           "alias": "是否新开窗口",
           "tip": "",
           "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": false,
           "min": 0,
           "max": 100,
-          "step": 1
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
         },
-        "path": "urlConfig.isBlank"
+        "path": "urlConfig.isBlank",
+        "virtualPath": ""
       }
     ],
     "cols": [

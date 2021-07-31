@@ -7,9 +7,8 @@
         :level="2"
         label="日期"
       >
-        <el-input
+        <g-input
           v-model="config.global.date"
-          size="mini"
         />
       </g-field>
       <g-field
@@ -17,86 +16,68 @@
         tooltip="请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体"
         label="字体"
       >
-        <el-select
+        <g-select
           v-model="config.global.fontFamily"
-          size="mini"
-        >
-          <el-option
-            v-for="item in fontFamilys"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
+          :data="fontFamilys"
+        />
       </g-field>
     </g-field-collapse>
     <g-field-collapse
       label="文本框"
     >
-      <g-field-collapse
+      <g-field
+        :level="2"
         label="大小"
+        :is-flat="true"
       >
-        <g-field
-          :level="2"
+        <g-input-number
+          v-model="config.input.size.width"
+          :min="40"
+          :max="1000"
+          :step="5"
+          suffix="px"
+          inline="inline"
           label="宽度"
-        >
-          <g-input-number
-            v-model="config.input.size.width"
-            :min="40"
-            :max="1000"
-            :step="5"
-            :is-inline="false"
-          />
-        </g-field>
-        <g-field
-          :level="2"
+        />
+        <g-input-number
+          v-model="config.input.size.height"
+          :min="20"
+          :max="100"
+          :step="5"
+          suffix="px"
+          inline="inline"
           label="高度"
-        >
-          <g-input-number
-            v-model="config.input.size.height"
-            :min="20"
-            :max="100"
-            :step="5"
-            :is-inline="false"
-          />
-        </g-field>
-      </g-field-collapse>
-      <g-field-collapse
+        />
+      </g-field>
+      <g-field
+        :level="2"
         label="边框"
+        :is-flat="true"
       >
-        <g-field
-          :level="2"
+        <g-input-number
+          v-model="config.input.border.width"
+          :min="1"
+          :max="10"
+          :step="1"
+          suffix="px"
+          inline="inline"
           label="宽度"
-        >
-          <g-input-number
-            v-model="config.input.border.width"
-            :min="1"
-            :max="10"
-            :step="1"
-            :is-inline="false"
-          />
-        </g-field>
-        <g-field
-          :level="2"
+        />
+        <g-color-picker
+          v-model="config.input.border.color"
+          inline="inline"
           label="颜色"
-        >
-          <g-color-picker
-            v-model="config.input.border.color"
-          />
-        </g-field>
-        <g-field
-          :level="2"
+        />
+        <g-input-number
+          v-model="config.input.border.radius"
+          :min="0"
+          :max="100"
+          :step="0.5"
+          suffix="px"
+          inline="inline-single"
           label="圆角"
-        >
-          <g-input-number
-            v-model="config.input.border.radius"
-            :min="0"
-            :max="100"
-            :step="0.5"
-            :is-inline="false"
-          />
-        </g-field>
-      </g-field-collapse>
+        />
+      </g-field>
       <g-field
         :level="2"
         label="背景颜色"
@@ -114,7 +95,7 @@
           :min="12"
           :max="60"
           :step="1"
-          :is-inline="false"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -129,26 +110,18 @@
         :level="2"
         label="时间分隔符"
       >
-        <el-input
+        <g-input
           v-model="config.input.separator"
-          size="mini"
         />
       </g-field>
       <g-field
         :level="2"
         label="文字位置"
       >
-        <el-select
+        <g-select
           v-model="config.input.pos"
-          size="mini"
-        >
-          <el-option
-            v-for="item in hAligns"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
+          :data="hAligns"
+        />
       </g-field>
     </g-field-collapse>
     <g-field-collapse
@@ -163,7 +136,7 @@
           :min="12"
           :max="60"
           :step="1"
-          :is-inline="false"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -190,106 +163,88 @@
           v-model="config.calendar.selectBGColor"
         />
       </g-field>
-      <g-field-collapse
+      <g-field
+        :level="2"
         label="外边框"
+        :is-flat="true"
       >
-        <g-field
-          :level="2"
+        <g-input-number
+          v-model="config.calendar.border.width"
+          :min="0"
+          :max="100"
+          :step="1"
+          suffix="px"
+          inline="inline"
           label="宽度"
-        >
-          <g-input-number
-            v-model="config.calendar.border.width"
-            :min="0"
-            :max="100"
-            :step="1"
-            :is-inline="false"
-          />
-        </g-field>
-        <g-field
-          :level="2"
+        />
+        <g-color-picker
+          v-model="config.calendar.border.color"
+          inline="inline"
           label="颜色"
-        >
-          <g-color-picker
-            v-model="config.calendar.border.color"
-          />
-        </g-field>
-        <g-field
-          :level="2"
+        />
+        <g-input-number
+          v-model="config.calendar.border.radius"
+          :min="0"
+          :max="100"
+          :step="1"
+          suffix="px"
+          inline="inline-single"
           label="圆角"
-        >
-          <g-input-number
-            v-model="config.calendar.border.radius"
-            :min="0"
-            :max="100"
-            :step="1"
-            :is-inline="false"
-          />
-        </g-field>
-      </g-field-collapse>
-      <g-field-collapse
+        />
+      </g-field>
+      <g-field
+        :level="2"
         label="内边框"
+        :is-flat="true"
       >
-        <g-field
-          :level="2"
+        <g-input-number
+          v-model="config.calendar.paddingBorder.width"
+          :min="0"
+          :max="100"
+          :step="1"
+          suffix="px"
+          inline="inline"
           label="宽度"
-        >
-          <g-input-number
-            v-model="config.calendar.paddingBorder.width"
-            :min="0"
-            :max="100"
-            :step="1"
-            :is-inline="false"
-          />
-        </g-field>
-        <g-field
-          :level="2"
+        />
+        <g-color-picker
+          v-model="config.calendar.paddingBorder.color"
+          inline="inline"
           label="颜色"
-        >
-          <g-color-picker
-            v-model="config.calendar.paddingBorder.color"
-          />
-        </g-field>
-        <g-field
-          :level="2"
+        />
+        <g-input-number
+          v-model="config.calendar.paddingBorder.padding"
+          :min="0"
+          :max="100"
+          :step="0.5"
+          suffix="px"
+          inline="inline-single"
           label="内边距"
-        >
-          <g-input-number
-            v-model="config.calendar.paddingBorder.padding"
-            :min="0"
-            :max="100"
-            :step="0.5"
-            :is-inline="false"
-          />
-        </g-field>
-      </g-field-collapse>
-      <g-field-collapse
+        />
+      </g-field>
+      <g-field
+        :level="2"
         label="选择器内边距"
+        :is-flat="true"
       >
-        <g-field
-          :level="2"
+        <g-input-number
+          v-model="config.calendar.select.time"
+          :min="0"
+          :max="100"
+          :step="0.5"
+          suffix="px"
+          inline="inline"
           label="时间"
-        >
-          <g-input-number
-            v-model="config.calendar.select.time"
-            :min="0"
-            :max="100"
-            :step="0.5"
-            :is-inline="false"
-          />
-        </g-field>
-        <g-field
-          :level="2"
+        />
+        <g-input-number
+          v-model="config.calendar.select.today"
+          :min="0"
+          :max="100"
+          :step="0.5"
+          suffix="px"
+          inline="inline"
           label="今"
-        >
-          <g-input-number
-            v-model="config.calendar.select.today"
-            :min="0"
-            :max="100"
-            :step="0.5"
-            :is-inline="false"
-          />
-        </g-field>
-      </g-field-collapse>
+        />
+      </g-field>
     </g-field-collapse>
   </div>
 </template>

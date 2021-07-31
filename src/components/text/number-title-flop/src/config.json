@@ -10,16 +10,20 @@
       "features": [],
       "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
       "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
       "suffix": "",
       "enums": [],
       "whichEnum": {
         "field": "",
         "value": ""
-      }
+      },
+      "flatValue": false
     },
     "path": "global",
     "virtualPath": "",
@@ -35,16 +39,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "Microsoft Yahei",
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "global.fontFamily",
         "virtualPath": ""
@@ -60,16 +68,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "top",
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "global.arrangement",
         "virtualPath": ""
@@ -85,16 +97,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 0,
           "min": -100,
           "max": 500,
           "step": 0.5,
-          "suffix": "",
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "px",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "global.distance",
         "virtualPath": ""
@@ -117,16 +133,20 @@
       "features": [],
       "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
       "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
       "suffix": "",
       "enums": [],
       "whichEnum": {
         "field": "",
         "value": ""
-      }
+      },
+      "flatValue": false
     },
     "path": "title",
     "virtualPath": "",
@@ -142,16 +162,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "我是标题",
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "title.content",
         "virtualPath": ""
@@ -167,16 +191,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "title.textStyle",
         "virtualPath": "",
@@ -188,20 +216,24 @@
               "component": "number",
               "alias": "字号",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 18,
               "min": 12,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "title.textStyle.fontSize",
             "virtualPath": ""
@@ -213,20 +245,24 @@
               "component": "color",
               "alias": "字体颜色",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "#79daff",
               "min": 0,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "title.textStyle.color",
             "virtualPath": ""
@@ -238,20 +274,24 @@
               "component": "fontWeight",
               "alias": "字体粗细",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "normal",
               "min": 0,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "title.textStyle.fontWeight",
             "virtualPath": ""
@@ -260,23 +300,27 @@
             "key": "textAlign",
             "config": {
               "type": "string",
-              "component": "justify",
+              "component": "justifyContent",
               "alias": "对齐方式",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "left",
               "min": 0,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "title.textStyle.textAlign",
             "virtualPath": ""
@@ -306,16 +350,20 @@
       "features": [],
       "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
       "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
       "suffix": "",
       "enums": [],
       "whichEnum": {
         "field": "",
         "value": ""
-      }
+      },
+      "flatValue": false
     },
     "path": "counter",
     "virtualPath": "",
@@ -331,16 +379,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "Microsoft Yahei",
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "counter.fontFamily",
         "virtualPath": ""
@@ -349,23 +401,27 @@
         "key": "justifyContent",
         "config": {
           "type": "string",
-          "component": "justify",
+          "component": "justifyContent",
           "alias": "水平对齐",
           "tip": "",
           "displayMode": "single",
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "flex-start",
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "counter.justifyContent",
         "virtualPath": ""
@@ -381,16 +437,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "counter.margin",
         "virtualPath": "",
@@ -402,20 +462,24 @@
               "component": "number",
               "alias": "前缀-数字",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 0,
               "min": -1000,
               "max": 1000,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "counter.margin.preNum",
             "virtualPath": ""
@@ -427,20 +491,24 @@
               "component": "number",
               "alias": "数字-后缀",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 0,
               "min": -1000,
               "max": 1000,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "counter.margin.numSuff",
             "virtualPath": ""
@@ -462,16 +530,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "counter.prefix",
         "virtualPath": "",
@@ -487,16 +559,20 @@
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "￥",
               "min": 0,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "counter.prefix.content",
             "virtualPath": ""
@@ -512,16 +588,20 @@
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": null,
               "min": 0,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "counter.prefix.textStyle",
             "virtualPath": "",
@@ -533,20 +613,24 @@
                   "component": "number",
                   "alias": "字号",
                   "tip": "",
-                  "displayMode": "single",
+                  "displayMode": "inline",
                   "features": [],
                   "layout": "horizontal",
                   "toggleCol": "",
+                  "isHide": false,
                   "defaultValue": 36,
                   "min": 12,
                   "max": 100,
                   "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
                   "suffix": "px",
                   "enums": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
-                  }
+                  },
+                  "flatValue": false
                 },
                 "path": "counter.prefix.textStyle.fontSize",
                 "virtualPath": ""
@@ -558,20 +642,24 @@
                   "component": "color",
                   "alias": "字体颜色",
                   "tip": "",
-                  "displayMode": "single",
+                  "displayMode": "inline",
                   "features": [],
                   "layout": "horizontal",
                   "toggleCol": "",
+                  "isHide": false,
                   "defaultValue": "#0a73ff",
                   "min": 0,
                   "max": 100,
                   "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
-                  }
+                  },
+                  "flatValue": false
                 },
                 "path": "counter.prefix.textStyle.color",
                 "virtualPath": ""
@@ -583,20 +671,24 @@
                   "component": "fontWeight",
                   "alias": "字体粗细",
                   "tip": "",
-                  "displayMode": "single",
+                  "displayMode": "inline-single",
                   "features": [],
                   "layout": "horizontal",
                   "toggleCol": "",
+                  "isHide": false,
                   "defaultValue": "bolder",
                   "min": 0,
                   "max": 100,
                   "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
-                  }
+                  },
+                  "flatValue": false
                 },
                 "path": "counter.prefix.textStyle.fontWeight",
                 "virtualPath": ""
@@ -625,16 +717,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "counter.suffix",
         "virtualPath": "",
@@ -650,16 +746,20 @@
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "",
               "min": 0,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "counter.suffix.content",
             "virtualPath": ""
@@ -675,16 +775,20 @@
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": null,
               "min": 0,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "counter.suffix.textStyle",
             "virtualPath": "",
@@ -696,20 +800,24 @@
                   "component": "number",
                   "alias": "字号",
                   "tip": "",
-                  "displayMode": "single",
+                  "displayMode": "inline",
                   "features": [],
                   "layout": "horizontal",
                   "toggleCol": "",
+                  "isHide": false,
                   "defaultValue": 30,
                   "min": 12,
                   "max": 100,
                   "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
                   "suffix": "px",
                   "enums": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
-                  }
+                  },
+                  "flatValue": false
                 },
                 "path": "counter.suffix.textStyle.fontSize",
                 "virtualPath": ""
@@ -721,20 +829,24 @@
                   "component": "color",
                   "alias": "字体颜色",
                   "tip": "",
-                  "displayMode": "single",
+                  "displayMode": "inline",
                   "features": [],
                   "layout": "horizontal",
                   "toggleCol": "",
+                  "isHide": false,
                   "defaultValue": "#fff",
                   "min": 0,
                   "max": 100,
                   "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
-                  }
+                  },
+                  "flatValue": false
                 },
                 "path": "counter.suffix.textStyle.color",
                 "virtualPath": ""
@@ -746,20 +858,24 @@
                   "component": "fontWeight",
                   "alias": "字体粗细",
                   "tip": "",
-                  "displayMode": "single",
+                  "displayMode": "inline-single",
                   "features": [],
                   "layout": "horizontal",
                   "toggleCol": "",
+                  "isHide": false,
                   "defaultValue": "bolder",
                   "min": 0,
                   "max": 100,
                   "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
-                  }
+                  },
+                  "flatValue": false
                 },
                 "path": "counter.suffix.textStyle.fontWeight",
                 "virtualPath": ""
@@ -797,16 +913,20 @@
       "features": [],
       "layout": "horizontal",
       "toggleCol": "",
+      "isHide": false,
       "defaultValue": null,
       "min": 0,
       "max": 100,
       "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
       "suffix": "",
       "enums": [],
       "whichEnum": {
         "field": "",
         "value": ""
-      }
+      },
+      "flatValue": false
     },
     "path": "numbers",
     "virtualPath": "",
@@ -822,16 +942,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": null,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.textStyle",
         "virtualPath": "",
@@ -847,16 +971,20 @@
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": 36,
               "min": 12,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "numbers.textStyle.fontSize",
             "virtualPath": ""
@@ -872,16 +1000,20 @@
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "#0a73ff",
               "min": 0,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "numbers.textStyle.color",
             "virtualPath": ""
@@ -897,16 +1029,20 @@
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
+              "isHide": false,
               "defaultValue": "bolder",
               "min": 0,
               "max": 100,
               "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
               "suffix": "",
               "enums": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
-              }
+              },
+              "flatValue": false
             },
             "path": "numbers.textStyle.fontWeight",
             "virtualPath": ""
@@ -929,16 +1065,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 0,
           "min": 0,
           "max": 10,
           "step": 0.5,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.marginRight",
         "virtualPath": ""
@@ -954,16 +1094,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": "rgba(51,51,51,0)",
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.bgColor",
         "virtualPath": ""
@@ -979,16 +1123,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 6,
           "min": 0,
           "max": 1000,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.bgRadius",
         "virtualPath": ""
@@ -1004,16 +1152,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": false,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.bgSeparating",
         "virtualPath": ""
@@ -1029,16 +1181,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 0,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.digit",
         "virtualPath": ""
@@ -1054,16 +1210,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 0,
           "min": 0,
           "max": 8,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.decimal",
         "virtualPath": ""
@@ -1079,16 +1239,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 0,
-          "min": -8888888,
-          "max": 8888888,
+          "min": 0,
+          "max": 100,
           "step": 1,
+          "InfiniteMin": true,
+          "InfiniteMax": true,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.divisor",
         "virtualPath": ""
@@ -1104,16 +1268,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": true,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.separatingChart",
         "virtualPath": ""
@@ -1129,16 +1297,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": ",",
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.separatingSymbol",
         "virtualPath": ""
@@ -1154,16 +1326,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": ".",
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.decimalSymbol",
         "virtualPath": ""
@@ -1179,16 +1355,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 0,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.fixedWidth",
         "virtualPath": ""
@@ -1204,16 +1384,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": true,
           "defaultValue": true,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.increment",
         "virtualPath": ""
@@ -1229,16 +1413,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": true,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.animation",
         "virtualPath": ""
@@ -1254,16 +1442,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": true,
           "defaultValue": false,
           "min": 0,
           "max": 100,
           "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
           "suffix": "",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.sameDataFlip",
         "virtualPath": ""
@@ -1279,16 +1471,20 @@
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
+          "isHide": false,
           "defaultValue": 1000,
           "min": 0,
           "max": 100000,
           "step": 500,
-          "suffix": "",
+          "InfiniteMin": false,
+          "InfiniteMax": true,
+          "suffix": "ms",
           "enums": [],
           "whichEnum": {
             "field": "",
             "value": ""
-          }
+          },
+          "flatValue": false
         },
         "path": "numbers.duration",
         "virtualPath": ""
