@@ -257,7 +257,13 @@ export class BasicBar extends DatavEChartsComponent {
 
     this.apiData = initApiData(this.id)
 
-    this.events = {}
+    this.events = {
+      click: {
+        description: '当点击数据项时',
+        fields: Object.assign({}, ...fields),
+      },
+    }
+
     this.actions = {}
     return this
   }

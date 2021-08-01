@@ -1,6 +1,10 @@
 <template>
   <div class="datav-wrapper" :style="wrapperStyle">
-    <v-chart :option="option" autoresize />
+    <v-chart
+      :option="option"
+      autoresize
+      @click="onClick"
+    />
   </div>
 </template>
 
@@ -38,7 +42,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    useDataCenter(props.com)
+    const { datavEmit } = useDataCenter(props.com)
 
     const dv_data = computed(() => {
       return ApiModule.dataMap[props.com.id]?.source ?? []
@@ -96,7 +100,13 @@ export default defineComponent({
           backgroundStyle: {
             color: global.background.color,
           },
-          data: values.map(v => v[idx] ? v[idx][dv_field.value.y] : null),
+          data: values.map(v => {
+            const obj = v[idx]
+            return {
+              value: obj ? obj[dv_field.value.y] : null,
+              dataRef: obj ?? {},
+            }
+          }),
         }
       })
     }
@@ -277,9 +287,20 @@ export default defineComponent({
       return opts
     })
 
+    const onClick = (params: any) => {
+      datavEmit(
+        'click',
+        {
+          ...params.data.dataRef,
+          x: params.name,
+          y: params.value,
+        })
+    }
+
     return {
       wrapperStyle,
       option,
+      onClick,
     }
   },
 })

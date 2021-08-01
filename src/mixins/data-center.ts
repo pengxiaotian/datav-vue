@@ -1,4 +1,5 @@
 import { ref, toRefs, watch, onUnmounted, getCurrentInstance } from 'vue'
+import { debounce } from 'lodash-es'
 import { MessageUtil } from '@/utils/message-util'
 import { isPlainObject, isArray } from '@/utils/util'
 import { EditorModule } from '@/store/modules/editor'
@@ -197,7 +198,7 @@ export const useDataCenter = (com: DatavComponent) => {
   })
 
   // ------初始化默认公共动作------
-  instance.$DATAV_requestData = () => {
+  instance.$DATAV_requestData = debounce(() => {
     stopAutoRefreshData()
 
     const arr: Promise<void>[] = []
@@ -207,7 +208,7 @@ export const useDataCenter = (com: DatavComponent) => {
     Promise.all(arr).then(() => {
       autoRefreshData()
     })
-  }
+  }, 300)
 
   // 保存每个组件实例
   BlueprintModule.setDatavComponentInstance({ key: com.id, ins: instance })

@@ -80,7 +80,6 @@ export class DatePicker extends DatavComponent {
 
     this.events = {
       changed: {
-        type: 'string',
         description: '当日期变化时',
         fields: Object.assign({}, ...fields),
       },
