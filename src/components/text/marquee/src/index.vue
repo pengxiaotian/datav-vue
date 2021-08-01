@@ -16,9 +16,9 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { debounce } from 'lodash-es'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
-import { debounce } from 'lodash-es'
 import { Marquee } from './marquee'
 
 export default defineComponent({
@@ -48,8 +48,8 @@ export default defineComponent({
     const transform = ref('')
     const transition = ref('')
     const width = ref(0)
-    const timeId1 = ref<number>(0)
-    const timeId2 = ref<number>(0)
+    const timeId1 = ref(0)
+    const timeId2 = ref(0)
 
     const wrapperStyle = computed(() => {
       return {

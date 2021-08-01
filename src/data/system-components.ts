@@ -191,7 +191,7 @@ export const title = {
       alias: '多行文本',
       img: `${import.meta.env.VITE_APP_CDN}/com/paragraph-160-116.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/paragraph-370-208.png`,
-      used: false,
+      used: true,
     }, {
       name: 'VTimer',
       alias: '时间器',
