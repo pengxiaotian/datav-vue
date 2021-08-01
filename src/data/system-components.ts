@@ -179,7 +179,7 @@ export const title = {
       alias: '跑马灯',
       img: `${import.meta.env.VITE_APP_CDN}/com/marquee-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/marquee-370-208.png`,
-      used: false,
+      used: true,
     }, {
       name: 'VNumberTitleFlop',
       alias: '数字翻牌器',

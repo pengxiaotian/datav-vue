@@ -3,13 +3,13 @@
     <g-field label="图表尺寸" :is-flat="true">
       <g-input-number
         v-model="attr.w"
-        :min="100"
+        :min="10"
         :max="888888"
         inline
       />
       <g-input-number
         v-model="attr.h"
-        :min="100"
+        :min="10"
         :max="888888"
         inline
       />

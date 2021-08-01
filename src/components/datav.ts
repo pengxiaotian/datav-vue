@@ -1,6 +1,7 @@
 import { MainTitle } from './text/main-title/src/main-title'
-
 import { NumberTitleFlop } from './text/number-title-flop/src/number-title-flop'
+import { Marquee } from './text/marquee/src/marquee'
+
 import { DatePicker } from './other/date-picker/src/date-picker'
 
 import { BgBox } from './media/bg-box/src/bg-box'
@@ -25,6 +26,8 @@ export function createComponent(name: string) {
       return new Decoration()
     case 'BasicBar':
       return new BasicBar()
+    case 'Marquee':
+      return new Marquee()
     default:
       throw Error(`Unknown component type: ${name}.`)
   }

@@ -1,6 +1,7 @@
 import type { App } from 'vue'
 import VMainTitle from './text/main-title'
 import VNumberTitleFlop from './text/number-title-flop'
+import VMarquee from './text/marquee'
 
 import VDatePicker from './other/date-picker'
 
@@ -18,6 +19,7 @@ const components = [
   VBorderBox,
   VDecoration,
   VBasicBar,
+  VMarquee,
 ]
 
 const install = (app: App): void => {
