@@ -2,6 +2,7 @@ import { MainTitle } from './text/main-title/src/main-title'
 import { NumberTitleFlop } from './text/number-title-flop/src/number-title-flop'
 import { Marquee } from './text/marquee/src/marquee'
 import { Paragraph } from './text/paragraph/src/paragraph'
+import { Timer } from './text/timer/src/timer'
 
 import { DatePicker } from './other/date-picker/src/date-picker'
 
@@ -31,6 +32,8 @@ export function createComponent(name: string) {
       return new Marquee()
     case 'Paragraph':
       return new Paragraph()
+    case 'Timer':
+      return new Timer()
     default:
       throw Error(`Unknown component type: ${name}.`)
   }

@@ -197,7 +197,7 @@ export const title = {
       alias: '时间器',
       img: `${import.meta.env.VITE_APP_CDN}/com/timer-160-116.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/timer-370-208.png`,
-      used: false,
+      used: true,
     },
   ],
 }
