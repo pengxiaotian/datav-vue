@@ -1,1 +1,0 @@
-import{x as t}from"./index.76b85017.js";async function n(){return t.get("/templates/tpl-list.json")}async function s(n){return t.get(`/templates/tpl-${n}.json`)}export{s as a,n as g};
