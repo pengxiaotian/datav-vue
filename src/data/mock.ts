@@ -6,7 +6,7 @@ import { BlueprintModule } from '@/store/modules/blueprint'
 export const useMock = () => {
   const { pageConfig } = EditorModule
 
-  const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar', 'VMarquee', 'VParagraph', 'VTimer']
+  const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar', 'VMarquee', 'VParagraph', 'VTimer', 'VFullScreen', 'VMainImg']
   names.forEach(name => {
     const com = createComponent(name)
     // com.apis.source.useAutoUpdate = true
