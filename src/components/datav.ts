@@ -9,6 +9,7 @@ import { DatePicker } from './other/date-picker/src/date-picker'
 import { BgBox } from './media/bg-box/src/bg-box'
 import { BorderBox } from './media/border-box/src/border-box'
 import { Decoration } from './media/decoration/src/decoration'
+import { MainImg } from './media/main-img/src/main-img'
 
 import { BasicBar } from './bar/basic-bar/src/basic-bar'
 
@@ -38,6 +39,8 @@ export function createComponent(name: string) {
       return new Timer()
     case 'FullScreen':
       return new FullScreen()
+    case 'MainImg':
+      return new MainImg()
     default:
       throw Error(`Unknown component type: ${name}.`)
   }

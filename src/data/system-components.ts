@@ -296,7 +296,7 @@ export const material = {
       alias: '单张图片',
       img: `${import.meta.env.VITE_APP_CDN}/com/main-img-334-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/main-img-370-208.png`,
-      used: false,
+      used: true,
     },
   ],
 }

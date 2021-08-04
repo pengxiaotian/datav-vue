@@ -176,3 +176,8 @@ export const timeFormats = [
   { id: 'YYYY/MM', value: '2012/01(年/月)' },
   { id: 'MM/DD', value: '01/01(月/日)' },
 ]
+
+export const imageTypes = [
+  { id: 'bitmap', value: '位图' },
+  { id: 'vector', value: '矢量图' },
+]

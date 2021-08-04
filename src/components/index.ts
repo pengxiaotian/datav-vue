@@ -10,6 +10,7 @@ import VDatePicker from './other/date-picker'
 import VBgBox from './media/bg-box'
 import VBorderBox from './media/border-box'
 import VDecoration from './media/decoration'
+import VMainImg from './media/main-img'
 
 import VBasicBar from './bar/basic-bar'
 
@@ -27,6 +28,7 @@ const components = [
   VParagraph,
   VTimer,
   VFullScreen,
+  VMainImg,
 ]
 
 const install = (app: App): void => {

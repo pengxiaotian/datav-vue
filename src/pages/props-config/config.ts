@@ -23,10 +23,11 @@ import {
   axisTypes,
   valueFormats,
   timeFormats,
+  imageTypes,
 } from '@/data/select-options'
 
 // 用于生成模板
-export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'legendIcons', 'orients', 'axisTypes', 'valueFormats', 'timeFormats']
+export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'legendIcons', 'orients', 'axisTypes', 'valueFormats', 'timeFormats', 'imageTypes']
 
 export enum PropDataType {
   unknown = 'unknown',
@@ -71,6 +72,7 @@ export enum ComponentType {
   axisType = 'axisType',
   valueFormat = 'valueFormat',
   timeFormat = 'timeFormat',
+  imageType = 'imageType',
 }
 
 export enum DisplayMode {
@@ -313,6 +315,10 @@ export const getSelectedOptions = (type: ComponentType) => {
 
   if (type === ComponentType.timeFormat) {
     return timeFormats
+  }
+
+  if (type === ComponentType.imageType) {
+    return imageTypes
   }
 
   return []
