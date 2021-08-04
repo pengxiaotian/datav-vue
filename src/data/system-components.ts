@@ -233,7 +233,7 @@ export const button = {
       alias: '全屏切换',
       img: `${import.meta.env.VITE_APP_CDN}/com/full-screen-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/full-screen-368-208.png`,
-      used: false,
+      used: true,
     },
   ],
 }
@@ -349,7 +349,7 @@ export const classifications = [
   },
   {
     type: 'interact',
-    name: '交互',
+    name: '控件',
     icon: 'v-icon-interact',
     data: [button, select, interactData],
   },

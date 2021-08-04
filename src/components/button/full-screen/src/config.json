@@ -1,0 +1,147 @@
+[
+  {
+    "key": "request",
+    "config": {
+      "type": "string",
+      "component": "uploadImage",
+      "alias": "全屏显示",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": "https://files.pengxiaotian.com/datav/fsrequest.png",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
+    },
+    "path": "request",
+    "virtualPath": ""
+  },
+  {
+    "key": "exit",
+    "config": {
+      "type": "string",
+      "component": "uploadImage",
+      "alias": "退出全屏",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": "https://files.pengxiaotian.com/datav/fsexit.png",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
+    },
+    "path": "exit",
+    "virtualPath": ""
+  },
+  {
+    "key": "bgColor",
+    "config": {
+      "type": "string",
+      "component": "color",
+      "alias": "背景颜色",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": "rgba(255, 255, 255, 0.2)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
+    },
+    "path": "bgColor",
+    "virtualPath": ""
+  },
+  {
+    "key": "borderRadius",
+    "config": {
+      "type": "number",
+      "component": "slider",
+      "alias": "圆角",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": 50,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "%",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
+    },
+    "path": "borderRadius",
+    "virtualPath": ""
+  },
+  {
+    "key": "alwaysShow",
+    "config": {
+      "type": "boolean",
+      "component": "switch",
+      "alias": "始终显示图片背景",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": true,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
+    },
+    "path": "alwaysShow",
+    "virtualPath": ""
+  }
+]

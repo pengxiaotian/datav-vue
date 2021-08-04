@@ -13,6 +13,8 @@ import VDecoration from './media/decoration'
 
 import VBasicBar from './bar/basic-bar'
 
+import VFullScreen from './button/full-screen'
+
 const components = [
   VMainTitle,
   VNumberTitleFlop,
@@ -24,6 +26,7 @@ const components = [
   VMarquee,
   VParagraph,
   VTimer,
+  VFullScreen,
 ]
 
 const install = (app: App): void => {

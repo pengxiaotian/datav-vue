@@ -12,6 +12,8 @@ import { Decoration } from './media/decoration/src/decoration'
 
 import { BasicBar } from './bar/basic-bar/src/basic-bar'
 
+import { FullScreen } from './button/full-screen/src/full-screen'
+
 export function createComponent(name: string) {
   switch (name.substr(1)) {
     case 'MainTitle':
@@ -34,6 +36,8 @@ export function createComponent(name: string) {
       return new Paragraph()
     case 'Timer':
       return new Timer()
+    case 'FullScreen':
+      return new FullScreen()
     default:
       throw Error(`Unknown component type: ${name}.`)
   }
