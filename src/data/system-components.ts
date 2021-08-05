@@ -21,12 +21,6 @@ export const bar = {
       img: `${import.meta.env.VITE_APP_CDN}/com/line-bar-chart-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/line-bar-chart-368-208.png`,
       used: false,
-    }, {
-      name: 'VBarWithLine',
-      alias: '折线柱图(多)',
-      img: `${import.meta.env.VITE_APP_CDN}/com/bar-with-line.png`,
-      thum: `${import.meta.env.VITE_APP_CDN}/com/bar-with-line.png`,
-      used: false,
     },
   ],
 }
@@ -312,12 +306,6 @@ export const other = {
       img: `${import.meta.env.VITE_APP_CDN}/com/date-picker.jpg`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/time-selector.jpg`,
       used: true,
-    }, {
-      name: 'VTabSelect',
-      alias: 'Tab选择器',
-      img: `${import.meta.env.VITE_APP_CDN}/com/tab-select.png`,
-      thum: `${import.meta.env.VITE_APP_CDN}/com/tab-select.png`,
-      used: false,
     },
   ],
 }
