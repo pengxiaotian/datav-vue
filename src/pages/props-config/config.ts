@@ -201,9 +201,17 @@ export const mixinPropData = (tsArr: PropDto[], jsonArr: PropDto[]) => {
     const tsItem = tsArr[i]
     const jsonItem = jsonArr.find(m => m.key === tsItem.key && m.path === tsItem.path)
     if (jsonItem) {
+      const defaultConfig = {
+        type: tsItem.config.type,
+        component: tsItem.config.component,
+        displayMode: tsItem.config.displayMode,
+        defaultValue: tsItem.config.defaultValue,
+      }
+
       tsItem.config = {
         ...tsItem.config,
         ...jsonItem.config,
+        ...defaultConfig,
       }
 
       if (tsItem.children && tsItem.children.length > 0
