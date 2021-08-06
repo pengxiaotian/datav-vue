@@ -72,8 +72,17 @@ export default defineComponent({
     }
 
     const option = computed(() => {
-      const { global, animation, series } = config.value
+      const { global, series, tooltip, animation } = config.value
       return {
+        tooltip: {
+          show: tooltip.show,
+          borderWidth: 0,
+          padding: 10,
+          textStyle: {
+            ...tooltip.textStyle,
+          },
+          backgroundColor: tooltip.backgroundColor,
+        },
         series: {
           type: 'wordCloud',
           shape: global.shape,

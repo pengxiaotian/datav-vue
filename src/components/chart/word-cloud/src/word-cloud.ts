@@ -40,6 +40,15 @@ export class WordCloud extends DatavEChartsComponent {
       new WordCloudSeries('系列2', '#3dabff'),
       new WordCloudSeries('系列3', '#79daff'),
     ],
+    tooltip: {
+      show: false,
+      textStyle: {
+        fontSize: 14,
+        color: '#fff',
+        fontWeight: 'normal',
+      },
+      backgroundColor: 'rgba(0, 0, 0, 0.65)',
+    },
     animation: {
       enabled: true,
     },

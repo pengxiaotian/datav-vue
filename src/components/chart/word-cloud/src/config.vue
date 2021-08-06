@@ -141,6 +141,46 @@
         </g-field>
       </template>
     </g-field-collapse>
+    <g-field-collapse
+      v-model="config.tooltip.show"
+      :toggle="true"
+      label="提示框"
+    >
+      <g-field
+        :level="2"
+        label="文本样式"
+        :is-flat="true"
+      >
+        <g-input-number
+          v-model="config.tooltip.textStyle.fontSize"
+          :min="12"
+          :max="100"
+          :step="1"
+          suffix="px"
+          inline="inline"
+          label="字号"
+        />
+        <g-color-picker
+          v-model="config.tooltip.textStyle.color"
+          inline="inline"
+          label="颜色"
+        />
+        <g-select
+          v-model="config.tooltip.textStyle.fontWeight"
+          :data="fontWeights"
+          inline="inline-single"
+          label="字体粗细"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="背景颜色"
+      >
+        <g-color-picker
+          v-model="config.tooltip.backgroundColor"
+        />
+      </g-field>
+    </g-field-collapse>
   </div>
 </template>
 
@@ -148,6 +188,7 @@
 import { defineComponent, PropType, toRef } from 'vue'
 import {
   fontFamilys,
+  fontWeights,
 } from '@/data/select-options'
 import { WordCloud, WordCloudSeries, drawTypes, simpleShapes } from './word-cloud'
 
@@ -170,6 +211,7 @@ export default defineComponent({
       config,
 
       fontFamilys,
+      fontWeights,
       drawTypes,
       simpleShapes,
       handleAddSeriesItem,

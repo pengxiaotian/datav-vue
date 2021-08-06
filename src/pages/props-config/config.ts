@@ -203,8 +203,6 @@ export const mixinPropData = (tsArr: PropDto[], jsonArr: PropDto[]) => {
     if (jsonItem) {
       const defaultConfig = {
         type: tsItem.config.type,
-        component: tsItem.config.component,
-        displayMode: tsItem.config.displayMode,
         defaultValue: tsItem.config.defaultValue,
       }
 
