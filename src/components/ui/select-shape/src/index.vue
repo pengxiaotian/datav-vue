@@ -24,7 +24,7 @@
       >
         <span class="g-select-shape-item">
           <span>{{ item.value }}</span>
-          <i :class="`v-icon-legend-${item.icon}`"></i>
+          <i :class="`v-icon-${item.icon}`"></i>
         </span>
       </el-option>
     </el-select>

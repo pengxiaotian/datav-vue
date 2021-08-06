@@ -15,35 +15,51 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.v-icon-legend-auto:before {
+.v-icon-shape-rect:before {
+  content: "\e608";
+}
+
+.v-icon-shape-round-rect:before {
+  content: "\e60d";
+}
+
+.v-icon-shape-empty-heart:before {
+  content: "\e623";
+}
+
+.v-icon-shape-heart:before {
+  content: "\e624";
+}
+
+.v-icon-shape-auto:before {
   content: "\e6bb";
 }
 
-.v-icon-legend-arrow:before {
+.v-icon-shape-arrow:before {
   content: "\e67d";
 }
 
-.v-icon-legend-circle:before {
+.v-icon-shape-circle:before {
   content: "\ea48";
 }
 
-.v-icon-legend-rect:before {
+.v-icon-shape-square:before {
   content: "\e628";
 }
 
-.v-icon-legend-roundRect:before {
+.v-icon-shape-round-square:before {
   content: "\e64e";
 }
 
-.v-icon-legend-hexagon:before {
+.v-icon-shape-hexagon:before {
   content: "\e649";
 }
 
-.v-icon-legend-triangle:before {
+.v-icon-shape-triangle:before {
   content: "\e64b";
 }
 
-.v-icon-legend-diamond:before {
+.v-icon-shape-diamond:before {
   content: "\e653";
 }
 

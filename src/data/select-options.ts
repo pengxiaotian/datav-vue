@@ -136,19 +136,19 @@ export const legendLocations = [
 ]
 
 export const legendIcons = [
-  { id: 'auto', value: '自适应', icon: 'auto' },
-  { id: 'circle', value: '圆形', icon: 'circle' },
-  { id: 'rect', value: '矩形', icon: 'rect' },
-  { id: 'roundRect', value: '圆角矩形', icon: 'roundRect' },
-  { id: 'triangle', value: '三矩形', icon: 'triangle' },
-  { id: 'diamond', value: '菱形', icon: 'diamond' },
-  { id: 'arrow', value: '箭头', icon: 'arrow' },
-  { id: 'emptyCircle', value: '空心圆形', icon: 'circle' },
-  { id: 'emptyRect', value: '空心矩形', icon: 'rect' },
-  { id: 'emptyRoundRect', value: '空心圆角矩形', icon: 'roundRect' },
-  { id: 'emptyTriangle', value: '空心三角形', icon: 'triangle' },
-  { id: 'emptyDiamond', value: '空心菱形', icon: 'diamond' },
-  { id: 'emptyArrow', value: '空心箭头', icon: 'arrow' },
+  { id: 'auto', value: '自适应', icon: 'shape-auto' },
+  { id: 'circle', value: '圆形', icon: 'shape-circle' },
+  { id: 'rect', value: '矩形', icon: 'shape-rect' },
+  { id: 'roundRect', value: '圆角矩形', icon: 'shape-round-rect' },
+  { id: 'triangle', value: '三矩形', icon: 'shape-triangle' },
+  { id: 'diamond', value: '菱形', icon: 'shape-diamond' },
+  { id: 'arrow', value: '箭头', icon: 'shape-arrow' },
+  { id: 'emptyCircle', value: '空心圆形', icon: 'shape-circle' },
+  { id: 'emptyRect', value: '空心矩形', icon: 'shape-rect' },
+  { id: 'emptyRoundRect', value: '空心圆角矩形', icon: 'shape-round-rect' },
+  { id: 'emptyTriangle', value: '空心三角形', icon: 'shape-triangle' },
+  { id: 'emptyDiamond', value: '空心菱形', icon: 'shape-diamond' },
+  { id: 'emptyArrow', value: '空心箭头', icon: 'shape-arrow' },
 ]
 
 export const valueFormats = [
