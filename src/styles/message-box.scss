@@ -65,4 +65,8 @@
 .el-message-box__btns {
   border-top: 1px solid $message-box-border-color;
   padding: 16px 20px 6px;
+
+  .el-button {
+    padding: 0 30px;
+  }
 }
