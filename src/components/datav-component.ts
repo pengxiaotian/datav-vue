@@ -110,9 +110,9 @@ export abstract class DatavEChartsComponent extends DatavComponent {
     series: DatavChartSeries | DatavChartSeries[]
     animation: {
       enabled: boolean
-      duration: number
-      easing: string
-      delay: number
+      duration?: number
+      easing?: string
+      delay?: number
       threshold?: number
       durationUpdate?: number
       easingUpdate?: string

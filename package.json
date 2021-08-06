@@ -24,6 +24,7 @@
     "crypto-js": "^4.0.0",
     "dayjs": "^1.10.5",
     "echarts": "^5.1.1",
+    "echarts-wordcloud": "^2.0.0",
     "element-plus": "1.0.2-beta.55",
     "gsap": "^3.6.1",
     "html2canvas": "^1.0.0-rc.7",

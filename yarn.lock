@@ -2816,6 +2816,11 @@ dot-prop@^5.1.0:
   dependencies:
     is-obj "^2.0.0"
 
+echarts-wordcloud@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/echarts-wordcloud/-/echarts-wordcloud-2.0.0.tgz#52ef817895801ffe9e99dd1bacab7686b2dec04a"
+  integrity sha512-K7l6pTklqdW7ZWzT/1CS0KhBSINr/cd7c5N1fVMzZMwLQHEwT7x+nivK7g5hkVh7WNcAv4Dn6/ZS5zMKRozC1g==
+
 echarts@^5.1.1:
   version "5.1.2"
   resolved "https://registry.npmjs.org/echarts/-/echarts-5.1.2.tgz#aa1ab0cef5b74fa2f7c620261a5f286893d30fd1"

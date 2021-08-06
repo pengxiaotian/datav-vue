@@ -16,6 +16,8 @@ import VBasicBar from './bar/basic-bar'
 
 import VFullScreen from './button/full-screen'
 
+import VWordCloud from './chart/word-cloud'
+
 const components = [
   VMainTitle,
   VNumberTitleFlop,
@@ -29,6 +31,7 @@ const components = [
   VTimer,
   VFullScreen,
   VMainImg,
+  VWordCloud,
 ]
 
 const install = (app: App): void => {

@@ -116,7 +116,7 @@ export const chart = {
       alias: '词云',
       img: `${import.meta.env.VITE_APP_CDN}/com/word-cloud-160-116.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/word-cloud-370-208.png`,
-      used: false,
+      used: true,
     },
   ],
 }

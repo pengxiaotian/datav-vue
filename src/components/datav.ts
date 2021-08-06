@@ -15,6 +15,8 @@ import { BasicBar } from './bar/basic-bar/src/basic-bar'
 
 import { FullScreen } from './button/full-screen/src/full-screen'
 
+import { WordCloud } from './chart/word-cloud/src/word-cloud'
+
 export function createComponent(name: string) {
   switch (name.substr(1)) {
     case 'MainTitle':
@@ -41,6 +43,8 @@ export function createComponent(name: string) {
       return new FullScreen()
     case 'MainImg':
       return new MainImg()
+    case 'WordCloud':
+      return new WordCloud()
     default:
       throw Error(`Unknown component type: ${name}.`)
   }

@@ -1,0 +1,105 @@
+import { DatavEChartsComponent, DatavChartSeries } from '@/components/datav-component'
+import {
+  ApiConfigMap, ApiDataConfigMap,
+  initApiConfig, initApiData,
+} from '@/components/data-source'
+import { createField } from '@/components/data-field'
+import { DataEventConfig } from '@/components/data-event'
+import { getStaticData } from '@/api/data'
+
+export class WordCloudSeries extends DatavChartSeries {
+  color = '#fff'
+
+  constructor(name: string, color: string) {
+    super('wordCloud', name)
+
+    this.color = color
+  }
+}
+
+/**
+ * WordCloud
+ */
+export class WordCloud extends DatavEChartsComponent {
+  config = {
+    global: {
+      fontFamily: 'Microsoft Yahei',
+      max: 35,
+      min: 14,
+      rotationRange: {
+        min: -90,
+        max: 90,
+      },
+      rotate: 45,
+      drawType: 'preset',
+      shape: 'circle',
+      image: 'https://files.pengxiaotian.com/datav/echarts-logo.png',
+    },
+    series: [
+      new WordCloudSeries('系列1', '#0a73ff'),
+      new WordCloudSeries('系列2', '#3dabff'),
+      new WordCloudSeries('系列3', '#79daff'),
+    ],
+    animation: {
+      enabled: true,
+    },
+  }
+
+  apis: Partial<ApiConfigMap>
+  apiData: Partial<ApiDataConfigMap>
+
+  events: Record<string, DataEventConfig>
+
+  actions: Record<string, DataEventConfig>
+
+  constructor() {
+    super('WordCloud', { w: 300, h: 200 })
+
+    this.initData()
+  }
+
+  initData() {
+    const fields = [
+      createField('name', { description: '名称' }),
+      createField('value', { description: '值' }),
+      createField('type', { description: '系列' }),
+    ]
+
+    this.apis = initApiConfig({
+      fields: Object.assign({}, ...fields),
+    })
+
+    this.apiData = initApiData(this.id)
+
+    this.events = {}
+    this.actions = {}
+
+    return this
+  }
+
+  async loadData() {
+    try {
+      // 组件静态数据来源，当前项目统一管理目录：public/data/*
+      // 如：public/data/demo/data.json 简写为 => demo/data
+      const path = 'chart/word-cloud'
+      const res = await getStaticData(this.id, path)
+      this.apiData.source.config.data = JSON.stringify(res.data)
+    } catch (error) {
+      throw error
+    }
+  }
+}
+
+export const drawTypes = [
+  { id: 'preset', value: '内置图形' },
+  { id: 'image', value: '自定义图形' },
+]
+
+export const simpleShapes = [
+  { id: 'circle', value: '圆形' },
+  { id: 'triangle', value: '三矩形' },
+  { id: 'diamond', value: '菱形' },
+  { id: 'pentagon', value: '五角星' },
+]
+
+export default WordCloud
