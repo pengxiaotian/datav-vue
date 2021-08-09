@@ -125,7 +125,7 @@
       <template #default="slotProps">
         <g-field
           :level="2"
-          label="名称"
+          label="系列名称"
         >
           <g-input
             v-model="slotProps.item.name"

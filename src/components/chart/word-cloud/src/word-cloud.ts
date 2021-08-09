@@ -36,9 +36,9 @@ export class WordCloud extends DatavEChartsComponent {
       image: 'https://files.pengxiaotian.com/datav/echarts-logo.png',
     },
     series: [
-      new WordCloudSeries('系列1', '#0a73ff'),
-      new WordCloudSeries('系列2', '#3dabff'),
-      new WordCloudSeries('系列3', '#79daff'),
+      new WordCloudSeries('0', '#0a73ff'),
+      new WordCloudSeries('1', '#3dabff'),
+      new WordCloudSeries('2', '#79daff'),
     ],
     tooltip: {
       show: false,

@@ -101,12 +101,15 @@ export default defineComponent({
           layoutAnimation: animation.enabled,
           textStyle: {
             fontFamily: global.fontFamily,
-            color: w => series[w.data.s] ? series[w.data.s].color : '#fff',
+            color: w => {
+              const c = series.find(m => m.name === w.data.s)
+              return c ? c.color : '#fff'
+            },
           },
           data: dv_data.value.map(m => ({
             name: m[dv_field.value.name],
             value: m[dv_field.value.value],
-            s: m[dv_field.value.type],
+            s: `${m[dv_field.value.type]}`,
           })),
         },
       }
