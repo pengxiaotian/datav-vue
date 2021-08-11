@@ -22,8 +22,7 @@ body {
 
 body {
   font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif !important;
-  font-size: $font-size;
-  background: $background-color;
+  background: #171b22;
   -webkit-font-smoothing: antialiased;
 
   &::-webkit-scrollbar {
@@ -41,12 +40,12 @@ ul {
 }
 
 ::-webkit-scrollbar {
-  width: $scrollbar-thumb-width;
-  height: $scrollbar-thumb-height;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $scrollbar-thumb-color;
+  background: #434b55;
 }
 
 ::-webkit-scrollbar-corner {

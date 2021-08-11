@@ -191,6 +191,9 @@ yarn new component
 
 # 创建 Store
 yarn new store
+
+# 创建 Icon
+yarn new icons
 ```
 
 ## 国际化

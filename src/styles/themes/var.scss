@@ -2,6 +2,113 @@
 
 $cdn: '//files.pengxiaotian.com';
 
+// Common
+:root {
+  --datav-font-color: #bcc9d4;
+  --datav-font-color-disabled: #424447;
+  --datav-main-color: #2681ff;
+  --datav-error-color: #f43;
+  --datav-red-color: #f15532;
+  --datav-warn-color: #f27a24;
+  --datav-gray-color: #90a0ae;
+  --datav-dark-color: #262c33;
+  --datav-main-hover-color: #409fff;
+  --datav-main-click-color: #2681ff;
+  --datav-pop-bg-color: #1b3964;
+  --datav-slider-color: #74f0ff;
+  --datav-success-color: #50e3c2;
+  --datav-cp-bg-color: #13161a;
+  --datav-cp-header-height: 40px;
+  --datav-cp-header-font-size: 14px;
+  --datav-ft-border: 1px solid #3a4659;
+  --datav-cp-border: 1px solid #2c2e33;
+  --datav-loading-color: #1996df;
+  --datav-input-bg: #262c33;
+  --datav-nav-bg: #13161a;
+  --datav-nav-active-bg: #1d2126;
+  --datav-nav-hover-bg: #21262b;
+  --datav-left-nav-bg: #191c21;
+  --datav-left-nav-hover-bg: transparent;
+  --datav-left-nav-active-bg: #14161a;
+  --datav-border-color: #5c6066;
+  --datav-cb-bg: transparent;
+  --datav-cb-bg-hover: rgba(38, 129, 255, 0.3);
+  --datav-cb-bg-disabled: rgba(58, 70, 89, 0.3);
+  --datav-cb-color: #3a4659;
+  --datav-cb-color-disabled: #424447;
+  --datav-cb-border: 1px solid #3a4659;
+  --datav-cb-border-color-active: 1px solid #3a4659;
+  --datav-cp-shadow: 0 0 1px 1px #0b0c0d;
+  --datav-sw-bg: #303740;
+  --datav-common-outline: 1px solid #0b0c0d;
+  --datav-common-outline-hover: 1px solid var(--datav-main-color);
+  --datav-common-outline-focus: 1px solid var(--datav-main-color);
+  --datav-common-outline-disabled: 1px solid #323437;
+}
+
+// GUI
+/* stylelint-disable no-duplicate-selectors */
+:root {
+  --datav-gui-primary-color: #2483ff;
+  --datav-gui-error-color: #ff4f43;
+  --datav-gui-hover-color: #26a5ff;
+  --datav-gui-active-color: #2693ff;
+  --datav-gui-disabled-color: #424447;
+  --datav-gui-background-color-front: hsl(215, 15%, 13%); // #1c2026
+  --datav-gui-background-color-front-lighter: hsl(215, 15%, 28%); // #3d4652
+  --datav-gui-background-color-back: hsl(215, 15%, 8%); // #111417
+  --datav-gui-background-color-back-darker: hsl(0, 0%, 0%); // #000
+  --datav-gui-background-hover-color: #1b3964;
+  --datav-gui-component-background-color: #262c33;
+  --datav-gui-component-background-color-darker: #262c33;
+  --datav-gui-component-background-hover-color: #303640;
+  --datav-gui-component-background-active-color: #262b33;
+  --datav-gui-component-background-disabled-color: #13161a;
+  --datav-gui-font-color-base: #a1aeb3;
+  --datav-gui-font-color-1: #fff;
+  --datav-gui-font-color-2: #c3d3d9;
+  --datav-gui-font-color-3: #737c80;
+  --datav-gui-font-color-description: #5c6366;
+  --datav-gui-font-color-disabled: #424447;
+  --datav-gui-border-color: rgba(52, 52, 52, 0.5);
+  --datav-gui-component-border-color: #0b0c0d;
+  --datav-gui-cover-color: rgba(0, 0, 0, 0.75);
+  --datav-gui-component-slider-track-color: linear-gradient(to right, #74f0ff, #2681ff);
+  --datav-gui-disabled-opacity: 0.5;
+  --datav-gui-popover-shadow: 0 0 4px #000;
+  --datav-gui-logo-color: rgba(255, 255, 255, 0.25);
+  --datav-gui-font-size-base: 12px;
+  --datav-gui-icon-size-md: 14px;
+  --datav-gui-component-border: 1px solid var(--datav-gui-component-border-color);
+  --datav-gui-transition-time: 0.3s;
+  --datav-gui-transition-easing: ease-in-out;
+  --datav-gui-slider-handle-bg: #fff;
+  --datav-gui-padding-border-color: #737c80;
+  --datav-gui-field-show-hide-bg: #6d7278;
+  --datav-gui-field-padding-right: 8px;
+  --datav-gui-field-padding-top: 4px;
+  --datav-gui-field-padding-bottom: 4px;
+  --datav-gui-field-padding-left-level-1: 8px;
+  --datav-gui-field-padding-left-level-2: 8px;
+  --datav-gui-field-padding-left-level-3: 8px;
+  --datav-gui-field-padding-left-level-4: 8px;
+  --datav-gui-field-padding-left-level-5: 24px;
+  --datav-gui-collection-padding-left-level-0: 0;
+  --datav-gui-collection-padding-left-level-1: 8px;
+  --datav-gui-collection-padding-left-level-2: 8px;
+  --datav-gui-collection-padding-left-level-3: 8px;
+  --datav-gui-collection-padding-left-level-4: 24px;
+  --datav-gui-component-container-width: 192px;
+  --datav-gui-component-height: 24px;
+  --datav-gui-menu-item-height: 36px;
+  --datav-gui-with-icon-width: 83px;
+  --datav-gui-image-content-height: 120px;
+  --datav-gui-image-select-input-height: 68px;
+  --datav-gui-image-select-image-content-height: 78px;
+  --datav-gui-image-select-image-height: 54px;
+  --datav-gui-input-padding: 7px;
+}
+
 $color-white: #fff;
 $color-black: #000;
 $color-gray: #90a0ae;

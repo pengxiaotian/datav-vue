@@ -1,68 +1,76 @@
 <template>
   <div class="login-container">
     <background-particles />
-    <el-form
+    <n-form
       ref="loginFormRef"
       :model="loginForm"
       :rules="loginRules"
-      label-position="left"
+      label-placement="left"
+      size="small"
       class="login-form"
     >
       <live2d />
 
       <g-lang-select class="lang-select" />
 
-      <el-form-item prop="username">
-        <el-input
-          v-model="loginForm.username"
+      <n-form-item path="username">
+        <n-input
+          v-model:value="loginForm.username"
           placeholder="用户名"
-          name="username"
           type="text"
-          autocomplete="on"
-          prefix-icon="v-icon-user"
-        />
-      </el-form-item>
-      <el-tooltip
-        v-model="capsTooltip"
-        content="大写锁定已打开"
-        placement="right"
-        manual
-      >
-        <el-form-item prop="password">
-          <el-input
-            v-model="loginForm.password"
-            placeholder="请输入密码"
-            name="password"
-            prefix-icon="v-icon-key"
-            show-password
-            @keyup="checkCapslock"
-            @blur="capsTooltip = false"
-            @keyup.enter="handleLogin"
-          />
-        </el-form-item>
-      </el-tooltip>
-      <el-button
+          size="large"
+          :style="inputCSSVars"
+        >
+          <template #prefix>
+            <IconUser />
+          </template>
+        </n-input>
+      </n-form-item>
+      <n-form-item path="password">
+        <n-tooltip :show="capsTooltip" placement="right">
+          <template #trigger>
+            <n-input
+              v-model:value="loginForm.password"
+              placeholder="请输入密码"
+              type="password"
+              size="large"
+              show-password-toggle
+              :style="inputCSSVars"
+              @keyup="checkCapslock"
+              @blur="capsTooltip = false"
+              @keyup.enter="handleLogin"
+            >
+              <template #prefix>
+                <IconKey />
+              </template>
+            </n-input>
+          </template>
+          <span> 大写锁定已打开 </span>
+        </n-tooltip>
+      </n-form-item>
+      <n-button
         :loading="loading"
         type="primary"
-        style="width: 100%; margin-bottom: 30px;"
-        @click.prevent="handleLogin"
+        size="large"
+        style="width: 100%; margin-bottom: 20px;"
       >
         {{ $t('login.login') }}
-      </el-button>
+      </n-button>
       <div style="position: relative;">
         <div class="tips">
           <span>{{ $t('login.username') }}: admin</span>
           <span>{{ $t('login.password') }}: 123123</span>
         </div>
       </div>
-    </el-form>
+    </n-form>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, ref, watch, defineAsyncComponent } from 'vue'
-import { UserStore } from '@/domains/user'
 import { useRouter, useRoute } from 'vue-router'
+import { UserStore } from '@/domains/user'
+import { IconUser, IconKey } from '@/icons'
 
 const validateUsername = (rule: any, value: string, callback: Function) => {
   if (!['admin', 'editor'].includes(value)) {
@@ -94,6 +102,8 @@ export default defineComponent({
   components: {
     BackgroundParticles: defineAsyncComponent(() => import('./background-particles.vue')),
     live2d: defineAsyncComponent(() => import('./live2d.vue')),
+    IconUser,
+    IconKey,
   },
   setup() {
     const loginForm = ref({
@@ -111,6 +121,16 @@ export default defineComponent({
     const loading = ref(false)
     const redirect = ref('')
     const otherQuery = ref({})
+
+    const inputCSSVars = {
+      '--caret-color': '#fff',
+      '--text-color': '#fff',
+      '--border': '1px solid rgba(255, 255, 255, 0.3)',
+      '--color': 'transparent',
+      '--color-focus': 'transparent',
+      '--color-focus-error': 'transparent',
+      '--color-focus-warning': 'transparent',
+    }
 
     const route = useRoute()
     const router = useRouter()
@@ -161,6 +181,7 @@ export default defineComponent({
       loading,
       redirect,
       otherQuery,
+      inputCSSVars,
       checkCapslock,
       handleLogin,
     }
@@ -175,35 +196,6 @@ export default defineComponent({
   height: 100vh;
   overflow: hidden;
   background-color: #111222;
-
-  .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-  }
-
-  .el-input {
-    height: 48px;
-
-    input {
-      height: 48px;
-      color: #fff;
-      background: transparent;
-      border: 0;
-      border-radius: 0;
-      padding-left: 30px;
-      -webkit-appearance: none;
-      caret-color: #fff;
-
-      &:-webkit-autofill {
-        box-shadow: 0 0 0 1000px #283443 inset !important;
-        -webkit-text-fill-color: #fff !important;
-      }
-    }
-
-    .el-input__icon {
-      line-height: 48px;
-    }
-  }
 
   .login-form {
     position: relative;
