@@ -3,7 +3,7 @@ name: Develop CI
 on:
   push:
     branches:
-      - develop
+      - dev
     paths-ignore:
       - '**.md'
       - 'demo/**'

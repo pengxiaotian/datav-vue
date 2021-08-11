@@ -27,7 +27,7 @@
         </n-input>
       </n-form-item>
       <n-form-item path="password">
-        <n-tooltip :show="capsTooltip" placement="right">
+        <n-tooltip :show="capsTooltip" placement="top-start">
           <template #trigger>
             <n-input
               v-model:value="loginForm.password"
@@ -36,7 +36,7 @@
               size="large"
               show-password-toggle
               :style="inputCSSVars"
-              @keyup="checkCapslock"
+              @keydown="checkCapslock"
               @blur="capsTooltip = false"
               @keyup.enter="handleLogin"
             >
