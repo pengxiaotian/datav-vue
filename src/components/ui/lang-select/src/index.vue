@@ -1,39 +1,37 @@
 <template>
-  <el-dropdown
+  <n-dropdown
     trigger="click"
-    @command="handleSetLanguage"
+    size="small"
+    :options="languages"
+    @select="handleSetLanguage"
   >
-    <div>
-      <i class="v-icon-international"></i>
-    </div>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item
-          v-for="l in languages"
-          :key="l.key"
-          :command="l.key"
-          :disabled="language === l.key"
-        >
-          {{ l.name }}
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
+    <IconInternational size="16px" />
+  </n-dropdown>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { SUPPORT_LOCALES, loadLocaleMessages } from '@/locales'
 import { MessageUtil } from '@/utils/message-util'
+import { IconInternational } from '@/icons'
 
 export default defineComponent({
   name: 'GLangSelect',
+  components: {
+    IconInternational,
+  },
   setup() {
     const { t } = useI18n({ useScope: 'global' })
-    const languages = ref(Object.entries(SUPPORT_LOCALES).map(([key, name]) => ({ key, name })))
     const language = ref('zh-CN')
-
+    const languages = computed(() => {
+      return Object.entries(SUPPORT_LOCALES)
+        .map(([key, label]) => ({
+          key,
+          label,
+          disabled: key === language.value,
+        }))
+    })
 
     const handleSetLanguage = async (lang: string) => {
       language.value = lang

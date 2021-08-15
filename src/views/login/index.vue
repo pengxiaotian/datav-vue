@@ -11,7 +11,9 @@
     >
       <live2d />
 
-      <g-lang-select class="lang-select" />
+      <div class="lang-select">
+        <g-lang-select />
+      </div>
 
       <n-form-item path="username">
         <n-input
@@ -53,6 +55,7 @@
         type="primary"
         size="large"
         style="width: 100%; margin-bottom: 20px;"
+        @click="handleLogin"
       >
         {{ $t('login.login') }}
       </n-button>
@@ -220,6 +223,7 @@ export default defineComponent({
     float: right;
     margin-top: -24px;
     cursor: pointer;
+    color: #bcc9d4;
   }
 }
 </style>
