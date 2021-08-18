@@ -10,6 +10,7 @@ const themeOverrides: GlobalThemeOverrides = {
     errorColor: '#f15532',
     warningColor: '#f27a24',
     infoColor: '#90a0ae',
+    successColor: '#50e3c2',
     borderRadius: '0',
     borderRadiusSmall: '0',
     boxShadow1: 'none',

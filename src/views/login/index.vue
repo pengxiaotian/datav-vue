@@ -160,8 +160,8 @@ export default defineComponent({
     }
 
     const handleLogin = () => {
-      (loginFormRef.value as any).validate((valid: any) => {
-        if (valid) {
+      (loginFormRef.value as any).validate((errors: any) => {
+        if (!errors) {
           loading.value = true
           UserStore().doLogin(loginForm.value.username, loginForm.value.password)
             .then(() => {
@@ -170,8 +170,6 @@ export default defineComponent({
             .finally(() => {
               loading.value = false
             })
-        } else {
-          return false
         }
       })
     }
