@@ -197,8 +197,7 @@ function calcResizeForNormal(dir: Direction, attr: ComponentAttr, startPoint: IP
     pos.y = Math.round(attr.y + (curPositon.y - startPoint.y) / scale)
   } else if (dir === 'rt') {
     pos.h = Math.round(attr.h + (startPoint.y - curPositon.y) / scale)
-    pos.w = Math.round(attr.w + (startPoint.x - curPositon.x) / scale)
-    pos.x = Math.round(attr.x + (curPositon.x - startPoint.x) / scale)
+    pos.w = Math.round(attr.w + (curPositon.x - startPoint.x) / scale)
     pos.y = Math.round(attr.y + (curPositon.y - startPoint.y) / scale)
   } else if (dir === 'r') {
     pos.w = Math.round(attr.w + (curPositon.x - startPoint.x) / scale)
