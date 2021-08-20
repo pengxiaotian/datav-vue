@@ -88,7 +88,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
-import { MessageUtil } from '@/utils/message-util'
+import { useMessage } from 'naive-ui'
 import { pascalCase } from '@/utils/util'
 import Handlebars from 'handlebars'
 import '@/pages/templates/register'
@@ -105,6 +105,7 @@ export default defineComponent({
     ConfigPreview,
   },
   setup() {
+    const nMessage = useMessage()
     const classPath = ref('bar/basic-bar')
     const activeTab = ref('config')
     const loading = ref(false)
@@ -158,7 +159,7 @@ export default defineComponent({
           }
         }
       } catch (error) {
-        MessageUtil.error(error?.toString())
+        nMessage.error(error?.toString())
       } finally {
         loading.value = false
       }
@@ -170,7 +171,7 @@ export default defineComponent({
         configCode.value = JSON.stringify(list.value, null, 2)
         activeTab.value = 'code'
       } catch (error) {
-        MessageUtil.error(error?.toString())
+        nMessage.error(error?.toString())
       } finally {
         loading.value = false
       }
@@ -191,7 +192,7 @@ export default defineComponent({
         activeTab.value = 'template'
       } catch (error) {
         console.log(error)
-        MessageUtil.error(error?.toString())
+        nMessage.error(error?.toString())
       } finally {
         loading.value = false
       }

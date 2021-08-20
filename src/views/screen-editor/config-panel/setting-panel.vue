@@ -21,8 +21,8 @@
 
 <script lang='ts'>
 import { defineComponent, ComputedRef, inject } from 'vue'
+import { useMessage } from 'naive-ui'
 import { DatavComponent } from '@/components/datav-component'
-import { MessageUtil } from '@/utils/message-util'
 import ConfigTitle from './components/config-title.vue'
 import BasicSetting from './components/basic-setting.vue'
 
@@ -33,10 +33,11 @@ export default defineComponent({
     BasicSetting,
   },
   setup() {
+    const nMessage = useMessage()
     const com = inject('com') as ComputedRef<DatavComponent>
 
     const toSearch = () => {
-      MessageUtil.warning('正在开发中。。。')
+      nMessage.warning('正在开发中。。。')
     }
 
     return {

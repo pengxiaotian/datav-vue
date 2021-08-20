@@ -105,10 +105,10 @@
 <script lang='ts'>
 import { defineComponent, ref, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
+import { useMessage } from 'naive-ui'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { BlueprintModule } from '@/store/modules/blueprint'
-import { MessageUtil } from '@/utils/message-util'
 import { classifications } from '@/data/system-components'
 import { createComponent } from '@/components/datav'
 
@@ -117,6 +117,7 @@ type CategoryType = typeof classifications[0]
 export default defineComponent({
   name: 'ComponentsPanel',
   setup() {
+    const nMessage = useMessage()
     const searchText = ref('')
     const favoriteComs = ref([])
     const visiblePanel = computed(() => ToolbarModule.components.show)
@@ -169,7 +170,7 @@ export default defineComponent({
           BlueprintModule.datavComponents[com.id].$DATAV_requestData()
         }
       } else {
-        MessageUtil.warning('正在开发中。。。')
+        nMessage.warning('正在开发中。。。')
       }
     }
 

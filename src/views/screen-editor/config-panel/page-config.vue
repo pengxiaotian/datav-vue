@@ -124,6 +124,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed } from 'vue'
+import { useMessage } from 'naive-ui'
 import { globalConfig } from '@/config'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
@@ -131,7 +132,6 @@ import { ZoomMode } from '@/utils/enums'
 import html2canvas from 'html2canvas'
 import { uploadHost, previewHost, validAllowImg, dataURLtoBlob } from '@/utils/upload-util'
 import { getTokenByEnv, upload } from '@/api/qiniu'
-import { MessageUtil } from '@/utils/message-util'
 import { generateId } from '@/utils/util'
 
 const cdn = import.meta.env.VITE_APP_CDN
@@ -139,6 +139,7 @@ const cdn = import.meta.env.VITE_APP_CDN
 export default defineComponent({
   name: 'PageConfig',
   setup() {
+    const nMessage = useMessage()
     const pageConfig = computed(() => EditorModule.pageConfig)
 
     const cover = ref({
@@ -200,7 +201,7 @@ export default defineComponent({
           dom.style.transform = transform
           await uploadCover(dataURLtoBlob(res.toDataURL('image/jpeg', 0.8)))
         } catch (error) {
-          MessageUtil.error(error.toString())
+          nMessage.error(error.toString())
         } finally {
           cover.value.loading = false
         }
@@ -210,7 +211,8 @@ export default defineComponent({
     const beforeUpload = async (file: any) => {
       const valid = validAllowImg(file, {})
 
-      if (!valid) {
+      if (valid) {
+        nMessage.error(valid)
         return false
       }
 
@@ -223,7 +225,7 @@ export default defineComponent({
       } catch (error) {
         ToolbarModule.removeLoading()
         uploadLoading.value = false
-        MessageUtil.error(error.toString())
+        nMessage.error(error.toString())
       }
 
       return false
@@ -238,7 +240,7 @@ export default defineComponent({
     const onError = (error: any) => {
       ToolbarModule.removeLoading()
       uploadLoading.value = false
-      MessageUtil.error(error.toString())
+      nMessage.error(error.toString())
     }
 
     const onPaste = async (ev: ClipboardEvent) => {
@@ -252,7 +254,7 @@ export default defineComponent({
             }
           }
         } catch (error) {
-          MessageUtil.error(error.toString())
+          nMessage.error(error.toString())
         }
       }
     }

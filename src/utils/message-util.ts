@@ -45,6 +45,7 @@ export const MessageUtil = {
       type: 'success',
       showClose,
       message,
+      duration: 0,
     })
   },
 

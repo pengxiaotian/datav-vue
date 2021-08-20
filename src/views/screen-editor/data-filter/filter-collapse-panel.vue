@@ -137,7 +137,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, ComputedRef, ref, inject, computed } from 'vue'
-import { MessageUtil } from '@/utils/message-util'
+import { useMessage } from 'naive-ui'
 import { DataFilter } from '@/components/data-filter'
 
 export default defineComponent({
@@ -162,6 +162,7 @@ export default defineComponent({
     showTime: Boolean,
   },
   setup(props) {
+    const nMessage = useMessage()
     const panelRef = ref(null)
     const editing = ref(props.isNew)
     const collapse = ref(props.isNew)
@@ -242,9 +243,9 @@ export default defineComponent({
         `
         await saveFilter(props.dataFilter)
         isEdited.value = false
-        MessageUtil.success('数据过滤器已保存')
+        nMessage.success('数据过滤器已保存')
       } catch (error) {
-        MessageUtil.error(MessageUtil.format(error))
+        nMessage.error(error.message)
       } finally {
         loading.value = false
       }

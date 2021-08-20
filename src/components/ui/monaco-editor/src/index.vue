@@ -48,8 +48,8 @@
 <script lang='ts'>
 import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, PropType, watch } from 'vue'
 import { debounce } from 'lodash-es'
+import { useMessage } from 'naive-ui'
 import { generateId, copyText } from '@/utils/util'
-import { MessageUtil } from '@/utils/message-util'
 import * as monaco from 'monaco-editor'
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
@@ -117,6 +117,7 @@ export default defineComponent({
   },
   emits: ['change', 'blur'],
   setup(props, ctx) {
+    const nMessage = useMessage()
     const editorId = computed(() => `datav-editor-${generateId()}`)
     let editor = null as monaco.editor.IStandaloneCodeEditor | null
     let fullEditor = null as monaco.editor.IStandaloneCodeEditor | null
@@ -129,7 +130,7 @@ export default defineComponent({
     const copyData = () => {
       if (editor) {
         copyText(editor.getValue())
-        MessageUtil.success('复制成功')
+        nMessage.success('复制成功')
       }
     }
 

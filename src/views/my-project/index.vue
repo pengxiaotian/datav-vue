@@ -81,9 +81,10 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed, provide, onMounted } from 'vue'
+import { useMessage } from 'naive-ui'
 import { ProjectGroup } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
-import { MessageBoxUtil, MessageUtil } from '@/utils/message-util'
+import { MessageBoxUtil } from '@/utils/message-util'
 import { addClass, removeClass } from '@/utils/dom'
 import ProjectList from './project-list.vue'
 
@@ -93,6 +94,7 @@ export default defineComponent({
     ProjectList,
   },
   setup() {
+    const nMessage = useMessage()
     const {
       getProjects, moveProject,
       createProjectGroup, deleteProjectGroup, updateProjectGroupName,
@@ -145,7 +147,7 @@ export default defineComponent({
           await createProjectGroup(name)
           adding.value = false
         } catch (error) {
-          MessageUtil.error(MessageUtil.format(error))
+          nMessage.error(error.message)
         }
       } else {
         adding.value = false
@@ -175,7 +177,7 @@ export default defineComponent({
           group.name = newName
           group.editing = false
         } catch (error) {
-          MessageUtil.error(MessageUtil.format(error))
+          nMessage.error(error.message)
         }
       } else {
         group.editing = false

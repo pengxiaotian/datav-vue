@@ -174,11 +174,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useMessage } from 'naive-ui'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
 import { saveScreen } from '@/api/screen'
-import { MessageUtil } from '@/utils/message-util'
 import HeadLoading from './head-loading.vue'
 import PublishScreen from '../../my-project/publish-screen.vue'
 
@@ -192,6 +192,7 @@ export default defineComponent({
     return {
       visiblePublish: false,
       publishAppId: 0,
+      nMessage: useMessage(),
     }
   },
   computed: {
@@ -252,9 +253,9 @@ export default defineComponent({
           dataFilters: FilterModule.dataFilters ?? [],
         }
         await saveScreen(data)
-        MessageUtil.success('大屏已保存')
+        this.nMessage.success('大屏已保存')
       } catch (error) {
-        MessageUtil.error(`保存大屏失败：${error}`)
+        this.nMessage.error(`保存大屏失败：${error}`)
       } finally {
         ToolbarModule.removeLoading()
       }

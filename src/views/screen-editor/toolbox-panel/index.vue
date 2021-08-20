@@ -51,9 +51,9 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, watch } from 'vue'
+import { useMessage } from 'naive-ui'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
-import { MessageUtil } from '@/utils/message-util'
 import FilterToolboxPanel from './filter-toolbox-panel.vue'
 
 export default defineComponent({
@@ -62,6 +62,7 @@ export default defineComponent({
     FilterToolboxPanel,
   },
   setup() {
+    const nMessage = useMessage()
     const visiblePanel = computed(() => ToolbarModule.toolbox.show)
     const isNormal = ref(EditorModule.isNormalResizeMode)
     const referLine = computed(() => EditorModule.referLine)
@@ -85,7 +86,7 @@ export default defineComponent({
 
     watch(() => styleFilterParams.value.enable, (nv: boolean) => {
       visibleFilterPanel.value = nv
-      MessageUtil.success(nv ? '滤镜已开启应用' : '滤镜已关闭')
+      nMessage.success(nv ? '滤镜已开启应用' : '滤镜已关闭')
     })
 
     watch(() => visibleFilterPanel.value, (nv: boolean) => {

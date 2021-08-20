@@ -57,7 +57,7 @@
 <script lang='ts'>
 import { defineComponent, ref, watch } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
-import { MessageUtil } from '@/utils/message-util'
+import { useMessage } from 'naive-ui'
 import { generateId } from '@/utils/util'
 import { uploadHost, previewHost, validAllowImg } from '@/utils/upload-util'
 import { getTokenByEnv } from '@/api/qiniu'
@@ -96,6 +96,7 @@ export default defineComponent({
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
+    const nMessage = useMessage()
     const loading = ref(false)
     const form = ref({
       key: '',
@@ -110,7 +111,8 @@ export default defineComponent({
         allowSize: props.size,
       })
 
-      if (!valid) {
+      if (valid) {
+        nMessage.error(valid)
         return false
       }
 
@@ -121,7 +123,7 @@ export default defineComponent({
         return true
       } catch (error) {
         loading.value = false
-        MessageUtil.error(error.toString())
+        nMessage.error(error.toString())
       }
 
       return false
@@ -134,7 +136,7 @@ export default defineComponent({
 
     const onError = (error: any) => {
       loading.value = false
-      MessageUtil.error(error.toString())
+      nMessage.error(error.toString())
     }
 
     const handleInput = (value: string) => {
@@ -151,7 +153,7 @@ export default defineComponent({
       img.onerror = () => {
         iserr.value = true
         if (props.modelValue) {
-          MessageUtil.error('图片加载失败')
+          nMessage.error('图片加载失败')
         }
       }
     }

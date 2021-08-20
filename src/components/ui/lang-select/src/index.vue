@@ -12,8 +12,8 @@
 <script lang='ts'>
 import { computed, defineComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useMessage } from 'naive-ui'
 import { SUPPORT_LOCALES, loadLocaleMessages } from '@/locales'
-import { MessageUtil } from '@/utils/message-util'
 import { IconInternational } from '@/icons'
 
 export default defineComponent({
@@ -22,6 +22,7 @@ export default defineComponent({
     IconInternational,
   },
   setup() {
+    const nMessage = useMessage()
     const { t } = useI18n({ useScope: 'global' })
     const language = ref('zh-CN')
     const languages = computed(() => {
@@ -37,7 +38,7 @@ export default defineComponent({
       language.value = lang
       await loadLocaleMessages(lang)
 
-      MessageUtil.success(t('g.Language switch successfully'))
+      nMessage.warning(t('g.Language switch successfully'))
     }
 
     return {

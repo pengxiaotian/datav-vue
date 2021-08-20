@@ -78,8 +78,9 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, toRefs, computed, ref, inject } from 'vue'
+import { useMessage } from 'naive-ui'
 import { globalConfig } from '@/config'
-import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
+import { MessageBoxUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
 
@@ -94,6 +95,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const nMessage = useMessage()
     const { deleteProject, copyProject, updateProjectName } = ProjectModule
     const { id, name, groupId, share, thumbnail } = toRefs(props.screen)
     const screenName = ref(name.value)
@@ -129,7 +131,7 @@ export default defineComponent({
           await updateProjectName({ id: id.value, newName: screenName.value })
           name.value = screenName.value
         } catch (error) {
-          MessageUtil.error(MessageUtil.format(error))
+          nMessage.error(error.message)
         }
       } else {
         screenName.value = oldScreenName.value

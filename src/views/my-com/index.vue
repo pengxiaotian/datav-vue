@@ -10,13 +10,15 @@
 
 <script lang='ts'>
 import { defineComponent, onMounted } from 'vue'
-import { MessageUtil } from '@/utils/message-util'
+import { useMessage } from 'naive-ui'
 
 export default defineComponent({
   name: 'MyCom',
   setup() {
+    const nMessage = useMessage()
+
     onMounted(() => {
-      MessageUtil.warning('建设中。。。')
+      nMessage.warning('建设中。。。')
     })
   },
 })

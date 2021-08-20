@@ -83,8 +83,8 @@
 
 <script lang='ts'>
 import { defineComponent, ref, watch, computed, nextTick } from 'vue'
+import { useMessage } from 'naive-ui'
 import { getShareUrl, getPublishInfo, publishApp } from '@/api/project'
-import { MessageUtil } from '@/utils/message-util'
 import { copyText } from '@/utils/util'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
@@ -102,6 +102,7 @@ export default defineComponent({
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
+    const nMessage = useMessage()
     const visible = ref(false)
     const isPublish = ref(false)
     const showTooltip = ref(false)
@@ -117,7 +118,7 @@ export default defineComponent({
       if (isPublish.value) {
         nextTick(() => {
           if (copyText(shareUrl.value)) {
-            MessageUtil.success('复制成功')
+            nMessage.success('复制成功')
           }
         })
       }
@@ -146,7 +147,7 @@ export default defineComponent({
           password.value = data.password
         }
       } catch (error) {
-        MessageUtil.error('读取大屏发布信息失败')
+        nMessage.error('读取大屏发布信息失败')
       }
     })
 
@@ -161,10 +162,10 @@ export default defineComponent({
         if (res.data.code === 0) {
           loading.value = false
           closeDialog()
-          MessageUtil.success(isPublish.value ? '发布成功' : '保存成功')
+          nMessage.success(isPublish.value ? '发布成功' : '保存成功')
         }
       } catch (error) {
-        MessageUtil.error('发布失败')
+        nMessage.error('发布失败')
       } finally {
         loading.value = false
       }

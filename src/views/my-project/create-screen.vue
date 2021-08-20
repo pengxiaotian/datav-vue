@@ -144,16 +144,17 @@
 <script lang='ts'>
 import { defineComponent, ref, onMounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
+import { useMessage } from 'naive-ui'
 import { globalConfig } from '@/config'
 import { ProjectGroup, ProjectTemplate } from '@/domains/project'
 import { getProjects, createProject } from '@/api/project'
 import { getSysTemplates } from '@/api/templates'
-import { MessageUtil } from '@/utils/message-util'
 import { scrollToLeft } from '@/utils/animation'
 
 export default defineComponent({
   name: 'CreateScreen',
   setup() {
+    const nMessage = useMessage()
     const loading = ref(true)
     const bgCoverImg = ref(globalConfig.logo)
     const templates = ref<ProjectTemplate[]>([])
@@ -223,7 +224,7 @@ export default defineComponent({
     const doCreate = async () => {
       try {
         if (!projectName.value) {
-          MessageUtil.error('请输入大屏名称')
+          nMessage.error('请输入大屏名称')
           return
         }
         saveLoading.value = true
@@ -249,7 +250,7 @@ export default defineComponent({
           throw Error(res.data.message)
         }
       } catch (error) {
-        MessageUtil.error(MessageUtil.format(error))
+        nMessage.error(error.message)
       } finally {
         saveLoading.value = false
       }
