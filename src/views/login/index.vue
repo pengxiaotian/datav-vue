@@ -24,7 +24,9 @@
           :style="inputCSSVars"
         >
           <template #prefix>
-            <IconUser />
+            <n-icon>
+              <IconUser />
+            </n-icon>
           </template>
         </n-input>
       </n-form-item>
@@ -43,7 +45,9 @@
               @keyup.enter="handleLogin"
             >
               <template #prefix>
-                <IconKey />
+                <n-icon>
+                  <IconKey />
+                </n-icon>
               </template>
             </n-input>
           </template>

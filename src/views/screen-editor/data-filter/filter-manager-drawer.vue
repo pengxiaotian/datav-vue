@@ -49,14 +49,15 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, watch, provide } from 'vue'
+import { h, defineComponent, ref, computed, watch, provide } from 'vue'
+import { useMessage, useDialog } from 'naive-ui'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
 import { ApiDataConfig } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
-import { MessageBoxUtil } from '@/utils/message-util'
 import { setDatavData } from '@/mixins/data-center'
+import { IconWarning } from '@/icons'
 import FilterCollapsePanel from './filter-collapse-panel.vue'
 
 export default defineComponent({
@@ -65,6 +66,8 @@ export default defineComponent({
     FilterCollapsePanel,
   },
   setup() {
+    const nMessage = useMessage()
+    const nDialog = useDialog()
     const visible = ref(false)
     const newDataFilter = ref<DataFilter | null>(null)
 
@@ -126,13 +129,16 @@ export default defineComponent({
 
     const removeFilter = (id: number) => {
       if (id > 0) {
-        MessageBoxUtil.confirmAsync(
-          '是否删除数据过滤器，可能导致相关组件不可用。',
-          () => {
-            return FilterModule.deleteFilter(id)
-          },
-          {
-            success: () => {
+        const d = nDialog.create({
+          content: '是否删除数据过滤器，可能导致相关组件不可用。',
+          negativeText: '取消',
+          positiveText: '确定',
+          iconPlacement: 'top',
+          icon: () => h(IconWarning),
+          onPositiveClick: async () => {
+            d.loading = true
+            try {
+              await FilterModule.deleteFilter(id)
               const df = usedFilters.value[id]
               if (df) {
                 const coms = [...EditorModule.coms, ...EditorModule.subComs].filter(m => df.ids.includes(m.id))
@@ -147,9 +153,11 @@ export default defineComponent({
                   }
                 })
               }
-            },
+            } catch (error) {
+              nMessage.error(error.message)
+            }
           },
-        )
+        })
       } else {
         newDataFilter.value = null
       }

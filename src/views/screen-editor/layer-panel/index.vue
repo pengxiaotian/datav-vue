@@ -167,16 +167,19 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed } from 'vue'
+import { h, defineComponent, ref, computed } from 'vue'
+import { useMessage, useDialog } from 'naive-ui'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { MoveType } from '@/utils/enums'
-import { MessageBoxUtil } from '@/utils/message-util'
+import { IconWarning } from '@/icons'
 import { useContextMenu } from '../editor-context-menu/index'
 
 export default defineComponent({
   name: 'LayerPanel',
   setup() {
+    const nMessage = useMessage()
+    const nDialog = useDialog()
     const showText = ref(false)
     const visiblePanel = computed(() => ToolbarModule.layer.show)
     const descComs = computed(() => [...EditorModule.coms].reverse())
@@ -236,10 +239,21 @@ export default defineComponent({
     const toDeleteCom = () => {
       const com = selectedCom.value
       if (com) {
-        MessageBoxUtil.confirmAsync(
-          '是否删除选中的1个组件',
-          () => EditorModule.deleteCom(com),
-        )
+        const d = nDialog.create({
+          content: '是否删除选中的1个组件',
+          negativeText: '取消',
+          positiveText: '确定',
+          iconPlacement: 'top',
+          icon: () => h(IconWarning),
+          onPositiveClick: async () => {
+            d.loading = true
+            try {
+              await EditorModule.deleteCom(com)
+            } catch (error) {
+              nMessage.error(error.message)
+            }
+          },
+        })
       }
     }
 

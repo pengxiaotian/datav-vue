@@ -34,6 +34,7 @@ import {
   NUpload,
   NSpin,
   NMessageProvider,
+  NDialogProvider,
 } from 'naive-ui'
 
 export default create({
@@ -72,5 +73,6 @@ export default create({
     NUpload,
     NSpin,
     NMessageProvider,
+    NDialogProvider,
   ],
 })

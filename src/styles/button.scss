@@ -1,60 +1,19 @@
-.el-button--default:not(.el-button--primary) {
-  color: $color-primary;
-  border-color: $color-primary;
-  background: transparent;
+.n-button {
+  &.n-button--default-type {
+    &.n-button--ghost {
+      &:hover {
+        background-color: var(--datav-main-hover-color);
+      }
 
-  &:focus {
-    color: $color-primary;
-    background: transparent;
-    border-color: $color-primary;
-  }
+      &:focus {
+        color: var(--datav-main-color);
+        background-color: transparent;
 
-  &:hover {
-    color: $button-font-color;
-    background-color: $blue-5;
-    border-color: $blue-5;
-  }
-
-  &:active {
-    color: $button-font-color;
-    background: mix($color-black, $color-primary, $button-shade-percent-active);
-    border-color: mix($color-black, $color-primary, $button-shade-percent-active);
-    outline: none;
-  }
-}
-
-.el-button--primary {
-  background-color: $color-primary;
-  border-color: $color-primary;
-
-  &:hover {
-    background-color: $blue-5;
-    border-color: $blue-5;
-  }
-
-  &:active {
-    background-color: $blue-6;
-    border-color: $blue-6;
-  }
-}
-
-.el-button--medium {
-  padding: 0 30px;
-  min-height: 32px;
-}
-
-.el-button {
-  border-radius: 0;
-  transition: all 0.3s $ease-in-out;
-
-  &.is-disabled {
-    &,
-    &:hover,
-    &:focus {
-      cursor: not-allowed;
-      color: $button-font-color-disabled;
-      border-color: $button-border-color-disabled;
-      background: $button-bgcolor-disabled;
+        &:active {
+          color: #fff;
+          background-color: var(--datav-main-click-color);
+        }
+      }
     }
   }
 }

@@ -80,12 +80,12 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, provide, onMounted } from 'vue'
-import { useMessage } from 'naive-ui'
+import { h, defineComponent, ref, computed, provide, onMounted } from 'vue'
+import { useMessage, useDialog } from 'naive-ui'
 import { ProjectGroup } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
-import { MessageBoxUtil } from '@/utils/message-util'
 import { addClass, removeClass } from '@/utils/dom'
+import { IconWarning } from '@/icons'
 import ProjectList from './project-list.vue'
 
 export default defineComponent({
@@ -95,6 +95,7 @@ export default defineComponent({
   },
   setup() {
     const nMessage = useMessage()
+    const nDialog = useDialog()
     const {
       getProjects, moveProject,
       createProjectGroup, deleteProjectGroup, updateProjectGroupName,
@@ -185,17 +186,22 @@ export default defineComponent({
     }
 
     const confirmDeleteGroup = (group: ProjectGroup) => {
-      MessageBoxUtil.confirmAsync(
-        `<b>${group.name}</b> 删除后无法恢复，该分组中的可视化应用将全部移动到未分组，确认删除？`,
-        () => {
-          return deleteProjectGroup(group.id)
-        },
-        {
-          success: () => {
+      const d = nDialog.create({
+        content: `${group.name} 删除后无法恢复，该分组中的可视化应用将全部移动到未分组，确认删除？`,
+        negativeText: '取消',
+        positiveText: '确定',
+        iconPlacement: 'top',
+        icon: () => h(IconWarning),
+        onPositiveClick: async () => {
+          d.loading = true
+          try {
+            await deleteProjectGroup(group.id)
             toggleProject(ungroup.value.id)
-          },
+          } catch (error) {
+            nMessage.error(error.message)
+          }
         },
-      )
+      })
     }
 
     provide('dragStart', () => {

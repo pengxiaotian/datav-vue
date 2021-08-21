@@ -77,12 +77,12 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, toRefs, computed, ref, inject } from 'vue'
-import { useMessage } from 'naive-ui'
+import { h, defineComponent, PropType, toRefs, computed, ref, inject } from 'vue'
+import { useMessage, useDialog } from 'naive-ui'
 import { globalConfig } from '@/config'
-import { MessageBoxUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
+import { IconWarning } from '@/icons'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
@@ -96,6 +96,7 @@ export default defineComponent({
   },
   setup(props) {
     const nMessage = useMessage()
+    const nDialog = useDialog()
     const { deleteProject, copyProject, updateProjectName } = ProjectModule
     const { id, name, groupId, share, thumbnail } = toRefs(props.screen)
     const screenName = ref(name.value)
@@ -143,10 +144,21 @@ export default defineComponent({
     }
 
     const confirmDeleteProject = () => {
-      MessageBoxUtil.confirmAsync(
-        `<b>${screenName.value}</b> 删除后无法恢复，确认删除？`,
-        () => deleteProject({ pid: id.value, gid: groupId.value }),
-      )
+      const d = nDialog.create({
+        content: `${screenName.value} 删除后无法恢复，确认删除？`,
+        negativeText: '取消',
+        positiveText: '确定',
+        iconPlacement: 'top',
+        icon: () => h(IconWarning),
+        onPositiveClick: async () => {
+          d.loading = true
+          try {
+            await deleteProject({ pid: id.value, gid: groupId.value })
+          } catch (error) {
+            nMessage.error(error.message)
+          }
+        },
+      })
     }
 
     const dragStart = inject('dragStart') as Function

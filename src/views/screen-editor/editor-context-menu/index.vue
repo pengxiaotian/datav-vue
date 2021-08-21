@@ -54,16 +54,19 @@
 
 
 <script lang='ts'>
-import { defineComponent, onBeforeMount, onUnmounted } from 'vue'
+import { h, defineComponent, onBeforeMount, onUnmounted } from 'vue'
+import { useMessage, useDialog } from 'naive-ui'
 import { EditorModule } from '@/store/modules/editor'
-import { MessageBoxUtil } from '@/utils/message-util'
 import { on, off } from '@/utils/dom'
 import { MoveType } from '@/utils/enums'
+import { IconWarning } from '@/icons'
 import { useContextMenu } from './index'
 
 export default defineComponent({
   name: 'EditorContextMenu',
   setup() {
+    const nMessage = useMessage()
+    const nDialog = useDialog()
     const {
       contextMenu, selectedCom,
       isLocked, isHided, contextMenuStyle,
@@ -95,10 +98,21 @@ export default defineComponent({
     const toDeleteCom = () => {
       const com = selectedCom.value
       if (com) {
-        MessageBoxUtil.confirmAsync(
-          '是否删除选中的1个组件',
-          () => EditorModule.deleteCom(com),
-        )
+        const d = nDialog.create({
+          content: '是否删除选中的1个组件',
+          negativeText: '取消',
+          positiveText: '确定',
+          iconPlacement: 'top',
+          icon: () => h(IconWarning),
+          onPositiveClick: async () => {
+            d.loading = true
+            try {
+              await EditorModule.deleteCom(com)
+            } catch (error) {
+              nMessage.error(error.message)
+            }
+          },
+        })
       }
     }
 

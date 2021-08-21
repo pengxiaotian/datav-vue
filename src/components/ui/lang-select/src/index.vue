@@ -5,7 +5,9 @@
     :options="languages"
     @select="handleSetLanguage"
   >
-    <IconInternational size="16px" />
+    <n-icon size="16px">
+      <IconInternational />
+    </n-icon>
   </n-dropdown>
 </template>
 
