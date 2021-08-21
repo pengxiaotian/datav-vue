@@ -20,25 +20,19 @@
           <input v-model.trim="searchText" class="search-input" placeholder="搜索">
         </div>
         <i class="v-icon-search"></i>
-        <g-drop-list-popover>
+
+        <n-dropdown
+          :options="sortOpts"
+          :show-arrow="true"
+          @select="handleSortChange"
+        >
           <div class="sort-type">
             <span class="sort-text" :title="sorts[sort]">
               {{ sorts[sort] }}
             </span>
             <i class="v-icon-arrow-down arrow-icon"></i>
           </div>
-          <template #droplist>
-            <g-drop-list>
-              <g-drop-list-item
-                v-for="(v, k) in sorts"
-                :key="k"
-                @click="onSortChange(k)"
-              >
-                {{ v }}
-              </g-drop-list-item>
-            </g-drop-list>
-          </template>
-        </g-drop-list-popover>
+        </n-dropdown>
       </div>
     </div>
     <div class="main-screen">
@@ -74,17 +68,18 @@ export default defineComponent({
   setup(props) {
     const searchText = ref('')
     const sort = ref('name')
-    const sorts = ref({
+    const sorts = {
       name: '按名称排序',
       createAt: '按创建时间排序',
       updateAt: '按修改时间排序',
-    })
+    }
+    const sortOpts = Object.entries(sorts).map(([key, label]) => ({ key, label }))
     const visiblePublish = ref(false)
     const publishAppId = ref(0)
 
     const group = toRef(props, 'group')
 
-    const onSortChange = (key: string) => {
+    const handleSortChange = (key: string) => {
       sort.value = key
     }
 
@@ -108,10 +103,11 @@ export default defineComponent({
       searchText,
       sort,
       sorts,
+      sortOpts,
       visiblePublish,
       publishAppId,
-      onSortChange,
       screens,
+      handleSortChange,
     }
   },
 })

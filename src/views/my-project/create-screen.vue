@@ -571,7 +571,7 @@ export default defineComponent({
     height: 186px;
     margin-top: -57px;
     margin-left: -20px;
-    background: $dialog-bgcolor;
+    background: #303640;
     display: flex;
     flex-direction: column;
     justify-content: center;

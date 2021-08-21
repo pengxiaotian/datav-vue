@@ -22,9 +22,6 @@ const install = (app: App): void => {
   })
 
   // async register
-  app.component('GDropList', defineAsyncComponent(() => import('./drop-list')))
-  app.component('GDropListItem', defineAsyncComponent(() => import('./drop-list-item')))
-  app.component('GDropListPopover', defineAsyncComponent(() => import('./drop-list-popover')))
   app.component('GTooltipPopover', defineAsyncComponent(() => import('./tooltip-popover')))
   app.component('GInput', defineAsyncComponent(() => import('./input')))
   app.component('GInputNumber', defineAsyncComponent(() => import('./input-number')))

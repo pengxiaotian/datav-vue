@@ -22,7 +22,7 @@ body {
 
 body {
   font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif !important;
-  background: #171b22;
+  background: var(--datav-body-bg);
   -webkit-font-smoothing: antialiased;
 
   &::-webkit-scrollbar {

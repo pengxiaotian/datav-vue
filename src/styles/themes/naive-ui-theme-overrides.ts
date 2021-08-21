@@ -16,6 +16,10 @@ const vars: Partial<GlobalTheme['common']> = {
   boxShadow3: 'none',
 }
 
+const vars2 = {
+  darkColor: '#262c33',
+}
+
 const themeOverrides: GlobalThemeOverrides = {
   common: {
     ...vars,
@@ -76,6 +80,20 @@ const themeOverrides: GlobalThemeOverrides = {
     iconColor: '#ff4f43',
     iconMargin: '0 0 10px 0',
     contentMargin: '0 0 10px 0',
+  },
+  Dropdown: {
+    fontSizeMedium: '12px',
+    padding: '0',
+    borderRadius: '1px',
+    color: vars2.darkColor,
+    prefixColor: '#fff',
+    optionColorHover: '#1a1b1d',
+    optionTextColor: '#fff',
+    optionTextColorHover: '#fff',
+    optionHeightMedium: '30px',
+    optionIconSizeMedium: '12px',
+    optionIconPrefixWidthMedium: '12px',
+    dividerColor: '#1a1b1d',
   },
 }
 

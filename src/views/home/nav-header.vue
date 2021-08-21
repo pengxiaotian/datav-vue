@@ -16,23 +16,26 @@
       </div>
       <div class="user">
         <div class="header-item">
-          <g-drop-list-popover>
+          <n-dropdown
+            :options="profileOpts"
+            placement="bottom-end"
+            :show-arrow="true"
+            @select="handleProfileSelect"
+          >
             <span class="user-link-wrap">
-              <el-avatar :size="20" :src="avatar + '?imageView2/1/w/80/h/80'">
-                <img src="/images/avatar-placeholder.png">
-              </el-avatar>
+              <n-avatar
+                round
+                :size="20"
+                :src="avatar + '?imageView2/1/w/80/h/80'"
+              />
               <span class="user-link">
-                {{ userName }} <i class="v-icon-arrow-down"></i>
+                {{ userName }}
               </span>
+              <n-icon>
+                <IconArrowDown />
+              </n-icon>
             </span>
-            <template #droplist>
-              <g-drop-list>
-                <g-drop-list-item icon="v-icon-logout" @click="logout">
-                  退出
-                </g-drop-list-item>
-              </g-drop-list>
-            </template>
-          </g-drop-list-popover>
+          </n-dropdown>
         </div>
       </div>
     </div>
@@ -46,14 +49,19 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from 'vue'
+import { h, defineComponent } from 'vue'
+import { NIcon } from 'naive-ui'
 import { UserStore } from '@/domains/user'
 import { useRouter } from 'vue-router'
+import { IconLogout, IconArrowDown, IconDocument } from '@/icons'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
 export default defineComponent({
   name: 'NavHeader',
+  components: {
+    IconArrowDown,
+  },
   props: {
     isFixed: {
       type: Boolean,
@@ -64,24 +72,47 @@ export default defineComponent({
     const { name, avatar, doLogout } = UserStore()
     const router = useRouter()
 
+    const profileOpts = [
+      {
+        label: '帮助文档',
+        key: 'doc',
+        icon: () => h(NIcon, null, { default: () => h(IconDocument) }),
+      },
+      {
+        type: 'divider',
+        key: 'd1',
+      },
+      {
+        label: '退出',
+        key: 'logout',
+        icon: () => h(NIcon, null, { default: () => h(IconLogout) }),
+      },
+    ]
+
     const logout = () => {
       doLogout().then(() => {
         router.push({ name: 'Login' })
       })
     }
 
+    const handleProfileSelect = (key: string) => {
+      if (key === 'logout') {
+        logout()
+      }
+    }
+
     return {
       cdn,
       userName: name,
       avatar,
-      logout,
+      profileOpts,
+      handleProfileSelect,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import '@/styles/themes/var';
 @import '@/styles/mixins/function';
 
 .datav-hearder {
@@ -120,7 +151,7 @@ export default defineComponent({
       padding: 0 10px;
       cursor: pointer;
       user-select: none;
-      color: $font-color;
+      color: var(--datav-font-color);
       line-height: 20px;
       height: 20px;
     }
@@ -131,18 +162,20 @@ export default defineComponent({
     }
 
     .user-link {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 4px;
       line-height: 20px;
       height: 20px;
-      margin-left: 5px;
-      color: $font-color;
+      color: var(--datav-font-color);
     }
   }
 }
 
 .top-tip {
   padding: 6px 0;
-  font-size: $header-font-size;
-  color: $font-color;
+  font-size: 12px;
+  color: var(--datav-font-color);
   display: flex;
   right: 0;
   height: 30px;
@@ -182,7 +215,7 @@ export default defineComponent({
   }
 
   .project-href {
-    color: $font-color;
+    color: var(--datav-font-color);
     text-decoration: none;
 
     &:hover {
@@ -206,7 +239,7 @@ export default defineComponent({
   position: absolute;
   top: 0;
   flex-direction: column;
-  background: $background-color;
+  background: var(--datav-body-bg);
   width: 100%;
   height: 290px;
 
