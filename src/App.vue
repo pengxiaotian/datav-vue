@@ -2,7 +2,7 @@
   <n-config-provider :theme-overrides="themeOverrides">
     <n-message-provider closable>
       <n-dialog-provider>
-        <router-view />
+        <AppMessage />
       </n-dialog-provider>
     </n-message-provider>
   </n-config-provider>
@@ -11,9 +11,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { themeOverrides } from '@/styles/themes/naive-ui-theme-overrides'
+import AppMessage from './AppMessage.vue'
 
 export default defineComponent({
   name: 'App',
+  components: {
+    AppMessage,
+  },
   setup() {
     return {
       themeOverrides,

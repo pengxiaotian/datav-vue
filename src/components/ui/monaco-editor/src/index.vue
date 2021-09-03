@@ -1,4 +1,5 @@
 <template>
+  <AsyncLoading v-if="loading" />
   <div
     :id="editorId"
     class="datav-editor"
@@ -49,36 +50,20 @@
 import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, PropType, watch } from 'vue'
 import { debounce } from 'lodash-es'
 import { useMessage } from 'naive-ui'
+import loader from '@monaco-editor/loader'
+import type { editor as MEditor } from 'monaco-editor'
 import { generateId, copyText } from '@/utils/util'
-import * as monaco from 'monaco-editor'
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
-import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
-import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
-import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
-import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
-import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode, formatDocument } from './editor-config'
+import AsyncLoading from '@/components/ui/loading/src/async-loading.vue'
+import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode, formatDocument, Monaco } from './editor-config'
 
-// @ts-ignore
-self.MonacoEnvironment = {
-  getWorker(_, label) {
-    if (label === 'json') {
-      return new jsonWorker()
-    }
-    if (['css', 'scss', 'less'].includes(label)) {
-      return new cssWorker()
-    }
-    if (['html', 'handlebars', 'razor'].includes(label)) {
-      return new htmlWorker()
-    }
-    if (['typescript', 'javascript'].includes(label)) {
-      return new tsWorker()
-    }
-    return new editorWorker()
-  },
-}
+
+loader.config({ paths: { vs: 'https://unpkg.com/monaco-editor@0.27.0/min/vs' } })
 
 export default defineComponent({
   name: 'GMonacoEditor',
+  components: {
+    AsyncLoading,
+  },
   props: {
     language: {
       type: String as PropType<languageType>,
@@ -118,14 +103,14 @@ export default defineComponent({
   emits: ['change', 'blur'],
   setup(props, ctx) {
     const nMessage = useMessage()
+    const loading = ref(false)
     const editorId = computed(() => `datav-editor-${generateId()}`)
-    let editor = null as monaco.editor.IStandaloneCodeEditor | null
-    let fullEditor = null as monaco.editor.IStandaloneCodeEditor | null
+    let monaco = null as Monaco | null
+    let editor = null as MEditor.IStandaloneCodeEditor | null
+    let fullEditor = null as MEditor.IStandaloneCodeEditor | null
+    const themeName = 'datav-dark-theme'
 
     const isFullScreen = ref(false)
-
-    const themeName = registerDatavDarkTheme()
-    registerApiCompletion(props.language, props.completions)
 
     const copyData = () => {
       if (editor) {
@@ -215,6 +200,14 @@ export default defineComponent({
     })
 
     onMounted(async () => {
+      const timer = setTimeout(() => { loading.value = true }, 200)
+      monaco = await loader.init()
+      clearTimeout(timer)
+      loading.value = false
+
+      registerDatavDarkTheme(monaco)
+      registerApiCompletion(monaco, props.language, props.completions)
+
       await nextTick()
 
       const dom = document.getElementById(editorId.value)
@@ -262,8 +255,9 @@ export default defineComponent({
 
     return {
       editorId,
-      copyData,
       isFullScreen,
+      loading,
+      copyData,
       switchFullScreen,
       openedFullScreenDialog,
       closedFullScreenDialog,

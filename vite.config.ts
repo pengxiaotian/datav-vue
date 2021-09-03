@@ -17,8 +17,6 @@ export default ({ mode }: ConfigEnv) => {
 
   const env = loadEnv(mode, dirRoot)
 
-  const prefix = 'monaco-editor/esm/vs'
-
   return defineConfig({
     base: env.VITE_PUBLIC_PATH,
     plugins: [
@@ -72,11 +70,7 @@ export default ({ mode }: ConfigEnv) => {
         'js-cookie',
         'lodash-es',
         'mockjs',
-        `${prefix}/editor/editor.worker`,
-        `${prefix}/language/json/json.worker`,
-        `${prefix}/language/css/css.worker`,
-        `${prefix}/language/html/html.worker`,
-        `${prefix}/language/typescript/ts.worker`,
+        'monaco-editor',
         'particles.vue3',
         'shortid',
         'vue',
@@ -90,17 +84,6 @@ export default ({ mode }: ConfigEnv) => {
     build: {
       sourcemap: false,
       outDir: 'website',
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            editorWorker: [`${prefix}/editor/editor.worker`],
-            jsonWorker: [`${prefix}/language/json/json.worker`],
-            cssWorker: [`${prefix}/language/css/css.worker`],
-            htmlWorker: [`${prefix}/language/html/html.worker`],
-            tsWorker: [`${prefix}/language/typescript/ts.worker`],
-          },
-        },
-      },
     },
     esbuild: {
     },
