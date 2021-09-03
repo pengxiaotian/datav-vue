@@ -84,6 +84,12 @@ export default ({ mode }: ConfigEnv) => {
     build: {
       sourcemap: false,
       outDir: 'website',
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, 'index.html'),
+          share: resolve(__dirname, 'share/index.html'),
+        },
+      },
     },
     esbuild: {
     },

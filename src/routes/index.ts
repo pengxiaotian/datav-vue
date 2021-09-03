@@ -60,12 +60,6 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: '编辑器' },
   },
   {
-    path: '/screen/:screenId',
-    name: 'Screen',
-    props: true,
-    component: () => import('@/views/screen/index.vue'),
-  },
-  {
     path: '/screen/preview/:screenId',
     name: 'Preview',
     props: true,
