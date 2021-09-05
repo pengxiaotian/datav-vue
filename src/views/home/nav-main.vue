@@ -7,7 +7,13 @@
         :class="{ 'nav-active': activeNav === nav.id }"
         @click="toggleNav(nav)"
       >
-        <i :class="`v-icon-${nav.icon} nav-icon`"></i>{{ nav.name }}
+        <n-icon :size="16">
+          <IconLayer v-if="nav.key === 'MyProject'" />
+          <IconMyData v-else-if="nav.key === 'MyData'" />
+          <IconMyCom v-else-if="nav.key === 'MyCom'" />
+          <IconTutorial v-else-if="nav.key === 'MyCase'" />
+        </n-icon>
+        {{ nav.name }}
       </a>
     </span>
   </div>
@@ -18,17 +24,23 @@ import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
 import type { PropType } from 'vue'
 import { useRoute } from 'vue-router'
 import { debounce } from 'lodash-es'
+import { IconLayer, IconMyData, IconMyCom, IconTutorial } from '@/icons'
 import { NavCanvas } from './nav-canvas'
 
 interface NavDataType {
   id: number
   key: string
   name: string
-  icon: string
 }
 
 export default defineComponent({
   name: 'NavMain',
+  components: {
+    IconLayer,
+    IconMyData,
+    IconMyCom,
+    IconTutorial,
+  },
   props: {
     navs: {
       type: Array as PropType<NavDataType[]>,
@@ -105,11 +117,6 @@ export default defineComponent({
       &:hover {
         color: #fff !important;
       }
-    }
-
-    .nav-icon {
-      padding-right: 5px;
-      font-size: 16px;
     }
   }
 }

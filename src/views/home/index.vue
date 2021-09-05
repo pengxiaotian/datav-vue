@@ -29,14 +29,14 @@ export default defineComponent({
     NavMain,
   },
   setup() {
-    const navMainRef = ref<any>(null)
+    const navMainRef = ref(null)
     const isFixed = ref(false)
 
     const navs = ref([
-      { id: 0, key: 'MyProject', name: '我的可视化', icon: 'layer' },
-      { id: 1, key: 'MyData', name: '我的数据', icon: 'my-data' },
-      { id: 2, key: 'MyCom', name: '我的组件', icon: 'my-com' },
-      { id: 3, key: 'MyCase', name: '教程', icon: 'tutorial' },
+      { id: 0, key: 'MyProject', name: '我的可视化' },
+      { id: 1, key: 'MyData', name: '我的数据' },
+      { id: 2, key: 'MyCom', name: '我的组件' },
+      { id: 3, key: 'MyCase', name: '教程' },
     ])
 
     const router = useRouter()

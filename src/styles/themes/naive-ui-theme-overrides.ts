@@ -29,24 +29,32 @@ const themeOverrides: GlobalThemeOverrides = {
     fontWeightText: '700',
     fontWeighGhost: '700',
     heightSmall: '30px',
+    heightMedium: '32px',
     paddingSmall: '0 30px',
-    color: '#000',
+    paddingMedium: '0 24px',
+    color: '#0000',
     colorHover: vars.primaryColorHover,
     colorPressed: vars.primaryColorPressed,
     colorFocus: vars.primaryColor,
+
+    colorFocusPrimary: vars.primaryColor,
+
     border: `1px solid ${vars.primaryColor}`,
     borderHover: `1px solid ${vars.primaryColorHover}`,
     borderPressed: `1px solid ${vars.primaryColorPressed}`,
     borderFocus: `1px solid ${vars.primaryColor}`,
+
+    borderFocusPrimary: `1px solid ${vars.primaryColor}`,
+
     textColor: vars.primaryColor,
     textColorHover: '#fff',
     textColorPressed: '#fff',
     textColorFocus: '#fff',
+
     textColorGhost: vars.primaryColor,
     textColorGhostHover: '#fff',
     textColorGhostPressed: '#fff',
-    colorFocusPrimary: vars.primaryColor,
-    borderFocusPrimary: `1px solid ${vars.primaryColor}`,
+    textColorGhostFocus: vars.primaryColor,
   },
   Message: {
     minWidth: '380px',

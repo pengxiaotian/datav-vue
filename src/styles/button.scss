@@ -9,6 +9,7 @@
         color: var(--datav-main-color);
         background-color: transparent;
 
+        &:hover,
         &:active {
           color: #fff;
           background-color: var(--datav-main-click-color);

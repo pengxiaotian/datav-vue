@@ -6,7 +6,9 @@
         <div class="left-bar"></div>
         <router-link to="/" class="return-btn">
           <span class="return-text">
-            <i class="v-icon-back return-icon"></i>
+            <n-icon class="return-icon">
+              <IconBack />
+            </n-icon>
             取消创建
           </span>
         </router-link>
@@ -15,9 +17,14 @@
         <div class="template-list">
           <div class="template-item --blank">
             <div class="template-image">
-              <el-button type="primary" icon="v-icon-plus" @click="confirmCreate(null)">
+              <n-button type="primary" @click="confirmCreate(null)">
+                <template #icon>
+                  <n-icon>
+                    <IconPlus />
+                  </n-icon>
+                </template>
                 创建项目
-              </el-button>
+              </n-button>
             </div>
             <div class="template-info">
               空白画板
@@ -27,12 +34,17 @@
             <div class="template-image">
               <img :src="tpl.thumbnail" alt="" class="preview-image">
               <div class="template-mask">
-                <el-button type="primary" class="create-btn" @click="confirmCreate(tpl)">
+                <n-button
+                  type="primary"
+                  :focusable="false"
+                  class="create-btn"
+                  @click="confirmCreate(tpl)"
+                >
                   创建项目
-                </el-button>
-                <el-button class="preview-btn" @click="previewTemplate(tpl, idx)">
+                </n-button>
+                <n-button class="preview-btn" :focusable="false" @click="previewTemplate(tpl, idx)">
                   预览
-                </el-button>
+                </n-button>
               </div>
             </div>
             <div class="template-info">
@@ -70,10 +82,15 @@
       </el-select>
     </div>
     <template #footer>
-      <el-button @click="visibleCreateDialog = false">取消</el-button>
-      <el-button type="primary" :loading="saveLoading" @click="doCreate">
+      <n-button :focusable="false" @click="visibleCreateDialog = false">取消</n-button>
+      <n-button
+        type="primary"
+        :focusable="false"
+        :loading="saveLoading"
+        @click="doCreate"
+      >
         创建
-      </el-button>
+      </n-button>
     </template>
   </el-dialog>
 
@@ -99,8 +116,13 @@
       <div class="preview-gif">
         <div class="gif-wp">
           <img class="snapshot-gif" :src="template.snapshot">
-          <i class="v-icon-arrow-left prev-icon" @click="prevPreviewTemplate"></i>
-          <i class="v-icon-arrow-right next-icon" @click="nextPreviewTemplate"></i>
+          <n-icon class="prev-icon" @click="prevPreviewTemplate">
+            <IconArrowLeft />
+          </n-icon>
+
+          <n-icon class="next-icon" @click="nextPreviewTemplate">
+            <IconArrowRight />
+          </n-icon>
         </div>
         <div class="preview-create">
           <div class="create-dialog">
@@ -126,15 +148,19 @@
               />
             </el-select>
           </div>
-          <el-button
+          <n-button
             type="primary"
             size="mini"
+            :focusable="false"
             :loading="saveLoading"
             class="preview-create-btn"
             @click="doCreate"
           >
-            创建大屏 <i class="v-icon-arrow-right next-icon"></i>
-          </el-button>
+            创建大屏
+            <n-icon class="next-icon">
+              <IconArrowRight />
+            </n-icon>
+          </n-button>
         </div>
       </div>
     </div>
@@ -150,9 +176,16 @@ import { ProjectGroup, ProjectTemplate } from '@/domains/project'
 import { getProjects, createProject } from '@/api/project'
 import { getSysTemplates } from '@/api/templates'
 import { scrollToLeft } from '@/utils/animation'
+import { IconArrowLeft, IconArrowRight, IconBack, IconPlus } from '@/icons'
 
 export default defineComponent({
   name: 'CreateScreen',
+  components: {
+    IconArrowLeft,
+    IconArrowRight,
+    IconBack,
+    IconPlus,
+  },
   setup() {
     const nMessage = useMessage()
     const loading = ref(true)
@@ -703,7 +736,7 @@ export default defineComponent({
 .preview-create-btn {
   margin-top: 30px;
 
-  .v-icon-arrow-right {
+  .next-icon {
     font-size: 12px;
   }
 }

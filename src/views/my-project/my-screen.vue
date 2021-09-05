@@ -10,9 +10,9 @@
               target="_blank"
               class="edit-wrap"
             >
-              <el-button type="primary" size="small" class="edit">
+              <n-button type="primary" size="small" class="edit">
                 编辑
-              </el-button>
+              </n-button>
             </router-link>
             <div class="main-button">
               <g-tooltip-popover content="移动">
@@ -22,17 +22,23 @@
                   @dragstart="onDragStart"
                   @dragend="onDragEnd"
                 >
-                  <i class="v-icon-move"></i>
+                  <n-icon>
+                    <IconMove />
+                  </n-icon>
                 </span>
               </g-tooltip-popover>
               <g-tooltip-popover content="复制">
                 <span class="button-span" @click="confirmCopyProject">
-                  <i class="v-icon-copy"></i>
+                  <n-icon>
+                    <IconCopy />
+                  </n-icon>
                 </span>
               </g-tooltip-popover>
               <g-tooltip-popover content="删除">
                 <span class="button-span" @click="confirmDeleteProject">
-                  <i class="v-icon-delete"></i>
+                  <n-icon>
+                    <IconDelete />
+                  </n-icon>
                 </span>
               </g-tooltip-popover>
             </div>
@@ -44,12 +50,16 @@
             class="preview"
           >
             <g-tooltip-popover content="预览">
-              <i class="v-icon-preview"></i>
+              <n-icon>
+                <IconPreview />
+              </n-icon>
             </g-tooltip-popover>
           </router-link>
           <div class="public" @click="doPublish">
             <g-tooltip-popover content="发布">
-              <i class="v-icon-release"></i>
+              <n-icon>
+                <IconRelease />
+              </n-icon>
             </g-tooltip-popover>
           </div>
         </div>
@@ -62,7 +72,9 @@
             :content="screen.name"
           >
             <div class="screen-name-input">
-              <i class="v-icon-edit"></i>
+              <n-icon>
+                <IconEdit />
+              </n-icon>
               <input v-model.trim="screenName" class="input" @blur="onInputBlur">
             </div>
           </g-tooltip-popover>
@@ -82,12 +94,20 @@ import { useMessage, useDialog } from 'naive-ui'
 import { globalConfig } from '@/config'
 import { Project } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
-import { IconWarning } from '@/icons'
+import { IconWarning, IconMove, IconCopy, IconDelete, IconEdit, IconPreview, IconRelease } from '@/icons'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
 export default defineComponent({
   name: 'MyScreen',
+  components: {
+    IconMove,
+    IconCopy,
+    IconDelete,
+    IconEdit,
+    IconPreview,
+    IconRelease,
+  },
   props: {
     screen: {
       type: Object as PropType<Project>,
@@ -273,10 +293,6 @@ export default defineComponent({
 
           &:hover {
             color: $hover-color;
-          }
-
-          [class^="v-icon-"] {
-            font-size: 16px;
           }
         }
       }

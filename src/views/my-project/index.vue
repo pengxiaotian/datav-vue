@@ -5,7 +5,9 @@
         <div class="manage-title">
           <div class="my-project project-group">
             <span style="margin-left: 2px;">我的分组</span>
-            <i class="v-icon-plus btn-add-icon" @click="adding = true"></i>
+            <n-icon class="btn-add-icon" @click="adding = true">
+              <IconPlus />
+            </n-icon>
           </div>
           <div
             class="my-project project-all"
@@ -63,8 +65,12 @@
               <span class="project-name">{{ g.name }}</span>
               <span class="project-num">{{ g.children.length }}</span>
               <span class="group-btns">
-                <i class="v-icon-edit" @click="g.editing = true"></i>
-                <i class="v-icon-delete" @click="confirmDeleteGroup(g)"></i>
+                <n-icon @click="g.editing = true">
+                  <IconEdit />
+                </n-icon>
+                <n-icon class="btn-add-icon" @click="confirmDeleteGroup(g)">
+                  <IconDelete />
+                </n-icon>
               </span>
             </template>
           </div>
@@ -85,13 +91,16 @@ import { useMessage, useDialog } from 'naive-ui'
 import { ProjectGroup } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
 import { addClass, removeClass } from '@/utils/dom'
-import { IconWarning } from '@/icons'
+import { IconWarning, IconPlus, IconEdit, IconDelete } from '@/icons'
 import ProjectList from './project-list.vue'
 
 export default defineComponent({
   name: 'MyProject',
   components: {
     ProjectList,
+    IconPlus,
+    IconEdit,
+    IconDelete,
   },
   setup() {
     const nMessage = useMessage()

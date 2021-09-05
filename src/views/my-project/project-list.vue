@@ -19,7 +19,9 @@
         <div class="search">
           <input v-model.trim="searchText" class="search-input" placeholder="搜索">
         </div>
-        <i class="v-icon-search"></i>
+        <n-icon class="icon-search">
+          <IconSearch />
+        </n-icon>
 
         <n-dropdown
           :options="sortOpts"
@@ -30,7 +32,9 @@
             <span class="sort-text" :title="sorts[sort]">
               {{ sorts[sort] }}
             </span>
-            <i class="v-icon-arrow-down arrow-icon"></i>
+            <n-icon class="icon-arrow">
+              <IconArrowDown />
+            </n-icon>
           </div>
         </n-dropdown>
       </div>
@@ -51,6 +55,7 @@ import {
 } from 'vue'
 import { sortBy } from 'lodash-es'
 import { ProjectGroup } from '@/domains/project'
+import { IconSearch, IconArrowDown } from '@/icons'
 import MyScreen from './my-screen.vue'
 import PublishScreen from './publish-screen.vue'
 
@@ -61,6 +66,8 @@ export default defineComponent({
   components: {
     MyScreen,
     PublishScreen,
+    IconSearch,
+    IconArrowDown,
   },
   props: {
     group: Object as PropType<ProjectGroup>,
@@ -217,6 +224,7 @@ export default defineComponent({
     font-size: 14px;
 
     .search {
+      margin-right: 6px;
       transform: translateX(30px);
 
       .search-input {
@@ -239,7 +247,7 @@ export default defineComponent({
       }
     }
 
-    .v-icon-search {
+    .icon-search {
       padding: 0 24px 0 4px;
       color: $font-color;
       cursor: pointer;
@@ -256,7 +264,7 @@ export default defineComponent({
       font-size: 14px;
       min-width: 100px;
 
-      .arrow-icon {
+      .icon-arrow {
         font-size: 14px;
         margin-left: 4px;
       }
