@@ -17,7 +17,7 @@
         <div class="template-list">
           <div class="template-item --blank">
             <div class="template-image">
-              <n-button type="primary" @click="confirmCreate(null)">
+              <n-button type="primary" :focusable="false" @click="confirmCreate(null)">
                 <template #icon>
                   <n-icon>
                     <IconPlus />
@@ -60,7 +60,13 @@
     </div>
   </g-loading>
 
-  <el-dialog v-model="visibleCreateDialog" title="创建数据大屏" width="400px">
+  <n-modal
+    v-model:show="visibleCreateDialog"
+    preset="dialog"
+    :show-icon="false"
+    title="创建数据大屏"
+    style="width: 400px;"
+  >
     <div class="create-dialog">
       <p class="name-title">
         <span class="required">*</span>数据大屏名称
@@ -81,7 +87,7 @@
         />
       </el-select>
     </div>
-    <template #footer>
+    <template #action>
       <n-button :focusable="false" @click="visibleCreateDialog = false">取消</n-button>
       <n-button
         type="primary"
@@ -92,9 +98,15 @@
         创建
       </n-button>
     </template>
-  </el-dialog>
+  </n-modal>
 
-  <el-dialog v-model="visiblePreviewDialog" title="预览" width="897px">
+  <n-modal
+    v-model:show="visiblePreviewDialog"
+    preset="dialog"
+    :show-icon="false"
+    title="预览"
+    style="width: 895px;"
+  >
     <div class="preview-dialog">
       <div class="preview-list">
         <p class="template-list-title">模板列表</p>
@@ -150,21 +162,24 @@
           </div>
           <n-button
             type="primary"
-            size="mini"
+            size="small"
             :focusable="false"
+            icon-placement="right"
             :loading="saveLoading"
             class="preview-create-btn"
             @click="doCreate"
           >
+            <template #icon>
+              <n-icon class="next-icon">
+                <IconArrowRight />
+              </n-icon>
+            </template>
             创建大屏
-            <n-icon class="next-icon">
-              <IconArrowRight />
-            </n-icon>
           </n-button>
         </div>
       </div>
     </div>
-  </el-dialog>
+  </n-modal>
 </template>
 
 <script lang='ts'>
@@ -600,9 +615,8 @@ export default defineComponent({
 
 .preview-dialog {
   .preview-list {
-    width: 897px;
-    height: 186px;
-    margin-top: -57px;
+    width: 895px;
+    height: 180px;
     margin-left: -20px;
     background: #303640;
     display: flex;
@@ -611,7 +625,7 @@ export default defineComponent({
 
     .template-list-title {
       font-size: 12px;
-      margin: 50px 0 15px 30px;
+      margin: 0 0 15px 30px;
     }
   }
 
@@ -707,6 +721,8 @@ export default defineComponent({
         transform: translateY(-50%);
         padding: 5px;
         border-radius: 50%;
+        height: 26px;
+        width: 26px;
         margin: 10px;
         font-weight: 600;
         background: rgba(255, 255, 255, 0.2);

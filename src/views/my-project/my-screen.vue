@@ -10,7 +10,12 @@
               target="_blank"
               class="edit-wrap"
             >
-              <n-button type="primary" size="small" class="edit">
+              <n-button
+                type="primary"
+                :focusable="false"
+                size="small"
+                class="edit"
+              >
                 编辑
               </n-button>
             </router-link>

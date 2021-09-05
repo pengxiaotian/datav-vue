@@ -34,6 +34,12 @@
     margin-top: 14px;
   }
 
+  .n-dialog__title {
+    color: var(--datav-main-color);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
   .n-dialog__content {
     margin: 10px -20px;
     padding: 10px 20px 30px;
