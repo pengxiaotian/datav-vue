@@ -125,6 +125,15 @@ const themeOverrides: GlobalThemeOverrides = {
     railColorActive: vars2.guiPrimaryColor,
     boxShadowFocus: 'none',
   },
+  Tooltip: {
+    padding: '5px',
+    color: vars.primaryColor,
+    peers: {
+      Popover: {
+        fontSize: '12px',
+      },
+    },
+  },
 }
 
 export {

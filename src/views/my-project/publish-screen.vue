@@ -32,24 +32,24 @@
       <div class="share-verify">
         <div class="label-color">分享链接</div>
         <div class="link-content">
-          <el-tooltip
-            v-model="showTooltip"
-            effect="blue"
-            placement="top"
-            content="点击复制"
-            :manual="true"
+          <n-tooltip
+            :show="showTooltip"
+            trigger="manual"
             :disabled="!isPublish"
           >
-            <textarea
-              :value="shareUrl"
-              class="new-input share-input"
-              readonly
-              placeholder="开启发布分享后可获取访问链接"
-              @click="copyUrl"
-              @mouseenter="showTooltip = true"
-              @mouseleave="showTooltip = false"
-            ></textarea>
-          </el-tooltip>
+            <template #trigger>
+              <textarea
+                :value="shareUrl"
+                class="new-input share-input"
+                readonly
+                placeholder="开启发布分享后可获取访问链接"
+                @click="copyUrl"
+                @mouseenter="showTooltip = true"
+                @mouseleave="showTooltip = false"
+              ></textarea>
+            </template>
+            点击复制
+          </n-tooltip>
           <div class="func-btn" @click="copyUrl">复制</div>
         </div>
         <div class="label-color">访问密码</div>
