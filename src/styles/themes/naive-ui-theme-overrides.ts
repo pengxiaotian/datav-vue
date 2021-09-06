@@ -18,6 +18,8 @@ const vars: Partial<GlobalTheme['common']> = {
 
 const vars2 = {
   darkColor: '#262c33',
+  guiComponentBgColor: '#0b0c0d',
+  guiPrimaryColor: '#2483ff',
 }
 
 const themeOverrides: GlobalThemeOverrides = {
@@ -105,6 +107,23 @@ const themeOverrides: GlobalThemeOverrides = {
     optionIconSizeMedium: '12px',
     optionIconPrefixWidthMedium: '12px',
     dividerColor: '#1a1b1d',
+  },
+  Switch: {
+    buttonWidthMedium: '10px',
+    buttonHeightMedium: '10px',
+    buttonWidthPressedMedium: '14px',
+    railWidthMedium: '26px',
+    railHeightMedium: '12px',
+
+    buttonWidthSmall: '6px',
+    buttonHeightSmall: '6px',
+    buttonWidthPressedSmall: '8px',
+    railWidthSmall: '16px',
+    railHeightSmall: '8px',
+
+    railColor: vars2.guiComponentBgColor,
+    railColorActive: vars2.guiPrimaryColor,
+    boxShadowFocus: 'none',
   },
 }
 

@@ -95,7 +95,13 @@
       </el-select>
     </div>
     <template #action>
-      <n-button :focusable="false" @click="visibleCreateDialog = false">取消</n-button>
+      <n-button
+        :focusable="false"
+        @click="visibleCreateDialog = false"
+      >
+        取消
+      </n-button>
+
       <n-button
         type="primary"
         :focusable="false"

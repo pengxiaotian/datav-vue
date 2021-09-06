@@ -1,9 +1,10 @@
 <template>
-  <el-dialog
-    v-model="visible"
+  <n-modal
+    v-model:show="visible"
+    preset="dialog"
+    :show-icon="false"
     title="发布"
-    width="435px"
-    :append-to-body="true"
+    style="width: 435px;"
     @close="closeDialog"
   >
     <div
@@ -15,9 +16,7 @@
         <div class="header-wp">
           <label class="label-color">发布分享：</label>
           <div class="share-switch">
-            <el-switch
-              v-model="isPublish"
-            />
+            <n-switch v-model:value="isPublish" />
           </div>
         </div>
         <div class="share-tutorial">
@@ -73,12 +72,17 @@
         </div>
       </div>
       <div class="initial-dialog">
-        <el-button type="primary" class="publish-btn" @click="publish">
+        <n-button
+          type="primary"
+          :focusable="false"
+          class="publish-btn"
+          @click="publish"
+        >
           {{ isPublish ? '发布大屏' : '保存' }}
-        </el-button>
+        </n-button>
       </div>
     </div>
-  </el-dialog>
+  </n-modal>
 </template>
 
 <script lang='ts'>
