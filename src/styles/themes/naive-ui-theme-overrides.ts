@@ -24,15 +24,16 @@ const themeOverrides: GlobalThemeOverrides = {
   common: {
     ...vars,
   },
-  Button: {
+  Button: { // small 和 medium 一样大
     fontWeight: '700',
     fontWeightText: '700',
     fontWeighGhost: '700',
-    fontSizeSmall: '12px',
-    iconSizeSmall: '12px',
-    heightSmall: '26px',
+    iconSizeTiny: '12px',
+    heightTiny: '26px',
+    heightSmall: '32px',
     heightMedium: '32px',
-    paddingSmall: '0 15px',
+    paddingTiny: '0 15px',
+    paddingSmall: '0 24px',
     paddingMedium: '0 24px',
     color: '#0000',
     colorHover: vars.primaryColorHover,

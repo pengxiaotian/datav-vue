@@ -17,9 +17,16 @@
         <div class="template-list">
           <div class="template-item --blank">
             <div class="template-image">
-              <n-button type="primary" :focusable="false" @click="confirmCreate(null)">
+              <n-button
+                type="primary"
+                :focusable="false"
+                :style="{
+                  '--icon-size': '12px'
+                }"
+                @click="confirmCreate(null)"
+              >
                 <template #icon>
-                  <n-icon>
+                  <n-icon :size="12">
                     <IconPlus />
                   </n-icon>
                 </template>
@@ -105,7 +112,7 @@
     preset="dialog"
     :show-icon="false"
     title="预览"
-    style="width: 895px;"
+    style="width: 895px; padding-bottom: 0;"
   >
     <div class="preview-dialog">
       <div class="preview-list">
@@ -162,7 +169,7 @@
           </div>
           <n-button
             type="primary"
-            size="small"
+            size="tiny"
             :focusable="false"
             icon-placement="right"
             :loading="saveLoading"
@@ -614,9 +621,12 @@ export default defineComponent({
 }
 
 .preview-dialog {
+  margin-top: -10px;
+  margin-bottom: -40px;
+
   .preview-list {
     width: 895px;
-    height: 180px;
+    height: 150px;
     margin-left: -20px;
     background: #303640;
     display: flex;
@@ -695,7 +705,7 @@ export default defineComponent({
   .preview-gif {
     height: 420px;
     display: flex;
-    padding: 30px 10px 50px 10px;
+    padding: 20px 10px 50px 10px;
 
     .gif-wp {
       width: 610px;

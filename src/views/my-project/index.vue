@@ -65,10 +65,10 @@
               <span class="project-name">{{ g.name }}</span>
               <span class="project-num">{{ g.children.length }}</span>
               <span class="group-btns">
-                <n-icon @click="g.editing = true">
+                <n-icon :size="14" @click="g.editing = true">
                   <IconEdit />
                 </n-icon>
-                <n-icon class="btn-add-icon" @click="confirmDeleteGroup(g)">
+                <n-icon :size="14" class="btn-add-icon" @click="confirmDeleteGroup(g)">
                   <IconDelete />
                 </n-icon>
               </span>
