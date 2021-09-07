@@ -53,8 +53,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .data-center-panel {
   position: relative;
   height: 100vh;

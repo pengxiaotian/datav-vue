@@ -1,5 +1,5 @@
 <template>
-  <el-footer height="32px" class="bottom-sider">
+  <div height="32px" class="g-footer bottom-sider">
     <el-popover
       width="235"
       placement="top"
@@ -71,7 +71,7 @@
         @change="submitScale"
       />
     </div>
-  </el-footer>
+  </div>
 </template>
 
 <script lang='ts'>

@@ -215,8 +215,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '@/styles/themes/var';
-
 .pc-header {
   padding-top: 20px;
 }

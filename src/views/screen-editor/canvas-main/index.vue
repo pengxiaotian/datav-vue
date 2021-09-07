@@ -1,5 +1,5 @@
 <template>
-  <el-main class="canvas-main">
+  <div class="canvas-main">
     <div id="canvas-wp" class="canvas-panel-wrap" @mousedown.stop="cancelSelectCom">
       <div class="screen-shot" :style="screenShotStyle">
         <align-line />
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="thumbnail"></div>
-  </el-main>
+  </div>
 </template>
 
 <script lang="ts">
@@ -129,6 +129,8 @@ export default defineComponent({
   padding: 0;
   user-select: none;
   flex: 1;
+  flex-basis: auto;
+  overflow: auto;
 }
 
 .canvas-panel-wrap {

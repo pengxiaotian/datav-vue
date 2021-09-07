@@ -1,22 +1,22 @@
 <template>
-  <el-container class="edit-container">
-    <el-header style="height: auto; padding: 0;">
+  <div class="g-layout is-vertical edit-container">
+    <div class="g-layout-header">
       <header-toolbar />
-    </el-header>
-    <el-container class="edit-main-wp">
+    </div>
+    <div class="g-layout edit-main-wp">
       <layer-panel />
       <components-panel />
       <filter-manager-drawer />
-      <el-container class="edit-main">
+      <div class="g-layout edit-main">
         <toolbox-panel />
         <g-loading :spinning="loading">
           <canvas-main />
         </g-loading>
         <footer-toolbar />
-      </el-container>
+      </div>
       <config-panel />
-    </el-container>
-  </el-container>
+    </div>
+  </div>
   <editor-context-menu />
 </template>
 
@@ -113,8 +113,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .edit-container {
   position: relative;
   width: 100%;

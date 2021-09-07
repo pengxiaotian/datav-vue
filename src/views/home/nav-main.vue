@@ -87,8 +87,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .nav-main {
   z-index: 10;
   display: flex;
@@ -104,7 +102,7 @@ export default defineComponent({
       transition: color 0.2s;
       text-decoration: none !important;
       display: block;
-      color: $nav-color;
+      color: #b9c2cc;
       width: auto;
       min-width: 140px;
       line-height: 40px;

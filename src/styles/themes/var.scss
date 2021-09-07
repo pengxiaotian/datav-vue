@@ -45,8 +45,13 @@ $cdn: '//files.pengxiaotian.com';
   // --datav-common-outline-focus: 1px solid var(--datav-main-color);
   // --datav-common-outline-disabled: 1px solid #323437;
   --datav-body-bg: #171b22;
+  --datav-body-bg-1: #1d262e;
   --datav-component-bg: #303640;
+  --datav-border-color: #3a4659;
+  --datav-border: 1px solid var(--datav-border-color);
   --datav-border-primary: 1px solid var(--datav-main-color);
+  --datav-shadow-color: #000;
+  --datav-shadow: 0 0 10px -6px #000;
 }
 
 // GUI

@@ -4,7 +4,7 @@
     <nav-main
       ref="navMainRef"
       :navs="navs"
-      :style="{ background: isFixed ? '#171b22' : '' }"
+      :style="{ background: isFixed ? 'var(--datav-body-bg)' : '' }"
       @change="onNavChange"
     />
     <div class="nav-shadow"></div>
@@ -68,11 +68,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .datav {
   .nav-shadow {
-    background: linear-gradient(180deg, transparent, $background-color);
+    background: linear-gradient(180deg, transparent, var(--datav-body-bg));
     height: 50px;
     position: relative;
     width: 100%;
@@ -84,7 +82,7 @@ export default defineComponent({
 
     .datav-content {
       position: relative;
-      color: $background-color;
+      color: var(--datav-body-bg);
     }
   }
 }

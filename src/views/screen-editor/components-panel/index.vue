@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="auto" :class="['component-panel-wp', { '--hide': !visiblePanel }]">
+  <div :class="['g-aside component-panel-wp', { '--hide': !visiblePanel }]">
     <div class="components-panel">
       <div class="panel-title">
         <span class="panel-text">{{ visiblePanel ? '全部组件' : '组件' }}</span>
@@ -99,7 +99,7 @@
         </el-tabs>
       </div>
     </div>
-  </el-aside>
+  </div>
 </template>
 
 <script lang='ts'>

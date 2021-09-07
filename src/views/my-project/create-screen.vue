@@ -341,7 +341,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
 @import "@/styles/mixins/function.scss";
 
 @font-face {
@@ -397,8 +396,8 @@ export default defineComponent({
       top: 20px;
       height: 5px;
       width: 100%;
-      border-top: $border-primary;
-      border-left: 2px solid $color-primary;
+      border-top: var(--datav-border-primary);
+      border-left: 2px solid var(--datav-main-color);
       background: rgba(55, 126, 255, 0.04);
       border-top-left-radius: 5px;
       transform: skewX(-45deg);
@@ -411,8 +410,8 @@ export default defineComponent({
       top: 24px;
       height: 25px;
       width: 138px;
-      border-right: 2px solid $color-primary;
-      border-bottom: $border-primary;
+      border-right: 2px solid var(--datav-main-color);
+      border-bottom: var(--datav-border-primary);
       transform: skewX(-45deg);
       border-bottom-right-radius: 5px;
       box-shadow: 0 5px 28px 0 rgba(55, 126, 255, 0.28);
@@ -440,7 +439,7 @@ export default defineComponent({
         transition: 0.2s;
 
         &:hover {
-          color: $color-primary;
+          color: var(--datav-main-color);
         }
       }
 
@@ -473,8 +472,8 @@ export default defineComponent({
       .template-item {
         width: 258px;
         height: 184px;
-        box-shadow: $shadow;
-        border: $border;
+        box-shadow: var(--datav-shadow);
+        border: var(--datav-border);
         margin: 16px;
         transition: 0.2s;
         outline: 1px solid transparent;
@@ -496,20 +495,20 @@ export default defineComponent({
           justify-content: space-between;
           padding: 10px;
           height: 36px;
-          background: $background-color-dark;
+          background: var(--datav-body-bg-1);
           transition: 0.2s;
         }
 
         &.--blank {
           position: relative;
-          outline: $border-primary;
+          outline: var(--datav-border-primary);
 
           .template-image {
             box-shadow: inset 0 0 46px 0 rgba(136, 215, 255, 0.29);
           }
 
           .template-info {
-            border-top: $border-primary;
+            border-top: var(--datav-border-primary);
             justify-content: center;
             font-size: 14px;
           }
@@ -557,7 +556,7 @@ export default defineComponent({
       }
 
       .template-item:hover {
-        outline: $border-primary;
+        outline: var(--datav-border-primary);
 
         .template-mask {
           pointer-events: all;
@@ -587,7 +586,7 @@ export default defineComponent({
   .required {
     display: inline-block;
     margin-right: 6px;
-    color: $color-red;
+    color: var(--datav-red-color);
   }
 
   .template-desc {
@@ -664,7 +663,7 @@ export default defineComponent({
     padding-bottom: 8px;
 
     &::-webkit-scrollbar-thumb {
-      background: $color-primary;
+      background: var(--datav-main-color);
       border-radius: 5px;
       border: none;
     }
@@ -697,14 +696,14 @@ export default defineComponent({
     .preview-screen-name {
       font-size: 12px;
       line-height: 19px;
-      background: $background-color-dark;
+      background: var(--datav-body-bg-1);
       padding: 0 5px;
       font-weight: 300;
     }
 
     &:hover,
     &.selected {
-      border-color: $color-primary;
+      border-color: var(--datav-main-color);
     }
   }
 
@@ -722,8 +721,8 @@ export default defineComponent({
         height: 100%;
         display: block;
         position: relative;
-        border: $border;
-        box-shadow: $shadow;
+        border: var(--datav-border);
+        box-shadow: var(--datav-shadow);
 
         &::after {
           @include cover-img();

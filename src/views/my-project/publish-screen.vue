@@ -192,8 +192,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .share-setting {
   user-select: text;
 
@@ -203,7 +201,7 @@ export default defineComponent({
     justify-content: space-between;
     padding-bottom: 16px;
     font-size: 14px;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--datav-border-color);
   }
 
   .header-wp {
@@ -230,7 +228,7 @@ export default defineComponent({
   .share-tutorial-url {
     line-height: 28px;
     letter-spacing: 1.09px;
-    color: $color-primary;
+    color: var(--datav-main-color);
     text-decoration: none;
   }
 
@@ -251,7 +249,7 @@ export default defineComponent({
     width: 80%;
     height: 50px;
     line-height: 22px;
-    background: $background-color-dark;
+    background: var(--datav-body-bg-1);
     cursor: pointer;
     resize: none;
   }
@@ -260,12 +258,12 @@ export default defineComponent({
     width: 80%;
     height: 25px;
     line-height: 25px;
-    background: $background-color-dark;
+    background: var(--datav-body-bg-1);
     cursor: text;
   }
 
   .func-btn {
-    color: $color-primary;
+    color: var(--datav-main-color);
     cursor: pointer;
     margin-left: 10px;
   }

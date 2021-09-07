@@ -225,8 +225,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .my-screen {
   margin: 16px 32px 16px 0;
 }
@@ -236,7 +234,7 @@ export default defineComponent({
   flex-direction: column;
   width: 258px;
   height: 184px;
-  border: 1px solid $border-color;
+  border: 1px solid var(--datav-border-color);
   transition: 0.2s;
 
   .screen-info {
@@ -279,7 +277,7 @@ export default defineComponent({
         font-size: 19px;
         padding-top: 15px;
         align-items: center;
-        color: $icon-color;
+        color: #fff;
       }
 
       .screen-button {
@@ -292,7 +290,7 @@ export default defineComponent({
           transition: color 0.2s;
 
           &:hover {
-            color: $hover-color;
+            color: var(--datav-main-hover-color);
           }
         }
       }
@@ -314,20 +312,20 @@ export default defineComponent({
 
       .preview,
       .public {
-        color: $icon-color;
+        color: #fff;
         cursor: pointer;
         transition: color 0.2s;
 
         &:hover {
-          color: $hover-color;
+          color: var(--datav-main-hover-color);
         }
       }
     }
   }
 
   &:hover {
-    box-shadow: $shadow;
-    border: $border-primary;
+    box-shadow: var(--datav-shadow);
+    border: var(--datav-border-primary);
 
     .screen-info {
       .screen-edit {
@@ -346,7 +344,7 @@ export default defineComponent({
       position: relative;
       justify-content: space-between;
       color: #fff;
-      background: $background-color-dark;
+      background: var(--datav-body-bg-1);
       padding: 0 10px;
 
       .screen-name-input {
@@ -358,7 +356,7 @@ export default defineComponent({
 
         .input {
           width: 120px;
-          color: $font-color;
+          color: var(--datav-font-color);
           background: 0 0;
           padding: 0 5px;
           line-height: 28px;
@@ -372,7 +370,7 @@ export default defineComponent({
           }
 
           &:focus {
-            background: $background-color-dark;
+            background: var(--datav-body-bg-1);
           }
         }
       }
@@ -380,7 +378,7 @@ export default defineComponent({
       .publish-info {
         align-items: center;
         display: flex;
-        color: $font-color;
+        color: var(--datav-font-color);
 
         .dot {
           content: "";
@@ -389,10 +387,10 @@ export default defineComponent({
           width: 8px;
           height: 8px;
           border-radius: 5px;
-          background-color: $state-color;
+          background-color: #576369;
 
           &.published {
-            background-color: $color-primary;
+            background-color: var(--datav-main-color);
           }
         }
       }

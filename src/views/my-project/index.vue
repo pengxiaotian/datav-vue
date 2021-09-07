@@ -271,7 +271,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
 @import '@/styles/mixins/util';
 @import '@/styles/mixins/function';
 
@@ -317,20 +316,20 @@ export default defineComponent({
       .project-group {
         padding-left: 24px;
         height: 56px;
-        border-bottom: 1px solid $nav-border-color;
+        border-bottom: 1px solid #27343e;
       }
 
       .btn-add-icon {
         cursor: pointer;
 
         &:hover {
-          color: $color-primary;
+          color: var(--datav-main-color);
         }
       }
     }
 
     .project-ungrouped {
-      color: $font-color;
+      color: var(--datav-font-color);
     }
 
     .project-all {
@@ -339,7 +338,7 @@ export default defineComponent({
       cursor: pointer;
 
       &:hover {
-        color: $color-primary;
+        color: var(--datav-main-color);
       }
     }
 
@@ -358,12 +357,12 @@ export default defineComponent({
 
     .project-num {
       user-select: none;
-      color: $font-color;
+      color: var(--datav-font-color);
     }
 
     .group-btns {
       display: none;
-      color: $color-primary;
+      color: var(--datav-main-color);
 
       i + i {
         margin-left: 10px;
@@ -392,12 +391,12 @@ export default defineComponent({
 
       &:hover {
         .project-name {
-          color: $color-primary;
+          color: var(--datav-main-color);
         }
       }
 
       &.drag-enter {
-        background: $background-color;
+        background: var(--datav-body-bg);
       }
     }
 
@@ -421,15 +420,15 @@ export default defineComponent({
   .edit-input {
     @include utils-ellipsis;
 
-    background: $background-color-dark;
+    background: var(--datav-body-bg-1);
     color: #fff;
     padding: 0 10px;
     line-height: 30px;
     width: 100%;
     height: 30px;
-    border: $border-primary;
+    border: var(--datav-border-primary);
     transition: 0.2s;
-    box-shadow: $shadow;
+    box-shadow: var(--datav-shadow);
   }
 
   .project-screen-list {

@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="auto" :class="['layer-panel-wp', { '--hide': !visiblePanel }]">
+  <div :class="['g-aside layer-panel-wp', { '--hide': !visiblePanel }]">
     <div class="layer-manager">
       <div class="layer-manager-top">
         <div class="layer-num">图层</div>
@@ -163,7 +163,7 @@
         ></i>
       </div>
     </div>
-  </el-aside>
+  </div>
 </template>
 
 <script lang='ts'>

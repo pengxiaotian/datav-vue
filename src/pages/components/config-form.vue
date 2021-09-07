@@ -277,8 +277,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '@/styles/themes/var';
-
 .pc-collapse {
   .el-collapse-item__header {
     padding-left: 16px;

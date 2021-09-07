@@ -121,7 +121,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
 @import '@/styles/mixins/util';
 
 .ellipsis {
@@ -133,7 +132,7 @@ export default defineComponent({
 .new-projects-title {
   font-size: 14px;
   font-weight: 700;
-  color: $color-primary;
+  color: var(--datav-main-color);
   padding: 0;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -167,7 +166,7 @@ export default defineComponent({
     }
 
     &:hover {
-      border-color: $color-primary;
+      border-color: var(--datav-main-color);
 
       &::after {
         content: "";
@@ -194,11 +193,11 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid var(--datav-border-color);
   padding-bottom: 5px;
   padding-top: 10px;
   height: 56px;
-  background: $background-color;
+  background: var(--datav-body-bg);
   z-index: 1;
   min-width: 1024px;
 
@@ -212,9 +211,9 @@ export default defineComponent({
 
       max-width: 200px;
       font-size: 14px;
-      color: $color-primary;
+      color: var(--datav-main-color);
       padding: 0 10px;
-      border-left: 2px solid $color-primary;
+      border-left: 2px solid var(--datav-main-color);
     }
   }
 
@@ -230,7 +229,7 @@ export default defineComponent({
       .search-input {
         @include utils-ellipsis;
 
-        background: $background-color-dark;
+        background: var(--datav-body-bg-1);
         color: #fff;
         padding: 0 10px;
         line-height: 30px;
@@ -241,15 +240,15 @@ export default defineComponent({
 
         &:hover,
         &:focus {
-          border: $border-primary;
-          box-shadow: $shadow;
+          border: var(--datav-border-primary);
+          box-shadow: var(--datav-shadow);
         }
       }
     }
 
     .icon-search {
       padding: 0 24px 0 4px;
-      color: $font-color;
+      color: var(--datav-font-color);
       cursor: pointer;
       z-index: 1;
     }
@@ -258,7 +257,7 @@ export default defineComponent({
       @include utils-ellipsis;
 
       display: inline-block;
-      color: $font-color;
+      color: var(--datav-font-color);
       line-height: 30px;
       cursor: pointer;
       font-size: 14px;
@@ -270,7 +269,7 @@ export default defineComponent({
       }
 
       &:hover {
-        color: $color-primary;
+        color: var(--datav-main-color);
       }
     }
   }
