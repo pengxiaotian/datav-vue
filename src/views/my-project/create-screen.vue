@@ -495,7 +495,7 @@ export default defineComponent({
           justify-content: space-between;
           padding: 10px;
           height: 36px;
-          background: var(--datav-body-bg-1);
+          background: var(--datav-bgcolor-2);
           transition: 0.2s;
         }
 
@@ -696,7 +696,7 @@ export default defineComponent({
     .preview-screen-name {
       font-size: 12px;
       line-height: 19px;
-      background: var(--datav-body-bg-1);
+      background: var(--datav-bgcolor-2);
       padding: 0 5px;
       font-weight: 300;
     }

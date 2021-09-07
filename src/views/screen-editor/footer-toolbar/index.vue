@@ -1,13 +1,16 @@
 <template>
-  <div height="32px" class="g-footer bottom-sider">
-    <el-popover
-      width="235"
+  <div class="g-footer bottom-sider">
+    <n-popover
+      :width="235"
       placement="top"
       trigger="hover"
-      popper-class="editor-popover"
+      raw
+      style="--color: var(--datav-component-bg);"
     >
-      <template #reference>
-        <i class="v-icon-keyboard shortcut-btn"></i>
+      <template #trigger>
+        <n-icon class="shortcut-btn">
+          <IconKeyboard />
+        </n-icon>
       </template>
       <div class="shortcut-wp">
         <div class="shortcut-item">
@@ -27,7 +30,7 @@
           <div class="shortcut-value">Ctrl/Cmd + a</div>
         </div>
       </div>
-    </el-popover>
+    </n-popover>
     <div class="scale-input-wp">
       <input
         v-model="inputScale"
@@ -36,39 +39,39 @@
         @keydown.enter="submitScale(0)"
       >
       <span class="percent">%</span>
-      <el-popover
-        :visible="visibleScaleList"
-        width="56"
+      <n-popover
+        :width="56"
         placement="top"
         trigger="click"
-        popper-class="editor-popover"
         :show-arrow="false"
-        :offset="8"
+        raw
+        style="--color: var(--datav-component-bg);"
       >
+        <template #trigger>
+          <n-icon class="open-icon">
+            <IconArrowDown />
+          </n-icon>
+        </template>
         <div class="scale-value-list">
           <div
             v-for="s in scaleList"
-            :key="s"
+            :key="s.value"
             class="scale-value-item"
-            @click="submitScale(s)"
+            @click="submitScale(s.value)"
           >
-            {{ `${s}%` }}
+            {{ s.label }}
           </div>
-          <div class="scale-value-item" @click="submitScale(-1)">自适应</div>
         </div>
-        <template #reference>
-          <i class="v-icon-arrow-down open-icon" @click.stop="showScaleList"></i>
-        </template>
-      </el-popover>
+      </n-popover>
     </div>
     <div class="scale-slider-wp">
-      <el-slider
-        v-model="scale"
+      <n-slider
+        v-model:value="scale"
         :min="10"
         :max="200"
         :step="5"
-        :show-tooltip="false"
-        @change="submitScale"
+        :tooltip="false"
+        @update:value="submitScale"
       />
     </div>
   </div>
@@ -79,25 +82,24 @@ import { defineComponent, ref, watch, onMounted, onUnmounted } from 'vue'
 import { isMac } from '@/utils/util'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
+import { IconKeyboard, IconArrowDown } from '@/icons'
 
 export default defineComponent({
   name: 'FooterToolbar',
+  components: {
+    IconKeyboard,
+    IconArrowDown,
+  },
   setup() {
-    const scaleList = ref([200, 150, 100, 50])
     const scale = ref(20)
     const inputScale = ref(20)
-    const visibleScaleList = ref(false)
-    const useSlider = ref(false)
-
-    const hideScaleList = () => {
-      visibleScaleList.value = false
-      document.removeEventListener('click', hideScaleList, false)
-    }
-
-    const showScaleList = () => {
-      visibleScaleList.value = true
-      document.addEventListener('click', hideScaleList, false)
-    }
+    const scaleList = [
+      { label: '200%', value: 200 },
+      { label: '150%', value: 150 },
+      { label: '100%', value: 100 },
+      { label: '50%', value: 50 },
+      { label: '自适应', value: -1 },
+    ]
 
     const getPanelOffset = () => ({
       offsetX: ToolbarModule.getPanelOffsetX,
@@ -113,8 +115,6 @@ export default defineComponent({
           ...getPanelOffset(),
         })
       }
-
-      hideScaleList()
     }
 
     watch(
@@ -160,9 +160,6 @@ export default defineComponent({
       scaleList,
       scale,
       inputScale,
-      visibleScaleList,
-      showScaleList,
-      useSlider,
       submitScale,
     }
   },
@@ -170,8 +167,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .bottom-sider {
   position: absolute;
   right: 0;
@@ -180,8 +175,8 @@ export default defineComponent({
   display: flex;
   width: 100%;
   height: 32px;
-  background: $footer-bgcolor;
-  box-shadow: 0 -1px $shadow-color;
+  background: #222528;
+  box-shadow: 0 -1px #000;
   user-select: none;
   align-items: center;
   justify-content: flex-end;
@@ -189,7 +184,7 @@ export default defineComponent({
   .shortcut-btn {
     margin-right: 20px;
     font-size: 18px;
-    color: $footer-color;
+    color: var(--datav-font-color);
     cursor: pointer;
   }
 
@@ -202,17 +197,17 @@ export default defineComponent({
     margin-right: 20px;
     overflow: hidden;
     cursor: pointer;
-    background: $color-dark;
-    border: $border-outline;
+    background: var(--datav-dark-color);
+    border: var(--datav-outline);
 
     .scale-input {
       width: 27px;
       padding-left: 5px;
       font-size: 12px;
-      color: $footer-color;
+      color: var(--datav-font-color);
       text-align: right;
       background: transparent;
-      caret-color: $footer-color;
+      caret-color: var(--datav-font-color);
 
       &::-webkit-inner-spin-button,
       &::-webkit-outer-spin-button {
@@ -223,17 +218,14 @@ export default defineComponent({
 
     .percent {
       margin-left: 1px;
-      color: $footer-color;
+      color: var(--datav-font-color);
     }
 
     .open-icon {
       position: absolute;
-      top: -9px;
-      right: -10px;
-      padding: 10px;
       font-weight: bold;
-      color: $footer-color;
-      transform: scale(0.5);
+      color: var(--datav-font-color);
+      transform: scale(0.6);
     }
   }
 
@@ -246,8 +238,8 @@ export default defineComponent({
   position: relative;
   padding: 5px 10px;
   font-size: 12px;
-  background: $background-color-secondary;
-  box-shadow: $shadow-secondary;
+  background: var(--datav-component-bg);
+  box-shadow: 0 0 8px -4px #000;
   user-select: none;
 
   .shortcut-item {
@@ -259,39 +251,39 @@ export default defineComponent({
 
   .shortcut-title {
     padding-right: 15px;
-    color: $footer-color;
+    color: var(--datav-font-color);
   }
 
   .shortcut-value {
     padding: 4px 6px;
     font-weight: 700;
-    color: $footer-shortcut-color;
-    background: $footer-shortcut-bgcolor;
+    color: #08a1db;
+    background: #262b33;
     border-radius: 2px;
   }
 }
 
 .scale-value-list {
   font-size: 12px;
-  background: $footer-shortcut-bgcolor;
-  border: $border-outline;
+  background: #262b33;
+  border: var(--datav-outline);
   user-select: none;
 
   .scale-value-item {
     width: 54px;
     padding: 5px 0;
-    color: $footer-color;
+    color: var(--datav-font-color);
     text-align: center;
     cursor: pointer;
     transition: 0.2s;
 
     &:hover {
-      color: $hover-color;
-      background: $footer-shortcut-color-hover;
+      color: var(--datav-main-hover-color);
+      background: var(--datav-bgcolor-1);
     }
 
     &:not(:first-child) {
-      border-top: $border-outline;
+      border-top: var(--datav-outline);
     }
   }
 }

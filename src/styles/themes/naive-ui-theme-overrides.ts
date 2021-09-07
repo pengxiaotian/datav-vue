@@ -141,6 +141,11 @@ const themeOverrides: GlobalThemeOverrides = {
       },
     },
   },
+  Slider: {
+    handleSize: '9px',
+    railHeight: '2px',
+    railColor: '#bcc9d4',
+  },
 }
 
 export {

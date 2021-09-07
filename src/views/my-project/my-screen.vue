@@ -344,7 +344,7 @@ export default defineComponent({
       position: relative;
       justify-content: space-between;
       color: #fff;
-      background: var(--datav-body-bg-1);
+      background: var(--datav-bgcolor-2);
       padding: 0 10px;
 
       .screen-name-input {
@@ -370,7 +370,7 @@ export default defineComponent({
           }
 
           &:focus {
-            background: var(--datav-body-bg-1);
+            background: var(--datav-bgcolor-2);
           }
         }
       }

@@ -420,7 +420,7 @@ export default defineComponent({
   .edit-input {
     @include utils-ellipsis;
 
-    background: var(--datav-body-bg-1);
+    background: var(--datav-bgcolor-2);
     color: #fff;
     padding: 0 10px;
     line-height: 30px;

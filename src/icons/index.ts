@@ -21,6 +21,18 @@ import IconPreview from './preview.vue'
 import IconRelease from './release.vue'
 import IconSearch from './search.vue'
 import IconBack from './back.vue'
+import IconEditorCanvas from './editor-canvas.vue'
+import IconNodal from './nodal.vue'
+import IconBox from './box.vue'
+import IconRpanel from './rpanel.vue'
+import IconToolbox from './toolbox.vue'
+import IconFilter from './filter.vue'
+import IconMagic from './magic.vue'
+import IconMobile from './mobile.vue'
+import IconWorkspace from './workspace.vue'
+import IconSnapshot from './snapshot.vue'
+import IconHelp from './help.vue'
+import IconKeyboard from './keyboard.vue'
 // -- prepend import placeholder --
 
 export {
@@ -47,5 +59,17 @@ export {
   IconRelease,
   IconSearch,
   IconBack,
+  IconEditorCanvas,
+  IconNodal,
+  IconBox,
+  IconRpanel,
+  IconToolbox,
+  IconFilter,
+  IconMagic,
+  IconMobile,
+  IconWorkspace,
+  IconSnapshot,
+  IconHelp,
+  IconKeyboard,
   // -- prepend export placeholder --
 }

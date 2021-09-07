@@ -249,7 +249,7 @@ export default defineComponent({
     width: 80%;
     height: 50px;
     line-height: 22px;
-    background: var(--datav-body-bg-1);
+    background: var(--datav-bgcolor-2);
     cursor: pointer;
     resize: none;
   }
@@ -258,7 +258,7 @@ export default defineComponent({
     width: 80%;
     height: 25px;
     line-height: 25px;
-    background: var(--datav-body-bg-1);
+    background: var(--datav-bgcolor-2);
     cursor: text;
   }
 
