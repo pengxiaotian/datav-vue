@@ -68,7 +68,7 @@
         <div class="main-name">
           <g-tooltip-popover
             placement="top-start"
-            :show-after="1000"
+            :delay="1000"
             :content="screen.name"
           >
             <div class="screen-name-input">

@@ -14,7 +14,7 @@ $cdn: '//files.pengxiaotian.com';
   --datav-dark-color: #262c33;
   --datav-main-hover-color: #409fff;
   --datav-main-click-color: #2681ff;
-  // --datav-pop-bg-color: #1b3964;
+  --datav-pop-bg-color: #1b3964;
   --datav-slider-color: #74f0ff;
   // --datav-success-color: #50e3c2;
   // --datav-cp-bg-color: #13161a;
@@ -46,16 +46,17 @@ $cdn: '//files.pengxiaotian.com';
   // --datav-common-outline-disabled: 1px solid #323437;
   --datav-body-bg: #171b22;
   --datav-component-bg: #303640;
+  --datav-border-primary: 1px solid var(--datav-main-color);
 }
 
 // GUI
 /* stylelint-disable no-duplicate-selectors */
 :root {
-  // --datav-gui-primary-color: #2483ff;
-  // --datav-gui-error-color: #ff4f43;
-  // --datav-gui-hover-color: #26a5ff;
-  // --datav-gui-active-color: #2693ff;
-  // --datav-gui-disabled-color: #424447;
+  --datav-gui-primary-color: #2483ff;
+  --datav-gui-error-color: #ff4f43;
+  --datav-gui-hover-color: #26a5ff;
+  --datav-gui-active-color: #2693ff;
+  --datav-gui-disabled-color: #424447;
   // --datav-gui-background-color-front: hsl(215, 15%, 13%); // #1c2026
   // --datav-gui-background-color-front-lighter: hsl(215, 15%, 28%); // #3d4652
   // --datav-gui-background-color-back: hsl(215, 15%, 8%); // #111417

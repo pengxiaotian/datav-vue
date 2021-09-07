@@ -1,12 +1,4 @@
-@import "themes/var";
-
-.tooltip-popover.el-popover.el-popper.is-light {
-  padding: 6px 10px;
-  background: $tooltip-popover-bgcolor;
-  box-shadow: 0 0 4px $tooltip-popover-shadow-color;
-  color: $tooltip-popover-color;
-  border: $border-primary;
+.g-tooltip-popover {
   line-height: 1;
-  font-size: 12px;
-  border-radius: 0;
+  border: var(--datav-border-primary);
 }

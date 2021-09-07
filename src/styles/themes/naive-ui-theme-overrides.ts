@@ -5,12 +5,15 @@ const vars: Partial<GlobalTheme['common']> = {
   primaryColor: '#2681ff',
   primaryColorHover: '#409fff',
   primaryColorPressed: '#2681ff',
+
   errorColor: '#f15532',
   warningColor: '#f27a24',
   infoColor: '#90a0ae',
   successColor: '#50e3c2',
+
   borderRadius: '0',
   borderRadiusSmall: '0',
+
   boxShadow1: 'none',
   boxShadow2: 'none',
   boxShadow3: 'none',
@@ -18,8 +21,8 @@ const vars: Partial<GlobalTheme['common']> = {
 
 const vars2 = {
   darkColor: '#262c33',
-  guiComponentBgColor: '#0b0c0d',
   guiPrimaryColor: '#2483ff',
+  guiComponentBgColor: '#303640',
 }
 
 const themeOverrides: GlobalThemeOverrides = {
@@ -30,13 +33,17 @@ const themeOverrides: GlobalThemeOverrides = {
     fontWeight: '700',
     fontWeightText: '700',
     fontWeighGhost: '700',
+
     iconSizeTiny: '12px',
+
     heightTiny: '26px',
     heightSmall: '32px',
     heightMedium: '32px',
+
     paddingTiny: '0 15px',
     paddingSmall: '0 24px',
     paddingMedium: '0 24px',
+
     color: '#0000',
     colorHover: vars.primaryColorHover,
     colorPressed: vars.primaryColorPressed,
@@ -121,7 +128,7 @@ const themeOverrides: GlobalThemeOverrides = {
     railWidthSmall: '16px',
     railHeightSmall: '8px',
 
-    railColor: vars2.guiComponentBgColor,
+    railColor: '#0b0c0d',
     railColorActive: vars2.guiPrimaryColor,
     boxShadowFocus: 'none',
   },

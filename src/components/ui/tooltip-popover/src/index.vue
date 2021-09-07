@@ -1,19 +1,24 @@
 <template>
-  <el-popover
+  <n-popover
     :placement="placement"
     :trigger="trigger"
+    :delay="delay"
     :show-arrow="false"
-    :content="content"
-    :show-after="showAfter"
-    :enterable="false"
-    :offset="5"
-    width="auto"
-    popper-class="tooltip-popover"
+    class="g-tooltip-popover"
+    :style="{
+      '--padding': '6px 10px',
+      '--font-size': '12px',
+      '--border-radius': '0',
+      '--color': 'var(--datav-pop-bg-color)',
+      '--text-color': '#fff',
+      '--box-shadow': '#000',
+    }"
   >
-    <template #reference>
+    <template #trigger>
       <slot></slot>
     </template>
-  </el-popover>
+    {{ content }}
+  </n-popover>
 </template>
 <script lang='ts'>
 import { defineComponent } from 'vue'
@@ -29,7 +34,7 @@ export default defineComponent({
       type: String,
       default: 'bottom',
     },
-    showAfter: {
+    delay: {
       type: Number,
       default: 500,
     },
