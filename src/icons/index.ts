@@ -33,6 +33,14 @@ import IconWorkspace from './workspace.vue'
 import IconSnapshot from './snapshot.vue'
 import IconHelp from './help.vue'
 import IconKeyboard from './keyboard.vue'
+import IconMoveUp from './move-up.vue'
+import IconMoveDown from './move-down.vue'
+import IconMoveTop from './move-top.vue'
+import IconMoveBottom from './move-bottom.vue'
+import IconLock from './lock.vue'
+import IconUnlock from './unlock.vue'
+import IconShow from './show.vue'
+import IconHide from './hide.vue'
 // -- prepend import placeholder --
 
 export {
@@ -71,5 +79,13 @@ export {
   IconSnapshot,
   IconHelp,
   IconKeyboard,
+  IconMoveUp,
+  IconMoveDown,
+  IconMoveTop,
+  IconMoveBottom,
+  IconLock,
+  IconUnlock,
+  IconShow,
+  IconHide,
   // -- prepend export placeholder --
 }

@@ -11,6 +11,7 @@ const vars: Partial<GlobalTheme['common']> = {
   infoColor: '#90a0ae',
   successColor: '#50e3c2',
 
+  borderColor: '#3a4659',
   borderRadius: '0',
   borderRadiusSmall: '0',
 
@@ -145,6 +146,13 @@ const themeOverrides: GlobalThemeOverrides = {
     handleSize: '9px',
     railHeight: '2px',
     railColor: '#bcc9d4',
+  },
+  Checkbox: {
+    sizeMedium: '14px',
+    color: '#0000',
+    colorChecked: '#0000',
+    checkMarkColor: vars.primaryColor,
+    boxShadowFocus: 'none',
   },
 }
 

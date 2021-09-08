@@ -7,7 +7,7 @@
         :class="{ 'nav-active': activeNav === nav.id }"
         @click="toggleNav(nav)"
       >
-        <n-icon :size="16">
+        <n-icon>
           <IconLayer v-if="nav.key === 'MyProject'" />
           <IconMyData v-else-if="nav.key === 'MyData'" />
           <IconMyCom v-else-if="nav.key === 'MyCom'" />

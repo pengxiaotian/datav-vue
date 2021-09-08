@@ -1,51 +1,80 @@
 <template>
-  <div
-    v-if="contextMenu.show"
-    class="context-menu-wrap"
-    :style="contextMenuStyle"
-  >
+  <div v-if="contextMenu.show" class="context-menu-wrap" :style="contextMenuStyle">
     <div class="context-menu-item" @click="moveTop">
-      <i class="menu-icon v-icon-move-top"></i>置顶
+      <n-icon class="menu-icon">
+        <IconMoveTop />
+      </n-icon>
+      置顶
     </div>
     <div class="context-menu-item" @click="moveBottom">
-      <i class="menu-icon v-icon-move-bottom"></i>置底
+      <n-icon class="menu-icon">
+        <IconMoveBottom />
+      </n-icon>
+      置底
     </div>
     <div class="context-menu-item" @click="moveUp">
-      <i class="menu-icon v-icon-move-up"></i>上移一层
+      <n-icon class="menu-icon">
+        <IconMoveUp />
+      </n-icon>
+      上移一层
     </div>
     <div class="context-menu-item" @click="moveDown">
-      <i class="menu-icon v-icon-move-down"></i>下移一层
+      <n-icon class="menu-icon">
+        <IconMoveDown />
+      </n-icon>
+      下移一层
     </div>
 
     <div class="context-menu-divider"></div>
 
     <div class="context-menu-item" @click="lockCom">
       <template v-if="isLocked">
-        <i class="menu-icon v-icon-unlock"></i>解锁
+        <n-icon class="menu-icon">
+          <IconUnlock />
+        </n-icon>
+        解锁
       </template>
       <template v-else>
-        <i class="menu-icon v-icon-lock"></i>锁定
+        <n-icon class="menu-icon">
+          <IconLock />
+        </n-icon>
+        锁定
       </template>
     </div>
     <div class="context-menu-item" @click="hideCom">
       <template v-if="isHided">
-        <i class="menu-icon v-icon-show"></i>显示
+        <n-icon class="menu-icon">
+          <IconShow />
+        </n-icon>
+        显示
       </template>
       <template v-else>
-        <i class="menu-icon v-icon-hide"></i>隐藏
+        <n-icon class="menu-icon">
+          <IconHide />
+        </n-icon>
+        隐藏
       </template>
     </div>
 
     <div class="context-menu-divider"></div>
 
     <div class="context-menu-item" @click="renameCom">
-      <i class="menu-icon v-icon-edit"></i>重命名
+      <n-icon class="menu-icon">
+        <IconEdit />
+      </n-icon>
+      重命名
     </div>
     <div class="context-menu-item" @click="toCopyCom">
-      <i class="menu-icon v-icon-copy"></i>复制
+      <n-icon class="menu-icon">
+        <IconCopy />
+      </n-icon>
+      复制
     </div>
     <div class="context-menu-item" @click="toDeleteCom">
-      <i class="menu-icon v-icon-delete"></i>删除
+      <n-icon class="menu-icon">
+        <IconDelete />
+      </n-icon>
+      删除
     </div>
 
     <div class="context-menu-divider"></div>
@@ -59,11 +88,37 @@ import { useMessage, useDialog } from 'naive-ui'
 import { EditorModule } from '@/store/modules/editor'
 import { on, off } from '@/utils/dom'
 import { MoveType } from '@/utils/enums'
-import { IconWarning } from '@/icons'
+import {
+  IconWarning,
+  IconMoveUp,
+  IconMoveDown,
+  IconMoveTop,
+  IconMoveBottom,
+  IconLock,
+  IconUnlock,
+  IconShow,
+  IconHide,
+  IconCopy,
+  IconEdit,
+  IconDelete,
+} from '@/icons'
 import { useContextMenu } from './index'
 
 export default defineComponent({
   name: 'EditorContextMenu',
+  components: {
+    IconMoveUp,
+    IconMoveDown,
+    IconMoveTop,
+    IconMoveBottom,
+    IconLock,
+    IconUnlock,
+    IconShow,
+    IconHide,
+    IconCopy,
+    IconEdit,
+    IconDelete,
+  },
   setup() {
     const nMessage = useMessage()
     const nDialog = useDialog()
@@ -158,15 +213,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .context-menu-wrap {
   position: fixed;
   z-index: 9999;
   display: none;
   width: 111px;
-  color: $context-menu-font-color;
-  background: $context-menu-bgcolor;
+  color: var(--datav-font-color);
+  background: var(--datav-menu-bg);
   user-select: none;
 }
 
@@ -176,22 +229,23 @@ export default defineComponent({
   padding: 0 6px;
   padding-right: 3em;
   overflow: hidden;
-  line-height: 28px;
+  align-items: center;
   cursor: pointer;
   border-left: 2px solid transparent;
 
   &:hover {
-    color: $context-menu-color-hover;
-    background-color: $context-menu-bgcolor-hover;
-    border-left: 2px solid $context-menu-color-hover;
+    color: var(--datav-menu-color-hover);
+    background-color: var(--datav-menu-bg-hover);
+    border-left: 2px solid var(--datav-menu-color-hover);
   }
 
   .menu-icon {
     margin-right: 4px;
+    font-size: 14px;
   }
 
   &.disable {
-    color: $context-menu-color-disable;
+    color: var(--datav-menu-color-disabled);
     pointer-events: none;
     cursor: auto;
   }
@@ -200,6 +254,6 @@ export default defineComponent({
 .context-menu-divider {
   width: 100%;
   height: 1px;
-  background-color: $context-menu-divider-bgcolor;
+  background-color: var(--datav-border-color);
 }
 </style>

@@ -320,6 +320,7 @@ export default defineComponent({
       }
 
       .btn-add-icon {
+        font-size: 14px;
         cursor: pointer;
 
         &:hover {
