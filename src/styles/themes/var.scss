@@ -29,7 +29,7 @@ $cdn: '//files.pengxiaotian.com';
   // --datav-nav-hover-bg: #21262b;
   --datav-left-nav-bg: #191c21;
   // --datav-left-nav-hover-bg: transparent;
-  // --datav-left-nav-active-bg: #14161a;
+  --datav-left-nav-active-bg: #14161a;
   // --datav-border-color: #5c6066;
   // --datav-cb-bg: transparent;
   // --datav-cb-bg-hover: rgba(38, 129, 255, 0.3);
@@ -59,6 +59,17 @@ $cdn: '//files.pengxiaotian.com';
   --datav-menu-bg-hover: var(--datav-bgcolor-2);
   --datav-menu-color-hover: #00baff;
   --datav-menu-color-disabled: #576369;
+  --datav-layer-wp-bg: #1d2126;
+  --datav-layer-bg: #2e343c;
+  --datav-layer-bg-dark: #0a0b0d;
+  --datav-layer-item-bg: #1b1f25;
+  --datav-layer-item-color-locked: #576369;
+  --datav-layer-item-thumbail-bg: #282a30;
+  --datav-layer-toolbar-bg: #20242a;
+  --datav-layer-toolbar-bg-hover: #3a4650;
+  --datav-layer-toolbar-border: 1px solid #282f3a;
+  --datav-layer-toolbar-icon-color: #282f3a;
+  --datav-layer-input-bg: #363c48;
 }
 
 // GUI

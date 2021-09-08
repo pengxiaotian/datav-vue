@@ -1,15 +1,21 @@
 <template>
   <div class="empty-panel normal-com">
-    <i class="v-icon-complete completed"></i>
+    <n-icon class="completed">
+      <IconComplete />
+    </n-icon>
     <p>{{ content }}</p>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent } from 'vue'
+import { IconComplete } from '@/icons'
 
 export default defineComponent({
   name: 'EmptyPanel',
+  components: {
+    IconComplete,
+  },
   props: {
     content: {
       type: String,

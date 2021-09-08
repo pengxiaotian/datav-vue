@@ -2,7 +2,9 @@
   <div class="setting-panel">
     <config-title :com-name="com.name" :com-alias="com.alias">
       <div class="search-config" @click="toSearch">
-        <i class="v-icon-search search-icon"></i>
+        <n-icon class="search-icon">
+          <IconSearch />
+        </n-icon>
         <span>搜索配置</span>
       </div>
     </config-title>
@@ -23,6 +25,7 @@
 import { defineComponent, ComputedRef, inject } from 'vue'
 import { useMessage } from 'naive-ui'
 import { DatavComponent } from '@/components/datav-component'
+import { IconSearch } from '@/icons'
 import ConfigTitle from './components/config-title.vue'
 import BasicSetting from './components/basic-setting.vue'
 
@@ -31,6 +34,7 @@ export default defineComponent({
   components: {
     ConfigTitle,
     BasicSetting,
+    IconSearch,
   },
   setup() {
     const nMessage = useMessage()

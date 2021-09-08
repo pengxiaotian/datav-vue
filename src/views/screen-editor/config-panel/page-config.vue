@@ -40,27 +40,37 @@
             <el-radio-group v-model="pageConfig.zoomMode" class="--split">
               <el-tooltip effect="blue" content="全屏铺满">
                 <el-radio-button :label="ZoomMode.auto">
-                  <i class="v-icon-fullscreen"></i>
+                  <n-icon>
+                    <IconFullscreen />
+                  </n-icon>
                 </el-radio-button>
               </el-tooltip>
               <el-tooltip effect="blue" content="等比缩放宽度铺满">
                 <el-radio-button :label="ZoomMode.width">
-                  <i class="v-icon-adapt-width"></i>
+                  <n-icon>
+                    <IconAdaptWidth />
+                  </n-icon>
                 </el-radio-button>
               </el-tooltip>
               <el-tooltip effect="blue" content="等比缩放高度铺满">
                 <el-radio-button :label="ZoomMode.height">
-                  <i class="v-icon-adapt-height"></i>
+                  <n-icon>
+                    <IconAdaptHeight />
+                  </n-icon>
                 </el-radio-button>
               </el-tooltip>
               <el-tooltip effect="blue" content="等比缩放高度铺满（可滚动）">
                 <el-radio-button :label="ZoomMode.full">
-                  <i class="v-icon-adapt-auto"></i>
+                  <n-icon>
+                    <IconAdaptAuto />
+                  </n-icon>
                 </el-radio-button>
               </el-tooltip>
               <el-tooltip effect="blue" content="不缩放">
                 <el-radio-button :label="ZoomMode.disabled">
-                  <i class="v-icon-stop"></i>
+                  <n-icon>
+                    <IconStop />
+                  </n-icon>
                 </el-radio-button>
               </el-tooltip>
             </el-radio-group>
@@ -133,11 +143,19 @@ import html2canvas from 'html2canvas'
 import { uploadHost, previewHost, validAllowImg, dataURLtoBlob } from '@/utils/upload-util'
 import { getTokenByEnv, upload } from '@/api/qiniu'
 import { generateId } from '@/utils/util'
+import { IconFullscreen, IconAdaptAuto, IconAdaptWidth, IconAdaptHeight, IconStop } from '@/icons'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
 export default defineComponent({
   name: 'PageConfig',
+  components: {
+    IconFullscreen,
+    IconAdaptAuto,
+    IconAdaptWidth,
+    IconAdaptHeight,
+    IconStop,
+  },
   setup() {
     const nMessage = useMessage()
     const pageConfig = computed(() => EditorModule.pageConfig)

@@ -6,7 +6,9 @@
         <el-tab-pane>
           <template #label>
             <el-tooltip effect="blue" :open-delay="500" content="配置">
-              <i class="v-icon-setting"></i>
+              <n-icon>
+                <IconSetting />
+              </n-icon>
             </el-tooltip>
           </template>
           <setting-panel :key="selectedCom.id" />
@@ -14,7 +16,9 @@
         <el-tab-pane lazy>
           <template #label>
             <el-tooltip effect="blue" :open-delay="500" content="数据">
-              <i class="v-icon-cloud"></i>
+              <n-icon>
+                <IconCloud />
+              </n-icon>
             </el-tooltip>
           </template>
           <data-center-panel :key="selectedCom.id" />
@@ -22,7 +26,9 @@
         <el-tab-pane lazy>
           <template #label>
             <el-tooltip effect="blue" :open-delay="500" content="交互">
-              <i class="v-icon-interact"></i>
+              <n-icon>
+                <IconInteract />
+              </n-icon>
             </el-tooltip>
           </template>
           <interaction-panel :key="selectedCom.id" />
@@ -37,6 +43,7 @@ import { defineComponent, computed, provide } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { loadAsyncComponent } from '@/utils/async-component'
+import { IconSetting, IconCloud, IconInteract } from '@/icons'
 
 export default defineComponent({
   name: 'ConfigPanel',
@@ -45,6 +52,9 @@ export default defineComponent({
     SettingPanel: loadAsyncComponent(() => import('./setting-panel.vue')),
     DataCenterPanel: loadAsyncComponent(() => import('./data-center-panel/index.vue')),
     InteractionPanel: loadAsyncComponent(() => import('./interaction-panel/index.vue')),
+    IconSetting,
+    IconCloud,
+    IconInteract,
   },
   setup() {
     const visiblePanel = computed(() => ToolbarModule.config.show)

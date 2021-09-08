@@ -11,7 +11,10 @@
       :style="`transform: rotate(90deg) translateX(-${vScroll}px);`"
     ></div>
     <div title="切换参考线" class="ruler-corner" @click="toggleGuides">
-      <i :class="`v-icon-line-${visible ? 'show' : 'hide'}`" style="z-index: 10;"></i>
+      <n-icon>
+        <IconLineShow v-if="visible" style="z-index: 10;" />
+        <IconLineHide v-else />
+      </n-icon>
     </div>
   </div>
 </template>
@@ -19,10 +22,15 @@
 <script lang='ts'>
 import { defineComponent, ref, onMounted, onUnmounted, watchEffect } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
+import { IconLineShow, IconLineHide } from '@/icons'
 import { RulerBuilder } from './index'
 
 export default defineComponent({
   name: 'Ruler',
+  components: {
+    IconLineShow,
+    IconLineHide,
+  },
   setup() {
     const hRulerWpRef = ref<any>(null)
     const vRulerWpRef = ref<any>(null)

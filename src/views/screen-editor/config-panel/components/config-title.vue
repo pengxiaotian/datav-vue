@@ -8,7 +8,9 @@
           effect="blue"
           :content="`${comTitle}文档`"
         >
-          <i class="v-icon-document com-doc-icon"></i>
+          <n-icon class="com-doc-icon">
+            <IconDocument />
+          </n-icon>
         </el-tooltip>
       </div>
       <div class="version-tag">
@@ -22,9 +24,13 @@
 <script lang='ts'>
 import { defineComponent, computed } from 'vue'
 import { findComByName } from '@/data/system-components'
+import { IconDocument } from '@/icons'
 
 export default defineComponent({
   name: 'SettingPanel',
+  components: {
+    IconDocument,
+  },
   props: {
     comName: {
       type: String,

@@ -41,6 +41,35 @@ import IconLock from './lock.vue'
 import IconUnlock from './unlock.vue'
 import IconShow from './show.vue'
 import IconHide from './hide.vue'
+import IconViewGrid from './view-grid.vue'
+import IconViewList from './view-list.vue'
+import IconFavorite from './favorite.vue'
+import IconChartBar from './chart-bar.vue'
+import IconChartLine from './chart-line.vue'
+import IconChartPie from './chart-pie.vue'
+import IconRelation from './relation.vue'
+import IconOther from './other.vue'
+import IconMap from './map.vue'
+import IconTitle from './title.vue'
+import IconInteract from './interact.vue'
+import IconMaterial from './material.vue'
+import IconChart from './chart.vue'
+import IconComInfo from './com-info.vue'
+import IconTable from './table.vue'
+import IconMedia from './media.vue'
+import IconLineShow from './line-show.vue'
+import IconLineHide from './line-hide.vue'
+import IconFlipV from './flip-v.vue'
+import IconFlipH from './flip-h.vue'
+import IconComplete from './complete.vue'
+import IconSetting from './setting.vue'
+import IconCloud from './cloud.vue'
+import IconFullscreen from './fullscreen.vue'
+import IconAdaptWidth from './adapt-width.vue'
+import IconAdaptHeight from './adapt-height.vue'
+import IconAdaptAuto from './adapt-auto.vue'
+import IconStop from './stop.vue'
+import IconFullscreenExit from './fullscreen-exit.vue'
 // -- prepend import placeholder --
 
 export {
@@ -87,5 +116,34 @@ export {
   IconUnlock,
   IconShow,
   IconHide,
+  IconViewGrid,
+  IconViewList,
+  IconFavorite,
+  IconChartBar,
+  IconChartLine,
+  IconChartPie,
+  IconRelation,
+  IconOther,
+  IconMap,
+  IconTitle,
+  IconInteract,
+  IconMaterial,
+  IconChart,
+  IconComInfo,
+  IconTable,
+  IconMedia,
+  IconLineShow,
+  IconLineHide,
+  IconFlipV,
+  IconFlipH,
+  IconComplete,
+  IconSetting,
+  IconCloud,
+  IconFullscreen,
+  IconAdaptWidth,
+  IconAdaptHeight,
+  IconAdaptAuto,
+  IconStop,
+  IconFullscreenExit,
   // -- prepend export placeholder --
 }

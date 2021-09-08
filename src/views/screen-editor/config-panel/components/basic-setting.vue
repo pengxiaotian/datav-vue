@@ -29,12 +29,16 @@
       <el-checkbox-group v-model="filps" size="mini" @change="onFilpChange">
         <el-tooltip effect="blue" content="垂直翻转" :enterable="false">
           <el-checkbox-button label="v">
-            <i class="v-icon-flip-v"></i>
+            <n-icon>
+              <IconFlipV />
+            </n-icon>
           </el-checkbox-button>
         </el-tooltip>
         <el-tooltip effect="blue" content="水平翻转" :enterable="false">
           <el-checkbox-button label="h">
-            <i class="v-icon-flip-h"></i>
+            <n-icon>
+              <IconFlipH />
+            </n-icon>
           </el-checkbox-button>
         </el-tooltip>
       </el-checkbox-group>
@@ -53,11 +57,16 @@
 <script lang='ts'>
 import { defineComponent, PropType, ref, onMounted } from 'vue'
 import { ComponentAttr } from '@/components/datav-component'
+import { IconFlipV, IconFlipH } from '@/icons'
 
 type filpType = 'v' | 'h'
 
 export default defineComponent({
   name: 'BasicSetting',
+  components: {
+    IconFlipV,
+    IconFlipH,
+  },
   props: {
     attr: {
       type: Object as PropType<ComponentAttr>,
