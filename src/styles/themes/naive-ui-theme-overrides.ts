@@ -24,6 +24,8 @@ const vars2 = {
   darkColor: '#262c33',
   guiPrimaryColor: '#2483ff',
   guiComponentBgColor: '#303640',
+  guiFontColor: '#a1aeb3',
+  borderColor: '#0b0c0d',
 }
 
 const themeOverrides: GlobalThemeOverrides = {
@@ -136,6 +138,7 @@ const themeOverrides: GlobalThemeOverrides = {
   Tooltip: {
     padding: '5px',
     color: vars.primaryColor,
+    boxShadow: 'none',
     peers: {
       Popover: {
         fontSize: '12px',
@@ -153,6 +156,17 @@ const themeOverrides: GlobalThemeOverrides = {
     colorChecked: '#0000',
     checkMarkColor: vars.primaryColor,
     boxShadowFocus: 'none',
+  },
+  Radio: {
+    buttonHeightMedium: '22px',
+    buttonTextColor: vars2.guiFontColor,
+    buttonTextColorActive: '#fff',
+    buttonColor: vars2.darkColor,
+    buttonColorActive: vars2.guiPrimaryColor,
+    buttonBoxShadow: 'none',
+    buttonBoxShadowFocus: 'none',
+    buttonBoxShadowHover: 'none',
+    buttonBorderColor: vars2.borderColor,
   },
 }
 

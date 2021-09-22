@@ -1,6 +1,6 @@
 <template>
   <n-config-provider :theme-overrides="themeOverrides" abstract>
-    <n-message-provider closable>
+    <n-message-provider closable keep-alive-on-hover>
       <n-dialog-provider>
         <AppMessage />
       </n-dialog-provider>

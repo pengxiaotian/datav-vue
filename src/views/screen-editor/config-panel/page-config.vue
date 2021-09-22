@@ -29,51 +29,30 @@
             <g-upload-image v-model="pageConfig.bgimage" />
           </g-field>
           <g-field label="重置">
-            <el-button size="mini" @click="resetBGImage">
+            <n-button size="tiny" :focusable="false" @click="resetBGImage">
               恢复默认背景
-            </el-button>
+            </n-button>
           </g-field>
         </div>
 
         <div class="page-config-wp">
           <g-field label="页面缩放方式">
-            <el-radio-group v-model="pageConfig.zoomMode" class="--split">
-              <el-tooltip effect="blue" content="全屏铺满">
-                <el-radio-button :label="ZoomMode.auto">
-                  <n-icon>
-                    <IconFullscreen />
-                  </n-icon>
-                </el-radio-button>
-              </el-tooltip>
-              <el-tooltip effect="blue" content="等比缩放宽度铺满">
-                <el-radio-button :label="ZoomMode.width">
-                  <n-icon>
-                    <IconAdaptWidth />
-                  </n-icon>
-                </el-radio-button>
-              </el-tooltip>
-              <el-tooltip effect="blue" content="等比缩放高度铺满">
-                <el-radio-button :label="ZoomMode.height">
-                  <n-icon>
-                    <IconAdaptHeight />
-                  </n-icon>
-                </el-radio-button>
-              </el-tooltip>
-              <el-tooltip effect="blue" content="等比缩放高度铺满（可滚动）">
-                <el-radio-button :label="ZoomMode.full">
-                  <n-icon>
-                    <IconAdaptAuto />
-                  </n-icon>
-                </el-radio-button>
-              </el-tooltip>
-              <el-tooltip effect="blue" content="不缩放">
-                <el-radio-button :label="ZoomMode.disabled">
-                  <n-icon>
-                    <IconStop />
-                  </n-icon>
-                </el-radio-button>
-              </el-tooltip>
-            </el-radio-group>
+            <n-radio-group v-model:value="pageConfig.zoomMode" name="zoomMode">
+              <n-radio-button v-for="zm in zoomModes" :key="zm.value" :value="zm.value">
+                <n-tooltip>
+                  <template #trigger>
+                    <n-icon style="vertical-align: -0.1em;">
+                      <IconAdaptAuto v-if="zm.value === ZoomMode.auto" />
+                      <IconAdaptWidth v-else-if="zm.value === ZoomMode.width" />
+                      <IconAdaptHeight v-else-if="zm.value === ZoomMode.height" />
+                      <IconFullscreen v-else-if="zm.value === ZoomMode.full" />
+                      <IconStop v-else />
+                    </n-icon>
+                  </template>
+                  {{ zm.label }}
+                </n-tooltip>
+              </n-radio-button>
+            </n-radio-group>
           </g-field>
           <g-field label="栅格间距" tooltip="每次移动的距离，单位px">
             <g-input-number
@@ -87,35 +66,46 @@
 
         <div class="page-config-wp">
           <g-field label="缩略图">
-            <el-button size="mini" class="cover-btn" @click="cutCover">
-              <template v-if="cover.loading">
-                <i class="v-icon-loading"></i>
-              </template>
-              <template v-else>
-                截取封面
-              </template>
-            </el-button>
-            <el-upload
+            <n-upload
+              abstract
               accept="image/*"
               :action="cover.uploadHost"
               :multiple="false"
               :show-file-list="false"
-              :before-upload="beforeUpload"
-              :on-success="onSuccess"
-              :on-error="onError"
+              :headers="{
+                'naive-info': 'hello!'
+              }"
               :data="form"
-              style="display: inline-block;"
-              class="upload-cover-wp"
+              @before-upload="beforeUpload"
+              @finish="finishUpload"
             >
-              <el-button size="mini" class="cover-btn">
-                <template v-if="uploadLoading">
-                  <i class="v-icon-loading"></i>
-                </template>
-                <template v-else>
-                  上传封面
-                </template>
-              </el-button>
-            </el-upload>
+              <n-button-group>
+                <n-button
+                  size="tiny"
+                  class="cover-btn"
+                  :focusable="false"
+                  @click="cutCover"
+                >
+                  <n-spin v-if="cover.loading" :size="14" />
+                  <template v-else>
+                    截取封面
+                  </template>
+                </n-button>
+                <n-upload-trigger #="{handleClick}" abstract>
+                  <n-button
+                    size="tiny"
+                    class="cover-btn"
+                    :focusable="false"
+                    @click="handleClick"
+                  >
+                    <n-spin v-if="uploadLoading" :size="14" />
+                    <template v-else>
+                      上传封面
+                    </template>
+                  </n-button>
+                </n-upload-trigger>
+              </n-button-group>
+            </n-upload>
             <div class="screen-preview">
               <img v-if="pageConfig.screenshot" :src="pageConfig.screenshot">
               <img v-else :src="cover.img" style="object-fit: contain; opacity: 0.25; filter: grayscale(1);">
@@ -124,7 +114,7 @@
             <span class="upload-tip">*选中封面，从剪贴板粘贴</span>
           </g-field>
           <g-field label="使用水印">
-            <el-switch v-model="pageConfig.useWatermark" />
+            <n-switch v-model:value="pageConfig.useWatermark" />
           </g-field>
         </div>
       </div>
@@ -134,7 +124,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed } from 'vue'
-import { useMessage } from 'naive-ui'
+import { UploadFileInfo, useMessage } from 'naive-ui'
 import { globalConfig } from '@/config'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
@@ -159,6 +149,13 @@ export default defineComponent({
   setup() {
     const nMessage = useMessage()
     const pageConfig = computed(() => EditorModule.pageConfig)
+    const zoomModes = [
+      { value: ZoomMode.auto, label: '全屏铺满' },
+      { value: ZoomMode.width, label: '等比缩放宽度铺满' },
+      { value: ZoomMode.height, label: '等比缩放高度铺满' },
+      { value: ZoomMode.full, label: '等比缩放高度铺满（可滚动）' },
+      { value: ZoomMode.disabled, label: '不缩放' },
+    ]
 
     const cover = ref({
       loading: false,
@@ -226,8 +223,8 @@ export default defineComponent({
       }, 500)
     }
 
-    const beforeUpload = async (file: any) => {
-      const valid = validAllowImg(file, {})
+    const beforeUpload = async (options: { file: UploadFileInfo; event: Event; }) => {
+      const valid = validAllowImg(options.file.file, {})
 
       if (valid) {
         nMessage.error(valid)
@@ -238,7 +235,7 @@ export default defineComponent({
         ToolbarModule.addLoading()
         uploadLoading.value = true
         form.value.token = await getTokenByEnv()
-        form.value.key = `upload/${generateId()}_${file.name}`
+        form.value.key = `upload/${generateId()}_${options.file.name}`
         return true
       } catch (error) {
         ToolbarModule.removeLoading()
@@ -249,16 +246,16 @@ export default defineComponent({
       return false
     }
 
-    const onSuccess = (res: any) => {
+    const finishUpload = (options: { file: UploadFileInfo; event: Event; }) => {
       ToolbarModule.removeLoading()
       uploadLoading.value = false
-      pageConfig.value.screenshot = `${previewHost}/${res.key}`
-    }
 
-    const onError = (error: any) => {
-      ToolbarModule.removeLoading()
-      uploadLoading.value = false
-      nMessage.error(error.toString())
+      const res = JSON.parse((options.event.target as XMLHttpRequest).response)
+      if (res.error) {
+        nMessage.error(res.error)
+      } else {
+        pageConfig.value.screenshot = `${previewHost}/${res.key}`
+      }
     }
 
     const onPaste = async (ev: ClipboardEvent) => {
@@ -285,16 +282,16 @@ export default defineComponent({
     }
 
     return {
-      pageConfig,
       ZoomMode,
+      pageConfig,
+      zoomModes,
       cover,
       uploadLoading,
+      form,
       resetBGImage,
       cutCover,
-      form,
       beforeUpload,
-      onSuccess,
-      onError,
+      finishUpload,
       onPaste,
       onSizeChange,
     }
@@ -303,11 +300,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .config-manager-page {
   height: 100%;
-  background: $config-manager-bgcolor;
+  background: var(--datav-left-nav-bg);
   user-select: none;
 
   .config-manager-head {
@@ -315,9 +310,9 @@ export default defineComponent({
     height: 30px;
     font-size: 12px;
     line-height: 30px;
-    color: $panel-font-color;
     text-align: center;
-    background: $layer-bgcolor;
+    color: var(--datav-font-color);
+    background: var(--datav-layer-bg);
     user-select: none;
   }
 
@@ -335,8 +330,8 @@ export default defineComponent({
   overflow-x: hidden;
   overflow-y: scroll;
   font-size: 12px;
-  color: $page-config-font-color;
-  background: $page-config-bgcolor;
+  color: var(--datav-gui-font-color-1);
+  background: var(--datav-gui-bgcolor-front);
 }
 
 .page-config-wp {
@@ -348,7 +343,7 @@ export default defineComponent({
     left: 6%;
     width: 91%;
     height: 1px;
-    background: $page-config-bgcolor-secondary;
+    background: var(--datav-dark-color);
     content: '';
   }
 }
@@ -358,14 +353,6 @@ export default defineComponent({
 
   .v-icon-loading {
     font-size: 12px;
-  }
-}
-
-.upload-cover-wp {
-  display: inline-block;
-
-  .cover-btn {
-    border-left: 1px solid transparent;
   }
 }
 
@@ -389,17 +376,17 @@ export default defineComponent({
     height: 100%;
     cursor: pointer;
     background: 0 0;
-    border: $border-outline;
+    border: var(--datav-outline);
     transition: border-color 0.2s;
 
     &:hover {
-      border-color: $color-primary;
+      border-color: var(--datav-main-color);
     }
   }
 }
 
 .upload-tip {
-  color: $input-description-font-color;
+  color: var(--datav-gui-font-color-description);
   margin-top: 4px;
   display: -webkit-box;
   word-break: break-word;

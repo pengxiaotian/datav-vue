@@ -17,14 +17,14 @@
         ></i>
       </i>
       <template v-if="tooltip">
-        <el-tooltip effect="blue" placement="top" :offset="2">
-          <template #content>
-            <span v-html="tooltip"></span>
+        <n-tooltip placement="top">
+          <template #trigger>
+            <label class="g-field-title-with-description" :title="label">
+              {{ label }}
+            </label>
           </template>
-          <label class="g-field-title-with-description" :title="label">
-            {{ label }}
-          </label>
-        </el-tooltip>
+          <span v-html="tooltip"></span>
+        </n-tooltip>
       </template>
       <label v-else class="g-field-title" :title="label">
         {{ label }}

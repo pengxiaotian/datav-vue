@@ -1,60 +1,68 @@
-@import "themes/var";
+.n-radio-group {
+  .n-radio-button {
+    padding: 0 8px;
 
-.el-radio-group {
-  .el-radio-button {
-    margin-bottom: 2px;
-
-    .el-radio-button__inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 8px;
-      border-radius: 0;
-      font-size: $font-size;
-      font-weight: normal;
-      outline: $border-outline;
-      border: none;
-      color: $gui-font-color;
-      background: $gui-component-bgcolor;
-
-      &:hover {
-        background-color: $background-color-secondary;
-      }
-    }
-  }
-
-  .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-    color: #fff;
-    background-color: $gui-primary-color;
-    box-shadow: -1px 0 0 0 $gui-primary-color;
-
-    &:hover {
-      background-color: $hover-color;
-      box-shadow: -1px 0 0 0 $hover-color;
-    }
-  }
-
-  &.--split {
-    .el-radio-button {
-      .el-radio-button__inner {
-        padding: 4px 8px;
-
-        &:hover {
-          outline-color: $gui-primary-color;
-        }
-      }
-
-      & + .el-radio-button {
-        margin-left: 7px;
-      }
-    }
-
-    .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-      outline-color: $gui-primary-color;
-
-      &:hover {
-        outline-color: $hover-color;
-      }
-    }
+    // &:not(.n-radio-button--disabled):hover:not(.n-radio-button--checked) {
+    //   border-color: var(--datav-gui-primary-color);
+    // }
   }
 }
+
+// .el-radio-group {
+//   .el-radio-button {
+//     margin-bottom: 2px;
+
+//     .el-radio-button__inner {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       padding: 6px 8px;
+//       border-radius: 0;
+//       font-size: $font-size;
+//       font-weight: normal;
+//       outline: $border-outline;
+//       border: none;
+//       color: $gui-font-color;
+//       background: $gui-component-bgcolor;
+
+//       &:hover {
+//         background-color: $background-color-secondary;
+//       }
+//     }
+//   }
+
+//   .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+//     color: #fff;
+//     background-color: $gui-primary-color;
+//     box-shadow: -1px 0 0 0 $gui-primary-color;
+
+//     &:hover {
+//       background-color: $hover-color;
+//       box-shadow: -1px 0 0 0 $hover-color;
+//     }
+//   }
+
+//   &.--split {
+//     .el-radio-button {
+//       .el-radio-button__inner {
+//         padding: 4px 8px;
+
+//         &:hover {
+//           outline-color: $gui-primary-color;
+//         }
+//       }
+
+//       & + .el-radio-button {
+//         margin-left: 7px;
+//       }
+//     }
+
+//     .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+//       outline-color: $gui-primary-color;
+
+//       &:hover {
+//         outline-color: $hover-color;
+//       }
+//     }
+//   }
+// }

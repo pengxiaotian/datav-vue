@@ -38,7 +38,7 @@
               placeholder="请输入密码"
               type="password"
               size="large"
-              show-password-toggle
+              show-password-on="click"
               :style="inputCSSVars"
               @keydown="checkCapslock"
               @blur="capsTooltip = false"
