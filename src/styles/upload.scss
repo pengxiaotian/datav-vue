@@ -2,53 +2,30 @@
 .g-upload {
   width: 100%;
 
-  .el-input {
-    .el-input__inner {
-      color: #fff;
-      padding-right: 8px;
-      padding-left: 24px;
-    }
-
-    .el-input__prefix {
-      left: 0;
-
-      .el-input__icon {
-        font-size: 12px;
-        padding-left: 3px;
-      }
-    }
-
-    .el-input__suffix {
-      right: 0;
-
-      .el-input__icon {
-        font-size: 12px;
-      }
-    }
-  }
-
-  .el-upload {
+  .n-upload {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 120px;
     margin-top: 3px;
-    background: $gui-component-bgcolor;
-    border: $border-outline;
+    background: var(--datav-gui-component-bgcolor);
+    // border: var(--datav-outline);
 
     &:hover {
-      background: $gui-component-bgcolor-hover;
-      border: 1px solid $color-primary;
+      background: var(--datav-gui-component-bgcolor-hover);
+      // border: var(--datav-border-primary);
     }
   }
 
-  .g-upload-image-wrap,
-  .el-upload-dragger {
+  .n-upload-trigger,
+  .n-upload-dragger,
+  .n-spin-container,
+  .n-spin-content,
+  .g-upload-image-wrap {
     width: 100%;
     height: 100%;
+    padding: 0;
     background-color: transparent;
-    border: none;
-    border-radius: 0;
   }
 
   .g-upload-image-content {
@@ -69,28 +46,23 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background: $gui-cover-color;
+    background: rgba(0, 0, 0, 0.75);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: $font-size;
-    color: $gui-font-color;
+    font-size: 12px;
+    color: var(--datav-gui-font-color-base);
 
     span {
       cursor: pointer;
 
       &:hover {
-        color: $gui-hover-color;
+        color: var(--datav-gui-hover-color);
       }
     }
   }
 
   .g-upload-tip {
-    color: $gui-font-color;
-
-    .v-icon-img {
-      margin-bottom: 5px;
-      font-size: 60px;
-    }
+    color: var(--datav-gui-font-color-base);
   }
 }

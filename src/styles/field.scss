@@ -1,19 +1,16 @@
-@import "themes/var";
+@import "mixins/util.scss";
+
+$field-container-width: 192px;
 
 .g-field {
   display: flex;
-  color: $gui-font-color-1;
-
-  &.el-col-0 {
-    display: flex;
-    max-width: unset;
-  }
+  color: var(--datav-gui-font-color-1);
 }
 
 .g-field-title {
-  font-size: $gui-font-size;
-  height: $field-height;
-  line-height: $field-height;
+  font-size: 12px;
+  height: 28px;
+  line-height: 28px;
   font-weight: normal;
 
   @include utils-ellipsis();
@@ -28,13 +25,13 @@
 
 .g-field-help {
   padding: 0 3px;
-  color: $field-help-color;
-  font-size: $gui-font-size;
-  line-height: $field-height;
+  color: var(--datav-gui-font-color-base);
+  font-size: 12px;
+  line-height: 28px;
   cursor: pointer;
 
   &:hover {
-    color: $hover-color;
+    color: var(--datav-main-hover-color);
   }
 }
 
@@ -42,36 +39,25 @@
   display: block;
   width: 16px;
   margin-right: 4px;
-  height: $field-height;
-  line-height: $field-height;
+  height: 28px;
+  line-height: 28px;
 
   .g-field-show {
-    color: $field-help-color;
+    color: var(--datav-gui-font-color-base);
     cursor: pointer;
 
     &:hover {
-      color: $hover-color;
+      color: var(--datav-main-hover-color);
     }
   }
 }
 
 .g-field-container {
   width: $field-container-width;
-
-  &.el-col-0 {
-    display: block;
-    max-width: unset;
-    flex: 0 0 $field-container-width;
-    padding-right: 4px;
-  }
+  line-height: 28px;
 
   &.--flat {
     width: $field-container-width + 4px;
-
-    &.el-col-0 {
-      flex: 0 0 $field-container-width + 4px;
-      padding-right: 0;
-    }
   }
 }
 
@@ -96,7 +82,7 @@
     margin-bottom: 4px;
 
     .g-field {
-      color: $gui-font-color-2;
+      color: var(--datav-gui-font-color-2);
     }
   }
 
@@ -109,10 +95,9 @@
 
 .g-field-caption {
   font-size: 12px;
-  color: $input-description-font-color;
+  color: var(--datav-gui-font-color-description);
   height: 16px;
   line-height: 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
+  @include utils-ellipsis();
 }

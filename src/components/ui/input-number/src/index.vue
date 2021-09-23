@@ -2,29 +2,28 @@
   <div
     class="datav-gui g-input-number"
     :class="[
-      `--${size}`,
       {
         '--inline': !!inline,
         '--single': inline === 'inline-single',
-        'has-suffix': !!suffix,
       }
     ]"
   >
-    <el-input-number
-      :model-value="modelValue"
-      :size="size"
-      :min="min"
-      :max="max"
-      :step="step"
-      class="is-controls-right"
-      @update:model-value="handleInput"
-      @change="handleChange"
-    />
+    <n-config-provider :theme-overrides="themeOverrides" abstract>
+      <n-input-number
+        :value="modelValue"
+        :size="size"
+        :min="min"
+        :max="max"
+        :step="step"
+        @update:value="handleInput"
+      >
+        <template v-if="suffix" #suffix>
+          {{ suffix }}
+        </template>
+      </n-input-number>
+    </n-config-provider>
     <span v-if="label" class="g-input__caption">
       {{ label }}
-    </span>
-    <span v-if="suffix" class="g-input-number__suffix">
-      {{ suffix }}
     </span>
   </div>
 </template>
@@ -46,7 +45,7 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'mini',
+      default: 'small',
     },
     min: {
       type: Number,
@@ -66,19 +65,24 @@ export default defineComponent({
     },
     suffix: String,
   },
-  emits: [UPDATE_MODEL_EVENT, 'change'],
+  emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
     const handleInput = (value: number) => {
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
-    const handleChange = (currentValue: number, oldValue: number) => {
-      ctx.emit('change', currentValue, oldValue)
+    const themeOverrides = {
+      Button: {
+        textColorText: 'var(--datav-font-color)',
+        heightMedium: '13px',
+        fontSizeMedium: '12px',
+        iconSizeMedium: '12px',
+      },
     }
 
     return {
+      themeOverrides,
       handleInput,
-      handleChange,
     }
   },
 })

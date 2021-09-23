@@ -11,6 +11,8 @@ const vars: Partial<GlobalTheme['common']> = {
   infoColor: '#90a0ae',
   successColor: '#50e3c2',
 
+  textColor1: '#bcc9d4',
+
   borderColor: '#3a4659',
   borderRadius: '0',
   borderRadiusSmall: '0',
@@ -23,9 +25,15 @@ const vars: Partial<GlobalTheme['common']> = {
 const vars2 = {
   darkColor: '#262c33',
   guiPrimaryColor: '#2483ff',
-  guiComponentBgColor: '#303640',
+  guiComponentBgColor: '#262c33',
+  guiComponentBgColorDark: '#262c33',
+  guiComponentBgColorHover: '#303640',
+  guiComponentBgColorActive: '#262b33',
+  guiComponentBgColorDisabled: '#13161a',
   guiFontColor: '#a1aeb3',
   borderColor: '#0b0c0d',
+  border: '1px solid #0b0c0d',
+  borderPrimary: '1px solid #2681ff',
 }
 
 const themeOverrides: GlobalThemeOverrides = {
@@ -167,6 +175,28 @@ const themeOverrides: GlobalThemeOverrides = {
     buttonBoxShadowFocus: 'none',
     buttonBoxShadowHover: 'none',
     buttonBorderColor: vars2.borderColor,
+  },
+  Input: {
+    fontSizeSmall: '12px',
+    textColor: vars.textColor1,
+    color: vars2.guiComponentBgColor,
+    colorFocus: vars2.guiComponentBgColor,
+    border: vars2.border,
+    borderHover: vars2.borderPrimary,
+    borderFocus: vars2.borderPrimary,
+    boxShadowFocus: 'none',
+    iconColor: vars.textColor1,
+    suffixTextColor: vars.textColor1,
+  },
+  ColorPicker: {
+    border: vars2.border,
+    color: vars2.guiComponentBgColor,
+    panelFontSize: '12px',
+    textColor: vars.textColor1,
+  },
+  Upload: {
+    draggerBorder: vars2.border,
+    draggerBorderHover: vars2.borderPrimary,
   },
 }
 

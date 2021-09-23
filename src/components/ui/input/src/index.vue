@@ -2,18 +2,16 @@
   <div
     class="datav-gui g-input"
     :class="[
-      `--${size}`,
       {
         '--inline': !!inline,
         '--single': inline === 'inline-single',
       }
     ]"
   >
-    <el-input
-      :model-value="modelValue"
+    <n-input
+      :value="modelValue"
       :size="size"
-      @update:model-value="handleInput"
-      @change="handleChange"
+      @update:value="handleInput"
     />
     <span v-if="label" class="g-input__caption">
       {{ label }}
@@ -38,27 +36,21 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'mini',
+      default: 'small',
     },
     inline: {
       type: [Boolean, String],
       default: false,
     },
-    disabled: Boolean,
   },
-  emits: [UPDATE_MODEL_EVENT, 'change'],
+  emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
     const handleInput = (value: string | number) => {
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
-    const handleChange = (currentValue: string | number) => {
-      ctx.emit('change', currentValue)
-    }
-
     return {
       handleInput,
-      handleChange,
     }
   },
 })

@@ -72,9 +72,6 @@
               :action="cover.uploadHost"
               :multiple="false"
               :show-file-list="false"
-              :headers="{
-                'naive-info': 'hello!'
-              }"
               :data="form"
               @before-upload="beforeUpload"
               @finish="finishUpload"
@@ -350,10 +347,6 @@ export default defineComponent({
 
 .cover-btn {
   width: 93px;
-
-  .v-icon-loading {
-    font-size: 12px;
-  }
 }
 
 .screen-preview {

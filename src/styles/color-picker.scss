@@ -1,38 +1,24 @@
-.el-color-picker {
-  .el-input .el-input__inner {
-    color: #fff;
+.n-color-picker {
+  background: var(--datav-gui-component-bgcolor);
+
+  .n-color-picker-trigger {
+    border-left: none;
+
+    .n-color-picker-trigger__value {
+      display: none;
+    }
   }
 }
 
-.el-color-picker__trigger {
-  border: none;
-
-  .el-color-picker__color {
-    border-color: $popover-bgcolor-dark;
-  }
-}
-
-.el-color-picker__panel.el-popper.is-dark {
-  border-color: $popover-bgcolor-dark;
-  background: $popover-bgcolor-dark;
+.n-color-picker-panel {
+  border: var(--datav-outline);
 }
 
 .g-color-picker {
+  width: 100%;
+
   .g-color-picker__inner {
     display: flex;
     justify-content: space-between;
-  }
-
-  .el-color-picker {
-    margin-left: -28px;
-  }
-
-  .el-color-picker--medium {
-    margin-left: -36px;
-  }
-
-  .el-input .el-input__inner {
-    color: #fff;
-    padding-right: 24px;
   }
 }

@@ -70,6 +70,8 @@ import IconAdaptHeight from './adapt-height.vue'
 import IconAdaptAuto from './adapt-auto.vue'
 import IconStop from './stop.vue'
 import IconFullscreenExit from './fullscreen-exit.vue'
+import IconLink from './link.vue'
+import IconImg from './img.vue'
 // -- prepend import placeholder --
 
 export {
@@ -145,5 +147,7 @@ export {
   IconAdaptAuto,
   IconStop,
   IconFullscreenExit,
+  IconLink,
+  IconImg,
   // -- prepend export placeholder --
 }
