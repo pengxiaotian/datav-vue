@@ -7,35 +7,34 @@
       '--read-only': readOnly,
     }, editorClass]"
   >
-    <div class="datav-editor-actions">
-      <i
-        class="v-icon-copy action-btn"
-        title="点击复制"
-        @click="copyData"
-      ></i>
-      <i
+    <div v-if="!loading" class="datav-editor-actions">
+      <n-icon class="action-btn" title="点击复制" @click="copyData">
+        <IconCopy />
+      </n-icon>
+      <n-icon
         class="action-btn"
-        :class="isFullScreen ? 'v-icon-fullscreen-exit' : 'v-icon-fullscreen'"
         :title="isFullScreen ? '退出全屏' : '全屏模式下编辑或查看'"
         @click="switchFullScreen"
-      ></i>
+      >
+        <IconFullscreenExit v-if="isFullScreen" />
+        <IconFullscreen v-else />
+      </n-icon>
     </div>
   </div>
 
-  <el-dialog
-    v-model="isFullScreen"
+  <n-modal
+    v-model:show="isFullScreen"
     :title="`${fullScreenTitle}${readOnly ? ' ( 只读 )' : ''}`"
-    width="90%"
-    top="0"
-    custom-class="fullscreen-editor-dialog"
-    :destroy-on-close="true"
-    :append-to-body="true"
-    @opened="openedFullScreenDialog"
-    @closed="closedFullScreenDialog"
+    preset="dialog"
+    :show-icon="false"
+    :mask-closable="false"
+    class="datav-fullscreen-editor-dialog"
+    style="width: 90%; margin-top: 1%;"
+    @after-leave="closedFullScreenDialog"
   >
-    <div class="fullscreen-editor-wp">
+    <div class="datav-fullscreen-editor-wp">
       <div
-        class="datav-editor fullscreen-editor"
+        class="datav-editor datav-fullscreen-editor"
         :class="[{
           '--read-only': readOnly,
         }]"
@@ -43,7 +42,7 @@
         <section style="display: flex; position: relative; text-align: initial; width: 100%; height: 100%;"></section>
       </div>
     </div>
-  </el-dialog>
+  </n-modal>
 </template>
 
 <script lang='ts'>
@@ -53,6 +52,7 @@ import { useMessage } from 'naive-ui'
 import loader from '@monaco-editor/loader'
 import type { editor as MEditor } from 'monaco-editor'
 import { generateId, copyText } from '@/utils/util'
+import { IconCopy, IconFullscreen, IconFullscreenExit } from '@/icons'
 import AsyncLoading from '@/components/ui/loading/src/async-loading.vue'
 import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode, formatDocument, Monaco } from './editor-config'
 
@@ -63,6 +63,9 @@ export default defineComponent({
   name: 'GMonacoEditor',
   components: {
     AsyncLoading,
+    IconCopy,
+    IconFullscreen,
+    IconFullscreenExit,
   },
   props: {
     language: {
@@ -145,10 +148,15 @@ export default defineComponent({
 
     const switchFullScreen = () => {
       isFullScreen.value = !isFullScreen.value
+      if (isFullScreen.value) {
+        nextTick(() => {
+          openedFullScreenDialog()
+        })
+      }
     }
 
     const openedFullScreenDialog = () => {
-      const dom = document.querySelector('.fullscreen-editor > section') as HTMLElement
+      const dom = document.querySelector('.datav-fullscreen-editor > section') as HTMLElement
       if (dom) {
         const opts = Object.assign(
           {},
