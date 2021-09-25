@@ -1,29 +1,10 @@
-@import "themes/var";
-@import "mixins/util";
+.n-drawer {
+  .n-drawer-content .n-drawer-header .n-drawer-header__close {
+    transition: 0.3s ease;
 
-.el-drawer {
-  padding: 16px 20px;
-  background: $drawer-bgcolor;
-  box-shadow: none;
-
-  .el-drawer__header {
-    display: flex;
-    padding: 5px;
-    margin-bottom: 0;
-    line-height: 16px;
-    color: $drawer-title-color;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    justify-content: space-between;
-
-    .el-drawer__close-btn {
-      @include utils-close-btn($color-primary);
+    &:hover {
+      transform-origin: center;
+      transform: rotateZ(90deg);
     }
-  }
-
-  .el-drawer__body {
-    height: 100%;
-    padding: 0 20px 80px 20px;
-    margin: 0 -20px;
-    overflow: auto;
   }
 }

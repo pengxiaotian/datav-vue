@@ -20,15 +20,3 @@
     -webkit-box-orient: vertical;
   }
 }
-
-@mixin utils-close-btn($color: $message-font-color, $hover-color: $color-primary) {
-  font-size: 16px;
-  color: $color;
-  transition: 0.3s ease;
-
-  &:hover {
-    color: $hover-color;
-    transform-origin: center;
-    transform: rotateZ(90deg);
-  }
-}

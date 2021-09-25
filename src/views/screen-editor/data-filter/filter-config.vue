@@ -39,7 +39,9 @@
           />
         </el-select>
         <div class="new-filter-btn" @click="addFilter">
-          <i class="v-icon-plus icon-add"></i>
+          <n-icon class="icon-add">
+            <IconPlus />
+          </n-icon>
         </div>
       </div>
     </div>
@@ -60,11 +62,13 @@ import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
 import { ApiDataConfig } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
+import { IconPlus } from '@/icons'
 import FilterCollapsePanel from './filter-collapse-panel.vue'
 
 export default defineComponent({
   name: 'FilterConfig',
   components: {
+    IconPlus,
     FilterCollapsePanel,
   },
   setup() {

@@ -3,7 +3,7 @@
     <div class="g-layout-header">
       <header-toolbar />
     </div>
-    <div class="g-layout edit-main-wp">
+    <div id="edit-main-wp" class="g-layout edit-main-wp">
       <layer-panel />
       <components-panel />
       <filter-manager-drawer />

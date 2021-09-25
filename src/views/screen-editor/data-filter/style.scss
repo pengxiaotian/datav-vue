@@ -59,13 +59,11 @@ $border-1: 1px solid #566273;
     font-size: 0;
 
     .toggle-icon {
-      font-size: 14px;
-      line-height: 28px;
-      font-weight: 600;
+      display: inline-block;
+      vertical-align: middle;
       transition: 0.2s;
       transform: rotate(0deg);
       transform-origin: center;
-      display: inline-block;
     }
 
     &:hover {
@@ -148,12 +146,16 @@ $border-1: 1px solid #566273;
       text-align: center;
       padding: 0 5px;
 
-      [class^="v-icon-"]:hover {
-        color: var(--datav-main-color);
+      .del-btn,
+      .edit-btn,
+      .save-btn {
+        &:hover {
+          color: var(--datav-main-color);
+        }
       }
 
       &.--edit {
-        width: 40px;
+        width: 32px;
         text-align: left;
       }
 
@@ -166,16 +168,16 @@ $border-1: 1px solid #566273;
     }
 
     .edit-btn {
-      width: 40px;
+      width: 32px;
       cursor: pointer;
     }
 
     .drag-btn {
-      display: block;
-      height: 30px;
       width: 16px;
       text-align: center;
       cursor: move;
+      height: 30px;
+      line-height: 32px;
     }
 
     .filter-count {
@@ -244,6 +246,10 @@ $border-1: 1px solid #566273;
       min-height: 24px;
       line-height: 24px;
       font-size: 12px;
+
+      & + .bolder-btn {
+        margin-left: 5px;
+      }
     }
   }
 

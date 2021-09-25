@@ -198,6 +198,16 @@ const themeOverrides: GlobalThemeOverrides = {
     draggerBorder: vars2.border,
     draggerBorderHover: vars2.borderPrimary,
   },
+  Drawer: {
+    color: '#1d2126',
+    bodyPadding: '0 20px 80px 20px',
+    textColor: vars.primaryColor,
+    headerBorderBottom: '1px solid rgba(255, 255, 255, 0.15)',
+    closeColor: vars.primaryColor,
+    closeColorHover: vars.primaryColor,
+    closeColorPressed: vars.primaryColor,
+    titleFontWeight: 'normal',
+  },
 }
 
 export {

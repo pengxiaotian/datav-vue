@@ -72,6 +72,8 @@ import IconStop from './stop.vue'
 import IconFullscreenExit from './fullscreen-exit.vue'
 import IconLink from './link.vue'
 import IconImg from './img.vue'
+import IconDrag from './drag.vue'
+import IconClose from './close.vue'
 // -- prepend import placeholder --
 
 export {
@@ -149,5 +151,7 @@ export {
   IconFullscreenExit,
   IconLink,
   IconImg,
+  IconDrag,
+  IconClose,
   // -- prepend export placeholder --
 }
