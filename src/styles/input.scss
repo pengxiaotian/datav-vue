@@ -1,51 +1,8 @@
 @import "themes/var";
 @import "mixins/util";
 
-.el-input {
-  .el-input__inner {
-    padding: 0 8px;
-    color: $input-font-color;
-    background: $input-bgcolor;
-    border: 1px solid $input-border-color;
-    border-radius: 0;
-    caret-color: $color-primary;
-
-    &:focus {
-      border-color: $color-primary;
-    }
-
-    &:hover {
-      border-color: $color-primary;
-    }
-
-    &::placeholder {
-      color: $font-color-placeholder;
-    }
-  }
-}
-
-.el-input-group__prepend {
-  color: $font-color;
-  border-color: $input-border-color;
-  background: $input-prepend-bgcolor;
-}
-
-.el-input-group__append {
-  color: $font-color;
-  border-color: $input-border-color;
-  background: $input-prepend-bgcolor;
-}
-
 .g-input {
   width: 100%;
-
-  .el-input {
-    .el-input__inner {
-      padding: 0 7px;
-      color: #fff;
-      text-align: left;
-    }
-  }
 }
 
 .g-input__caption {

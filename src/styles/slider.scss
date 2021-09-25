@@ -1,9 +1,7 @@
-@import "themes/var";
-
 .n-slider {
   .n-slider-rail {
     .n-slider-rail__fill {
-      background: linear-gradient(to right, #74f0ff, #2681ff);
+      background: var(--datav-gui-slider-track-color);
     }
   }
 
@@ -13,120 +11,20 @@
 }
 
 .g-slider {
-  .el-slider {
-    .el-slider__runway {
-      width: 90px;
-      margin: 12px 0;
-    }
-
-    .el-input-number__decrease {
-      color: $input-font-color;
-      background: $input-bgcolor;
-      border-right: $border-outline;
-      width: 20px;
-
-      &:not(.is-disabled):hover {
-        z-index: 2;
-        color: $input-color-hover;
-        border-color: $input-color-hover;
-      }
-    }
-
-    .el-input-number__increase {
-      color: $input-font-color;
-      background: $input-bgcolor;
-      border-left: $border-outline;
-      width: 20px;
-
-      &:not(.is-disabled):hover {
-        z-index: 2;
-        color: $input-color-hover;
-        border-color: $input-color-hover;
-      }
-    }
-
-    .el-input-number--medium + .el-slider__runway {
-      margin: 16px 0;
-    }
-
-    .el-input-number--mini {
-      width: 90px;
-      margin-top: 0;
-    }
-
-    &.is-controls-right {
-      .el-input-number__decrease {
-        top: auto;
-        right: 1px;
-        bottom: 1px;
-        left: auto;
-        height: 50%;
-        line-height: 1;
-        border-top: $border-outline;
-        border-right: none;
-        border-left: $border-outline;
-        border-radius: 0 0 4px;
-
-        &:not(.is-disabled):hover {
-          z-index: 2;
-          color: $input-color-hover;
-          border-color: $input-color-hover;
-        }
-      }
-
-      .el-input-number__increase {
-        height: 50%;
-        line-height: 1;
-        border-bottom: $border-outline;
-        border-radius: 0 4px 0 0;
-
-        &:not(.is-disabled):hover {
-          z-index: 2;
-          color: $input-color-hover;
-          border-color: $input-color-hover;
-        }
-      }
-
-      .el-input {
-        .el-input__inner {
-          padding-right: 25px;
-          padding-left: 7px;
-          color: #fff;
-          text-align: left;
-        }
-      }
-
-      .el-input-number--mini {
-        .el-input-number__decrease,
-        .el-input-number__increase {
-          line-height: 13px;
-        }
-      }
-    }
+  .g-slider-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 28px;
   }
 
-  &.has-suffix {
-    position: relative;
-
-    .el-slider.is-controls-right {
-      .el-input {
-        .el-input__inner {
-          padding-right: 45px;
-        }
-      }
-    }
-
-    .g-input-number__suffix {
-      line-height: 28px;
-    }
+  .n-slider {
+    width: 96px;
+    flex: 0 0 96px;
   }
 
-  &.--large {
-    .el-slider {
-      .el-slider__button {
-        width: 12px;
-        height: 12px;
-      }
-    }
+  .n-input-number {
+    width: 88px;
+    margin-left: 8px;
   }
 }

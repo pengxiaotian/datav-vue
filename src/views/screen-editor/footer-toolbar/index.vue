@@ -226,6 +226,7 @@ export default defineComponent({
       font-weight: bold;
       color: var(--datav-font-color);
       transform: scale(0.6);
+      margin-top: 2px;
     }
   }
 

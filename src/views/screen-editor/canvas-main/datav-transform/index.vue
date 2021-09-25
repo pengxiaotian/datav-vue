@@ -238,5 +238,4 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @import './style';
-
 </style>

@@ -71,6 +71,10 @@ export default defineComponent({
     caption: String,
     disabled: Boolean,
     isFlat: Boolean,
+    labelSpan: {
+      type: Number,
+      default: 9,
+    },
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
@@ -80,7 +84,7 @@ export default defineComponent({
 
     const labelStyle = computed(() => {
       return {
-        span: props.nest ? 24 : 9,
+        span: props.nest ? 24 : props.labelSpan,
       }
     })
 

@@ -346,12 +346,12 @@ export default defineComponent({
 }
 
 .cover-btn {
-  width: 93px;
+  width: 96px;
 }
 
 .screen-preview {
   position: relative;
-  width: 186px;
+  width: 192px;
   height: 108px;
   margin-top: 8px;
 

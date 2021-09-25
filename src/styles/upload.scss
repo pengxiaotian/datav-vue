@@ -9,11 +9,9 @@
     height: 120px;
     margin-top: 3px;
     background: var(--datav-gui-component-bgcolor);
-    // border: var(--datav-outline);
 
     &:hover {
       background: var(--datav-gui-component-bgcolor-hover);
-      // border: var(--datav-border-primary);
     }
   }
 
