@@ -34,6 +34,7 @@ const vars2 = {
   borderColor: '#0b0c0d',
   border: '1px solid #0b0c0d',
   borderPrimary: '1px solid #2681ff',
+  guiBgColorDark: '#111417',
 }
 
 const themeOverrides: GlobalThemeOverrides = {

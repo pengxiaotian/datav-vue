@@ -74,6 +74,7 @@ import IconLink from './link.vue'
 import IconImg from './img.vue'
 import IconDrag from './drag.vue'
 import IconClose from './close.vue'
+import IconSelectArrow from './select-arrow.vue'
 // -- prepend import placeholder --
 
 export {
@@ -153,5 +154,6 @@ export {
   IconImg,
   IconDrag,
   IconClose,
+  IconSelectArrow,
   // -- prepend export placeholder --
 }

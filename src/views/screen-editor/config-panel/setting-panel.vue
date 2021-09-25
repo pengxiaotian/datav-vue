@@ -53,8 +53,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .setting-panel {
   position: relative;
   width: 100%;
@@ -89,7 +87,7 @@ export default defineComponent({
   display: flex;
   max-width: 140px;
   line-height: 19px;
-  color: $color-primary;
+  color: var(--datav-main-color);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

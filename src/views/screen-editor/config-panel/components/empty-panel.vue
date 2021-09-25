@@ -30,7 +30,7 @@ export default defineComponent({
   display: flex;
   width: 100%;
   padding: 0 16px;
-  color: #bcc9d4;
+  color: var(--datav-font-color);
   flex-direction: column;
   align-items: center;
 

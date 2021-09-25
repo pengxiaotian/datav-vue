@@ -71,8 +71,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 $panel_width: 332px;
 
 .config-panel-wp {
@@ -81,7 +79,7 @@ $panel_width: 332px;
   width: $panel_width !important;
   height: 100%;
   overflow: hidden;
-  background: $config-panel-bgcolor;
+  background: #1c1f25;
   box-shadow: -1px 0 #000;
   transition: width 0.25s ease-in-out;
 }
@@ -89,7 +87,7 @@ $panel_width: 332px;
 .config-manager {
   width: $panel_width;
   height: 100%;
-  background: $config-manager-bgcolor;
+  background: var(--datav-left-nav-bg);
   transition: 0.25s ease-in-out;
   user-select: none;
 

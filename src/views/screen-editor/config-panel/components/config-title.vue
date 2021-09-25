@@ -3,15 +3,14 @@
     <div class="com-title">
       <div class="title-name">
         <span class="alias-name">{{ comAlias }}</span>
-        <el-tooltip
-          placement="right"
-          effect="blue"
-          :content="`${comTitle}文档`"
-        >
-          <n-icon class="com-doc-icon">
-            <IconDocument />
-          </n-icon>
-        </el-tooltip>
+        <n-tooltip placement="right">
+          <template #trigger>
+            <n-icon class="com-doc-icon">
+              <IconDocument />
+            </n-icon>
+          </template>
+          {{ `${comTitle}文档` }}
+        </n-tooltip>
       </div>
       <div class="version-tag">
         <span>{{ comTitle }}</span>
