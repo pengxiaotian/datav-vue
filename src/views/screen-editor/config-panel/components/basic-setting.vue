@@ -26,22 +26,36 @@
         :step="1"
         inline
       />
-      <el-checkbox-group v-model="filps" size="mini" @change="onFilpChange">
-        <el-tooltip effect="blue" content="垂直翻转" :enterable="false">
-          <el-checkbox-button label="v">
-            <n-icon>
-              <IconFlipV />
-            </n-icon>
-          </el-checkbox-button>
-        </el-tooltip>
-        <el-tooltip effect="blue" content="水平翻转" :enterable="false">
-          <el-checkbox-button label="h">
-            <n-icon>
-              <IconFlipH />
-            </n-icon>
-          </el-checkbox-button>
-        </el-tooltip>
-      </el-checkbox-group>
+      <div class="rotate-flip-wp">
+        <n-tooltip>
+          <template #trigger>
+            <button
+              class="hor"
+              :class="{ '--checked': filps.includes('h') }"
+              @click="onFilpChange('h')"
+            >
+              <n-icon>
+                <IconFlipH />
+              </n-icon>
+            </button>
+          </template>
+          水平翻转
+        </n-tooltip>
+        <n-tooltip>
+          <template #trigger>
+            <button
+              class="ver"
+              :class="{ '--checked': filps.includes('v') }"
+              @click="onFilpChange('v')"
+            >
+              <n-icon>
+                <IconFlipV />
+              </n-icon>
+            </button>
+          </template>
+          垂直翻转
+        </n-tooltip>
+      </div>
     </g-field>
     <g-field label="透明度">
       <g-slider
@@ -76,10 +90,14 @@ export default defineComponent({
   setup(props) {
     const filps = ref<filpType[]>([])
 
-    const onFilpChange = (keys: filpType[]) => {
-      filps.value = [...keys]
-      props.attr.filpV = keys.includes('v')
-      props.attr.filpH = keys.includes('h')
+    const onFilpChange = (key: filpType) => {
+      if (filps.value.includes(key)) {
+        filps.value = filps.value.filter(m => m !== key)
+      } else {
+        filps.value.push(key)
+      }
+      props.attr.filpV = filps.value.includes('v')
+      props.attr.filpH = filps.value.includes('h')
     }
 
     onMounted(() => {
@@ -103,5 +121,35 @@ export default defineComponent({
 <style lang="scss" scoped>
 .basic-setting-wp {
   user-select: none;
+}
+
+.rotate-flip-wp {
+  display: inline-block;
+  width: 98px;
+  padding: 0 4px;
+
+  .hor,
+  .ver {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border: var(--datav-outline);
+    cursor: pointer;
+    color: var(--datav-font-color);
+    background-color: var(--datav-gui-component-bgcolor);
+
+    &.--checked,
+    &:hover {
+      border-color: var(--datav-main-color);
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .hor {
+    margin-right: 4px;
+  }
 }
 </style>
