@@ -79,6 +79,7 @@ $cdn: '//files.pengxiaotian.com';
   --datav-gui-font-color-3: #737c80;
   --datav-gui-font-color-description: #5c6366;
   --datav-gui-font-color-disabled: #424447;
+  --datav-gui-font-color-placeholder: #c0c4cc;
   --datav-gui-border-color: rgba(52, 52, 52, 0.5);
   --datav-gui-editor-border: 1px solid #282f3a;
   --datav-gui-editor-icon-color: #bfbfbf;
@@ -87,6 +88,9 @@ $cdn: '//files.pengxiaotian.com';
   --datav-gui-slider-track-color: linear-gradient(to right, #74f0ff, #2681ff);
   --datav-gui-component-border-color: #0b0c0d;
   --datav-gui-component-border: 1px solid var(--datav-gui-component-border-color);
+  --datav-gui-select-option-bgcolor: #1d2126;
+  --datav-gui-select-option-bgcolor-hover: #1b3964;
+  --datav-gui-select-color-selected: #fff;
 }
 
 $color-white: #fff;
