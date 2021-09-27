@@ -2,10 +2,14 @@
   background: var(--datav-gui-component-bgcolor);
 
   .n-color-picker-trigger {
-    border-left: none;
+    border-left-color: #0000;
 
     .n-color-picker-trigger__value {
       display: none;
+    }
+
+    &:hover {
+      border-color: var(--datav-main-color);
     }
   }
 }

@@ -86,7 +86,8 @@
       >
         <g-select-suggest
           v-model="config.global.barWidth"
-          :data="['auto']"
+          :data="selectSuggests"
+          :filters="['auto']"
         />
       </g-field>
       <g-field-collapse
@@ -362,7 +363,8 @@
         >
           <g-select-suggest
             v-model="config.xAxis.axisLabel.interval"
-            :data="['auto','0','1','2']"
+            :data="selectSuggests"
+            :filters="['auto','0','1','2']"
           />
         </g-field>
         <g-field
@@ -490,13 +492,15 @@
       >
         <g-select-suggest
           v-model="config.yAxis.extent.min"
-          :data="['auto','dataMin']"
+          :data="selectSuggests"
+          :filters="['auto','dataMin']"
           inline="inline"
           label="最小值"
         />
         <g-select-suggest
           v-model="config.yAxis.extent.max"
-          :data="['auto','dataMax']"
+          :data="selectSuggests"
+          :filters="['auto','dataMax']"
           inline="inline"
           label="最大值"
         />
@@ -1220,6 +1224,7 @@ import {
   legendIcons,
   fillTypes,
   animationEasings,
+  selectSuggests,
 } from '@/data/select-options'
 import { BasicBar, BasicBarSeries } from './basic-bar'
 
@@ -1261,6 +1266,7 @@ export default defineComponent({
       legendIcons,
       fillTypes,
       animationEasings,
+      selectSuggests,
     }
   },
 })

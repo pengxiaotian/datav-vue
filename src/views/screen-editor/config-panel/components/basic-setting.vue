@@ -125,8 +125,9 @@ export default defineComponent({
 
 .rotate-flip-wp {
   display: inline-block;
-  width: 98px;
-  padding: 0 4px;
+  width: 90px;
+  flex: 0 0 90px;
+  padding-bottom: 4px;
 
   .hor,
   .ver {

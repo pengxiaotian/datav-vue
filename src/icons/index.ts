@@ -75,6 +75,20 @@ import IconImg from './img.vue'
 import IconDrag from './drag.vue'
 import IconClose from './close.vue'
 import IconSelectArrow from './select-arrow.vue'
+import IconShapeDiamond from './shape-diamond.vue'
+import IconShapeTriangle from './shape-triangle.vue'
+import IconShapeHexagon from './shape-hexagon.vue'
+import IconShapeRoundSquare from './shape-round-square.vue'
+import IconShapeSquare from './shape-square.vue'
+import IconShapeCircle from './shape-circle.vue'
+import IconShapeArrow from './shape-arrow.vue'
+import IconShapeAuto from './shape-auto.vue'
+import IconShapeHeart from './shape-heart.vue'
+import IconShapeEmptyHeart from './shape-empty-heart.vue'
+import IconShapeRoundRect from './shape-round-rect.vue'
+import IconShapeRect from './shape-rect.vue'
+import IconLayoutRow from './layout-row.vue'
+import IconLayoutColumn from './layout-column.vue'
 // -- prepend import placeholder --
 
 export {
@@ -155,5 +169,19 @@ export {
   IconDrag,
   IconClose,
   IconSelectArrow,
+  IconShapeDiamond,
+  IconShapeTriangle,
+  IconShapeHexagon,
+  IconShapeRoundSquare,
+  IconShapeSquare,
+  IconShapeCircle,
+  IconShapeArrow,
+  IconShapeAuto,
+  IconShapeHeart,
+  IconShapeEmptyHeart,
+  IconShapeRoundRect,
+  IconShapeRect,
+  IconLayoutRow,
+  IconLayoutColumn,
   // -- prepend export placeholder --
 }

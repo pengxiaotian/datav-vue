@@ -1,11 +1,13 @@
 .datav-gui {
   &.--inline {
     display: inline-block;
-    width: 98px;
-    padding: 0 4px 4px;
+    width: 90px;
+    flex: 0 0 90px;
+    padding-bottom: 4px;
 
     &.--single {
-      width: 196px;
+      width: 192px;
+      flex: 0 0 192px;
     }
   }
 }

@@ -60,7 +60,6 @@ export default defineComponent({
     const opts = ref(props.data.map(m => ({ label: m.value, value: m.id })))
 
     return {
-      show: ref(true),
       opts,
       handleInput,
     }

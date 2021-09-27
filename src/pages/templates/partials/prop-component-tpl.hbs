@@ -133,7 +133,8 @@
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
-  :data="{{{enumsToTpl config.enums}}}"
+  :data="{{config.component}}s"
+  :filters="{{{enumsToTpl config.enums}}}"
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"

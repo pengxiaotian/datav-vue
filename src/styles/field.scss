@@ -1,7 +1,5 @@
 @import "mixins/util.scss";
 
-$field-container-width: 192px;
-
 .g-field {
   display: flex;
   color: var(--datav-gui-font-color-1);
@@ -53,11 +51,13 @@ $field-container-width: 192px;
 }
 
 .g-field-container {
-  width: $field-container-width;
+  width: 192px;
   line-height: 28px;
 
   &.--flat {
-    width: $field-container-width + 4px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 }
 

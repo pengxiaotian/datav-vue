@@ -50,7 +50,8 @@
   <g-select-suggest
     v-else-if="componentType === componentTypes.selectSuggest"
     v-model="strValue"
-    :data="enums"
+    :data="selectOptions"
+    :filters="enums"
   />
   <g-select-shape
     v-else-if="componentType === componentTypes.legendIcon"

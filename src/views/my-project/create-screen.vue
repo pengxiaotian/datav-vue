@@ -85,14 +85,11 @@
         class="name-input"
       />
       <p class="name-title">大屏分组</p>
-      <el-select v-model="groupId" size="mini" placeholder="请选择">
-        <el-option
-          v-for="item in groups"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id"
-        />
-      </el-select>
+      <n-select
+        v-model:value="groupId"
+        :options="groupOpts"
+        size="small"
+      />
     </div>
     <template #action>
       <n-button
@@ -164,14 +161,11 @@
               class="name-input"
             />
             <p class="name-title">大屏分组</p>
-            <el-select v-model="groupId" size="mini" placeholder="请选择">
-              <el-option
-                v-for="item in groups"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
-            </el-select>
+            <n-select
+              v-model:value="groupId"
+              :options="groupOpts"
+              size="small"
+            />
           </div>
           <n-button
             type="primary"
@@ -196,10 +190,9 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, onMounted, nextTick } from 'vue'
+import { defineComponent, ref, onMounted, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
-import { globalConfig } from '@/config'
 import { ProjectGroup, ProjectTemplate } from '@/domains/project'
 import { getProjects, createProject } from '@/api/project'
 import { getSysTemplates } from '@/api/templates'
@@ -217,7 +210,6 @@ export default defineComponent({
   setup() {
     const nMessage = useMessage()
     const loading = ref(true)
-    const bgCoverImg = ref(globalConfig.logo)
     const templates = ref<ProjectTemplate[]>([])
 
     const visibleCreateDialog = ref(false)
@@ -229,6 +221,9 @@ export default defineComponent({
     const saveLoading = ref(false)
     const router = useRouter()
     const scrollRef = ref<any>(null)
+    const groupOpts = computed(() => {
+      return groups.value.map(m => ({ value: m.id, label: m.name }))
+    })
 
     onMounted(async () => {
       const res = await getSysTemplates()
@@ -319,7 +314,6 @@ export default defineComponent({
 
     return {
       loading,
-      bgCoverImg,
       templates,
       visibleCreateDialog,
       visiblePreviewDialog,
@@ -327,6 +321,7 @@ export default defineComponent({
       template,
       groupId,
       groups,
+      groupOpts,
       saveLoading,
       scrollRef,
       confirmCreate,

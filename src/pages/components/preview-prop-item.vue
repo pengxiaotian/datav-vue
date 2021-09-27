@@ -67,7 +67,8 @@
   <g-select-suggest
     v-else-if="componentType === componentTypes.selectSuggest"
     v-model="strValue"
-    :data="enums"
+    :data="selectOptions"
+    :filters="enums"
     :inline="mode"
     :label="mode ? label : ''"
   />

@@ -111,7 +111,7 @@ const themeOverrides: GlobalThemeOverrides = {
     iconSize: '65px',
     iconColor: '#ff4f43',
     iconMargin: '0 0 10px 0',
-    contentMargin: '0 0 10px 0',
+    contentMargin: '10px -20px 0',
   },
   Dropdown: {
     fontSizeMedium: '12px',
