@@ -241,6 +241,12 @@ const themeOverrides: GlobalThemeOverrides = {
       },
     },
   },
+  Collapse: {
+    fontSize: '12px',
+    textColor: vars.textColor1,
+    titleTextColor: '#fff',
+    arrowColor: vars.textColor1,
+  },
 }
 
 export {

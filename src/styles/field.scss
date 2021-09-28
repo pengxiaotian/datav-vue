@@ -38,7 +38,7 @@
   width: 16px;
   margin-right: 4px;
   height: 28px;
-  line-height: 28px;
+  line-height: 24px;
 
   .g-field-show {
     color: var(--datav-gui-font-color-base);
@@ -51,7 +51,7 @@
 }
 
 .g-field-container {
-  width: 192px;
+  width: 196px;
   line-height: 28px;
 
   &.--flat {

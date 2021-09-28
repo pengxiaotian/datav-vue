@@ -1,17 +1,19 @@
 <template>
-  <el-collapse
-    v-model="activeNames"
+  <n-collapse
+    :expanded-names="activeNames"
+    arrow-placement="right"
+    display-directive="show"
     class="g-field-collapse"
-    :class="{ '--disable': toggle && !modelValue }"
+    :class="{ '--disabled': toggle && !modelValue }"
+    @update:expanded-names="handleExpand"
   >
-    <el-collapse-item
-      :disabled="!modelValue"
-      class="g-field-collapse-panel"
-      :class="{
-        '--has-toolbox': visibleToolbox
-      }"
-    >
-      <template #title>
+    <template #arrow>
+      <n-icon>
+        <IconArrowRight />
+      </n-icon>
+    </template>
+    <n-collapse-item class="g-field-collapse-panel">
+      <template #header>
         <i class="g-field-show-placeholder">
           <n-switch
             v-if="toggle"
@@ -75,7 +77,7 @@
             <n-tooltip placement="top" :disabled="!addState.disabled">
               <template #trigger>
                 <n-icon
-                  class="toolbox-icon"
+                  class="toolbox-icon --icon-add"
                   :class="{ '--disabled': addState.disabled }"
                   @click.stop="addData"
                 >
@@ -140,8 +142,8 @@
         </span>
       </template>
       <slot v-else></slot>
-    </el-collapse-item>
-  </el-collapse>
+    </n-collapse-item>
+  </n-collapse>
 </template>
 
 <script lang='ts'>
@@ -149,11 +151,12 @@ import { defineComponent, ref, watch, PropType, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import { ToolboxType } from '@/utils/enums'
-import { IconPlus, IconDelete, IconCopy, IconLayoutRow, IconLayoutColumn } from '@/icons'
+import { IconArrowRight, IconPlus, IconDelete, IconCopy, IconLayoutRow, IconLayoutColumn } from '@/icons'
 
 export default defineComponent({
   name: 'GFieldCollapse',
   components: {
+    IconArrowRight,
     IconPlus,
     IconDelete,
     IconCopy,
@@ -205,7 +208,7 @@ export default defineComponent({
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
-    const activeNames = ref([])
+    const activeNames = ref<string[]>([])
     const activeTab = ref('0')
     const isLayoutRow = ref(props.defaultLayout === ToolboxType.horizontal)
 
@@ -265,6 +268,12 @@ export default defineComponent({
       }
     })
 
+    const handleExpand = (keys: string[]) => {
+      if (!(props.toggle && !props.modelValue)) {
+        activeNames.value = keys
+      }
+    }
+
     const toggleVisible = (nv: boolean) => {
       ctx.emit(UPDATE_MODEL_EVENT, nv)
     }
@@ -319,6 +328,7 @@ export default defineComponent({
       copyState,
       addState,
       deleteState,
+      handleExpand,
       toggleVisible,
       copyData,
       addData,

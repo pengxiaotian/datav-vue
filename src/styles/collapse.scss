@@ -1,93 +1,112 @@
-@import "themes/var";
+.n-collapse {
+  .n-collapse-item {
+    .n-collapse-item__header {
+      height: 40px;
+      border-bottom: var(--datav-gui-cp-border);
 
-.el-collapse {
-  border: none;
+      .n-collapse-item-arrow {
+        position: absolute;
+        right: 8px;
 
-  .el-collapse-item__header {
-    height: 40px;
-    line-height: 40px;
-    color: $collapse-font-color;
-    background-color: $collapse-bgcolor;
-    border-bottom: 1px solid $collapse-border-color;
-
-    &.focusing:focus:not(:hover) {
-      color: $collapse-font-color;
-    }
-  }
-
-  .el-collapse-item__arrow {
-    font-size: 12px;
-    color: $field-collapse-arrow-color;
-  }
-
-  .el-collapse-item.is-disabled .el-collapse-item__header {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-
-  .el-collapse-item__wrap {
-    background-color: $collapse-bgcolor;
-    border-bottom: none;
-  }
-
-  .el-collapse-item__content {
-    color: $collapse-font-color;
-  }
-
-  &.collapse-arrow-left {
-    .el-collapse-item__header {
-      flex-direction: row-reverse;
-      justify-content: flex-end;
-    }
-
-    .el-collapse-item__arrow {
-      margin: 0 8px 0 0;
-    }
-  }
-}
-
-.g-field-collapse {
-  margin-bottom: 5px;
-  border: none;
-
-  .el-collapse-item__header {
-    height: 40px;
-    padding-left: 8px;
-    font-size: $font-size;
-    line-height: 40px;
-    color: #fff;
-    background: $field-collapse-header-bgcolor;
-    border-bottom-color: $field-border-color;
-  }
-
-  .el-collapse-item__wrap {
-    padding: 0;
-    // padding-right: 8px;
-    background-color: $field-collapse-item-bgcolor;
-    border-bottom-color: $field-border-color;
-  }
-
-  .el-collapse-item__content {
-    padding: 0;
-  }
-}
-
-.el-collapse-item__content {
-  .g-field-collapse {
-    margin-bottom: 1px;
-
-    .g-field-title {
-      color: $gui-font-color-3;
-    }
-
-    .el-collapse-item__header {
-      color: $gui-font-color-2;
-      background-color: $field-collapse-item-bgcolor;
-
-      .g-field-title,
-      .g-field-title-with-description {
-        color: $gui-font-color-2;
+        .n-icon {
+          font-size: 12px;
+        }
       }
     }
+
+    .n-collapse-item__content-wrapper {
+      .n-collapse-item__content-inner {
+        padding-top: 0;
+        background-color: var(--datav-gui-bgcolor-back);
+      }
+    }
+  }
+}
+
+.g-field-collapse.n-collapse {
+  margin-bottom: 5px;
+
+  .n-collapse-item {
+    .n-collapse-item__header {
+      padding-left: 8px;
+      border-bottom-color: var(--datav-gui-border-color);
+    }
+
+    .n-collapse-item {
+      margin-left: 0;
+    }
+  }
+
+  &.--disabled {
+    .n-collapse-item {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}
+
+.g-field-collapse-panel {
+  > .n-collapse-item__header {
+    .g-field-collapse-panel-toolbox {
+      color: var(--datav-font-color);
+      margin-left: auto;
+      margin-right: 32px;
+
+      .toolbox-icon {
+        margin-left: 6px;
+        padding: 4px;
+        width: 22px;
+        height: 28px;
+        line-height: 22px;
+        transition: transform 0.3s ease-in-out;
+
+        &:hover,
+        &.--selected {
+          color: var(--datav-main-color);
+        }
+
+        &.--icon-add:hover {
+          transform: rotate(90deg);
+        }
+
+        &.--disabled {
+          color: var(--datav-font-color-disabled);
+          cursor: not-allowed;
+        }
+      }
+
+      .g-field-collapse-panel-toolbox-split {
+        margin-left: 6px;
+        display: inline-block;
+        width: 1px;
+        height: 8px;
+        border-left: 1px solid var(--datav-gui-border-color);
+      }
+    }
+  }
+
+  .n-collapse-item__content-inner {
+    .g-field-collapse {
+      .g-field-title,
+      .g-field-title-with-description {
+        color: var(--datav-gui-font-color-3);
+      }
+
+      .n-collapse-item__header {
+        .g-field-title,
+        .g-field-title-with-description {
+          color: var(--datav-gui-font-color-2);
+        }
+      }
+    }
+  }
+
+  .g-field-collapse-panel-empty {
+    padding: 12px;
+    padding-left: 28px;
+    font-size: 12px;
+    color: var(--datav-gui-font-color-3);
+    height: 40px;
+    line-height: 40px;
   }
 }
