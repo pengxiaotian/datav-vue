@@ -15,3 +15,9 @@
 .datav-wraper {
   box-sizing: border-box;
 }
+
+.datav-empty {
+  display: inline-block;
+  color: var(--datav-gui-empty-color);
+  text-align: center;
+}

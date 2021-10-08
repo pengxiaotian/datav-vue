@@ -93,6 +93,7 @@ $border-1: 1px solid #566273;
     .del-btn,
     .edit-btn,
     .save-btn {
+      vertical-align: middle;
       cursor: pointer;
       opacity: 0;
       pointer-events: none;
@@ -187,7 +188,7 @@ $border-1: 1px solid #566273;
     .filter-dot {
       position: absolute;
       left: -24px;
-      top: 5px;
+      top: 4px;
       width: 6px;
       height: 6px;
       padding: 8px;
@@ -332,8 +333,9 @@ $border-1: 1px solid #566273;
 
 .new-filter-btn {
   width: 30px;
+  height: 34px;
+  line-height: 34px;
   margin-left: 10px;
-  line-height: 26px;
   text-align: center;
   cursor: pointer;
   border: $border-1;

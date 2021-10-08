@@ -1,6 +1,5 @@
 @import '../color/colors';
-
-$cdn: '//files.pengxiaotian.com';
+@import './var-scss';
 
 // Common
 :root {
@@ -20,8 +19,8 @@ $cdn: '//files.pengxiaotian.com';
   --datav-ft-border: 1px solid #3a4659;
   --datav-loading-color: #1996df;
   --datav-nav-bg: #13161a;
-  --datav-nav-active-bg: #1d2126;
-  --datav-nav-hover-bg: #21262b;
+  --datav-nav-bg-active: #1d2126;
+  --datav-nav-bg-hover: #21262b;
   --datav-left-nav-bg: #191c21;
   --datav-left-nav-hover-bg: transparent;
   --datav-left-nav-active-bg: #14161a;
@@ -92,6 +91,9 @@ $cdn: '//files.pengxiaotian.com';
   --datav-gui-select-option-bgcolor-hover: #1b3964;
   --datav-gui-select-color-selected: #fff;
   --datav-gui-cp-border: 1px solid #141210;
+  --datav-gui-new-select-border: 1px solid #282f3a;
+  --datav-gui-new-select-bgcolor: #0e1013;
+  --datav-gui-empty-color: #909399;
 }
 
 $color-white: #fff;

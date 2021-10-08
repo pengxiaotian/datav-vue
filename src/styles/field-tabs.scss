@@ -1,19 +1,19 @@
 .g-field-tabs {
   &.el-tabs--border-card {
-    background: $field-collapse-header-bgcolor;
+    background: var(--datav-gui-bgcolor-front);
     border: none;
-    border-bottom: 1px solid $field-border-color;
+    border-bottom: 1px solid var(--datav-gui-border-color);
     box-shadow: unset;
 
     .el-tabs__header {
-      background-color: $field-collapse-item-bgcolor;
-      border-bottom-color: $field-border-color;
+      background-color: var(--datav-gui-bgcolor-back);
+      border-bottom-color: var(--datav-gui-border-color);
 
       .el-tabs__nav-next,
       .el-tabs__nav-prev {
         line-height: 36px;
         padding: 0 4px;
-        color: $gui-font-color-2;
+        color: var(--datav-gui-font-color-2);
 
         .el-icon-arrow-left,
         .el-icon-arrow-right {
@@ -21,14 +21,14 @@
         }
 
         &:hover {
-          color: $gui-hover-color;
+          color: var(--datav-gui-hover-color);
           background: transparent;
         }
       }
 
       .el-tabs__item {
         font-size: 12px;
-        color: $gui-font-color;
+        color: var(--datav-gui-font-color-base);
         height: 36px;
         line-height: 36px;
         padding: 0 15px;
@@ -44,13 +44,13 @@
           width: 4px;
           border-radius: 1px;
           left: calc(50% - 4px);
-          background: $color-primary;
+          background: var(--datav-main-color);
           transition: all 0.2s;
           opacity: 0;
         }
 
         &.is-active {
-          color: $color-primary;
+          color: var(--datav-main-color);
           background-color: transparent;
           border-color: transparent;
 
@@ -60,25 +60,25 @@
         }
 
         &:hover {
-          color: $gui-hover-color;
+          color: var(--datav-gui-hover-color);
         }
       }
     }
 
     .el-tabs__content {
       padding: 0;
-      background-color: $field-collapse-item-bgcolor;
+      background-color: var(--datav-gui-bgcolor-back);
     }
   }
 
   &.--column {
     .g-field-tabs-column-item {
-      border-bottom: 1px solid $field-border-color;
+      border-bottom: 1px solid var(--datav-gui-border-color);
     }
 
     .g-field-tabs-column-item-head {
-      font-size: $gui-font-size;
-      color: $gui-font-color-2;
+      font-size: 12px;
+      color: var(--datav-gui-font-color-2);
       padding-left: 8px;
       line-height: 16px;
       cursor: pointer;
@@ -97,13 +97,13 @@
         height: 4px;
         width: 4px;
         border-radius: 1px;
-        background: $gui-primary-color;
+        background: var(--datav-gui-primary-color);
         transition: all 0.2s;
         opacity: 0;
       }
 
       &.--selected {
-        color: $gui-primary-color;
+        color: var(--datav-gui-primary-color);
 
         &::before {
           opacity: 1;
@@ -111,7 +111,7 @@
       }
 
       &:hover {
-        color: $gui-hover-color;
+        color: var(--datav-gui-hover-color);
       }
     }
   }

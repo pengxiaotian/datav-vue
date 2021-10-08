@@ -1,41 +1,50 @@
 <template>
-  <el-aside width="auto" :class="['config-panel-wp', { '--hide': !visiblePanel }]">
+  <div :class="['g-aside config-panel-wp', { '--hide': !visiblePanel }]">
     <div class="config-manager">
       <page-config v-if="!selectedCom" />
       <el-tabs v-else type="card" :stretch="true">
         <el-tab-pane>
           <template #label>
-            <el-tooltip effect="blue" :open-delay="500" content="配置">
-              <n-icon>
-                <IconSetting />
-              </n-icon>
-            </el-tooltip>
+            <n-tooltip :delay="500">
+              <template #trigger>
+                <n-icon>
+                  <IconSetting />
+                </n-icon>
+              </template>
+              配置
+            </n-tooltip>
           </template>
           <setting-panel :key="selectedCom.id" />
         </el-tab-pane>
         <el-tab-pane lazy>
           <template #label>
-            <el-tooltip effect="blue" :open-delay="500" content="数据">
-              <n-icon>
-                <IconCloud />
-              </n-icon>
-            </el-tooltip>
+            <n-tooltip :delay="500">
+              <template #trigger>
+                <n-icon>
+                  <IconCloud />
+                </n-icon>
+              </template>
+              数据
+            </n-tooltip>
           </template>
           <data-center-panel :key="selectedCom.id" />
         </el-tab-pane>
         <el-tab-pane lazy>
           <template #label>
-            <el-tooltip effect="blue" :open-delay="500" content="交互">
-              <n-icon>
-                <IconInteract />
-              </n-icon>
-            </el-tooltip>
+            <n-tooltip :delay="500">
+              <template #trigger>
+                <n-icon>
+                  <IconInteract />
+                </n-icon>
+              </template>
+              交互
+            </n-tooltip>
           </template>
           <interaction-panel :key="selectedCom.id" />
         </el-tab-pane>
       </el-tabs>
     </div>
-  </el-aside>
+  </div>
 </template>
 
 <script lang='ts'>

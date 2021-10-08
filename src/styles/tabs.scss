@@ -15,8 +15,8 @@
     transition: 0.2s;
 
     &:hover {
-      color: $color-primary;
-      background: $tabs-nav-bgcolor-hover;
+      color: var(--datav-main-color);
+      background: var(--datav-nav-bg-hover);
     }
   }
 }
@@ -35,7 +35,7 @@
 
   .el-tabs__nav-wrap {
     height: 100%;
-    background: $tabs-nav-bgcolor;
+    background: var(--datav-left-nav-bg);
 
     &.is-left {
       margin-right: 0;
@@ -48,7 +48,7 @@
   }
 
   .el-tabs__active-bar {
-    background-color: $tabs-bar-bgcolor-active;
+    background-color: var(--datav-main-color);
 
     &.is-left {
       right: auto;
@@ -69,22 +69,22 @@
 
   .el-tabs__item {
     padding: 0 16px;
-    color: $tabs-font-color;
+    color: var(--datav-font-color);
 
     &:hover {
-      color: $hover-color;
+      color: var(--datav-main-hover-color);
     }
 
     &.is-active {
-      color: $color-primary;
-      background: $tabs-bgcolor-active;
+      color: var(--datav-main-color);
+      background: var(--datav-left-nav-active-bg);
     }
   }
 
   .el-tabs__content {
     height: 100%;
     overflow-y: scroll;
-    background: $tabs-content-bgcolor;
+    background: var(--datav-nav-bg);
     flex: 1;
   }
 }
@@ -104,22 +104,22 @@
       height: 30px;
       line-height: 30px;
       border-top: 2px solid transparent;
-      color: $tabs-font-color;
-      background: $datav-tabs-nav-bgcolor;
+      color: var(--datav-font-color);
+      background: var(--datav-nav-bg);
 
       &:hover {
-        color: $hover-color;
+        color: var(--datav-main-hover-color);
       }
 
       &.is-active {
-        color: $hover-color;
-        border-top: 2px solid $color-primary;
-        background: $datav-tabs-nav-bgcolor-active;
+        color: var(--datav-main-hover-color);
+        border-top: 2px solid var(--datav-main-color);
+        background: var(--datav-nav-bg-active);
       }
     }
   }
 
   .el-tabs__content {
-    background: $datav-tabs-nav-bgcolor-active;
+    background: var(--datav-nav-bg-active);
   }
 }

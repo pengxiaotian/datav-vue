@@ -1,5 +1,6 @@
 .n-base-select-menu {
-  .n-virtual-list {
+  .n-virtual-list,
+  .n-base-select-menu__empty {
     border: var(--datav-border-primary);
   }
 
@@ -35,39 +36,14 @@
   width: 100%;
   margin: 10px 0;
 
-  .el-input {
-    .el-input__inner {
-      height: 30px;
-      line-height: 30px;
-      padding-left: 14px;
-      // background: $datav-data-form-bgcolor;
-      // border: $config-panel-border;
-
-      &:hover {
-        // border-color: $color-primary;
-      }
+  .n-base-selection {
+    .n-base-selection-label {
+      background: var(--datav-gui-new-select-bgcolor);
     }
-  }
-}
 
-.datav-new-select-option.el-select__popper {
-  border-top: none !important;
-  margin-top: -12px !important;
-
-  > .datav-new-select-option {
-    margin: 0 -1px;
-    padding: 0 1px;
-  }
-
-  .el-popper__arrow {
-    display: none;
-  }
-}
-
-.filter-select {
-  .el-input {
-    .el-input__inner {
-      // border: $datav-data-filter-border;
+    .n-base-selection__border,
+    .n-base-selection__state-border {
+      border: var(--datav-gui-new-select-border);
     }
   }
 }

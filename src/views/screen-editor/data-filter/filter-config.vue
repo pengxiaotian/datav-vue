@@ -22,22 +22,24 @@
         :removable="true"
       />
       <div ref="addPanelRef" class="add-filter" @dragenter="dragEnter">
-        <el-select
-          :model-value="filterId"
-          size="mini"
+        <n-select
+          :value="filterId"
+          :options="dataFilters"
           filterable
+          :fallback-option="false"
+          :show="true"
           placeholder="添加过滤器"
           class="datav-new-select filter-select"
-          popper-class="datav-new-select-option"
-          @change="selectFilter"
+          :style="{
+            '--border': 'var(--datav-gui-new-select-border)',
+            '--color': 'var(--datav-gui-new-select-bgcolor)'
+          }"
+          @update:value="selectFilter"
         >
-          <el-option
-            v-for="item in dataFilters"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
+          <template #empty>
+            <span class="datav-empty">过滤器列表为空，请创建后使用</span>
+          </template>
+        </n-select>
         <div class="new-filter-btn" @click="addFilter">
           <n-icon class="icon-add">
             <IconPlus />
@@ -87,7 +89,12 @@ export default defineComponent({
 
     const dataFilters = computed(() => {
       const ids = apiDataConfig.value.pageFilters.map(m => m.id)
-      return FilterModule.dataFilters.filter(m => !ids.includes(m.id))
+      return FilterModule.dataFilters
+        .filter(m => !ids.includes(m.id))
+        .map(m => ({
+          value: m.id,
+          label: m.name,
+        }))
     })
 
     const selectedFilters = computed(() => {

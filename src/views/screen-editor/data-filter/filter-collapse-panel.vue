@@ -111,8 +111,8 @@
       </div>
     </div>
     <template v-if="isOpened">
-      <el-collapse-transition>
-        <div v-show="collapse" class="panel-content-wp">
+      <n-collapse-transition :collapsed="collapse">
+        <div class="panel-content-wp">
           <div class="cp-wrap">
             <p title="function filter(data) {" class="fake-code --start">
               <span class="--keyword">function</span> filter(data) {
@@ -154,7 +154,7 @@
             </div>
           </div>
         </div>
-      </el-collapse-transition>
+      </n-collapse-transition>
     </template>
   </div>
 </template>

@@ -5266,10 +5266,10 @@ mute-stream@0.0.8:
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
 
-naive-ui@^2.19.1:
-  version "2.19.1"
-  resolved "https://registry.npmjs.org/naive-ui/-/naive-ui-2.19.1.tgz#7dc39676ca0b0da1aacee6127f466ae63446700e"
-  integrity sha512-BvwsgBOMF9Lg+WDZ8+lOmz44JVmnEyLdtzR5oxSot9Sk7UrFpNPTajk6pt6mDx5tpZIwY/r5tgJGI7Vc5hEUhQ==
+naive-ui@^2.19.5:
+  version "2.19.5"
+  resolved "https://registry.npmjs.org/naive-ui/-/naive-ui-2.19.5.tgz#f0f7f054998a9e916d260363485724d5b6f1cd26"
+  integrity sha512-tEujB4xnkbQJ36+ZB3R+q0QHsgIbIPaP2E2xCD+lwOd0YdB3PcTgrWQTGqKUAa9ZP8gVVUwg1arRta98HqpGJg==
   dependencies:
     "@css-render/plugin-bem" "^0.15.6"
     "@css-render/vue3-ssr" "^0.15.6"
@@ -5283,12 +5283,12 @@ naive-ui@^2.19.1:
     highlight.js "^11.0.1"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
-    seemly "^0.3.1"
+    seemly "^0.3.2"
     treemate "^0.3.8"
     vdirs "^0.1.4"
     vfonts "^0.1.0"
     vooks "^0.2.6"
-    vueuc "^0.4.9"
+    vueuc "^0.4.13"
 
 nanoid@^2.1.0:
   version "2.1.11"
@@ -6534,6 +6534,13 @@ seemly@^0.3.1:
   dependencies:
     "@types/jest" "^26.0.20"
 
+seemly@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.npmjs.org/seemly/-/seemly-0.3.2.tgz#f45aacb2a0748bb9da766b5cf805d3b59ac9502c"
+  integrity sha512-xEDcywG5NmDhvHqt1bZlxCnoagfWOLwM5AObg8TiNcZPnTJwusa7eVm+/iRU9LhxLBDS14/yJFSMhhd3+RWUFQ==
+  dependencies:
+    "@types/jest" "^26.0.20"
+
 semver-compare@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/semver-compare/-/semver-compare-1.0.0.tgz#0dee216a1c941ab37e9efb1788f6afc5ff5537fc"
@@ -7710,10 +7717,10 @@ vue@^3.2.13:
     "@vue/server-renderer" "3.2.13"
     "@vue/shared" "3.2.13"
 
-vueuc@^0.4.9:
-  version "0.4.10"
-  resolved "https://registry.npmjs.org/vueuc/-/vueuc-0.4.10.tgz#ae26ba76a0af154f8a139ef3718135a2c6adf676"
-  integrity sha512-d/GITEBOtrkMyhJPB72SNYeO7rYrsTYMlJ+uT7bwuTT1ag15O63vwUesqhY7Vf65FybJRcQwUtGAYShDOqRiJQ==
+vueuc@^0.4.13:
+  version "0.4.13"
+  resolved "https://registry.npmjs.org/vueuc/-/vueuc-0.4.13.tgz#e037bf2ab706b3564a8f9c8f1457330184983a68"
+  integrity sha512-2QPhhczQH+flGLIYuwSOo6UbVyyS+hs6YcE2ODaWuSAffKSyysmFwaOuilq2dLNeTic1EmjpIGe7NvnWxbfumw==
   dependencies:
     css-render "^0.15.3"
     evtd "^0.2.2"
