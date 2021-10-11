@@ -25,7 +25,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref, toRefs } from 'vue'
+import { defineComponent, PropType, ref, toRefs, computed } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 interface DataDto {
@@ -78,7 +78,23 @@ export default defineComponent({
       })
     }
 
-    const opts = ref(list.map(m => ({ label: m.value, value: m.id })))
+    // const opts = ref(list.map(m => ({ label: m.value, value: m.id })))
+
+    const opts = computed(() => {
+      const { data, filters } = props
+      let list: DataDto[] = []
+      if (filters && filters.length > 0) {
+        filters.forEach(m => {
+          const dto = data.find(n => n.id === m)
+          if (dto) {
+            list.push(dto)
+          } else {
+            list.push({ id: m, value: m })
+          }
+        })
+      }
+      return list.map(m => ({ label: m.value, value: m.id }))
+    })
 
     return {
       opts,

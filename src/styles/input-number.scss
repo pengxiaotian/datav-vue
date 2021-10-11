@@ -18,7 +18,7 @@
       padding: 0 3px;
 
       &:nth-last-of-type(1) {
-        top: 14px;
+        top: calc(var(--font-size) + 2px);
         border-bottom: none;
         border-top: 1px solid #0000;
       }

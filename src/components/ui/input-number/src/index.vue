@@ -74,10 +74,14 @@ export default defineComponent({
     const themeOverrides = {
       Button: {
         textColorText: 'var(--datav-font-color)',
-        heightMedium: '13px',
         fontSizeMedium: '12px',
         iconSizeMedium: '12px',
       },
+    }
+
+    if (props.size === 'medium') {
+      themeOverrides.Button.fontSizeMedium = '14px'
+      themeOverrides.Button.iconSizeMedium = '14px'
     }
 
     return {

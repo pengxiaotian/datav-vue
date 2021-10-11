@@ -11,7 +11,7 @@
   }
 }
 
-.g-layout-header {
+.g-header {
   padding: 0;
   box-sizing: border-box;
   flex-shrink: 0;
@@ -24,6 +24,15 @@
   box-sizing: border-box;
   flex-shrink: 0;
   width: 300px;
+}
+
+.g-main {
+  display: block;
+  flex: 1;
+  flex-basis: auto;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 20px;
 }
 
 .g-footer {

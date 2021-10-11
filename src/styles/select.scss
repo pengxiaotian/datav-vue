@@ -32,6 +32,12 @@
   }
 }
 
+.n-base-selection {
+  &.n-base-selection--disabled {
+    opacity: 0.5;
+  }
+}
+
 .datav-new-select {
   width: 100%;
   margin: 10px 0;

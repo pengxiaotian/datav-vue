@@ -1,89 +1,81 @@
 <template>
-  <el-container
-    v-loading.fullscreen.lock="loading"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
-  >
-    <el-header class="pc-header">
-      <el-row>
-        <el-col :span="24" style="text-align: center;">
-          <el-input
-            v-model.trim="classPath"
-            size="large"
-            placeholder="输入组件目录, 如: text/main-title"
-            style="width: 60%;"
-          >
-            <template #prepend>src/components/</template>
-            <template #append>
-              <el-select v-model="ext" style="width: 66px;">
-                <el-option value=".ts" />
-                <el-option value=".json" />
-                <el-option value=".ts&.json" />
-              </el-select>
-            </template>
-          </el-input>
-          <el-button
+  <n-spin :show="loading">
+    <div class="g-layout is-vertical">
+      <div class="g-header" style="margin-top: 20px;">
+        <n-space align="center" justify="center">
+          <n-input-group>
+            <n-input-group-label size="large">
+              src/components/
+            </n-input-group-label>
+            <n-input
+              v-model:value="classPath"
+              size="large"
+              placeholder="输入组件目录, 如: text/main-title"
+              style="width: 400px;"
+            />
+            <n-select
+              v-model:value="ext"
+              :options="extOpts"
+              size="large"
+              style="width: 90px;"
+            />
+          </n-input-group>
+          <n-button
             size="large"
             :disabled="!classPath"
             style="margin-left: 12px;"
             @click="loadModule"
           >
             加载
-          </el-button>
-        </el-col>
-      </el-row>
-    </el-header>
-    <el-main>
-      <el-row :gutter="24">
-        <el-col :span="12">
-          <el-card
-            :body-style="{
-              height: 'calc(100vh - 4px)',
-            }"
-          >
-            <template #header>
-              <div class="card-header__actions">
-                <span>属性配置</span>
-                <div>
-                  <el-button @click="genConfig">生成配置代码</el-button>
-                  <el-button @click="genTemplate">生成模板代码</el-button>
-                </div>
-              </div>
-            </template>
-            <config-form :config="list" />
-          </el-card>
-        </el-col>
-        <el-col :span="12">
-          <el-card>
-            <el-tabs v-model="activeTab" type="card">
-              <el-tab-pane label="配置预览" name="config">
-                <config-preview :config="list" />
-              </el-tab-pane>
-              <el-tab-pane label="配置代码（config.json）" name="code" lazy>
-                <div style="padding: 12px;">
-                  <g-monaco-editor
-                    language="json"
-                    :code="configCode"
-                    :height="500"
-                    :read-only="true"
-                    :auto-format="true"
-                  />
-                </div>
-              </el-tab-pane>
-              <el-tab-pane label="模板代码（config.vue）" name="template" lazy>
-                <div style="padding: 12px;">
-                  <g-monaco-editor
-                    language="html"
-                    :code="templateCode"
-                    :height="500"
-                  />
-                </div>
-              </el-tab-pane>
-            </el-tabs>
-          </el-card>
-        </el-col>
-      </el-row>
-    </el-main>
-  </el-container>
+          </n-button>
+        </n-space>
+      </div>
+      <div class="g-main">
+        <n-grid :x-gap="24" :cols="2">
+          <n-gi>
+            <n-card size="small" title="属性配置">
+              <template #header-extra>
+                <n-space>
+                  <n-button @click="genConfig">生成配置代码</n-button>
+                  <n-button @click="genTemplate">生成模板代码</n-button>
+                </n-space>
+              </template>
+              <config-form :config="list" />
+            </n-card>
+          </n-gi>
+          <n-gi>
+            <n-card size="small">
+              <el-tabs v-model="activeTab" type="card">
+                <el-tab-pane label="配置预览" name="config">
+                  <config-preview :config="list" />
+                </el-tab-pane>
+                <el-tab-pane label="配置代码（config.json）" name="code" lazy>
+                  <div style="padding: 12px;">
+                    <g-monaco-editor
+                      language="json"
+                      :code="configCode"
+                      :height="500"
+                      :read-only="true"
+                      :auto-format="true"
+                    />
+                  </div>
+                </el-tab-pane>
+                <el-tab-pane label="模板代码（config.vue）" name="template" lazy>
+                  <div style="padding: 12px;">
+                    <g-monaco-editor
+                      language="html"
+                      :code="templateCode"
+                      :height="500"
+                    />
+                  </div>
+                </el-tab-pane>
+              </el-tabs>
+            </n-card>
+          </n-gi>
+        </n-grid>
+      </div>
+    </div>
+  </n-spin>
 </template>
 
 <script lang='ts'>
@@ -106,11 +98,16 @@ export default defineComponent({
   },
   setup() {
     const nMessage = useMessage()
-    const classPath = ref('bar/basic-bar')
+    const classPath = ref('text/main-title')
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')
     const ext = ref<'.ts' | '.json' | '.ts&.json'>('.ts')
+    const extOpts = [
+      { value: '.ts', label: '.ts' },
+      { value: '.json', label: '.json' },
+      { value: '.ts&.json', label: '.ts&.json' },
+    ]
 
     const list = ref<PropDto[]>([])
     const configCode = ref('{}')
@@ -201,6 +198,7 @@ export default defineComponent({
     return {
       classPath,
       ext,
+      extOpts,
       activeTab,
       loading,
       list,
@@ -213,9 +211,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-.pc-header {
-  padding-top: 20px;
-}
-</style>

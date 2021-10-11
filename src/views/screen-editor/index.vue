@@ -1,6 +1,6 @@
 <template>
   <div class="g-layout is-vertical edit-container">
-    <div class="g-layout-header">
+    <div class="g-header">
       <header-toolbar />
     </div>
     <div id="edit-main-wp" class="g-layout edit-main-wp">

@@ -18,7 +18,10 @@
         :value="modelValue"
         :size="size"
         show-alpha
-        :style="{ width: pickerWidth, flex: `0 0 ${pickerWidth}` }"
+        :style="{
+          width: 'var(--height)',
+          flex: `0 0 var(--height)`
+        }"
         @update:value="handleInput"
       />
     </div>
@@ -50,10 +53,6 @@ export default defineComponent({
     inline: {
       type: [Boolean, String],
       default: false,
-    },
-    pickerWidth: {
-      type: String,
-      default: '28px',
     },
   },
   emits: [UPDATE_MODEL_EVENT],

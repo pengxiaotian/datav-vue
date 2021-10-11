@@ -35,6 +35,8 @@ const vars2 = {
   border: '1px solid #0b0c0d',
   borderPrimary: '1px solid #2681ff',
   guiBgColorDark: '#111417',
+  bgColor1: '#0b0c0d',
+  bgColor2: '#1d262e',
 }
 
 const themeOverrides: GlobalThemeOverrides = {
@@ -176,6 +178,9 @@ const themeOverrides: GlobalThemeOverrides = {
     buttonBoxShadowFocus: 'none',
     buttonBoxShadowHover: 'none',
     buttonBorderColor: vars2.borderColor,
+    color: '#0000',
+    textColor: vars.textColor1,
+    boxShadowFocus: 'var(--box-shadow-active)',
   },
   Input: {
     fontSizeSmall: '12px',
@@ -189,12 +194,17 @@ const themeOverrides: GlobalThemeOverrides = {
     iconColor: vars.textColor1,
     suffixTextColor: vars.textColor1,
     paddingSmall: '0 8px',
+    groupLabelColor: vars2.guiComponentBgColor,
+    groupLabelTextColor: vars.textColor1,
+    groupLabelBorder: vars2.border,
+    heightMedium: '32px',
   },
   ColorPicker: {
     border: vars2.border,
     color: vars2.guiComponentBgColor,
     panelFontSize: '12px',
     textColor: vars.textColor1,
+    heightMedium: '32px',
   },
   Upload: {
     draggerBorder: vars2.border,
@@ -219,6 +229,7 @@ const themeOverrides: GlobalThemeOverrides = {
         caretColor: vars.primaryColor,
         color: vars2.guiComponentBgColor,
         colorActive: vars2.guiComponentBgColor,
+        colorDisabled: vars2.guiComponentBgColor,
         border: vars2.border,
         borderHover: vars2.borderPrimary,
         borderActive: vars2.borderPrimary,
@@ -227,6 +238,7 @@ const themeOverrides: GlobalThemeOverrides = {
         boxShadowActive: 'none',
         paddingSingle: '0 24px 0 8px',
         placeholderColor: '#c0c4cc',
+        heightMedium: '32px',
       },
       InternalSelectMenu: {
         optionFontSizeSmall: '12px',
@@ -246,6 +258,37 @@ const themeOverrides: GlobalThemeOverrides = {
     textColor: vars.textColor1,
     titleTextColor: '#fff',
     arrowColor: vars.textColor1,
+    dividerColor: 'rgba(52, 52, 52, 0)',
+  },
+  Card: {
+    borderColor: vars.borderColor,
+    textColor: vars.textColor1,
+    color: vars2.bgColor2,
+    titleTextColor: vars.primaryColor,
+  },
+  Scrollbar: {
+    color: '#434b55',
+    colorHover: '#5a6572',
+  },
+  AutoComplete: {
+    peers: {
+      InternalSelectMenu: {
+        optionFontSizeSmall: '12px',
+        optionFontSizeMedium: '12px',
+        color: '#1d2126',
+        optionColorActive: '#1b3964',
+        optionColorPending: '#1b3964',
+        optionTextColor: vars2.guiFontColor,
+        optionTextColorActive: '#fff',
+        optionHeightSmall: '28px',
+        optionHeightMedium: '28px',
+      },
+    },
+  },
+  Tag: {
+    color: vars2.darkColor,
+    border: vars2.border,
+    textColor: vars.textColor1,
   },
 }
 

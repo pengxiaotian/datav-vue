@@ -1,6 +1,10 @@
 .n-collapse {
   .n-collapse-item {
+    margin-top: 0;
+
     .n-collapse-item__header {
+      padding-top: 0;
+      padding-left: var(--datav-gui-cp-title-padding-left);
       height: 40px;
       border-bottom: var(--datav-gui-cp-border);
 
@@ -19,6 +23,11 @@
         padding-top: 0;
         background-color: var(--datav-gui-bgcolor-back);
       }
+    }
+
+    &.--disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 }
