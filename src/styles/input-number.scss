@@ -1,107 +1,35 @@
-@import "themes/var";
-
-.el-input-number {
-  .el-input-number__decrease {
-    color: $input-font-color;
-    background: $input-bgcolor;
-    border-right: $border-outline;
-
-    &:not(.is-disabled):hover {
-      z-index: 2;
-      color: $input-color-hover;
-      border-color: $input-color-hover;
-    }
-  }
-
-  .el-input-number__increase {
-    color: $input-font-color;
-    background: $input-bgcolor;
-    border-left: $border-outline;
-
-    &:not(.is-disabled):hover {
-      z-index: 2;
-      color: $input-color-hover;
-      border-color: $input-color-hover;
-    }
-  }
-
-  &.el-input-number--mini {
-    .el-input--mini {
-      line-height: 26px;
-    }
-  }
-}
-
 .g-input-number {
   width: 100%;
-
-  &.--mini {
-    line-height: 26px;
-  }
-
-  .el-input-number--mini.is-controls-right {
-    width: 100%;
-
-    .el-input-number__decrease {
-      top: auto;
-      right: 1px;
-      bottom: 1px;
-      left: auto;
-      line-height: 13px;
-      border-top: $border-outline;
-      border-right: none;
-      border-left: $border-outline;
-      border-radius: 0 0 4px;
-      width: 20px;
-
-      &:not(.is-disabled):hover {
-        z-index: 2;
-        color: $input-color-hover;
-        border-color: $input-color-hover;
-      }
-    }
-
-    .el-input-number__increase {
-      line-height: 13px;
-      border-bottom: $border-outline;
-      border-radius: 0 4px 0 0;
-      width: 20px;
-
-      &:not(.is-disabled):hover {
-        z-index: 2;
-        color: $input-color-hover;
-        border-color: $input-color-hover;
-      }
-    }
-
-    .el-input {
-      .el-input__inner {
-        padding-right: 25px;
-        padding-left: 7px;
-        color: #fff;
-        text-align: left;
-      }
-    }
-  }
-
-  &.has-suffix {
-    position: relative;
-
-    .el-input-number--mini.is-controls-right {
-      .el-input {
-        .el-input__inner {
-          padding-right: 42px;
-        }
-      }
-    }
-  }
 }
 
-.g-input-number__suffix {
-  position: absolute;
-  font-size: 12px;
-  color: $input-description-font-color;
-  top: 0;
-  right: 26px;
-  width: 20px;
+.n-input-number {
+  .n-input-wrapper {
+    padding-left: 8px;
+    padding-right: 0;
+  }
+
+  .n-input__suffix {
+    .n-button {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      border-left: var(--datav-outline);
+      border-bottom: var(--datav-outline);
+      padding: 0 3px;
+
+      &:nth-last-of-type(1) {
+        top: calc(var(--font-size) + 2px);
+        border-bottom: none;
+        border-top: 1px solid #0000;
+      }
+
+      &:hover {
+        border-color: var(--datav-main-color);
+      }
+    }
+  }
+
+  .n-input-number-suffix {
+    margin-right: 24px;
+  }
 }

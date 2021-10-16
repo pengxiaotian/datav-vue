@@ -30,8 +30,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '@/styles/themes/var';
-
 .setting-panel {
   position: relative;
   width: 332px;

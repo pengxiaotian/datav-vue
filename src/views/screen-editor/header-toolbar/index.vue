@@ -1,170 +1,172 @@
 <template>
   <div class="datav-header">
     <div class="head-btn-group view-btn-group">
-      <el-tooltip
-        content="画布编辑器"
-        effect="blue"
-        :open-delay="500"
-        :enterable="false"
-      >
-        <div class="head-btn --selected">
-          <i class="v-icon-editor-canvas head-btn-icon"></i>
-        </div>
-      </el-tooltip>
-      <el-tooltip
-        content="蓝图编辑器"
-        effect="blue"
-        :open-delay="500"
-        :enterable="false"
-      >
-        <div class="head-btn --disabled">
-          <i class="v-icon-nodal head-btn-icon"></i>
-        </div>
-      </el-tooltip>
+      <n-tooltip :delay="500">
+        <template #trigger>
+          <div class="head-btn --selected">
+            <n-icon class="head-btn-icon">
+              <IconEditorCanvas />
+            </n-icon>
+          </div>
+        </template>
+        画布编辑器
+      </n-tooltip>
+      <n-tooltip :delay="500">
+        <template #trigger>
+          <div class="head-btn --disabled">
+            <n-icon class="head-btn-icon">
+              <IconNodal />
+            </n-icon>
+          </div>
+        </template>
+        蓝图编辑器
+      </n-tooltip>
     </div>
     <div class="datav-edit-header">
       <div class="editor-header-wp">
         <div class="editor-config">
-          <el-tooltip
-            content="图层"
-            effect="blue"
-            :open-delay="500"
-            :enterable="false"
-          >
-            <div
-              :class="['head-btn mr4', { '--selected': layer }]"
-              @click="changeLayerPanel"
-            >
-              <i class="v-icon-layer head-btn-icon"></i>
-            </div>
-          </el-tooltip>
-          <el-tooltip
-            content="组件列表"
-            effect="blue"
-            :open-delay="500"
-            :enterable="false"
-          >
-            <div
-              :class="['head-btn mr4', { '--selected': components }]"
-              @click="changeComponentsPanel"
-            >
-              <i :class="['v-icon-box com-list-icon', { '--rotate': !components }]"></i>
-            </div>
-          </el-tooltip>
-          <el-tooltip
-            content="右侧面板"
-            effect="blue"
-            :open-delay="500"
-            :enterable="false"
-          >
-            <div
-              :class="['head-btn mr4', { '--selected': config }]"
-              @click="changeConfigPanel"
-            >
-              <i class="v-icon-rpanel head-btn-icon"></i>
-            </div>
-          </el-tooltip>
-          <el-tooltip
-            content="工具箱"
-            effect="blue"
-            :open-delay="500"
-            :enterable="false"
-          >
-            <div
-              :class="['head-btn mr4', { '--selected': toolbox }]"
-              @click="changeToolboxPanel"
-            >
-              <i class="v-icon-toolbox head-btn-icon"></i>
-            </div>
-          </el-tooltip>
+          <n-tooltip :delay="500">
+            <template #trigger>
+              <div
+                :class="['head-btn mr4', { '--selected': layer }]"
+                @click="changeLayerPanel"
+              >
+                <n-icon class="head-btn-icon">
+                  <IconLayer />
+                </n-icon>
+              </div>
+            </template>
+            图层
+          </n-tooltip>
+          <n-tooltip :delay="500">
+            <template #trigger>
+              <div
+                :class="['head-btn mr4', { '--selected': components }]"
+                @click="changeComponentsPanel"
+              >
+                <n-icon class="com-list-icon" :class="{ '--rotate': !components }">
+                  <IconBox />
+                </n-icon>
+              </div>
+            </template>
+            组件列表
+          </n-tooltip>
+          <n-tooltip :delay="500">
+            <template #trigger>
+              <div
+                :class="['head-btn mr4', { '--selected': config }]"
+                @click="changeConfigPanel"
+              >
+                <n-icon class="head-btn-icon">
+                  <IconRpanel />
+                </n-icon>
+              </div>
+            </template>
+            右侧面板
+          </n-tooltip>
+          <n-tooltip :delay="500">
+            <template #trigger>
+              <div
+                :class="['head-btn mr4', { '--selected': toolbox }]"
+                @click="changeToolboxPanel"
+              >
+                <n-icon class="head-btn-icon">
+                  <IconToolbox />
+                </n-icon>
+              </div>
+            </template>
+            工具箱
+          </n-tooltip>
         </div>
         <div class="drawer-actions">
-          <el-tooltip
-            content="数据过滤器"
-            effect="blue"
-            :open-delay="500"
-            :enterable="false"
-          >
-            <div
-              :class="['head-btn mr4', { '--selected': filter }]"
-              @click="changeFilterPanel"
-            >
-              <i class="v-icon-filter head-btn-icon"></i>
-            </div>
-          </el-tooltip>
-          <el-tooltip
-            content="美化工具箱"
-            effect="blue"
-            :open-delay="500"
-            :enterable="false"
-          >
-            <div :class="['head-btn mr4']">
-              <i class="v-icon-magic head-btn-icon"></i>
-            </div>
-          </el-tooltip>
-          <el-tooltip
-            content="迁移至移动端"
-            effect="blue"
-            :open-delay="500"
-            :enterable="false"
-          >
-            <div :class="['head-btn mr4']">
-              <i class="v-icon-mobile head-btn-icon"></i>
-            </div>
-          </el-tooltip>
+          <n-tooltip :delay="500">
+            <template #trigger>
+              <div
+                :class="['head-btn mr4', { '--selected': filter }]"
+                @click="changeFilterPanel"
+              >
+                <n-icon class="head-btn-icon">
+                  <IconFilter />
+                </n-icon>
+              </div>
+            </template>
+            数据过滤器
+          </n-tooltip>
+          <n-tooltip :delay="500">
+            <template #trigger>
+              <div :class="['head-btn mr4']">
+                <n-icon class="head-btn-icon">
+                  <IconMagic />
+                </n-icon>
+              </div>
+            </template>
+            美化工具箱
+          </n-tooltip>
+          <n-tooltip :delay="500">
+            <template #trigger>
+              <div :class="['head-btn mr4']">
+                <n-icon class="head-btn-icon">
+                  <IconMobile />
+                </n-icon>
+              </div>
+            </template>
+            迁移至移动端
+          </n-tooltip>
         </div>
       </div>
       <div class="screen-info">
-        <i class="v-icon-workspace workspace-icon" @click="goHome"></i>
+        <n-icon class="workspace-icon" @click="goHome">
+          <IconWorkspace />
+        </n-icon>
         <span>{{ '工作空间 - ' + screen.name }}</span>
       </div>
       <div class="global-actions">
-        <el-tooltip
-          content="生成快照"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <div class="head-btn ml4" @click="saveScreen">
-            <i class="v-icon-snapshot head-btn-icon"></i>
-          </div>
-        </el-tooltip>
-        <el-tooltip
-          content="帮助"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <div class="head-btn ml4">
-            <router-link
-              :to="{ name: 'MyCase' }"
-              target="_blank"
-              class="full-a"
-            >
-              <i class="v-icon-help head-btn-icon"></i>
-            </router-link>
-          </div>
-        </el-tooltip>
-        <el-tooltip
-          content="发布"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <div class="head-btn ml4" @click="goPublish">
-            <i class="v-icon-release head-btn-icon"></i>
-          </div>
-        </el-tooltip>
-        <el-tooltip
-          content="预览"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <div class="head-btn ml4" @click="goPreview">
-            <i class="v-icon-preview head-btn-icon"></i>
-          </div>
-        </el-tooltip>
+        <n-tooltip :delay="500">
+          <template #trigger>
+            <div class="head-btn ml4" @click="saveScreen">
+              <n-icon class="head-btn-icon">
+                <IconSnapshot />
+              </n-icon>
+            </div>
+          </template>
+          生成快照
+        </n-tooltip>
+        <n-tooltip :delay="500">
+          <template #trigger>
+            <div class="head-btn ml4">
+              <router-link
+                :to="{ name: 'MyCase' }"
+                target="_blank"
+                class="full-a"
+              >
+                <n-icon class="head-btn-icon">
+                  <IconHelp />
+                </n-icon>
+              </router-link>
+            </div>
+          </template>
+          帮助
+        </n-tooltip>
+        <n-tooltip :delay="500">
+          <template #trigger>
+            <div class="head-btn ml4" @click="goPublish">
+              <n-icon class="head-btn-icon">
+                <IconRelease />
+              </n-icon>
+            </div>
+          </template>
+          发布
+        </n-tooltip>
+        <n-tooltip :delay="500">
+          <template #trigger>
+            <div class="head-btn ml4" @click="goPreview">
+              <n-icon class="head-btn-icon">
+                <IconPreview />
+              </n-icon>
+            </div>
+          </template>
+          预览
+        </n-tooltip>
       </div>
     </div>
   </div>
@@ -174,11 +176,27 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useMessage } from 'naive-ui'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
 import { saveScreen } from '@/api/screen'
-import { MessageUtil } from '@/utils/message-util'
+import {
+  IconEditorCanvas,
+  IconNodal,
+  IconBox,
+  IconRpanel,
+  IconToolbox,
+  IconFilter,
+  IconMagic,
+  IconMobile,
+  IconWorkspace,
+  IconSnapshot,
+  IconHelp,
+  IconLayer,
+  IconRelease,
+  IconPreview,
+} from '@/icons'
 import HeadLoading from './head-loading.vue'
 import PublishScreen from '../../my-project/publish-screen.vue'
 
@@ -187,11 +205,26 @@ export default defineComponent({
   components: {
     HeadLoading,
     PublishScreen,
+    IconEditorCanvas,
+    IconNodal,
+    IconBox,
+    IconRpanel,
+    IconToolbox,
+    IconFilter,
+    IconMagic,
+    IconMobile,
+    IconWorkspace,
+    IconSnapshot,
+    IconHelp,
+    IconLayer,
+    IconRelease,
+    IconPreview,
   },
   data() {
     return {
       visiblePublish: false,
       publishAppId: 0,
+      nMessage: useMessage(),
     }
   },
   computed: {
@@ -252,9 +285,9 @@ export default defineComponent({
           dataFilters: FilterModule.dataFilters ?? [],
         }
         await saveScreen(data)
-        MessageUtil.success('大屏已保存')
+        this.nMessage.success('大屏已保存')
       } catch (error) {
-        MessageUtil.error(`保存大屏失败：${error}`)
+        this.nMessage.error(`保存大屏失败：${error}`)
       } finally {
         ToolbarModule.removeLoading()
       }
@@ -279,8 +312,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .datav-header {
   position: relative;
   height: 41px;
@@ -289,9 +320,9 @@ export default defineComponent({
   z-index: 100;
   align-items: center;
   user-select: none;
-  color: $header-color;
-  background: $header-bgcolor;
-  border-bottom: $border-dark;
+  color: var(--datav-gui-font-color-base);
+  border-bottom: var(--datav-border-dark);
+  background: #1d1e1f;
 
   .view-btn-group {
     margin: 0 15px;
@@ -302,17 +333,18 @@ export default defineComponent({
 .head-btn {
   width: 40px;
   height: 24px;
-  line-height: 24px;
+  line-height: 26px;
   text-align: center;
   cursor: pointer;
-  background: $header-btn-bgcolor;
+  background: var(--datav-component-bg);
   box-shadow:
     inset 0 0 0 1px rgba(255, 235, 235, 0.1),
     0 0 0 1px #181818;
   transition: 0.2s;
 
   .head-btn-icon {
-    color: $header-icon-color;
+    color: #fff;
+    font-size: 14px;
 
     &:not(:first-child) {
       border-left: 1px solid rgba(255, 235, 235, 0.1);
@@ -320,18 +352,18 @@ export default defineComponent({
   }
 
   &:not(.--disabled):hover {
-    background: $header-btn-bgcolor-hover;
+    background: #414750;
   }
 
   &.--selected {
-    background: $color-primary;
+    background: var(--datav-main-color);
 
     & + .head-btn {
       border-left-color: transparent;
     }
 
     &:not(.--disabled):hover {
-      background: $color-primary;
+      background: var(--datav-main-color);
     }
   }
 
@@ -347,7 +379,7 @@ export default defineComponent({
 .head-btn-group {
   display: flex;
   box-sizing: border-box;
-  background: $header-bgcolor;
+  background: #1d1e1f;
   border: 1px solid rgba(255, 235, 235, 0.1);
   box-shadow: 0 0 0 1px #181818;
 
@@ -356,7 +388,7 @@ export default defineComponent({
     border-radius: 0;
     box-shadow: none;
     height: 22px;
-    line-height: 22px;
+    line-height: 24px;
     border-left: 1px solid transparent;
   }
 }
@@ -393,7 +425,8 @@ export default defineComponent({
 
   .com-list-icon {
     display: inline-block;
-    color: $header-icon-color;
+    font-size: 14px;
+    color: #fff;
 
     &.--rotate {
       animation: com-rotate 2s infinite;
@@ -410,14 +443,15 @@ export default defineComponent({
     cursor: default;
     font-size: 14px;
     max-width: 500px;
-    color: $header-color;
+    color: var(--datav-gui-font-color-base);
     line-height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 
     .workspace-icon {
-      padding-right: 8px;
+      margin-right: 8px;
+      font-size: 14px;
       cursor: pointer;
     }
   }

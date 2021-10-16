@@ -2,19 +2,15 @@
   <div class="ds-wrapper ds-api">
     <p>请求方式</p>
     <div class="datav-new-select-wp">
-      <el-select
-        v-model="apiDataConfig.config.apiMethod"
-        size="mini"
+      <n-select
+        v-model:value="apiDataConfig.config.apiMethod"
+        :options="apiMethods"
         class="datav-new-select"
-        popper-class="datav-new-select-option"
-      >
-        <el-option
-          v-for="amd in apiMethods"
-          :key="amd"
-          :label="amd"
-          :value="amd"
-        />
-      </el-select>
+        :style="{
+          '--border': 'var(--datav-gui-new-select-border)',
+          '--color': 'var(--datav-gui-new-select-bgcolor)'
+        }"
+      />
     </div>
     <p class="url-info">
       <label class="prefix-label textarea-label">URL：</label>
@@ -46,7 +42,7 @@
         @blur="updateApiHeaders"
       />
     </div>
-    <div v-if="apiDataConfig.config.apiMethod === apiMethods.POST" class="post-request-data">
+    <div v-if="apiDataConfig.config.apiMethod === ApiRequestMethod.POST" class="post-request-data">
       <p class="url-info-text">POST 请求参数</p>
       <g-monaco-editor
         language="json"
@@ -56,12 +52,12 @@
         @blur="updateApiBody"
       />
     </div>
-    <el-checkbox v-model="apiDataConfig.config.local" class="ds-checkbox">
+    <n-checkbox v-model:checked="apiDataConfig.config.local" class="ds-checkbox">
       服务器代理请求 (因跨域无法访问时可勾选)
-    </el-checkbox>
-    <el-checkbox v-model="apiDataConfig.config.cookie" class="ds-checkbox">
+    </n-checkbox>
+    <n-checkbox v-model:checked="apiDataConfig.config.cookie" class="ds-checkbox">
       需要 cookie (不选择代理并且需要获取cookie时使用)
-    </el-checkbox>
+    </n-checkbox>
   </div>
 </template>
 
@@ -76,7 +72,7 @@ export default defineComponent({
   setup() {
     const com = inject('com') as ComputedRef<DatavComponent>
     const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
-    const apiMethods = ApiRequestMethod
+    const apiMethods = Object.keys(ApiRequestMethod).map(value => ({ label: value, value }))
 
     const variables = Object.keys(EditorModule.variables.publishersView)
 
@@ -97,6 +93,7 @@ export default defineComponent({
     }
 
     return {
+      ApiRequestMethod,
       apiDataConfig,
       apiMethods,
       variables,
@@ -108,9 +105,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
-@import '@/styles/themes/var';
-
+<style lang="scss" scoped>
 .ds-api {
   .url-info {
     display: flex;
@@ -119,7 +114,7 @@ export default defineComponent({
     margin-bottom: 10px;
 
     .api-help {
-      color: $color-primary;
+      color: var(--datav-main-color);
     }
   }
 
@@ -132,7 +127,7 @@ export default defineComponent({
     margin-bottom: 10px;
   }
 
-  .datav-editor {
+  ::v-deep(.datav-editor) {
     margin-bottom: 10px;
   }
 }

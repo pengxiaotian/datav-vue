@@ -2,7 +2,6 @@
   <div
     class="datav-gui g-select"
     :class="[
-      `--${size}`,
       {
         '--inline': !!inline,
         '--single': inline === 'inline-single',
@@ -10,20 +9,13 @@
       }
     ]"
   >
-    <el-select
-      :model-value="modelValue"
+    <n-select
+      :value="modelValue"
+      :options="opts"
       :size="size"
       :disabled="disabled"
-      @update:model-value="handleInput"
-      @change="handleChange"
-    >
-      <el-option
-        v-for="item in data"
-        :key="item.id"
-        :label="item.value"
-        :value="item.id"
-      />
-    </el-select>
+      @update:value="handleInput"
+    />
     <span v-if="label" class="g-input__caption">
       {{ label }}
     </span>
@@ -31,7 +23,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 export default defineComponent({
@@ -51,7 +43,7 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'mini',
+      default: 'small',
     },
     inline: {
       type: [Boolean, String],
@@ -59,19 +51,17 @@ export default defineComponent({
     },
     disabled: Boolean,
   },
-  emits: [UPDATE_MODEL_EVENT, 'change'],
+  emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
     const handleInput = (value: string | number) => {
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
-    const handleChange = (currentValue: string | number) => {
-      ctx.emit('change', currentValue)
-    }
+    const opts = ref(props.data.map(m => ({ label: m.value, value: m.id })))
 
     return {
+      opts,
       handleInput,
-      handleChange,
     }
   },
 })

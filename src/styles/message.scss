@@ -1,58 +1,26 @@
-@import "themes/var";
+.n-message {
+  min-width: 380px;
+  position: relative;
 
-.el-message {
-  border-radius: 0;
-
-  .el-message__icon {
-    font-size: 16px;
-  }
-
-  .el-icon-success {
-    color: $color-success;
-  }
-
-  .el-icon-warning {
-    color: $color-warning;
-  }
-
-  .el-icon-error {
-    color: $color-red;
-  }
-}
-
-.el-message--error {
-  background-color: $message-bgcolor-error;
-  border-color: $message-border-color-error;
-
-  .el-message__content {
-    font-size: 12px;
+  .n-message__content {
     font-weight: 500;
-    color: $message-font-color;
+    padding-right: 16px;
   }
-}
 
-.el-message--success {
-  background-color: $message-bgcolor-success;
-  border-color: $message-border-color-success;
-
-  .el-message__content {
-    font-size: 12px;
-    font-weight: 500;
-    color: $message-font-color;
+  &.n-message--error-type {
+    border: 1px solid var(--datav-red-color);
   }
-}
 
-.el-message--warning {
-  background-color: $message-bgcolor-warning;
-  border-color: $message-border-color-warning;
-
-  .el-message__content {
-    font-size: 12px;
-    font-weight: 500;
-    color: $message-font-color;
+  &.n-message--success-type {
+    border: 1px solid var(--datav-main-color);
   }
-}
 
-.el-message__closeBtn {
-  color: $message-font-color;
+  &.n-message--warning-type {
+    border: 1px solid var(--datav-warn-color);
+  }
+
+  .n-message__close {
+    position: absolute;
+    right: 15px;
+  }
 }

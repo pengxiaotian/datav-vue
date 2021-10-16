@@ -1,23 +1,18 @@
 <template>
-  <el-dialog
-    v-model="visible"
+  <n-modal
+    v-model:show="visible"
+    preset="dialog"
+    :show-icon="false"
     title="发布"
-    width="435px"
-    :append-to-body="true"
+    style="width: 435px;"
     @close="closeDialog"
   >
-    <div
-      v-loading="loading"
-      class="share-setting"
-      element-loading-background="rgba(48, 54, 64, 0.8)"
-    >
+    <n-spin :show="loading" class="share-setting">
       <div class="share-header">
         <div class="header-wp">
           <label class="label-color">发布分享：</label>
           <div class="share-switch">
-            <el-switch
-              v-model="isPublish"
-            />
+            <n-switch v-model:value="isPublish" />
           </div>
         </div>
         <div class="share-tutorial">
@@ -33,24 +28,24 @@
       <div class="share-verify">
         <div class="label-color">分享链接</div>
         <div class="link-content">
-          <el-tooltip
-            v-model="showTooltip"
-            effect="blue"
-            placement="top"
-            content="点击复制"
-            :manual="true"
+          <n-tooltip
+            :show="showTooltip"
+            trigger="manual"
             :disabled="!isPublish"
           >
-            <textarea
-              :value="shareUrl"
-              class="new-input share-input"
-              readonly
-              placeholder="开启发布分享后可获取访问链接"
-              @click="copyUrl"
-              @mouseenter="showTooltip = true"
-              @mouseleave="showTooltip = false"
-            ></textarea>
-          </el-tooltip>
+            <template #trigger>
+              <textarea
+                :value="shareUrl"
+                class="new-input share-input"
+                readonly
+                placeholder="开启发布分享后可获取访问链接"
+                @click="copyUrl"
+                @mouseenter="showTooltip = true"
+                @mouseleave="showTooltip = false"
+              ></textarea>
+            </template>
+            点击复制
+          </n-tooltip>
           <div class="func-btn" @click="copyUrl">复制</div>
         </div>
         <div class="label-color">访问密码</div>
@@ -73,18 +68,23 @@
         </div>
       </div>
       <div class="initial-dialog">
-        <el-button type="primary" class="publish-btn" @click="publish">
+        <n-button
+          type="primary"
+          :focusable="false"
+          class="publish-btn"
+          @click="publish"
+        >
           {{ isPublish ? '发布大屏' : '保存' }}
-        </el-button>
+        </n-button>
       </div>
-    </div>
-  </el-dialog>
+    </n-spin>
+  </n-modal>
 </template>
 
 <script lang='ts'>
 import { defineComponent, ref, watch, computed, nextTick } from 'vue'
+import { useMessage } from 'naive-ui'
 import { getShareUrl, getPublishInfo, publishApp } from '@/api/project'
-import { MessageUtil } from '@/utils/message-util'
 import { copyText } from '@/utils/util'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
@@ -102,6 +102,7 @@ export default defineComponent({
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
+    const nMessage = useMessage()
     const visible = ref(false)
     const isPublish = ref(false)
     const showTooltip = ref(false)
@@ -117,7 +118,7 @@ export default defineComponent({
       if (isPublish.value) {
         nextTick(() => {
           if (copyText(shareUrl.value)) {
-            MessageUtil.success('复制成功')
+            nMessage.success('复制成功')
           }
         })
       }
@@ -146,7 +147,7 @@ export default defineComponent({
           password.value = data.password
         }
       } catch (error) {
-        MessageUtil.error('读取大屏发布信息失败')
+        nMessage.error('读取大屏发布信息失败')
       }
     })
 
@@ -161,10 +162,10 @@ export default defineComponent({
         if (res.data.code === 0) {
           loading.value = false
           closeDialog()
-          MessageUtil.success(isPublish.value ? '发布成功' : '保存成功')
+          nMessage.success(isPublish.value ? '发布成功' : '保存成功')
         }
       } catch (error) {
-        MessageUtil.error('发布失败')
+        nMessage.error('发布失败')
       } finally {
         loading.value = false
       }
@@ -187,8 +188,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .share-setting {
   user-select: text;
 
@@ -198,7 +197,7 @@ export default defineComponent({
     justify-content: space-between;
     padding-bottom: 16px;
     font-size: 14px;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--datav-border-color);
   }
 
   .header-wp {
@@ -225,7 +224,7 @@ export default defineComponent({
   .share-tutorial-url {
     line-height: 28px;
     letter-spacing: 1.09px;
-    color: $color-primary;
+    color: var(--datav-main-color);
     text-decoration: none;
   }
 
@@ -246,7 +245,7 @@ export default defineComponent({
     width: 80%;
     height: 50px;
     line-height: 22px;
-    background: $background-color-dark;
+    background: var(--datav-bgcolor-2);
     cursor: pointer;
     resize: none;
   }
@@ -255,12 +254,12 @@ export default defineComponent({
     width: 80%;
     height: 25px;
     line-height: 25px;
-    background: $background-color-dark;
+    background: var(--datav-bgcolor-2);
     cursor: text;
   }
 
   .func-btn {
-    color: $color-primary;
+    color: var(--datav-main-color);
     cursor: pointer;
     margin-left: 10px;
   }

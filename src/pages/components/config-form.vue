@@ -1,219 +1,219 @@
 <template>
-  <el-collapse class="pc-collapse collapse-arrow-left">
-    <el-collapse-item
+  <n-collapse class="pc-collapse">
+    <template #arrow>
+      <n-icon>
+        <IconArrowRight />
+      </n-icon>
+    </template>
+    <n-collapse-item
       v-for="item in config"
       :key="item.key"
       :title="item.path"
       :name="item.key"
-      :disabled="toggleCol === item.key"
+      :class="{ '--disabled': toggleCol === item.key }"
     >
-      <el-form label-width="150px">
-        <el-form-item label="名称" label-width="150px">
-          <el-input v-model="item.config.alias" />
-        </el-form-item>
-        <el-form-item label="显示模式" label-width="150px">
-          <el-select v-model="item.config.displayMode">
-            <el-option
-              v-for="dm in displayModes"
-              :key="dm"
-              :value="dm"
-            />
-          </el-select>
-        </el-form-item>
+      <n-form
+        label-placement="left"
+        label-width="150"
+      >
+        <n-form-item label="名称">
+          <n-input v-model:value="item.config.alias" />
+        </n-form-item>
+        <n-form-item label="显示模式">
+          <n-select v-model:value="item.config.displayMode" :options="displayModes" />
+        </n-form-item>
         <template v-if="item.children">
-          <el-form-item label="控制显示的属性名" label-width="150px">
-            <el-select v-model="item.config.toggleCol" clearable>
-              <el-option
-                v-for="c in item.cols"
-                :key="c"
-                :value="c"
-              />
-            </el-select>
-          </el-form-item>
+          <n-form-item label="控制显示的属性名">
+            <n-select
+              v-model:value="item.config.toggleCol"
+              :options="arrToOpts(item.cols)"
+              :fallback-option="false"
+              clearable
+            />
+          </n-form-item>
         </template>
         <template v-else>
-          <el-form-item label="组件类型" label-width="150px">
-            <el-select v-model="item.config.component">
-              <el-option
-                v-for="ct in componentTypes"
-                :key="ct"
-                :value="ct"
-              />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="组件预览" label-width="150px">
+          <n-form-item label="组件类型">
+            <n-select
+              v-model:value="item.config.component"
+              :options="componentTypes"
+              filterable
+            />
+          </n-form-item>
+          <n-form-item label="组件预览">
             <config-form-item
+              :key="item.config.component"
               :data-type="item.config.type"
               :component-type="item.config.component"
               :default-value="item.config.defaultValue"
               :enums="item.config.enums"
               :flat-value="item.config.flatValue"
             />
-          </el-form-item>
-          <el-form-item label-width="150px">
+          </n-form-item>
+          <n-form-item>
             <template #label>
-              <el-tooltip
-                effect="blue"
-                placement="top"
-                :offset="2"
-                content="只在组件是 select 系列时生效"
-              >
-                <label class="g-field-title-with-description" style="color: #a1aeb3;">
-                  是否平铺值
-                </label>
-              </el-tooltip>
+              <n-tooltip>
+                <template #trigger>
+                  <label class="g-field-title-with-description">
+                    是否平铺值
+                  </label>
+                </template>
+                只在组件是 select 系列时生效
+              </n-tooltip>
             </template>
-            <el-checkbox v-model="item.config.flatValue" />
-          </el-form-item>
-          <template v-if="item.config.component === componentTypes.number || item.config.component === componentTypes.slider">
-            <el-form-item label="最小值" label-width="150px">
-              <el-input-number v-model="item.config.min" />
-              <el-checkbox v-model="item.config.InfiniteMin" style="margin-left: 10px;">
-                不限制
-              </el-checkbox>
-            </el-form-item>
-            <el-form-item label="最大值" label-width="150px">
-              <el-input-number v-model="item.config.max" />
-              <el-checkbox v-model="item.config.InfiniteMax" style="margin-left: 10px;">
-                不限制
-              </el-checkbox>
-            </el-form-item>
-            <el-form-item label="步长" label-width="150px">
-              <el-input-number v-model="item.config.step" />
-            </el-form-item>
-            <el-form-item label="单位" label-width="150px">
-              <el-input v-model="item.config.suffix" />
-            </el-form-item>
+            <n-checkbox v-model:checked="item.config.flatValue" />
+          </n-form-item>
+          <template v-if="item.config.component === ComponentType.number || item.config.component === ComponentType.slider">
+            <n-form-item label="最小值">
+              <n-space>
+                <g-input-number v-model="item.config.min" size="medium" />
+                <n-checkbox v-model:checked="item.config.InfiniteMin">
+                  不限制
+                </n-checkbox>
+              </n-space>
+            </n-form-item>
+            <n-form-item label="最大值">
+              <n-space>
+                <g-input-number v-model:value="item.config.max" size="medium" />
+                <n-checkbox v-model:checked="item.config.InfiniteMax">
+                  不限制
+                </n-checkbox>
+              </n-space>
+            </n-form-item>
+            <n-form-item label="步长">
+              <g-input-number v-model:value="item.config.step" size="medium" />
+            </n-form-item>
+            <n-form-item label="单位">
+              <n-input v-model:value="item.config.suffix" />
+            </n-form-item>
           </template>
-          <template v-else-if="item.config.component === componentTypes.radio">
-            <el-form-item label="枚举值" label-width="150px">
-              <el-select
-                v-model="item.config.enums"
-                multiple
+          <template v-else-if="item.config.component === ComponentType.radio">
+            <n-form-item label="枚举值">
+              <n-select
+                v-model:value="item.config.enums"
                 filterable
-                allow-create
-                default-first-option
+                multiple
+                clearable
+                tag
               />
-            </el-form-item>
+            </n-form-item>
           </template>
-          <template v-else-if="item.config.component === componentTypes.selectSuggest">
-            <el-form-item label="建议值" label-width="150px">
-              <el-select
-                v-model="item.config.enums"
-                multiple
+          <template v-else-if="item.config.component === ComponentType.selectSuggest">
+            <n-form-item label="建议值">
+              <n-select
+                v-model:value="item.config.enums"
                 filterable
-                allow-create
-                default-first-option
-              >
-                <el-option
-                  v-for="sug in selectSuggests"
-                  :key="sug.id"
-                  :value="sug.id"
-                  :label="sug.value"
-                />
-              </el-select>
-            </el-form-item>
+                multiple
+                clearable
+                tag
+                :options="selectSuggests"
+              />
+            </n-form-item>
           </template>
         </template>
-        <el-form-item label-width="150px">
+        <n-form-item :show-feedback="false">
           <template #label>
-            <el-tooltip
-              effect="blue"
-              placement="top"
-              :offset="2"
-              content="复杂逻辑分支判断请在生成的模板代码自行添加"
-            >
-              <label class="g-field-title-with-description" style="color: #a1aeb3;">
-                条件显示
-              </label>
-            </el-tooltip>
+            <n-tooltip>
+              <template #trigger>
+                <label class="g-field-title-with-description">
+                  条件显示
+                </label>
+              </template>
+              复杂逻辑分支判断请在生成的模板代码自行添加
+            </n-tooltip>
           </template>
-          <el-row>
-            <el-col :span="11">
-              <el-select
-                v-model="item.config.whichEnum.field"
+          <n-grid :cols="2" :x-gap="24">
+            <n-form-item-gi>
+              <n-select
+                v-model:value="item.config.whichEnum.field"
+                :options="arrToOpts(fields)"
+                :fallback-option="false"
                 clearable
                 placeholder="枚举字段"
-              >
-                <el-option
-                  v-for="f in fields"
-                  :key="f"
-                  :value="f"
-                />
-              </el-select>
-            </el-col>
-            <el-col :span="11" :offset="2">
-              <el-select
-                v-model="item.config.whichEnum.value"
+              />
+            </n-form-item-gi>
+            <n-form-item-gi>
+              <n-select
+                v-model:value="item.config.whichEnum.value"
+                :options="arrToOpts(getEnums(item.config.whichEnum.field))"
+                :fallback-option="false"
                 clearable
                 placeholder="枚举值"
-              >
-                <el-option
-                  v-for="em in getEnums(item.config.whichEnum.field)"
-                  :key="em"
-                  :value="em"
-                />
-              </el-select>
-            </el-col>
-          </el-row>
-        </el-form-item>
+              />
+            </n-form-item-gi>
+          </n-grid>
+        </n-form-item>
         <template v-if="item.config.displayMode == 'nest-array'">
-          <el-form-item label="工具栏" label-width="150px">
-            <el-select v-model="item.config.features" multiple>
-              <el-option
-                v-for="tt in toolboxTypes"
-                :key="tt"
-                :value="tt"
-              />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="最小项数" label-width="150px">
-            <el-input-number v-model="item.config.min" />
-          </el-form-item>
-          <el-form-item label="最大项数" label-width="150px">
-            <el-input-number v-model="item.config.max" />
-          </el-form-item>
-          <el-form-item label="默认布局" label-width="150px">
-            <el-select v-model="item.config.layout">
-              <el-option
-                v-for="tt in [toolboxTypes.horizontal, toolboxTypes.vertical]"
-                :key="tt"
-                :value="tt"
-              />
-            </el-select>
-          </el-form-item>
+          <n-form-item label="工具栏">
+            <n-select
+              v-model:value="item.config.features"
+              :options="toolboxTypes"
+              multiple
+              :fallback-option="false"
+            />
+          </n-form-item>
+          <n-form-item label="最小项数">
+            <g-input-number v-model:value="item.config.min" size="medium" />
+          </n-form-item>
+          <n-form-item label="最大项数">
+            <g-input-number v-model:value="item.config.max" size="medium" />
+          </n-form-item>
+          <n-form-item label="默认布局">
+            <n-radio-group v-model:value="item.config.layout" name="layout">
+              <n-space>
+                <n-radio :value="ToolboxType.horizontal">
+                  水平
+                </n-radio>
+                <n-radio :value="ToolboxType.vertical">
+                  垂直
+                </n-radio>
+              </n-space>
+            </n-radio-group>
+          </n-form-item>
         </template>
-        <el-form-item label="提示" label-width="150px">
-          <el-autocomplete
-            v-model="item.config.tip"
-            :fetch-suggestions="querySearch"
-            style="width: 100%;"
+        <n-form-item label="提示">
+          <n-select
+            v-model:value="item.config.tip"
+            filterable
+            clearable
+            tag
+            :options="querys"
           />
-        </el-form-item>
-        <el-form-item label="隐藏不显示" label-width="150px">
-          <el-checkbox v-model="item.config.isHide" />
-        </el-form-item>
-      </el-form>
+        </n-form-item>
+        <n-form-item label="隐藏不显示">
+          <n-checkbox v-model:checked="item.config.isHide" />
+        </n-form-item>
+      </n-form>
 
       <config-form
         v-if="item.children"
         :config="item.children"
         :toggle-col="item.config.toggleCol"
       />
-    </el-collapse-item>
-  </el-collapse>
+    </n-collapse-item>
+  </n-collapse>
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref, computed } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import { ToolboxType } from '@/utils/enums'
 import { selectSuggests } from '@/data/select-options'
+import { IconArrowRight } from '@/icons'
 import { PropDto, ComponentType, DisplayMode, getSelectedOptions } from '../props-config/config'
 import ConfigFormItem from './config-form-item.vue'
+
+const objectToOpts = (obj: Object) => {
+  return Object.values(obj).map(m => ({ value: m, label: m }))
+}
+
+const arrToOpts = (arr: string[]) => {
+  return arr.map(m => ({ value: m, label: m }))
+}
 
 export default defineComponent({
   name: 'ConfigForm',
   components: {
+    IconArrowRight,
     ConfigFormItem,
   },
   props: {
@@ -224,30 +224,27 @@ export default defineComponent({
     toggleCol: String,
   },
   setup(props) {
-    const componentTypes = ref({ ...ComponentType })
-    const displayModes = ref({ ...DisplayMode })
-    const toolboxTypes = ref({ ...ToolboxType })
+    const componentTypes = objectToOpts(ComponentType)
+    const displayModes = objectToOpts(DisplayMode)
+    const toolboxTypes = objectToOpts(ToolboxType)
 
     const fields = computed(() => {
       return props.config.map(m => m.key)
     })
 
-    const querySearch = (queryString: string, cb: Function) => {
-      const results = [
-        '请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体',
-        '支持从数据中获取标题内容，详见数据面板',
-        '分隔符最长一位，超出一位取第一位，无法以数字为分隔符',
-        '当传入数据不变时始终开启动画',
-        '溢出文本加省略号',
-        '点击标题区域可跳转至设定的超链接',
-        '不设时自适应，可以是绝对值例如 40 或者百分数例如 60%。',
-        '默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。',
-        '这是个预估值，实际显示会做调整，可以设置成 0 强制显示所有标签。',
-        '整数参照 d, 浮点参照 .1f',
-        '时间请参照 YYYY/MM/DD HH:mm:ss',
-      ].map(value => ({ value }))
-      cb(results)
-    }
+    const querys = [
+      '请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体',
+      '支持从数据中获取标题内容，详见数据面板',
+      '分隔符最长一位，超出一位取第一位，无法以数字为分隔符',
+      '当传入数据不变时始终开启动画',
+      '溢出文本加省略号',
+      '点击标题区域可跳转至设定的超链接',
+      '不设时自适应，可以是绝对值例如 40 或者百分数例如 60%。',
+      '默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。',
+      '这是个预估值，实际显示会做调整，可以设置成 0 强制显示所有标签。',
+      '整数参照 d, 浮点参照 .1f',
+      '时间请参照 YYYY/MM/DD HH:mm:ss',
+    ].map(m => ({ value: m, label: m }))
 
     const getEnums = (field: string) => {
       if (field) {
@@ -264,29 +261,35 @@ export default defineComponent({
     }
 
     return {
+      ComponentType,
+      ToolboxType,
       componentTypes,
       displayModes,
       toolboxTypes,
       fields,
-      selectSuggests,
-      querySearch,
+      selectSuggests: selectSuggests.map(m => ({ value: m.id, label: m.value })),
+      querys,
       getEnums,
+      arrToOpts,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import '@/styles/themes/var';
-
 .pc-collapse {
-  .el-collapse-item__header {
-    padding-left: 16px;
-    border-bottom: 1px solid #3a4659;
+  --datav-gui-cp-title-padding-left: 10px;
+  --datav-gui-cp-border: var(--datav-border);
+
+  background: var(--datav-nav-bg-active);
+
+  .n-collapse-item__content-inner {
+    padding: 12px !important;
   }
 
-  .el-collapse-item__content {
-    padding: 12px;
+  .g-field-title-with-description {
+    font-size: 14px;
+    color: var(--datav-gui-font-color-base);
   }
 }
 </style>

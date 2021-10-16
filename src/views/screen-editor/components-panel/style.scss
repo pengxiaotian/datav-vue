@@ -1,14 +1,12 @@
-@import '@/styles/themes/var';
-
-$panel_width: 324px;
+$panel-width: 324px;
 
 .component-panel-wp {
   flex: none;
   z-index: 4;
-  width: $panel_width !important;
+  width: $panel-width !important;
   height: 100%;
   overflow: hidden;
-  background: $panel-bgcolor;
+  background: var(--datav-layer-wp-bg);
   box-shadow: 1px 0 #000;
   transition: width 0.3s ease;
 
@@ -20,7 +18,7 @@ $panel_width: 324px;
     padding: 10px;
     margin: 30px 0 0 0;
     font-size: 12px;
-    color: $layer-font-color;
+    color: #fff;
     text-align: center;
   }
 }
@@ -28,7 +26,7 @@ $panel_width: 324px;
 .components-panel {
   position: relative;
   display: flex;
-  width: $panel_width;
+  width: $panel-width;
   height: 100%;
   overflow: hidden;
   transition: 0.3s ease;
@@ -39,8 +37,8 @@ $panel_width: 324px;
     display: flex;
     height: 30px;
     padding: 10px;
-    color: $panel-font-color;
-    background: $layer-bgcolor;
+    color: var(--datav-font-color);
+    background: var(--datav-layer-bg);
     user-select: none;
     align-items: center;
     justify-content: space-between;
@@ -62,7 +60,7 @@ $panel_width: 324px;
       transition: 0.2s;
 
       &:hover {
-        color: $color-primary;
+        color: var(--datav-main-color);
       }
     }
   }
@@ -85,7 +83,7 @@ $panel_width: 324px;
     font-size: 12px;
     width: 100%;
     line-height: 16px;
-    color: $font-color;
+    color: var(--datav-font-color);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -105,7 +103,7 @@ $panel_width: 324px;
     &.is-active {
       .com-tab-icon,
       .com-tab-title {
-        color: $color-primary;
+        color: var(--datav-main-color);
       }
     }
   }
@@ -115,7 +113,7 @@ $panel_width: 324px;
       width: 60px;
 
       .el-tabs__nav-wrap {
-        background: $tabs-bgcolor-active;
+        background: var(--datav-left-nav-active-bg);
       }
     }
 
@@ -128,19 +126,19 @@ $panel_width: 324px;
       padding: 16px 7px !important;
 
       &.is-active {
-        background: $panel-bgcolor-dark;
+        background: var(--datav-layer-bg-dark);
       }
     }
   }
 
   .components-single-menu-wp {
-    background: $panel-bgcolor-dark;
+    background: var(--datav-layer-bg-dark);
     min-height: 100%;
   }
 
   .components-single-menu {
     padding: 16px;
-    background: $panel-bgcolor-dark;
+    background: var(--datav-layer-bg-dark);
   }
 
   .components-single-menu-list {
@@ -151,13 +149,13 @@ $panel_width: 324px;
 
   .components-multi-menu {
     height: 100%;
-    background: $panel-bgcolor-dark;
+    background: var(--datav-layer-bg-dark);
   }
 
   .components-item {
     cursor: pointer;
     display: inline-block;
-    color: $panel-font-color;
+    color: var(--datav-font-color);
     vertical-align: top;
     user-select: none;
     flex: none;

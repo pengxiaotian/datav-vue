@@ -1,42 +1,37 @@
 <template>
-  <el-input
+  <g-input
     v-if="componentType === componentTypes.input"
     v-model="strValue"
   />
-  <el-input-number
+  <g-input-number
     v-else-if="componentType === componentTypes.number"
     v-model="numValue"
   />
-  <el-checkbox
-    v-else-if="componentType === componentTypes.checkbox"
-    v-model="boolValue"
-  />
-  <el-switch
-    v-else-if="componentType === componentTypes.switch"
-    v-model="boolValue"
-  />
-  <el-radio-group
-    v-else-if="componentType === componentTypes.radio"
-    v-model="strValue"
-  >
-    <el-radio-button
-      v-for="em in enums"
-      :key="em"
-      :label="em"
-    >
-      {{ em }}
-    </el-radio-button>
-  </el-radio-group>
   <g-color-picker
     v-else-if="componentType === componentTypes.color"
     v-model="strValue"
     size="medium"
   />
+  <n-checkbox
+    v-else-if="componentType === componentTypes.checkbox"
+    v-model:checked="boolValue"
+  />
+  <n-switch
+    v-else-if="componentType === componentTypes.switch"
+    v-model:value="boolValue"
+  />
+  <n-radio-group
+    v-else-if="componentType === componentTypes.radio"
+    v-model:value="strValue"
+  >
+    <n-radio-button v-for="em in enums" :key="em" :value="em">
+      {{ em }}
+    </n-radio-button>
+  </n-radio-group>
   <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
-    input-size="medium"
-    style="width: 232px;"
+    size="medium"
   />
   <g-upload-image
     v-else-if="componentType === componentTypes.uploadImage"
@@ -50,49 +45,34 @@
   <g-select-suggest
     v-else-if="componentType === componentTypes.selectSuggest"
     v-model="strValue"
-    :data="enums"
+    :data="selectOptions"
+    :filters="enums"
   />
   <g-select-shape
     v-else-if="componentType === componentTypes.legendIcon"
     v-model="strValue"
     :shapes="selectOptions"
   />
-  <el-select
+  <g-select
     v-else-if="componentType === componentTypes.select"
     v-model="strValue"
+    :data="[]"
     disabled
-  >
-    <el-option
-      v-for="item in []"
-      :key="item.id"
-      :label="item.value"
-      :value="item.id"
-    />
-  </el-select>
+  />
   <template v-else-if="AllOptionKeys.includes(componentType + 's')">
-    <el-radio-group
+    <n-radio-group
       v-if="flatValue"
-      v-model="strValue"
+      v-model:value="strValue"
     >
-      <el-radio-button
-        v-for="em in selectOptions"
-        :key="em.id"
-        :label="em.id"
-      >
+      <n-radio-button v-for="em in selectOptions" :key="em.id" :value="em.id">
         {{ em.value }}
-      </el-radio-button>
-    </el-radio-group>
-    <el-select
+      </n-radio-button>
+    </n-radio-group>
+    <g-select
       v-else
       v-model="strValue"
-    >
-      <el-option
-        v-for="item in selectOptions"
-        :key="item.id"
-        :label="item.value"
-        :value="item.id"
-      />
-    </el-select>
+      :data="selectOptions"
+    />
   </template>
   <span v-else>--</span>
 </template>

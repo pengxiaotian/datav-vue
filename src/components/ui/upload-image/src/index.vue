@@ -7,47 +7,52 @@
       }
     ]"
   >
-    <el-input
-      :model-value="modelValue"
+    <n-input
+      :value="modelValue"
+      size="small"
       placeholder="请输入图片地址"
-      prefix-icon="v-icon-link"
-      size="mini"
-      @update:model-value="handleInput"
-    />
-    <el-upload
-      v-loading="loading"
-      element-loading-text="正在上传..."
-      element-loading-spinner="v-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.7)"
-      drag
+      @update:value="handleInput"
+    >
+      <template #prefix>
+        <n-icon>
+          <IconLink />
+        </n-icon>
+      </template>
+    </n-input>
+    <n-upload
       accept="image/*"
       :action="action"
       :multiple="false"
       :show-file-list="false"
-      :before-upload="beforeUpload"
-      :on-success="onSuccess"
-      :on-error="onError"
       :data="form"
+      @before-upload="beforeUpload"
+      @finish="finishUpload"
     >
-      <div
-        class="g-upload-image-wrap"
-        @mouseenter="handleMouseEnter"
-        @mouseleave="handleMouseLeave"
-      >
-        <div class="g-upload-image-content">
-          <img v-if="modelValue && !iserr" :src="modelValue">
-          <div v-else class="g-upload-tip">
-            <i class="v-icon-img"></i>
-            <div>点击或拖拽文件到这里更换</div>
+      <n-upload-dragger>
+        <n-spin :show="loading">
+          <div
+            class="g-upload-image-wrap"
+            @mouseenter="handleMouseEnter"
+            @mouseleave="handleMouseLeave"
+          >
+            <div class="g-upload-image-content">
+              <img v-if="modelValue && !iserr" :src="modelValue">
+              <div v-else class="g-upload-tip">
+                <n-icon size="60">
+                  <IconImg />
+                </n-icon>
+                <div>点击或拖拽文件到这里更换</div>
+              </div>
+            </div>
+            <div v-if="visibleCover" class="g-upload-image-cover">
+              <span>更改</span>
+              <p style="padding: 0 10px;">|</p>
+              <span @click.stop="removeImage">删除</span>
+            </div>
           </div>
-        </div>
-        <div v-if="visibleCover" class="g-upload-image-cover">
-          <span>更改</span>
-          <p style="padding: 0 10px;">|</p>
-          <span @click.stop="removeImage">删除</span>
-        </div>
-      </div>
-    </el-upload>
+        </n-spin>
+      </n-upload-dragger>
+    </n-upload>
     <span v-if="label" class="g-input__caption">
       {{ label }}
     </span>
@@ -56,14 +61,19 @@
 
 <script lang='ts'>
 import { defineComponent, ref, watch } from 'vue'
+import { useMessage, UploadFileInfo } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
-import { MessageUtil } from '@/utils/message-util'
 import { generateId } from '@/utils/util'
 import { uploadHost, previewHost, validAllowImg } from '@/utils/upload-util'
 import { getTokenByEnv } from '@/api/qiniu'
+import { IconLink, IconImg } from '@/icons'
 
 export default defineComponent({
   name: 'GUploadImage',
+  components: {
+    IconLink,
+    IconImg,
+  },
   props: {
     modelValue: {
       type: String,
@@ -96,6 +106,7 @@ export default defineComponent({
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
+    const nMessage = useMessage()
     const loading = ref(false)
     const form = ref({
       key: '',
@@ -104,37 +115,39 @@ export default defineComponent({
     const iserr = ref(false)
     const visibleCover = ref(false)
 
-    const beforeUpload = async (file: any) => {
-      const valid = validAllowImg(file, {
+    const beforeUpload = async (options: { file: UploadFileInfo; event: Event; }) => {
+      const valid = validAllowImg(options.file.file, {
         allowType: props.allowType,
         allowSize: props.size,
       })
 
-      if (!valid) {
+      if (valid) {
+        nMessage.error(valid)
         return false
       }
 
       try {
         loading.value = true
         form.value.token = await getTokenByEnv()
-        form.value.key = `upload/${generateId()}_${file.name}`
+        form.value.key = `upload/${generateId()}_${options.file.name}`
         return true
       } catch (error) {
         loading.value = false
-        MessageUtil.error(error.toString())
+        nMessage.error(error.toString())
       }
 
       return false
     }
 
-    const onSuccess = (res: any) => {
+    const finishUpload = (options: { file: UploadFileInfo; event: Event; }) => {
       loading.value = false
-      ctx.emit(UPDATE_MODEL_EVENT, `${props.previewHost}/${res.key}`)
-    }
 
-    const onError = (error: any) => {
-      loading.value = false
-      MessageUtil.error(error.toString())
+      const res = JSON.parse((options.event.target as XMLHttpRequest).response)
+      if (res.error) {
+        nMessage.error(res.error)
+      } else {
+        ctx.emit(UPDATE_MODEL_EVENT, `${props.previewHost}/${res.key}`)
+      }
     }
 
     const handleInput = (value: string) => {
@@ -151,7 +164,7 @@ export default defineComponent({
       img.onerror = () => {
         iserr.value = true
         if (props.modelValue) {
-          MessageUtil.error('图片加载失败')
+          nMessage.error('图片加载失败')
         }
       }
     }
@@ -179,8 +192,7 @@ export default defineComponent({
       iserr,
       visibleCover,
       beforeUpload,
-      onSuccess,
-      onError,
+      finishUpload,
       handleInput,
       handleMouseEnter,
       handleMouseLeave,

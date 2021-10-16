@@ -16,6 +16,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import type { CSSProperties } from 'vue'
 import { debounce } from 'lodash-es'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
@@ -59,7 +60,7 @@ export default defineComponent({
         fontSize: `${config.value.textStyle.fontSize}px`,
         color: config.value.textStyle.color,
         'font-weight': config.value.textStyle.fontWeight,
-      }
+      } as CSSProperties
     })
 
     const textStyle = computed(() => {

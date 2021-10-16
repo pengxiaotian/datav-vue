@@ -15,6 +15,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
+import type { CSSProperties } from 'vue'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
 import { MainTitle } from './main-title'
@@ -69,7 +70,7 @@ export default defineComponent({
         style['border-radius'] = `${bgs.borderRadius}px`
       }
 
-      return style
+      return style as CSSProperties
     })
 
     const wordStyle = computed(() => {
@@ -89,7 +90,7 @@ export default defineComponent({
         style['white-space'] = 'nowrap'
       }
 
-      return style
+      return style as CSSProperties
     })
 
     const urlStyle = computed(() => {
@@ -111,7 +112,7 @@ export default defineComponent({
         style['white-space'] = 'nowrap'
       }
 
-      return style
+      return style as CSSProperties
     })
 
     const titleText = computed(() => {

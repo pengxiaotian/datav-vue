@@ -40,7 +40,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
 @import '@/styles/mixins/function';
 
 .datav-error {
@@ -75,7 +74,7 @@ export default defineComponent({
 
     .error-info {
       font-size: 12px;
-      color: $font-color;
+      color: var(--datav-font-color);
 
       .info-p {
         padding: 2px 0;

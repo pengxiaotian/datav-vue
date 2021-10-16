@@ -11,7 +11,10 @@
       :style="`transform: rotate(90deg) translateX(-${vScroll}px);`"
     ></div>
     <div title="切换参考线" class="ruler-corner" @click="toggleGuides">
-      <i :class="`v-icon-line-${visible ? 'show' : 'hide'}`" style="z-index: 10;"></i>
+      <n-icon>
+        <IconLineShow v-if="visible" style="z-index: 10;" />
+        <IconLineHide v-else />
+      </n-icon>
     </div>
   </div>
 </template>
@@ -19,10 +22,15 @@
 <script lang='ts'>
 import { defineComponent, ref, onMounted, onUnmounted, watchEffect } from 'vue'
 import { EditorModule } from '@/store/modules/editor'
+import { IconLineShow, IconLineHide } from '@/icons'
 import { RulerBuilder } from './index'
 
 export default defineComponent({
   name: 'Ruler',
+  components: {
+    IconLineShow,
+    IconLineHide,
+  },
   setup() {
     const hRulerWpRef = ref<any>(null)
     const vRulerWpRef = ref<any>(null)
@@ -121,7 +129,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '@/styles/themes/var';
+$line-border-1: 1px solid rgba(0, 173, 255, 0.84);
+$line-border-2: 1px dashed rgba(0, 173, 255, 0.84);
+$line-border-3: 1px solid rgba(161, 174, 179, 0.8);
 
 .canvas-ruler-wp {
   position: fixed;
@@ -145,7 +155,7 @@ export default defineComponent({
       padding: 0 4px;
       border-radius: 1px;
       box-shadow: 0 0 5px -3px #000;
-      background: $ruler-tag-bg;
+      background: rgba(64, 116, 180, 1);
 
       .line-value {
         pointer-events: none;
@@ -159,7 +169,7 @@ export default defineComponent({
 
     .indicator-value {
       position: absolute;
-      background: $ruler-tag-bg;
+      background: rgba(64, 116, 180, 1);
       color: #fff;
       border-radius: 1px;
       padding: 0 4px;
@@ -175,7 +185,7 @@ export default defineComponent({
       top: 0;
       height: 100vh;
       padding-left: 5px;
-      border-left: 1px solid $ruler-line-bg;
+      border-left: $line-border-1;
 
       .line-action {
         top: 5px;
@@ -183,7 +193,7 @@ export default defineComponent({
     }
 
     .ruler-indicator {
-      border-left: 1px dashed $ruler-line-bg;
+      border-left: $line-border-2;
       top: 0;
       height: 100vw;
 
@@ -207,7 +217,7 @@ export default defineComponent({
     .ruler-line {
       left: 3px;
       width: 100vw;
-      border-top: 1px solid $ruler-line-bg;
+      border-top: $line-border-1;
 
       .line-action {
         top: 10px;
@@ -217,7 +227,7 @@ export default defineComponent({
     }
 
     .ruler-indicator {
-      border-bottom: 1px dashed $ruler-line-bg;
+      border-bottom: $line-border-2;
       width: 100vw;
       bottom: 1px;
       transform: rotate(-90deg);
@@ -239,11 +249,11 @@ export default defineComponent({
     width: 20px;
     height: 20px;
     font-size: 16px;
-    color: $font-color;
+    color: var(--datav-font-color);
     cursor: pointer;
-    background: $ruler-bg;
-    border-right: 1px solid $ruler-font-color;
-    border-bottom: 1px solid $ruler-font-color;
+    background: #0e1013;
+    border-right: $line-border-3;
+    border-bottom: $line-border-3;
     align-items: center;
     justify-content: center;
 

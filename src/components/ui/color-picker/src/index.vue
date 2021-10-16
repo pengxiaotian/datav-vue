@@ -2,7 +2,6 @@
   <div
     class="datav-gui g-color-picker"
     :class="[
-      `--${size}`,
       {
         '--inline': !!inline,
         '--single': inline === 'inline-single',
@@ -10,18 +9,20 @@
     ]"
   >
     <div class="g-color-picker__inner">
-      <el-input
-        :model-value="modelValue"
+      <n-input
+        :value="modelValue"
         :size="size"
-        @update:model-value="handleInput"
+        @update:value="handleInput"
       />
-      <el-color-picker
-        :model-value="modelValue"
+      <n-color-picker
+        :value="modelValue"
         :size="size"
         show-alpha
-        :predefine="predefine"
-        popper-class="is-dark"
-        @update:model-value="handleInput"
+        :style="{
+          width: 'var(--height)',
+          flex: `0 0 var(--height)`
+        }"
+        @update:value="handleInput"
       />
     </div>
     <span v-if="label" class="g-input__caption">
@@ -43,9 +44,8 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'mini',
+      default: 'small',
     },
-    predefine: Array,
     label: {
       type: String,
       default: '',

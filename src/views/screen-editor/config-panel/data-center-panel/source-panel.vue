@@ -7,7 +7,9 @@
   >
     <div class="api-editor-title">
       <div class="api-desc ellipsis2" @click="toggle">
-        <i v-if="collapse" class="v-icon-arrow-right api-fold-icon"></i>
+        <n-icon v-if="collapse" class="api-fold-icon">
+          <IconArrowRight />
+        </n-icon>
         {{ apiConfig.description || '数据接口' }}
       </div>
       <div class="api-status success">
@@ -38,13 +40,12 @@
                 class="table-body-row"
               >
                 <td class="column-item attr-name">
-                  <el-tooltip
-                    :content="fc.description"
-                    placement="left"
-                    effect="blue"
-                  >
-                    <span class="ellipsis2">{{ fn }}</span>
-                  </el-tooltip>
+                  <n-tooltip placement="left">
+                    <template #trigger>
+                      <span class="ellipsis2">{{ fn }}</span>
+                    </template>
+                    {{ fc.description }}
+                  </n-tooltip>
                 </td>
                 <td class="column-item attr-value">
                   <new-input
@@ -76,9 +77,9 @@
           数据响应结果
         </div>
         <div class="auto-update-config">
-          <el-checkbox v-model="apiConfig.useAutoUpdate" class="auto-update-checkbox">
+          <n-checkbox v-model:checked="apiConfig.useAutoUpdate" class="auto-update-checkbox">
             自动更新选项
-          </el-checkbox>
+          </n-checkbox>
           <new-input
             :model-value="apiConfig.autoUpdate"
             type="number"
@@ -93,19 +94,24 @@
             <div class="ds-title">
               <span class="ds-type-text">{{ datasources[apiDataConfig.type] }}</span>
             </div>
-            <el-button
-              size="mini"
+            <n-button
+              size="tiny"
               class="ds-action-btn"
               @click="openSourceDrawer"
             >
               配置数据源
-            </el-button>
+            </n-button>
           </div>
           <div class="ds-line mt5">
             <span>数据响应结果 ( 只读 ) </span>
-            <el-tooltip content="刷新数据" placement="left" effect="blue">
-              <i class="v-icon-refresh refresh-btn" @click="refreshData"></i>
-            </el-tooltip>
+            <n-tooltip placement="left">
+              <template #trigger>
+                <n-icon class="refresh-btn" @click="refreshData">
+                  <IconRefresh />
+                </n-icon>
+              </template>
+              刷新数据
+            </n-tooltip>
           </div>
           <div class="ds-dots">
             <span class="ds-dot" :class="[totalStatus === 'completed' ? 'active' : 'error']"></span>
@@ -136,6 +142,7 @@ import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources, ApiStatus } f
 import { DebugModule } from '@/store/modules/debug'
 import { ApiModule } from '@/store/modules/api'
 import { setDatavData } from '@/mixins/data-center'
+import { IconArrowRight, IconRefresh } from '@/icons'
 import DisplayApiStatus from '../components/display-api-status.vue'
 import SourceDrawer from './source-drawer.vue'
 
@@ -144,6 +151,8 @@ export default defineComponent({
   components: {
     DisplayApiStatus,
     SourceDrawer,
+    IconArrowRight,
+    IconRefresh,
   },
   props: {
     apiName: {

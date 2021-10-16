@@ -1,5 +1,3 @@
-import { MessageUtil } from './message-util'
-
 interface FileInfo {
   name: string
   size: number
@@ -19,18 +17,17 @@ export const validAllowImg = (file: FileInfo, option: Partial<UploadOption>) => 
     allowSize: 2,
     ...option,
   }
+
   const regx = new RegExp(`\\.(${opt.allowType})$`, 'i')
   if (!regx.test(file.name)) {
-    MessageUtil.error(`上传图片的格式只能是 ${opt.allowType} 中的一种！`)
-    return false
+    return `上传图片的格式只能是 ${opt.allowType} 中的一种！`
   }
 
   if (file.size / 1024 / 1024 > opt.allowSize) {
-    MessageUtil.error(`上传图片的大小不能超过 ${opt.allowSize}MB！`)
-    return false
+    return `上传图片的大小不能超过 ${opt.allowSize}MB！`
   }
 
-  return true
+  return null
 }
 
 export const dataURLtoBlob = (dataURL: string) => {

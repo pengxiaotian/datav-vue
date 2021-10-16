@@ -1,101 +1,105 @@
 <template>
-  <el-collapse
-    v-model="activeNames"
+  <n-collapse
+    :expanded-names="activeNames"
+    arrow-placement="right"
+    display-directive="show"
     class="g-field-collapse"
-    :class="{ '--disable': toggle && !modelValue }"
+    :class="{ '--disabled': toggle && !modelValue }"
+    @update:expanded-names="handleExpand"
   >
-    <el-collapse-item
-      :disabled="!modelValue"
-      class="g-field-collapse-panel"
-      :class="{
-        '--has-toolbox': visibleToolbox
-      }"
-    >
-      <template #title>
+    <template #arrow>
+      <n-icon>
+        <IconArrowRight />
+      </n-icon>
+    </template>
+    <n-collapse-item class="g-field-collapse-panel">
+      <template #header>
         <i class="g-field-show-placeholder">
-          <el-switch
+          <n-switch
             v-if="toggle"
-            :model-value="modelValue"
-            class="--mini"
+            :value="modelValue"
+            size="small"
             @click.stop
-            @change="toggleVisible"
+            @update:value="toggleVisible"
           />
         </i>
         <template v-if="tooltip">
-          <el-tooltip effect="blue" placement="top" :offset="2">
-            <template #content>
-              <slot name="tooltip">{{ tooltip }}</slot>
+          <n-tooltip placement="top">
+            <template #trigger>
+              <label class="g-field-title-with-description" :title="label">
+                {{ label }}
+              </label>
             </template>
-            <label class="g-field-title-with-description" :title="label">
-              {{ label }}
-            </label>
-          </el-tooltip>
+            <span v-html="tooltip"></span>
+          </n-tooltip>
         </template>
         <label v-else class="g-field-title" :title="label">
           {{ label }}
         </label>
         <div v-if="visibleToolbox" class="g-field-collapse-panel-toolbox">
-          <i
+          <n-icon
             v-if="showToolboxRow"
-            class="v-icon-layout-row toolbox-icon"
+            class="toolbox-icon"
             :class="{ '--selected': isLayoutRow }"
             @click.stop="isLayoutRow = true"
-          ></i>
-          <i
+          >
+            <IconLayoutRow />
+          </n-icon>
+          <n-icon
             v-if="showToolboxCol"
-            class="v-icon-layout-column toolbox-icon"
+            class="toolbox-icon"
             :class="{ '--selected': !isLayoutRow }"
             @click.stop="isLayoutRow = false"
-          ></i>
+          >
+            <IconLayoutColumn />
+          </n-icon>
+
           <span
             v-if="showToolboxSplit"
             class="g-field-collapse-panel-toolbox-split"
           ></span>
 
           <template v-if="showToolboxCopy">
-            <el-tooltip
-              effect="blue"
-              placement="top"
-              :offset="2"
-              :disabled="!copyState.disabled"
-              :content="copyState.msg"
-            >
-              <i
-                class="v-icon-copy toolbox-icon"
-                :class="{ '--disabled': copyState.disabled }"
-                @click.stop="copyData"
-              ></i>
-            </el-tooltip>
+            <n-tooltip placement="top" :disabled="!copyState.disabled">
+              <template #trigger>
+                <n-icon
+                  class="toolbox-icon"
+                  :class="{ '--disabled': copyState.disabled }"
+                  @click.stop="copyData"
+                >
+                  <IconCopy />
+                </n-icon>
+              </template>
+              {{ copyState.msg }}
+            </n-tooltip>
           </template>
           <template v-if="showToolboxAdd">
-            <el-tooltip
-              effect="blue"
-              placement="top"
-              :offset="2"
-              :disabled="!addState.disabled"
-              :content="addState.msg"
-            >
-              <i
-                class="v-icon-plus toolbox-icon"
-                :class="{ '--disabled': addState.disabled }"
-                @click.stop="addData"
-              ></i>
-            </el-tooltip>
+            <n-tooltip placement="top" :disabled="!addState.disabled">
+              <template #trigger>
+                <n-icon
+                  class="toolbox-icon --icon-add"
+                  :class="{ '--disabled': addState.disabled }"
+                  @click.stop="addData"
+                >
+                  <IconPlus />
+                </n-icon>
+              </template>
+              {{ addState.msg }}
+            </n-tooltip>
           </template>
           <template v-if="showToolboxDel">
-            <el-tooltip
-              effect="blue"
-              placement="top"
-              :offset="2"
-              :disabled="!deleteState.disabled"
-              :content="deleteState.msg"
-            >
-              <i
-                class="v-icon-delete toolbox-icon"
-                :class="{ '--disabled': deleteState.disabled }"
-                @click.stop="deleteData"
-              ></i>
-            </el-tooltip>
+            <n-tooltip placement="top" :disabled="!deleteState.disabled">
+              <template #trigger>
+                <n-icon
+                  class="toolbox-icon"
+                  :class="{ '--disabled': deleteState.disabled }"
+                  @click.stop="deleteData"
+                >
+                  <IconDelete />
+                </n-icon>
+              </template>
+              {{ deleteState.msg }}
+            </n-tooltip>
           </template>
         </div>
       </template>
@@ -138,8 +142,8 @@
         </span>
       </template>
       <slot v-else></slot>
-    </el-collapse-item>
-  </el-collapse>
+    </n-collapse-item>
+  </n-collapse>
 </template>
 
 <script lang='ts'>
@@ -147,9 +151,18 @@ import { defineComponent, ref, watch, PropType, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import { ToolboxType } from '@/utils/enums'
+import { IconArrowRight, IconPlus, IconDelete, IconCopy, IconLayoutRow, IconLayoutColumn } from '@/icons'
 
 export default defineComponent({
   name: 'GFieldCollapse',
+  components: {
+    IconArrowRight,
+    IconPlus,
+    IconDelete,
+    IconCopy,
+    IconLayoutRow,
+    IconLayoutColumn,
+  },
   props: {
     mode: {
       type: String as PropType<'' | 'layout'>,
@@ -195,7 +208,7 @@ export default defineComponent({
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
-    const activeNames = ref([])
+    const activeNames = ref<string[]>([])
     const activeTab = ref('0')
     const isLayoutRow = ref(props.defaultLayout === ToolboxType.horizontal)
 
@@ -255,6 +268,12 @@ export default defineComponent({
       }
     })
 
+    const handleExpand = (keys: string[]) => {
+      if (!(props.toggle && !props.modelValue)) {
+        activeNames.value = keys
+      }
+    }
+
     const toggleVisible = (nv: boolean) => {
       ctx.emit(UPDATE_MODEL_EVENT, nv)
     }
@@ -309,6 +328,7 @@ export default defineComponent({
       copyState,
       addState,
       deleteState,
+      handleExpand,
       toggleVisible,
       copyData,
       addData,

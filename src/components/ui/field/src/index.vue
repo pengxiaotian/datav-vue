@@ -1,36 +1,34 @@
 <template>
-  <el-row
+  <n-grid
     :class="[
-      'g-field-wp',
-      `--lv${level}`,
+      `g-field-wp --lv${level}`,
       {
         '--disable': disabled || (toggle && !modelValue)
       }
     ]"
   >
-    <el-col class="g-field" v-bind="labelStyle">
+    <n-gi class="g-field" v-bind="labelStyle">
       <i class="g-field-show-placeholder">
-        <i
-          v-if="toggle"
-          :class="['g-field-show', modelValue ? 'v-icon-show' : 'v-icon-hide']"
-          @click="toggleVisible"
-        ></i>
+        <n-icon v-if="toggle" class="g-field-show" @click="toggleVisible">
+          <IconShow v-if="modelValue" />
+          <IconHide v-else />
+        </n-icon>
       </i>
       <template v-if="tooltip">
-        <el-tooltip effect="blue" placement="top" :offset="2">
-          <template #content>
-            <span v-html="tooltip"></span>
+        <n-tooltip placement="top">
+          <template #trigger>
+            <label class="g-field-title-with-description" :title="label">
+              {{ label }}
+            </label>
           </template>
-          <label class="g-field-title-with-description" :title="label">
-            {{ label }}
-          </label>
-        </el-tooltip>
+          <span v-html="tooltip"></span>
+        </n-tooltip>
       </template>
       <label v-else class="g-field-title" :title="label">
         {{ label }}
       </label>
-    </el-col>
-    <el-col
+    </n-gi>
+    <n-gi
       class="g-field-container"
       :class="{ '--flat': isFlat }"
       v-bind="contentStyle"
@@ -39,16 +37,21 @@
       <span v-if="caption" class="g-field-caption" :title="caption">
         {{ caption }}
       </span>
-    </el-col>
-  </el-row>
+    </n-gi>
+  </n-grid>
 </template>
 
 <script lang='ts'>
 import { defineComponent, computed } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
+import { IconShow, IconHide } from '@/icons'
 
 export default defineComponent({
   name: 'GField',
+  components: {
+    IconShow,
+    IconHide,
+  },
   props: {
     label: {
       type: String,
@@ -68,6 +71,10 @@ export default defineComponent({
     caption: String,
     disabled: Boolean,
     isFlat: Boolean,
+    labelSpan: {
+      type: Number,
+      default: 9,
+    },
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
@@ -77,13 +84,13 @@ export default defineComponent({
 
     const labelStyle = computed(() => {
       return {
-        span: props.nest ? 24 : 0,
+        span: props.nest ? 24 : props.labelSpan,
       }
     })
 
     const contentStyle = computed(() => {
       return {
-        span: props.nest ? 24 : 0,
+        span: props.nest ? 24 : 15,
       }
     })
 

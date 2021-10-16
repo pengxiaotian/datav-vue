@@ -3,7 +3,6 @@ import { loadEnv, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 import plainText from 'vite-plugin-plain-text'
-import styleImport from 'vite-plugin-style-import'
 
 import { resolve } from 'path'
 
@@ -17,23 +16,11 @@ export default ({ mode }: ConfigEnv) => {
 
   const env = loadEnv(mode, dirRoot)
 
-  const prefix = 'monaco-editor/esm/vs'
-
   return defineConfig({
     base: env.VITE_PUBLIC_PATH,
     plugins: [
       vue(),
       plainText(/\.hbs$/),
-      styleImport({
-        libs: [{
-          libraryName: 'element-plus',
-          esModule: true,
-          ensureStyleFile: true,
-          resolveStyle: name => {
-            return `element-plus/packages/theme-chalk/src/${name.slice(3)}.scss`
-          },
-        }],
-      }),
     ],
     css: {
       preprocessorOptions: {
@@ -72,11 +59,7 @@ export default ({ mode }: ConfigEnv) => {
         'js-cookie',
         'lodash-es',
         'mockjs',
-        `${prefix}/editor/editor.worker`,
-        `${prefix}/language/json/json.worker`,
-        `${prefix}/language/css/css.worker`,
-        `${prefix}/language/html/html.worker`,
-        `${prefix}/language/typescript/ts.worker`,
+        'monaco-editor',
         'particles.vue3',
         'shortid',
         'vue',
@@ -91,14 +74,9 @@ export default ({ mode }: ConfigEnv) => {
       sourcemap: false,
       outDir: 'website',
       rollupOptions: {
-        output: {
-          manualChunks: {
-            editorWorker: [`${prefix}/editor/editor.worker`],
-            jsonWorker: [`${prefix}/language/json/json.worker`],
-            cssWorker: [`${prefix}/language/css/css.worker`],
-            htmlWorker: [`${prefix}/language/html/html.worker`],
-            tsWorker: [`${prefix}/language/typescript/ts.worker`],
-          },
+        input: {
+          main: resolve(__dirname, 'index.html'),
+          share: resolve(__dirname, 'share/index.html'),
         },
       },
     },

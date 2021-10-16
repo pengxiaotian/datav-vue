@@ -1,18 +1,6 @@
-@import '@/styles/themes/var';
-
 .filter-manager-drawer {
-  color: $font-color;
+  color: var(--datav-font-color);
   user-select: none;
-
-  &.el-drawer.ltr,
-  &.el-drawer.rtl {
-    top: 40px;
-    height: calc(100% - 40px);
-  }
-
-  .el-drawer__header {
-    padding-bottom: 12px;
-  }
 
   .filter-manager-title {
     font-size: 18px;
@@ -22,14 +10,14 @@
       margin-left: 10px;
       cursor: pointer;
       font-size: 12px;
-      color: $color-primary;
+      color: var(--datav-main-color);
     }
 
     .filter-doc {
       position: absolute;
       right: 60px;
       cursor: pointer;
-      color: $color-primary;
+      color: var(--datav-main-color);
       font-size: 12px;
       line-height: 19px;
     }

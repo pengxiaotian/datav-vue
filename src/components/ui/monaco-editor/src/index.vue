@@ -1,4 +1,5 @@
 <template>
+  <AsyncLoading v-if="loading" />
   <div
     :id="editorId"
     class="datav-editor"
@@ -6,35 +7,34 @@
       '--read-only': readOnly,
     }, editorClass]"
   >
-    <div class="datav-editor-actions">
-      <i
-        class="v-icon-copy action-btn"
-        title="点击复制"
-        @click="copyData"
-      ></i>
-      <i
+    <div v-if="!loading" class="datav-editor-actions">
+      <n-icon class="action-btn" title="点击复制" @click="copyData">
+        <IconCopy />
+      </n-icon>
+      <n-icon
         class="action-btn"
-        :class="isFullScreen ? 'v-icon-fullscreen-exit' : 'v-icon-fullscreen'"
         :title="isFullScreen ? '退出全屏' : '全屏模式下编辑或查看'"
         @click="switchFullScreen"
-      ></i>
+      >
+        <IconFullscreenExit v-if="isFullScreen" />
+        <IconFullscreen v-else />
+      </n-icon>
     </div>
   </div>
 
-  <el-dialog
-    v-model="isFullScreen"
+  <n-modal
+    v-model:show="isFullScreen"
     :title="`${fullScreenTitle}${readOnly ? ' ( 只读 )' : ''}`"
-    width="90%"
-    top="0"
-    custom-class="fullscreen-editor-dialog"
-    :destroy-on-close="true"
-    :append-to-body="true"
-    @opened="openedFullScreenDialog"
-    @closed="closedFullScreenDialog"
+    preset="dialog"
+    :show-icon="false"
+    :mask-closable="false"
+    class="datav-fullscreen-editor-dialog"
+    style="width: 90%; margin-top: 1%;"
+    @after-leave="closedFullScreenDialog"
   >
-    <div class="fullscreen-editor-wp">
+    <div class="datav-fullscreen-editor-wp">
       <div
-        class="datav-editor fullscreen-editor"
+        class="datav-editor datav-fullscreen-editor"
         :class="[{
           '--read-only': readOnly,
         }]"
@@ -42,43 +42,31 @@
         <section style="display: flex; position: relative; text-align: initial; width: 100%; height: 100%;"></section>
       </div>
     </div>
-  </el-dialog>
+  </n-modal>
 </template>
 
 <script lang='ts'>
 import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, PropType, watch } from 'vue'
 import { debounce } from 'lodash-es'
+import { useMessage } from 'naive-ui'
+import loader from '@monaco-editor/loader'
+import type { editor as MEditor } from 'monaco-editor'
 import { generateId, copyText } from '@/utils/util'
-import { MessageUtil } from '@/utils/message-util'
-import * as monaco from 'monaco-editor'
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
-import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
-import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
-import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
-import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
-import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode, formatDocument } from './editor-config'
+import { IconCopy, IconFullscreen, IconFullscreenExit } from '@/icons'
+import AsyncLoading from '@/components/ui/loading/src/async-loading.vue'
+import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode, formatDocument, Monaco } from './editor-config'
 
-// @ts-ignore
-self.MonacoEnvironment = {
-  getWorker(_, label) {
-    if (label === 'json') {
-      return new jsonWorker()
-    }
-    if (['css', 'scss', 'less'].includes(label)) {
-      return new cssWorker()
-    }
-    if (['html', 'handlebars', 'razor'].includes(label)) {
-      return new htmlWorker()
-    }
-    if (['typescript', 'javascript'].includes(label)) {
-      return new tsWorker()
-    }
-    return new editorWorker()
-  },
-}
+
+loader.config({ paths: { vs: 'https://unpkg.com/monaco-editor@0.27.0/min/vs' } })
 
 export default defineComponent({
   name: 'GMonacoEditor',
+  components: {
+    AsyncLoading,
+    IconCopy,
+    IconFullscreen,
+    IconFullscreenExit,
+  },
   props: {
     language: {
       type: String as PropType<languageType>,
@@ -117,19 +105,20 @@ export default defineComponent({
   },
   emits: ['change', 'blur'],
   setup(props, ctx) {
+    const nMessage = useMessage()
+    const loading = ref(false)
     const editorId = computed(() => `datav-editor-${generateId()}`)
-    let editor = null as monaco.editor.IStandaloneCodeEditor | null
-    let fullEditor = null as monaco.editor.IStandaloneCodeEditor | null
+    let monaco = null as Monaco | null
+    let editor = null as MEditor.IStandaloneCodeEditor | null
+    let fullEditor = null as MEditor.IStandaloneCodeEditor | null
+    const themeName = 'datav-dark-theme'
 
     const isFullScreen = ref(false)
-
-    const themeName = registerDatavDarkTheme()
-    registerApiCompletion(props.language, props.completions)
 
     const copyData = () => {
       if (editor) {
         copyText(editor.getValue())
-        MessageUtil.success('复制成功')
+        nMessage.success('复制成功')
       }
     }
 
@@ -159,10 +148,15 @@ export default defineComponent({
 
     const switchFullScreen = () => {
       isFullScreen.value = !isFullScreen.value
+      if (isFullScreen.value) {
+        nextTick(() => {
+          openedFullScreenDialog()
+        })
+      }
     }
 
     const openedFullScreenDialog = () => {
-      const dom = document.querySelector('.fullscreen-editor > section') as HTMLElement
+      const dom = document.querySelector('.datav-fullscreen-editor > section') as HTMLElement
       if (dom) {
         const opts = Object.assign(
           {},
@@ -214,6 +208,14 @@ export default defineComponent({
     })
 
     onMounted(async () => {
+      const timer = setTimeout(() => { loading.value = true }, 200)
+      monaco = await loader.init()
+      clearTimeout(timer)
+      loading.value = false
+
+      registerDatavDarkTheme(monaco)
+      registerApiCompletion(monaco, props.language, props.completions)
+
       await nextTick()
 
       const dom = document.getElementById(editorId.value)
@@ -261,8 +263,9 @@ export default defineComponent({
 
     return {
       editorId,
-      copyData,
       isFullScreen,
+      loading,
+      copyData,
       switchFullScreen,
       openedFullScreenDialog,
       closedFullScreenDialog,

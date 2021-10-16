@@ -19,26 +19,24 @@
         <div class="search">
           <input v-model.trim="searchText" class="search-input" placeholder="搜索">
         </div>
-        <i class="v-icon-search"></i>
-        <g-drop-list-popover>
+        <n-icon class="icon-search">
+          <IconSearch />
+        </n-icon>
+
+        <n-dropdown
+          :options="sortOpts"
+          :show-arrow="true"
+          @select="handleSortChange"
+        >
           <div class="sort-type">
             <span class="sort-text" :title="sorts[sort]">
               {{ sorts[sort] }}
             </span>
-            <i class="v-icon-arrow-down arrow-icon"></i>
+            <n-icon class="icon-arrow">
+              <IconArrowDown />
+            </n-icon>
           </div>
-          <template #droplist>
-            <g-drop-list>
-              <g-drop-list-item
-                v-for="(v, k) in sorts"
-                :key="k"
-                @click="onSortChange(k)"
-              >
-                {{ v }}
-              </g-drop-list-item>
-            </g-drop-list>
-          </template>
-        </g-drop-list-popover>
+        </n-dropdown>
       </div>
     </div>
     <div class="main-screen">
@@ -57,6 +55,7 @@ import {
 } from 'vue'
 import { sortBy } from 'lodash-es'
 import { ProjectGroup } from '@/domains/project'
+import { IconSearch, IconArrowDown } from '@/icons'
 import MyScreen from './my-screen.vue'
 import PublishScreen from './publish-screen.vue'
 
@@ -67,6 +66,8 @@ export default defineComponent({
   components: {
     MyScreen,
     PublishScreen,
+    IconSearch,
+    IconArrowDown,
   },
   props: {
     group: Object as PropType<ProjectGroup>,
@@ -74,17 +75,18 @@ export default defineComponent({
   setup(props) {
     const searchText = ref('')
     const sort = ref('name')
-    const sorts = ref({
+    const sorts = {
       name: '按名称排序',
       createAt: '按创建时间排序',
       updateAt: '按修改时间排序',
-    })
+    }
+    const sortOpts = Object.entries(sorts).map(([key, label]) => ({ key, label }))
     const visiblePublish = ref(false)
     const publishAppId = ref(0)
 
     const group = toRef(props, 'group')
 
-    const onSortChange = (key: string) => {
+    const handleSortChange = (key: string) => {
       sort.value = key
     }
 
@@ -108,17 +110,17 @@ export default defineComponent({
       searchText,
       sort,
       sorts,
+      sortOpts,
       visiblePublish,
       publishAppId,
-      onSortChange,
       screens,
+      handleSortChange,
     }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
 @import '@/styles/mixins/util';
 
 .ellipsis {
@@ -130,7 +132,7 @@ export default defineComponent({
 .new-projects-title {
   font-size: 14px;
   font-weight: 700;
-  color: $color-primary;
+  color: var(--datav-main-color);
   padding: 0;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -164,7 +166,7 @@ export default defineComponent({
     }
 
     &:hover {
-      border-color: $color-primary;
+      border-color: var(--datav-main-color);
 
       &::after {
         content: "";
@@ -191,11 +193,11 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid var(--datav-border-color);
   padding-bottom: 5px;
   padding-top: 10px;
   height: 56px;
-  background: $background-color;
+  background: var(--datav-body-bg);
   z-index: 1;
   min-width: 1024px;
 
@@ -209,9 +211,9 @@ export default defineComponent({
 
       max-width: 200px;
       font-size: 14px;
-      color: $color-primary;
+      color: var(--datav-main-color);
       padding: 0 10px;
-      border-left: 2px solid $color-primary;
+      border-left: 2px solid var(--datav-main-color);
     }
   }
 
@@ -221,12 +223,13 @@ export default defineComponent({
     font-size: 14px;
 
     .search {
+      margin-right: 6px;
       transform: translateX(30px);
 
       .search-input {
         @include utils-ellipsis;
 
-        background: $background-color-dark;
+        background: var(--datav-bgcolor-2);
         color: #fff;
         padding: 0 10px;
         line-height: 30px;
@@ -237,15 +240,15 @@ export default defineComponent({
 
         &:hover,
         &:focus {
-          border: $border-primary;
-          box-shadow: $shadow;
+          border: var(--datav-border-primary);
+          box-shadow: var(--datav-shadow);
         }
       }
     }
 
-    .v-icon-search {
+    .icon-search {
       padding: 0 24px 0 4px;
-      color: $font-color;
+      color: var(--datav-font-color);
       cursor: pointer;
       z-index: 1;
     }
@@ -254,19 +257,19 @@ export default defineComponent({
       @include utils-ellipsis;
 
       display: inline-block;
-      color: $font-color;
+      color: var(--datav-font-color);
       line-height: 30px;
       cursor: pointer;
       font-size: 14px;
       min-width: 100px;
 
-      .arrow-icon {
+      .icon-arrow {
         font-size: 14px;
         margin-left: 4px;
       }
 
       &:hover {
-        color: $color-primary;
+        color: var(--datav-main-color);
       }
     }
   }

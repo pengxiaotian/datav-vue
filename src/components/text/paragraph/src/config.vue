@@ -69,8 +69,8 @@
         tooltip="仅当文本溢出时有效"
         label="溢出滚动"
       >
-        <el-switch
-          v-model="config.scroll.overScroll"
+        <n-switch
+          v-model:value="config.scroll.overScroll"
         />
       </g-field>
     </g-field-collapse>

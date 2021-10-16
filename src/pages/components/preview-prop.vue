@@ -3,6 +3,7 @@
     <template v-if="!item.config.isHide && judgeDisplay(item)">
       <preview-prop-item
         v-if="isFlat"
+        :key="item.config.component"
         :data-type="item.config.type"
         :component-type="item.config.component"
         :default-value="item.config.defaultValue"
@@ -88,6 +89,7 @@
         :level="level"
       >
         <preview-prop-item
+          :key="item.config.component"
           :data-type="item.config.type"
           :component-type="item.config.component"
           :default-value="item.config.defaultValue"

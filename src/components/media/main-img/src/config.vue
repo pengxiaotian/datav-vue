@@ -3,17 +3,18 @@
     <g-field
       label="图片类型"
     >
-      <el-radio-group
-        v-model="config.imageType"
+      <n-radio-group
+        v-model:value="config.imageType"
+        size="small"
       >
-        <el-radio-button
+        <n-radio-button
           v-for="em in imageTypes"
           :key="em.id"
-          :label="em.id"
+          :value="em.id"
         >
           {{ em.value }}
-        </el-radio-button>
-      </el-radio-group>
+        </n-radio-button>
+      </n-radio-group>
     </g-field>
     <g-field
       label="背景图"
@@ -72,16 +73,16 @@
         :level="2"
         label="是否打开新窗口"
       >
-        <el-switch
-          v-model="config.urlConfig.ifBlank"
+        <n-switch
+          v-model:value="config.urlConfig.ifBlank"
         />
       </g-field>
     </g-field-collapse>
     <g-field
       label="手势光标"
     >
-      <el-switch
-        v-model="config.cursor"
+      <n-switch
+        v-model:value="config.cursor"
       />
     </g-field>
   </div>

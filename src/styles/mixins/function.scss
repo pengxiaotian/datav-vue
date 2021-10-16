@@ -1,4 +1,4 @@
-@import '../themes/var.scss';
+@import '../themes/var-scss';
 
 @function com-cdn($asset, $cdn-url: $cdn) {
   @return #{$cdn-url}/#{$asset};

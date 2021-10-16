@@ -1,6 +1,5 @@
 import { ref, toRefs, watch, onUnmounted, getCurrentInstance } from 'vue'
 import { debounce } from 'lodash-es'
-import { MessageUtil } from '@/utils/message-util'
 import { isPlainObject, isArray } from '@/utils/util'
 import { EditorModule } from '@/store/modules/editor'
 import { FilterModule } from '@/store/modules/filter'
@@ -109,7 +108,8 @@ export const setDatavData = async (comId: string, apiName: string, aConfig: ApiC
   }
 
   if (isError) {
-    MessageUtil.error(res.message)
+    // @ts-expect-error
+    window.$message.error(res.message)
   }
 
   // 传入组件的数据

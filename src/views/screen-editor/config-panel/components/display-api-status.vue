@@ -94,7 +94,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
 @import '@/styles/loading';
 
 .status-icon {
@@ -102,11 +101,11 @@ export default defineComponent({
 
   &.--failed,
   &.--incomplete {
-    background: $warn-main;
+    background: var(--datav-warn-color);
   }
 }
 
 .status-text {
-  color: $font-color;
+  color: var(--datav-font-color);
 }
 </style>

@@ -246,7 +246,7 @@ export default defineComponent({
         border: `${calendar.paddingBorder.width}px solid ${calendar.paddingBorder.color}`,
         color: calendar.fontColor,
         background: 'transparent',
-      }
+      } as CSSProperties
     })
 
     const tdOverStyle = computed(() => {

@@ -1,14 +1,17 @@
 <template>
   <div class="event">
     <div class="events-title" @click="visible = !visible">
-      <i
-        class="v-icon-arrow-right"
-        :class="visible ? 'events-down' : 'events-up'"
-      ></i>
+      <n-icon :class="visible ? 'events-down' : 'events-up'">
+        <IconArrowRight />
+      </n-icon>
       <div class="event-text">{{ item.description }}</div>
-      <el-checkbox v-model="isEnabled" class="enable-checkbox" @change="onEnableChange">
+      <n-checkbox
+        v-model:checked="isEnabled"
+        class="enable-checkbox"
+        @update:checked="onEnableChange"
+      >
         启用
-      </el-checkbox>
+      </n-checkbox>
     </div>
     <div v-if="visible" class="variables">
       <table class="variables-table">
@@ -43,7 +46,9 @@
                 />
               </td>
               <td class="variable-btn">
-                <i class="v-icon-delete delete-btn" @click="deleteField(idx)"></i>
+                <n-icon class="delete-btn" @click="deleteField(idx)">
+                  <IconDelete />
+                </n-icon>
               </td>
             </template>
             <template v-else>
@@ -62,9 +67,14 @@
         </tbody>
       </table>
       <div class="add-variable">
-        <el-button size="mini" icon="v-icon-plus" @click="addField">
+        <n-button :focusable="false" size="tiny" @click="addField">
+          <template #icon>
+            <n-icon :size="12">
+              <IconPlus />
+            </n-icon>
+          </template>
           新建一个字段
-        </el-button>
+        </n-button>
       </div>
     </div>
   </div>
@@ -72,10 +82,16 @@
 
 <script lang='ts'>
 import { defineComponent, ref, PropType, inject } from 'vue'
+import { IconArrowRight, IconDelete, IconPlus } from '@/icons'
 import { EventItemConfig } from '@/components/data-event'
 
 export default defineComponent({
   name: 'EventItem',
+  components: {
+    IconArrowRight,
+    IconDelete,
+    IconPlus,
+  },
   props: {
     item: {
       type: Object as PropType<EventItemConfig>,
@@ -123,92 +139,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-@import '@/styles/themes/var';
-
-.events-title {
-  position: relative;
-  line-height: 38px;
-  padding-left: 16px;
-  background: $config-panel-bgcolor;
-  border-bottom: $config-panel-border;
-  color: $font-color;
-  cursor: pointer;
-  display: flex;
-
-  .event-text {
-    width: 150px;
-    line-height: 1;
-    align-items: center;
-    display: flex;
-    padding: 4px 0;
-  }
-
-  .enable-checkbox {
-    position: absolute;
-    right: 10px;
-    font-weight: normal;
-    line-height: 38px;
-  }
-}
-
-.event {
-  .variables {
-    padding: 0 10px;
-    color: $font-color;
-    background: #15171c;
-
-    .variables-table {
-      width: 100%;
-      table-layout: fixed;
-      border-collapse: collapse;
-      border-spacing: 0;
-
-      thead {
-        border-bottom: $config-panel-border;
-      }
-
-      th,
-      td {
-        height: 38px;
-        vertical-align: middle;
-        text-align: left;
-        font-weight: unset;
-
-        &:first-child {
-          text-indent: 11px;
-        }
-      }
-
-      .variable-input .attr-input {
-        width: 66px;
-        height: 24px;
-        padding: 0 5px;
-        background: #000;
-        color: #fff;
-        border: 1px solid transparent;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-
-      .variable-btn .delete-btn {
-        cursor: pointer;
-
-        &:hover {
-          color: $color-primary;
-        }
-      }
-    }
-
-    .add-variable {
-      padding-top: 20px;
-      padding-bottom: 20px;
-      border-top: $config-panel-border;
-      display: flex;
-      justify-content: center;
-    }
-  }
-}
-</style>

@@ -1,43 +1,38 @@
 <template>
-  <el-aside width="auto" :class="['component-panel-wp', { '--hide': !visiblePanel }]">
+  <div :class="['g-aside component-panel-wp', { '--hide': !visiblePanel }]">
     <div class="components-panel">
       <div class="panel-title">
         <span class="panel-text">{{ visiblePanel ? '全部组件' : '组件' }}</span>
-        <el-tooltip
-          content="搜索"
-          placement="top"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <i title="搜索" class="v-icon-search btn-icon"></i>
-        </el-tooltip>
-        <el-tooltip
-          content="收起"
-          placement="top"
-          effect="blue"
-          :open-delay="500"
-          :enterable="false"
-        >
-          <i title="收起" class="v-icon-back btn-icon" @click="changeVisible"></i>
-        </el-tooltip>
+        <n-tooltip :delay="500">
+          <template #trigger>
+            <n-icon title="搜索" class="btn-icon">
+              <IconSearch />
+            </n-icon>
+          </template>
+          搜索
+        </n-tooltip>
+        <n-tooltip :delay="500">
+          <template #trigger>
+            <n-icon title="收起" class="btn-icon" @click="changeVisible">
+              <IconBack />
+            </n-icon>
+          </template>
+          收起
+        </n-tooltip>
       </div>
       <div class="components-panel-wrapper" @dragover="dragOver">
         <el-tabs tab-position="left" @tab-click="handleTabClick">
           <el-tab-pane v-for="cate in categories" :key="cate.type">
             <template #label>
-              <el-tooltip
-                :content="cate.name"
-                placement="right"
-                effect="blue"
-                :open-delay="500"
-                :enterable="false"
-              >
-                <div>
-                  <i :class="['com-tab-icon', cate.icon]"></i>
-                  <span class="com-tab-title">{{ cate.name }}</span>
-                </div>
-              </el-tooltip>
+              <n-tooltip placement="left" :delay="500">
+                <template #trigger>
+                  <div>
+                    <g-com-icon :icon="cate.icon" class="com-tab-icon" />
+                    <span class="com-tab-title">{{ cate.name }}</span>
+                  </div>
+                </template>
+                {{ cate.name }}
+              </n-tooltip>
             </template>
 
             <el-tabs v-if="cate.data.length > 2" tab-position="left" class="el-tabs-l2">
@@ -99,25 +94,30 @@
         </el-tabs>
       </div>
     </div>
-  </el-aside>
+  </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, ref, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
+import { useMessage } from 'naive-ui'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { BlueprintModule } from '@/store/modules/blueprint'
-import { MessageUtil } from '@/utils/message-util'
 import { classifications } from '@/data/system-components'
 import { createComponent } from '@/components/datav'
+import { IconSearch, IconBack } from '@/icons'
 
 type CategoryType = typeof classifications[0]
 
 export default defineComponent({
   name: 'ComponentsPanel',
+  components: {
+    IconSearch,
+    IconBack,
+  },
   setup() {
-    const searchText = ref('')
+    const nMessage = useMessage()
     const favoriteComs = ref([])
     const visiblePanel = computed(() => ToolbarModule.components.show)
 
@@ -157,7 +157,7 @@ export default defineComponent({
       if (used) {
         ToolbarModule.addLoading()
         const { pageConfig } = EditorModule
-        const com = createComponent(comName)
+        const com = await createComponent(comName)
         com.attr.x = Math.floor((pageConfig.width - com.attr.w) / 2)
         com.attr.y = Math.floor((pageConfig.height - com.attr.h) / 2)
         await EditorModule.addCom(com)
@@ -169,7 +169,7 @@ export default defineComponent({
           BlueprintModule.datavComponents[com.id].$DATAV_requestData()
         }
       } else {
-        MessageUtil.warning('正在开发中。。。')
+        nMessage.warning('正在开发中。。。')
       }
     }
 
@@ -184,8 +184,6 @@ export default defineComponent({
     }
 
     return {
-      searchText,
-      favoriteComs,
       visiblePanel,
       categories,
       changeVisible,

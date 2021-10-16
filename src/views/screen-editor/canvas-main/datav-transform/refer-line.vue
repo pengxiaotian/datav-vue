@@ -51,8 +51,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .nav-line {
   position: absolute;
   top: 0;
@@ -67,7 +65,7 @@ export default defineComponent({
   position: absolute;
   left: 0;
   width: 0;
-  border-left: 1px dashed $gui-primary-color;
+  border-left: 1px dashed var(--datav-gui-primary-color);
   transform: translateY(-100%);
 }
 
@@ -75,13 +73,13 @@ export default defineComponent({
   position: absolute;
   top: 0;
   height: 0;
-  border-top: 1px dashed $gui-primary-color;
+  border-top: 1px dashed var(--datav-gui-primary-color);
   transform: translateX(-100%);
 }
 
 .nav-line-account {
   position: absolute;
-  color: $gui-primary-color;
+  color: var(--datav-gui-primary-color);
   text-shadow: 1px 1px 1px #222;
   white-space: nowrap;
   transform: translate(-100%, -100%);

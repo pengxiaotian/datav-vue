@@ -24,7 +24,7 @@
 <script lang='ts'>
 import { defineComponent, PropType, ref, toRef, computed, watchEffect } from 'vue'
 import type { CSSProperties } from 'vue'
-import { TweenLite } from 'gsap'
+import gsap from 'gsap'
 import Accounting from 'accounting'
 import NP from 'number-precision'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
@@ -266,7 +266,10 @@ export default defineComponent({
       if (divisor !== 0) num = NP.divide(num, divisor)
 
       if (numbers.animation) {
-        TweenLite.to(numVal, duration.value / 1000, { value: num })
+        gsap.to(numVal, {
+          duration: duration.value / 1000,
+          value: num,
+        })
       } else {
         numVal.value = num
       }

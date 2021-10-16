@@ -3,13 +3,14 @@
     <div class="com-title">
       <div class="title-name">
         <span class="alias-name">{{ comAlias }}</span>
-        <el-tooltip
-          placement="right"
-          effect="blue"
-          :content="`${comTitle}文档`"
-        >
-          <i class="v-icon-document com-doc-icon"></i>
-        </el-tooltip>
+        <n-tooltip placement="right">
+          <template #trigger>
+            <n-icon class="com-doc-icon">
+              <IconDocument />
+            </n-icon>
+          </template>
+          {{ `${comTitle}文档` }}
+        </n-tooltip>
       </div>
       <div class="version-tag">
         <span>{{ comTitle }}</span>
@@ -22,9 +23,13 @@
 <script lang='ts'>
 import { defineComponent, computed } from 'vue'
 import { findComByName } from '@/data/system-components'
+import { IconDocument } from '@/icons'
 
 export default defineComponent({
   name: 'SettingPanel',
+  components: {
+    IconDocument,
+  },
   props: {
     comName: {
       type: String,
@@ -49,8 +54,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .com-title-wp {
   position: relative;
   display: flex;

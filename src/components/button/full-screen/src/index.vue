@@ -13,6 +13,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef, ref } from 'vue'
+import type { CSSProperties } from 'vue'
 import { FullScreen } from './full-screen'
 
 export default defineComponent({
@@ -46,7 +47,7 @@ export default defineComponent({
         height: `${attr.value.h}px`,
         borderRadius: `${config.value.borderRadius}%`,
         background: (isEnter.value || config.value.alwaysShow) ? config.value.bgColor : 'transparent',
-      }
+      } as CSSProperties
     })
 
     const imgStyle = computed(() => {
@@ -55,7 +56,7 @@ export default defineComponent({
         width: `${attr.value.w * 0.6}px`,
         height: `${attr.value.h * 0.6}px`,
         display: (isEnter.value || config.value.alwaysShow) ? 'block' : 'none',
-      }
+      } as CSSProperties
     })
 
     const imgSrc = computed(() => {

@@ -2,7 +2,6 @@
   <div
     class="datav-gui g-select-shape"
     :class="[
-      `--${size}`,
       {
         '--inline': !!inline,
         '--single': inline === 'inline-single',
@@ -10,24 +9,13 @@
       }
     ]"
   >
-    <el-select
-      :model-value="modelValue"
+    <n-select
+      :value="modelValue"
+      :options="opts"
       :size="size"
       :disabled="disabled"
-      @update:model-value="handleInput"
-    >
-      <el-option
-        v-for="item in shapes"
-        :key="item.id"
-        :label="item.value"
-        :value="item.id"
-      >
-        <span class="g-select-shape-item">
-          <span>{{ item.value }}</span>
-          <i :class="`v-icon-${item.icon}`"></i>
-        </span>
-      </el-option>
-    </el-select>
+      @update:value="handleInput"
+    />
     <span v-if="label" class="g-input__caption">
       {{ label }}
     </span>
@@ -35,8 +23,9 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, h } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
+import OptionLabel from './option-label.vue'
 
 interface ShapeType {
   id: string
@@ -61,7 +50,7 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'mini',
+      default: 'small',
     },
     inline: {
       type: [Boolean, String],
@@ -75,7 +64,18 @@ export default defineComponent({
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
+    const opts = props.shapes.map(m => ({
+      value: m.id,
+      label() {
+        return h(OptionLabel, {
+          label: m.value,
+          icon: m.icon,
+        })
+      },
+    }))
+
     return {
+      opts,
       handleInput,
     }
   },

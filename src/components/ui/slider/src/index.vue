@@ -2,29 +2,37 @@
   <div
     class="datav-gui g-slider"
     :class="[
-      `--${size}`,
       {
         '--inline --single': !!inline,
-        'has-suffix': !!suffix,
       }
     ]"
   >
-    <el-slider
-      :model-value="modelValue"
-      :min="min"
-      :max="max"
-      :step="step"
-      :show-input="showInput"
-      :input-size="inputSize"
-      :show-tooltip="false"
-      :class="{ 'is-controls-right': controlsPosition === 'right' }"
-      @update:model-value="handleInput"
-    />
+    <n-config-provider :theme-overrides="themeOverrides" abstract>
+      <div class="g-slider-main">
+        <n-slider
+          :value="modelValue"
+          :min="min"
+          :max="max"
+          :step="step"
+          :tooltip="false"
+          @update:value="handleInput"
+        />
+        <n-input-number
+          :value="modelValue"
+          :min="min"
+          :max="max"
+          :step="step"
+          :size="size"
+          @update:value="handleInput"
+        >
+          <template v-if="suffix" #suffix>
+            {{ suffix }}
+          </template>
+        </n-input-number>
+      </div>
+    </n-config-provider>
     <span v-if="label" class="g-input__caption">
       {{ label }}
-    </span>
-    <span v-if="suffix" class="g-input-number__suffix">
-      {{ suffix }}
     </span>
   </div>
 </template>
@@ -46,15 +54,7 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'mini',
-    },
-    showInput: {
-      type: Boolean,
-      default: true,
-    },
-    inputSize: {
-      type: String,
-      default: 'mini',
+      default: 'small',
     },
     min: {
       type: Number,
@@ -72,10 +72,6 @@ export default defineComponent({
       type: [Boolean, String],
       default: false,
     },
-    controlsPosition: {
-      type: String,
-      default: 'right',
-    },
     suffix: String,
     disabled: Boolean,
   },
@@ -85,13 +81,23 @@ export default defineComponent({
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
+    const themeOverrides = {
+      Button: {
+        textColorText: 'var(--datav-font-color)',
+        fontSizeMedium: '12px',
+        iconSizeMedium: '12px',
+      },
+    }
+
+    if (props.size === 'medium') {
+      themeOverrides.Button.fontSizeMedium = '14px'
+      themeOverrides.Button.iconSizeMedium = '14px'
+    }
+
     return {
+      themeOverrides,
       handleInput,
     }
   },
 })
 </script>
-
-<style lang="scss" scoped>
-@import '@/styles/themes/var';
-</style>

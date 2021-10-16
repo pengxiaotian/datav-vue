@@ -1,15 +1,16 @@
 <template>
-  <el-popover
-    v-model:visible="visible"
+  <n-popover
+    v-model:show="visible"
     :placement="placement"
     trigger="click"
     :width="188"
     :show-arrow="false"
-    transition=""
-    :offset="3"
-    popper-class="g-select-image-popover"
+    class="g-select-image-popover"
+    :style="{
+      '--color': 'var(--datav-gui-bgcolor-back)'
+    }"
   >
-    <template #reference>
+    <template #trigger>
       <div
         class="datav-gui g-select-image-wrap"
         :class="[
@@ -27,7 +28,9 @@
               </div>
             </div>
             <span class="g-select-image-arrow">
-              <i class="v-icon-select-arrow"></i>
+              <n-icon color="var(--datav-gui-font-color-base)">
+                <IconSelectArrow />
+              </n-icon>
             </span>
           </div>
         </div>
@@ -54,16 +57,20 @@
         </li>
       </ul>
     </div>
-  </el-popover>
+  </n-popover>
 </template>
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, ref } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import { DatavImageType } from '@/utils/types'
+import { IconSelectArrow } from '@/icons'
 
 export default defineComponent({
   name: 'GSelectImage',
+  components: {
+    IconSelectArrow,
+  },
   props: {
     modelValue: {
       type: String,

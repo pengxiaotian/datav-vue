@@ -1,5 +1,3 @@
-@import "themes/var";
-
 .monaco-editor .margin-view-overlays .codicon-chevron-right,
 .monaco-editor .margin-view-overlays .codicon-chevron-down {
   font-size: 100% !important;
@@ -51,8 +49,8 @@
   height: 240px;
   padding: 0;
   overflow: hidden;
-  border: 1px solid $monaco-border-color;
-  background: $background-color;
+  border: var(--datav-gui-editor-border);
+  background: var(--datav-component-bg-1);
 
   .datav-editor-actions {
     position: absolute;
@@ -64,14 +62,16 @@
     text-align: right;
 
     .action-btn {
+      width: 20px;
+      height: 20px;
       padding: 4px;
       font-size: 12px;
-      color: $monaco-action-color;
+      color: var(--datav-gui-editor-icon-color);
       cursor: pointer;
       transition: color 0.2s;
 
       &:hover {
-        color: $color-primary;
+        color: var(--datav-main-color);
       }
     }
   }
@@ -79,29 +79,31 @@
   &.--read-only {
     .margin,
     .monaco-editor-background {
-      background-color: $monaco-bgcolor-readonly;
+      background-color: var(--datav-gui-editor-bgcolor-disabled);
     }
   }
 }
 
-.fullscreen-editor-dialog {
+.datav-fullscreen-editor-dialog {
   display: flex;
   flex-direction: column;
   max-width: 90%;
   width: 90%;
-  height: 90%;
-  background: $monaco-fullscreen-dialog-bgcolor;
-  top: 5%;
+  height: 95vh;
+  background: var(--datav-gui-fullscreen-bgcolor);
+  margin-top: 1%;
 
-  .el-dialog__body {
+  .n-dialog__content {
+    height: 100%;
+    border-bottom: none;
+    padding-bottom: 10px;
+  }
+
+  .datav-fullscreen-editor-wp {
     height: 100%;
   }
 
-  .fullscreen-editor-wp {
-    height: 100%;
-  }
-
-  .fullscreen-editor {
+  .datav-fullscreen-editor {
     width: 100%;
     height: 100%;
   }

@@ -1,13 +1,15 @@
 <template>
-  <el-drawer
-    v-model="visible"
-    custom-class="source-drawer"
-    size="500px"
+  <n-drawer
+    v-model:show="visible"
+    width="500px"
+    class="source-drawer"
+    to="#edit-main-wp"
   >
-    <template #title>
-      <p class="source-drawer-title">设置数据源</p>
-    </template>
-    <template v-if="visible">
+    <n-drawer-content closable>
+      <template #header>
+        <p class="source-drawer-title">设置数据源</p>
+      </template>
+
       <div class="step-title" :class="{ '--error': !!dataStatus.api }">
         数据源
       </div>
@@ -15,21 +17,17 @@
         <label class="datasource-selector-title">数据源类型</label>
         <div class="datasource-select">
           <div class="datav-new-select-wp">
-            <el-select
-              v-model="apiDataConfig.type"
-              size="mini"
+            <n-select
+              v-model:value="apiDataConfig.type"
+              :options="datasources"
               filterable
               class="datav-new-select"
-              popper-class="datav-new-select-option"
-              @change="changeSource"
-            >
-              <el-option
-                v-for="(v, k) in datasources"
-                :key="k"
-                :label="v"
-                :value="k"
-              />
-            </el-select>
+              :style="{
+                '--border': 'var(--datav-gui-new-select-border)',
+                '--color': 'var(--datav-gui-new-select-bgcolor)'
+              }"
+              @update:value="changeSource"
+            />
           </div>
         </div>
       </div>
@@ -37,12 +35,20 @@
       <ds-static-editor v-if="apiDataConfig.type === apiType.static" />
       <ds-api-editor v-else-if="apiDataConfig.type === apiType.api" />
 
-      <el-popover
-        v-model:visible="visiblePreview"
+      <n-popover
+        v-model:show="visiblePreview"
         placement="left"
         :width="400"
-        popper-class="editor-popover"
+        class="editor-popover"
       >
+        <template #trigger>
+          <div class="ds-response-btn">
+            <n-icon class="refresh-btn">
+              <IconSearch />
+            </n-icon>
+            预览数据源返回结果
+          </div>
+        </template>
         <div class="ds-preview-content">
           <g-monaco-editor
             language="json"
@@ -52,17 +58,11 @@
             :code="dataOrign"
           />
         </div>
-        <template #reference>
-          <div class="ds-response-btn">
-            <i class="v-icon-search"></i>
-            预览数据源返回结果
-          </div>
-        </template>
-      </el-popover>
+      </n-popover>
 
       <div class="step-title" :class="{ '--error': !!dataStatus.filter }">
-        <el-checkbox
-          v-model="apiDataConfig.config.useFilter"
+        <n-checkbox
+          v-model:checked="apiDataConfig.config.useFilter"
           class="use-filter-btn"
         />
         <span class="use-filter-text">数据过滤器</span>
@@ -79,7 +79,9 @@
         }"
       >
         <span>数据响应结果</span>
-        <i class="v-icon-refresh refresh-btn" @click="refreshData"></i>
+        <n-icon class="refresh-btn" @click="refreshData">
+          <IconRefresh />
+        </n-icon>
       </div>
       <div class="data-response">
         <g-monaco-editor
@@ -89,8 +91,8 @@
           :code="resData"
         />
       </div>
-    </template>
-  </el-drawer>
+    </n-drawer-content>
+  </n-drawer>
 </template>
 
 <script lang='ts'>
@@ -101,6 +103,7 @@ import { createDataSources, ApiConfig, ApiDataConfig, ApiType, createDataConfigF
 import { DebugModule } from '@/store/modules/debug'
 import { ApiModule } from '@/store/modules/api'
 import { setDatavData } from '@/mixins/data-center'
+import { IconSearch, IconRefresh } from '@/icons'
 import FilterConfig from '@/views/screen-editor/data-filter/filter-config.vue'
 import FieldGrid from '../components/field-grid.vue'
 
@@ -109,6 +112,8 @@ export default defineComponent({
   components: {
     FilterConfig,
     FieldGrid,
+    IconSearch,
+    IconRefresh,
     DsStaticEditor: loadAsyncComponent(() => import('./api-editors/ds-static-editor.vue')),
     DsApiEditor: loadAsyncComponent(() => import('./api-editors/ds-api-editor.vue')),
   },
@@ -116,7 +121,8 @@ export default defineComponent({
     const visible = ref(false)
     const visiblePreview = ref(false)
     const apiType = ApiType
-    const datasources = createDataSources()
+    const datasources = Object.entries(createDataSources())
+      .map(([value, label]) => ({ value, label }))
 
     const open = () => {
       visible.value = true

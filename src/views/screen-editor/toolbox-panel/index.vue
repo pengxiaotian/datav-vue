@@ -1,49 +1,47 @@
 <template>
   <div :class="['toolbox-panel-wp', { '--hide': !visiblePanel }]">
     <div class="toolbox-panel">
-      <el-popover
-        v-model:visible="visibleFilterPanel"
-        width="320"
+      <n-popover
+        :show="visibleFilterPanel"
+        :width="320"
         placement="bottom-start"
         trigger="manual"
         :show-arrow="false"
-        :offset="5"
-        popper-class="editor-popover"
+        raw
+        style="--color: var(--datav-component-bg);"
       >
-        <template #reference>
+        <template #trigger>
           <div class="btn-box" @click.stop>
             <span class="btn-text --label" @click="toggleFilterPanel">滤镜配置</span>
-            <el-switch v-model="styleFilterParams.enable" />
+            <n-switch v-model:value="styleFilterParams.enable" />
           </div>
         </template>
         <filter-toolbox-panel :style-filter-params="styleFilterParams" />
-      </el-popover>
+      </n-popover>
       <div class="btn-box">
-        <el-tooltip
-          placement="bottom"
-          effect="blue"
-          content="勾选时为自然模式，否则为拉伸模式，默认勾选"
-        >
-          <span class="btn-text --help">组件缩放</span>
-        </el-tooltip>
-        <el-checkbox
-          :model-value="isNormal"
-          @update:model-value="handleResizeModeChange"
+        <n-tooltip placement="bottom">
+          <template #trigger>
+            <span class="btn-text --help">组件缩放</span>
+          </template>
+          勾选时为自然模式，否则为拉伸模式，默认勾选
+        </n-tooltip>
+        <n-checkbox
+          :checked="isNormal"
+          @update:checked="handleResizeModeChange"
         />
       </div>
       <div class="btn-box">
         <span class="btn-text">参考线</span>
-        <el-switch v-model="referLine.enable" />
+        <n-switch v-model:value="referLine.enable" />
       </div>
       <div class="btn-box">
-        <el-tooltip
-          placement="bottom"
-          effect="blue"
-          content="组件数量多时，容易卡顿，建议关闭"
-        >
-          <span class="btn-text --help">对齐线</span>
-        </el-tooltip>
-        <el-switch v-model="alignLine.enable" />
+        <n-tooltip placement="bottom">
+          <template #trigger>
+            <span class="btn-text --help">对齐线</span>
+          </template>
+          组件数量多时，容易卡顿，建议关闭
+        </n-tooltip>
+        <n-switch v-model:value="alignLine.enable" />
       </div>
     </div>
   </div>
@@ -51,9 +49,9 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, watch } from 'vue'
+import { useMessage } from 'naive-ui'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
-import { MessageUtil } from '@/utils/message-util'
 import FilterToolboxPanel from './filter-toolbox-panel.vue'
 
 export default defineComponent({
@@ -62,6 +60,7 @@ export default defineComponent({
     FilterToolboxPanel,
   },
   setup() {
+    const nMessage = useMessage()
     const visiblePanel = computed(() => ToolbarModule.toolbox.show)
     const isNormal = ref(EditorModule.isNormalResizeMode)
     const referLine = computed(() => EditorModule.referLine)
@@ -85,7 +84,7 @@ export default defineComponent({
 
     watch(() => styleFilterParams.value.enable, (nv: boolean) => {
       visibleFilterPanel.value = nv
-      MessageUtil.success(nv ? '滤镜已开启应用' : '滤镜已关闭')
+      nMessage.success(nv ? '滤镜已开启应用' : '滤镜已关闭')
     })
 
     watch(() => visibleFilterPanel.value, (nv: boolean) => {
@@ -109,13 +108,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .toolbox-panel-wp {
   height: 40px;
   z-index: 10;
   transition: height 0.3s ease;
-  border-bottom: $border-dark;
+  border-bottom: var(--datav-border-dark);
   flex-shrink: 0;
 
   &.--hide {
@@ -128,7 +125,7 @@ export default defineComponent({
 .toolbox-panel {
   transition: 0.3s ease;
   width: 100%;
-  background: $config-manager-bgcolor;
+  background: var(--datav-left-nav-bg);
   padding: 8px 30px;
   display: flex;
   align-items: center;
@@ -139,7 +136,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   margin-right: 15px;
-  color: $footer-color;
+  color: var(--datav-font-color);
 
   .btn-text {
     margin-right: 4px;
@@ -153,8 +150,8 @@ export default defineComponent({
       cursor: pointer;
 
       &:hover {
-        color: #4283ff;
-        border-bottom: 1px solid #4283ff;
+        color: var(--datav-main-hover-color);
+        border-bottom: 1px solid var(--datav-main-hover-color);
       }
     }
   }

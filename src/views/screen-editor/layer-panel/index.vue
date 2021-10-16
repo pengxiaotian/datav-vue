@@ -1,53 +1,71 @@
 <template>
-  <el-aside width="auto" :class="['layer-panel-wp', { '--hide': !visiblePanel }]">
+  <div :class="['g-aside layer-panel-wp', { '--hide': !visiblePanel }]">
     <div class="layer-manager">
       <div class="layer-manager-top">
         <div class="layer-num">图层</div>
         <div class="layer-layout">
-          <i
+          <n-icon
             title="缩略图版"
-            class="v-icon-view-grid btn-icon"
-            :class="[{ selected: !showText }]"
+            class="btn-icon"
+            :class="{ selected: !showText }"
             @click="showText = false"
-          ></i>
-          <i
+          >
+            <IconViewGrid />
+          </n-icon>
+          <n-icon
             title="文字版"
-            class="v-icon-view-list btn-icon"
-            :class="[{ selected: showText }]"
+            class="btn-icon"
+            :class="{ selected: showText }"
             @click="showText = true"
-          ></i>
-          <i title="收起" class="v-icon-back btn-icon" @click="changeVisible"></i>
+          >
+            <IconViewList />
+          </n-icon>
+          <n-icon
+            title="收起"
+            class="btn-icon"
+            @click="changeVisible"
+          >
+            <IconBack />
+          </n-icon>
         </div>
       </div>
       <div class="layer-toolbar layer-toolbar-top">
-        <i
+        <n-icon
           title="上移一层"
-          class="v-icon-move-up toolbar-icon standard"
+          class="toolbar-icon standard"
           :class="enableBtnClass"
           :style="enableBtnStyle"
           @click="moveUp"
-        ></i>
-        <i
+        >
+          <IconMoveUp />
+        </n-icon>
+        <n-icon
           title="下移一层"
-          class="v-icon-move-down toolbar-icon standard"
+          class="toolbar-icon standard"
           :class="enableBtnClass"
           :style="enableBtnStyle"
           @click="moveDown"
-        ></i>
-        <i
+        >
+          <IconMoveDown />
+        </n-icon>
+        <n-icon
           title="置顶"
-          class="v-icon-move-top toolbar-icon standard"
+          class="toolbar-icon standard"
           :class="enableBtnClass"
           :style="enableBtnStyle"
           @click="moveTop"
-        ></i>
-        <i
+        >
+          <IconMoveTop />
+        </n-icon>
+        <n-icon
           title="置底"
-          class="v-icon-move-bottom toolbar-icon standard"
+          class="toolbar-icon standard"
           :class="enableBtnClass"
           :style="enableBtnStyle"
           @click="moveBottom"
-        ></i>
+        >
+          <IconMoveBottom />
+        </n-icon>
       </div>
       <div class="layer-manager-wrap">
         <template v-for="com in descComs" :key="com.id">
@@ -66,7 +84,7 @@
             @mouseleave="com.hovered = false"
             @contextmenu="showMenu"
           >
-            <i :class="com.icon"></i>
+            <g-com-icon :icon="com.icon" />
             <input
               v-if="com.renameing"
               v-model.trim="com.alias"
@@ -78,16 +96,20 @@
             <span v-else class="layer-item-span">
               <span class="layer-item-text">{{ com.alias }}</span>
             </span>
-            <i
+            <n-icon
               v-if="com.hided"
-              class="v-icon-hide show-toggle-btn"
+              class="show-toggle-btn"
               @click="com.hided = false"
-            ></i>
-            <i
+            >
+              <IconHide />
+            </n-icon>
+            <n-icon
               v-if="com.locked"
-              class="v-icon-lock show-toggle-btn"
+              class="show-toggle-btn"
               @click="com.locked = false"
-            ></i>
+            >
+              <IconLock />
+            </n-icon>
           </div>
           <div
             v-else
@@ -124,59 +146,96 @@
               </span>
             </div>
             <div class="layer-thumbail-item">
-              <i
+              <n-icon
                 v-if="com.hided"
-                class="v-icon-hide show-toggle-btn"
+                class="show-toggle-btn"
                 @click="com.hided = false"
-              ></i>
-              <i
+              >
+                <IconHide />
+              </n-icon>
+              <n-icon
                 v-if="com.locked"
-                class="v-icon-lock show-toggle-btn"
+                class="show-toggle-btn"
                 @click="com.locked = false"
-              ></i>
+              >
+                <IconLock />
+              </n-icon>
             </div>
           </div>
         </template>
         <div class="last-flex-item" @click="selectCom('')"></div>
       </div>
       <div class="layer-toolbar layer-toolbar-bottom">
-        <i
+        <n-icon
           title="删除"
-          class="v-icon-delete toolbar-icon standard"
+          class="toolbar-icon standard"
           :class="enableBtnClass"
           :style="enableBtnStyle"
           @click="toDeleteCom"
-        ></i>
-        <i
+        >
+          <IconDelete />
+        </n-icon>
+        <n-icon
           title="锁定"
-          class="v-icon-lock toolbar-icon standard"
+          class="toolbar-icon standard"
           :class="enableLockBtnClass"
           :style="enableBtnStyle"
           @click="lockCom"
-        ></i>
-        <i
-          class="v-icon-hide toolbar-icon standard"
+        >
+          <IconLock />
+        </n-icon>
+        <n-icon
           title="隐藏"
+          class="toolbar-icon standard"
           :class="enableHideBtnClass"
           :style="enableBtnStyle"
           @click="hideCom"
-        ></i>
+        >
+          <IconHide />
+        </n-icon>
       </div>
     </div>
-  </el-aside>
+  </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed } from 'vue'
+import { h, defineComponent, ref, computed } from 'vue'
+import { useMessage, useDialog } from 'naive-ui'
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { MoveType } from '@/utils/enums'
-import { MessageBoxUtil } from '@/utils/message-util'
+import {
+  IconViewList,
+  IconViewGrid,
+  IconBack,
+  IconWarning,
+  IconMoveUp,
+  IconMoveDown,
+  IconMoveTop,
+  IconMoveBottom,
+  IconLock,
+  IconHide,
+  IconDelete,
+} from '@/icons'
 import { useContextMenu } from '../editor-context-menu/index'
 
 export default defineComponent({
   name: 'LayerPanel',
+  components:{
+    IconViewList,
+    IconViewGrid,
+    IconBack,
+    IconMoveUp,
+    IconMoveDown,
+    IconMoveTop,
+    IconMoveBottom,
+    IconLock,
+    IconHide,
+    IconDelete,
+  },
   setup() {
+    const nMessage = useMessage()
+    const nDialog = useDialog()
     const showText = ref(false)
     const visiblePanel = computed(() => ToolbarModule.layer.show)
     const descComs = computed(() => [...EditorModule.coms].reverse())
@@ -236,10 +295,21 @@ export default defineComponent({
     const toDeleteCom = () => {
       const com = selectedCom.value
       if (com) {
-        MessageBoxUtil.confirmAsync(
-          '是否删除选中的1个组件',
-          () => EditorModule.deleteCom(com),
-        )
+        const d = nDialog.create({
+          content: '是否删除选中的1个组件',
+          negativeText: '取消',
+          positiveText: '确定',
+          iconPlacement: 'top',
+          icon: () => h(IconWarning),
+          onPositiveClick: async () => {
+            d.loading = true
+            try {
+              await EditorModule.deleteCom(com)
+            } catch (error) {
+              nMessage.error(error.message)
+            }
+          },
+        })
       }
     }
 

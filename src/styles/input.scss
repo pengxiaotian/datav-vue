@@ -1,146 +1,53 @@
-@import "themes/var";
 @import "mixins/util";
-
-.el-input {
-  .el-input__inner {
-    padding: 0 8px;
-    color: $input-font-color;
-    background: $input-bgcolor;
-    border: 1px solid $input-border-color;
-    border-radius: 0;
-    caret-color: $color-primary;
-
-    &:focus {
-      border-color: $color-primary;
-    }
-
-    &:hover {
-      border-color: $color-primary;
-    }
-
-    &::placeholder {
-      color: $font-color-placeholder;
-    }
-  }
-}
-
-.el-input-group__prepend {
-  color: $font-color;
-  border-color: $input-border-color;
-  background: $input-prepend-bgcolor;
-}
-
-.el-input-group__append {
-  color: $font-color;
-  border-color: $input-border-color;
-  background: $input-prepend-bgcolor;
-}
 
 .g-input {
   width: 100%;
-
-  .el-input {
-    .el-input__inner {
-      padding: 0 7px;
-      color: #fff;
-      text-align: left;
-    }
-  }
 }
 
 .g-input__caption {
   display: block;
   width: 100%;
-  font-size: $font-size;
+  font-size: 12px;
   height: 16px;
   line-height: 16px;
-  color: $input-description-font-color;
+  color: var(--datav-gui-font-color-description);
 
   @include utils-ellipsis();
 }
 
 .new-input {
   height: 24px;
+  line-height: 24px;
   display: inline-block;
-  background: $input-bgcolor;
+  background: var(--datav-gui-component-bgcolor);
   vertical-align: middle;
   padding: 0 8px;
-  line-height: 16px;
-  color: $input-font-color;
+  color: var(--datav-font-color);
   width: 100%;
-  caret-color: $color-primary;
+  caret-color: var(--datav-main-color);
   box-sizing: border-box;
   box-shadow: none;
   margin: 0;
   outline: 0;
   border-radius: 0;
   font-size: 12px;
-  border: 1px solid $input-border-color;
+  border: var(--datav-outline);
   transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 
   &.is-disabled {
-    color: $font-color-disabled;
     cursor: not-allowed;
-    border: $input-border-disabled;
+    color: var(--datav-font-color-disabled);
+    border: var(--datav-border-disabled);
   }
 
   &:focus,
   &:hover {
-    border: $border-primary;
+    border: var(--datav-border-primary);
   }
 
   &[type='number']::-webkit-outer-spin-button,
   &[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none !important;
     margin: 0;
-  }
-}
-
-.el-autocomplete__popper {
-  background: $select-option-bgcolor;
-  border-color: $color-primary;
-  border-radius: 0;
-
-  &.el-popper[role="tooltip"] {
-    background: $select-option-bgcolor;
-    border: solid 1px $color-primary;
-    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-
-    @each $placement, $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top') {
-      &[data-popper-placement^='#{$placement}'] {
-        .el-popper__arrow::before {
-          background: $select-option-bgcolor;
-          border-color: $color-primary;
-          border-#{$placement}-color: transparent;
-          border-#{$adjacency}-color: transparent;
-        }
-      }
-    }
-  }
-}
-
-.el-autocomplete-suggestion {
-  .el-autocomplete-suggestion__wrap {
-    padding: 2px 0;
-  }
-
-  li {
-    padding: 0 15px;
-    font-size: 12px;
-    color: $select-font-color;
-    height: 28px;
-    line-height: 28px;
-    background-color: $select-option-bgcolor;
-    border-left: 2px solid transparent;
-
-    &:hover {
-      background-color: $select-option-bgcolor-hover;
-      border-left-color: $color-primary;
-    }
-
-    &.highlighted {
-      background-color: $select-option-bgcolor-hover;
-      border-left-color: $color-primary;
-    }
   }
 }

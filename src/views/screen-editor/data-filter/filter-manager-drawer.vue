@@ -1,25 +1,28 @@
 <template>
-  <el-drawer
-    v-model="visible"
-    custom-class="filter-manager-drawer"
-    size="500px"
-    direction="ltr"
-    @close="close"
+  <n-drawer
+    v-model:show="visible"
+    width="500px"
+    placement="left"
+    class="filter-manager-drawer"
+    to="#edit-main-wp"
   >
-    <template #title>
-      <p class="filter-manager-title">
-        数据过滤器<span class="create-filter" @click="addFilter">新建</span>
-        <router-link
-          :to="{ name: 'MyCase' }"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="filter-doc"
-        >
-          <i class="v-icon-document"></i><span>帮助文档</span>
-        </router-link>
-      </p>
-    </template>
-    <template v-if="visible">
+    <n-drawer-content closable>
+      <template #header>
+        <p class="filter-manager-title">
+          数据过滤器<span class="create-filter" @click="addFilter">新建</span>
+          <router-link
+            :to="{ name: 'MyCase' }"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="filter-doc"
+          >
+            <n-icon>
+              <IconDocument />
+            </n-icon>
+            <span>帮助文档</span>
+          </router-link>
+        </p>
+      </template>
       <filter-collapse-panel
         v-if="newDataFilter"
         :data-filter="newDataFilter"
@@ -40,31 +43,35 @@
       />
       <div v-if="dataFilters.length === 0 && !newDataFilter" class="panel-info">
         <p class="info-text">过滤器列表为空，请创建后使用</p>
-        <el-button @click="addFilter">
+        <n-button :focusable="false" @click="addFilter">
           新建
-        </el-button>
+        </n-button>
       </div>
-    </template>
-  </el-drawer>
+    </n-drawer-content>
+  </n-drawer>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, watch, provide } from 'vue'
+import { h, defineComponent, ref, computed, watch, provide } from 'vue'
+import { useMessage, useDialog } from 'naive-ui'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
 import { ApiDataConfig } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
-import { MessageBoxUtil } from '@/utils/message-util'
 import { setDatavData } from '@/mixins/data-center'
+import { IconWarning, IconDocument } from '@/icons'
 import FilterCollapsePanel from './filter-collapse-panel.vue'
 
 export default defineComponent({
   name: 'FilterManagerDrawer',
   components: {
+    IconDocument,
     FilterCollapsePanel,
   },
   setup() {
+    const nMessage = useMessage()
+    const nDialog = useDialog()
     const visible = ref(false)
     const newDataFilter = ref<DataFilter | null>(null)
 
@@ -72,9 +79,11 @@ export default defineComponent({
       visible.value = nv
     })
 
-    const close = () => {
-      ToolbarModule.filter.show = false
-    }
+    watch(visible, (nv: boolean) => {
+      if (!nv) {
+        ToolbarModule.filter.show = false
+      }
+    })
 
     const dataFilters = computed(() => FilterModule.dataFilters)
     const usedFilters = computed(() => {
@@ -126,13 +135,16 @@ export default defineComponent({
 
     const removeFilter = (id: number) => {
       if (id > 0) {
-        MessageBoxUtil.confirmAsync(
-          '是否删除数据过滤器，可能导致相关组件不可用。',
-          () => {
-            return FilterModule.deleteFilter(id)
-          },
-          {
-            success: () => {
+        const d = nDialog.create({
+          content: '是否删除数据过滤器，可能导致相关组件不可用。',
+          negativeText: '取消',
+          positiveText: '确定',
+          iconPlacement: 'top',
+          icon: () => h(IconWarning),
+          onPositiveClick: async () => {
+            d.loading = true
+            try {
+              await FilterModule.deleteFilter(id)
               const df = usedFilters.value[id]
               if (df) {
                 const coms = [...EditorModule.coms, ...EditorModule.subComs].filter(m => df.ids.includes(m.id))
@@ -147,9 +159,11 @@ export default defineComponent({
                   }
                 })
               }
-            },
+            } catch (error) {
+              nMessage.error(error.message)
+            }
           },
-        )
+        })
       } else {
         newDataFilter.value = null
       }
@@ -186,7 +200,6 @@ export default defineComponent({
       visible,
       dataFilters,
       newDataFilter,
-      close,
       addFilter,
       removeFilter,
     }

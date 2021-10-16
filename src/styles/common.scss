@@ -1,15 +1,23 @@
 .datav-gui {
   &.--inline {
     display: inline-block;
-    width: 98px;
-    padding: 0 4px 4px;
+    width: 92px;
+    flex: 0 0 92px;
+    padding-bottom: 4px;
 
     &.--single {
       width: 196px;
+      flex: 0 0 196px;
     }
   }
 }
 
 .datav-wraper {
   box-sizing: border-box;
+}
+
+.datav-empty {
+  display: inline-block;
+  color: var(--datav-gui-empty-color);
+  text-align: center;
 }

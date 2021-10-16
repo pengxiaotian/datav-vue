@@ -1,9 +1,12 @@
-import * as monaco from 'monaco-editor'
+import type { editor as MEditor, languages, IRange } from 'monaco-editor'
+import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api'
 import { isObject, isArray, isString } from '@/utils/util'
+
+export type Monaco = typeof monacoEditor
 
 export type languageType = 'plaintext' | 'html' | 'javascript' | 'json' | 'sql'
 
-export const defaultOpts: monaco.editor.IStandaloneEditorConstructionOptions = {
+export const defaultOpts: MEditor.IStandaloneEditorConstructionOptions = {
   automaticLayout: true,
   contextmenu: false,
   fixedOverflowWidgets: true,
@@ -42,7 +45,7 @@ export const defaultOpts: monaco.editor.IStandaloneEditorConstructionOptions = {
   scrollBeyondLastColumn: 2,
 }
 
-export const registerDatavDarkTheme = () => {
+export const registerDatavDarkTheme = (monaco: Monaco) => {
   const themeName = 'datav-dark-theme'
   monaco.editor.defineTheme(themeName, {
     base: 'vs-dark',
@@ -62,10 +65,10 @@ export const registerDatavDarkTheme = () => {
   return themeName
 }
 
-type CompletionItem = monaco.languages.CompletionItem
+type CompletionItem = languages.CompletionItem
 
 let suggestLabels: string[] = []
-const createSuggestions = (range: monaco.IRange) => {
+const createSuggestions = (monaco: Monaco, range: IRange) => {
   const suggestions: CompletionItem[] = []
   for (let i = 0; i < suggestLabels.length; i++) {
     const id = suggestLabels[i]
@@ -81,7 +84,7 @@ const createSuggestions = (range: monaco.IRange) => {
 }
 
 const registerCompletionMap = new Map()
-export const registerApiCompletion = (languageId: languageType, callbackIds: string[]) => {
+export const registerApiCompletion = (monaco: Monaco, languageId: languageType, callbackIds: string[]) => {
   if (callbackIds && callbackIds.length > 0) {
     suggestLabels = callbackIds
     if (registerCompletionMap.has(languageId)) {
@@ -100,7 +103,7 @@ export const registerApiCompletion = (languageId: languageType, callbackIds: str
           endColumn: word.endColumn,
         }
         return {
-          suggestions: createSuggestions(range),
+          suggestions: createSuggestions(monaco, range),
         }
       },
     })
@@ -117,7 +120,7 @@ export const handleInputCode = (languageId: languageType, code: string | any[] |
   return isString(val) ? val : `${val}`
 }
 
-export const formatDocument = (editor: monaco.editor.IStandaloneCodeEditor, languageId: languageType) => {
+export const formatDocument = (editor: MEditor.IStandaloneCodeEditor, languageId: languageType) => {
   if (languageId === 'sql') {
     // todo
   } else {

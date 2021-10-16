@@ -1,16 +1,14 @@
-@import '@/styles/themes/var';
-
-$panel_width: 200px;
+$panel-width: 200px;
 
 .layer-panel-wp {
   position: relative;
   z-index: 5;
   display: flex;
-  width: $panel_width !important;
+  width: $panel-width !important;
   height: 100%;
   overflow: hidden;
-  background: $panel-bgcolor;
-  border-right: $border-dark;
+  background: var(--datav-layer-wp-bg);
+  border-right: var(--datav-border-dark);
   transition: width 0.3s ease;
   flex: none;
   flex-direction: column;
@@ -19,7 +17,7 @@ $panel_width: 200px;
 .layer-manager {
   z-index: 9;
   display: flex;
-  width: $panel_width;
+  width: $panel-width;
   height: 100%;
   overflow: hidden;
   transition: 0.3s ease;
@@ -31,9 +29,9 @@ $panel_width: 200px;
   position: relative;
   height: 30px;
   line-height: 30px;
-  color: $panel-font-color;
+  color: var(--datav-font-color);
   text-indent: 10px;
-  background: $layer-bgcolor;
+  background: var(--datav-layer-bg);
   user-select: none;
 
   .layer-num {
@@ -60,7 +58,7 @@ $panel_width: 200px;
     }
 
     &.selected {
-      color: $color-primary;
+      color: var(--datav-main-color);
     }
   }
 }
@@ -69,58 +67,57 @@ $panel_width: 200px;
   display: flex;
   height: 32px;
   padding: 0 18px;
-  background: $layer-toolbar-bgcolor;
+  background: var(--datav-layer-toolbar-bg);
   align-items: center;
   justify-content: center;
   flex: none;
 
   .toolbar-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     width: 20px;
     height: 20px;
     font-size: 14px;
-    color: $panel-font-color;
+    color: var(--datav-font-color);
     border-radius: 1px;
     transition: background 0.2s;
 
     &.enable:hover {
       color: #fff;
       cursor: pointer;
-      background: $color-primary !important;
+      background: var(--datav-main-color) !important;
     }
 
     &.enable.checked {
       color: #fff;
-      background: $color-primary !important;
+      background: var(--datav-main-color) !important;
     }
 
     &.standard:not(.enable):hover {
       cursor: pointer;
-      background: $layer-toolbar-bgcolor-hover;
+      background: var(--datav-layer-toolbar-bg-hover);
       opacity: 0.5 !important;
     }
   }
 }
 
 .layer-toolbar-top {
-  border-bottom: $layer-toolbar-border;
+  border-bottom: var(--datav-layer-toolbar-border);
 
   .toolbar-icon {
     margin: 0 9px;
-    line-height: 20px;
-    text-align: center;
-    background: $layer-toolbar-icon-color;
+    background: var(--datav-layer-toolbar-icon-color);
   }
 }
 
 .layer-toolbar-bottom {
-  border-top: $layer-toolbar-border;
+  border-top: var(--datav-layer-toolbar-border);
 
   .toolbar-icon {
-    display: flex;
     margin: 0 5px;
     border: 1px solid transparent;
-    align-items: center;
-    justify-content: center;
   }
 }
 
@@ -140,9 +137,9 @@ $panel_width: 200px;
   overflow-y: scroll;
   font-size: 12px;
   line-height: 2;
-  color: $panel-font-color;
+  color: var(--datav-font-color);
   list-style: none;
-  background: $panel-bgcolor;
+  background: var(--datav-layer-wp-bg);
   user-select: none;
   flex: auto;
   flex-direction: column;
@@ -156,7 +153,7 @@ $panel_width: 200px;
   padding: 0 6px;
   padding-left: 8px;
   cursor: pointer;
-  background: $layer-manager-bgcolor;
+  background: var(--datav-layer-item-bg);
   box-sizing: border-box;
   transition: background 0.2s;
   align-items: center;
@@ -168,8 +165,8 @@ $panel_width: 200px;
 
   &.hided,
   &.locked {
-    color: $layer-manager-color-hide;
-    background: $layer-manager-bgcolor-hide;
+    color: var(--datav-layer-item-color-locked);
+    background: var(--datav-layer-item-color-locked);
   }
 
   &.hovered {
@@ -179,7 +176,7 @@ $panel_width: 200px;
 
   &.selected {
     color: #fff;
-    background: $color-primary;
+    background: var(--datav-main-color);
   }
 
   .layer-item-thumbail {
@@ -187,8 +184,8 @@ $panel_width: 200px;
     height: 34px;
     flex: none;
     display: block;
-    border: $border;
-    background: $layer-thumbail-bgcolor;
+    border: var(--datav-border);
+    background: var(--datav-layer-item-thumbail-bg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
@@ -217,7 +214,7 @@ $panel_width: 200px;
 
   .layer-item-input {
     width: 100%;
-    color: $font-color;
+    color: var(--datav-font-color);
     padding: 0 4px;
     height: 20px;
     line-height: 20px;
@@ -229,7 +226,7 @@ $panel_width: 200px;
 
     &:focus {
       color: #fff;
-      background: $layer-input-bgcolor;
+      background: var(--datav-layer-input-bg);
     }
   }
 

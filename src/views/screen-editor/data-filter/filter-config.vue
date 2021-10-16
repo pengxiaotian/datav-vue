@@ -22,24 +22,27 @@
         :removable="true"
       />
       <div ref="addPanelRef" class="add-filter" @dragenter="dragEnter">
-        <el-select
-          :model-value="filterId"
-          size="mini"
+        <n-select
+          :value="filterId"
+          :options="dataFilters"
           filterable
+          :fallback-option="false"
           placeholder="添加过滤器"
           class="datav-new-select filter-select"
-          popper-class="datav-new-select-option"
-          @change="selectFilter"
+          :style="{
+            '--border': 'var(--datav-gui-new-select-border)',
+            '--color': 'var(--datav-gui-new-select-bgcolor)'
+          }"
+          @update:value="selectFilter"
         >
-          <el-option
-            v-for="item in dataFilters"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
+          <template #empty>
+            <span class="datav-empty">过滤器列表为空，请创建后使用</span>
+          </template>
+        </n-select>
         <div class="new-filter-btn" @click="addFilter">
-          <i class="v-icon-plus icon-add"></i>
+          <n-icon class="icon-add">
+            <IconPlus />
+          </n-icon>
         </div>
       </div>
     </div>
@@ -60,11 +63,13 @@ import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
 import { ApiDataConfig } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
+import { IconPlus } from '@/icons'
 import FilterCollapsePanel from './filter-collapse-panel.vue'
 
 export default defineComponent({
   name: 'FilterConfig',
   components: {
+    IconPlus,
     FilterCollapsePanel,
   },
   setup() {
@@ -83,7 +88,12 @@ export default defineComponent({
 
     const dataFilters = computed(() => {
       const ids = apiDataConfig.value.pageFilters.map(m => m.id)
-      return FilterModule.dataFilters.filter(m => !ids.includes(m.id))
+      return FilterModule.dataFilters
+        .filter(m => !ids.includes(m.id))
+        .map(m => ({
+          value: m.id,
+          label: m.name,
+        }))
     })
 
     const selectedFilters = computed(() => {

@@ -5,7 +5,9 @@
         <div class="manage-title">
           <div class="my-project project-group">
             <span style="margin-left: 2px;">我的分组</span>
-            <i class="v-icon-plus btn-add-icon" @click="adding = true"></i>
+            <n-icon class="btn-add-icon" @click="adding = true">
+              <IconPlus />
+            </n-icon>
           </div>
           <div
             class="my-project project-all"
@@ -63,8 +65,12 @@
               <span class="project-name">{{ g.name }}</span>
               <span class="project-num">{{ g.children.length }}</span>
               <span class="group-btns">
-                <i class="v-icon-edit" @click="g.editing = true"></i>
-                <i class="v-icon-delete" @click="confirmDeleteGroup(g)"></i>
+                <n-icon :size="14" @click="g.editing = true">
+                  <IconEdit />
+                </n-icon>
+                <n-icon :size="14" class="btn-add-icon" @click="confirmDeleteGroup(g)">
+                  <IconDelete />
+                </n-icon>
               </span>
             </template>
           </div>
@@ -80,19 +86,25 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, provide, onMounted } from 'vue'
+import { h, defineComponent, ref, computed, provide, onMounted } from 'vue'
+import { useMessage, useDialog } from 'naive-ui'
 import { ProjectGroup } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
-import { MessageBoxUtil, MessageUtil } from '@/utils/message-util'
 import { addClass, removeClass } from '@/utils/dom'
+import { IconWarning, IconPlus, IconEdit, IconDelete } from '@/icons'
 import ProjectList from './project-list.vue'
 
 export default defineComponent({
   name: 'MyProject',
   components: {
     ProjectList,
+    IconPlus,
+    IconEdit,
+    IconDelete,
   },
   setup() {
+    const nMessage = useMessage()
+    const nDialog = useDialog()
     const {
       getProjects, moveProject,
       createProjectGroup, deleteProjectGroup, updateProjectGroupName,
@@ -145,7 +157,7 @@ export default defineComponent({
           await createProjectGroup(name)
           adding.value = false
         } catch (error) {
-          MessageUtil.error(MessageUtil.format(error))
+          nMessage.error(error.message)
         }
       } else {
         adding.value = false
@@ -175,7 +187,7 @@ export default defineComponent({
           group.name = newName
           group.editing = false
         } catch (error) {
-          MessageUtil.error(MessageUtil.format(error))
+          nMessage.error(error.message)
         }
       } else {
         group.editing = false
@@ -183,17 +195,22 @@ export default defineComponent({
     }
 
     const confirmDeleteGroup = (group: ProjectGroup) => {
-      MessageBoxUtil.confirmAsync(
-        `<b>${group.name}</b> 删除后无法恢复，该分组中的可视化应用将全部移动到未分组，确认删除？`,
-        () => {
-          return deleteProjectGroup(group.id)
-        },
-        {
-          success: () => {
+      const d = nDialog.create({
+        content: `${group.name} 删除后无法恢复，该分组中的可视化应用将全部移动到未分组，确认删除？`,
+        negativeText: '取消',
+        positiveText: '确定',
+        iconPlacement: 'top',
+        icon: () => h(IconWarning),
+        onPositiveClick: async () => {
+          d.loading = true
+          try {
+            await deleteProjectGroup(group.id)
             toggleProject(ungroup.value.id)
-          },
+          } catch (error) {
+            nMessage.error(error.message)
+          }
         },
-      )
+      })
     }
 
     provide('dragStart', () => {
@@ -254,7 +271,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
 @import '@/styles/mixins/util';
 @import '@/styles/mixins/function';
 
@@ -300,20 +316,21 @@ export default defineComponent({
       .project-group {
         padding-left: 24px;
         height: 56px;
-        border-bottom: 1px solid $nav-border-color;
+        border-bottom: 1px solid #27343e;
       }
 
       .btn-add-icon {
+        font-size: 14px;
         cursor: pointer;
 
         &:hover {
-          color: $color-primary;
+          color: var(--datav-main-color);
         }
       }
     }
 
     .project-ungrouped {
-      color: $font-color;
+      color: var(--datav-font-color);
     }
 
     .project-all {
@@ -322,7 +339,7 @@ export default defineComponent({
       cursor: pointer;
 
       &:hover {
-        color: $color-primary;
+        color: var(--datav-main-color);
       }
     }
 
@@ -341,12 +358,12 @@ export default defineComponent({
 
     .project-num {
       user-select: none;
-      color: $font-color;
+      color: var(--datav-font-color);
     }
 
     .group-btns {
       display: none;
-      color: $color-primary;
+      color: var(--datav-main-color);
 
       i + i {
         margin-left: 10px;
@@ -375,12 +392,12 @@ export default defineComponent({
 
       &:hover {
         .project-name {
-          color: $color-primary;
+          color: var(--datav-main-color);
         }
       }
 
       &.drag-enter {
-        background: $background-color;
+        background: var(--datav-body-bg);
       }
     }
 
@@ -404,15 +421,15 @@ export default defineComponent({
   .edit-input {
     @include utils-ellipsis;
 
-    background: $background-color-dark;
+    background: var(--datav-bgcolor-2);
     color: #fff;
     padding: 0 10px;
     line-height: 30px;
     width: 100%;
     height: 30px;
-    border: $border-primary;
+    border: var(--datav-border-primary);
     transition: 0.2s;
-    box-shadow: $shadow;
+    box-shadow: var(--datav-shadow);
   }
 
   .project-screen-list {

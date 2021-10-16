@@ -2,7 +2,9 @@
   <div class="setting-panel">
     <config-title :com-name="com.name" :com-alias="com.alias">
       <div class="search-config" @click="toSearch">
-        <i class="v-icon-search search-icon"></i>
+        <n-icon class="search-icon">
+          <IconSearch />
+        </n-icon>
         <span>搜索配置</span>
       </div>
     </config-title>
@@ -21,8 +23,9 @@
 
 <script lang='ts'>
 import { defineComponent, ComputedRef, inject } from 'vue'
+import { useMessage } from 'naive-ui'
 import { DatavComponent } from '@/components/datav-component'
-import { MessageUtil } from '@/utils/message-util'
+import { IconSearch } from '@/icons'
 import ConfigTitle from './components/config-title.vue'
 import BasicSetting from './components/basic-setting.vue'
 
@@ -31,12 +34,14 @@ export default defineComponent({
   components: {
     ConfigTitle,
     BasicSetting,
+    IconSearch,
   },
   setup() {
+    const nMessage = useMessage()
     const com = inject('com') as ComputedRef<DatavComponent>
 
     const toSearch = () => {
-      MessageUtil.warning('正在开发中。。。')
+      nMessage.warning('正在开发中。。。')
     }
 
     return {
@@ -48,8 +53,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .setting-panel {
   position: relative;
   width: 100%;
@@ -84,7 +87,7 @@ export default defineComponent({
   display: flex;
   max-width: 140px;
   line-height: 19px;
-  color: $color-primary;
+  color: var(--datav-main-color);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

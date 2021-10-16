@@ -10,9 +10,9 @@
               target="_blank"
               class="edit-wrap"
             >
-              <el-button type="primary" size="small" class="edit">
+              <n-button type="primary" :focusable="false" class="edit">
                 编辑
-              </el-button>
+              </n-button>
             </router-link>
             <div class="main-button">
               <g-tooltip-popover content="移动">
@@ -22,17 +22,23 @@
                   @dragstart="onDragStart"
                   @dragend="onDragEnd"
                 >
-                  <i class="v-icon-move"></i>
+                  <n-icon>
+                    <IconMove />
+                  </n-icon>
                 </span>
               </g-tooltip-popover>
               <g-tooltip-popover content="复制">
                 <span class="button-span" @click="confirmCopyProject">
-                  <i class="v-icon-copy"></i>
+                  <n-icon>
+                    <IconCopy />
+                  </n-icon>
                 </span>
               </g-tooltip-popover>
               <g-tooltip-popover content="删除">
                 <span class="button-span" @click="confirmDeleteProject">
-                  <i class="v-icon-delete"></i>
+                  <n-icon>
+                    <IconDelete />
+                  </n-icon>
                 </span>
               </g-tooltip-popover>
             </div>
@@ -44,12 +50,16 @@
             class="preview"
           >
             <g-tooltip-popover content="预览">
-              <i class="v-icon-preview"></i>
+              <n-icon>
+                <IconPreview />
+              </n-icon>
             </g-tooltip-popover>
           </router-link>
           <div class="public" @click="doPublish">
             <g-tooltip-popover content="发布">
-              <i class="v-icon-release"></i>
+              <n-icon>
+                <IconRelease />
+              </n-icon>
             </g-tooltip-popover>
           </div>
         </div>
@@ -58,11 +68,13 @@
         <div class="main-name">
           <g-tooltip-popover
             placement="top-start"
-            :show-after="1000"
+            :delay="1000"
             :content="screen.name"
           >
             <div class="screen-name-input">
-              <i class="v-icon-edit"></i>
+              <n-icon>
+                <IconEdit />
+              </n-icon>
               <input v-model.trim="screenName" class="input" @blur="onInputBlur">
             </div>
           </g-tooltip-popover>
@@ -77,16 +89,25 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, toRefs, computed, ref, inject } from 'vue'
+import { h, defineComponent, PropType, toRefs, computed, ref, inject } from 'vue'
+import { useMessage, useDialog } from 'naive-ui'
 import { globalConfig } from '@/config'
-import { MessageUtil, MessageBoxUtil } from '@/utils/message-util'
 import { Project } from '@/domains/project'
 import { ProjectModule } from '@/store/modules/project'
+import { IconWarning, IconMove, IconCopy, IconDelete, IconEdit, IconPreview, IconRelease } from '@/icons'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
 export default defineComponent({
   name: 'MyScreen',
+  components: {
+    IconMove,
+    IconCopy,
+    IconDelete,
+    IconEdit,
+    IconPreview,
+    IconRelease,
+  },
   props: {
     screen: {
       type: Object as PropType<Project>,
@@ -94,6 +115,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const nMessage = useMessage()
+    const nDialog = useDialog()
     const { deleteProject, copyProject, updateProjectName } = ProjectModule
     const { id, name, groupId, share, thumbnail } = toRefs(props.screen)
     const screenName = ref(name.value)
@@ -129,7 +152,7 @@ export default defineComponent({
           await updateProjectName({ id: id.value, newName: screenName.value })
           name.value = screenName.value
         } catch (error) {
-          MessageUtil.error(MessageUtil.format(error))
+          nMessage.error(error.message)
         }
       } else {
         screenName.value = oldScreenName.value
@@ -141,10 +164,21 @@ export default defineComponent({
     }
 
     const confirmDeleteProject = () => {
-      MessageBoxUtil.confirmAsync(
-        `<b>${screenName.value}</b> 删除后无法恢复，确认删除？`,
-        () => deleteProject({ pid: id.value, gid: groupId.value }),
-      )
+      const d = nDialog.create({
+        content: `${screenName.value} 删除后无法恢复，确认删除？`,
+        negativeText: '取消',
+        positiveText: '确定',
+        iconPlacement: 'top',
+        icon: () => h(IconWarning),
+        onPositiveClick: async () => {
+          d.loading = true
+          try {
+            await deleteProject({ pid: id.value, gid: groupId.value })
+          } catch (error) {
+            nMessage.error(error.message)
+          }
+        },
+      })
     }
 
     const dragStart = inject('dragStart') as Function
@@ -191,8 +225,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
-
 .my-screen {
   margin: 16px 32px 16px 0;
 }
@@ -202,7 +234,7 @@ export default defineComponent({
   flex-direction: column;
   width: 258px;
   height: 184px;
-  border: 1px solid $border-color;
+  border: 1px solid var(--datav-border-color);
   transition: 0.2s;
 
   .screen-info {
@@ -245,7 +277,7 @@ export default defineComponent({
         font-size: 19px;
         padding-top: 15px;
         align-items: center;
-        color: $icon-color;
+        color: #fff;
       }
 
       .screen-button {
@@ -258,11 +290,7 @@ export default defineComponent({
           transition: color 0.2s;
 
           &:hover {
-            color: $hover-color;
-          }
-
-          [class^="v-icon-"] {
-            font-size: 16px;
+            color: var(--datav-main-hover-color);
           }
         }
       }
@@ -284,20 +312,20 @@ export default defineComponent({
 
       .preview,
       .public {
-        color: $icon-color;
+        color: #fff;
         cursor: pointer;
         transition: color 0.2s;
 
         &:hover {
-          color: $hover-color;
+          color: var(--datav-main-hover-color);
         }
       }
     }
   }
 
   &:hover {
-    box-shadow: $shadow;
-    border: $border-primary;
+    box-shadow: var(--datav-shadow);
+    border: var(--datav-border-primary);
 
     .screen-info {
       .screen-edit {
@@ -316,7 +344,7 @@ export default defineComponent({
       position: relative;
       justify-content: space-between;
       color: #fff;
-      background: $background-color-dark;
+      background: var(--datav-bgcolor-2);
       padding: 0 10px;
 
       .screen-name-input {
@@ -328,7 +356,7 @@ export default defineComponent({
 
         .input {
           width: 120px;
-          color: $font-color;
+          color: var(--datav-font-color);
           background: 0 0;
           padding: 0 5px;
           line-height: 28px;
@@ -342,7 +370,7 @@ export default defineComponent({
           }
 
           &:focus {
-            background: $background-color-dark;
+            background: var(--datav-bgcolor-2);
           }
         }
       }
@@ -350,7 +378,7 @@ export default defineComponent({
       .publish-info {
         align-items: center;
         display: flex;
-        color: $font-color;
+        color: var(--datav-font-color);
 
         .dot {
           content: "";
@@ -359,10 +387,10 @@ export default defineComponent({
           width: 8px;
           height: 8px;
           border-radius: 5px;
-          background-color: $state-color;
+          background-color: #576369;
 
           &.published {
-            background-color: $color-primary;
+            background-color: var(--datav-main-color);
           }
         }
       }

@@ -1,0 +1,43 @@
+.g-layout {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-basis: auto;
+  box-sizing: border-box;
+  min-width: 0;
+
+  &.is-vertical {
+    flex-direction: column;
+  }
+}
+
+.g-header {
+  padding: 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  height: auto;
+}
+
+.g-aside {
+  display: block;
+  overflow: auto;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 300px;
+}
+
+.g-main {
+  display: block;
+  flex: 1;
+  flex-basis: auto;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.g-footer {
+  padding: 0 20px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  height: 32px;
+}

@@ -1,18 +1,6 @@
-@import '@/styles/themes/var';
-
 .source-drawer {
-  color: $font-color;
+  color: var(--datav-font-color);
   user-select: none;
-
-  &.el-drawer.ltr,
-  &.el-drawer.rtl {
-    top: 40px;
-    height: calc(100% - 40px);
-  }
-
-  .el-drawer__header {
-    padding-bottom: 12px;
-  }
 
   .source-drawer-title {
     font-size: 18px;
@@ -33,7 +21,7 @@
       display: block;
       width: 8px;
       height: 8px;
-      background: $color-primary;
+      background: var(--datav-main-color);
       border-radius: 4px;
       content: '';
       box-shadow: 0 0 4px -2px #000;
@@ -52,7 +40,7 @@
     }
 
     &.--error::before {
-      background: $color-error;
+      background: var(--datav-error-color);
     }
 
     &.--disabled::before {
@@ -68,11 +56,11 @@
     display: inline-block;
     margin-top: 10px;
     cursor: pointer;
-    color: $color-primary;
+    color: var(--datav-main-color);
     transition: color 0.2s;
 
     &:hover {
-      color: $hover-color;
+      color: var(--datav-main-hover-color);
     }
   }
 
@@ -90,23 +78,23 @@
   .tutorial-popup {
     margin-left: 10px;
     font-size: 12px;
-    color: $color-primary;
+    color: var(--datav-main-color);
     cursor: pointer;
     transition: color 0.2s;
 
     &:hover {
-      color: $hover-color;
+      color: var(--datav-main-hover-color);
     }
   }
 
   .refresh-btn {
     margin-left: 5px;
-    color: $color-primary;
+    color: var(--datav-main-color);
     cursor: pointer;
     transition: color 0.2s;
 
     &:hover {
-      color: $hover-color;
+      color: var(--datav-main-hover-color);
     }
   }
 }
@@ -117,6 +105,6 @@
   height: 200px;
   padding: 10px;
   border-radius: 2px;
-  background: $color-dark;
+  background: var(--datav-dark-color);
   box-shadow: 0 0 6px -3px #000;
 }

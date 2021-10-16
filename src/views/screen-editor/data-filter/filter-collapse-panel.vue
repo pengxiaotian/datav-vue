@@ -15,16 +15,18 @@
       <div class="panel-title">
         <div class="filter-title">
           <template v-if="draggable">
-            <i
-              class="v-icon-drag drag-btn"
+            <n-icon
               draggable="true"
+              class="drag-btn"
               @dragstart="dragStart"
               @dragend="dragEnd"
-            ></i>
-            <el-checkbox
-              :model-value="isEnabled"
+            >
+              <IconDrag />
+            </n-icon>
+            <n-checkbox
+              :checked="isEnabled"
               class="enable-checkbox"
-              @change="switchEnabled"
+              @update:checked="switchEnabled"
             />
           </template>
           <div class="filter-name">
@@ -41,47 +43,61 @@
           </div>
           <div class="action-wp --edit">
             <g-tooltip-popover content="重命名">
-              <i class="v-icon-edit edit-btn" @click="editing = true"></i>
+              <n-icon class="edit-btn" @click="editing = true">
+                <IconEdit />
+              </n-icon>
             </g-tooltip-popover>
           </div>
           <div class="filter-count">
             <template v-if="!isNew && usedFilters[dataFilter.id]">
-              <el-tooltip
-                :content="usedFilters[dataFilter.id].names.join(', ')"
-                effect="blue"
-                :enterable="false"
+              <n-tooltip
                 placement="top"
-                :open-delay="500"
-                popper-class="filter-dep-info"
+                :delay="500"
+                :style="{
+                  '--padding': '6px',
+                  '--border-radius': '2px',
+                  '--text-color': '#000102',
+                  '--arrow-height': '8px',
+                  '--color': 'var(--datav-font-color)',
+                  maxWidth: '240px',
+                }"
               >
-                <span>{{ usedFilters[dataFilter.id].names.length }} 个组件正在调用</span>
-              </el-tooltip>
+                <template #trigger>
+                  <span>{{ usedFilters[dataFilter.id].names.length }} 个组件正在调用</span>
+                </template>
+                {{ usedFilters[dataFilter.id].names.join(', ') }}
+              </n-tooltip>
             </template>
           </div>
           <div class="action-wp" :class="{ '--flex': publish }">
             <template v-if="publish">
               <g-tooltip-popover content="创建代码片段">
-                <i class="v-icon-release save-btn"></i>
+                <n-icon class="save-btn">
+                  <IconRelease />
+                </n-icon>
               </g-tooltip-popover>
             </template>
             <g-tooltip-popover content="删除">
-              <i
-                :class="`v-icon-${removable ? 'delete' : 'close'} del-btn`"
-                @click="removeFilter(dataFilter.id)"
-              ></i>
+              <n-icon class="del-btn" @click="removeFilter(dataFilter.id)">
+                <IconDelete v-if="removable" />
+                <IconClose v-else />
+              </n-icon>
             </g-tooltip-popover>
           </div>
           <template v-if="hasFeedback">
             <template v-if="errMsg">
-              <el-tooltip
-                :content="errMsg"
-                effect="blue"
-                :enterable="false"
+              <n-tooltip
                 placement="left"
-                popper-class="is-error"
+                :style="{
+                  '--color': 'var(--datav-error-color)',
+                  maxWidth: '300px',
+                }"
               >
-                <div class="filter-dot"></div>
-              </el-tooltip>
+                <template #trigger>
+                  <div class="filter-dot"></div>
+                </template>
+                {{ errMsg }}
+              </n-tooltip>
             </template>
             <div v-else class="filter-dot"></div>
           </template>
@@ -89,12 +105,14 @@
         </div>
       </div>
       <div class="toggle-btn" @click="toggleEditor">
-        <i class="v-icon-arrow-right toggle-icon"></i>
+        <n-icon class="toggle-icon">
+          <IconArrowLeft />
+        </n-icon>
       </div>
     </div>
     <template v-if="isOpened">
-      <el-collapse-transition>
-        <div v-show="collapse" class="panel-content-wp">
+      <n-collapse-transition :collapsed="collapse">
+        <div class="panel-content-wp">
           <div class="cp-wrap">
             <p title="function filter(data) {" class="fake-code --start">
               <span class="--keyword">function</span> filter(data) {
@@ -111,37 +129,47 @@
             <div class="filter-actions">
               <div v-if="isEdited" class="unsaved">未保存</div>
               <div v-else-if="showTime" class="saved">上次保存: {{ dataFilter.updateAt }}</div>
-              <el-button size="mini" class="bolder-btn" @click="cancelEdit">
+              <n-button
+                size="tiny"
+                :focusable="false"
+                class="bolder-btn"
+                @click="cancelEdit"
+              >
                 {{
                   dataFilter.id === 0 ? '取消' : isEdited ? '撤销' : '取消'
                 }}
-              </el-button>
-              <el-button
+              </n-button>
+              <n-button
                 type="primary"
-                size="mini"
-                class="bolder-btn"
+                size="tiny"
                 :loading="loading"
+                :focusable="false"
+                class="bolder-btn"
                 @click="saveData"
               >
                 {{
                   dataFilter.id === 0 ? '保存' : isEdited ? '保存' : '完成'
                 }}
-              </el-button>
+              </n-button>
             </div>
           </div>
         </div>
-      </el-collapse-transition>
+      </n-collapse-transition>
     </template>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, PropType, ComputedRef, ref, inject, computed } from 'vue'
-import { MessageUtil } from '@/utils/message-util'
+import { useMessage } from 'naive-ui'
 import { DataFilter } from '@/components/data-filter'
+import { IconArrowLeft, IconEdit, IconRelease, IconDelete, IconDrag, IconClose } from '@/icons'
 
 export default defineComponent({
   name: 'FilterCollapsePanel',
+  components: {
+    IconArrowLeft, IconEdit, IconRelease, IconDelete, IconDrag, IconClose,
+  },
   props: {
     dataFilter: {
       type: Object as PropType<DataFilter>,
@@ -162,6 +190,7 @@ export default defineComponent({
     showTime: Boolean,
   },
   setup(props) {
+    const nMessage = useMessage()
     const panelRef = ref(null)
     const editing = ref(props.isNew)
     const collapse = ref(props.isNew)
@@ -242,9 +271,9 @@ export default defineComponent({
         `
         await saveFilter(props.dataFilter)
         isEdited.value = false
-        MessageUtil.success('数据过滤器已保存')
+        nMessage.success('数据过滤器已保存')
       } catch (error) {
-        MessageUtil.error(MessageUtil.format(error))
+        nMessage.error(error.message)
       } finally {
         loading.value = false
       }
@@ -284,6 +313,7 @@ export default defineComponent({
       isEnabled,
       usedFilters,
       errMsg,
+      loading2: ref(false),
       switchEnabled,
       editName,
       removeFilter,

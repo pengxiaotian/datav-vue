@@ -1,6 +1,103 @@
 @import '../color/colors';
+@import './var-scss';
 
-$cdn: '//files.pengxiaotian.com';
+// Common
+:root {
+  --datav-font-color: #bcc9d4;
+  --datav-font-color-disabled: #424447;
+  --datav-main-color: #2681ff;
+  --datav-error-color: #f43;
+  --datav-red-color: #f15532;
+  --datav-warn-color: #f27a24;
+  --datav-gray-color: #90a0ae;
+  --datav-dark-color: #262c33;
+  --datav-success-color: #50e3c2;
+  --datav-main-hover-color: #409fff;
+  --datav-main-click-color: #2681ff;
+  --datav-pop-bg-color: #1b3964;
+  --datav-slider-color: #74f0ff;
+  --datav-ft-border: 1px solid #3a4659;
+  --datav-loading-color: #1996df;
+  --datav-nav-bg: #13161a;
+  --datav-nav-bg-active: #1d2126;
+  --datav-nav-bg-hover: #21262b;
+  --datav-left-nav-bg: #191c21;
+  --datav-left-nav-hover-bg: transparent;
+  --datav-left-nav-active-bg: #14161a;
+  --datav-body-bg: #171b22;
+  --datav-bgcolor-1: #0b0c0d;
+  --datav-bgcolor-2: #1d262e;
+  --datav-component-bg: #303640;
+  --datav-component-bg-1: #171b22;
+  --datav-border-color: #3a4659;
+  --datav-border: 1px solid var(--datav-border-color);
+  --datav-border-primary: 1px solid var(--datav-main-color);
+  --datav-border-dark: 1px solid #000;
+  --datav-border-disabled: 1px solid #323437;
+  --datav-outline: 1px solid #0b0c0d;
+  --datav-shadow-color: #000;
+  --datav-shadow: 0 0 10px -6px #000;
+  --datav-menu-bg: #27343e;
+  --datav-menu-bg-hover: var(--datav-bgcolor-2);
+  --datav-menu-color-hover: #00baff;
+  --datav-menu-color-disabled: #576369;
+  --datav-layer-wp-bg: #1d2126;
+  --datav-layer-bg: #2e343c;
+  --datav-layer-bg-dark: #0a0b0d;
+  --datav-layer-item-bg: #1b1f25;
+  --datav-layer-item-color-locked: #576369;
+  --datav-layer-item-thumbail-bg: #282a30;
+  --datav-layer-toolbar-bg: #20242a;
+  --datav-layer-toolbar-bg-hover: #3a4650;
+  --datav-layer-toolbar-border: 1px solid #282f3a;
+  --datav-layer-toolbar-icon-color: #282f3a;
+  --datav-layer-input-bg: #363c48;
+  --datav-config-bg: #1c1f25;
+  --datav-config-border: 1px solid #282f3a;
+}
+
+// GUI
+/* stylelint-disable no-duplicate-selectors */
+:root {
+  --datav-gui-primary-color: #2483ff;
+  --datav-gui-error-color: #ff4f43;
+  --datav-gui-hover-color: #26a5ff;
+  --datav-gui-active-color: #2693ff;
+  --datav-gui-disabled-color: #424447;
+  --datav-gui-bgcolor-front: hsl(215, 15%, 13%); // #1c2026
+  --datav-gui-bgcolor-front-lighter: hsl(215, 15%, 28%); // #3d4652
+  --datav-gui-bgcolor-back: hsl(215, 15%, 8%); // #111417
+  --datav-gui-bgcolor-back-darker: hsl(0, 0%, 0%); // #000
+  --datav-gui-bgcolor-hover: #1b3964;
+  --datav-gui-component-bgcolor: #262c33;
+  --datav-gui-component-bgcolor-darker: #262c32;
+  --datav-gui-component-bgcolor-hover: #303640;
+  --datav-gui-component-bgcolor-active: #262b33;
+  --datav-gui-component-bgcolor-disabled: #13161a;
+  --datav-gui-font-color-base: #a1aeb3;
+  --datav-gui-font-color-1: #fff;
+  --datav-gui-font-color-2: #c3d3d9;
+  --datav-gui-font-color-3: #737c80;
+  --datav-gui-font-color-description: #5c6366;
+  --datav-gui-font-color-disabled: #424447;
+  --datav-gui-font-color-placeholder: #c0c4cc;
+  --datav-gui-border-color: rgba(52, 52, 52, 0.5);
+  --datav-gui-editor-border: 1px solid #282f3a;
+  --datav-gui-editor-icon-color: #bfbfbf;
+  --datav-gui-editor-bgcolor-disabled: #1f2329;
+  --datav-gui-fullscreen-bgcolor: #222425;
+  --datav-gui-slider-track-color: linear-gradient(to right, #74f0ff, #2681ff);
+  --datav-gui-component-border-color: #0b0c0d;
+  --datav-gui-component-border: 1px solid var(--datav-gui-component-border-color);
+  --datav-gui-select-option-bgcolor: #1d2126;
+  --datav-gui-select-option-bgcolor-hover: #1b3964;
+  --datav-gui-select-color-selected: #fff;
+  --datav-gui-cp-border: 1px solid #141210;
+  --datav-gui-cp-title-padding-left: 0;
+  --datav-gui-new-select-border: 1px solid #282f3a;
+  --datav-gui-new-select-bgcolor: #0e1013;
+  --datav-gui-empty-color: #909399;
+}
 
 $color-white: #fff;
 $color-black: #000;
@@ -13,26 +110,6 @@ $color-success: $green-6;
 $color-warning: $warn-6;
 $color-error: $red-6;
 $color-info: $color-gray;
-
-// Animation
-$ease-base-out: cubic-bezier(0.7, 0.3, 0.1, 1);
-$ease-base-in: cubic-bezier(0.9, 0, 0.3, 0.7);
-$ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
-$ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
-$ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
-$ease-out-back: cubic-bezier(0.12, 0.4, 0.29, 1.46);
-$ease-in-back: cubic-bezier(0.71, -0.46, 0.88, 0.6);
-$ease-in-out-back: cubic-bezier(0.71, -0.46, 0.29, 1.46);
-$ease-out-circ: cubic-bezier(0.08, 0.82, 0.17, 1);
-$ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.34);
-$ease-in-out-circ: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-$ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
-$ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-$ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
-
-$animation-duration-slow: 0.3s; // Modal
-$animation-duration-base: 0.2s;
-$animation-duration-fast: 0.1s; // Tooltip
 
 // Base
 $font-color: #bcc9d4;
@@ -84,10 +161,6 @@ $tooltip-popover-color: #fff;
 $tooltip-popover-bgcolor: #1b3964;
 $tooltip-popover-shadow-color: #000;
 
-// drop-list-popover
-$drop-list-popover-bgcolor: $color-dark;
-$drop-list-popover-bgcolor-hover: #1a1b1d;
-
 // Popover
 $popover-bgcolor: #303640;
 $popover-bgcolor-dark: $color-dark;
@@ -104,11 +177,6 @@ $message-border-color-success: $color-primary;
 $message-border-color-warning: $color-warning;
 $message-border-color-error: $color-red;
 
-// MessageBox
-$message-box-bgcolor: #303640;
-$message-box-icon-color: #ff4f43;
-$message-box-border-color: $border-color;
-
 // Slider
 $slider-color: #74f0ff;
 $slider-runway-color: #bcc9d4;
@@ -123,9 +191,6 @@ $button-bgcolor-disabled: #262c33;
 
 // Loading
 $loading-color: #1996df;
-
-// Dialog
-$dialog-bgcolor: #303640;
 
 // Switch
 $switch-height: 28px;

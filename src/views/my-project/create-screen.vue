@@ -6,7 +6,9 @@
         <div class="left-bar"></div>
         <router-link to="/" class="return-btn">
           <span class="return-text">
-            <i class="v-icon-back return-icon"></i>
+            <n-icon class="return-icon">
+              <IconBack />
+            </n-icon>
             取消创建
           </span>
         </router-link>
@@ -15,9 +17,21 @@
         <div class="template-list">
           <div class="template-item --blank">
             <div class="template-image">
-              <el-button type="primary" icon="v-icon-plus" @click="confirmCreate(null)">
+              <n-button
+                type="primary"
+                :focusable="false"
+                :style="{
+                  '--icon-size': '12px'
+                }"
+                @click="confirmCreate(null)"
+              >
+                <template #icon>
+                  <n-icon :size="12">
+                    <IconPlus />
+                  </n-icon>
+                </template>
                 创建项目
-              </el-button>
+              </n-button>
             </div>
             <div class="template-info">
               空白画板
@@ -27,12 +41,17 @@
             <div class="template-image">
               <img :src="tpl.thumbnail" alt="" class="preview-image">
               <div class="template-mask">
-                <el-button type="primary" class="create-btn" @click="confirmCreate(tpl)">
+                <n-button
+                  type="primary"
+                  :focusable="false"
+                  class="create-btn"
+                  @click="confirmCreate(tpl)"
+                >
                   创建项目
-                </el-button>
-                <el-button class="preview-btn" @click="previewTemplate(tpl, idx)">
+                </n-button>
+                <n-button class="preview-btn" :focusable="false" @click="previewTemplate(tpl, idx)">
                   预览
-                </el-button>
+                </n-button>
               </div>
             </div>
             <div class="template-info">
@@ -48,7 +67,13 @@
     </div>
   </g-loading>
 
-  <el-dialog v-model="visibleCreateDialog" title="创建数据大屏" width="400px">
+  <n-modal
+    v-model:show="visibleCreateDialog"
+    preset="dialog"
+    :show-icon="false"
+    title="创建数据大屏"
+    style="width: 400px;"
+  >
     <div class="create-dialog">
       <p class="name-title">
         <span class="required">*</span>数据大屏名称
@@ -60,24 +85,38 @@
         class="name-input"
       />
       <p class="name-title">大屏分组</p>
-      <el-select v-model="groupId" size="mini" placeholder="请选择">
-        <el-option
-          v-for="item in groups"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id"
-        />
-      </el-select>
+      <n-select
+        v-model:value="groupId"
+        :options="groupOpts"
+        size="small"
+      />
     </div>
-    <template #footer>
-      <el-button @click="visibleCreateDialog = false">取消</el-button>
-      <el-button type="primary" :loading="saveLoading" @click="doCreate">
-        创建
-      </el-button>
-    </template>
-  </el-dialog>
+    <template #action>
+      <n-button
+        :focusable="false"
+        @click="visibleCreateDialog = false"
+      >
+        取消
+      </n-button>
 
-  <el-dialog v-model="visiblePreviewDialog" title="预览" width="897px">
+      <n-button
+        type="primary"
+        :focusable="false"
+        :loading="saveLoading"
+        @click="doCreate"
+      >
+        创建
+      </n-button>
+    </template>
+  </n-modal>
+
+  <n-modal
+    v-model:show="visiblePreviewDialog"
+    preset="dialog"
+    :show-icon="false"
+    title="预览"
+    style="width: 895px; padding-bottom: 0;"
+  >
     <div class="preview-dialog">
       <div class="preview-list">
         <p class="template-list-title">模板列表</p>
@@ -99,8 +138,13 @@
       <div class="preview-gif">
         <div class="gif-wp">
           <img class="snapshot-gif" :src="template.snapshot">
-          <i class="v-icon-arrow-left prev-icon" @click="prevPreviewTemplate"></i>
-          <i class="v-icon-arrow-right next-icon" @click="nextPreviewTemplate"></i>
+          <n-icon class="prev-icon" @click="prevPreviewTemplate">
+            <IconArrowLeft />
+          </n-icon>
+
+          <n-icon class="next-icon" @click="nextPreviewTemplate">
+            <IconArrowRight />
+          </n-icon>
         </div>
         <div class="preview-create">
           <div class="create-dialog">
@@ -117,45 +161,55 @@
               class="name-input"
             />
             <p class="name-title">大屏分组</p>
-            <el-select v-model="groupId" size="mini" placeholder="请选择">
-              <el-option
-                v-for="item in groups"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              />
-            </el-select>
+            <n-select
+              v-model:value="groupId"
+              :options="groupOpts"
+              size="small"
+            />
           </div>
-          <el-button
+          <n-button
             type="primary"
-            size="mini"
+            size="tiny"
+            :focusable="false"
+            icon-placement="right"
             :loading="saveLoading"
             class="preview-create-btn"
             @click="doCreate"
           >
-            创建大屏 <i class="v-icon-arrow-right next-icon"></i>
-          </el-button>
+            <template #icon>
+              <n-icon class="next-icon">
+                <IconArrowRight />
+              </n-icon>
+            </template>
+            创建大屏
+          </n-button>
         </div>
       </div>
     </div>
-  </el-dialog>
+  </n-modal>
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, onMounted, nextTick } from 'vue'
+import { defineComponent, ref, onMounted, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { globalConfig } from '@/config'
+import { useMessage } from 'naive-ui'
 import { ProjectGroup, ProjectTemplate } from '@/domains/project'
 import { getProjects, createProject } from '@/api/project'
 import { getSysTemplates } from '@/api/templates'
-import { MessageUtil } from '@/utils/message-util'
 import { scrollToLeft } from '@/utils/animation'
+import { IconArrowLeft, IconArrowRight, IconBack, IconPlus } from '@/icons'
 
 export default defineComponent({
   name: 'CreateScreen',
+  components: {
+    IconArrowLeft,
+    IconArrowRight,
+    IconBack,
+    IconPlus,
+  },
   setup() {
+    const nMessage = useMessage()
     const loading = ref(true)
-    const bgCoverImg = ref(globalConfig.logo)
     const templates = ref<ProjectTemplate[]>([])
 
     const visibleCreateDialog = ref(false)
@@ -167,6 +221,9 @@ export default defineComponent({
     const saveLoading = ref(false)
     const router = useRouter()
     const scrollRef = ref<any>(null)
+    const groupOpts = computed(() => {
+      return groups.value.map(m => ({ value: m.id, label: m.name }))
+    })
 
     onMounted(async () => {
       const res = await getSysTemplates()
@@ -223,7 +280,7 @@ export default defineComponent({
     const doCreate = async () => {
       try {
         if (!projectName.value) {
-          MessageUtil.error('请输入大屏名称')
+          nMessage.error('请输入大屏名称')
           return
         }
         saveLoading.value = true
@@ -249,7 +306,7 @@ export default defineComponent({
           throw Error(res.data.message)
         }
       } catch (error) {
-        MessageUtil.error(MessageUtil.format(error))
+        nMessage.error(error.message)
       } finally {
         saveLoading.value = false
       }
@@ -257,7 +314,6 @@ export default defineComponent({
 
     return {
       loading,
-      bgCoverImg,
       templates,
       visibleCreateDialog,
       visiblePreviewDialog,
@@ -265,6 +321,7 @@ export default defineComponent({
       template,
       groupId,
       groups,
+      groupOpts,
       saveLoading,
       scrollRef,
       confirmCreate,
@@ -279,7 +336,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/themes/var';
 @import "@/styles/mixins/function.scss";
 
 @font-face {
@@ -335,8 +391,8 @@ export default defineComponent({
       top: 20px;
       height: 5px;
       width: 100%;
-      border-top: $border-primary;
-      border-left: 2px solid $color-primary;
+      border-top: var(--datav-border-primary);
+      border-left: 2px solid var(--datav-main-color);
       background: rgba(55, 126, 255, 0.04);
       border-top-left-radius: 5px;
       transform: skewX(-45deg);
@@ -349,8 +405,8 @@ export default defineComponent({
       top: 24px;
       height: 25px;
       width: 138px;
-      border-right: 2px solid $color-primary;
-      border-bottom: $border-primary;
+      border-right: 2px solid var(--datav-main-color);
+      border-bottom: var(--datav-border-primary);
       transform: skewX(-45deg);
       border-bottom-right-radius: 5px;
       box-shadow: 0 5px 28px 0 rgba(55, 126, 255, 0.28);
@@ -378,7 +434,7 @@ export default defineComponent({
         transition: 0.2s;
 
         &:hover {
-          color: $color-primary;
+          color: var(--datav-main-color);
         }
       }
 
@@ -411,8 +467,8 @@ export default defineComponent({
       .template-item {
         width: 258px;
         height: 184px;
-        box-shadow: $shadow;
-        border: $border;
+        box-shadow: var(--datav-shadow);
+        border: var(--datav-border);
         margin: 16px;
         transition: 0.2s;
         outline: 1px solid transparent;
@@ -434,20 +490,20 @@ export default defineComponent({
           justify-content: space-between;
           padding: 10px;
           height: 36px;
-          background: $background-color-dark;
+          background: var(--datav-bgcolor-2);
           transition: 0.2s;
         }
 
         &.--blank {
           position: relative;
-          outline: $border-primary;
+          outline: var(--datav-border-primary);
 
           .template-image {
             box-shadow: inset 0 0 46px 0 rgba(136, 215, 255, 0.29);
           }
 
           .template-info {
-            border-top: $border-primary;
+            border-top: var(--datav-border-primary);
             justify-content: center;
             font-size: 14px;
           }
@@ -495,7 +551,7 @@ export default defineComponent({
       }
 
       .template-item:hover {
-        outline: $border-primary;
+        outline: var(--datav-border-primary);
 
         .template-mask {
           pointer-events: all;
@@ -525,7 +581,7 @@ export default defineComponent({
   .required {
     display: inline-block;
     margin-right: 6px;
-    color: $color-red;
+    color: var(--datav-red-color);
   }
 
   .template-desc {
@@ -565,19 +621,21 @@ export default defineComponent({
 }
 
 .preview-dialog {
+  margin-top: -10px;
+  margin-bottom: -40px;
+
   .preview-list {
-    width: 897px;
-    height: 186px;
-    margin-top: -57px;
+    width: 895px;
+    height: 150px;
     margin-left: -20px;
-    background: $dialog-bgcolor;
+    background: #303640;
     display: flex;
     flex-direction: column;
     justify-content: center;
 
     .template-list-title {
       font-size: 12px;
-      margin: 50px 0 15px 30px;
+      margin: 0 0 15px 30px;
     }
   }
 
@@ -600,7 +658,7 @@ export default defineComponent({
     padding-bottom: 8px;
 
     &::-webkit-scrollbar-thumb {
-      background: $color-primary;
+      background: var(--datav-main-color);
       border-radius: 5px;
       border: none;
     }
@@ -633,21 +691,21 @@ export default defineComponent({
     .preview-screen-name {
       font-size: 12px;
       line-height: 19px;
-      background: $background-color-dark;
+      background: var(--datav-bgcolor-2);
       padding: 0 5px;
       font-weight: 300;
     }
 
     &:hover,
     &.selected {
-      border-color: $color-primary;
+      border-color: var(--datav-main-color);
     }
   }
 
   .preview-gif {
     height: 420px;
     display: flex;
-    padding: 30px 10px 50px 10px;
+    padding: 20px 10px 50px 10px;
 
     .gif-wp {
       width: 610px;
@@ -658,8 +716,8 @@ export default defineComponent({
         height: 100%;
         display: block;
         position: relative;
-        border: $border;
-        box-shadow: $shadow;
+        border: var(--datav-border);
+        box-shadow: var(--datav-shadow);
 
         &::after {
           @include cover-img();
@@ -673,6 +731,8 @@ export default defineComponent({
         transform: translateY(-50%);
         padding: 5px;
         border-radius: 50%;
+        height: 26px;
+        width: 26px;
         margin: 10px;
         font-weight: 600;
         background: rgba(255, 255, 255, 0.2);
@@ -702,7 +762,7 @@ export default defineComponent({
 .preview-create-btn {
   margin-top: 30px;
 
-  .v-icon-arrow-right {
+  .next-icon {
     font-size: 12px;
   }
 }
