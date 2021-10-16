@@ -35,8 +35,8 @@
     <g-field
       label="始终显示图片背景"
     >
-      <el-switch
-        v-model="config.alwaysShow"
+      <n-switch
+        v-model:value="config.alwaysShow"
       />
     </g-field>
   </div>

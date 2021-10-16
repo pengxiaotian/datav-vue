@@ -274,8 +274,8 @@
         :level="2"
         label="分隔符背景"
       >
-        <el-switch
-          v-model="config.numbers.bgSeparating"
+        <n-switch
+          v-model:value="config.numbers.bgSeparating"
         />
       </g-field>
       <g-field
@@ -313,8 +313,8 @@
         :level="2"
         label="千位分隔符"
       >
-        <el-switch
-          v-model="config.numbers.separatingChart"
+        <n-switch
+          v-model:value="config.numbers.separatingChart"
         />
       </g-field>
       <g-field
@@ -350,8 +350,8 @@
         :level="2"
         label="开启动画"
       >
-        <el-switch
-          v-model="config.numbers.animation"
+        <n-switch
+          v-model:value="config.numbers.animation"
         />
       </g-field>
       <g-field

@@ -21,26 +21,23 @@
     :inline="mode"
     :label="mode ? label : ''"
   />
-  <el-checkbox
+  <n-checkbox
     v-else-if="componentType === componentTypes.checkbox"
-    v-model="boolValue"
+    v-model:checked="boolValue"
   />
-  <el-switch
+  <n-switch
     v-else-if="componentType === componentTypes.switch"
-    v-model="boolValue"
+    v-model:value="boolValue"
   />
-  <el-radio-group
+  <n-radio-group
     v-else-if="componentType === componentTypes.radio"
-    v-model="strValue"
+    v-model:value="strValue"
+    size="small"
   >
-    <el-radio-button
-      v-for="em in enums"
-      :key="em"
-      :label="em"
-    >
+    <n-radio-button v-for="em in enums" :key="em" :value="em">
       {{ em }}
-    </el-radio-button>
-  </el-radio-group>
+    </n-radio-button>
+  </n-radio-group>
   <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
@@ -88,18 +85,15 @@
     disabled
   />
   <template v-else-if="AllOptionKeys.includes(componentType + 's')">
-    <el-radio-group
+    <n-radio-group
       v-if="flatValue"
-      v-model="strValue"
+      v-model:value="strValue"
+      size="small"
     >
-      <el-radio-button
-        v-for="em in selectOptions"
-        :key="em.id"
-        :label="em.id"
-      >
+      <n-radio-button v-for="em in selectOptions" :key="em.id" :value="em.id">
         {{ em.value }}
-      </el-radio-button>
-    </el-radio-group>
+      </n-radio-button>
+    </n-radio-group>
     <g-select
       v-else
       v-model="strValue"

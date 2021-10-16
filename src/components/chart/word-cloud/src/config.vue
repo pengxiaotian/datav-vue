@@ -72,34 +72,36 @@
         :level="2"
         label="绘制类型"
       >
-        <el-radio-group
-          v-model="config.global.drawType"
+        <n-radio-group
+          v-model:value="config.global.drawType"
+          size="small"
         >
-          <el-radio-button
+          <n-radio-button
             v-for="em in drawTypes"
             :key="em.id"
-            :label="em.id"
+            :value="em.id"
           >
             {{ em.value }}
-          </el-radio-button>
-        </el-radio-group>
+          </n-radio-button>
+        </n-radio-group>
       </g-field>
       <g-field
         v-if="config.global.drawType === 'preset'"
         :level="2"
         label="图形"
       >
-        <el-radio-group
-          v-model="config.global.shape"
+        <n-radio-group
+          v-model:value="config.global.shape"
+          size="small"
         >
-          <el-radio-button
+          <n-radio-button
             v-for="em in simpleShapes"
             :key="em.id"
-            :label="em.id"
+            :value="em.id"
           >
             {{ em.value }}
-          </el-radio-button>
-        </el-radio-group>
+          </n-radio-button>
+        </n-radio-group>
       </g-field>
       <g-field
         v-if="config.global.drawType === 'image'"

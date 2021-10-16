@@ -37,11 +37,11 @@
 
         <div class="page-config-wp">
           <g-field label="页面缩放方式">
-            <n-radio-group v-model:value="pageConfig.zoomMode" name="zoomMode">
+            <n-radio-group v-model:value="pageConfig.zoomMode" name="zoomMode" size="small">
               <n-radio-button v-for="zm in zoomModes" :key="zm.value" :value="zm.value">
                 <n-tooltip>
                   <template #trigger>
-                    <n-icon style="vertical-align: -0.1em;">
+                    <n-icon>
                       <IconAdaptAuto v-if="zm.value === ZoomMode.auto" />
                       <IconAdaptWidth v-else-if="zm.value === ZoomMode.width" />
                       <IconAdaptHeight v-else-if="zm.value === ZoomMode.height" />

@@ -106,33 +106,35 @@
         :level="2"
         label="水平对齐"
       >
-        <el-radio-group
-          v-model="config.time.horizontal"
+        <n-radio-group
+          v-model:value="config.time.horizontal"
+          size="small"
         >
-          <el-radio-button
+          <n-radio-button
             v-for="em in justifyContents"
             :key="em.id"
-            :label="em.id"
+            :value="em.id"
           >
             {{ em.value }}
-          </el-radio-button>
-        </el-radio-group>
+          </n-radio-button>
+        </n-radio-group>
       </g-field>
       <g-field
         :level="2"
         label="垂直对齐"
       >
-        <el-radio-group
-          v-model="config.time.vertical"
+        <n-radio-group
+          v-model:value="config.time.vertical"
+          size="small"
         >
-          <el-radio-button
+          <n-radio-button
             v-for="em in aligns"
             :key="em.id"
-            :label="em.id"
+            :value="em.id"
           >
             {{ em.value }}
-          </el-radio-button>
-        </el-radio-group>
+          </n-radio-button>
+        </n-radio-group>
       </g-field>
     </g-field-collapse>
   </div>

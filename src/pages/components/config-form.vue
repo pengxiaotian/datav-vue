@@ -42,6 +42,7 @@
           </n-form-item>
           <n-form-item label="组件预览">
             <config-form-item
+              :key="item.config.component"
               :data-type="item.config.type"
               :component-type="item.config.component"
               :default-value="item.config.defaultValue"

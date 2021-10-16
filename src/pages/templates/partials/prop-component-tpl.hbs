@@ -42,34 +42,35 @@
   {{/if}}
 />
 {{else if (eq config.component componentTypes.checkbox)}}
-<el-checkbox
+<n-checkbox
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
-  v-model="{{ getPath path virtualPath }}"
+  v-model:checked="{{ getPath path virtualPath }}"
 />
 {{else if (eq config.component componentTypes.switch)}}
-<el-switch
+<n-switch
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
-  v-model="{{ getPath path virtualPath }}"
+  v-model:value="{{ getPath path virtualPath }}"
 />
 {{else if (eq config.component componentTypes.radio)}}
-<el-radio-group
+<n-radio-group
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
-  v-model="{{ getPath path virtualPath }}"
+  v-model:value="{{ getPath path virtualPath }}"
+  size="small"
 >
-  <el-radio-button
+  <n-radio-button
     v-for="em in {{{ enumsToTpl config.enums }}}"
     :key="em"
-    :label="em"
+    :value="em"
   >
     \{{ em }}
-  </el-radio-button>
-</el-radio-group>
+  </n-radio-button>
+</n-radio-group>
 {{else if (eq config.component componentTypes.slider)}}
 <g-slider
   {{#if (and judgeEnum config.whichEnum.field)}}
@@ -154,20 +155,21 @@
 />
 {{else if (hasSelectOpts selectOpts config.component)}}
 {{#if config.flatValue}}
-<el-radio-group
+<n-radio-group
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
-  v-model="{{ getPath path virtualPath }}"
+  v-model:value="{{ getPath path virtualPath }}"
+  size="small"
 >
-  <el-radio-button
+  <n-radio-button
     v-for="em in {{config.component}}s"
     :key="em.id"
-    :label="em.id"
+    :value="em.id"
   >
     \{{ em.value }}
-  </el-radio-button>
-</el-radio-group>
+  </n-radio-button>
+</n-radio-group>
 {{else}}
 <g-select
   {{#if (and judgeEnum config.whichEnum.field)}}

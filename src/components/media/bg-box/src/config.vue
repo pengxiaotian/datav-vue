@@ -55,17 +55,18 @@
         :level="2"
         label="边框类型"
       >
-        <el-radio-group
-          v-model="config.border.type"
+        <n-radio-group
+          v-model:value="config.border.type"
+          size="small"
         >
-          <el-radio-button
-            v-for="em in borderTypes"
-            :key="em.id"
-            :label="em.id"
+          <n-radio-button
+            v-for="em in ['flat','linearGradient','image']"
+            :key="em"
+            :value="em"
           >
-            {{ em.value }}
-          </el-radio-button>
-        </el-radio-group>
+            {{ em }}
+          </n-radio-button>
+        </n-radio-group>
       </g-field>
       <g-field
         v-if="config.border.type === 'flat'"
@@ -166,17 +167,18 @@
         :level="2"
         label="配置方式"
       >
-        <el-radio-group
-          v-model="config.border.imageType"
+        <n-radio-group
+          v-model:value="config.border.imageType"
+          size="small"
         >
-          <el-radio-button
+          <n-radio-button
             v-for="em in imageTypes"
             :key="em.id"
-            :label="em.id"
+            :value="em.id"
           >
             {{ em.value }}
-          </el-radio-button>
-        </el-radio-group>
+          </n-radio-button>
+        </n-radio-group>
       </g-field>
       <g-field
         v-if="config.border.type === 'image' && config.border.imageType === 'preset'"
@@ -262,8 +264,8 @@
         :level="2"
         label="是否新打开窗口"
       >
-        <el-switch
-          v-model="config.urlConfig.ifBlank"
+        <n-switch
+          v-model:value="config.urlConfig.ifBlank"
         />
       </g-field>
     </g-field-collapse>

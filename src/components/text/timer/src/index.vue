@@ -31,6 +31,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef, ref, shallowRef, onUnmounted } from 'vue'
+import type { CSSProperties } from 'vue'
 import dayjs from 'dayjs'
 import { Timer } from './timer'
 
@@ -61,7 +62,7 @@ export default defineComponent({
         overflow: 'hidden',
         'text-overflow': 'ellipsis',
         'white-space': 'nowrap',
-      }
+      } as CSSProperties
     })
 
     const iconStyle = computed(() => {

@@ -12,7 +12,8 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, computed, toRef, ref, watch, nextTick, onMounted, onUnmounted  } from 'vue'
+import { defineComponent, PropType, computed, toRef, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import type { CSSProperties } from 'vue'
 import { debounce } from 'lodash-es'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
 import { ApiModule } from '@/store/modules/api'
@@ -71,7 +72,7 @@ export default defineComponent({
         'line-height': `${config.value.lineHeight}px`,
         'text-indent': `${config.value.textIndent}px`,
         'min-height': `${height.value}px`,
-      }
+      } as CSSProperties
     })
 
     const contentText = computed(() => {

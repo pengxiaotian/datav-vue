@@ -137,8 +137,8 @@
       tooltip="溢出文本加省略号"
       label="省略号"
     >
-      <el-switch
-        v-model="config.ellipsis"
+      <n-switch
+        v-model:value="config.ellipsis"
       />
     </g-field>
     <g-field-collapse
@@ -157,8 +157,8 @@
         :level="2"
         label="是否新开窗口"
       >
-        <el-switch
-          v-model="config.urlConfig.isBlank"
+        <n-switch
+          v-model:value="config.urlConfig.isBlank"
         />
       </g-field>
     </g-field-collapse>

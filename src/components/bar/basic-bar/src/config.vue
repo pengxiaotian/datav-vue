@@ -177,17 +177,18 @@
         :level="2"
         label="类型"
       >
-        <el-radio-group
-          v-model="config.xAxis.type"
+        <n-radio-group
+          v-model:value="config.xAxis.type"
+          size="small"
         >
-          <el-radio-button
+          <n-radio-button
             v-for="em in xAxisTypes"
             :key="em.id"
-            :label="em.id"
+            :value="em.id"
           >
             {{ em.value }}
-          </el-radio-button>
-        </el-radio-group>
+          </n-radio-button>
+        </n-radio-group>
       </g-field>
       <g-field-collapse
         v-model="config.xAxis.title.show"
@@ -352,8 +353,8 @@
           :level="2"
           label="两端留白"
         >
-          <el-switch
-            v-model="config.xAxis.axisLabel.boundaryGap"
+          <n-switch
+            v-model:value="config.xAxis.axisLabel.boundaryGap"
           />
         </g-field>
         <g-field
@@ -945,17 +946,18 @@
         :level="2"
         label="布局方式"
       >
-        <el-radio-group
-          v-model="config.legend.orient"
+        <n-radio-group
+          v-model:value="config.legend.orient"
+          size="small"
         >
-          <el-radio-button
+          <n-radio-button
             v-for="em in orients"
             :key="em.id"
-            :label="em.id"
+            :value="em.id"
           >
             {{ em.value }}
-          </el-radio-button>
-        </el-radio-group>
+          </n-radio-button>
+        </n-radio-group>
       </g-field>
       <g-field
         :level="2"
@@ -1125,17 +1127,18 @@
             :level="2"
             label="填充类型"
           >
-            <el-radio-group
-              v-model="slotProps.item.color.type"
+            <n-radio-group
+              v-model:value="slotProps.item.color.type"
+              size="small"
             >
-              <el-radio-button
+              <n-radio-button
                 v-for="em in fillTypes"
                 :key="em.id"
-                :label="em.id"
+                :value="em.id"
               >
                 {{ em.value }}
-              </el-radio-button>
-            </el-radio-group>
+              </n-radio-button>
+            </n-radio-group>
           </g-field>
           <g-field
             v-if="slotProps.item.color.type === 'solid'"
@@ -1211,6 +1214,7 @@
 import { defineComponent, PropType, toRef, computed } from 'vue'
 import {
   fontFamilys,
+  selectSuggests,
   echartsLablePositions,
   fontWeights,
   axisTypes,
@@ -1224,7 +1228,6 @@ import {
   legendIcons,
   fillTypes,
   animationEasings,
-  selectSuggests,
 } from '@/data/select-options'
 import { BasicBar, BasicBarSeries } from './basic-bar'
 
@@ -1253,6 +1256,7 @@ export default defineComponent({
       handleAddSeriesItem,
 
       fontFamilys,
+      selectSuggests,
       echartsLablePositions,
       fontWeights,
       axisTypes,
@@ -1266,7 +1270,6 @@ export default defineComponent({
       legendIcons,
       fillTypes,
       animationEasings,
-      selectSuggests,
     }
   },
 })
