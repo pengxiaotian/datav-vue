@@ -4,12 +4,10 @@
     <div v-if="eventKeys.length > 0">
       <div class="com-events">
         <div class="events-title" @click="visible = !visible">
-          <div>
-            <i
-              class="v-icon-arrow-right"
-              :class="visible ? 'events-down' : 'events-up'"
-            ></i>{{ '交互事件' }}
-          </div>
+          <n-icon :class="visible ? 'events-down' : 'events-up'">
+            <IconArrowRight />
+          </n-icon>
+          <span>{{ '交互事件' }}</span>
           <span class="extra">
             <router-link
               :to="{ name: 'MyCase' }"
@@ -38,6 +36,7 @@ import { DatavComponent } from '@/components/datav-component'
 import { EventItemConfig } from '@/components/data-event'
 import { EditorModule } from '@/store/modules/editor'
 import { ArrayToObject, StringArrayToObject } from '@/utils/util'
+import { IconArrowRight } from '@/icons'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
 import EventItem from './event-item.vue'
@@ -48,6 +47,7 @@ export default defineComponent({
     ConfigTitle,
     EmptyPanel,
     EventItem,
+    IconArrowRight,
   },
   setup() {
     const com = inject('com') as ComputedRef<DatavComponent>
@@ -190,44 +190,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '@/styles/themes/var';
-
-.interaction-panle {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-
-  .com-events > .events-title {
-    height: 35px;
-    line-height: 35px;
-    background: $config-panel-bgcolor;
-    padding: 0 10px;
-    border-bottom: $config-panel-border;
-    color: $font-color;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .events-up {
-    margin-right: 2px;
-    transition: 0.2s transform ease-in;
-  }
-
-  .events-down {
-    margin-right: 2px;
-    transition: 0.2s transform ease-in;
-    transform: rotate(90deg);
-  }
-
-  .tutorial-link {
-    color: $font-color;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .event-list {
-    font-size: 12px;
-  }
-}
+@import './style.scss';
 </style>

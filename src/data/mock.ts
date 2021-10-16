@@ -8,17 +8,18 @@ export const useMock = () => {
 
   const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar', 'VMarquee', 'VParagraph', 'VTimer', 'VFullScreen', 'VMainImg', 'VWordCloud']
   names.forEach(name => {
-    const com = createComponent(name)
-    // com.apis.source.useAutoUpdate = true
-    // com.apis.source.autoUpdate = 5
-    com.attr.x = getRandomInt(pageConfig.width - com.attr.w)
-    com.attr.y = getRandomInt(pageConfig.height - com.attr.h)
-    EditorModule.addCom(com)
+    createComponent(name).then(com => {
+      // com.apis.source.useAutoUpdate = true
+      // com.apis.source.autoUpdate = 5
+      com.attr.x = getRandomInt(pageConfig.width - com.attr.w)
+      com.attr.y = getRandomInt(pageConfig.height - com.attr.h)
+      EditorModule.addCom(com)
 
-    if (com.apis.source) {
-      com.loadData().then(() => {
-        BlueprintModule.datavComponents[com.id].$DATAV_requestData()
-      })
-    }
+      if (com.apis.source) {
+        com.loadData().then(() => {
+          BlueprintModule.datavComponents[com.id].$DATAV_requestData()
+        })
+      }
+    })
   })
 }

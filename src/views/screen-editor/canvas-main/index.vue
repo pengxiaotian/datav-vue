@@ -79,7 +79,7 @@ export default defineComponent({
         const name = event.dataTransfer.getData('text')
         if (name) {
           ToolbarModule.addLoading()
-          let com = createComponent(name)
+          let com = await createComponent(name)
           const { scale } = EditorModule.canvas
           const offsetX = (event.clientX - ToolbarModule.getPanelOffsetLeft) / scale
           const offsetY = (event.clientY - ToolbarModule.getPanelOffsetTop) / scale

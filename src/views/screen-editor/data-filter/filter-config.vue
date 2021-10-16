@@ -27,7 +27,6 @@
           :options="dataFilters"
           filterable
           :fallback-option="false"
-          :show="true"
           placeholder="添加过滤器"
           class="datav-new-select filter-select"
           :style="{

@@ -1,4 +1,3 @@
-@import '@/styles/themes/var';
 @import '@/styles/mixins/util';
 
 .api-editor {
@@ -8,10 +7,10 @@
     height: 38px;
     padding-right: 34px;
     padding-left: 10px;
-    font-size: $font-size;
-    background: $config-panel-bgcolor;
-    border-top: $config-panel-border;
-    border-bottom: $config-panel-border;
+    font-size: 12px;
+    background: var(--datav-config-bg);
+    border-top: var(--datav-config-border);
+    border-bottom: var(--datav-config-border);
     box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
@@ -20,7 +19,7 @@
 
   .api-desc {
     max-width: 160px;
-    color: $color-white;
+    color: #fff;
     white-space: initial;
     cursor: pointer;
   }
@@ -48,7 +47,7 @@
 
 .data-attr-table {
   width: 100%;
-  color: $font-color;
+  color: var(--datav-font-color);
   text-align: left;
 
   .table-head {
@@ -57,7 +56,7 @@
     height: 40px;
     font-size: 0;
     line-height: 40px;
-    border-bottom: $config-panel-border;
+    border-bottom: var(--datav-config-border);
 
     .table-head-row {
       display: block;
@@ -113,24 +112,19 @@
     .attr-input {
       width: 108px;
       height: 24px;
-
-      .el-input__inner {
-        height: 24px;
-        line-height: 24px;
-        color: $gui-font-color;
-      }
+      color: var(--datav-gui-font-color-base);
     }
   }
 }
 
 .data-source {
-  color: $font-color;
+  color: var(--datav-font-color);
   user-select: none;
 
   .data-result-title {
     padding: 10px;
-    border-top: $config-panel-border;
-    border-bottom: $config-panel-border;
+    border-top: var(--datav-config-border);
+    border-bottom: var(--datav-config-border);
   }
 
   .auto-update-config {
@@ -171,9 +165,9 @@
       padding: 6px;
       font-size: 12px;
       line-height: 12px;
-      color: $font-color;
+      color: var(--datav-font-color);
       text-align: center;
-      background: $input-prepend-bgcolor;
+      background: #39414d;
       border-radius: 1px;
       box-shadow: 0 0 5px -3px #000;
     }
@@ -188,7 +182,7 @@
       transition: color 0.2s;
 
       &:hover {
-        color: $color-primary;
+        color: var(--datav-main-color);
       }
     }
   }
@@ -200,7 +194,7 @@
     display: flex;
     width: 1px;
     height: 87px;
-    background: $config-dot-list-bgcolor;
+    background: #4c5768;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
@@ -210,17 +204,17 @@
     display: inline-block;
     width: 8px;
     height: 8px;
-    background: $config-dot-bgcolor;
+    background: #7d8081;
     border-radius: 4px;
     box-shadow: 0 0 3px #000;
     transition: background 0.2s;
 
     &.active {
-      background: $color-primary;
+      background: var(--datav-main-color);
     }
 
     &.error {
-      background: $color-error;
+      background: var(--datav-error-color);
     }
   }
 

@@ -11,6 +11,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
+import type { CSSProperties } from 'vue'
 import { MainImg } from './main-img'
 
 export default defineComponent({
@@ -52,7 +53,7 @@ export default defineComponent({
         '-webkit-mask-size': isVector ? maskSize : 'initial',
         'border-radius': `${config.value.radius}px`,
         cursor: config.value.cursor ? 'pointer' : 'default',
-      }
+      } as CSSProperties
     })
 
     return {

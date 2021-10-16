@@ -171,7 +171,6 @@
   }
 }
 
-// stylelint-disable-next-line selector-pseudo-element-no-unknown
 .datav-com ::v-deep(.datav-wrapper) {
   pointer-events: none !important;
 }

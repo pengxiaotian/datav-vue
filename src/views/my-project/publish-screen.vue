@@ -7,11 +7,7 @@
     style="width: 435px;"
     @close="closeDialog"
   >
-    <div
-      v-loading="loading"
-      class="share-setting"
-      element-loading-background="rgba(48, 54, 64, 0.8)"
-    >
+    <n-spin :show="loading" class="share-setting">
       <div class="share-header">
         <div class="header-wp">
           <label class="label-color">发布分享：</label>
@@ -81,7 +77,7 @@
           {{ isPublish ? '发布大屏' : '保存' }}
         </n-button>
       </div>
-    </div>
+    </n-spin>
   </n-modal>
 </template>
 

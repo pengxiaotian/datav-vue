@@ -1,50 +1,56 @@
-import { MainTitle } from './text/main-title/src/main-title'
-import { NumberTitleFlop } from './text/number-title-flop/src/number-title-flop'
-import { Marquee } from './text/marquee/src/marquee'
-import { Paragraph } from './text/paragraph/src/paragraph'
-import { Timer } from './text/timer/src/timer'
+import { kebabCase } from '@/utils/util'
 
-import { DatePicker } from './other/date-picker/src/date-picker'
-
-import { BgBox } from './media/bg-box/src/bg-box'
-import { BorderBox } from './media/border-box/src/border-box'
-import { Decoration } from './media/decoration/src/decoration'
-import { MainImg } from './media/main-img/src/main-img'
-
-import { BasicBar } from './bar/basic-bar/src/basic-bar'
-
-import { FullScreen } from './button/full-screen/src/full-screen'
-
-import { WordCloud } from './chart/word-cloud/src/word-cloud'
-
-export function createComponent(name: string) {
+export async function createComponent(name: string) {
+  const path = kebabCase(name.substr(1))
   switch (name.substr(1)) {
-    case 'MainTitle':
-      return new MainTitle()
-    case 'NumberTitleFlop':
-      return new NumberTitleFlop()
-    case 'DatePicker':
-      return new DatePicker()
-    case 'BgBox':
-      return new BgBox()
-    case 'BorderBox':
-      return new BorderBox()
-    case 'Decoration':
-      return new Decoration()
+    // bar
     case 'BasicBar':
-      return new BasicBar()
-    case 'Marquee':
-      return new Marquee()
-    case 'Paragraph':
-      return new Paragraph()
-    case 'Timer':
-      return new Timer()
-    case 'FullScreen':
-      return new FullScreen()
-    case 'MainImg':
-      return new MainImg()
+    {
+      const comModule = await import(`./bar/${path}/src/${path}.ts`)
+      return new comModule.default()
+    }
+
+    // chart
     case 'WordCloud':
-      return new WordCloud()
+    {
+      const comModule = await import(`./chart/${path}/src/${path}.ts`)
+      return new comModule.default()
+    }
+
+    // text
+    case 'MainTitle':
+    case 'Marquee':
+    case 'NumberTitleFlop':
+    case 'Paragraph':
+    case 'Timer':
+    {
+      const comModule = await import(`./text/${path}/src/${path}.ts`)
+      return new comModule.default()
+    }
+
+    // button
+    case 'FullScreen':
+    {
+      const comModule = await import(`./button/${path}/src/${path}.ts`)
+      return new comModule.default()
+    }
+
+    // media
+    case 'BgBox':
+    case 'BorderBox':
+    case 'Decoration':
+    case 'MainImg':
+    {
+      const comModule = await import(`./media/${path}/src/${path}.ts`)
+      return new comModule.default()
+    }
+
+    // other
+    case 'DatePicker':
+    {
+      const comModule = await import(`./other/${path}/src/${path}.ts`)
+      return new comModule.default()
+    }
     default:
       throw Error(`Unknown component type: ${name}.`)
   }

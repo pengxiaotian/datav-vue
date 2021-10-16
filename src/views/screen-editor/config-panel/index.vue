@@ -88,7 +88,7 @@ $panel_width: 332px;
   width: $panel_width !important;
   height: 100%;
   overflow: hidden;
-  background: #1c1f25;
+  background: var(--datav-config-bg);
   box-shadow: -1px 0 #000;
   transition: width 0.25s ease-in-out;
 }

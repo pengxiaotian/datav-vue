@@ -23,32 +23,30 @@
           </router-link>
         </p>
       </template>
-      <template v-if="visible">
-        <filter-collapse-panel
-          v-if="newDataFilter"
-          :data-filter="newDataFilter"
-          :is-new="true"
-          :draggable="false"
-          :has-feedback="false"
-          :removable="true"
-        />
-        <filter-collapse-panel
-          v-for="df in dataFilters"
-          :key="df.id"
-          :data-filter="df"
-          :draggable="false"
-          :has-feedback="false"
-          :publish="true"
-          :removable="true"
-          :show-time="true"
-        />
-        <div v-if="dataFilters.length === 0 && !newDataFilter" class="panel-info">
-          <p class="info-text">过滤器列表为空，请创建后使用</p>
-          <n-button :focusable="false" @click="addFilter">
-            新建
-          </n-button>
-        </div>
-      </template>
+      <filter-collapse-panel
+        v-if="newDataFilter"
+        :data-filter="newDataFilter"
+        :is-new="true"
+        :draggable="false"
+        :has-feedback="false"
+        :removable="true"
+      />
+      <filter-collapse-panel
+        v-for="df in dataFilters"
+        :key="df.id"
+        :data-filter="df"
+        :draggable="false"
+        :has-feedback="false"
+        :publish="true"
+        :removable="true"
+        :show-time="true"
+      />
+      <div v-if="dataFilters.length === 0 && !newDataFilter" class="panel-info">
+        <p class="info-text">过滤器列表为空，请创建后使用</p>
+        <n-button :focusable="false" @click="addFilter">
+          新建
+        </n-button>
+      </div>
     </n-drawer-content>
   </n-drawer>
 </template>

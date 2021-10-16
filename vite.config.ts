@@ -3,7 +3,6 @@ import { loadEnv, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 import plainText from 'vite-plugin-plain-text'
-import styleImport from 'vite-plugin-style-import'
 
 import { resolve } from 'path'
 
@@ -22,16 +21,6 @@ export default ({ mode }: ConfigEnv) => {
     plugins: [
       vue(),
       plainText(/\.hbs$/),
-      styleImport({
-        libs: [{
-          libraryName: 'element-plus',
-          esModule: true,
-          ensureStyleFile: true,
-          resolveStyle: name => {
-            return `element-plus/packages/theme-chalk/src/${name.slice(3)}.scss`
-          },
-        }],
-      }),
     ],
     css: {
       preprocessorOptions: {

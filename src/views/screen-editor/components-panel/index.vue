@@ -157,7 +157,7 @@ export default defineComponent({
       if (used) {
         ToolbarModule.addLoading()
         const { pageConfig } = EditorModule
-        const com = createComponent(comName)
+        const com = await createComponent(comName)
         com.attr.x = Math.floor((pageConfig.width - com.attr.w) / 2)
         com.attr.y = Math.floor((pageConfig.height - com.attr.h) / 2)
         await EditorModule.addCom(com)

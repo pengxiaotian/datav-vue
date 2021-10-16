@@ -163,6 +163,8 @@ const themeOverrides: GlobalThemeOverrides = {
   },
   Checkbox: {
     sizeMedium: '14px',
+    fontSizeMedium: '12px',
+    textColor: vars.textColor1,
     color: '#0000',
     colorChecked: '#0000',
     checkMarkColor: vars.primaryColor,
@@ -270,21 +272,6 @@ const themeOverrides: GlobalThemeOverrides = {
   Scrollbar: {
     color: '#434b55',
     colorHover: '#5a6572',
-  },
-  AutoComplete: {
-    peers: {
-      InternalSelectMenu: {
-        optionFontSizeSmall: '12px',
-        optionFontSizeMedium: '12px',
-        color: '#1d2126',
-        optionColorActive: '#1b3964',
-        optionColorPending: '#1b3964',
-        optionTextColor: vars2.guiFontColor,
-        optionTextColorActive: '#fff',
-        optionHeightSmall: '28px',
-        optionHeightMedium: '28px',
-      },
-    },
   },
   Tag: {
     color: vars2.darkColor,
