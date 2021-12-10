@@ -30,11 +30,13 @@ export default (adapter: MockAdapter) => {
 
   // 新建项目
   adapter.onPost('/project')
-    .reply(200, Mock.mock({
-      code: 0,
-      message: 'ok',
-      'data|1-10000': 1,
-    }))
+    .reply(() => {
+      return [200, Mock.mock({
+        code: 0,
+        message: 'ok',
+        'data|1-10000': 1,
+      })]
+    })
 
   // 修改项目名称
   adapter.onPut(/\/project\/\d+\/name$/)
@@ -91,11 +93,13 @@ export default (adapter: MockAdapter) => {
 
   // 新建分组
   adapter.onPost('/project/group')
-    .reply(200, Mock.mock({
-      code: 0,
-      message: 'ok',
-      'data|1-10000': 1,
-    }))
+    .reply(() => {
+      return [200, Mock.mock({
+        code: 0,
+        message: 'ok',
+        'data|1-10000': 1,
+      })]
+    })
 
   // 删除组
   adapter.onDelete(/\/project\/group\/\d+$/)
@@ -120,11 +124,13 @@ export default (adapter: MockAdapter) => {
 
   // 复制项目
   adapter.onPost(/\/project\/\d+\/copy$/)
-    .reply(200, Mock.mock({
-      code: 0,
-      message: 'ok',
-      'data|1-10000': 1,
-    }))
+    .reply(() => {
+      return [200, Mock.mock({
+        code: 0,
+        message: 'ok',
+        'data|1-10000': 1,
+      })]
+    })
 
   // 项目模板
   adapter.onGet('/project/template')
