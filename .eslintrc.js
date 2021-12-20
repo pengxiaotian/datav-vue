@@ -21,7 +21,7 @@ module.exports = {
     'plugin:vue/vue3-recommended',
   ],
   rules: {
-    // js/ts https://eslint.vuejs.org/rules/
+    // js/ts https://eslint.org/docs/rules
     'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'eol-last': 'error',
@@ -34,6 +34,8 @@ module.exports = {
     indent: ['error', 2, { SwitchCase: 1 }],
     'object-curly-spacing': ['error', 'always'],
     'arrow-parens': ['error', 'as-needed'],
+    'quote-props': ['error', 'as-needed'],
+    'prefer-template': 'error',
     /* https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules */
     '@typescript-eslint/ban-types': 0,
     '@typescript-eslint/no-empty-function': 0,
@@ -54,7 +56,7 @@ module.exports = {
         },
       },
     ],
-    // vue https://eslint.org/docs/rules
+    // vue https://eslint.vuejs.org/rules/
     'vue/no-v-html': 'off',
     'vue/singleline-html-element-content-newline': 'off',
     'vue/html-self-closing': ['error', {
@@ -71,7 +73,7 @@ module.exports = {
     'vue/require-default-prop': 'off',
     'vue/html-closing-bracket-spacing': 'error',
     'vue/no-mutating-props': 'off',
-    'quote-props': ['error', 'as-needed'],
-    'prefer-template': 'error',
+    'vue/multi-word-component-names': 'off',
+    'vue/v-on-event-hyphenation': 'off',
   },
 }
