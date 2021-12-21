@@ -49,16 +49,23 @@
             </g-tooltip-popover>
           </div>
           <div class="filter-count">
-            <template v-if="!isNew && usedFilters[dataFilter.id]">
+            <n-config-provider
+              v-if="!isNew && usedFilters[dataFilter.id]"
+              :theme-overrides="{
+                Tooltip: {
+                  arrowHeight: '8px',
+                  borderRadius: '2px',
+                  padding: '6px',
+                  color: 'var(--datav-font-color)',
+                  textColor: '#000102',
+                },
+              }"
+              abstract
+            >
               <n-tooltip
                 placement="top"
                 :delay="500"
                 :style="{
-                  '--padding': '6px',
-                  '--border-radius': '2px',
-                  '--text-color': '#000102',
-                  '--arrow-height': '8px',
-                  '--color': 'var(--datav-font-color)',
                   maxWidth: '240px',
                 }"
               >
@@ -67,7 +74,7 @@
                 </template>
                 {{ usedFilters[dataFilter.id].names.join(', ') }}
               </n-tooltip>
-            </template>
+            </n-config-provider>
           </div>
           <div class="action-wp" :class="{ '--flex': publish }">
             <template v-if="publish">
@@ -85,11 +92,18 @@
             </g-tooltip-popover>
           </div>
           <template v-if="hasFeedback">
-            <template v-if="errMsg">
+            <n-config-provider
+              v-if="errMsg"
+              :theme-overrides="{
+                Tooltip: {
+                  color: 'var(--datav-error-color)',
+                },
+              }"
+              abstract
+            >
               <n-tooltip
                 placement="left"
                 :style="{
-                  '--color': 'var(--datav-error-color)',
                   maxWidth: '300px',
                 }"
               >
@@ -98,7 +112,7 @@
                 </template>
                 {{ errMsg }}
               </n-tooltip>
-            </template>
+            </n-config-provider>
             <div v-else class="filter-dot"></div>
           </template>
           <div v-else class="filter-dot --none"></div>

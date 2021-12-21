@@ -29,10 +29,6 @@
           :fallback-option="false"
           placeholder="添加过滤器"
           class="datav-new-select filter-select"
-          :style="{
-            '--border': 'var(--datav-gui-new-select-border)',
-            '--color': 'var(--datav-gui-new-select-bgcolor)'
-          }"
           @update:value="selectFilter"
         >
           <template #empty>

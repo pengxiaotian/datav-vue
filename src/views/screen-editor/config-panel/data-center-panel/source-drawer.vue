@@ -22,10 +22,6 @@
               :options="datasources"
               filterable
               class="datav-new-select"
-              :style="{
-                '--border': 'var(--datav-gui-new-select-border)',
-                '--color': 'var(--datav-gui-new-select-bgcolor)'
-              }"
               @update:value="changeSource"
             />
           </div>

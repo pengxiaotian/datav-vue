@@ -6,10 +6,6 @@
         v-model:value="apiDataConfig.config.apiMethod"
         :options="apiMethods"
         class="datav-new-select"
-        :style="{
-          '--border': 'var(--datav-gui-new-select-border)',
-          '--color': 'var(--datav-gui-new-select-bgcolor)'
-        }"
       />
     </div>
     <p class="url-info">

@@ -92,7 +92,6 @@ $border-1: 1px solid #566273;
     .del-btn,
     .edit-btn,
     .save-btn {
-      font-size: 18px;
       vertical-align: middle;
       cursor: pointer;
       opacity: 0;
@@ -146,6 +145,7 @@ $border-1: 1px solid #566273;
       width: 30px;
       text-align: center;
       padding: 0 5px;
+      line-height: 1;
 
       .del-btn,
       .edit-btn,

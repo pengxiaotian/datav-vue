@@ -1,24 +1,30 @@
 <template>
-  <n-popover
-    :placement="placement"
-    :trigger="trigger"
-    :delay="delay"
-    :show-arrow="false"
-    class="g-tooltip-popover"
-    :style="{
-      '--padding': '6px 10px',
-      '--font-size': '12px',
-      '--border-radius': '0',
-      '--color': 'var(--datav-pop-bg-color)',
-      '--text-color': '#fff',
-      '--box-shadow': '#000',
+  <n-config-provider
+    :theme-overrides="{
+      Popover: {
+        padding: '6px 10px',
+        fontSize: '12px',
+        borderRadius: '0',
+        color: 'var(--datav-pop-bg-color)',
+        textColor: '#fff',
+        boxShadow: '#000',
+      },
     }"
+    abstract
   >
-    <template #trigger>
-      <slot></slot>
-    </template>
-    {{ content }}
-  </n-popover>
+    <n-popover
+      :placement="placement"
+      :trigger="trigger"
+      :delay="delay"
+      :show-arrow="false"
+      class="g-tooltip-popover"
+    >
+      <template #trigger>
+        <slot></slot>
+      </template>
+      {{ content }}
+    </n-popover>
+  </n-config-provider>
 </template>
 <script lang='ts'>
 import { defineComponent } from 'vue'
