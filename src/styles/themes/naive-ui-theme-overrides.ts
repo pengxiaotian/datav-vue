@@ -45,8 +45,6 @@ const themeOverrides: GlobalThemeOverrides = {
   },
   Button: { // small 和 medium 一样大
     fontWeight: '700',
-    fontWeightText: '700',
-    fontWeighGhost: '700',
 
     iconSizeTiny: '12px',
 

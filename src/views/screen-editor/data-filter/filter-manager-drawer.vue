@@ -16,7 +16,7 @@
             rel="noopener noreferrer"
             class="filter-doc"
           >
-            <n-icon>
+            <n-icon :size="12">
               <IconDocument />
             </n-icon>
             <span>帮助文档</span>

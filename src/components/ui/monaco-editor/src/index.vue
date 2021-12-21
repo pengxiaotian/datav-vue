@@ -179,7 +179,9 @@ export default defineComponent({
 
         ce.setValue(editor.getValue())
         if (props.autoFormat) {
-          formatDocument(ce, props.language)
+          setTimeout(() => {
+            formatDocument(ce, props.language)
+          }, 1200)
         }
 
         ce.onDidChangeModelContent(() => debounceChangeHandler())

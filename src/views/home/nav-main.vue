@@ -7,7 +7,7 @@
         :class="{ 'nav-active': activeNav === nav.id }"
         @click="toggleNav(nav)"
       >
-        <n-icon>
+        <n-icon class="nav-icon" :size="20">
           <IconLayer v-if="nav.key === 'MyProject'" />
           <IconMyData v-else-if="nav.key === 'MyData'" />
           <IconMyCom v-else-if="nav.key === 'MyCom'" />
@@ -99,9 +99,10 @@ export default defineComponent({
 
   .nav-span {
     .nav-link {
+      display: flex;
+      align-items: center;
       transition: color 0.2s;
       text-decoration: none !important;
-      display: block;
       color: #b9c2cc;
       width: auto;
       min-width: 140px;
@@ -115,6 +116,10 @@ export default defineComponent({
       &:hover {
         color: #fff !important;
       }
+    }
+
+    .nav-icon {
+      margin-right: 5px;
     }
   }
 }

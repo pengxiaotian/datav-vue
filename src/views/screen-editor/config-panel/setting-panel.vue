@@ -97,7 +97,6 @@ export default defineComponent({
 
   .search-icon {
     margin: 0 4px;
-    font-size: 12px;
   }
 }
 </style>

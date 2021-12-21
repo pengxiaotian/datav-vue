@@ -32,11 +32,11 @@ export default defineComponent({
 
   &.loading {
     height: 1px;
-    animation: headLadingAnimation 1s infinite ease-out;
+    animation: head-lading 1s infinite ease-out;
   }
 }
 
-@keyframes headLadingAnimation {
+@keyframes head-lading {
   from {
     transform: translateX(-100%);
   }

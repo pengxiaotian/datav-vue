@@ -1,7 +1,5 @@
 @mixin utils-user-select($value) {
-  -moz-user-select: $value;
-  -webkit-user-select: $value;
-  -ms-user-select: $value;
+  user-select: $value;
 }
 
 @mixin utils-ellipsis {
@@ -12,7 +10,7 @@
 
 @mixin utils-ellipsis-n($n: 2) {
   .ellipsis#{$n} {
-    display: -webkit-box;
+    display: box;
     word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;

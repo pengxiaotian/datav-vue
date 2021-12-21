@@ -111,7 +111,7 @@
       </div>
     </div>
     <template v-if="isOpened">
-      <n-collapse-transition :collapsed="collapse">
+      <n-collapse-transition :show="collapse">
         <div class="panel-content-wp">
           <div class="cp-wrap">
             <p title="function filter(data) {" class="fake-code --start">

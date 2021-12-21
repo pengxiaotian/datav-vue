@@ -145,7 +145,7 @@ export default defineComponent({
     background-position: center, right bottom;
     background-repeat: no-repeat, no-repeat;
     background-size: cover, contain;
-    box-shadow: rgba(0, 0, 0, 0.5) 0 0 30px 0;
+    box-shadow: rgb(0 0 0 / 50%) 0 0 30px 0;
     transition: 0.2s all ease-in-out;
     transform-origin: 0 0;
   }

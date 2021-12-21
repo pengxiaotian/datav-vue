@@ -339,7 +339,7 @@ export default defineComponent({
 @import "@/styles/mixins/function.scss";
 
 @font-face {
-  font-family: "Orbitron-Bold";
+  font-family: Orbitron-Bold;
   src: url('@/styles/fonts/orbitron-bold.ttf') format('truetype');
 }
 
@@ -364,7 +364,7 @@ export default defineComponent({
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: rgba(0, 51, 125, 0.07);
+  background: rgb(0 51 125 / 7%);
   margin: 0;
   padding: 0;
   user-select: none;
@@ -393,10 +393,10 @@ export default defineComponent({
       width: 100%;
       border-top: var(--datav-border-primary);
       border-left: 2px solid var(--datav-main-color);
-      background: rgba(55, 126, 255, 0.04);
+      background: rgb(55 126 255 / 4%);
       border-top-left-radius: 5px;
       transform: skewX(-45deg);
-      box-shadow: 0 5px 28px 0 rgba(55, 126, 255, 0.28);
+      box-shadow: 0 5px 28px 0 rgb(55 126 255 / 28%);
     }
 
     .left-bar {
@@ -409,7 +409,7 @@ export default defineComponent({
       border-bottom: var(--datav-border-primary);
       transform: skewX(-45deg);
       border-bottom-right-radius: 5px;
-      box-shadow: 0 5px 28px 0 rgba(55, 126, 255, 0.28);
+      box-shadow: 0 5px 28px 0 rgb(55 126 255 / 28%);
     }
 
     .return-btn {
@@ -499,7 +499,7 @@ export default defineComponent({
           outline: var(--datav-border-primary);
 
           .template-image {
-            box-shadow: inset 0 0 46px 0 rgba(136, 215, 255, 0.29);
+            box-shadow: inset 0 0 46px 0 rgb(136 215 255 / 29%);
           }
 
           .template-info {
@@ -527,7 +527,7 @@ export default defineComponent({
         top: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgb(0 0 0 / 50%);
         transition: 0.2s;
         pointer-events: none;
         display: flex;
@@ -566,7 +566,7 @@ export default defineComponent({
       .template-size {
         color: #999;
         text-align: right;
-        font-family: Orbitron-Bold, PingFangSC-Medium, PingFang SC, Microsoft YaHei, Arial, Helvetica, sans-serif;
+        font-family: Orbitron-Bold, PingFangSC-Medium, "PingFang SC", "Microsoft YaHei", Arial, Helvetica, sans-serif;
       }
 
       .template-item-placehoder {
@@ -589,12 +589,13 @@ export default defineComponent({
     opacity: 0.8;
     overflow: hidden;
     -webkit-line-clamp: 3;
-    display: -webkit-box;
+    display: box;
     -webkit-box-orient: vertical;
   }
 
   .name-title {
     margin-bottom: 10px;
+    line-height: 20px;
   }
 
   .name-input {
@@ -609,11 +610,12 @@ export default defineComponent({
   position: absolute;
   top: 0;
   #{$placement}: 0;
-  background-image: linear-gradient(
-    #{$angle},
-    rgba(0, 0, 0, 0) 64%,
-    #303640 100%
-  );
+  background-image:
+    linear-gradient(
+      #{$angle},
+      rgb(0 0 0 / 0%) 64%,
+      #303640 100%
+    );
   width: 82px;
   height: 96px;
   pointer-events: none;
@@ -673,7 +675,7 @@ export default defineComponent({
     display: inline-block;
     margin: 0 6px;
     cursor: pointer;
-    border: 1px solid rgba(123, 123, 123, 0.25);
+    border: 1px solid rgb(123 123 123 / 25%);
     transition: 0.2s;
 
     .preview-small-img {
@@ -705,7 +707,7 @@ export default defineComponent({
   .preview-gif {
     height: 420px;
     display: flex;
-    padding: 20px 10px 50px 10px;
+    padding: 20px 10px 50px;
 
     .gif-wp {
       width: 610px;
@@ -735,14 +737,14 @@ export default defineComponent({
         width: 26px;
         margin: 10px;
         font-weight: 600;
-        background: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.8);
+        background: rgb(255 255 255 / 20%);
+        color: rgb(255 255 255 / 80%);
         cursor: pointer;
         transition: 0.2s;
 
         &:hover {
           color: #fff;
-          background: rgba(255, 255, 255, 0.3);
+          background: rgb(255 255 255 / 30%);
         }
       }
 

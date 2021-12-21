@@ -212,7 +212,7 @@ export default defineComponent({
       &::-webkit-inner-spin-button,
       &::-webkit-outer-spin-button {
         margin: 0;
-        -webkit-appearance: none;
+        appearance: none;
       }
     }
 

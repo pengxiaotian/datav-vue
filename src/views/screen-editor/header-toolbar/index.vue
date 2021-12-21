@@ -44,7 +44,7 @@
                 :class="['head-btn mr4', { '--selected': components }]"
                 @click="changeComponentsPanel"
               >
-                <n-icon class="com-list-icon" :class="{ '--rotate': !components }">
+                <n-icon class="head-btn-icon" :class="{ '--rotate': !components }">
                   <IconBox />
                 </n-icon>
               </div>
@@ -333,21 +333,25 @@ export default defineComponent({
 .head-btn {
   width: 40px;
   height: 24px;
-  line-height: 26px;
+  padding: 4px 0;
   text-align: center;
   cursor: pointer;
   background: var(--datav-component-bg);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 235, 235, 0.1),
+    inset 0 0 0 1px rgb(255 235 235 / 10%),
     0 0 0 1px #181818;
   transition: 0.2s;
 
   .head-btn-icon {
     color: #fff;
-    font-size: 14px;
 
     &:not(:first-child) {
-      border-left: 1px solid rgba(255, 235, 235, 0.1);
+      border-left: 1px solid rgb(255 235 235 / 10%);
+    }
+
+    &.--rotate {
+      animation: com-rotate 2s infinite;
+      animation-direction: alternate-reverse;
     }
   }
 
@@ -380,7 +384,7 @@ export default defineComponent({
   display: flex;
   box-sizing: border-box;
   background: #1d1e1f;
-  border: 1px solid rgba(255, 235, 235, 0.1);
+  border: 1px solid rgb(255 235 235 / 10%);
   box-shadow: 0 0 0 1px #181818;
 
   .head-btn {
@@ -388,7 +392,7 @@ export default defineComponent({
     border-radius: 0;
     box-shadow: none;
     height: 22px;
-    line-height: 24px;
+    padding: 3px 0;
     border-left: 1px solid transparent;
   }
 }
@@ -423,17 +427,6 @@ export default defineComponent({
     align-items: center;
   }
 
-  .com-list-icon {
-    display: inline-block;
-    font-size: 14px;
-    color: #fff;
-
-    &.--rotate {
-      animation: com-rotate 2s infinite;
-      animation-direction: alternate-reverse;
-    }
-  }
-
   .screen-info {
     position: absolute;
     left: 50%;
@@ -441,10 +434,10 @@ export default defineComponent({
     transform: translateX(-50%);
     text-align: center;
     cursor: default;
-    font-size: 14px;
     max-width: 500px;
     color: var(--datav-gui-font-color-base);
     line-height: 40px;
+    font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

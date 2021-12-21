@@ -115,8 +115,8 @@ class Editor extends VuexModule implements IEditorState {
     },
   }
 
-  coms: DatavComponent[] = [];
-  subComs: DatavComponent[] = [];
+  coms: DatavComponent[] = []
+  subComs: DatavComponent[] = []
 
   canvas = {
     scale: 0.2,
@@ -128,9 +128,9 @@ class Editor extends VuexModule implements IEditorState {
     h: number[]
     v: number[]
   } = {
-    h: [],
-    v: [],
-  }
+      h: [],
+      v: [],
+    }
 
   referLine = {
     enable: true,

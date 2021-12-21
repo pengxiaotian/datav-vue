@@ -49,7 +49,7 @@ $border: 1px solid #444546;
   }
 
   .field-title {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgb(255 255 255 / 3%);
   }
 }
 </style>

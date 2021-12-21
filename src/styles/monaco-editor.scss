@@ -4,7 +4,7 @@
 }
 
 .monaco-editor .suggest-widget {
-  // TODO: 不生效
+  /* TODO: 不生效 */
   width: 200px;
 }
 
@@ -63,9 +63,6 @@
 
     .action-btn {
       width: 20px;
-      height: 20px;
-      padding: 4px;
-      font-size: 12px;
       color: var(--datav-gui-editor-icon-color);
       cursor: pointer;
       transition: color 0.2s;

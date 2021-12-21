@@ -175,7 +175,7 @@ export default defineComponent({
         height: 100%;
         top: 0;
         left: 0;
-        background: rgba(36, 131, 255, 0.08);
+        background: rgb(36 131 255 / 8%);
       }
     }
   }
@@ -223,7 +223,6 @@ export default defineComponent({
     font-size: 14px;
 
     .search {
-      margin-right: 6px;
       transform: translateX(30px);
 
       .search-input {
@@ -247,7 +246,7 @@ export default defineComponent({
     }
 
     .icon-search {
-      padding: 0 24px 0 4px;
+      padding: 0 40px 0 4px;
       color: var(--datav-font-color);
       cursor: pointer;
       z-index: 1;

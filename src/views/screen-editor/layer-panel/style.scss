@@ -45,6 +45,9 @@ $panel-width: 200px;
   top: 0;
   right: 1px;
   letter-spacing: 4px;
+  display: flex;
+  align-items: center;
+  height: 100%;
 
   .btn-icon {
     text-indent: 0;
@@ -79,7 +82,6 @@ $panel-width: 200px;
     text-align: center;
     width: 20px;
     height: 20px;
-    font-size: 14px;
     color: var(--datav-font-color);
     border-radius: 1px;
     transition: background 0.2s;
@@ -171,7 +173,7 @@ $panel-width: 200px;
 
   &.hovered {
     color: #fff;
-    background: rgba(143, 225, 255, 0.1);
+    background: rgb(143 225 255 / 10%);
   }
 
   &.selected {

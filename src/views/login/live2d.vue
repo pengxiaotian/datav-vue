@@ -102,7 +102,7 @@ export default defineComponent({
     background-repeat: no-repeat;
     background-size: 25%;
     background-position: 50% 70%;
-    box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 5px rgb(0 0 0 / 10%);
   }
 
   .live2d-cover-text {
@@ -117,7 +117,7 @@ export default defineComponent({
 
   .live2d-cover-line {
     position: absolute;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(255 255 255 / 10%);
     width: 100%;
     height: 10px;
     bottom: 0;
@@ -127,7 +127,7 @@ export default defineComponent({
     position: absolute;
     background: #ccc;
     bottom: -2px;
-    box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 0 1px rgb(0 0 0 / 10%);
     height: 8px;
     left: 50%;
     margin-left: -15px;

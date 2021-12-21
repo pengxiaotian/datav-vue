@@ -1,10 +1,9 @@
-$datav-data-form-bgcolor: #0e1013;
 $border-1: 1px solid #566273;
 
 .filter-wp {
   position: relative;
   padding: 10px;
-  background: $datav-data-form-bgcolor;
+  background: var(--datav-data-form-bgcolor);
   border: var(--datav-layer-toolbar-border);
 
   .filter-list {
@@ -93,6 +92,7 @@ $border-1: 1px solid #566273;
     .del-btn,
     .edit-btn,
     .save-btn {
+      font-size: 18px;
       vertical-align: middle;
       cursor: pointer;
       opacity: 0;
@@ -295,7 +295,7 @@ $border-1: 1px solid #566273;
 .panel-content-wp {
   height: 274px;
   overflow: hidden;
-  background: $datav-data-form-bgcolor;
+  background: var(--datav-data-form-bgcolor);
   border: $border-1;
   border-top: none;
   transition: border-color 0.2s;
@@ -306,7 +306,7 @@ $border-1: 1px solid #566273;
     padding-left: 8px;
     height: 28px;
     line-height: 28px;
-    background: $datav-data-form-bgcolor;
+    background: var(--datav-data-form-bgcolor);
     margin-bottom: 0;
 
     .--keyword {
