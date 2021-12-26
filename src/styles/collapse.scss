@@ -8,6 +8,10 @@
       height: 40px;
       border-bottom: var(--datav-gui-cp-border);
 
+      .g-field-title {
+        cursor: pointer;
+      }
+
       .n-collapse-item-arrow {
         position: absolute;
         right: 8px;
@@ -33,7 +37,7 @@
 }
 
 .g-field-collapse.n-collapse {
-  margin-bottom: 5px;
+  // margin-bottom: 5px;
 
   .n-collapse-item {
     .n-collapse-item__header {
@@ -105,6 +109,10 @@
         .g-field-title,
         .g-field-title-with-description {
           color: var(--datav-gui-font-color-2);
+        }
+
+        .g-field-title {
+          cursor: pointer;
         }
       }
     }

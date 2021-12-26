@@ -276,6 +276,13 @@ const themeOverrides: GlobalThemeOverrides = {
     border: vars2.border,
     textColor: vars.textColor1,
   },
+  Tabs: {
+    panePaddingMedium: '0',
+    tabGapMediumCard: '0',
+    tabBorderColor: '#0000',
+    tabTextColorHoverCard: vars.primaryColorHover,
+    tabTextColorActiveCard: vars.primaryColorHover,
+  },
 }
 
 export {

@@ -35,7 +35,6 @@ export default defineComponent({
   align-items: center;
 
   &.normal-com {
-    height: 100%;
     padding-top: 40%;
   }
 

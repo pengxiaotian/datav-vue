@@ -36,6 +36,9 @@
         placement="left"
         :width="400"
         class="editor-popover"
+        :style="{
+          '--color': '#0000',
+        }"
       >
         <template #trigger>
           <div class="ds-response-btn">
@@ -166,7 +169,6 @@ export default defineComponent({
       visiblePreview,
       apiType,
       datasources,
-      com,
       apiConfig,
       apiDataConfig,
       dataStatus,

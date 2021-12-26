@@ -8,7 +8,9 @@
         trigger="manual"
         :show-arrow="false"
         raw
-        style="--color: var(--datav-component-bg);"
+        :style="{
+          '--color': 'var(--datav-component-bg)',
+        }"
       >
         <template #trigger>
           <div class="btn-box" @click.stop>

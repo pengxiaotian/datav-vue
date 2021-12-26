@@ -106,20 +106,24 @@
 
       <template v-if="mode === 'layout'">
         <template v-if="list && list.length > 0">
-          <el-tabs
+          <n-tabs
             v-if="isLayoutRow"
-            v-model="activeTab"
-            type="border-card"
+            v-model:value="activeTab"
+            type="card"
             class="g-field-tabs"
+            :style="{
+              '--datav-gui-tabs-card-num': max,
+            }"
           >
-            <el-tab-pane
+            <n-tab-pane
               v-for="(item, idx) in list"
               :key="idx"
-              :label="getTabLabel(idx)"
+              :name="idx"
+              :tab="getTabLabel(idx)"
             >
               <slot :item="item"></slot>
-            </el-tab-pane>
-          </el-tabs>
+            </n-tab-pane>
+          </n-tabs>
           <div v-else class="g-field-tabs --column">
             <div
               v-for="(item, idx) in list"
@@ -128,7 +132,7 @@
             >
               <span
                 class="g-field-tabs-column-item-head"
-                :class="{ '--selected': idx === +activeTab }"
+                :class="{ '--selected': idx === activeTab }"
                 @click="changeTab(idx)"
               >
                 {{ getTabLabel(idx) }}
@@ -209,7 +213,7 @@ export default defineComponent({
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
     const activeNames = ref<string[]>([])
-    const activeTab = ref('0')
+    const activeTab = ref(0)
     const isLayoutRow = ref(props.defaultLayout === ToolboxType.horizontal)
 
     const visibleToolbox = computed(() => {
@@ -280,16 +284,16 @@ export default defineComponent({
 
     const copyData = () => {
       if (!copyState.value.disabled) {
-        const idx = Math.min(+activeTab.value, props.list.length - 1)
+        const idx = Math.min(activeTab.value, props.list.length - 1)
         props.list.push(cloneDeep(props.list[idx]))
       }
     }
 
     const deleteData = () => {
       if (!deleteState.value.disabled) {
-        const idx = Math.min(+activeTab.value, props.list.length - 1)
+        const idx = Math.min(activeTab.value, props.list.length - 1)
         props.list.splice(idx, 1)
-        activeTab.value = '0'
+        activeTab.value = 0
       }
     }
 
@@ -305,7 +309,7 @@ export default defineComponent({
     }
 
     const changeTab = (idx: number) => {
-      activeTab.value = `${idx}`
+      activeTab.value = idx
     }
 
     watch(() => props.modelValue, (nv: boolean) => {

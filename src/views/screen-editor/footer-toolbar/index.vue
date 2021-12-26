@@ -5,7 +5,9 @@
       placement="top"
       trigger="hover"
       raw
-      style="--color: var(--datav-component-bg);"
+      :style="{
+        '--color': 'var(--datav-component-bg)',
+      }"
     >
       <template #trigger>
         <n-icon class="shortcut-btn">
@@ -45,7 +47,9 @@
         trigger="click"
         :show-arrow="false"
         raw
-        style="--color: var(--datav-component-bg);"
+        :style="{
+          '--color': 'var(--datav-component-bg)',
+        }"
       >
         <template #trigger>
           <n-icon class="open-icon">

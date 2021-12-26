@@ -55,7 +55,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .data-center-panel {
   position: relative;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 
