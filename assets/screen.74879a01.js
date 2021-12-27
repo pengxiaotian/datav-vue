@@ -1,0 +1,1 @@
+import{e as a}from"./App.469555df.js";const t="DataV-Preview";async function s(e){await a.get("/screen",{params:{screenId:e}});try{const r=localStorage.getItem(t);if(r)return JSON.parse(r)}catch{localStorage.removeItem(t)}return null}function o(e){return localStorage.setItem(t,JSON.stringify(e)),a.post("/screen",e)}export{s as g,o as s};
