@@ -22,10 +22,6 @@
               :options="datasources"
               filterable
               class="datav-new-select"
-              :style="{
-                '--border': 'var(--datav-gui-new-select-border)',
-                '--color': 'var(--datav-gui-new-select-bgcolor)'
-              }"
               @update:value="changeSource"
             />
           </div>
@@ -40,6 +36,9 @@
         placement="left"
         :width="400"
         class="editor-popover"
+        :style="{
+          '--color': '#0000',
+        }"
       >
         <template #trigger>
           <div class="ds-response-btn">
@@ -170,7 +169,6 @@ export default defineComponent({
       visiblePreview,
       apiType,
       datasources,
-      com,
       apiConfig,
       apiDataConfig,
       dataStatus,

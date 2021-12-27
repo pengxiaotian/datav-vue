@@ -22,11 +22,11 @@ export default (adapter: MockAdapter) => {
 
   // 创建
   adapter.onPost('/filter')
-    .reply(200, Mock.mock({
+    .reply(() => [200, Mock.mock({
       code: 0,
       message: 'ok',
       'data|1-100000': 1,
-    }))
+    })])
 
   // 修改过滤器
   adapter.onPut(/\/filter\/\d+/)

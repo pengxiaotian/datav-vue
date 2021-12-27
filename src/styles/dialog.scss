@@ -14,11 +14,12 @@
     right: 0;
     width: 100%;
     height: 2px;
-    background-image: linear-gradient(
-      270deg,
-      var(--datav-slider-color) 0,
-      var(--datav-main-color) 74%
-    );
+    background-image:
+      linear-gradient(
+        270deg,
+        var(--datav-slider-color) 0,
+        var(--datav-main-color) 74%
+      );
   }
 
   .n-dialog__close {

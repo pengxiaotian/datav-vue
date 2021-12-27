@@ -89,37 +89,39 @@
   }
 }
 
-.el-tabs--card {
-  & > .el-tabs__header {
-    border: 0;
-    margin: 0;
+.n-tabs {
+  height: 100%;
 
-    .el-tabs__nav {
-      border: 0;
-      border-radius: 0;
+  .n-tabs-nav.n-tabs-nav--card-type {
+    .n-tabs-wrapper {
+      width: 100%;
+
+      .n-tabs-tab-wrapper {
+        flex-basis: calc(100% / var(--datav-gui-tabs-card-num));
+      }
     }
 
-    .el-tabs__item {
-      border: 0;
+    .n-tabs-tab {
+      width: 100%;
+      justify-content: center;
       height: 30px;
       line-height: 30px;
-      border-top: 2px solid transparent;
+      border: 0;
+      border-top: 2px solid #0000;
+      border-radius: 0;
       color: var(--datav-font-color);
       background: var(--datav-nav-bg);
 
-      &:hover {
-        color: var(--datav-main-hover-color);
-      }
-
-      &.is-active {
-        color: var(--datav-main-hover-color);
+      &.n-tabs-tab--active {
+        border: 0;
         border-top: 2px solid var(--datav-main-color);
         background: var(--datav-nav-bg-active);
       }
     }
   }
 
-  .el-tabs__content {
+  .n-tab-pane {
+    height: 100%;
     background: var(--datav-nav-bg-active);
   }
 }

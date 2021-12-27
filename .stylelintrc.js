@@ -2,6 +2,19 @@
 
 module.exports = {
   extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
+  overrides: [
+    {
+      files: ["**/*.scss", "**/*.css"],
+      customSyntax: "postcss-scss",
+    },
+    {
+      files: ["**/*.vue"],
+      customSyntax: "postcss-html",
+      rules: {
+        'custom-property-empty-line-before': null,
+      },
+    },
+  ],
   rules: {
     "function-name-case": null,
     "font-family-no-missing-generic-family-keyword": null,
@@ -12,6 +25,9 @@ module.exports = {
     "selector-pseudo-class-no-unknown": null,
     "selector-pseudo-element-colon-notation": null,
     "no-empty-source": null,
+    "selector-class-pattern": null,
+    "function-url-quotes": null,
+    "declaration-block-no-redundant-longhand-properties": null,
     'color-no-invalid-hex': true,
     'comment-no-empty': true,
     'declaration-block-no-duplicate-properties': [
@@ -93,7 +109,7 @@ module.exports = {
     'declaration-block-semicolon-space-before': 'never',
     'declaration-block-single-line-max-declarations': 1,
     'declaration-block-trailing-semicolon': 'always',
-    // 'declaration-colon-newline-after': 'always-multi-line',
+    'declaration-colon-newline-after': 'always-multi-line',
     'declaration-colon-space-after': 'always-single-line',
     'declaration-colon-space-before': 'never',
     'declaration-empty-line-before': [
@@ -116,7 +132,7 @@ module.exports = {
     'function-parentheses-newline-inside': 'always-multi-line',
     'function-parentheses-space-inside': 'never-single-line',
     'function-whitespace-after': 'always',
-    indentation: 2,
+    'indentation': 2,
     'length-zero-no-unit': true,
     'max-empty-lines': 1,
     'media-feature-colon-space-after': 'always',

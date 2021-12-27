@@ -45,8 +45,6 @@ const themeOverrides: GlobalThemeOverrides = {
   },
   Button: { // small 和 medium 一样大
     fontWeight: '700',
-    fontWeightText: '700',
-    fontWeighGhost: '700',
 
     iconSizeTiny: '12px',
 
@@ -277,6 +275,13 @@ const themeOverrides: GlobalThemeOverrides = {
     color: vars2.darkColor,
     border: vars2.border,
     textColor: vars.textColor1,
+  },
+  Tabs: {
+    panePaddingMedium: '0',
+    tabGapMediumCard: '0',
+    tabBorderColor: '#0000',
+    tabTextColorHoverCard: vars.primaryColorHover,
+    tabTextColorActiveCard: vars.primaryColorHover,
   },
 }
 

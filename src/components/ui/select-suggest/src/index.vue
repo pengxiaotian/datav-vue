@@ -25,7 +25,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref, toRefs, computed } from 'vue'
+import { defineComponent, PropType, toRefs, computed } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 interface DataDto {

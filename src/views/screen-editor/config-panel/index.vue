@@ -2,9 +2,9 @@
   <div :class="['g-aside config-panel-wp', { '--hide': !visiblePanel }]">
     <div class="config-manager">
       <page-config v-if="!selectedCom" />
-      <el-tabs v-else type="card" :stretch="true">
-        <el-tab-pane>
-          <template #label>
+      <n-tabs v-else type="card" display-directive="show:lazy">
+        <n-tab-pane name="config">
+          <template #tab>
             <n-tooltip :delay="500">
               <template #trigger>
                 <n-icon>
@@ -15,9 +15,9 @@
             </n-tooltip>
           </template>
           <setting-panel :key="selectedCom.id" />
-        </el-tab-pane>
-        <el-tab-pane lazy>
-          <template #label>
+        </n-tab-pane>
+        <n-tab-pane name="data" display-directive="show:lazy">
+          <template #tab>
             <n-tooltip :delay="500">
               <template #trigger>
                 <n-icon>
@@ -28,9 +28,9 @@
             </n-tooltip>
           </template>
           <data-center-panel :key="selectedCom.id" />
-        </el-tab-pane>
-        <el-tab-pane lazy>
-          <template #label>
+        </n-tab-pane>
+        <n-tab-pane name="interaction" display-directive="show:lazy">
+          <template #tab>
             <n-tooltip :delay="500">
               <template #trigger>
                 <n-icon>
@@ -41,8 +41,8 @@
             </n-tooltip>
           </template>
           <interaction-panel :key="selectedCom.id" />
-        </el-tab-pane>
-      </el-tabs>
+        </n-tab-pane>
+      </n-tabs>
     </div>
   </div>
 </template>

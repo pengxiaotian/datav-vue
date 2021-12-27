@@ -381,7 +381,7 @@ export default defineComponent({
 .upload-tip {
   color: var(--datav-gui-font-color-description);
   margin-top: 4px;
-  display: -webkit-box;
+  display: box;
   word-break: break-word;
   overflow: hidden;
   text-overflow: ellipsis;

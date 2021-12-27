@@ -5,7 +5,9 @@
       placement="top"
       trigger="hover"
       raw
-      style="--color: var(--datav-component-bg);"
+      :style="{
+        '--color': 'var(--datav-component-bg)',
+      }"
     >
       <template #trigger>
         <n-icon class="shortcut-btn">
@@ -45,7 +47,9 @@
         trigger="click"
         :show-arrow="false"
         raw
-        style="--color: var(--datav-component-bg);"
+        :style="{
+          '--color': 'var(--datav-component-bg)',
+        }"
       >
         <template #trigger>
           <n-icon class="open-icon">
@@ -212,7 +216,7 @@ export default defineComponent({
       &::-webkit-inner-spin-button,
       &::-webkit-outer-spin-button {
         margin: 0;
-        -webkit-appearance: none;
+        appearance: none;
       }
     }
 

@@ -11,16 +11,17 @@
   .n-input__suffix {
     .n-button {
       position: absolute;
-      top: 1px;
+      top: calc(var(--font-size) + 2px);
       right: 1px;
-      border-left: var(--datav-outline);
-      border-bottom: var(--datav-outline);
       padding: 0 3px;
+      border-left: var(--datav-outline);
+      border-top: 1px solid #0000;
+      border-bottom: none;
 
       &:nth-last-of-type(1) {
-        top: calc(var(--font-size) + 2px);
-        border-bottom: none;
-        border-top: 1px solid #0000;
+        top: 1px;
+        border-top: none;
+        border-bottom: var(--datav-outline);
       }
 
       &:hover {

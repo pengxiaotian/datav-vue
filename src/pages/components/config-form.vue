@@ -74,17 +74,17 @@
             </n-form-item>
             <n-form-item label="最大值">
               <n-space>
-                <g-input-number v-model:value="item.config.max" size="medium" />
+                <g-input-number v-model="item.config.max" size="medium" />
                 <n-checkbox v-model:checked="item.config.InfiniteMax">
                   不限制
                 </n-checkbox>
               </n-space>
             </n-form-item>
             <n-form-item label="步长">
-              <g-input-number v-model:value="item.config.step" size="medium" />
+              <g-input-number v-model="item.config.step" size="medium" />
             </n-form-item>
             <n-form-item label="单位">
-              <n-input v-model:value="item.config.suffix" />
+              <n-input v-model="item.config.suffix" />
             </n-form-item>
           </template>
           <template v-else-if="item.config.component === ComponentType.radio">
@@ -153,10 +153,10 @@
             />
           </n-form-item>
           <n-form-item label="最小项数">
-            <g-input-number v-model:value="item.config.min" size="medium" />
+            <g-input-number v-model="item.config.min" size="medium" />
           </n-form-item>
           <n-form-item label="最大项数">
-            <g-input-number v-model:value="item.config.max" size="medium" />
+            <g-input-number v-model="item.config.max" size="medium" />
           </n-form-item>
           <n-form-item label="默认布局">
             <n-radio-group v-model:value="item.config.layout" name="layout">
@@ -207,7 +207,7 @@ const objectToOpts = (obj: Object) => {
 }
 
 const arrToOpts = (arr: string[]) => {
-  return arr.map(m => ({ value: m, label: m }))
+  return arr?.map(m => ({ value: m, label: m }))
 }
 
 export default defineComponent({

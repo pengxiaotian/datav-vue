@@ -78,7 +78,7 @@ export default defineComponent({
 
       .info-p {
         padding: 2px 0;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgb(255 255 255 / 80%);
       }
     }
 
@@ -90,7 +90,7 @@ export default defineComponent({
       line-height: 32px;
       height: 36px;
       text-align: center;
-      background-color: rgba(0, 186, 255, 0.6);
+      background-color: rgb(0 186 255 / 60%);
       color: currentColor;
     }
   }

@@ -16,7 +16,7 @@ $panel-width: 324px;
 
   .favorite-empty {
     padding: 10px;
-    margin: 30px 0 0 0;
+    margin: 30px 0 0;
     font-size: 12px;
     color: #fff;
     text-align: center;
@@ -74,8 +74,10 @@ $panel-width: 324px;
   }
 
   .com-tab-icon {
+    width: 18px;
+    height: 18px;
     color: #fff;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: normal;
   }
 

@@ -45,31 +45,27 @@
           </n-gi>
           <n-gi>
             <n-card size="small">
-              <el-tabs v-model="activeTab" type="card">
-                <el-tab-pane label="配置预览" name="config">
+              <n-tabs v-model:value="activeTab">
+                <n-tab-pane tab="配置预览" name="config" display-directive="show:lazy">
                   <config-preview :config="list" />
-                </el-tab-pane>
-                <el-tab-pane label="配置代码（config.json）" name="code" lazy>
-                  <div style="padding: 12px;">
-                    <g-monaco-editor
-                      language="json"
-                      :code="configCode"
-                      :height="500"
-                      :read-only="true"
-                      :auto-format="true"
-                    />
-                  </div>
-                </el-tab-pane>
-                <el-tab-pane label="模板代码（config.vue）" name="template" lazy>
-                  <div style="padding: 12px;">
-                    <g-monaco-editor
-                      language="html"
-                      :code="templateCode"
-                      :height="500"
-                    />
-                  </div>
-                </el-tab-pane>
-              </el-tabs>
+                </n-tab-pane>
+                <n-tab-pane tab="配置代码（config.json）" name="code" display-directive="show:lazy">
+                  <g-monaco-editor
+                    language="json"
+                    :code="configCode"
+                    :height="500"
+                    :read-only="true"
+                    :auto-format="true"
+                  />
+                </n-tab-pane>
+                <n-tab-pane tab="模板代码（config.vue）" name="template" display-directive="show:lazy">
+                  <g-monaco-editor
+                    language="html"
+                    :code="templateCode"
+                    :height="500"
+                  />
+                </n-tab-pane>
+              </n-tabs>
             </n-card>
           </n-gi>
         </n-grid>

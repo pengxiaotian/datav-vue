@@ -22,13 +22,6 @@ export default ({ mode }: ConfigEnv) => {
       vue(),
       plainText(/\.hbs$/),
     ],
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `$--color-primary: #2483ff;`,
-        },
-      },
-    },
     server: {
       host: '0.0.0.0',
       port: 9090,
@@ -44,6 +37,7 @@ export default ({ mode }: ConfigEnv) => {
       // Suppress warning
       __INTLIFY_PROD_DEVTOOLS__: false,
       __DEV__: process.env.NODE_ENV !== 'production',
+      __PROD__: process.env.NODE_ENV === 'production',
     },
     optimizeDeps: {
       include: [

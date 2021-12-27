@@ -145,7 +145,7 @@ export default defineComponent({
     }
 
     &:active {
-      background: rgba(0, 0, 0, 0.5);
+      background: rgb(0 0 0 / 50%);
     }
   }
 

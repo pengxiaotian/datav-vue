@@ -1,75 +1,88 @@
 <template>
   <div class="login-container">
     <background-particles />
-    <n-form
-      ref="loginFormRef"
-      :model="loginForm"
-      :rules="loginRules"
-      label-placement="left"
-      size="small"
-      class="login-form"
+    <n-config-provider
+      :theme-overrides="{
+        Input: {
+          color: '#0000',
+          colorFocus: '#0000',
+          colorFocusError: '#0000',
+          colorFocusWarning: '#0000',
+          textColor: '#fff',
+          caretColor: '#fff',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
+        },
+      }"
+      abstract
     >
-      <live2d />
-
-      <div class="lang-select">
-        <g-lang-select />
-      </div>
-
-      <n-form-item path="username">
-        <n-input
-          v-model:value="loginForm.username"
-          placeholder="用户名"
-          type="text"
-          size="large"
-          :style="inputCSSVars"
-        >
-          <template #prefix>
-            <n-icon>
-              <IconUser />
-            </n-icon>
-          </template>
-        </n-input>
-      </n-form-item>
-      <n-form-item path="password">
-        <n-tooltip :show="capsTooltip" placement="top-start">
-          <template #trigger>
-            <n-input
-              v-model:value="loginForm.password"
-              placeholder="请输入密码"
-              type="password"
-              size="large"
-              show-password-on="click"
-              :style="inputCSSVars"
-              @keydown="checkCapslock"
-              @blur="capsTooltip = false"
-              @keyup.enter="handleLogin"
-            >
-              <template #prefix>
-                <n-icon>
-                  <IconKey />
-                </n-icon>
-              </template>
-            </n-input>
-          </template>
-          <span> 大写锁定已打开 </span>
-        </n-tooltip>
-      </n-form-item>
-      <n-button
-        :loading="loading"
-        type="primary"
-        size="large"
-        style="width: 100%; margin-bottom: 20px;"
-        @click="handleLogin"
+      <n-form
+        ref="loginFormRef"
+        :model="loginForm"
+        :rules="loginRules"
+        label-placement="left"
+        size="small"
+        class="login-form"
       >
-        {{ $t('login.login') }}
-      </n-button>
-      <div style="position: relative;">
-        <div class="tips">
-          <span>{{ $t('login.username') }}: admin</span>
-          <span>{{ $t('login.password') }}: 123123</span>
+        <live2d />
+
+        <div class="lang-select">
+          <g-lang-select />
         </div>
-      </div>
-    </n-form>
+
+        <n-form-item path="username">
+          <n-input
+            v-model:value="loginForm.username"
+            placeholder="用户名"
+            type="text"
+            size="large"
+          >
+            <template #prefix>
+              <n-icon>
+                <IconUser />
+              </n-icon>
+            </template>
+          </n-input>
+        </n-form-item>
+        <n-form-item path="password">
+          <n-tooltip :show="capsTooltip" placement="top-start">
+            <template #trigger>
+              <n-input
+                v-model:value="loginForm.password"
+                placeholder="请输入密码"
+                type="password"
+                size="large"
+                show-password-on="click"
+                @keydown="checkCapslock"
+                @blur="capsTooltip = false"
+                @keyup.enter="handleLogin"
+              >
+                <template #prefix>
+                  <n-icon>
+                    <IconKey />
+                  </n-icon>
+                </template>
+              </n-input>
+            </template>
+            <span> 大写锁定已打开 </span>
+          </n-tooltip>
+        </n-form-item>
+        <n-button
+          :loading="loading"
+          type="primary"
+          size="large"
+          style="width: 100%; margin-bottom: 20px;"
+          @click="handleLogin"
+        >
+          {{ $t('login.login') }}
+        </n-button>
+        <div style="position: relative;">
+          <div class="tips">
+            <span>{{ $t('login.username') }}: admin</span>
+            <span>{{ $t('login.password') }}: 123123</span>
+          </div>
+        </div>
+      </n-form>
+    </n-config-provider>
   </div>
 </template>
 
@@ -129,16 +142,6 @@ export default defineComponent({
     const redirect = ref('')
     const otherQuery = ref({})
 
-    const inputCSSVars = {
-      '--caret-color': '#fff',
-      '--text-color': '#fff',
-      '--border': '1px solid rgba(255, 255, 255, 0.3)',
-      '--color': 'transparent',
-      '--color-focus': 'transparent',
-      '--color-focus-error': 'transparent',
-      '--color-focus-warning': 'transparent',
-    }
-
     const route = useRoute()
     const router = useRouter()
 
@@ -184,9 +187,6 @@ export default defineComponent({
       loginFormRef,
       capsTooltip,
       loading,
-      redirect,
-      otherQuery,
-      inputCSSVars,
       checkCapslock,
       handleLogin,
     }

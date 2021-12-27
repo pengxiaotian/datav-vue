@@ -65,10 +65,10 @@
               <span class="project-name">{{ g.name }}</span>
               <span class="project-num">{{ g.children.length }}</span>
               <span class="group-btns">
-                <n-icon :size="14" @click="g.editing = true">
+                <n-icon @click="g.editing = true">
                   <IconEdit />
                 </n-icon>
-                <n-icon :size="14" class="btn-add-icon" @click="confirmDeleteGroup(g)">
+                <n-icon class="btn-add-icon" @click="confirmDeleteGroup(g)">
                   <IconDelete />
                 </n-icon>
               </span>
@@ -154,8 +154,8 @@ export default defineComponent({
       const name = (e.target.value || '').trim()
       if (name) {
         try {
-          await createProjectGroup(name)
           adding.value = false
+          await createProjectGroup(name)
         } catch (error) {
           nMessage.error(error.message)
         }
@@ -299,7 +299,7 @@ export default defineComponent({
       font-size: 12px;
 
       &.draging {
-        background: rgba(36, 127, 255, 0.3);
+        background: rgb(36 127 255 / 30%);
       }
     }
 

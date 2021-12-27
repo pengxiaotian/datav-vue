@@ -31,7 +31,7 @@
               <span class="user-link">
                 {{ userName }}
               </span>
-              <n-icon>
+              <n-icon :size="14">
                 <IconArrowDown />
               </n-icon>
             </span>
@@ -124,11 +124,12 @@ export default defineComponent({
   width: 100%;
   height: 30px;
   padding: 0 10px;
-  background-image: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0) 19%,
-    #171717 100%
-  );
+  background-image:
+    linear-gradient(
+      0deg,
+      rgb(0 0 0 / 0%) 19%,
+      #171717 100%
+    );
 
   .logo {
     display: flex;

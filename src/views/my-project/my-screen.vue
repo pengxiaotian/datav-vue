@@ -22,21 +22,21 @@
                   @dragstart="onDragStart"
                   @dragend="onDragEnd"
                 >
-                  <n-icon>
+                  <n-icon :size="20">
                     <IconMove />
                   </n-icon>
                 </span>
               </g-tooltip-popover>
               <g-tooltip-popover content="复制">
                 <span class="button-span" @click="confirmCopyProject">
-                  <n-icon>
+                  <n-icon :size="20">
                     <IconCopy />
                   </n-icon>
                 </span>
               </g-tooltip-popover>
               <g-tooltip-popover content="删除">
                 <span class="button-span" @click="confirmDeleteProject">
-                  <n-icon>
+                  <n-icon :size="20">
                     <IconDelete />
                   </n-icon>
                 </span>
@@ -50,14 +50,14 @@
             class="preview"
           >
             <g-tooltip-popover content="预览">
-              <n-icon>
+              <n-icon :size="18">
                 <IconPreview />
               </n-icon>
             </g-tooltip-popover>
           </router-link>
           <div class="public" @click="doPublish">
             <g-tooltip-popover content="发布">
-              <n-icon>
+              <n-icon :size="18">
                 <IconRelease />
               </n-icon>
             </g-tooltip-popover>
@@ -261,7 +261,7 @@ export default defineComponent({
       align-items: center;
       justify-content: center;
       transition: opacity 0.2s;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgb(0 0 0 / 80%);
 
       .edit-wrap {
         .edit {
