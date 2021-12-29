@@ -9,6 +9,9 @@ on:
 jobs:
   feat-ci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14]
 
     steps:
       - name: Checkout
@@ -17,12 +20,12 @@ jobs:
       - name: Step pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.24.3
+          version: latest
 
-      - name: Step Node.js 12
+      - name: Step Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: '12'
+          node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
       - name: Install dependencies
