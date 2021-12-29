@@ -1,7 +1,7 @@
 import type { ConfigEnv } from 'vite'
 import { loadEnv, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-
+import ElementPlus from 'unplugin-element-plus/vite'
 import plainText from 'vite-plugin-plain-text'
 
 import { resolve } from 'path'
@@ -20,6 +20,7 @@ export default ({ mode }: ConfigEnv) => {
     base: env.VITE_PUBLIC_PATH,
     plugins: [
       vue(),
+      ElementPlus(),
       plainText(/\.hbs$/),
     ],
     server: {

@@ -101,6 +101,11 @@
 import { defineComponent, ref, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import { useMessage } from 'naive-ui'
+
+import 'element-plus/es/components/tabs/style/css'
+import 'element-plus/es/components/tab-pane/style/css'
+import { ElTabs, ElTabPane } from 'element-plus'
+
 import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { BlueprintModule } from '@/store/modules/blueprint'
@@ -115,6 +120,8 @@ export default defineComponent({
   components: {
     IconSearch,
     IconBack,
+    ElTabs,
+    ElTabPane,
   },
   setup() {
     const nMessage = useMessage()
@@ -198,4 +205,5 @@ export default defineComponent({
 
 <style lang="scss">
 @import './style';
+@import './tabs';
 </style>
