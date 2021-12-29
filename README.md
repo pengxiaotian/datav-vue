@@ -111,22 +111,22 @@
 
 ```bash
 # 初始化项目
-yarn bootstrap
+pnpm run bootstrap
 
 # 跑起来！
-yarn dev
+pnpm run dev
 
 # 构建发布
-yarn build
+pnpm run build
 
 # 本地预览，需要先执行 build
-yarn serve
+pnpm run serve
 ```
 
 ### 新建可视化组件
 
 ```bash
-yarn new datav
+pnpm run new datav
 ```
 
 ### 配置可视化组件
@@ -180,20 +180,20 @@ main-title
 - 快速创建一个组件
 
 ```bash
-yarn gc [component name]
+pnpm run gc [component name]
 ```
 
 - 通过选项模式
 
 ```bash
 # 创建组件
-yarn new component
+pnpm run new component
 
 # 创建 Store
-yarn new store
+pnpm run new store
 
 # 创建 Icon
-yarn new icons
+pnpm run new icons
 ```
 
 ## 国际化

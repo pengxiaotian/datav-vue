@@ -2,34 +2,3 @@
   font-size: 16px;
   vertical-align: -0.125em;
 }
-
-@font-face {
-  font-family: datav-icons;
-  src: url('./fonts/datav-icons.woff2') format('woff2');
-}
-
-[class*=" el-icon-"],
-[class^="el-icon-"] {
-  font-family: datav-icons !important;
-  font-size: 14px;
-  font-style: normal;
-  display: inline-block;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.el-icon-arrow-up:before {
-  content: "\ef5e";
-}
-
-.el-icon-arrow-down:before {
-  content: "\e82d";
-}
-
-.el-icon-arrow-left:before {
-  content: "\e82e";
-}
-
-.el-icon-arrow-right:before {
-  content: "\ef5c";
-}
