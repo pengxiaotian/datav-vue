@@ -11,21 +11,30 @@ on:
 jobs:
   main-deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Step Node.js 12
+      - name: Step pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: latest
+
+      - name: Step Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: '12'
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: yarn bootstrap
+        run: pnpm run bootstrap
 
       - name: Build Website
-        run: yarn build
+        run: pnpm run build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
