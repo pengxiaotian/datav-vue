@@ -37,7 +37,7 @@
         :width="400"
         class="editor-popover"
         :style="{
-          '--color': '#0000',
+          '--n-color': '#0000',
         }"
       >
         <template #trigger>

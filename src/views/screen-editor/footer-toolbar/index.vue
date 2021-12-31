@@ -6,7 +6,7 @@
       trigger="hover"
       raw
       :style="{
-        '--color': 'var(--datav-component-bg)',
+        '--n-color': 'var(--datav-component-bg)',
       }"
     >
       <template #trigger>
@@ -48,7 +48,7 @@
         :show-arrow="false"
         raw
         :style="{
-          '--color': 'var(--datav-component-bg)',
+          '--n-color': 'var(--datav-component-bg)',
         }"
       >
         <template #trigger>
