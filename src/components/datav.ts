@@ -1,8 +1,8 @@
 import { kebabCase } from '@/utils/util'
 
 export async function createComponent(name: string) {
-  const path = kebabCase(name.substr(1))
-  switch (name.substr(1)) {
+  const path = kebabCase(name.substring(1))
+  switch (name.substring(1)) {
     // bar
     case 'BasicBar':
     {

@@ -264,7 +264,7 @@ class Editor extends VuexModule implements IEditorState {
   public setSubscribersView(payload: { id: string; data: string; }) {
     const { id, data } = payload
     const sv = this.variables.subscribersView
-    const keys = getTextParams(data).map(m => m.substr(1))
+    const keys = getTextParams(data).map(m => m.substring(1))
     const svkeys = Object.keys(sv)
     const allKeys = new Set([...keys, ...svkeys])
     for (const key of allKeys) {
