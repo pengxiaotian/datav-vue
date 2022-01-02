@@ -157,15 +157,15 @@ export function toObject<T>(arr: Array<T>): Record<string, T> {
   return res
 }
 
-export function ArrayToObject<T>(arr: Array<T>, key: string, value: string): Record<string, string> {
-  return arr.reduce((prev, curr) => {
-    prev[curr[key]] = curr[value]
-    return prev
-  }, {})
-}
+export function ArrayToObject<T extends string | Object>(arr: Array<T>, key?: string, value?: string): Record<string, string> {
+  if (key && value) {
+    return arr.reduce((prev, curr) => {
+      prev[curr[key]] = curr[value]
+      return prev
+    }, {})
+  }
 
-export function StringArrayToObject(arr: string[]): Record<string, string> {
-  return arr.reduce((prev, curr) => {
+  return (arr as string[]).reduce((prev, curr) => {
     prev[curr] = curr
     return prev
   }, {})
