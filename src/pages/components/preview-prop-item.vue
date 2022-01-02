@@ -34,8 +34,8 @@
     v-model:value="strValue"
     size="small"
   >
-    <n-radio-button v-for="em in enums" :key="em" :value="em">
-      {{ em }}
+    <n-radio-button v-for="pair in pairs" :key="pair.key" :value="pair.key">
+      {{ pair.value }}
     </n-radio-button>
   </n-radio-group>
   <g-slider
@@ -107,7 +107,6 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, ref, computed, watch } from 'vue'
-import { selectSuggests } from '@/data/select-options'
 import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '../props-config/config'
 
 export default defineComponent({
@@ -146,6 +145,10 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => [],
     },
+    pairs: {
+      type: Array as PropType<{ key: string; value: string; }[]>,
+      default: () => [],
+    },
     whichEnum: {
       type: Object as PropType<{
         field: string
@@ -178,10 +181,6 @@ export default defineComponent({
       return getSelectedOptions(props.componentType)
     })
 
-    const suggests = computed(() => {
-      return selectSuggests.filter(m => props.enums.includes(m.id))
-    })
-
     watch(
       () => props.componentType,
       () => {
@@ -210,7 +209,6 @@ export default defineComponent({
       mode,
       AllOptionKeys,
       selectOptions,
-      suggests,
     }
   },
 })

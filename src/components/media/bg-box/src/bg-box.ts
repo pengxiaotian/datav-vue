@@ -89,17 +89,6 @@ export class BgBox extends DatavComponent {
   async loadData() {}
 }
 
-export const borderTypes = [
-  { id: 'flat', value: '纯色' },
-  { id: 'linearGradient', value: '渐变' },
-  { id: 'image', value: '图片' },
-]
-
-export const imageTypes = [
-  { id: 'preset', value: '预设边框' },
-  { id: 'custom', value: '自定义边框' },
-]
-
 export const presetImages: DatavImageType[] = [
   ...BorderBoxPresetImages,
   {

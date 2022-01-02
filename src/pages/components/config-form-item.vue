@@ -24,8 +24,8 @@
     v-else-if="componentType === componentTypes.radio"
     v-model:value="strValue"
   >
-    <n-radio-button v-for="em in enums" :key="em" :value="em">
-      {{ em }}
+    <n-radio-button v-for="pair in pairs" :key="pair.key" :value="pair.key">
+      {{ pair.value }}
     </n-radio-button>
   </n-radio-group>
   <g-slider
@@ -97,6 +97,10 @@ export default defineComponent({
     },
     enums: {
       type: Array as PropType<string[]>,
+      default: () => [],
+    },
+    pairs: {
+      type: Array as PropType<{ key: string; value: string; }[]>,
       default: () => [],
     },
     flatValue: Boolean,

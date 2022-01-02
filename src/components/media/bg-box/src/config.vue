@@ -15,7 +15,7 @@
       label="填充"
       mode="layout"
       default-layout="horizontal"
-      :features="['vertical','horizontal','copy','add','remove']"
+      :features="['vertical', 'horizontal', 'copy', 'add', 'remove']"
       :list="config.fills"
       :min="0"
       :max="5"
@@ -60,11 +60,15 @@
           size="small"
         >
           <n-radio-button
-            v-for="em in ['flat','linearGradient','image']"
-            :key="em"
-            :value="em"
+            v-for="pair in [
+              { key: 'flat', value: '纯色' },
+              { key: 'linearGradient', value: '渐变' },
+              { key: 'image', value: '图片' },
+            ]"
+            :key="pair.key"
+            :value="pair.key"
           >
-            {{ em }}
+            {{ pair.value }}
           </n-radio-button>
         </n-radio-group>
       </g-field>
@@ -130,7 +134,7 @@
             label="节点"
             mode="layout"
             default-layout="horizontal"
-            :features="['vertical','horizontal','copy','add','remove']"
+            :features="['vertical', 'horizontal', 'copy', 'add', 'remove']"
             :list="config.border.linearGradient.color.stops"
             :min="0"
             :max="100"
@@ -172,11 +176,14 @@
           size="small"
         >
           <n-radio-button
-            v-for="em in imageTypes"
-            :key="em.id"
-            :value="em.id"
+            v-for="pair in [
+              { key: 'preset', value: '预设边框' },
+              { key: 'custom', value: '自定义边框' },
+            ]"
+            :key="pair.key"
+            :value="pair.key"
           >
-            {{ em.value }}
+            {{ pair.value }}
           </n-radio-button>
         </n-radio-group>
       </g-field>
@@ -278,7 +285,7 @@ import {
   lineStyles,
   repeatTypes,
 } from '@/data/select-options'
-import { BgBox, borderTypes, imageTypes, presetImages } from './bg-box'
+import { BgBox, presetImages } from './bg-box'
 
 export default defineComponent({
   name: 'VBgBoxProp',
@@ -310,8 +317,6 @@ export default defineComponent({
 
       lineStyles,
       repeatTypes,
-      borderTypes,
-      imageTypes,
       presetImages,
       handleAddFillsItem,
       handleAddStopsItem,

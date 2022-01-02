@@ -47,6 +47,7 @@
               :component-type="item.config.component"
               :default-value="item.config.defaultValue"
               :enums="item.config.enums"
+              :pairs="item.config.pairs"
               :flat-value="item.config.flatValue"
             />
           </n-form-item>
@@ -65,7 +66,7 @@
           </n-form-item>
           <template v-if="item.config.component === ComponentType.number || item.config.component === ComponentType.slider">
             <n-form-item label="最小值">
-              <n-space>
+              <n-space align="center">
                 <g-input-number v-model="item.config.min" size="medium" />
                 <n-checkbox v-model:checked="item.config.InfiniteMin">
                   不限制
@@ -73,7 +74,7 @@
               </n-space>
             </n-form-item>
             <n-form-item label="最大值">
-              <n-space>
+              <n-space align="center">
                 <g-input-number v-model="item.config.max" size="medium" />
                 <n-checkbox v-model:checked="item.config.InfiniteMax">
                   不限制
@@ -89,12 +90,11 @@
           </template>
           <template v-else-if="item.config.component === ComponentType.radio">
             <n-form-item label="枚举值">
-              <n-select
-                v-model:value="item.config.enums"
-                filterable
-                multiple
-                clearable
-                tag
+              <n-dynamic-input
+                v-model:value="item.config.pairs"
+                preset="pair"
+                key-placeholder="key"
+                value-placeholder="label"
               />
             </n-form-item>
           </template>
@@ -251,7 +251,7 @@ export default defineComponent({
         const config = props.config.find(m => m.key === field)
         if (config) {
           if (config.config.component === ComponentType.radio) {
-            return config.config.enums
+            return config.config.pairs.map(m => m.key)
           } else {
             return getSelectedOptions(config.config.component).map(m => m.id)
           }

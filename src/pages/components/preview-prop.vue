@@ -13,6 +13,7 @@
         :suffix="item.config.suffix"
         :label="item.config.alias"
         :enums="item.config.enums"
+        :pairs="item.config.pairs"
         :inline="item.config.displayMode"
         :flat-value="item.config.flatValue"
       />
@@ -98,6 +99,7 @@
           :step="item.config.step"
           :suffix="item.config.suffix"
           :enums="item.config.enums"
+          :pairs="item.config.pairs"
           :inline="item.config.displayMode"
           :flat-value="item.config.flatValue"
         />

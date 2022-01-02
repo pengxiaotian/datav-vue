@@ -103,6 +103,7 @@ export interface PropConfig {
   InfiniteMax: boolean
   suffix: string
   enums: string[]
+  pairs: { key: string; value: string; }[]
   whichEnum: {
     field: string
     value: string
@@ -129,6 +130,7 @@ export const createPropConfig = () => {
     InfiniteMax: false,
     suffix: '',
     enums: [],
+    pairs: [],
     whichEnum: {
       field: '',
       value: '',
