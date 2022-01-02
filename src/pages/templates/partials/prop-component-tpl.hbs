@@ -64,11 +64,15 @@
   size="small"
 >
   <n-radio-button
-    v-for="em in {{{ enumsToTpl config.enums }}}"
-    :key="em"
-    :value="em"
+    v-for="pair in [
+      {{#each config.pairs as | pair |}}
+      {{{pairToTpl pair}}},
+      {{/each}}
+    ]"
+    :key="pair.key"
+    :value="pair.key"
   >
-    \{{ em }}
+    \{{ pair.value }}
   </n-radio-button>
 </n-radio-group>
 {{else if (eq config.component componentTypes.slider)}}

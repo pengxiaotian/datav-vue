@@ -14,13 +14,27 @@ Handlebars.registerHelper('hasSelectOpts', (arr, val) => arr.includes(`${val}s`)
 Handlebars.registerHelper('enumsToTpl', (arr: string[]) => {
   let str = '['
   arr.forEach((item, i) => {
-    if (i === arr.length - 1) {
-      str += `'${item}'`
-    } else {
-      str += `'${item}',`
+    str += `'${item}'`
+
+    if (i !== arr.length - 1) {
+      str += ', '
     }
   })
   return `${str}]`
+})
+Handlebars.registerHelper('pairsToTpl', (arr: { key: string; value: string; }[]) => {
+  let str = '['
+  arr.forEach((item, i) => {
+    str += `{ key: '${item.key}', value: '${item.value}' }`
+
+    if (i !== arr.length - 1) {
+      str += ', '
+    }
+  })
+  return `${str}]`
+})
+Handlebars.registerHelper('pairToTpl', (pair: { key: string; value: string; }) => {
+  return `{ key: '${pair.key}', value: '${pair.value}' }`
 })
 Handlebars.registerHelper('getSlotPath', (path: string, vpath: string) => {
   const str = vpath ? vpath : `config.${path}`
