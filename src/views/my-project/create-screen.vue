@@ -21,7 +21,7 @@
                 type="primary"
                 :focusable="false"
                 :style="{
-                  '--icon-size': '12px'
+                  '--n-icon-size': '12px'
                 }"
                 @click="confirmCreate(null)"
               >

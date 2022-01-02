@@ -7,7 +7,7 @@
     :show-arrow="false"
     class="g-select-image-popover"
     :style="{
-      '--color': 'var(--datav-gui-bgcolor-back)'
+      '--n-color': 'var(--datav-gui-bgcolor-back)'
     }"
   >
     <template #trigger>

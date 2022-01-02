@@ -159,7 +159,7 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
     if (prev) {
       const idx = prev.indexOf('.0')
       if (idx > -1) {
-        virtualPath = `slotProps.item${prev.substr(idx + 2)}.${key}`
+        virtualPath = `slotProps.item${prev.substring(idx + 2)}.${key}`
       }
     }
     const dto: PropDto = {

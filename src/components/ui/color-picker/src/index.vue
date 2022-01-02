@@ -19,8 +19,8 @@
         :size="size"
         show-alpha
         :style="{
-          width: 'var(--height)',
-          flex: `0 0 var(--height)`
+          width: 'var(--n-height)',
+          flex: `0 0 var(--n-height)`
         }"
         @update:value="handleInput"
       />

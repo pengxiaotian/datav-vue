@@ -2,6 +2,8 @@ name: Feat CI
 
 on:
   push:
+    branches:
+      - 'feat/**'
     paths-ignore:
       - '**.md'
       - 'demo/**'
