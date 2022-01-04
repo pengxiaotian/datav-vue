@@ -13,7 +13,7 @@
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
   {{/if}}
   {{#if item.config.toggleCol}}
-  v-model="config.{{item.path}}.{{item.config.toggleCol}}"
+  v-model="{{getSlotPath item.path item.virtualPath}}.{{item.key}}.{{item.config.toggleCol}}"
   :toggle="true"
   {{/if}}
   {{#if item.config.tip}}
@@ -41,7 +41,7 @@
   mode="layout"
   default-layout="{{item.config.layout}}"
   :features="{{{enumsToTpl item.config.features}}}"
-  :list="config.{{item.path}}"
+  :list="{{getSlotPath item.path item.virtualPath}}.{{item.key}}"
   :min="{{item.config.min}}"
   :max="{{item.config.max}}"
   {{#if item.children.0.config.alias}}
