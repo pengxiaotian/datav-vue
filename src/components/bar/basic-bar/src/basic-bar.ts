@@ -55,6 +55,7 @@ export class BasicBar extends DatavEChartsComponent {
     xAxis: {
       show: true,
       type: 'category',
+      boundaryGap: true,
       title: {
         show: true,
         name: 'X轴',
@@ -83,8 +84,8 @@ export class BasicBar extends DatavEChartsComponent {
       },
       axisLabel: {
         show: true,
+        valueFormat: 'd',
         timeFormat: 'MM/DD',
-        boundaryGap: true,
         interval: 'auto',
         display: {
           rotate: 0,
@@ -147,9 +148,9 @@ export class BasicBar extends DatavEChartsComponent {
         boundaryGap: 0,
         display: {
           rotate: 0,
-          margin: 10,
+          margin: 8,
         },
-        align: 'center',
+        align: 'right',
         textStyle: {
           fontSize: 12,
           color: 'rgba(255, 255, 255, 0.6)',

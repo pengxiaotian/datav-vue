@@ -182,13 +182,21 @@
           size="small"
         >
           <n-radio-button
-            v-for="em in xAxisTypes"
+            v-for="em in axisTypes"
             :key="em.id"
             :value="em.id"
           >
             {{ em.value }}
           </n-radio-button>
         </n-radio-group>
+      </g-field>
+      <g-field
+        :level="2"
+        label="两端留白"
+      >
+        <n-switch
+          v-model:value="config.xAxis.boundaryGap"
+        />
       </g-field>
       <g-field-collapse
         v-model="config.xAxis.title.show"
@@ -339,6 +347,17 @@
         label="轴标签"
       >
         <g-field
+          v-if="config.xAxis.type === 'value'"
+          :level="2"
+          tooltip="整数参照 d, 浮点参照 .1f"
+          label="显示格式"
+        >
+          <g-select
+            v-model="config.xAxis.axisLabel.valueFormat"
+            :data="valueFormats"
+          />
+        </g-field>
+        <g-field
           v-if="config.xAxis.type === 'time'"
           :level="2"
           tooltip="时间请参照 YYYY/MM/DD HH:mm:ss"
@@ -351,21 +370,13 @@
         </g-field>
         <g-field
           :level="2"
-          label="两端留白"
-        >
-          <n-switch
-            v-model:value="config.xAxis.axisLabel.boundaryGap"
-          />
-        </g-field>
-        <g-field
-          :level="2"
           tooltip="默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。"
           label="间隔"
         >
           <g-select-suggest
             v-model="config.xAxis.axisLabel.interval"
             :data="selectSuggests"
-            :filters="['auto','0','1','2']"
+            :filters="['auto', '0', '1', '2']"
           />
         </g-field>
         <g-field
@@ -494,14 +505,14 @@
         <g-select-suggest
           v-model="config.yAxis.extent.min"
           :data="selectSuggests"
-          :filters="['auto','dataMin']"
+          :filters="['auto', 'dataMin']"
           inline="inline"
           label="最小值"
         />
         <g-select-suggest
           v-model="config.yAxis.extent.max"
           :data="selectSuggests"
-          :filters="['auto','dataMax']"
+          :filters="['auto', 'dataMax']"
           inline="inline"
           label="最大值"
         />
@@ -1104,7 +1115,7 @@
       label="系列"
       mode="layout"
       default-layout="horizontal"
-      :features="['vertical','horizontal','copy','add','remove']"
+      :features="['vertical', 'horizontal', 'copy', 'add', 'remove']"
       :list="config.series"
       :min="1"
       :max="5"
@@ -1211,7 +1222,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, toRef, computed } from 'vue'
+import { defineComponent, PropType, toRef } from 'vue'
 import {
   fontFamilys,
   selectSuggests,
@@ -1220,9 +1231,9 @@ import {
   axisTypes,
   titleLocations,
   lineStyles,
+  valueFormats,
   timeFormats,
   hAligns,
-  valueFormats,
   legendLocations,
   orients,
   legendIcons,
@@ -1242,17 +1253,12 @@ export default defineComponent({
   setup(props) {
     const config = toRef(props.com, 'config')
 
-    const xAxisTypes = computed(() => {
-      return axisTypes.filter(m => m.id !== 'value')
-    })
-
     const handleAddSeriesItem = () => {
       return new BasicBarSeries(`系列${config.value.series.length + 1}`)
     }
 
     return {
       config,
-      xAxisTypes,
       handleAddSeriesItem,
 
       fontFamilys,
@@ -1262,9 +1268,9 @@ export default defineComponent({
       axisTypes,
       titleLocations,
       lineStyles,
+      valueFormats,
       timeFormats,
       hAligns,
-      valueFormats,
       legendLocations,
       orients,
       legendIcons,
