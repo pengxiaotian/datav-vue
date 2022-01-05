@@ -98,7 +98,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, nextTick } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import { useMessage } from 'naive-ui'
 
@@ -173,7 +173,9 @@ export default defineComponent({
 
         if (com.apis.source) {
           await com.loadData()
-          BlueprintModule.datavComponents[com.id].$DATAV_requestData()
+          nextTick(() => {
+            BlueprintModule.datavComponents[com.id].$DATAV_requestData()
+          })
         }
       } else {
         nMessage.warning('正在开发中。。。')

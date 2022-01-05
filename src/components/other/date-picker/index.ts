@@ -4,7 +4,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import DatePicker from './src/index.vue'
 
 DatePicker.install = (app: App): void => {
-  app.component(DatePicker.name, DatePicker)
+  app.component('VDatePicker', DatePicker)
   app.component('VDatePickerProp', loadAsyncComponent(() => import('./src/config.vue')))
 }
 

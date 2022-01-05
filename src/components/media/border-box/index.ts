@@ -4,7 +4,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import BorderBox from './src/index.vue'
 
 BorderBox.install = (app: App): void => {
-  app.component(BorderBox.name, BorderBox)
+  app.component('VBorderBox', BorderBox)
   app.component('VBorderBoxProp', loadAsyncComponent(() => import('./src/config.vue')))
 }
 

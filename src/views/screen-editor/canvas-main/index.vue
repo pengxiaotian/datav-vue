@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, nextTick } from 'vue'
 import type { CSSProperties } from 'vue'
 import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
@@ -91,7 +91,9 @@ export default defineComponent({
 
           if (com.apis.source) {
             await com.loadData()
-            BlueprintModule.datavComponents[com.id].$DATAV_requestData()
+            nextTick(() => {
+              BlueprintModule.datavComponents[com.id].$DATAV_requestData()
+            })
           }
         }
       } catch {
