@@ -1,5 +1,9 @@
 .g-select-shape-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+
+  .g-select-shape-item-text {
+    margin-left: 5px;
+  }
 }

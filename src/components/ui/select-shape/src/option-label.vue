@@ -1,6 +1,5 @@
 <template>
   <span class="g-select-shape-item">
-    <span>{{ label }}</span>
     <n-icon>
       <IconShapeDiamond v-if="icon === 'shape-diamond'" />
       <IconShapeTriangle v-else-if="icon === 'shape-triangle'" />
@@ -16,6 +15,7 @@
       <IconShapeRect v-else-if="icon === 'shape-rect'" />
       <IconHelp v-else />
     </n-icon>
+    <span class="g-select-shape-item-text" :title="label">{{ label }}</span>
   </span>
 </template>
 
