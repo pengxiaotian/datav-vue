@@ -4,7 +4,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import Paragraph from './src/index.vue'
 
 Paragraph.install = (app: App): void => {
-  app.component(Paragraph.name, Paragraph)
+  app.component('VParagraph', Paragraph)
   app.component('VParagraphProp', loadAsyncComponent(() => import('./src/config.vue')))
 }
 

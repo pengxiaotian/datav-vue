@@ -4,7 +4,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import Decoration from './src/index.vue'
 
 Decoration.install = (app: App): void => {
-  app.component(Decoration.name, Decoration)
+  app.component('VDecoration', Decoration)
   app.component('VDecorationProp', loadAsyncComponent(() => import('./src/config.vue')))
 }
 

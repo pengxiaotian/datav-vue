@@ -175,6 +175,7 @@ export default defineComponent({
         xAxis: {
           show: xAxis.show,
           type: xAxis.type,
+          boundaryGap: xAxis.boundaryGap,
           name: xAxis.title.show ? xAxis.title.name : '',
           nameLocation: xAxis.title.location,
           nameRotate: xAxis.title.display.rotate,
@@ -201,15 +202,18 @@ export default defineComponent({
           },
           axisLabel: {
             show: xAxis.axisLabel.show,
-            boundaryGap: xAxis.axisLabel.boundaryGap,
             interval: getAutoValue(xAxis.axisLabel.interval),
             rotate: xAxis.axisLabel.display.rotate,
             margin: xAxis.axisLabel.display.margin,
             align: xAxis.axisLabel.align,
             ...xAxis.axisLabel.textStyle,
+            timeFormat: xAxis.axisLabel.timeFormat,
+            valueFormat: xAxis.axisLabel.valueFormat,
             formatter: (val: string) => {
               if (xAxis.type === 'time') {
                 return dayjs(val).format(xAxis.axisLabel.timeFormat)
+              } else if (xAxis.type === 'value') {
+                return valueFormater(val, xAxis.axisLabel.valueFormat)
               }
               return val
             },
@@ -260,6 +264,7 @@ export default defineComponent({
             margin: yAxis.axisLabel.display.margin,
             align: yAxis.axisLabel.align,
             ...yAxis.axisLabel.textStyle,
+            valueFormat: yAxis.axisLabel.valueFormat,
             formatter: (val: string) => {
               return valueFormater(val, yAxis.axisLabel.valueFormat)
             },

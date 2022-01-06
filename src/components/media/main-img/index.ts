@@ -4,7 +4,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import MainImg from './src/index.vue'
 
 MainImg.install = (app: App): void => {
-  app.component(MainImg.name, MainImg)
+  app.component('VMainImg', MainImg)
   app.component('VMainImgProp', loadAsyncComponent(() => import('./src/config.vue')))
 }
 

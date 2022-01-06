@@ -35,7 +35,7 @@ import { defineComponent, computed, ComputedRef, inject, ref, provide, onMounted
 import { DatavComponent } from '@/components/datav-component'
 import { EventItemConfig } from '@/components/data-event'
 import { EditorModule } from '@/store/modules/editor'
-import { ArrayToObject, StringArrayToObject } from '@/utils/util'
+import { ArrayToObject } from '@/utils/util'
 import { IconArrowRight } from '@/icons'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
@@ -78,7 +78,7 @@ export default defineComponent({
         const fields = Object.keys(com.value.events[eventName].fields)
         events.value[eventName] = {
           enable: false,
-          fields: StringArrayToObject(fields),
+          fields: ArrayToObject(fields),
         }
       }
     }

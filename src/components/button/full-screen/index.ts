@@ -4,7 +4,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import FullScreen from './src/index.vue'
 
 FullScreen.install = (app: App): void => {
-  app.component(FullScreen.name, FullScreen)
+  app.component('VFullScreen', FullScreen)
   app.component('VFullScreenProp', loadAsyncComponent(() => import('./src/config.vue')))
 }
 

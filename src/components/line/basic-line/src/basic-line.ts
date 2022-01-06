@@ -1,4 +1,4 @@
-import { DatavEChartsComponent, DatavChartSeries } from '@/components/datav-component'
+import { DatavComponent, DatavChartSeries } from '@/components/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
   initApiConfig, initApiData,
@@ -7,54 +7,75 @@ import { createField } from '@/components/data-field'
 import { DataEventConfig } from '@/components/data-event'
 import { getStaticData } from '@/api/data'
 
-export class BasicBarSeries extends DatavChartSeries {
+export class BasicLineSeries extends DatavChartSeries {
   constructor(name: string) {
-    super('bar', name)
+    super('line', name)
   }
 
-  color = {
-    type: 'solid',
-    value: '#00baff',
-    from: '#fff',
-    to: '#000',
+  line = {
+    color: '#34FFF5',
+    style: 'solid',
+    width: 1,
+    opacity: 1,
+    smooth: 0.5,
+  }
+
+  point = {
+    icon: 'roundRect',
+    color: '#34FFF5',
+    borderColor: 'rgba(0, 0, 0, 0.44)',
+    borderWidth: 1,
+    borderType: 'solid',
+    opacity: 1,
+  }
+
+  label = {
+    show: false,
+    field: 'y',
+    valueFormat: 'auto',
+    describe: {
+      prefix: '',
+      suffix: '',
+    },
+    offset: {
+      x: 0,
+      y: 0,
+    },
+    rotate: 0,
+    textStyle: {
+      fontSize: 12,
+      color: '#ddd',
+      fontWeight: 'normal',
+    },
+    stroke: {
+      color: '#000',
+      width: 0,
+    },
   }
 }
 
 /**
- * BasicBar
+ * BasicLine
  */
-export class BasicBar extends DatavEChartsComponent {
+export class BasicLine extends DatavComponent {
   config = {
     global: {
       fontFamily: 'Microsoft Yahei',
       margin: {
         top: 40,
         bottom: 50,
-        left: 50,
-        right: 10,
+        left: 60,
+        right: 30,
       },
-      innerPadding: 20,
-      outerPadding: 30,
-      barWidth: 'auto',
-      background: {
-        show: true,
-        color: 'rgba(255, 255, 255, 0.1)',
-      },
-    },
-    label: {
-      show: false,
-      position: 'top',
-      textStyle: {
-        fontSize: 12,
-        color: 'rgba(255, 255, 255, 0.6)',
-        fontWeight: 'normal',
-      },
-      offsetX: 0,
-      offsetY: 0,
+      connectNulls: false,
     },
     xAxis: {
       show: true,
       type: 'category',
+      extent: {
+        min: 'auto',
+        max: 'auto',
+      },
       boundaryGap: true,
       title: {
         show: true,
@@ -111,11 +132,11 @@ export class BasicBar extends DatavEChartsComponent {
     },
     yAxis: {
       show: true,
+      type: 'value',
       extent: {
         min: 'auto',
         max: 'auto',
       },
-      splitNumber: 0,
       title: {
         show: false,
         name: 'Y轴',
@@ -145,6 +166,7 @@ export class BasicBar extends DatavEChartsComponent {
       axisLabel: {
         show: true,
         valueFormat: 'auto',
+        timeFormat: 'MM/DD',
         boundaryGap: 0,
         display: {
           rotate: 0,
@@ -170,6 +192,7 @@ export class BasicBar extends DatavEChartsComponent {
     },
     tooltip: {
       show: true,
+      triggerOn: 'mousemove',
       textStyle: {
         fontSize: 14,
         color: '#fff',
@@ -181,6 +204,8 @@ export class BasicBar extends DatavEChartsComponent {
           v: 5,
         },
         color: 'rgba(0, 0, 0, 0.65)',
+        borderColor: 'rgba(0, 0, 0, 0.25)',
+        borderWidth: 1,
       },
       pointer: {
         show: true,
@@ -223,7 +248,7 @@ export class BasicBar extends DatavEChartsComponent {
         pageNumColor: '#90a0ae',
       },
     },
-    series: [new BasicBarSeries('系列1')],
+    series: [new BasicLineSeries('')],
     animation: {
       enabled: true,
       duration: 1000,
@@ -240,7 +265,7 @@ export class BasicBar extends DatavEChartsComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('BasicBar', { w: 500, h: 300 })
+    super('BasicLine', { w: 500, h: 300 })
 
     this.initData()
   }
@@ -249,11 +274,12 @@ export class BasicBar extends DatavEChartsComponent {
     const fields = [
       createField('x', { description: '类目' }),
       createField('y', { description: '值' }),
+      createField('s', { description: '系列' }),
     ]
 
     this.apis = initApiConfig({
       fields: Object.assign({}, ...fields),
-      description: '基本柱状图接口',
+      description: '基本折线图接口',
     })
 
     this.apiData = initApiData(this.id)
@@ -264,14 +290,33 @@ export class BasicBar extends DatavEChartsComponent {
         fields: Object.assign({}, ...fields),
       },
     }
-
     this.actions = {}
+
+    const series2 = new BasicLineSeries('')
+    series2.line.color = '#30D9F1'
+    series2.point.color = '#30D9F1'
+
+    const series3 = new BasicLineSeries('')
+    series3.line.color = '#2CB4ED'
+    series3.point.color = '#2CB4ED'
+
+    const series4 = new BasicLineSeries('')
+    series4.line.color = '#288EE8'
+    series4.point.color = '#288EE8'
+
+    const series5 = new BasicLineSeries('')
+    series5.line.color = '#2469E4'
+    series5.point.color = '#2469E4'
+    this.config.series.push(series2, series3, series4, series5)
+
     return this
   }
 
   async loadData() {
     try {
-      const path = 'bar/basic-bar'
+      // 组件静态数据来源，当前项目统一管理目录：public/data/*
+      // 如：public/data/demo/data.json 简写为 => demo/data
+      const path = 'line/basic-line'
       const res = await getStaticData(this.id, path)
       this.apiData.source.config.data = JSON.stringify(res.data)
     } catch (error) {
@@ -280,4 +325,4 @@ export class BasicBar extends DatavEChartsComponent {
   }
 }
 
-export default BasicBar
+export default BasicLine

@@ -4,7 +4,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import Timer from './src/index.vue'
 
 Timer.install = (app: App): void => {
-  app.component(Timer.name, Timer)
+  app.component('VTimer', Timer)
   app.component('VTimerProp', loadAsyncComponent(() => import('./src/config.vue')))
 }
 

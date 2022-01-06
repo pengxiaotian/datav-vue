@@ -161,7 +161,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": false,
-              "defaultValue": 50,
+              "defaultValue": 60,
               "min": -1000,
               "max": 1000,
               "step": 1,
@@ -191,7 +191,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": false,
-              "defaultValue": 10,
+              "defaultValue": 30,
               "min": -1000,
               "max": 1000,
               "step": 1,
@@ -218,239 +218,11 @@
         ]
       },
       {
-        "key": "innerPadding",
-        "config": {
-          "type": "number",
-          "component": "slider",
-          "alias": "组内间距",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": 20,
-          "min": -1000,
-          "max": 1000,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "px",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false
-        },
-        "path": "global.innerPadding",
-        "virtualPath": ""
-      },
-      {
-        "key": "outerPadding",
-        "config": {
-          "type": "number",
-          "component": "slider",
-          "alias": "组间间距",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": 30,
-          "min": -1000,
-          "max": 1000,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "px",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false
-        },
-        "path": "global.outerPadding",
-        "virtualPath": ""
-      },
-      {
-        "key": "barWidth",
-        "config": {
-          "type": "string",
-          "component": "selectSuggest",
-          "alias": "柱子宽度",
-          "tip": "不设时自适应，可以是绝对值例如 40 或者百分数例如 60%。",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": "auto",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [
-            "auto"
-          ],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false
-        },
-        "path": "global.barWidth",
-        "virtualPath": ""
-      },
-      {
-        "key": "background",
-        "config": {
-          "type": "object",
-          "component": "none",
-          "alias": "背景色",
-          "tip": "",
-          "displayMode": "nest",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "show",
-          "isHide": false,
-          "defaultValue": null,
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false
-        },
-        "path": "global.background",
-        "virtualPath": "",
-        "children": [
-          {
-            "key": "show",
-            "config": {
-              "type": "boolean",
-              "component": "switch",
-              "alias": "",
-              "tip": "",
-              "displayMode": "single",
-              "features": [],
-              "layout": "horizontal",
-              "toggleCol": "",
-              "isHide": false,
-              "defaultValue": true,
-              "min": 0,
-              "max": 100,
-              "step": 1,
-              "InfiniteMin": false,
-              "InfiniteMax": false,
-              "suffix": "",
-              "enums": [],
-              "pairs": [],
-              "whichEnum": {
-                "field": "",
-                "value": ""
-              },
-              "flatValue": false
-            },
-            "path": "global.background.show",
-            "virtualPath": ""
-          },
-          {
-            "key": "color",
-            "config": {
-              "type": "string",
-              "component": "color",
-              "alias": "颜色",
-              "tip": "",
-              "displayMode": "single",
-              "features": [],
-              "layout": "horizontal",
-              "toggleCol": "",
-              "isHide": false,
-              "defaultValue": "rgba(255, 255, 255, 0.1)",
-              "min": 0,
-              "max": 100,
-              "step": 1,
-              "InfiniteMin": false,
-              "InfiniteMax": false,
-              "suffix": "",
-              "enums": [],
-              "pairs": [],
-              "whichEnum": {
-                "field": "",
-                "value": ""
-              },
-              "flatValue": false
-            },
-            "path": "global.background.color",
-            "virtualPath": ""
-          }
-        ],
-        "cols": [
-          "show",
-          "color"
-        ]
-      }
-    ],
-    "cols": [
-      "fontFamily",
-      "margin",
-      "innerPadding",
-      "outerPadding",
-      "barWidth",
-      "background"
-    ]
-  },
-  {
-    "key": "label",
-    "config": {
-      "type": "object",
-      "component": "none",
-      "alias": "柱子标注",
-      "tip": "",
-      "displayMode": "nest",
-      "features": [],
-      "layout": "horizontal",
-      "toggleCol": "show",
-      "isHide": false,
-      "defaultValue": null,
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "InfiniteMin": false,
-      "InfiniteMax": false,
-      "suffix": "",
-      "enums": [],
-      "pairs": [],
-      "whichEnum": {
-        "field": "",
-        "value": ""
-      },
-      "flatValue": false
-    },
-    "path": "label",
-    "virtualPath": "",
-    "children": [
-      {
-        "key": "show",
+        "key": "connectNulls",
         "config": {
           "type": "boolean",
           "component": "switch",
-          "alias": "",
+          "alias": "连接空数据",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -472,233 +244,14 @@
           },
           "flatValue": false
         },
-        "path": "label.show",
-        "virtualPath": ""
-      },
-      {
-        "key": "position",
-        "config": {
-          "type": "string",
-          "component": "echartsLablePosition",
-          "alias": "位置",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": "top",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false
-        },
-        "path": "label.position",
-        "virtualPath": ""
-      },
-      {
-        "key": "textStyle",
-        "config": {
-          "type": "object",
-          "component": "none",
-          "alias": "文本样式",
-          "tip": "",
-          "displayMode": "flat",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": null,
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false
-        },
-        "path": "label.textStyle",
-        "virtualPath": "",
-        "children": [
-          {
-            "key": "fontSize",
-            "config": {
-              "type": "number",
-              "component": "number",
-              "alias": "字号",
-              "tip": "",
-              "displayMode": "inline",
-              "features": [],
-              "layout": "horizontal",
-              "toggleCol": "",
-              "isHide": false,
-              "defaultValue": 12,
-              "min": 12,
-              "max": 100,
-              "step": 1,
-              "InfiniteMin": false,
-              "InfiniteMax": false,
-              "suffix": "px",
-              "enums": [],
-              "pairs": [],
-              "whichEnum": {
-                "field": "",
-                "value": ""
-              },
-              "flatValue": false
-            },
-            "path": "label.textStyle.fontSize",
-            "virtualPath": ""
-          },
-          {
-            "key": "color",
-            "config": {
-              "type": "string",
-              "component": "color",
-              "alias": "颜色",
-              "tip": "",
-              "displayMode": "inline",
-              "features": [],
-              "layout": "horizontal",
-              "toggleCol": "",
-              "isHide": false,
-              "defaultValue": "rgba(255, 255, 255, 0.6)",
-              "min": 0,
-              "max": 100,
-              "step": 1,
-              "InfiniteMin": false,
-              "InfiniteMax": false,
-              "suffix": "",
-              "enums": [],
-              "pairs": [],
-              "whichEnum": {
-                "field": "",
-                "value": ""
-              },
-              "flatValue": false
-            },
-            "path": "label.textStyle.color",
-            "virtualPath": ""
-          },
-          {
-            "key": "fontWeight",
-            "config": {
-              "type": "string",
-              "component": "fontWeight",
-              "alias": "字体粗细",
-              "tip": "",
-              "displayMode": "inline",
-              "features": [],
-              "layout": "horizontal",
-              "toggleCol": "",
-              "isHide": false,
-              "defaultValue": "normal",
-              "min": 0,
-              "max": 100,
-              "step": 1,
-              "InfiniteMin": false,
-              "InfiniteMax": false,
-              "suffix": "",
-              "enums": [],
-              "pairs": [],
-              "whichEnum": {
-                "field": "",
-                "value": ""
-              },
-              "flatValue": false
-            },
-            "path": "label.textStyle.fontWeight",
-            "virtualPath": ""
-          }
-        ],
-        "cols": [
-          "fontSize",
-          "color",
-          "fontWeight"
-        ]
-      },
-      {
-        "key": "offsetX",
-        "config": {
-          "type": "number",
-          "component": "slider",
-          "alias": "水平偏移",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": 0,
-          "min": -1000,
-          "max": 1000,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false
-        },
-        "path": "label.offsetX",
-        "virtualPath": ""
-      },
-      {
-        "key": "offsetY",
-        "config": {
-          "type": "number",
-          "component": "slider",
-          "alias": "垂直偏移",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": 0,
-          "min": -1000,
-          "max": 1000,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false
-        },
-        "path": "label.offsetY",
+        "path": "global.connectNulls",
         "virtualPath": ""
       }
     ],
     "cols": [
-      "show",
-      "position",
-      "textStyle",
-      "offsetX",
-      "offsetY"
+      "fontFamily",
+      "margin",
+      "connectNulls"
     ]
   },
   {
@@ -766,7 +319,7 @@
         "config": {
           "type": "string",
           "component": "axisType",
-          "alias": "类型",
+          "alias": "数据类型",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -790,6 +343,110 @@
         },
         "path": "xAxis.type",
         "virtualPath": ""
+      },
+      {
+        "key": "extent",
+        "config": {
+          "type": "object",
+          "component": "none",
+          "alias": "显示范围",
+          "tip": "默认使用数据中的最大最小值, 如若不符合需求请点击下拉框输入最大最小值",
+          "displayMode": "flat",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": null,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "type",
+            "value": "value"
+          },
+          "flatValue": false
+        },
+        "path": "xAxis.extent",
+        "virtualPath": "",
+        "children": [
+          {
+            "key": "min",
+            "config": {
+              "type": "string",
+              "component": "selectSuggest",
+              "alias": "最小值",
+              "tip": "",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "auto",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [
+                "auto",
+                "dataMin",
+                "dataMax"
+              ],
+              "pairs": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
+            },
+            "path": "xAxis.extent.min",
+            "virtualPath": ""
+          },
+          {
+            "key": "max",
+            "config": {
+              "type": "string",
+              "component": "selectSuggest",
+              "alias": "最大值",
+              "tip": "",
+              "displayMode": "inline",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "auto",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [
+                "auto",
+                "dataMin",
+                "dataMax"
+              ],
+              "pairs": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
+            },
+            "path": "xAxis.extent.max",
+            "virtualPath": ""
+          }
+        ],
+        "cols": [
+          "min",
+          "max"
+        ]
       },
       {
         "key": "boundaryGap",
@@ -1195,7 +852,7 @@
           "enums": [],
           "pairs": [],
           "whichEnum": {
-            "field": "",
+            "field": null,
             "value": ""
           },
           "flatValue": false
@@ -1688,7 +1345,7 @@
                   "isHide": false,
                   "defaultValue": 0,
                   "min": 0,
-                  "max": 100,
+                  "max": 360,
                   "step": 1,
                   "InfiniteMin": false,
                   "InfiniteMax": false,
@@ -2110,8 +1767,8 @@
                   "enums": [],
                   "pairs": [],
                   "whichEnum": {
-                    "field": "type",
-                    "value": "dashed"
+                    "field": "",
+                    "value": ""
                   },
                   "flatValue": false
                 },
@@ -2123,7 +1780,7 @@
                 "config": {
                   "type": "number",
                   "component": "number",
-                  "alias": "间距",
+                  "alias": "间隔",
                   "tip": "",
                   "displayMode": "inline",
                   "features": [],
@@ -2140,8 +1797,8 @@
                   "enums": [],
                   "pairs": [],
                   "whichEnum": {
-                    "field": "type",
-                    "value": "dashed"
+                    "field": "",
+                    "value": ""
                   },
                   "flatValue": false
                 },
@@ -2167,6 +1824,7 @@
     "cols": [
       "show",
       "type",
+      "extent",
       "boundaryGap",
       "title",
       "axisLine",
@@ -2236,6 +1894,36 @@
         "virtualPath": ""
       },
       {
+        "key": "type",
+        "config": {
+          "type": "string",
+          "component": "axisType",
+          "alias": "数据类型",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "value",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": true
+        },
+        "path": "yAxis.type",
+        "virtualPath": ""
+      },
+      {
         "key": "extent",
         "config": {
           "type": "object",
@@ -2257,8 +1945,8 @@
           "enums": [],
           "pairs": [],
           "whichEnum": {
-            "field": "",
-            "value": ""
+            "field": "type",
+            "value": "value"
           },
           "flatValue": false
         },
@@ -2286,7 +1974,8 @@
               "suffix": "",
               "enums": [
                 "auto",
-                "dataMin"
+                "dataMin",
+                "dataMax"
               ],
               "pairs": [],
               "whichEnum": {
@@ -2319,6 +2008,7 @@
               "suffix": "",
               "enums": [
                 "auto",
+                "dataMin",
                 "dataMax"
               ],
               "pairs": [],
@@ -2336,36 +2026,6 @@
           "min",
           "max"
         ]
-      },
-      {
-        "key": "splitNumber",
-        "config": {
-          "type": "number",
-          "component": "number",
-          "alias": "标签数量",
-          "tip": "这是个预估值，实际显示会做调整，可以设置成 0 强制显示所有标签。",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": 0,
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false
-        },
-        "path": "yAxis.splitNumber",
-        "virtualPath": ""
       },
       {
         "key": "title",
@@ -3126,6 +2786,36 @@
             "virtualPath": ""
           },
           {
+            "key": "timeFormat",
+            "config": {
+              "type": "string",
+              "component": "timeFormat",
+              "alias": "显示格式",
+              "tip": "时间请参照 YYYY/MM/DD HH:mm:ss",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "MM/DD",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "pairs": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
+            },
+            "path": "yAxis.axisLabel.timeFormat",
+            "virtualPath": ""
+          },
+          {
             "key": "boundaryGap",
             "config": {
               "type": "number",
@@ -3412,6 +3102,7 @@
         "cols": [
           "show",
           "valueFormat",
+          "timeFormat",
           "boundaryGap",
           "display",
           "align",
@@ -3676,8 +3367,8 @@
     ],
     "cols": [
       "show",
+      "type",
       "extent",
-      "splitNumber",
       "title",
       "axisLine",
       "axisTick",
@@ -3743,6 +3434,45 @@
           "flatValue": false
         },
         "path": "tooltip.show",
+        "virtualPath": ""
+      },
+      {
+        "key": "triggerOn",
+        "config": {
+          "type": "string",
+          "component": "radio",
+          "alias": "触发方式",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "mousemove",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [
+            {
+              "key": "mousemove",
+              "value": "悬浮"
+            },
+            {
+              "key": "click",
+              "value": "点击"
+            }
+          ],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false
+        },
+        "path": "tooltip.triggerOn",
         "virtualPath": ""
       },
       {
@@ -4027,11 +3757,73 @@
             },
             "path": "tooltip.background.color",
             "virtualPath": ""
+          },
+          {
+            "key": "borderColor",
+            "config": {
+              "type": "string",
+              "component": "color",
+              "alias": "边框颜色",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "rgba(0, 0, 0, 0.25)",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "pairs": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
+            },
+            "path": "tooltip.background.borderColor",
+            "virtualPath": ""
+          },
+          {
+            "key": "borderWidth",
+            "config": {
+              "type": "number",
+              "component": "number",
+              "alias": "边框粗细",
+              "tip": "",
+              "displayMode": "single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": 1,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "px",
+              "enums": [],
+              "pairs": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
+            },
+            "path": "tooltip.background.borderWidth",
+            "virtualPath": ""
           }
         ],
         "cols": [
           "padding",
-          "color"
+          "color",
+          "borderColor",
+          "borderWidth"
         ]
       },
       {
@@ -4292,6 +4084,7 @@
     ],
     "cols": [
       "show",
+      "triggerOn",
       "textStyle",
       "background",
       "pointer"
@@ -5084,7 +4877,7 @@
       "isHide": false,
       "defaultValue": null,
       "min": 1,
-      "max": 5,
+      "max": 100,
       "step": 1,
       "InfiniteMin": false,
       "InfiniteMax": false,
@@ -5142,7 +4935,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": true,
-              "defaultValue": "bar",
+              "defaultValue": "line",
               "min": 0,
               "max": 100,
               "step": 1,
@@ -5172,7 +4965,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": true,
-              "defaultValue": "系列1_SZK4aP20xe",
+              "defaultValue": "系列1_-AxbqvJM6_",
               "min": 0,
               "max": 100,
               "step": 1,
@@ -5196,7 +4989,7 @@
               "type": "string",
               "component": "input",
               "alias": "系列名称",
-              "tip": "",
+              "tip": "名称不填时显示数据字段 s 的值",
               "displayMode": "single",
               "features": [],
               "layout": "horizontal",
@@ -5221,13 +5014,13 @@
             "virtualPath": "slotProps.item.name"
           },
           {
-            "key": "color",
+            "key": "line",
             "config": {
               "type": "object",
               "component": "none",
-              "alias": "颜色配置",
+              "alias": "折线",
               "tip": "",
-              "displayMode": "nest",
+              "displayMode": "flat",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
@@ -5247,17 +5040,47 @@
               },
               "flatValue": false
             },
-            "path": "series.0.color",
-            "virtualPath": "slotProps.item.color",
+            "path": "series.0.line",
+            "virtualPath": "slotProps.item.line",
             "children": [
               {
-                "key": "type",
+                "key": "color",
                 "config": {
                   "type": "string",
-                  "component": "fillType",
-                  "alias": "填充类型",
+                  "component": "color",
+                  "alias": "颜色",
                   "tip": "",
-                  "displayMode": "single",
+                  "displayMode": "inline",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "#34FFF5",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.line.color",
+                "virtualPath": "slotProps.item.line.color"
+              },
+              {
+                "key": "style",
+                "config": {
+                  "type": "string",
+                  "component": "lineStyle",
+                  "alias": "类型",
+                  "tip": "",
+                  "displayMode": "inline",
                   "features": [],
                   "layout": "horizontal",
                   "toggleCol": "",
@@ -5275,107 +5098,905 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": true
+                  "flatValue": false
                 },
-                "path": "series.0.color.type",
-                "virtualPath": "slotProps.item.color.type"
+                "path": "series.0.line.style",
+                "virtualPath": "slotProps.item.line.style"
               },
               {
-                "key": "value",
+                "key": "width",
                 "config": {
-                  "type": "string",
-                  "component": "color",
-                  "alias": "颜色",
+                  "type": "number",
+                  "component": "number",
+                  "alias": "粗细",
                   "tip": "",
-                  "displayMode": "single",
+                  "displayMode": "inline-single",
                   "features": [],
                   "layout": "horizontal",
                   "toggleCol": "",
                   "isHide": false,
-                  "defaultValue": "#00baff",
+                  "defaultValue": 1,
                   "min": 0,
                   "max": 100,
                   "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "px",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.line.width",
+                "virtualPath": "slotProps.item.line.width"
+              },
+              {
+                "key": "opacity",
+                "config": {
+                  "type": "number",
+                  "component": "slider",
+                  "alias": "透明度",
+                  "tip": "",
+                  "displayMode": "inline",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": 1,
+                  "min": 0,
+                  "max": 1,
+                  "step": 0.01,
                   "InfiniteMin": false,
                   "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
                   "pairs": [],
                   "whichEnum": {
-                    "field": "type",
-                    "value": "solid"
+                    "field": "",
+                    "value": ""
                   },
                   "flatValue": false
                 },
-                "path": "series.0.color.value",
-                "virtualPath": "slotProps.item.color.value"
+                "path": "series.0.line.opacity",
+                "virtualPath": "slotProps.item.line.opacity"
               },
               {
-                "key": "from",
+                "key": "smooth",
                 "config": {
-                  "type": "string",
-                  "component": "color",
-                  "alias": "开始颜色",
+                  "type": "number",
+                  "component": "slider",
+                  "alias": "曲线平滑程度",
                   "tip": "",
-                  "displayMode": "single",
+                  "displayMode": "inline-single",
                   "features": [],
                   "layout": "horizontal",
                   "toggleCol": "",
                   "isHide": false,
-                  "defaultValue": "#fff",
+                  "defaultValue": 0.5,
                   "min": 0,
-                  "max": 100,
-                  "step": 1,
+                  "max": 1,
+                  "step": 0.1,
                   "InfiniteMin": false,
                   "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
                   "pairs": [],
                   "whichEnum": {
-                    "field": "type",
-                    "value": "gradient"
+                    "field": "",
+                    "value": ""
                   },
                   "flatValue": false
                 },
-                "path": "series.0.color.from",
-                "virtualPath": "slotProps.item.color.from"
-              },
-              {
-                "key": "to",
-                "config": {
-                  "type": "string",
-                  "component": "color",
-                  "alias": "结束颜色",
-                  "tip": "",
-                  "displayMode": "single",
-                  "features": [],
-                  "layout": "horizontal",
-                  "toggleCol": "",
-                  "isHide": false,
-                  "defaultValue": "#000",
-                  "min": 0,
-                  "max": 100,
-                  "step": 1,
-                  "InfiniteMin": false,
-                  "InfiniteMax": false,
-                  "suffix": "",
-                  "enums": [],
-                  "pairs": [],
-                  "whichEnum": {
-                    "field": "type",
-                    "value": "gradient"
-                  },
-                  "flatValue": false
-                },
-                "path": "series.0.color.to",
-                "virtualPath": "slotProps.item.color.to"
+                "path": "series.0.line.smooth",
+                "virtualPath": "slotProps.item.line.smooth"
               }
             ],
             "cols": [
-              "type",
-              "value",
-              "from",
-              "to"
+              "color",
+              "style",
+              "width",
+              "opacity",
+              "smooth"
+            ]
+          },
+          {
+            "key": "point",
+            "config": {
+              "type": "object",
+              "component": "none",
+              "alias": "标记",
+              "tip": "",
+              "displayMode": "flat",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": null,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "pairs": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
+            },
+            "path": "series.0.point",
+            "virtualPath": "slotProps.item.point",
+            "children": [
+              {
+                "key": "icon",
+                "config": {
+                  "type": "string",
+                  "component": "legendIcon",
+                  "alias": "符号",
+                  "tip": "",
+                  "displayMode": "inline",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "roundRect",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.point.icon",
+                "virtualPath": "slotProps.item.point.icon"
+              },
+              {
+                "key": "color",
+                "config": {
+                  "type": "string",
+                  "component": "color",
+                  "alias": "填充色",
+                  "tip": "",
+                  "displayMode": "inline",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "#34FFF5",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.point.color",
+                "virtualPath": "slotProps.item.point.color"
+              },
+              {
+                "key": "borderColor",
+                "config": {
+                  "type": "string",
+                  "component": "color",
+                  "alias": "描边颜色",
+                  "tip": "",
+                  "displayMode": "inline",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "rgba(0, 0, 0, 0.44)",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.point.borderColor",
+                "virtualPath": "slotProps.item.point.borderColor"
+              },
+              {
+                "key": "borderWidth",
+                "config": {
+                  "type": "number",
+                  "component": "number",
+                  "alias": "描边粗细",
+                  "tip": "",
+                  "displayMode": "inline",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": 1,
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "px",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.point.borderWidth",
+                "virtualPath": "slotProps.item.point.borderWidth"
+              },
+              {
+                "key": "borderType",
+                "config": {
+                  "type": "string",
+                  "component": "lineStyle",
+                  "alias": "描边类型",
+                  "tip": "",
+                  "displayMode": "inline-single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "solid",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.point.borderType",
+                "virtualPath": "slotProps.item.point.borderType"
+              },
+              {
+                "key": "opacity",
+                "config": {
+                  "type": "number",
+                  "component": "slider",
+                  "alias": "透明度",
+                  "tip": "",
+                  "displayMode": "inline",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": 1,
+                  "min": 0,
+                  "max": 1,
+                  "step": 0.01,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.point.opacity",
+                "virtualPath": "slotProps.item.point.opacity"
+              }
+            ],
+            "cols": [
+              "icon",
+              "color",
+              "borderColor",
+              "borderWidth",
+              "borderType",
+              "opacity"
+            ]
+          },
+          {
+            "key": "label",
+            "config": {
+              "type": "object",
+              "component": "none",
+              "alias": "标注",
+              "tip": "",
+              "displayMode": "nest",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "show",
+              "isHide": false,
+              "defaultValue": null,
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "pairs": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false
+            },
+            "path": "series.0.label",
+            "virtualPath": "slotProps.item.label",
+            "children": [
+              {
+                "key": "show",
+                "config": {
+                  "type": "boolean",
+                  "component": "switch",
+                  "alias": "",
+                  "tip": "",
+                  "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": false,
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.label.show",
+                "virtualPath": "slotProps.item.label.show"
+              },
+              {
+                "key": "field",
+                "config": {
+                  "type": "string",
+                  "component": "input",
+                  "alias": "标注字段",
+                  "tip": "",
+                  "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "y",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.label.field",
+                "virtualPath": "slotProps.item.label.field"
+              },
+              {
+                "key": "valueFormat",
+                "config": {
+                  "type": "string",
+                  "component": "valueFormat",
+                  "alias": "数值格式",
+                  "tip": "",
+                  "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "auto",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.label.valueFormat",
+                "virtualPath": "slotProps.item.label.valueFormat"
+              },
+              {
+                "key": "describe",
+                "config": {
+                  "type": "object",
+                  "component": "none",
+                  "alias": "前后缀",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": null,
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.label.describe",
+                "virtualPath": "slotProps.item.label.describe",
+                "children": [
+                  {
+                    "key": "prefix",
+                    "config": {
+                      "type": "string",
+                      "component": "input",
+                      "alias": "前缀",
+                      "tip": "",
+                      "displayMode": "inline",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "isHide": false,
+                      "defaultValue": "",
+                      "min": 0,
+                      "max": 100,
+                      "step": 1,
+                      "InfiniteMin": false,
+                      "InfiniteMax": false,
+                      "suffix": "",
+                      "enums": [],
+                      "pairs": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "flatValue": false
+                    },
+                    "path": "series.0.label.describe.prefix",
+                    "virtualPath": "slotProps.item.label.describe.prefix"
+                  },
+                  {
+                    "key": "suffix",
+                    "config": {
+                      "type": "string",
+                      "component": "input",
+                      "alias": "后缀",
+                      "tip": "",
+                      "displayMode": "inline",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "isHide": false,
+                      "defaultValue": "",
+                      "min": 0,
+                      "max": 100,
+                      "step": 1,
+                      "InfiniteMin": false,
+                      "InfiniteMax": false,
+                      "suffix": "",
+                      "enums": [],
+                      "pairs": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "flatValue": false
+                    },
+                    "path": "series.0.label.describe.suffix",
+                    "virtualPath": "slotProps.item.label.describe.suffix"
+                  }
+                ],
+                "cols": [
+                  "prefix",
+                  "suffix"
+                ]
+              },
+              {
+                "key": "offset",
+                "config": {
+                  "type": "object",
+                  "component": "none",
+                  "alias": "相对偏移",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": null,
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.label.offset",
+                "virtualPath": "slotProps.item.label.offset",
+                "children": [
+                  {
+                    "key": "x",
+                    "config": {
+                      "type": "number",
+                      "component": "number",
+                      "alias": "水平",
+                      "tip": "",
+                      "displayMode": "inline",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "isHide": false,
+                      "defaultValue": 0,
+                      "min": -1000,
+                      "max": 1000,
+                      "step": 1,
+                      "InfiniteMin": false,
+                      "InfiniteMax": false,
+                      "suffix": "px",
+                      "enums": [],
+                      "pairs": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "flatValue": false
+                    },
+                    "path": "series.0.label.offset.x",
+                    "virtualPath": "slotProps.item.label.offset.x"
+                  },
+                  {
+                    "key": "y",
+                    "config": {
+                      "type": "number",
+                      "component": "number",
+                      "alias": "垂直",
+                      "tip": "",
+                      "displayMode": "inline",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "isHide": false,
+                      "defaultValue": 0,
+                      "min": -1000,
+                      "max": 1000,
+                      "step": 1,
+                      "InfiniteMin": false,
+                      "InfiniteMax": false,
+                      "suffix": "px",
+                      "enums": [],
+                      "pairs": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "flatValue": false
+                    },
+                    "path": "series.0.label.offset.y",
+                    "virtualPath": "slotProps.item.label.offset.y"
+                  }
+                ],
+                "cols": [
+                  "x",
+                  "y"
+                ]
+              },
+              {
+                "key": "rotate",
+                "config": {
+                  "type": "number",
+                  "component": "number",
+                  "alias": "旋转角度",
+                  "tip": "",
+                  "displayMode": "single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": 0,
+                  "min": 0,
+                  "max": 360,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.label.rotate",
+                "virtualPath": "slotProps.item.label.rotate"
+              },
+              {
+                "key": "textStyle",
+                "config": {
+                  "type": "object",
+                  "component": "none",
+                  "alias": "文本样式",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": null,
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.label.textStyle",
+                "virtualPath": "slotProps.item.label.textStyle",
+                "children": [
+                  {
+                    "key": "fontSize",
+                    "config": {
+                      "type": "number",
+                      "component": "number",
+                      "alias": "字号",
+                      "tip": "",
+                      "displayMode": "inline",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "isHide": false,
+                      "defaultValue": 12,
+                      "min": 12,
+                      "max": 100,
+                      "step": 1,
+                      "InfiniteMin": false,
+                      "InfiniteMax": false,
+                      "suffix": "px",
+                      "enums": [],
+                      "pairs": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "flatValue": false
+                    },
+                    "path": "series.0.label.textStyle.fontSize",
+                    "virtualPath": "slotProps.item.label.textStyle.fontSize"
+                  },
+                  {
+                    "key": "color",
+                    "config": {
+                      "type": "string",
+                      "component": "color",
+                      "alias": "颜色",
+                      "tip": "",
+                      "displayMode": "inline",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "isHide": false,
+                      "defaultValue": "#ddd",
+                      "min": 0,
+                      "max": 100,
+                      "step": 1,
+                      "InfiniteMin": false,
+                      "InfiniteMax": false,
+                      "suffix": "",
+                      "enums": [],
+                      "pairs": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "flatValue": false
+                    },
+                    "path": "series.0.label.textStyle.color",
+                    "virtualPath": "slotProps.item.label.textStyle.color"
+                  },
+                  {
+                    "key": "fontWeight",
+                    "config": {
+                      "type": "string",
+                      "component": "fontWeight",
+                      "alias": "字体粗细",
+                      "tip": "",
+                      "displayMode": "inline-single",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "isHide": false,
+                      "defaultValue": "normal",
+                      "min": 0,
+                      "max": 100,
+                      "step": 1,
+                      "InfiniteMin": false,
+                      "InfiniteMax": false,
+                      "suffix": "",
+                      "enums": [],
+                      "pairs": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "flatValue": false
+                    },
+                    "path": "series.0.label.textStyle.fontWeight",
+                    "virtualPath": "slotProps.item.label.textStyle.fontWeight"
+                  }
+                ],
+                "cols": [
+                  "fontSize",
+                  "color",
+                  "fontWeight"
+                ]
+              },
+              {
+                "key": "stroke",
+                "config": {
+                  "type": "object",
+                  "component": "none",
+                  "alias": "描边",
+                  "tip": "",
+                  "displayMode": "flat",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": null,
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false
+                },
+                "path": "series.0.label.stroke",
+                "virtualPath": "slotProps.item.label.stroke",
+                "children": [
+                  {
+                    "key": "color",
+                    "config": {
+                      "type": "string",
+                      "component": "color",
+                      "alias": "颜色",
+                      "tip": "",
+                      "displayMode": "inline",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "isHide": false,
+                      "defaultValue": "#000",
+                      "min": 0,
+                      "max": 100,
+                      "step": 1,
+                      "InfiniteMin": false,
+                      "InfiniteMax": false,
+                      "suffix": "",
+                      "enums": [],
+                      "pairs": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "flatValue": false
+                    },
+                    "path": "series.0.label.stroke.color",
+                    "virtualPath": "slotProps.item.label.stroke.color"
+                  },
+                  {
+                    "key": "width",
+                    "config": {
+                      "type": "number",
+                      "component": "number",
+                      "alias": "粗细",
+                      "tip": "",
+                      "displayMode": "inline",
+                      "features": [],
+                      "layout": "horizontal",
+                      "toggleCol": "",
+                      "isHide": false,
+                      "defaultValue": 0,
+                      "min": 0,
+                      "max": 100,
+                      "step": 1,
+                      "InfiniteMin": false,
+                      "InfiniteMax": false,
+                      "suffix": "px",
+                      "enums": [],
+                      "pairs": [],
+                      "whichEnum": {
+                        "field": "",
+                        "value": ""
+                      },
+                      "flatValue": false
+                    },
+                    "path": "series.0.label.stroke.width",
+                    "virtualPath": "slotProps.item.label.stroke.width"
+                  }
+                ],
+                "cols": [
+                  "color",
+                  "width"
+                ]
+              }
+            ],
+            "cols": [
+              "show",
+              "field",
+              "valueFormat",
+              "describe",
+              "offset",
+              "rotate",
+              "textStyle",
+              "stroke"
             ]
           }
         ],

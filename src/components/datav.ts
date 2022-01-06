@@ -10,6 +10,13 @@ export async function createComponent(name: string) {
       return new comModule.default()
     }
 
+    // line
+    case 'BasicLine':
+    {
+      const comModule = await import(`./line/${path}/src/${path}.ts`)
+      return new comModule.default()
+    }
+
     // chart
     case 'WordCloud':
     {

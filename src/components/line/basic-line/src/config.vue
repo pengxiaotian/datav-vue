@@ -57,114 +57,10 @@
       </g-field>
       <g-field
         :level="2"
-        label="组内间距"
+        label="连接空数据"
       >
-        <g-slider
-          v-model="config.global.innerPadding"
-          :min="-1000"
-          :max="1000"
-          :step="1"
-          suffix="px"
-        />
-      </g-field>
-      <g-field
-        :level="2"
-        label="组间间距"
-      >
-        <g-slider
-          v-model="config.global.outerPadding"
-          :min="-1000"
-          :max="1000"
-          :step="1"
-          suffix="px"
-        />
-      </g-field>
-      <g-field
-        :level="2"
-        tooltip="不设时自适应，可以是绝对值例如 40 或者百分数例如 60%。"
-        label="柱子宽度"
-      >
-        <g-select-suggest
-          v-model="config.global.barWidth"
-          :data="selectSuggests"
-          :filters="['auto']"
-        />
-      </g-field>
-      <g-field-collapse
-        v-model="config.global.background.show"
-        :toggle="true"
-        label="背景色"
-      >
-        <g-field
-          :level="2"
-          label="颜色"
-        >
-          <g-color-picker
-            v-model="config.global.background.color"
-          />
-        </g-field>
-      </g-field-collapse>
-    </g-field-collapse>
-    <g-field-collapse
-      v-model="config.label.show"
-      :toggle="true"
-      label="柱子标注"
-    >
-      <g-field
-        :level="2"
-        label="位置"
-      >
-        <g-select
-          v-model="config.label.position"
-          :data="echartsLablePositions"
-        />
-      </g-field>
-      <g-field
-        :level="2"
-        label="文本样式"
-        :is-flat="true"
-      >
-        <g-input-number
-          v-model="config.label.textStyle.fontSize"
-          :min="12"
-          :max="100"
-          :step="1"
-          suffix="px"
-          inline="inline"
-          label="字号"
-        />
-        <g-color-picker
-          v-model="config.label.textStyle.color"
-          inline="inline"
-          label="颜色"
-        />
-        <g-select
-          v-model="config.label.textStyle.fontWeight"
-          :data="fontWeights"
-          inline="inline"
-          label="字体粗细"
-        />
-      </g-field>
-      <g-field
-        :level="2"
-        label="水平偏移"
-      >
-        <g-slider
-          v-model="config.label.offsetX"
-          :min="-1000"
-          :max="1000"
-          :step="1"
-        />
-      </g-field>
-      <g-field
-        :level="2"
-        label="垂直偏移"
-      >
-        <g-slider
-          v-model="config.label.offsetY"
-          :min="-1000"
-          :max="1000"
-          :step="1"
+        <n-switch
+          v-model:value="config.global.connectNulls"
         />
       </g-field>
     </g-field-collapse>
@@ -175,7 +71,7 @@
     >
       <g-field
         :level="2"
-        label="类型"
+        label="数据类型"
       >
         <n-radio-group
           v-model:value="config.xAxis.type"
@@ -189,6 +85,28 @@
             {{ em.value }}
           </n-radio-button>
         </n-radio-group>
+      </g-field>
+      <g-field
+        v-if="config.xAxis.type === 'value'"
+        :level="2"
+        tooltip="默认使用数据中的最大最小值, 如若不符合需求请点击下拉框输入最大最小值"
+        label="显示范围"
+        :is-flat="true"
+      >
+        <g-select-suggest
+          v-model="config.xAxis.extent.min"
+          :data="selectSuggests"
+          :filters="['auto', 'dataMin', 'dataMax']"
+          inline="inline"
+          label="最小值"
+        />
+        <g-select-suggest
+          v-model="config.xAxis.extent.max"
+          :data="selectSuggests"
+          :filters="['auto', 'dataMin', 'dataMax']"
+          inline="inline"
+          label="最大值"
+        />
       </g-field>
       <g-field
         :level="2"
@@ -387,7 +305,7 @@
           <g-input-number
             v-model="config.xAxis.axisLabel.display.rotate"
             :min="0"
-            :max="100"
+            :max="360"
             :step="1"
             suffix="度"
             inline="inline"
@@ -470,7 +388,6 @@
             label="颜色"
           />
           <g-input-number
-            v-if="config.xAxis.grid.line.type === 'dashed'"
             v-model="config.xAxis.grid.line.dashedLength"
             :min="0"
             :max="100"
@@ -480,14 +397,13 @@
             label="长度"
           />
           <g-input-number
-            v-if="config.xAxis.grid.line.type === 'dashed'"
             v-model="config.xAxis.grid.line.dashedSpace"
             :min="0"
             :max="100"
             :step="1"
             suffix="px"
             inline="inline"
-            label="间距"
+            label="间隔"
           />
         </g-field>
       </g-field-collapse>
@@ -499,34 +415,40 @@
     >
       <g-field
         :level="2"
+        label="数据类型"
+      >
+        <n-radio-group
+          v-model:value="config.yAxis.type"
+          size="small"
+        >
+          <n-radio-button
+            v-for="em in axisTypes"
+            :key="em.id"
+            :value="em.id"
+          >
+            {{ em.value }}
+          </n-radio-button>
+        </n-radio-group>
+      </g-field>
+      <g-field
+        v-if="config.yAxis.type === 'value'"
+        :level="2"
         label="显示范围"
         :is-flat="true"
       >
         <g-select-suggest
           v-model="config.yAxis.extent.min"
           :data="selectSuggests"
-          :filters="['auto', 'dataMin']"
+          :filters="['auto', 'dataMin', 'dataMax']"
           inline="inline"
           label="最小值"
         />
         <g-select-suggest
           v-model="config.yAxis.extent.max"
           :data="selectSuggests"
-          :filters="['auto', 'dataMax']"
+          :filters="['auto', 'dataMin', 'dataMax']"
           inline="inline"
           label="最大值"
-        />
-      </g-field>
-      <g-field
-        :level="2"
-        tooltip="这是个预估值，实际显示会做调整，可以设置成 0 强制显示所有标签。"
-        label="标签数量"
-      >
-        <g-input-number
-          v-model="config.yAxis.splitNumber"
-          :min="0"
-          :max="100"
-          :step="1"
         />
       </g-field>
       <g-field-collapse
@@ -678,6 +600,7 @@
         label="轴标签"
       >
         <g-field
+          v-if="config.yAxis.type === 'value'"
           :level="2"
           tooltip="整数参照 d, 浮点参照 .1f"
           label="显示格式"
@@ -685,6 +608,17 @@
           <g-select
             v-model="config.yAxis.axisLabel.valueFormat"
             :data="valueFormats"
+          />
+        </g-field>
+        <g-field
+          v-if="config.yAxis.type === 'time'"
+          :level="2"
+          tooltip="时间请参照 YYYY/MM/DD HH:mm:ss"
+          label="显示格式"
+        >
+          <g-select
+            v-model="config.yAxis.axisLabel.timeFormat"
+            :data="timeFormats"
           />
         </g-field>
         <g-field
@@ -817,6 +751,26 @@
       :toggle="true"
       label="提示框"
     >
+      <g-field
+        :level="2"
+        label="触发方式"
+      >
+        <n-radio-group
+          v-model:value="config.tooltip.triggerOn"
+          size="small"
+        >
+          <n-radio-button
+            v-for="pair in [
+              { key: 'mousemove', value: '悬浮' },
+              { key: 'click', value: '点击' },
+            ]"
+            :key="pair.key"
+            :value="pair.key"
+          >
+            {{ pair.value }}
+          </n-radio-button>
+        </n-radio-group>
+      </g-field>
       <g-field-collapse
         label="文本样式"
       >
@@ -883,6 +837,26 @@
         >
           <g-color-picker
             v-model="config.tooltip.background.color"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="边框颜色"
+        >
+          <g-color-picker
+            v-model="config.tooltip.background.borderColor"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="边框粗细"
+        >
+          <g-input-number
+            v-model="config.tooltip.background.borderWidth"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
           />
         </g-field>
       </g-field-collapse>
@@ -1118,64 +1092,224 @@
       :features="['vertical', 'horizontal', 'copy', 'add', 'remove']"
       :list="config.series"
       :min="1"
-      :max="5"
+      :max="100"
       tab="系列"
       :add-item="handleAddSeriesItem"
     >
       <template #default="slotProps">
         <g-field
           :level="2"
+          tooltip="名称不填时显示数据字段 s 的值"
           label="系列名称"
         >
           <g-input
             v-model="slotProps.item.name"
           />
         </g-field>
+        <g-field
+          :level="2"
+          label="折线"
+          :is-flat="true"
+        >
+          <g-color-picker
+            v-model="slotProps.item.line.color"
+            inline="inline"
+            label="颜色"
+          />
+          <g-select
+            v-model="slotProps.item.line.style"
+            :data="lineStyles"
+            inline="inline"
+            label="类型"
+          />
+          <g-input-number
+            v-model="slotProps.item.line.width"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline-single"
+            label="粗细"
+          />
+          <g-slider
+            v-model="slotProps.item.line.opacity"
+            :min="0"
+            :max="1"
+            :step="0.01"
+            inline="inline"
+            label="透明度"
+          />
+          <g-slider
+            v-model="slotProps.item.line.smooth"
+            :min="0"
+            :max="1"
+            :step="0.1"
+            inline="inline-single"
+            label="曲线平滑程度"
+          />
+        </g-field>
+        <g-field
+          :level="2"
+          label="标记"
+          :is-flat="true"
+        >
+          <g-select-shape
+            v-model="slotProps.item.point.icon"
+            :shapes="legendIcons"
+            inline="inline"
+            label="符号"
+          />
+          <g-color-picker
+            v-model="slotProps.item.point.color"
+            inline="inline"
+            label="填充色"
+          />
+          <g-color-picker
+            v-model="slotProps.item.point.borderColor"
+            inline="inline"
+            label="描边颜色"
+          />
+          <g-input-number
+            v-model="slotProps.item.point.borderWidth"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="描边粗细"
+          />
+          <g-select
+            v-model="slotProps.item.point.borderType"
+            :data="lineStyles"
+            inline="inline-single"
+            label="描边类型"
+          />
+          <g-slider
+            v-model="slotProps.item.point.opacity"
+            :min="0"
+            :max="1"
+            :step="0.01"
+            inline="inline"
+            label="透明度"
+          />
+        </g-field>
         <g-field-collapse
-          label="颜色配置"
+          v-model="slotProps.item.label.show"
+          :toggle="true"
+          label="标注"
         >
           <g-field
             :level="2"
-            label="填充类型"
+            label="标注字段"
           >
-            <n-radio-group
-              v-model:value="slotProps.item.color.type"
-              size="small"
-            >
-              <n-radio-button
-                v-for="em in fillTypes"
-                :key="em.id"
-                :value="em.id"
-              >
-                {{ em.value }}
-              </n-radio-button>
-            </n-radio-group>
-          </g-field>
-          <g-field
-            v-if="slotProps.item.color.type === 'solid'"
-            :level="2"
-            label="颜色"
-          >
-            <g-color-picker
-              v-model="slotProps.item.color.value"
+            <g-input
+              v-model="slotProps.item.label.field"
             />
           </g-field>
           <g-field
-            v-if="slotProps.item.color.type === 'gradient'"
             :level="2"
-            label="开始颜色"
+            label="数值格式"
           >
-            <g-color-picker
-              v-model="slotProps.item.color.from"
+            <g-select
+              v-model="slotProps.item.label.valueFormat"
+              :data="valueFormats"
             />
           </g-field>
           <g-field
-            v-if="slotProps.item.color.type === 'gradient'"
             :level="2"
-            label="结束颜色"
+            label="前后缀"
+            :is-flat="true"
+          >
+            <g-input
+              v-model="slotProps.item.label.describe.prefix"
+              inline="inline"
+              label="前缀"
+            />
+            <g-input
+              v-model="slotProps.item.label.describe.suffix"
+              inline="inline"
+              label="后缀"
+            />
+          </g-field>
+          <g-field
+            :level="2"
+            label="相对偏移"
+            :is-flat="true"
+          >
+            <g-input-number
+              v-model="slotProps.item.label.offset.x"
+              :min="-1000"
+              :max="1000"
+              :step="1"
+              suffix="px"
+              inline="inline"
+              label="水平"
+            />
+            <g-input-number
+              v-model="slotProps.item.label.offset.y"
+              :min="-1000"
+              :max="1000"
+              :step="1"
+              suffix="px"
+              inline="inline"
+              label="垂直"
+            />
+          </g-field>
+          <g-field
+            :level="2"
+            label="旋转角度"
+          >
+            <g-input-number
+              v-model="slotProps.item.label.rotate"
+              :min="0"
+              :max="360"
+              :step="1"
+            />
+          </g-field>
+          <g-field
+            :level="2"
+            label="文本样式"
+            :is-flat="true"
+          >
+            <g-input-number
+              v-model="slotProps.item.label.textStyle.fontSize"
+              :min="12"
+              :max="100"
+              :step="1"
+              suffix="px"
+              inline="inline"
+              label="字号"
+            />
+            <g-color-picker
+              v-model="slotProps.item.label.textStyle.color"
+              inline="inline"
+              label="颜色"
+            />
+            <g-select
+              v-model="slotProps.item.label.textStyle.fontWeight"
+              :data="fontWeights"
+              inline="inline-single"
+              label="字体粗细"
+            />
+          </g-field>
+          <g-field
+            :level="2"
+            label="描边"
+            :is-flat="true"
           >
             <g-color-picker
-              v-model="slotProps.item.color.to"
+              v-model="slotProps.item.label.stroke.color"
+              inline="inline"
+              label="颜色"
+            />
+            <g-input-number
+              v-model="slotProps.item.label.stroke.width"
+              :min="0"
+              :max="100"
+              :step="1"
+              suffix="px"
+              inline="inline"
+              label="粗细"
             />
           </g-field>
         </g-field-collapse>
@@ -1225,11 +1359,10 @@
 import { defineComponent, PropType, toRef } from 'vue'
 import {
   fontFamilys,
-  selectSuggests,
-  echartsLablePositions,
-  fontWeights,
   axisTypes,
+  selectSuggests,
   titleLocations,
+  fontWeights,
   lineStyles,
   valueFormats,
   timeFormats,
@@ -1237,16 +1370,15 @@ import {
   legendLocations,
   orients,
   legendIcons,
-  fillTypes,
   animationEasings,
 } from '@/data/select-options'
-import { BasicBar, BasicBarSeries } from './basic-bar'
+import { BasicLine, BasicLineSeries } from './basic-line'
 
 export default defineComponent({
-  name: 'VBasicBarProp',
+  name: 'VBasicLineProp',
   props: {
     com: {
-      type: Object as PropType<BasicBar>,
+      type: Object as PropType<BasicLine>,
       required: true,
     },
   },
@@ -1254,7 +1386,7 @@ export default defineComponent({
     const config = toRef(props.com, 'config')
 
     const handleAddSeriesItem = () => {
-      return new BasicBarSeries(`系列${config.value.series.length + 1}`)
+      return new BasicLineSeries('')
     }
 
     return {
@@ -1262,11 +1394,10 @@ export default defineComponent({
       handleAddSeriesItem,
 
       fontFamilys,
-      selectSuggests,
-      echartsLablePositions,
-      fontWeights,
       axisTypes,
+      selectSuggests,
       titleLocations,
+      fontWeights,
       lineStyles,
       valueFormats,
       timeFormats,
@@ -1274,7 +1405,6 @@ export default defineComponent({
       legendLocations,
       orients,
       legendIcons,
-      fillTypes,
       animationEasings,
     }
   },

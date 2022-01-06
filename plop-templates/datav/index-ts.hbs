@@ -4,7 +4,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import {{ pascalCase name }} from './src/index.vue'
 
 {{ pascalCase name }}.install = (app: App): void => {
-  app.component({{ pascalCase name }}.name, {{ pascalCase name }})
+  app.component('V{{ pascalCase name }}', {{ pascalCase name }})
   app.component('V{{ pascalCase name }}Prop', loadAsyncComponent(() => import('./src/config.vue')))
 }
 

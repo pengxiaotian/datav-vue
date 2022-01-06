@@ -11,7 +11,7 @@ export class DatavError extends Error {
   constructor(name: string, message: string, public cause: DatavErrorCause) {
     super(message)
 
-    this.name = name || 'Datav Error'
+    this.name = name || 'DataV Error'
     this.cause = cause
   }
 }

@@ -4,7 +4,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import Marquee from './src/index.vue'
 
 Marquee.install = (app: App): void => {
-  app.component(Marquee.name, Marquee)
+  app.component('VMarquee', Marquee)
   app.component('VMarqueeProp', loadAsyncComponent(() => import('./src/config.vue')))
 }
 

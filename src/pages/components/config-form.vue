@@ -85,7 +85,7 @@
               <g-input-number v-model="item.config.step" size="medium" />
             </n-form-item>
             <n-form-item label="单位">
-              <n-input v-model="item.config.suffix" />
+              <n-input v-model:value="item.config.suffix" />
             </n-form-item>
           </template>
           <template v-else-if="item.config.component === ComponentType.radio">

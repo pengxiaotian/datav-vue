@@ -218,6 +218,7 @@
             "xAxis": {
                 "show": true,
                 "type": "category",
+                "boundaryGap": true,
                 "title": {
                     "show": true,
                     "name": "X轴",
@@ -247,7 +248,6 @@
                 "axisLabel": {
                     "show": true,
                     "timeFormat": "MM/DD",
-                    "boundaryGap": true,
                     "interval": "auto",
                     "display": {
                         "rotate": 0,
