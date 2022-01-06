@@ -1091,8 +1091,9 @@
       default-layout="horizontal"
       :features="['vertical', 'horizontal', 'copy', 'add', 'remove']"
       :list="config.series"
-      :min="0"
+      :min="1"
       :max="100"
+      tab="系列"
       :add-item="handleAddSeriesItem"
     >
       <template #default="slotProps">
