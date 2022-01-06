@@ -18,6 +18,8 @@ import VFullScreen from './button/full-screen'
 
 import VWordCloud from './chart/word-cloud'
 
+import VBasicLine from './line/basic-line'
+
 const components = [
   VMainTitle,
   VNumberTitleFlop,
@@ -32,6 +34,7 @@ const components = [
   VFullScreen,
   VMainImg,
   VWordCloud,
+  VBasicLine,
 ]
 
 const install = (app: App): void => {

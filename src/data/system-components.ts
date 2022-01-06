@@ -50,7 +50,7 @@ export const line = {
       alias: '基本折线图',
       img: `${import.meta.env.VITE_APP_CDN}/com/basic-line-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/basic-line-368-208.png`,
-      used: false,
+      used: true,
     },
   ],
 }
