@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
 import i18n from '@/locales'
 
@@ -8,7 +9,6 @@ import '@/styles/index.scss'
 
 import DatavCharts from '@/components'
 
-import store from './store'
 import router from './routes'
 import App from './App.vue'
 
@@ -17,7 +17,7 @@ app.use(i18n)
 app.use(NaiveUI)
 app.use(GUI)
 app.use(DatavCharts)
-app.use(store)
+app.use(createPinia())
 app.use(router)
 
 app.mount('#app')

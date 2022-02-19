@@ -49,10 +49,10 @@
 </template>
 
 <script lang='ts'>
-import { h, defineComponent } from 'vue'
+import { h, defineComponent, computed } from 'vue'
 import { NIcon } from 'naive-ui'
-import { UserStore } from '@/domains/user'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/store/user'
 import { IconLogout, IconArrowDown, IconDocument } from '@/icons'
 
 const cdn = import.meta.env.VITE_APP_CDN
@@ -69,7 +69,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const { name, avatar, doLogout } = UserStore()
+    const userStore = useUserStore()
     const router = useRouter()
 
     const profileOpts = [
@@ -89,10 +89,9 @@ export default defineComponent({
       },
     ]
 
-    const logout = () => {
-      doLogout().then(() => {
-        router.push({ name: 'Login' })
-      })
+    const logout = async () => {
+      await userStore.logout()
+      router.push({ name: 'Login' })
     }
 
     const handleProfileSelect = (key: string) => {
@@ -103,8 +102,8 @@ export default defineComponent({
 
     return {
       cdn,
-      userName: name,
-      avatar,
+      userName: computed(() => userStore.name),
+      avatar: computed(() => userStore.avatar),
       profileOpts,
       handleProfileSelect,
     }
