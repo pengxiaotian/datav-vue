@@ -31,7 +31,7 @@ module.exports = {
     quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
     camelcase: 0,
     semi: ['error', 'never'],
-    indent: ['error', 2, { SwitchCase: 1 }],
+    indent: 'off',
     'object-curly-spacing': ['error', 'always'],
     'arrow-parens': ['error', 'as-needed'],
     'quote-props': ['error', 'as-needed'],
@@ -56,6 +56,7 @@ module.exports = {
         },
       },
     ],
+    '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     // vue https://eslint.vuejs.org/rules/
     'vue/no-v-html': 'off',
     'vue/singleline-html-element-content-newline': 'off',
