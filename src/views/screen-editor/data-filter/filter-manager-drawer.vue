@@ -62,6 +62,7 @@ import { DataFilter } from '@/components/data-filter'
 import { setDatavData } from '@/mixins/data-center'
 import { IconWarning, IconDocument } from '@/icons'
 import FilterCollapsePanel from './filter-collapse-panel.vue'
+import { filterManagerInjectionKey } from './config'
 
 export default defineComponent({
   name: 'FilterManagerDrawer',
@@ -191,17 +192,18 @@ export default defineComponent({
       }
     }
 
-    provide('usedFilters', usedFilters)
-    provide('editFilterName', editFilterName)
-    provide('removeFilter', removeFilter)
-    provide('saveFilter', saveFilter)
+    provide(filterManagerInjectionKey, {
+      usedFilters,
+      editFilterName,
+      removeFilter,
+      saveFilter,
+    })
 
     return {
       visible,
       dataFilters,
       newDataFilter,
       addFilter,
-      removeFilter,
     }
   },
 })

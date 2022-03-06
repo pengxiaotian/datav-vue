@@ -17,11 +17,11 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, ComputedRef, provide, inject } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
+import { defineComponent, ref, computed, provide, inject } from 'vue'
 import { loadAsyncComponent } from '@/utils/async-component'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
+import { comInjectionKey, changePanelInjectionKey } from '../config'
 
 export default defineComponent({
   name: 'DataCenterPanel',
@@ -31,7 +31,7 @@ export default defineComponent({
     SourcePanel: loadAsyncComponent(() => import('./source-panel.vue')),
   },
   setup() {
-    const com = inject('com') as ComputedRef<DatavComponent>
+    const com = inject(comInjectionKey)
 
     const dataKeys = computed(() => {
       return Object.keys(com.value.apis)
@@ -39,7 +39,7 @@ export default defineComponent({
 
     const activeName = ref(dataKeys.value[0])
 
-    provide('changePanel', (panelName: string) => {
+    provide(changePanelInjectionKey, (panelName: string) => {
       activeName.value = activeName.value === panelName ? '' : panelName
     })
 

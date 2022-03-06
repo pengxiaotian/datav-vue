@@ -28,6 +28,8 @@ module.exports = {
     "selector-class-pattern": null,
     "function-url-quotes": null,
     "declaration-block-no-redundant-longhand-properties": null,
+    'value-keyword-case': null,
+    'function-no-unknown': null,
     'color-no-invalid-hex': true,
     'comment-no-empty': true,
     'declaration-block-no-duplicate-properties': [

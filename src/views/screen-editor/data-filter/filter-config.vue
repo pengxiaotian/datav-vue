@@ -54,13 +54,15 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, ComputedRef, provide, inject } from 'vue'
+import { defineComponent, ref, computed, provide, inject } from 'vue'
 import { FilterModule } from '@/store/modules/filter'
 import { EditorModule } from '@/store/modules/editor'
 import { ApiDataConfig } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
 import { IconPlus } from '@/icons'
 import FilterCollapsePanel from './filter-collapse-panel.vue'
+import { filterManagerInjectionKey, filterConfigInjectionKey } from './config'
+import { sourceDrawerInjectionKey, sourcePanelInjectionKey } from '../config-panel/config'
 
 export default defineComponent({
   name: 'FilterConfig',
@@ -79,8 +81,8 @@ export default defineComponent({
       to: 0,
     })
 
-    const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
-    const refreshData = inject('refreshData') as () => Promise<void>
+    const { apiDataConfig } = inject(sourcePanelInjectionKey)
+    const { refreshData } = inject(sourceDrawerInjectionKey)
 
     const dataFilters = computed(() => {
       const ids = apiDataConfig.value.pageFilters.map(m => m.id)
@@ -213,13 +215,18 @@ export default defineComponent({
       updateIndicator(true, selectedFilters.value.length, addPanelRef.value)
     }
 
-    provide('usedFilters', usedFilters)
-    provide('enabledFilters', enabledFilters)
-    provide('onUsedChange', onUsedChange)
-    provide('editFilterName', editFilterName)
-    provide('removeFilter', removeFilter)
-    provide('saveFilter', saveFilter)
-    provide('updateIndicator', updateIndicator)
+    provide(filterManagerInjectionKey, {
+      usedFilters,
+      editFilterName,
+      removeFilter,
+      saveFilter,
+    })
+
+    provide(filterConfigInjectionKey, {
+      enabledFilters,
+      onUsedChange,
+      updateIndicator,
+    })
 
     return {
       filterId,

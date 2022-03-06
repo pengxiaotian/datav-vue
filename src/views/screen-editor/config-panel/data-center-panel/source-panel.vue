@@ -136,8 +136,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, ComputedRef, inject, provide } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
+import { defineComponent, ref, computed, inject, provide } from 'vue'
 import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources, ApiStatus } from '@/components/data-source'
 import { DebugModule } from '@/store/modules/debug'
 import { ApiModule } from '@/store/modules/api'
@@ -145,6 +144,7 @@ import { setDatavData } from '@/mixins/data-center'
 import { IconArrowRight, IconRefresh } from '@/icons'
 import DisplayApiStatus from '../components/display-api-status.vue'
 import SourceDrawer from './source-drawer.vue'
+import { comInjectionKey, changePanelInjectionKey, sourcePanelInjectionKey } from '../config'
 
 export default defineComponent({
   name: 'SourcePanel',
@@ -167,13 +167,15 @@ export default defineComponent({
     const sourceDrawerRef = ref(null)
     const datasources = createDataSources()
 
-    const com = inject('com') as ComputedRef<DatavComponent>
+    const com = inject(comInjectionKey)
     const apiConfig = computed((): ApiConfig => com.value.apis[props.apiName])
     const apiDataConfig = computed((): ApiDataConfig => com.value.apiData[props.apiName])
 
-    provide('apiConfig', apiConfig)
-    provide('apiDataConfig', apiDataConfig)
-    provide('apiName', props.apiName)
+    provide(sourcePanelInjectionKey, {
+      apiName: props.apiName,
+      apiConfig,
+      apiDataConfig,
+    })
 
     const datav_data = computed(() => {
       const comData = ApiModule.dataMap[com.value.id]
@@ -198,7 +200,7 @@ export default defineComponent({
       return ApiStatus.completed
     })
 
-    const changePanel = inject('changePanel') as Function
+    const changePanel = inject(changePanelInjectionKey)
 
     const toggle = () => {
       if (props.collapse) {

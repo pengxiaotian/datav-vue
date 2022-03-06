@@ -174,10 +174,12 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ComputedRef, ref, inject, computed } from 'vue'
+import { defineComponent, PropType, ref, inject, computed } from 'vue'
 import { useMessage } from 'naive-ui'
 import { DataFilter } from '@/components/data-filter'
 import { IconArrowLeft, IconEdit, IconRelease, IconDelete, IconDrag, IconClose } from '@/icons'
+import { filterManagerInjectionKey, filterConfigInjectionKey } from './config'
+import { SourceDrawerInjection, sourceDrawerInjectionKey } from '../config-panel/config'
 
 export default defineComponent({
   name: 'FilterCollapsePanel',
@@ -205,6 +207,21 @@ export default defineComponent({
   },
   setup(props) {
     const nMessage = useMessage()
+    const {
+      usedFilters,
+      editFilterName,
+      removeFilter,
+      saveFilter,
+    } = inject(filterManagerInjectionKey)
+
+    const {
+      enabledFilters,
+      onUsedChange,
+      updateIndicator,
+    } = inject(filterConfigInjectionKey, {})
+
+    const { dataStatus } = inject(sourceDrawerInjectionKey, {} as SourceDrawerInjection)
+
     const panelRef = ref(null)
     const editing = ref(props.isNew)
     const collapse = ref(props.isNew)
@@ -213,7 +230,6 @@ export default defineComponent({
     const loading = ref(false)
     const code = ref(props.dataFilter.origin)
 
-    const dataStatus = inject('dataStatus', null) as ComputedRef<any>
     const errMsg = computed(() => {
       let msg = ''
       const err = dataStatus?.value.filter
@@ -222,15 +238,6 @@ export default defineComponent({
       }
       return msg
     })
-
-    const usedFilters = inject('usedFilters') as ComputedRef<Record<number, { ids: string[]; names: string[]; }>>
-    const enabledFilters = inject('enabledFilters', null) as ComputedRef<Record<number, boolean>>
-
-    const onUsedChange = inject('onUsedChange', null) as (id: number, val: boolean) => void
-    const editFilterName = inject('editFilterName') as (val: string, df: DataFilter) => void
-    const removeFilter = inject('removeFilter') as (id: number) => void
-    const saveFilter = inject('saveFilter') as (data: DataFilter) => Promise<void>
-    const updateIndicator = inject('updateIndicator', null) as (visible: boolean, index: number, el: any) => void
 
     const isEnabled = computed(() => (enabledFilters?.value[props.dataFilter.id] ?? false))
 
@@ -327,7 +334,6 @@ export default defineComponent({
       isEnabled,
       usedFilters,
       errMsg,
-      loading2: ref(false),
       switchEnabled,
       editName,
       removeFilter,

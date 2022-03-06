@@ -31,8 +31,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, ComputedRef, inject, ref, provide, onMounted, watch } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
+import { defineComponent, computed, inject, ref, provide, onMounted, watch } from 'vue'
 import { EventItemConfig } from '@/components/data-event'
 import { EditorModule } from '@/store/modules/editor'
 import { ArrayToObject } from '@/utils/util'
@@ -40,6 +39,7 @@ import { IconArrowRight } from '@/icons'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
 import EventItem from './event-item.vue'
+import { comInjectionKey, interactionInjectionKey } from '../config'
 
 export default defineComponent({
   name: 'InteractionPanel',
@@ -50,7 +50,7 @@ export default defineComponent({
     IconArrowRight,
   },
   setup() {
-    const com = inject('com') as ComputedRef<DatavComponent>
+    const com = inject(comInjectionKey)
     const visible = ref(true)
 
     const eventKeys = computed(() => {
@@ -166,10 +166,12 @@ export default defineComponent({
       EditorModule.setPublishersView({ id: com.value.id, keys, enable })
     }
 
-    provide('addField', addField)
-    provide('deleteField', deleteField)
-    provide('updateField', updateField)
-    provide('toggleEnable', toggleEnable)
+    provide(interactionInjectionKey, {
+      addField,
+      deleteField,
+      updateField,
+      toggleEnable,
+    })
 
     watch(events, () => {
       EditorModule.variables.componentsView[com.value.id] = events.value

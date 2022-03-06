@@ -53,6 +53,7 @@ import { ToolbarModule } from '@/store/modules/toolbar'
 import { EditorModule } from '@/store/modules/editor'
 import { loadAsyncComponent } from '@/utils/async-component'
 import { IconSetting, IconCloud, IconInteract } from '@/icons'
+import { comInjectionKey } from './config'
 
 export default defineComponent({
   name: 'ConfigPanel',
@@ -69,7 +70,7 @@ export default defineComponent({
     const visiblePanel = computed(() => ToolbarModule.config.show)
     const selectedCom = computed(() => EditorModule.selectedCom)
 
-    provide('com', selectedCom)
+    provide(comInjectionKey, selectedCom)
 
     return {
       visiblePanel,

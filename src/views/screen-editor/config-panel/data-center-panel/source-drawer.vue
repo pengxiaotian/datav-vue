@@ -95,16 +95,16 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, ComputedRef, provide, inject } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
+import { defineComponent, ref, computed, provide, inject } from 'vue'
 import { loadAsyncComponent } from '@/utils/async-component'
-import { createDataSources, ApiConfig, ApiDataConfig, ApiType, createDataConfigForApi } from '@/components/data-source'
+import { createDataSources, ApiType, createDataConfigForApi } from '@/components/data-source'
 import { DebugModule } from '@/store/modules/debug'
 import { ApiModule } from '@/store/modules/api'
 import { setDatavData } from '@/mixins/data-center'
 import { IconSearch, IconRefresh } from '@/icons'
 import FilterConfig from '@/views/screen-editor/data-filter/filter-config.vue'
 import FieldGrid from '../components/field-grid.vue'
+import { comInjectionKey, sourcePanelInjectionKey, sourceDrawerInjectionKey } from '../config'
 
 export default defineComponent({
   name: 'SourceDrawer',
@@ -127,10 +127,8 @@ export default defineComponent({
       visible.value = true
     }
 
-    const com = inject('com') as ComputedRef<DatavComponent>
-    const apiConfig = inject('apiConfig') as ComputedRef<ApiConfig>
-    const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
-    const apiName = inject('apiName') as string
+    const com = inject(comInjectionKey)
+    const { apiName, apiConfig, apiDataConfig } = inject(sourcePanelInjectionKey)
 
     const dataStatus = computed(() => {
       const data = DebugModule.dataStatusMap[com.value.id]
@@ -161,8 +159,10 @@ export default defineComponent({
       await setDatavData(com.value.id, apiName, apiConfig.value, apiDataConfig.value)
     }
 
-    provide('refreshData', refreshData)
-    provide('dataStatus', dataStatus)
+    provide(sourceDrawerInjectionKey, {
+      dataStatus,
+      refreshData,
+    })
 
     return {
       visible,

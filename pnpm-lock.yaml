@@ -50,9 +50,9 @@ specifiers:
   postcss-html: ^1.3.0
   postcss-scss: ^4.0.3
   rimraf: ^3.0.2
-  sass: ^1.49.8
+  sass: ^1.49.9
   shortid: ^2.2.16
-  stylelint: ^14.5.1
+  stylelint: ^14.5.3
   stylelint-config-prettier: ^9.0.3
   stylelint-config-standard: ^25.0.0
   tslib: ^2.3.1
@@ -127,14 +127,14 @@ devDependencies:
   postcss-html: 1.3.0
   postcss-scss: 4.0.3_postcss@8.4.6
   rimraf: 3.0.2
-  sass: 1.49.8
-  stylelint: 14.5.1
-  stylelint-config-prettier: 9.0.3_stylelint@14.5.1
-  stylelint-config-standard: 25.0.0_stylelint@14.5.1
+  sass: 1.49.9
+  stylelint: 14.5.3
+  stylelint-config-prettier: 9.0.3_stylelint@14.5.3
+  stylelint-config-standard: 25.0.0_stylelint@14.5.3
   tslib: 2.3.1
   typescript: 4.5.5
   unplugin-element-plus: 0.3.1_vite@2.8.4+vue@3.2.31
-  vite: 2.8.4_sass@1.49.8
+  vite: 2.8.4_sass@1.49.9
   vite-plugin-plain-text: 1.1.4
   vue-tsc: 0.31.4_typescript@4.5.5
 
@@ -1938,7 +1938,7 @@ packages:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.8.4_sass@1.49.8
+      vite: 2.8.4_sass@1.49.9
       vue: 3.2.31
     dev: true
 
@@ -4261,7 +4261,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.15.1
+      uglify-js: 3.15.2
     dev: true
 
   /hard-rejection/2.1.0:
@@ -6355,8 +6355,8 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
-  /sass/1.49.8:
-    resolution: {integrity: sha512-NoGOjvDDOU9og9oAxhRnap71QaTjjlzrvLnKecUJ3GxhaQBrV6e7gPuSPF28u1OcVAArVojPAe4ZhOXwwC4tGw==}
+  /sass/1.49.9:
+    resolution: {integrity: sha512-YlYWkkHP9fbwaFRZQRXgDi3mXZShslVmmo+FVK3kHLUELHHEYrCmL1x6IUjC7wLS6VuJSAFXRQS/DxdsC4xL1A==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
@@ -6701,35 +6701,35 @@ packages:
     resolution: {integrity: sha1-eVjHk+R+MuB9K1yv5cC/jhLneQI=}
     dev: true
 
-  /stylelint-config-prettier/9.0.3_stylelint@14.5.1:
+  /stylelint-config-prettier/9.0.3_stylelint@14.5.3:
     resolution: {integrity: sha512-5n9gUDp/n5tTMCq1GLqSpA30w2sqWITSSEiAWQlpxkKGAUbjcemQ0nbkRvRUa0B1LgD3+hCvdL7B1eTxy1QHJg==}
     engines: {node: '>= 12'}
     hasBin: true
     peerDependencies:
       stylelint: '>=11.0.0'
     dependencies:
-      stylelint: 14.5.1
+      stylelint: 14.5.3
     dev: true
 
-  /stylelint-config-recommended/7.0.0_stylelint@14.5.1:
+  /stylelint-config-recommended/7.0.0_stylelint@14.5.3:
     resolution: {integrity: sha512-yGn84Bf/q41J4luis1AZ95gj0EQwRX8lWmGmBwkwBNSkpGSpl66XcPTulxGa/Z91aPoNGuIGBmFkcM1MejMo9Q==}
     peerDependencies:
       stylelint: ^14.4.0
     dependencies:
-      stylelint: 14.5.1
+      stylelint: 14.5.3
     dev: true
 
-  /stylelint-config-standard/25.0.0_stylelint@14.5.1:
+  /stylelint-config-standard/25.0.0_stylelint@14.5.3:
     resolution: {integrity: sha512-21HnP3VSpaT1wFjFvv9VjvOGDtAviv47uTp3uFmzcN+3Lt+RYRv6oAplLaV51Kf792JSxJ6svCJh/G18E9VnCA==}
     peerDependencies:
       stylelint: ^14.4.0
     dependencies:
-      stylelint: 14.5.1
-      stylelint-config-recommended: 7.0.0_stylelint@14.5.1
+      stylelint: 14.5.3
+      stylelint-config-recommended: 7.0.0_stylelint@14.5.3
     dev: true
 
-  /stylelint/14.5.1:
-    resolution: {integrity: sha512-8Hf4HtnhxlWlf7iXF9zFfhSc3X0teRnVzl6PqPs2JEFx+dy/mhMhghZfiTDW4QG0ihDw9+WP7GZw5Nzx7cQF5A==}
+  /stylelint/14.5.3:
+    resolution: {integrity: sha512-omHETL+kGHR+fCXFK1SkZD/A+emCP9esggAdWEl8GPjTNeyRYj+H6uetRDcU+7E451zwWiUYGVAX+lApsAZgsQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
     dependencies:
@@ -7050,8 +7050,8 @@ packages:
     hasBin: true
     dev: true
 
-  /uglify-js/3.15.1:
-    resolution: {integrity: sha512-FAGKF12fWdkpvNJZENacOH0e/83eG6JyVQyanIJaBXCN1J11TUQv1T1/z8S+Z0CG0ZPk1nPcreF/c7lrTd0TEQ==}
+  /uglify-js/3.15.2:
+    resolution: {integrity: sha512-peeoTk3hSwYdoc9nrdiEJk+gx1ALCtTjdYuKSXMTDqq7n1W7dHPqWDdSi+BPL0ni2YMeHD7hKUSdbj3TZauY2A==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true
@@ -7145,7 +7145,7 @@ packages:
       webpack:
         optional: true
     dependencies:
-      vite: 2.8.4_sass@1.49.8
+      vite: 2.8.4_sass@1.49.9
       webpack-virtual-modules: 0.4.3
     dev: true
 
@@ -7249,7 +7249,7 @@ packages:
     resolution: {integrity: sha512-vsqrq79wZBn4WUC1aQvo8rXPdZX5Ekqa3fTpGWHA5Q8GwcGC6+ILmihOu9qP6jZrX43rCUTBJGVNmedDAB31Uw==}
     dev: true
 
-  /vite/2.8.4_sass@1.49.8:
+  /vite/2.8.4_sass@1.49.9:
     resolution: {integrity: sha512-GwtOkkaT2LDI82uWZKcrpRQxP5tymLnC7hVHHqNkhFNknYr0hJUlDLfhVRgngJvAy3RwypkDCWtTKn1BjO96Dw==}
     engines: {node: '>=12.2.0'}
     hasBin: true
@@ -7269,7 +7269,7 @@ packages:
       postcss: 8.4.6
       resolve: 1.22.0
       rollup: 2.67.3
-      sass: 1.49.8
+      sass: 1.49.9
     optionalDependencies:
       fsevents: 2.3.2
     dev: true

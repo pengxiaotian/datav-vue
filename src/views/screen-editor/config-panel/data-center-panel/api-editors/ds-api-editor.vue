@@ -58,16 +58,16 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ComputedRef, inject } from 'vue'
-import { ApiDataConfig, ApiRequestMethod } from '@/components/data-source'
-import { DatavComponent } from '@/components/datav-component'
+import { defineComponent, inject } from 'vue'
+import { ApiRequestMethod } from '@/components/data-source'
 import { EditorModule } from '@/store/modules/editor'
+import { comInjectionKey, sourcePanelInjectionKey } from '../../config'
 
 export default defineComponent({
   name: 'DsApiEditor',
   setup() {
-    const com = inject('com') as ComputedRef<DatavComponent>
-    const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
+    const com = inject(comInjectionKey)
+    const { apiDataConfig } = inject(sourcePanelInjectionKey)
     const apiMethods = Object.keys(ApiRequestMethod).map(value => ({ label: value, value }))
 
     const variables = Object.keys(EditorModule.variables.publishersView)
