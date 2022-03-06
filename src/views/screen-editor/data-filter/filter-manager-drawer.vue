@@ -3,6 +3,7 @@
     v-model:show="visible"
     width="500px"
     placement="left"
+    :trap-focus="false"
     class="filter-manager-drawer"
     to="#edit-main-wp"
   >

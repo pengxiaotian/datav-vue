@@ -2,6 +2,7 @@
   <n-drawer
     v-model:show="visible"
     width="500px"
+    :trap-focus="false"
     class="source-drawer"
     to="#edit-main-wp"
   >
