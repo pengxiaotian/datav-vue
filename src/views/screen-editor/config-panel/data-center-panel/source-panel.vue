@@ -138,8 +138,8 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, inject, provide } from 'vue'
 import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources, ApiStatus } from '@/components/data-source'
-import { DebugModule } from '@/store/modules/debug'
-import { ApiModule } from '@/store/modules/api'
+import { useDebugStore } from '@/store/debug'
+import { useApiStore } from '@/store/api'
 import { setDatavData } from '@/mixins/data-center'
 import { IconArrowRight, IconRefresh } from '@/icons'
 import DisplayApiStatus from '../components/display-api-status.vue'
@@ -163,6 +163,8 @@ export default defineComponent({
     collapse: Boolean,
   },
   setup(props) {
+    const debugStore = useDebugStore()
+    const apiStore = useApiStore()
     const visible = computed(() => props.apiName === props.activeName)
     const sourceDrawerRef = ref(null)
     const datasources = createDataSources()
@@ -178,12 +180,12 @@ export default defineComponent({
     })
 
     const datav_data = computed(() => {
-      const comData = ApiModule.dataMap[com.value.id]
+      const comData = apiStore.dataMap[com.value.id]
       return comData ? comData[props.apiName] : ''
     })
 
     const fieldsStatus = computed(() => {
-      const comFields = DebugModule.fieldStatusMap[com.value.id]
+      const comFields = debugStore.fieldStatusMap[com.value.id]
       return comFields ? comFields[props.apiName] : {}
     })
 

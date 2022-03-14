@@ -65,8 +65,6 @@ specifiers:
   vue-i18n: ^9.1.9
   vue-router: ^4.0.13
   vue-tsc: ^0.31.4
-  vuex: ^4.0.2
-  vuex-module-decorators: ^2.0.0
 
 dependencies:
   '@monaco-editor/loader': 1.2.0_monaco-editor@0.27.0
@@ -95,8 +93,6 @@ dependencies:
   vue-echarts: 6.0.2_echarts@5.3.0+vue@3.2.31
   vue-i18n: 9.1.9_vue@3.2.31
   vue-router: 4.0.13_vue@3.2.31
-  vuex: 4.0.2_vue@3.2.31
-  vuex-module-decorators: 2.0.0_vue@3.2.31+vuex@4.0.2
 
 devDependencies:
   '@babel/core': 7.17.5
@@ -7536,27 +7532,6 @@ packages:
       seemly: 0.3.3
       vdirs: 0.1.7_vue@3.2.31
       vooks: 0.2.12_vue@3.2.31
-      vue: 3.2.31
-    dev: false
-
-  /vuex-module-decorators/2.0.0_vue@3.2.31+vuex@4.0.2:
-    resolution: {integrity: sha512-awfjlJR9PlX2tDNzRk5fUnksO4TC5Z93Q3ZycvROCiLId7MZ1GdY4sHpEvPqm02UZ8jF+BkuyN5ezghOAk3zeQ==}
-    engines: {node: '>= 8', npm: '>= 5', yarn: '>= 1'}
-    requiresBuild: true
-    peerDependencies:
-      vue: '>=3'
-      vuex: '>=4'
-    dependencies:
-      vue: 3.2.31
-      vuex: 4.0.2_vue@3.2.31
-    dev: false
-
-  /vuex/4.0.2_vue@3.2.31:
-    resolution: {integrity: sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==}
-    peerDependencies:
-      vue: ^3.0.2
-    dependencies:
-      '@vue/devtools-api': 6.0.12
       vue: 3.2.31
     dev: false
 

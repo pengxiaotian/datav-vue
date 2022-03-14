@@ -55,9 +55,9 @@
 <script lang='ts'>
 import { h, defineComponent, ref, computed, watch, provide } from 'vue'
 import { useMessage, useDialog } from 'naive-ui'
-import { ToolbarModule } from '@/store/modules/toolbar'
-import { FilterModule } from '@/store/modules/filter'
-import { EditorModule } from '@/store/modules/editor'
+import { useToolbarStore } from '@/store/toolbar'
+import { useFilterStore } from '@/store/filter'
+import { useEditorStore } from '@/store/editor'
 import { ApiDataConfig } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
 import { setDatavData } from '@/mixins/data-center'
@@ -74,23 +74,26 @@ export default defineComponent({
   setup() {
     const nMessage = useMessage()
     const nDialog = useDialog()
+    const toolbarStore = useToolbarStore()
+    const filterStore = useFilterStore()
+    const editorStore = useEditorStore()
     const visible = ref(false)
     const newDataFilter = ref<DataFilter | null>(null)
 
-    watch(() => ToolbarModule.filter.show, (nv: boolean) => {
+    watch(() => toolbarStore.filter.show, (nv: boolean) => {
       visible.value = nv
     })
 
     watch(visible, (nv: boolean) => {
       if (!nv) {
-        ToolbarModule.filter.show = false
+        toolbarStore.filter.show = false
       }
     })
 
-    const dataFilters = computed(() => FilterModule.dataFilters)
+    const dataFilters = computed(() => filterStore.dataFilters)
     const usedFilters = computed(() => {
-      const coms = [...EditorModule.coms, ...EditorModule.subComs]
       const map = Object.create(null) as Record<number, { ids: string[]; names: string[]; }>
+      const coms = [...editorStore.coms, ...editorStore.subComs]
       coms.forEach(com => {
         for (const key in com.apiData) {
           const ad = com.apiData[key] as ApiDataConfig
@@ -130,7 +133,7 @@ export default defineComponent({
       if (newName && df.name !== newName) {
         df.name = newName
         if (df.id > 0) {
-          FilterModule.updateFilterName(df)
+          filterStore.updateFilterName(df)
         }
       }
     }
@@ -146,20 +149,21 @@ export default defineComponent({
           onPositiveClick: async () => {
             d.loading = true
             try {
-              await FilterModule.deleteFilter(id)
+              await filterStore.deleteFilter(id)
               const df = usedFilters.value[id]
               if (df) {
-                const coms = [...EditorModule.coms, ...EditorModule.subComs].filter(m => df.ids.includes(m.id))
-                coms.forEach(com => {
-                  for (const key in com.apiData) {
-                    const ad = com.apiData[key] as ApiDataConfig
-                    const pf = ad.pageFilters.find(m => m.id === id)
-                    ad.pageFilters = ad.pageFilters.filter(m => m.id !== id)
-                    if (pf && pf.enabled) {
-                      setDatavData(com.id, key, com.apis[key], ad)
+                [...editorStore.coms, ...editorStore.subComs]
+                  .filter(m => df.ids.includes(m.id))
+                  .forEach(com => {
+                    for (const key in com.apiData) {
+                      const ad = com.apiData[key] as ApiDataConfig
+                      const pf = ad.pageFilters.find(m => m.id === id)
+                      ad.pageFilters = ad.pageFilters.filter(m => m.id !== id)
+                      if (pf && pf.enabled) {
+                        setDatavData(com.id, key, com.apis[key], ad)
+                      }
                     }
-                  }
-                })
+                  })
               }
             } catch (error) {
               nMessage.error(error.message)
@@ -173,22 +177,23 @@ export default defineComponent({
 
     const saveFilter = async (data: DataFilter) => {
       if (data.id > 0) {
-        await FilterModule.updateFilter(data)
+        await filterStore.updateFilter(data)
         const df = usedFilters.value[data.id]
         if (df) {
-          const coms = [...EditorModule.coms, ...EditorModule.subComs].filter(m => df.ids.includes(m.id))
-          coms.forEach(com => {
-            for (const key in com.apiData) {
-              const ad = com.apiData[key] as ApiDataConfig
-              const pf = ad.pageFilters.find(m => m.id === data.id)
-              if (pf && pf.enabled) {
-                setDatavData(com.id, key, com.apis[key], ad)
+          [...editorStore.coms, ...editorStore.subComs]
+            .filter(m => df.ids.includes(m.id))
+            .forEach(com => {
+              for (const key in com.apiData) {
+                const ad = com.apiData[key] as ApiDataConfig
+                const pf = ad.pageFilters.find(m => m.id === data.id)
+                if (pf && pf.enabled) {
+                  setDatavData(com.id, key, com.apis[key], ad)
+                }
               }
-            }
-          })
+            })
         }
       } else {
-        await FilterModule.createFilter(data)
+        await filterStore.createFilter(data)
         newDataFilter.value = null
       }
     }

@@ -1,6 +1,5 @@
 import { DatavComponent, ComponentAttr } from '@/components/datav-component'
 import { on, off } from '@/utils/dom'
-import { EditorModule } from '@/store/modules/editor'
 
 /**
  * 方位
@@ -221,7 +220,16 @@ function calcResizeForNormal(dir: Direction, attr: ComponentAttr, startPoint: IP
   }
 }
 
-const setAttr = (ev: MouseEvent, dir: Direction | null, com: DatavComponent, scale: number, grid: number, resizeMode: ResizeMode) => {
+const setAttr = (
+  ev: MouseEvent,
+  dir: Direction | null,
+  com: DatavComponent,
+  scale: number,
+  grid: number,
+  resizeMode: ResizeMode,
+  calcAlignLine: (com: DatavComponent) => void,
+  hideAlignLine: (id: string) => void,
+) => {
   const attr = { ...com.attr }
   const pos = Object.create(null) as Partial<ComponentAttr>
 
@@ -262,27 +270,42 @@ const setAttr = (ev: MouseEvent, dir: Direction | null, com: DatavComponent, sca
 
     com.attr = { ...com.attr, ...pos }
 
-    EditorModule.calcAlignLine(com)
+    calcAlignLine(com)
   }
 
   const up = () => {
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
 
-    EditorModule.hideAlignLine(com.id)
+    hideAlignLine(com.id)
   }
 
   on(document, 'mousemove', move)
   on(document, 'mouseup', up)
 }
 
-export const handleZoom = (ev: MouseEvent, dir: Direction, com: DatavComponent, scale: number) => {
-  const mode = EditorModule.isNormalResizeMode ? 'normal' : 'stretch'
-  setAttr(ev, dir, com, scale, 0, mode)
+export const handleZoom = (
+  ev: MouseEvent,
+  dir: Direction,
+  com: DatavComponent,
+  scale: number,
+  isNormalResizeMode: boolean,
+  calcAlignLine: (com: DatavComponent) => void,
+  hideAlignLine: (id: string) => void,
+) => {
+  const mode = isNormalResizeMode ? 'normal' : 'stretch'
+  setAttr(ev, dir, com, scale, 0, mode, calcAlignLine, hideAlignLine)
 }
 
-export const handleMove = (ev: MouseEvent, com: DatavComponent, scale: number, grid: number) => {
-  setAttr(ev, null, com, scale, grid, null)
+export const handleMove = (
+  ev: MouseEvent,
+  com: DatavComponent,
+  scale: number,
+  grid: number,
+  calcAlignLine: (com: DatavComponent) => void,
+  hideAlignLine: (id: string) => void,
+) => {
+  setAttr(ev, null, com, scale, grid, null, calcAlignLine, hideAlignLine)
 }
 
 export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponent) => {

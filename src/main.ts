@@ -10,9 +10,9 @@ import '@/styles/index.scss'
 import DatavCharts from '@/components'
 
 import router from './routes'
-import App from './App.vue'
+import AppRoot from './AppRoot.vue'
 
-const app = createApp(App)
+const app = createApp(AppRoot)
 app.use(i18n)
 app.use(NaiveUI)
 app.use(GUI)

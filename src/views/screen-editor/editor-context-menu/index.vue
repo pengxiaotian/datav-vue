@@ -85,7 +85,7 @@
 <script lang='ts'>
 import { h, defineComponent, onBeforeMount, onUnmounted } from 'vue'
 import { useMessage, useDialog } from 'naive-ui'
-import { EditorModule } from '@/store/modules/editor'
+import { useEditorStore } from '@/store/editor'
 import { on, off } from '@/utils/dom'
 import { MoveType } from '@/utils/enums'
 import {
@@ -122,6 +122,7 @@ export default defineComponent({
   setup() {
     const nMessage = useMessage()
     const nDialog = useDialog()
+    const editorStore = useEditorStore()
     const {
       contextMenu, selectedCom,
       isLocked, isHided, contextMenuStyle,
@@ -129,7 +130,7 @@ export default defineComponent({
 
     const moveCom = (moveType: MoveType) => {
       if (selectedCom.value) {
-        EditorModule.moveCom({ id: selectedCom.value.id, moveType })
+        editorStore.moveCom(selectedCom.value.id, moveType)
       }
     }
 
@@ -162,7 +163,7 @@ export default defineComponent({
           onPositiveClick: async () => {
             d.loading = true
             try {
-              await EditorModule.deleteCom(com)
+              await editorStore.deleteCom(com)
             } catch (error) {
               nMessage.error(error.message)
             }
@@ -179,7 +180,7 @@ export default defineComponent({
 
     const toCopyCom = () => {
       if (selectedCom.value) {
-        EditorModule.copyCom(selectedCom.value.id)
+        editorStore.copyCom(selectedCom.value.id)
       }
     }
 

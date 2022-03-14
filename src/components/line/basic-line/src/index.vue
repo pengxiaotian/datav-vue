@@ -19,7 +19,7 @@ import { LineChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import { AnimationEasing } from '@/utils/types'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
-import { ApiModule } from '@/store/modules/api'
+import { useApiStore } from '@/store/api'
 import { getAutoValue, getLimitValue, valueFormater } from '@/utils/echarts-utils'
 import { BasicLine } from './basic-line'
 
@@ -38,10 +38,11 @@ const props = defineProps({
   },
 })
 
+const apiStore = useApiStore()
 const { datavEmit } = useDataCenter(props.com)
 
 const dv_data = computed(() => {
-  return ApiModule.dataMap[props.com.id]?.source ?? {}
+  return apiStore.dataMap[props.com.id]?.source ?? {}
 })
 
 const dv_field = computed(() => {

@@ -18,7 +18,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
-import { ApiModule } from '@/store/modules/api'
+import { useApiStore } from '@/store/api'
 import { getAutoValue, getLimitValue, valueFormater } from '@/utils/echarts-utils'
 import { BasicBar } from './basic-bar'
 
@@ -42,10 +42,11 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const apiStore = useApiStore()
     const { datavEmit } = useDataCenter(props.com)
 
     const dv_data = computed(() => {
-      return ApiModule.dataMap[props.com.id]?.source ?? []
+      return apiStore.dataMap[props.com.id]?.source ?? []
     })
 
     const dv_field = computed(() => {

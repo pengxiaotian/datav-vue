@@ -16,7 +16,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import 'echarts-wordcloud'
 import { GridComponent, TooltipComponent } from 'echarts/components'
 import { useDataCenter, getFieldMap } from '@/mixins/data-center'
-import { ApiModule } from '@/store/modules/api'
+import { useApiStore } from '@/store/api'
 import { WordCloud } from './word-cloud'
 
 use([
@@ -37,10 +37,11 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const apiStore = useApiStore()
     useDataCenter(props.com)
 
     const dv_data = computed(() => {
-      return ApiModule.dataMap[props.com.id]?.source ?? []
+      return apiStore.dataMap[props.com.id]?.source ?? []
     })
 
     const dv_field = computed(() => {

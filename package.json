@@ -44,9 +44,7 @@
     "vue": "^3.2.31",
     "vue-echarts": "^6.0.2",
     "vue-i18n": "^9.1.9",
-    "vue-router": "^4.0.13",
-    "vuex": "^4.0.2",
-    "vuex-module-decorators": "^2.0.0"
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

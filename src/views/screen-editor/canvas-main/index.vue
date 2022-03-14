@@ -35,9 +35,10 @@
 <script lang="ts">
 import { defineComponent, computed, nextTick } from 'vue'
 import type { CSSProperties } from 'vue'
-import { ToolbarModule } from '@/store/modules/toolbar'
-import { EditorModule } from '@/store/modules/editor'
-import { BlueprintModule } from '@/store/modules/blueprint'
+import { storeToRefs } from 'pinia'
+import { useToolbarStore } from '@/store/toolbar'
+import { useEditorStore } from '@/store/editor'
+import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
 import AlignLine from './align-line.vue'
 import Ruler from './ruler/index.vue'
@@ -51,9 +52,10 @@ export default defineComponent({
     DatavTransform,
   },
   setup() {
-    const canvas = computed(() => EditorModule.canvas)
-    const pageConfig = computed(() => EditorModule.pageConfig)
-    const coms = computed(() => EditorModule.coms)
+    const toolbarStore = useToolbarStore()
+    const blueprintStore = useBlueprintStore()
+    const editorStore = useEditorStore()
+    const { pageConfig, canvas, coms } = storeToRefs(editorStore)
     const screenShotStyle = computed(() => {
       return {
         width: `${canvas.value.width}px`,
@@ -78,21 +80,21 @@ export default defineComponent({
       try {
         const name = event.dataTransfer.getData('text')
         if (name) {
-          ToolbarModule.addLoading()
+          toolbarStore.addLoading()
           let com = await createComponent(name)
-          const { scale } = EditorModule.canvas
-          const offsetX = (event.clientX - ToolbarModule.getPanelOffsetLeft) / scale
-          const offsetY = (event.clientY - ToolbarModule.getPanelOffsetTop) / scale
+          const { scale } = canvas.value
+          const offsetX = (event.clientX - toolbarStore.getPanelOffsetLeft) / scale
+          const offsetY = (event.clientY - toolbarStore.getPanelOffsetTop) / scale
           com.attr.x = Math.round(offsetX - com.attr.w / 2)
           com.attr.y = Math.round(offsetY - com.attr.h / 2)
-          await EditorModule.addCom(com)
-          EditorModule.selectCom(com.id)
-          ToolbarModule.removeLoading()
+          await editorStore.addCom(com)
+          editorStore.selectCom(com.id)
+          toolbarStore.removeLoading()
 
           if (com.apis.source) {
             await com.loadData()
             nextTick(() => {
-              BlueprintModule.datavComponents[com.id].$DATAV_requestData()
+              blueprintStore.datavComponents[com.id].$DATAV_requestData()
             })
           }
         }
@@ -102,7 +104,7 @@ export default defineComponent({
     }
 
     const cancelSelectCom = () => {
-      EditorModule.selectCom()
+      editorStore.selectCom()
     }
 
     const dragOver = (ev: DragEvent) => {

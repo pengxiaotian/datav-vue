@@ -29,17 +29,16 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { EditorModule } from '@/store/modules/editor'
+import { useEditorStore } from '@/store/editor'
 
 export default defineComponent({
   name: 'AlignLine',
   setup() {
-    const alignLine = computed(() => EditorModule.alignLine)
-    const canvas = computed(() => EditorModule.canvas)
+    const editorStore = useEditorStore()
 
     return {
-      alignLine,
-      canvas,
+      alignLine: computed(() => editorStore.alignLine),
+      canvas: computed(() => editorStore.canvas),
     }
   },
 })

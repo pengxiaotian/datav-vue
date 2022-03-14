@@ -55,8 +55,8 @@
 
 <script lang='ts'>
 import { defineComponent, ref, computed, provide, inject } from 'vue'
-import { FilterModule } from '@/store/modules/filter'
-import { EditorModule } from '@/store/modules/editor'
+import { useFilterStore } from '@/store/filter'
+import { useEditorStore } from '@/store/editor'
 import { ApiDataConfig } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
 import { IconPlus } from '@/icons'
@@ -81,12 +81,14 @@ export default defineComponent({
       to: 0,
     })
 
+    const filterStore = useFilterStore()
+    const editorStore = useEditorStore()
     const { apiDataConfig } = inject(sourcePanelInjectionKey)
     const { refreshData } = inject(sourceDrawerInjectionKey)
 
     const dataFilters = computed(() => {
       const ids = apiDataConfig.value.pageFilters.map(m => m.id)
-      return FilterModule.dataFilters
+      return filterStore.dataFilters
         .filter(m => !ids.includes(m.id))
         .map(m => ({
           value: m.id,
@@ -96,7 +98,7 @@ export default defineComponent({
 
     const selectedFilters = computed(() => {
       return apiDataConfig.value.pageFilters.reduce((prev, curr) => {
-        const df = FilterModule.dataFilters.find(m => m.id == curr.id)
+        const df = filterStore.dataFilters.find(m => m.id == curr.id)
         if (df) {
           prev.push(df)
         }
@@ -105,7 +107,7 @@ export default defineComponent({
     })
 
     const usedFilters = computed(() => {
-      const coms = [...EditorModule.coms, ...EditorModule.subComs]
+      const coms = [...editorStore.coms, ...editorStore.subComs]
       const map = Object.create(null) as Record<number, { ids: string[]; names: string[]; }>
       coms.forEach(com => {
         for (const key in com.apiData) {
@@ -149,7 +151,7 @@ export default defineComponent({
       if (newName && df.name !== newName) {
         df.name = newName
         if (df.id > 0) {
-          FilterModule.updateFilterName(df)
+          filterStore.updateFilterName(df)
         }
       }
     }
@@ -179,12 +181,12 @@ export default defineComponent({
 
     const saveFilter = async (data: DataFilter) => {
       if (data.id > 0) {
-        await FilterModule.updateFilter(data)
+        await filterStore.updateFilter(data)
         if (enabledFilters.value[data.id]) {
           refreshData()
         }
       } else {
-        const newId = await FilterModule.createFilter(data)
+        const newId = await filterStore.createFilter(data)
         apiDataConfig.value.pageFilters.push({ id: newId, enabled: true })
         newDataFilter.value = null
         refreshData()

@@ -49,8 +49,8 @@
 
 <script lang='ts'>
 import { defineComponent, computed, provide } from 'vue'
-import { ToolbarModule } from '@/store/modules/toolbar'
-import { EditorModule } from '@/store/modules/editor'
+import { useToolbarStore } from '@/store/toolbar'
+import { useEditorStore } from '@/store/editor'
 import { loadAsyncComponent } from '@/utils/async-component'
 import { IconSetting, IconCloud, IconInteract } from '@/icons'
 import { comInjectionKey } from './config'
@@ -67,8 +67,10 @@ export default defineComponent({
     IconInteract,
   },
   setup() {
-    const visiblePanel = computed(() => ToolbarModule.config.show)
-    const selectedCom = computed(() => EditorModule.selectedCom)
+    const toolbarStore = useToolbarStore()
+    const editorStore = useEditorStore()
+    const visiblePanel = computed(() => toolbarStore.config.show)
+    const selectedCom = computed(() => editorStore.selectedCom)
 
     provide(comInjectionKey, selectedCom)
 

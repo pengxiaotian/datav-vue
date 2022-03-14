@@ -84,8 +84,8 @@
 <script lang='ts'>
 import { defineComponent, ref, watch, onMounted, onUnmounted } from 'vue'
 import { isMac } from '@/utils/util'
-import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
-import { EditorModule } from '@/store/modules/editor'
+import { PanelType, useToolbarStore } from '@/store/toolbar'
+import { useEditorStore } from '@/store/editor'
 import { IconKeyboard, IconArrowDown } from '@/icons'
 
 export default defineComponent({
@@ -95,6 +95,8 @@ export default defineComponent({
     IconArrowDown,
   },
   setup() {
+    const toolbarStore = useToolbarStore()
+    const editorStore = useEditorStore()
     const scale = ref(20)
     const inputScale = ref(20)
     const scaleList = [
@@ -106,23 +108,25 @@ export default defineComponent({
     ]
 
     const getPanelOffset = () => ({
-      offsetX: ToolbarModule.getPanelOffsetX,
-      offsetY: ToolbarModule.getPanelOffsetY,
+      offsetX: toolbarStore.getPanelOffsetX,
+      offsetY: toolbarStore.getPanelOffsetY,
     })
 
     const submitScale = async (val: number) => {
       if (val === -1) {
-        EditorModule.autoCanvasScale(getPanelOffset)
+        editorStore.autoCanvasScale(getPanelOffset)
       } else {
-        EditorModule.setCanvasScale({
-          scale: val === 0 ? inputScale.value : val,
-          ...getPanelOffset(),
-        })
+        const { offsetX, offsetY } = getPanelOffset()
+        editorStore.setCanvasScale(
+          val === 0 ? inputScale.value : val,
+          offsetX,
+          offsetY,
+        )
       }
     }
 
     watch(
-      () => EditorModule.canvas.scale,
+      () => editorStore.canvas.scale,
       s => {
         const val = parseInt((s * 100).toFixed(2))
         scale.value = val
@@ -136,15 +140,15 @@ export default defineComponent({
         const ismac = isMac()
         if ((!ismac && ev.ctrlKey) || (ismac && ev.metaKey)) {
           const key = ev.key.toLowerCase()
-          const { setPanelState } = ToolbarModule
+          const { setPanelState } = toolbarStore
           if (key === 'arrowleft') {
-            setPanelState({ type: PanelType.layer, value: !ToolbarModule.layer.show })
+            setPanelState(PanelType.layer, !toolbarStore.layer.show)
           } else if (key === 'arrowup') {
-            setPanelState({ type: PanelType.components, value: !ToolbarModule.components.show })
+            setPanelState(PanelType.components, !toolbarStore.components.show)
           } else if (key === 'arrowright') {
-            setPanelState({ type: PanelType.config, value: !ToolbarModule.config.show })
+            setPanelState(PanelType.config, !toolbarStore.config.show)
           } else if (key === 'a') {
-            EditorModule.autoCanvasScale(getPanelOffset)
+            editorStore.autoCanvasScale(getPanelOffset)
           }
 
           ev.preventDefault()

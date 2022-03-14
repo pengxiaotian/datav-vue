@@ -123,8 +123,8 @@
 import { defineComponent, ref, computed } from 'vue'
 import { UploadFileInfo, useMessage } from 'naive-ui'
 import { globalConfig } from '@/config'
-import { ToolbarModule } from '@/store/modules/toolbar'
-import { EditorModule } from '@/store/modules/editor'
+import { useToolbarStore } from '@/store/toolbar'
+import { useEditorStore } from '@/store/editor'
 import { ZoomMode } from '@/utils/enums'
 import html2canvas from 'html2canvas'
 import { uploadHost, previewHost, validAllowImg, dataURLtoBlob } from '@/utils/upload-util'
@@ -145,7 +145,9 @@ export default defineComponent({
   },
   setup() {
     const nMessage = useMessage()
-    const pageConfig = computed(() => EditorModule.pageConfig)
+    const toolbarStore = useToolbarStore()
+    const editorStore = useEditorStore()
+    const pageConfig = computed(() => editorStore.pageConfig)
     const zoomModes = [
       { value: ZoomMode.auto, label: '全屏铺满' },
       { value: ZoomMode.width, label: '等比缩放宽度铺满' },
@@ -171,7 +173,7 @@ export default defineComponent({
 
     const uploadCover = async (blob: Blob) => {
       try {
-        ToolbarModule.addLoading()
+        toolbarStore.addLoading()
         const token = await getTokenByEnv()
         const formData = new FormData()
         formData.append('file', blob)
@@ -185,7 +187,7 @@ export default defineComponent({
       } catch (error) {
         throw error
       } finally {
-        ToolbarModule.removeLoading()
+        toolbarStore.removeLoading()
       }
     }
 
@@ -229,13 +231,13 @@ export default defineComponent({
       }
 
       try {
-        ToolbarModule.addLoading()
+        toolbarStore.addLoading()
         uploadLoading.value = true
         form.value.token = await getTokenByEnv()
         form.value.key = `upload/${generateId()}_${options.file.name}`
         return true
       } catch (error) {
-        ToolbarModule.removeLoading()
+        toolbarStore.removeLoading()
         uploadLoading.value = false
         nMessage.error(error.toString())
       }
@@ -244,7 +246,7 @@ export default defineComponent({
     }
 
     const finishUpload = (options: { file: UploadFileInfo; event: Event; }) => {
-      ToolbarModule.removeLoading()
+      toolbarStore.removeLoading()
       uploadLoading.value = false
 
       const res = JSON.parse((options.event.target as XMLHttpRequest).response)
@@ -272,9 +274,9 @@ export default defineComponent({
     }
 
     const onSizeChange = () => {
-      EditorModule.autoCanvasScale(() => ({
-        offsetX: ToolbarModule.getPanelOffsetX,
-        offsetY: ToolbarModule.getPanelOffsetY,
+      editorStore.autoCanvasScale(() => ({
+        offsetX: toolbarStore.getPanelOffsetX,
+        offsetY: toolbarStore.getPanelOffsetY,
       }))
     }
 

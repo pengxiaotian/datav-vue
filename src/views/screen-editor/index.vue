@@ -23,10 +23,10 @@
 <script lang='ts'>
 import { defineComponent, onMounted, ref, defineAsyncComponent } from 'vue'
 import { useRoute } from 'vue-router'
-import { ToolbarModule } from '@/store/modules/toolbar'
-import { DebugModule } from '@/store/modules/debug'
-import { EditorModule } from '@/store/modules/editor'
-import { FilterModule } from '@/store/modules/filter'
+import { useToolbarStore } from '@/store/toolbar'
+import { useDebugStore } from '@/store/debug'
+import { useEditorStore } from '@/store/editor'
+import { useFilterStore } from '@/store/filter'
 import { getSysTemplate } from '@/api/templates'
 import { useMock } from '@/data/mock'
 import { loadAsyncComponent } from '@/utils/async-component'
@@ -52,10 +52,14 @@ export default defineComponent({
   },
   setup(props) {
     const route = useRoute()
+    const toolbarStore = useToolbarStore()
+    const filterStore = useFilterStore()
+    const debugStore = useDebugStore()
+    const editorStore = useEditorStore()
     const loading = ref(true)
 
-    DebugModule.enableDebug()
-    EditorModule.setEditMode()
+    debugStore.enableDebug()
+    editorStore.setEditMode()
 
     onMounted(async () => {
       try {
@@ -64,7 +68,7 @@ export default defineComponent({
           const { data } = await getSysTemplate(tplId)
           if (data) {
             const { config } = data
-            EditorModule.setEditorOption({
+            editorStore.setEditorOption({
               screen: {
                 id: +props.projectId,
                 name: data.name,
@@ -80,27 +84,25 @@ export default defineComponent({
               variables: config.variables,
             })
 
-            FilterModule.setFilterOption({
-              dataFilters: config.dataFilters ?? [],
-            })
+            filterStore.setFilterOption(config.dataFilters ?? [])
           }
           if (tplId === 1) {
             useMock()
           }
         } else {
           const screenId = +props.projectId
-          EditorModule.loadScreen(screenId)
-          FilterModule.loadFilters(screenId)
-          await EditorModule.loadComs(screenId)
+          editorStore.loadScreen(screenId)
+          filterStore.loadFilters(screenId)
+          await editorStore.loadComs(screenId)
         }
       } catch (error) {
         console.log(error)
       } finally {
         loading.value = false
-        document.title = `${EditorModule.screen.name} | 编辑器`
-        EditorModule.autoCanvasScale(() => ({
-          offsetX: ToolbarModule.getPanelOffsetX,
-          offsetY: ToolbarModule.getPanelOffsetY,
+        document.title = `${editorStore.screen.name} | 编辑器`
+        editorStore.autoCanvasScale(() => ({
+          offsetX: toolbarStore.getPanelOffsetX,
+          offsetY: toolbarStore.getPanelOffsetY,
         }))
       }
     })

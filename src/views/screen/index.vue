@@ -43,9 +43,10 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { globalConfig } from '@/config'
-import { EditorModule } from '@/store/modules/editor'
-import { FilterModule } from '@/store/modules/filter'
+import { useEditorStore } from '@/store/editor'
+import { useFilterStore } from '@/store/filter'
 import { PageConfig } from '@/domains/editor'
 import { ZoomMode } from '@/utils/enums'
 import { setStyle, on } from '@/utils/dom'
@@ -62,9 +63,10 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const filterStore = useFilterStore()
+    const editorStore = useEditorStore()
     const loading = ref(true)
-    const pageConfig = computed(() => EditorModule.pageConfig)
-    const coms = computed(() => EditorModule.coms)
+    const { coms, pageConfig } = storeToRefs(editorStore)
     const styleFilter = computed(() => {
       const sf = pageConfig.value.styleFilterParams
       let filter = ''
@@ -153,7 +155,7 @@ export default defineComponent({
     }
 
     const initPageInfo = (config: PageConfig) => {
-      document.title = EditorModule.screen.name
+      document.title = editorStore.screen.name
       document.querySelector('meta[name="viewport"]')
         .setAttribute('content', `width=${config.width}`)
 
@@ -178,7 +180,7 @@ export default defineComponent({
       try {
         const data = await getScreen(+props.screenId)
         if (data) {
-          EditorModule.setEditorOption({
+          editorStore.setEditorOption({
             screen: data.screen,
             config: data.config,
             coms: data.coms,
@@ -187,9 +189,7 @@ export default defineComponent({
 
           initPageInfo(data.config)
 
-          FilterModule.setFilterOption({
-            dataFilters: data.dataFilters,
-          })
+          filterStore.setFilterOption(data.dataFilters)
 
           setTimeout(() => {
             loading.value = false

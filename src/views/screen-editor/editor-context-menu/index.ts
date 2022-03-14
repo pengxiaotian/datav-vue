@@ -1,6 +1,6 @@
 
 import { reactive, computed } from 'vue'
-import { EditorModule } from '@/store/modules/editor'
+import { useEditorStore } from '@/store/editor'
 import { on, off } from '@/utils/dom'
 
 const pos = reactive({
@@ -9,8 +9,9 @@ const pos = reactive({
 })
 
 export const useContextMenu = (opts?: { beforeClose?: Function; }) => {
-  const contextMenu = computed(() => EditorModule.contextMenu)
-  const selectedCom = computed(() => EditorModule.selectedCom)
+  const editorStore = useEditorStore()
+  const contextMenu = computed(() => editorStore.contextMenu)
+  const selectedCom = computed(() => editorStore.selectedCom)
 
   const isLocked = computed(() => selectedCom.value?.locked)
   const isHided = computed(() => selectedCom.value?.hided)

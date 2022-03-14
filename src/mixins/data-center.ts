@@ -1,17 +1,17 @@
 import { ref, toRefs, watch, onUnmounted, getCurrentInstance } from 'vue'
 import { debounce } from 'lodash-es'
 import { isPlainObject, isArray } from '@/utils/util'
-import { EditorModule } from '@/store/modules/editor'
-import { FilterModule } from '@/store/modules/filter'
-import { ToolbarModule } from '@/store/modules/toolbar'
-import { ApiModule } from '@/store/modules/api'
-import { DebugModule } from '@/store/modules/debug'
+import { useEditorStore } from '@/store/editor'
+import { useFilterStore } from '@/store/filter'
+import { useToolbarStore } from '@/store/toolbar'
+import { useApiStore } from '@/store/api'
+import { useDebugStore } from '@/store/debug'
 import { DatavComponent } from '@/components/datav-component'
 import { FieldConfig } from '@/components/data-field'
 import { ApiConfig, ApiDataConfig, FieldStatus } from '@/components/data-source'
 import { execFilter } from '@/components/data-filter'
 import { DatavError } from '@/domains/error'
-import { BlueprintModule } from '@/store/modules/blueprint'
+import { useBlueprintStore } from '@/store/blueprint'
 import { DataVComponentInternalInstance } from '@/typings/datav'
 
 const hasOwnProperty = Object.prototype.hasOwnProperty
@@ -55,34 +55,32 @@ const checkDataSchema = (data: any, fields: Record<string, FieldConfig>) => {
 }
 
 export const setDatavData = async (comId: string, apiName: string, aConfig: ApiConfig, adConfig: ApiDataConfig) => {
-  ToolbarModule.addLoading()
+  const toolbarStore = useToolbarStore()
+  const filterStore = useFilterStore()
+  const debugStore = useDebugStore()
+  const apiStore = useApiStore()
+  toolbarStore.addLoading()
 
   // 初始化字段状态
-  DebugModule.setFieldStatus({
-    comId,
-    fields: {
-      [apiName]: setFieldStatus(aConfig.fields, FieldStatus.loading),
-    },
+  debugStore.setFieldStatus(comId, {
+    [apiName]: setFieldStatus(aConfig.fields, FieldStatus.loading),
   })
 
   // 初始化数据状态
-  DebugModule.setDataStatus({ comId, data: { [apiName]: null } })
+  debugStore.setDataStatus(comId, { [apiName]: null })
 
   let isError = false
   let res: any
 
   try {
     // 获取源数据
-    res = await ApiModule.requestData({ comId, aConfig, adConfig })
-    DebugModule.setOrigin({ comId, data: { [apiName]: res } })
+    res = await apiStore.requestData(comId, aConfig, adConfig)
+    debugStore.setOrigin(comId, { [apiName]: res } )
   } catch (error) {
     isError = true
     res = { isError, message: `${error}` }
-    DebugModule.setDataStatus({
-      comId,
-      data: {
-        [apiName]: { api: res.message },
-      },
+    debugStore.setDataStatus(comId, {
+      [apiName]: { api: res.message },
     })
   }
 
@@ -90,18 +88,15 @@ export const setDatavData = async (comId: string, apiName: string, aConfig: ApiC
     try {
       // 使用过滤器筛选数据
       if (adConfig.config.useFilter) {
-        res = execFilter(FilterModule.dataFilters, adConfig.pageFilters, res)
+        res = execFilter(filterStore.dataFilters, adConfig.pageFilters, res)
       }
     } catch (error) {
       isError = true
       res = { isError, message: `${error}` }
       const targetId = error instanceof DatavError ? error.cause.targetId : 0
-      DebugModule.setDataStatus({
-        comId,
-        data: {
-          [apiName]: {
-            filter: { [targetId]: error.message },
-          },
+      debugStore.setDataStatus(comId, {
+        [apiName]: {
+          filter: { [targetId]: error.message },
         },
       })
     }
@@ -113,27 +108,27 @@ export const setDatavData = async (comId: string, apiName: string, aConfig: ApiC
   }
 
   // 传入组件的数据
-  ApiModule.setData({ comId, data: { [apiName]: res } })
+  apiStore.setData(comId, { [apiName]: res })
 
   // 当数据接口请求完成时
-  // BlueprintModule.onApiRequestCompleted()
+  // blueprintStore.onApiRequestCompleted()
 
   // TODO: remove mock
   setTimeout(() => {
-    DebugModule.setFieldStatus({
-      comId,
-      fields: {
-        [apiName]: isError
-          ? setFieldStatus(aConfig.fields, FieldStatus.failed)
-          : checkDataSchema(res, aConfig.fields),
-      },
+    debugStore.setFieldStatus(comId, {
+      [apiName]: isError
+        ? setFieldStatus(aConfig.fields, FieldStatus.failed)
+        : checkDataSchema(res, aConfig.fields),
     })
-    ToolbarModule.removeLoading()
+    toolbarStore.removeLoading()
   }, 3000)
 }
 
 export const useDataCenter = (com: DatavComponent) => {
   const instance = getCurrentInstance() as DataVComponentInternalInstance
+  const blueprintStore = useBlueprintStore()
+  const apiStore = useApiStore()
+  const editorStore = useEditorStore()
   const { apis, apiData } = toRefs(com)
   const timers = ref<number[]>([])
 
@@ -157,23 +152,23 @@ export const useDataCenter = (com: DatavComponent) => {
 
   // 订阅的变量发生变化时刷新
   const onSubVariablesChange = (fields: Record<string, string>) => {
-    const sv = EditorModule.variables.subscribersView
+    const sv = editorStore.variables.subscribersView
     for (const fname in fields) {
       const key = fields[fname] || fname
       sv[key]?.forEach(comId => {
-        BlueprintModule.datavComponents[comId]?.$DATAV_requestData()
+        blueprintStore.datavComponents[comId]?.$DATAV_requestData()
       })
     }
   }
 
   const datavEmit = (eventName: string, data: Record<string, any>) => {
-    const cv = EditorModule.variables.componentsView[com.id]
+    const cv = editorStore.variables.componentsView[com.id]
     if (!cv) {
       return
     }
     const eventItem = cv[eventName]
     if (eventItem && eventItem.enable) {
-      ApiModule.setVariables({ fields: eventItem.fields, data })
+      apiStore.setVariables( eventItem.fields, data)
       onSubVariablesChange(eventItem.fields)
     }
   }
@@ -188,13 +183,13 @@ export const useDataCenter = (com: DatavComponent) => {
     })
   }
 
-  if (!EditorModule.editMode) {
+  if (!editorStore.editMode) {
     autoRefreshData()
   }
 
   onUnmounted(() => {
     stopAutoRefreshData()
-    BlueprintModule.removeDatavComponent(com.id)
+    blueprintStore.removeDatavComponent(com.id)
   })
 
   // ------初始化默认公共动作------
@@ -211,7 +206,7 @@ export const useDataCenter = (com: DatavComponent) => {
   }, 300)
 
   // 保存每个组件实例
-  BlueprintModule.setDatavComponentInstance({ key: com.id, ins: instance })
+  blueprintStore.setDatavComponentInstance(com.id, instance)
 
   return {
     datavEmit,

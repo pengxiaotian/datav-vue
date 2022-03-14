@@ -99,8 +99,8 @@
 import { defineComponent, ref, computed, provide, inject } from 'vue'
 import { loadAsyncComponent } from '@/utils/async-component'
 import { createDataSources, ApiType, createDataConfigForApi } from '@/components/data-source'
-import { DebugModule } from '@/store/modules/debug'
-import { ApiModule } from '@/store/modules/api'
+import { useDebugStore } from '@/store/debug'
+import { useApiStore } from '@/store/api'
 import { setDatavData } from '@/mixins/data-center'
 import { IconSearch, IconRefresh } from '@/icons'
 import FilterConfig from '@/views/screen-editor/data-filter/filter-config.vue'
@@ -118,6 +118,8 @@ export default defineComponent({
     DsApiEditor: loadAsyncComponent(() => import('./api-editors/ds-api-editor.vue')),
   },
   setup() {
+    const debugStore = useDebugStore()
+    const apiStore = useApiStore()
     const visible = ref(false)
     const visiblePreview = ref(false)
     const apiType = ApiType
@@ -132,12 +134,12 @@ export default defineComponent({
     const { apiName, apiConfig, apiDataConfig } = inject(sourcePanelInjectionKey)
 
     const dataStatus = computed(() => {
-      const data = DebugModule.dataStatusMap[com.value.id]
+      const data = debugStore.dataStatusMap[com.value.id]
       return data ? data[apiName] ?? {} : {}
     })
 
     const dataOrign = computed(() => {
-      const comData = DebugModule.originMap[com.value.id]
+      const comData = debugStore.originMap[com.value.id]
       return comData ? comData[apiName] : ''
     })
 
@@ -152,7 +154,7 @@ export default defineComponent({
     }
 
     const resData = computed(() => {
-      const data = ApiModule.dataMap[com.value.id]
+      const data = apiStore.dataMap[com.value.id]
       return data ? data[apiName] : ''
     })
 
