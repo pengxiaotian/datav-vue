@@ -181,6 +181,7 @@ import { mapState, mapActions } from 'pinia'
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useFilterStore } from '@/store/filter'
 import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
 import { saveScreen } from '@/api/screen'
 import {
   IconEditorCanvas,
@@ -231,7 +232,8 @@ export default defineComponent({
   computed: {
     ...mapState(useToolbarStore, ['layer', 'components', 'config', 'toolbox', 'filter']),
     ...mapState(useFilterStore, ['dataFilters']),
-    ...mapState(useEditorStore, ['screen', 'pageConfig', 'coms', 'subComs', 'variables']),
+    ...mapState(useEditorStore, ['screen', 'pageConfig', 'variables']),
+    ...mapState(useComStore, ['coms', 'subComs']),
   },
   methods: {
     ...mapActions(useToolbarStore, ['setPanelState', 'setFilterState', 'addLoading', 'removeLoading']),

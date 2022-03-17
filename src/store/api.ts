@@ -1,29 +1,26 @@
 import { defineStore } from 'pinia'
+import { set } from 'lodash-es'
 import { ApiKeyName, ApiConfig, ApiDataConfig, ApiType, ApiRequestMethod } from '@/components/data-source'
 import { isUrl, toJson, replaceTextParams } from '@/utils/util'
 import dcRequest from '@/utils/dc-request'
 
-type ApiData = Partial<Record<ApiKeyName, any>>
-
 export interface IApiState {
-  dataMap: Record<string, ApiData>
+  dataMap: {
+    [k: string]: {
+      [k in ApiKeyName]?: any
+    }
+  }
   variables: Record<string, any>
 }
 
 export const useApiStore = defineStore('api', {
-  state: () => ({
+  state: (): IApiState => ({
     dataMap: {},
     variables: {},
   }),
   actions: {
-    async setData(comId: string, data: ApiData) {
-      for (const [keyName, value] of Object.entries(data)) {
-        if (this.dataMap[comId]) {
-          this.dataMap[comId][keyName] = value
-        } else {
-          this.dataMap[comId] = { [keyName]: value }
-        }
-      }
+    async setData(comId: string, apiKey: ApiKeyName, data: any) {
+      set(this.dataMap, `${comId}.${apiKey}`, data)
     },
     async setVariables(fields: Record<string, string>, data: Record<string, any>) {
       const res = {}
@@ -31,6 +28,7 @@ export const useApiStore = defineStore('api', {
         const alias = fields[key] || key
         res[alias] = data[key]
       }
+
       this.variables = {
         ...this.variables,
         ...res,

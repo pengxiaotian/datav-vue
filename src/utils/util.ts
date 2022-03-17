@@ -187,14 +187,18 @@ export function toJson<T>(data: any, defaultValue: T) {
   }
 }
 
-export const copyText = (text: string) => {
+export const copyText = async (text: string) => {
   try {
-    const input = document.createElement('textarea')
-    input.value = text
-    document.body.appendChild(input)
-    input.select()
-    document.execCommand('copy')
-    document.body.removeChild(input)
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText(text)
+    } else {
+      const input = document.createElement('textarea')
+      input.value = text
+      document.body.appendChild(input)
+      input.select()
+      document.execCommand('copy')
+      document.body.removeChild(input)
+    }
     return true
   } catch (error) {
     return false

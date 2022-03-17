@@ -38,6 +38,7 @@ import type { CSSProperties } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
 import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
 import AlignLine from './align-line.vue'
@@ -55,7 +56,9 @@ export default defineComponent({
     const toolbarStore = useToolbarStore()
     const blueprintStore = useBlueprintStore()
     const editorStore = useEditorStore()
-    const { pageConfig, canvas, coms } = storeToRefs(editorStore)
+    const comStore = useComStore()
+    const { pageConfig, canvas } = storeToRefs(editorStore)
+    const { coms } = storeToRefs(comStore)
     const screenShotStyle = computed(() => {
       return {
         width: `${canvas.value.width}px`,
@@ -87,8 +90,8 @@ export default defineComponent({
           const offsetY = (event.clientY - toolbarStore.getPanelOffsetTop) / scale
           com.attr.x = Math.round(offsetX - com.attr.w / 2)
           com.attr.y = Math.round(offsetY - com.attr.h / 2)
-          await editorStore.addCom(com)
-          editorStore.selectCom(com.id)
+          await comStore.addCom(com)
+          editorStore.selectCom(com.id, comStore.coms)
           toolbarStore.removeLoading()
 
           if (com.apis.source) {
@@ -104,7 +107,7 @@ export default defineComponent({
     }
 
     const cancelSelectCom = () => {
-      editorStore.selectCom()
+      editorStore.selectCom('', comStore.coms)
     }
 
     const dragOver = (ev: DragEvent) => {

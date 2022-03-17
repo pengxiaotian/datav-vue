@@ -1,26 +1,36 @@
 import { defineStore } from 'pinia'
+import { set } from 'lodash-es'
 import { ApiKeyName, FieldStatus } from '@/components/data-source'
 
-
-type ApiData = Partial<Record<ApiKeyName, any>>
-
-export type ApiDataStatus = Partial<Record<ApiKeyName, any>>
-
-export type ApiFieldStatus = Partial<Record<ApiKeyName, Record<string, FieldStatus>>>
+export type DebugDataType = 'api' | 'filter'
 
 export interface IDebugState {
   debug: boolean
-  originMap: Record<string, ApiData>
-  dataStatusMap: Record<string, ApiDataStatus>
-  fieldStatusMap: Record<string, ApiFieldStatus>
+  originMap: {
+    [k: string]: {
+      [k in ApiKeyName]?: any
+    }
+  }
+  fieldStatusMap: {
+    [k: string]: {
+      [k in ApiKeyName]?: Record<string, FieldStatus>
+    }
+  }
+  dataStatusMap: {
+    [k: string]: {
+      [k in ApiKeyName]?: {
+        [k in DebugDataType]?: string
+      }
+    }
+  }
 }
 
 export const useDebugStore = defineStore('debug', {
   state: (): IDebugState => ({
     debug: false,
     originMap: {},
-    dataStatusMap: {},
     fieldStatusMap: {},
+    dataStatusMap: {},
   }),
   actions: {
     enableDebug() {
@@ -29,37 +39,19 @@ export const useDebugStore = defineStore('debug', {
     stopDebug() {
       this.debug = false
     },
-    async setOrigin(comId: string, data: ApiData) {
+    async setOrigin(comId: string, apiKey: ApiKeyName, data: any) {
       if (this.debug) {
-        for (const [keyName, value] of Object.entries(data)) {
-          if (this.originMap[comId]) {
-            this.originMap[comId][keyName] = value
-          } else {
-            this.originMap[comId] = { [keyName]: value }
-          }
-        }
+        set(this.originMap, `${comId}.${apiKey}`, data)
       }
     },
-    async setDataStatus(comId: string, data: ApiDataStatus) {
+    async setFieldStatus(comId: string, apiKey: ApiKeyName, fields: Record<string, FieldStatus>) {
       if (this.debug) {
-        for (const [keyName, value] of Object.entries(data)) {
-          if (this.dataStatusMap[comId]) {
-            this.dataStatusMap[comId][keyName] = value
-          } else {
-            this.dataStatusMap[comId] = { [keyName]: value }
-          }
-        }
+        set(this.fieldStatusMap, `${comId}.${apiKey}`, fields)
       }
     },
-    async setFieldStatus(comId: string, fields: ApiFieldStatus) {
+    async setDataStatus(comId: string, apiKey: ApiKeyName, key: DebugDataType, message: string) {
       if (this.debug) {
-        for (const [keyName, value] of Object.entries(fields)) {
-          if (this.fieldStatusMap[comId]) {
-            this.fieldStatusMap[comId][keyName] = value
-          } else {
-            this.fieldStatusMap[comId] = { [keyName]: value }
-          }
-        }
+        set(this.dataStatusMap, `${comId}.${apiKey}.${key}`, message)
       }
     },
   },

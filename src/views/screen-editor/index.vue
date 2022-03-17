@@ -27,6 +27,7 @@ import { useToolbarStore } from '@/store/toolbar'
 import { useDebugStore } from '@/store/debug'
 import { useEditorStore } from '@/store/editor'
 import { useFilterStore } from '@/store/filter'
+import { useComStore } from '@/store/com'
 import { getSysTemplate } from '@/api/templates'
 import { useMock } from '@/data/mock'
 import { loadAsyncComponent } from '@/utils/async-component'
@@ -56,6 +57,7 @@ export default defineComponent({
     const filterStore = useFilterStore()
     const debugStore = useDebugStore()
     const editorStore = useEditorStore()
+    const comStore = useComStore()
     const loading = ref(true)
 
     debugStore.enableDebug()
@@ -80,10 +82,9 @@ export default defineComponent({
                 bgcolor: config.bgcolor,
                 styleFilterParams: config.styleFilterParams,
               },
-              coms: config.coms,
               variables: config.variables,
             })
-
+            comStore.setComs(config.coms)
             filterStore.setFilterOption(config.dataFilters ?? [])
           }
           if (tplId === 1) {
@@ -93,7 +94,7 @@ export default defineComponent({
           const screenId = +props.projectId
           editorStore.loadScreen(screenId)
           filterStore.loadFilters(screenId)
-          await editorStore.loadComs(screenId)
+          await comStore.loadComs(screenId)
         }
       } catch (error) {
         console.log(error)

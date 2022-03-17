@@ -50,7 +50,7 @@
 <script lang='ts'>
 import { defineComponent, computed, provide } from 'vue'
 import { useToolbarStore } from '@/store/toolbar'
-import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
 import { loadAsyncComponent } from '@/utils/async-component'
 import { IconSetting, IconCloud, IconInteract } from '@/icons'
 import { comInjectionKey } from './config'
@@ -68,9 +68,9 @@ export default defineComponent({
   },
   setup() {
     const toolbarStore = useToolbarStore()
-    const editorStore = useEditorStore()
+    const comStore = useComStore()
     const visiblePanel = computed(() => toolbarStore.config.show)
-    const selectedCom = computed(() => editorStore.selectedCom)
+    const selectedCom = computed(() => comStore.selectedCom)
 
     provide(comInjectionKey, selectedCom)
 

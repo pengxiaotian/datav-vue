@@ -84,7 +84,7 @@ export default defineComponent({
 
     const handleResizeModeChange = (val: boolean) => {
       isNormal.value = val
-      editorStore.changeResizeMode(val)
+      editorStore.isNormalResizeMode = val
     }
 
     watch(() => styleFilterParams.value.enable, (nv: boolean) => {

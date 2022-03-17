@@ -1,4 +1,4 @@
-import { DatavError } from '@/domains/error'
+import { throwError } from '@/utils/warn'
 
 export interface FilterConfig {
   id: number
@@ -31,10 +31,7 @@ export function execFilter(dataFilters: DataFilter[], filterConfigs: FilterConfi
         }
       })
     } catch (error) {
-      throw new DatavError('过滤器执行错误', error.toString(), {
-        targetId,
-        origin: error,
-      })
+      throwError(`过滤器/${targetId}`, error.message)
     }
 
     return res

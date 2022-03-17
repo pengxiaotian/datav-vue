@@ -8,9 +8,8 @@ import { useApiStore } from '@/store/api'
 import { useDebugStore } from '@/store/debug'
 import { DatavComponent } from '@/components/datav-component'
 import { FieldConfig } from '@/components/data-field'
-import { ApiConfig, ApiDataConfig, FieldStatus } from '@/components/data-source'
+import { ApiKeyName, ApiConfig, ApiDataConfig, FieldStatus } from '@/components/data-source'
 import { execFilter } from '@/components/data-filter'
-import { DatavError } from '@/domains/error'
 import { useBlueprintStore } from '@/store/blueprint'
 import { DataVComponentInternalInstance } from '@/typings/datav'
 
@@ -54,7 +53,12 @@ const checkDataSchema = (data: any, fields: Record<string, FieldConfig>) => {
     }, Object.create(null)) as Record<string, FieldStatus>
 }
 
-export const setDatavData = async (comId: string, apiName: string, aConfig: ApiConfig, adConfig: ApiDataConfig) => {
+export const setDatavData = async (
+  comId: string,
+  apiKey: ApiKeyName,
+  aConfig: ApiConfig,
+  adConfig: ApiDataConfig,
+) => {
   const toolbarStore = useToolbarStore()
   const filterStore = useFilterStore()
   const debugStore = useDebugStore()
@@ -62,12 +66,7 @@ export const setDatavData = async (comId: string, apiName: string, aConfig: ApiC
   toolbarStore.addLoading()
 
   // 初始化字段状态
-  debugStore.setFieldStatus(comId, {
-    [apiName]: setFieldStatus(aConfig.fields, FieldStatus.loading),
-  })
-
-  // 初始化数据状态
-  debugStore.setDataStatus(comId, { [apiName]: null })
+  debugStore.setFieldStatus(comId, apiKey, setFieldStatus(aConfig.fields, FieldStatus.loading))
 
   let isError = false
   let res: any
@@ -75,13 +74,11 @@ export const setDatavData = async (comId: string, apiName: string, aConfig: ApiC
   try {
     // 获取源数据
     res = await apiStore.requestData(comId, aConfig, adConfig)
-    debugStore.setOrigin(comId, { [apiName]: res } )
+    debugStore.setOrigin(comId, apiKey, res)
   } catch (error) {
     isError = true
-    res = { isError, message: `${error}` }
-    debugStore.setDataStatus(comId, {
-      [apiName]: { api: res.message },
-    })
+    res = { isError, message: error.String() }
+    debugStore.setDataStatus(comId, apiKey, 'api', res.message)
   }
 
   if (!isError) {
@@ -92,62 +89,82 @@ export const setDatavData = async (comId: string, apiName: string, aConfig: ApiC
       }
     } catch (error) {
       isError = true
-      res = { isError, message: `${error}` }
-      const targetId = error instanceof DatavError ? error.cause.targetId : 0
-      debugStore.setDataStatus(comId, {
-        [apiName]: {
-          filter: { [targetId]: error.message },
-        },
-      })
+      res = { isError, message: error.String() }
+      debugStore.setDataStatus(comId, apiKey, 'filter', res.message)
     }
   }
 
   if (isError) {
-    // @ts-expect-error
     window.$message.error(res.message)
   }
 
   // 传入组件的数据
-  apiStore.setData(comId, { [apiName]: res })
+  apiStore.setData(comId, apiKey, res)
 
   // 当数据接口请求完成时
   // blueprintStore.onApiRequestCompleted()
 
   // TODO: remove mock
   setTimeout(() => {
-    debugStore.setFieldStatus(comId, {
-      [apiName]: isError
+    debugStore.setFieldStatus(
+      comId,
+      apiKey,
+      isError
         ? setFieldStatus(aConfig.fields, FieldStatus.failed)
         : checkDataSchema(res, aConfig.fields),
-    })
+    )
     toolbarStore.removeLoading()
   }, 3000)
 }
 
 export const useDataCenter = (com: DatavComponent) => {
   const instance = getCurrentInstance() as DataVComponentInternalInstance
-  const blueprintStore = useBlueprintStore()
+
   const apiStore = useApiStore()
   const editorStore = useEditorStore()
+  const blueprintStore = useBlueprintStore()
+
   const { apis, apiData } = toRefs(com)
+  const apiKeys = Object.keys(com.apis) as ApiKeyName[]
   const timers = ref<number[]>([])
 
-  const autoRefreshData = () => {
-    for (const [name, ac] of Object.entries(apis.value)) {
-      if (ac.useAutoUpdate && ac.autoUpdate > 0) {
-        const timer = setInterval(
-          <TimerHandler>(() => {
-            setDatavData(com.id, name, ac, apiData.value[name])
-          }),
-          ac.autoUpdate * 1000,
-        )
-        timers.value.push(timer)
-      }
+  const autoRefreshData = (apiKey: ApiKeyName, ac: ApiConfig) => {
+    if (ac.useAutoUpdate && ac.autoUpdate > 0) {
+      const timer = window.setInterval(() => {
+        setDatavData(com.id, apiKey, ac, apiData.value[apiKey])
+      }, ac.autoUpdate * 1000)
+      timers.value.push(timer)
     }
   }
 
-  const stopAutoRefreshData = () => {
-    timers.value.forEach(t => clearInterval(t))
+  const autoRefreshAllData = () => {
+    apiKeys.forEach(apiKey => {
+      autoRefreshData(apiKey, apis.value[apiKey])
+    })
+  }
+
+  const initData = (apiKey: ApiKeyName, ac: ApiConfig) => {
+    const adc = apiData.value[apiKey]
+    watch([ac, () => adc.type, adc.config], () => {
+      setDatavData(com.id, apiKey, ac, adc)
+    }, {
+      deep: true,
+      immediate: true,
+    })
+  }
+
+  const stopAutoRefreshAllData = () => {
+    timers.value.forEach(t => stopAutoRefreshData(t))
+  }
+
+  const stopAutoRefreshData = (id?: number) => {
+    clearInterval(id)
+  }
+
+  const initAllData = () => {
+    apiKeys.forEach(apiKey => {
+      initData(apiKey, apis.value[apiKey])
+    })
   }
 
   // 订阅的变量发生变化时刷新
@@ -168,40 +185,29 @@ export const useDataCenter = (com: DatavComponent) => {
     }
     const eventItem = cv[eventName]
     if (eventItem && eventItem.enable) {
-      apiStore.setVariables( eventItem.fields, data)
+      apiStore.setVariables(eventItem.fields, data)
       onSubVariablesChange(eventItem.fields)
     }
   }
 
-  for (const [name, ac] of Object.entries(apis.value)) {
-    const adc = apiData.value[name]
-    watch([ac, () => adc.type, adc.config], () => {
-      setDatavData(com.id, name, ac, adc)
-    }, {
-      deep: true,
-      immediate: true,
-    })
-  }
+  initAllData()
 
   if (!editorStore.editMode) {
-    autoRefreshData()
+    autoRefreshAllData()
   }
 
   onUnmounted(() => {
-    stopAutoRefreshData()
+    stopAutoRefreshAllData()
     blueprintStore.removeDatavComponent(com.id)
   })
 
   // ------初始化默认公共动作------
   instance.$DATAV_requestData = debounce(() => {
-    stopAutoRefreshData()
+    stopAutoRefreshAllData()
 
-    const arr: Promise<void>[] = []
-    for (const [name, ac] of Object.entries(apis.value)) {
-      arr.push(setDatavData(com.id, name, ac, apiData.value[name]))
-    }
+    const arr = apiKeys.map(apiKey => setDatavData(com.id, apiKey, apis.value[apiKey], apiData.value[apiKey]))
     Promise.all(arr).then(() => {
-      autoRefreshData()
+      autoRefreshAllData()
     })
   }, 300)
 

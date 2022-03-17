@@ -86,6 +86,7 @@
 import { h, defineComponent, onBeforeMount, onUnmounted } from 'vue'
 import { useMessage, useDialog } from 'naive-ui'
 import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
 import { on, off } from '@/utils/dom'
 import { MoveType } from '@/utils/enums'
 import {
@@ -123,6 +124,7 @@ export default defineComponent({
     const nMessage = useMessage()
     const nDialog = useDialog()
     const editorStore = useEditorStore()
+    const comStore = useComStore()
     const {
       contextMenu, selectedCom,
       isLocked, isHided, contextMenuStyle,
@@ -163,7 +165,7 @@ export default defineComponent({
           onPositiveClick: async () => {
             d.loading = true
             try {
-              await editorStore.deleteCom(com)
+              await comStore.deleteCom(com)
             } catch (error) {
               nMessage.error(error.message)
             }
@@ -180,7 +182,7 @@ export default defineComponent({
 
     const toCopyCom = () => {
       if (selectedCom.value) {
-        editorStore.copyCom(selectedCom.value.id)
+        comStore.copyCom(selectedCom.value.id)
       }
     }
 

@@ -57,7 +57,7 @@ import { h, defineComponent, ref, computed, watch, provide } from 'vue'
 import { useMessage, useDialog } from 'naive-ui'
 import { useToolbarStore } from '@/store/toolbar'
 import { useFilterStore } from '@/store/filter'
-import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
 import { ApiDataConfig } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
 import { setDatavData } from '@/mixins/data-center'
@@ -76,7 +76,7 @@ export default defineComponent({
     const nDialog = useDialog()
     const toolbarStore = useToolbarStore()
     const filterStore = useFilterStore()
-    const editorStore = useEditorStore()
+    const comStore = useComStore()
     const visible = ref(false)
     const newDataFilter = ref<DataFilter | null>(null)
 
@@ -93,7 +93,7 @@ export default defineComponent({
     const dataFilters = computed(() => filterStore.dataFilters)
     const usedFilters = computed(() => {
       const map = Object.create(null) as Record<number, { ids: string[]; names: string[]; }>
-      const coms = [...editorStore.coms, ...editorStore.subComs]
+      const coms = [...comStore.coms, ...comStore.subComs]
       coms.forEach(com => {
         for (const key in com.apiData) {
           const ad = com.apiData[key] as ApiDataConfig
@@ -152,7 +152,7 @@ export default defineComponent({
               await filterStore.deleteFilter(id)
               const df = usedFilters.value[id]
               if (df) {
-                [...editorStore.coms, ...editorStore.subComs]
+                [...comStore.coms, ...comStore.subComs]
                   .filter(m => df.ids.includes(m.id))
                   .forEach(com => {
                     for (const key in com.apiData) {
@@ -180,7 +180,7 @@ export default defineComponent({
         await filterStore.updateFilter(data)
         const df = usedFilters.value[data.id]
         if (df) {
-          [...editorStore.coms, ...editorStore.subComs]
+          [...comStore.coms, ...comStore.subComs]
             .filter(m => df.ids.includes(m.id))
             .forEach(com => {
               for (const key in com.apiData) {

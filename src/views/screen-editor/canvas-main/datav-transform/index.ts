@@ -227,8 +227,9 @@ const setAttr = (
   scale: number,
   grid: number,
   resizeMode: ResizeMode,
-  calcAlignLine: (com: DatavComponent) => void,
-  hideAlignLine: (id: string) => void,
+  coms: DatavComponent[],
+  calcAlignLine: (com: DatavComponent, coms: DatavComponent[]) => void,
+  hideAlignLine: (id: string, coms: DatavComponent[]) => void,
 ) => {
   const attr = { ...com.attr }
   const pos = Object.create(null) as Partial<ComponentAttr>
@@ -270,14 +271,14 @@ const setAttr = (
 
     com.attr = { ...com.attr, ...pos }
 
-    calcAlignLine(com)
+    calcAlignLine(com, coms)
   }
 
   const up = () => {
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
 
-    hideAlignLine(com.id)
+    hideAlignLine(com.id, coms)
   }
 
   on(document, 'mousemove', move)
@@ -290,11 +291,12 @@ export const handleZoom = (
   com: DatavComponent,
   scale: number,
   isNormalResizeMode: boolean,
-  calcAlignLine: (com: DatavComponent) => void,
-  hideAlignLine: (id: string) => void,
+  coms: DatavComponent[],
+  calcAlignLine: (com: DatavComponent, coms: DatavComponent[]) => void,
+  hideAlignLine: (id: string, coms: DatavComponent[]) => void,
 ) => {
   const mode = isNormalResizeMode ? 'normal' : 'stretch'
-  setAttr(ev, dir, com, scale, 0, mode, calcAlignLine, hideAlignLine)
+  setAttr(ev, dir, com, scale, 0, mode, coms, calcAlignLine, hideAlignLine)
 }
 
 export const handleMove = (
@@ -302,10 +304,11 @@ export const handleMove = (
   com: DatavComponent,
   scale: number,
   grid: number,
-  calcAlignLine: (com: DatavComponent) => void,
-  hideAlignLine: (id: string) => void,
+  coms: DatavComponent[],
+  calcAlignLine: (com: DatavComponent, coms: DatavComponent[]) => void,
+  hideAlignLine: (id: string, coms: DatavComponent[]) => void,
 ) => {
-  setAttr(ev, null, com, scale, grid, null, calcAlignLine, hideAlignLine)
+  setAttr(ev, null, com, scale, grid, null, coms, calcAlignLine, hideAlignLine)
 }
 
 export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponent) => {

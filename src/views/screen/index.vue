@@ -47,6 +47,7 @@ import { storeToRefs } from 'pinia'
 import { globalConfig } from '@/config'
 import { useEditorStore } from '@/store/editor'
 import { useFilterStore } from '@/store/filter'
+import { useComStore } from '@/store/com'
 import { PageConfig } from '@/domains/editor'
 import { ZoomMode } from '@/utils/enums'
 import { setStyle, on } from '@/utils/dom'
@@ -65,8 +66,10 @@ export default defineComponent({
   setup(props) {
     const filterStore = useFilterStore()
     const editorStore = useEditorStore()
+    const comStore = useComStore()
     const loading = ref(true)
-    const { coms, pageConfig } = storeToRefs(editorStore)
+    const { pageConfig } = storeToRefs(editorStore)
+    const { coms } = storeToRefs(comStore)
     const styleFilter = computed(() => {
       const sf = pageConfig.value.styleFilterParams
       let filter = ''
@@ -183,12 +186,11 @@ export default defineComponent({
           editorStore.setEditorOption({
             screen: data.screen,
             config: data.config,
-            coms: data.coms,
             variables: data.variables,
           })
-
           initPageInfo(data.config)
 
+          comStore.setComs(data.coms)
           filterStore.setFilterOption(data.dataFilters)
 
           setTimeout(() => {

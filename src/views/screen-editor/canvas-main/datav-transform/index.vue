@@ -62,6 +62,7 @@ import { defineComponent, PropType, computed, getCurrentInstance } from 'vue'
 import type { CSSProperties } from 'vue'
 import { DatavComponent } from '@/components/datav-component'
 import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
 import {
   Direction, getCursors,
   handleMove, handleZoom, handleRotate,
@@ -83,6 +84,7 @@ export default defineComponent({
   setup(props) {
     const instance = getCurrentInstance()
     const editorStore = useEditorStore()
+    const comStore = useComStore()
     const referLine = computed(() => editorStore.referLine)
     const scale = computed(() => editorStore.canvas.scale)
 
@@ -187,7 +189,7 @@ export default defineComponent({
         return
       }
 
-      editorStore.selectCom(props.com.id)
+      editorStore.selectCom(props.com.id, comStore.coms)
     }
 
     const onEnter = () => {
@@ -205,6 +207,7 @@ export default defineComponent({
         props.com,
         scale.value,
         editorStore.pageConfig.grid,
+        comStore.coms,
         editorStore.calcAlignLine,
         editorStore.hideAlignLine,
       )
@@ -218,6 +221,7 @@ export default defineComponent({
         props.com,
         scale.value,
         editorStore.isNormalResizeMode,
+        comStore.coms,
         editorStore.calcAlignLine,
         editorStore.hideAlignLine,
       )

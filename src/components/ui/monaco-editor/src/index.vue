@@ -117,8 +117,9 @@ export default defineComponent({
 
     const copyData = () => {
       if (editor) {
-        copyText(editor.getValue())
-        nMessage.success('复制成功')
+        copyText(editor.getValue()).then(() => {
+          nMessage.success('复制成功')
+        })
       }
     }
 

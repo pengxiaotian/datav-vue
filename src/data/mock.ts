@@ -1,11 +1,13 @@
-import { useEditorStore } from '@/store/editor'
 import { createComponent } from '@/components/datav'
 import { getRandomInt } from '@/utils/util'
+import { useEditorStore } from '@/store/editor'
 import { useBlueprintStore } from '@/store/blueprint'
+import { useComStore } from '@/store/com'
 
 export const useMock = async () => {
   const blueprintStore = useBlueprintStore()
   const editorStore = useEditorStore()
+  const comStore = useComStore()
 
   const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar', 'VMarquee', 'VParagraph', 'VTimer', 'VFullScreen', 'VMainImg', 'VWordCloud']
 
@@ -17,7 +19,7 @@ export const useMock = async () => {
     // com.apis.source.autoUpdate = 5
     com.attr.x = getRandomInt(editorStore.pageConfig.width - com.attr.w)
     com.attr.y = getRandomInt(editorStore.pageConfig.height - com.attr.h)
-    return editorStore.addCom(com)
+    return comStore.addCom(com)
   })
 
   await Promise.all(ps2)

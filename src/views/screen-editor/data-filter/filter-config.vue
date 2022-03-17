@@ -56,7 +56,7 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, provide, inject } from 'vue'
 import { useFilterStore } from '@/store/filter'
-import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
 import { ApiDataConfig } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
 import { IconPlus } from '@/icons'
@@ -82,7 +82,7 @@ export default defineComponent({
     })
 
     const filterStore = useFilterStore()
-    const editorStore = useEditorStore()
+    const comStore = useComStore()
     const { apiDataConfig } = inject(sourcePanelInjectionKey)
     const { refreshData } = inject(sourceDrawerInjectionKey)
 
@@ -107,7 +107,7 @@ export default defineComponent({
     })
 
     const usedFilters = computed(() => {
-      const coms = [...editorStore.coms, ...editorStore.subComs]
+      const coms = [...comStore.coms, ...comStore.subComs]
       const map = Object.create(null) as Record<number, { ids: string[]; names: string[]; }>
       coms.forEach(com => {
         for (const key in com.apiData) {

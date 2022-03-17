@@ -109,6 +109,7 @@ import { ElTabs, ElTabPane } from 'element-plus'
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
 import { useBlueprintStore } from '@/store/blueprint'
+import { useComStore } from '@/store/com'
 import { classifications } from '@/data/system-components'
 import { createComponent } from '@/components/datav'
 import { IconSearch, IconBack } from '@/icons'
@@ -128,6 +129,7 @@ export default defineComponent({
     const toolbarStore = useToolbarStore()
     const blueprintStore = useBlueprintStore()
     const editorStore = useEditorStore()
+    const comStore = useComStore()
     const favoriteComs = ref([])
     const visiblePanel = computed(() => toolbarStore.components.show)
 
@@ -169,8 +171,8 @@ export default defineComponent({
         const com = await createComponent(comName)
         com.attr.x = Math.floor((editorStore.pageConfig.width - com.attr.w) / 2)
         com.attr.y = Math.floor((editorStore.pageConfig.height - com.attr.h) / 2)
-        await editorStore.addCom(com)
-        editorStore.selectCom(com.id)
+        await comStore.addCom(com)
+        editorStore.selectCom(com.id, comStore.coms)
         toolbarStore.removeLoading()
 
         if (com.apis.source) {

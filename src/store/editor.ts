@@ -2,13 +2,12 @@ import { defineStore } from 'pinia'
 import { Project } from '@/domains/project'
 import { PageConfig, PageVariable } from '@/domains/editor'
 import { getProject } from '@/api/project'
-import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
-import { ComType, DatavComponent } from '@/components/datav-component'
+import { DatavComponent } from '@/components/datav-component'
 import { MoveType } from '@/utils/enums'
-import { generateId, getTextParams } from '@/utils/util'
+import { getTextParams } from '@/utils/util'
 import { calcIntersectingLines } from '@/utils/intersecting-line-util'
-import { cloneDeep, debounce } from 'lodash-es'
-
+import { debounce } from 'lodash-es'
+import { useComStore, findComIndex } from './com'
 
 export interface AlignLine {
   top: number
@@ -25,8 +24,6 @@ export interface IEditorState {
   editMode: boolean
   screen: Partial<Project>
   pageConfig: PageConfig
-  coms: DatavComponent[]
-  subComs: DatavComponent[]
   canvas: {
     scale: number
     width: number
@@ -47,19 +44,7 @@ export interface IEditorState {
   isNormalResizeMode: boolean
 }
 
-const findComIndex = (coms: DatavComponent[], id: string) => {
-  return coms.findIndex(c => c.id === id)
-}
-
-const findCom = (coms: DatavComponent[], id: string) => {
-  return coms.find(c => c.id === id)
-}
-
-const findComs = (coms: DatavComponent[], parentId?: string) => {
-  return coms.filter(c => c.parentId === parentId)
-}
-
-const selectCom = (coms: DatavComponent[], id?: string) => {
+const selectCom = (id: string, coms: DatavComponent[]) => {
   coms.forEach(com => {
     if (com.id === id) {
       com.selected = true
@@ -98,8 +83,6 @@ export const useEditorStore = defineStore('editor', {
         opacity: 100,
       },
     },
-    coms: [],
-    subComs: [],
     canvas: {
       scale: 0.2,
       width: 1920,
@@ -132,58 +115,51 @@ export const useEditorStore = defineStore('editor', {
     },
     isNormalResizeMode: true,
   }),
-  getters: {
-    selectedCom(state) {
-      return state.coms.find(m => m.selected)
-    },
-  },
   actions: {
-    calcAlignLine(com: DatavComponent) {
+    setEditMode() {
+      this.editMode = true
+    },
+    selectCom(id: string, coms: DatavComponent[]) {
+      selectCom(id, coms)
+    },
+    calcAlignLine(com: DatavComponent, coms: DatavComponent[]) {
       if (!this.alignLine.enable) {
         return
       }
 
-      const attr = calcIntersectingLines(com, this.coms, this.canvas.scale)
+      const attr = calcIntersectingLines(com, coms, this.canvas.scale)
       this.alignLine = { ...this.alignLine, ...attr, show: true }
     },
-    hideAlignLine(id?: string) {
+    hideAlignLine(id: string, coms: DatavComponent[]) {
       if (!this.alignLine.enable) {
         return
       }
 
       if (this.alignLine.enable && this.alignLine.show) {
         this.alignLine.show = false
-        selectCom(this.coms, id)
+        selectCom(id, coms)
       }
     },
     moveCom(id: string, moveType: MoveType) {
-      const i = findComIndex(this.coms, id)
+      const comStore = useComStore()
+      const i = findComIndex(comStore.coms, id)
       if (moveType === MoveType.up) {
-        if (i + 1 < this.coms.length) {
-          this.coms.splice(i + 1, 0, ...this.coms.splice(i, 1))
+        if (i + 1 < comStore.coms.length) {
+          comStore.coms.splice(i + 1, 0, ...comStore.coms.splice(i, 1))
         }
       } else if (moveType === MoveType.down) {
         if (i > 0) {
-          this.coms.splice(i - 1, 0, ...this.coms.splice(i, 1))
+          comStore.coms.splice(i - 1, 0, ...comStore.coms.splice(i, 1))
         }
       } else if (moveType === MoveType.top) {
-        if (i + 1 < this.coms.length) {
-          this.coms.push(...this.coms.splice(i, 1))
+        if (i + 1 < comStore.coms.length) {
+          comStore.coms.push(...comStore.coms.splice(i, 1))
         }
       } else if (moveType === MoveType.bottom) {
         if (i > 0) {
-          this.coms.unshift(...this.coms.splice(i, 1))
+          comStore.coms.unshift(...comStore.coms.splice(i, 1))
         }
       }
-    },
-    selectCom(id?: string) {
-      selectCom(this.coms, id)
-    },
-    setEditMode() {
-      this.editMode = true
-    },
-    changeResizeMode(isNormal: boolean) {
-      this.isNormalResizeMode = isNormal
     },
     setPublishersView(id: string, keys: string[], enable: boolean) {
       const pv = this.variables.publishersView
@@ -237,7 +213,6 @@ export const useEditorStore = defineStore('editor', {
     setEditorOption(payload: {
       screen?: Partial<Project>
       config?: Partial<PageConfig>
-      coms?: DatavComponent[]
       variables?: PageVariable
       guideLine?: {
         h: number[]
@@ -250,21 +225,6 @@ export const useEditorStore = defineStore('editor', {
 
       if (payload.config) {
         this.pageConfig = { ...this.pageConfig, ...payload.config }
-      }
-
-      if (payload.coms) {
-        const coms: DatavComponent[] = []
-        const subComs: DatavComponent[] = []
-        payload.coms.forEach(c => {
-          if (c.type === ComType.com) {
-            coms.push(c)
-          } else if (c.type === ComType.subCom) {
-            subComs.push(c)
-          }
-        })
-
-        this.coms = coms
-        this.subComs = subComs
       }
 
       if (payload.variables) {
@@ -335,88 +295,6 @@ export const useEditorStore = defineStore('editor', {
           })
         } else {
           throw Error(data.message)
-        }
-      } catch (error) {
-        throw error
-      }
-    },
-    async loadComs(projectId: number) {
-      try {
-        const res = await getComs(projectId)
-        if (res.data.code === 0) {
-          this.setEditorOption({
-            coms: res.data.data,
-          })
-        } else {
-          throw Error(res.data.message)
-        }
-      } catch (error) {
-        throw error
-      }
-    },
-    async deleteCom(com: DatavComponent) {
-      try {
-        const res = await deleteCom(com.id)
-        if (res.data.code === 0) {
-          if (com.type === ComType.com) {
-            this.coms.splice(findComIndex(this.coms, com.id), 1)
-          } else {
-            this.subComs.splice(findComIndex(this.subComs, com.id), 1)
-          }
-        } else {
-          throw Error(res.data.message)
-        }
-      } catch (error) {
-        throw error
-      }
-    },
-    async addCom(com: DatavComponent) {
-      try {
-        const res = await addCom(com)
-        if (res.data.code === 0) {
-          this.coms.push(com)
-        } else {
-          throw Error(res.data.message)
-        }
-      } catch (error) {
-        throw error
-      }
-    },
-    async copyCom(id: string) {
-      try {
-        const res = await copyCom(id)
-        if (res.data.code === 0) {
-          // 模拟后端复制
-          const getNewCom = (com: DatavComponent, parentId?: string) => {
-            const ncom = cloneDeep(com)
-            ncom.id = generateId(ncom.name)
-            ncom.alias += '_copy'
-            ncom.attr.x += 30
-            ncom.attr.y += 30
-
-            ncom.hovered = false
-            ncom.selected = false
-            ncom.renameing = false
-
-            ncom.parentId = parentId
-
-            for (const key in ncom.apiData) {
-              ncom.apiData[key].id = generateId()
-              ncom.apiData[key].comId = ncom.id
-            }
-
-            return ncom
-          }
-
-          const ocom = findCom(this.coms, id)
-          if (ocom) {
-            const ncom = getNewCom(ocom)
-            const nSubComs = findComs(this.subComs, ocom.id).map(m => getNewCom(m, ncom.id))
-            this.coms.push(ncom)
-            this.subComs.push(...nSubComs)
-          }
-        } else {
-          throw Error(res.data.message)
         }
       } catch (error) {
         throw error

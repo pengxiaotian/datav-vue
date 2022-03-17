@@ -203,6 +203,7 @@ import { h, defineComponent, ref, computed } from 'vue'
 import { useMessage, useDialog } from 'naive-ui'
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
 import { MoveType } from '@/utils/enums'
 import {
   IconViewList,
@@ -238,10 +239,12 @@ export default defineComponent({
     const nDialog = useDialog()
     const toolbarStore = useToolbarStore()
     const editorStore = useEditorStore()
+    const comStore = useComStore()
+
     const showText = ref(false)
     const visiblePanel = computed(() => toolbarStore.layer.show)
-    const descComs = computed(() => [...editorStore.coms].reverse())
-    const selectedCom = computed(() => editorStore.selectedCom)
+    const descComs = computed(() => [...comStore.coms].reverse())
+    const selectedCom = computed(() => comStore.selectedCom)
 
     const enableBtnClass = computed(() => !!selectedCom.value)
     const enableLockBtnClass = computed(() => {
@@ -268,7 +271,7 @@ export default defineComponent({
     }
 
     const selectCom = (id: string) => {
-      editorStore.selectCom(id)
+      editorStore.selectCom(id, comStore.coms)
     }
 
     const moveCom = (moveType: MoveType) => {
@@ -306,7 +309,7 @@ export default defineComponent({
           onPositiveClick: async () => {
             d.loading = true
             try {
-              await editorStore.deleteCom(com)
+              await comStore.deleteCom(com)
             } catch (error) {
               nMessage.error(error.message)
             }
