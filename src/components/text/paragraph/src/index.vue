@@ -15,7 +15,7 @@
 import { defineComponent, PropType, computed, toRef, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import type { CSSProperties } from 'vue'
 import { debounce } from 'lodash-es'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
+import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { Paragraph } from './paragraph'
 

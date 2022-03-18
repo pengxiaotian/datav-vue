@@ -62,7 +62,7 @@
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef, ref, watch } from 'vue'
 import type { CSSProperties } from 'vue'
-import { getFieldMap, useDataCenter } from '@/mixins/data-center'
+import { getFieldMap, useDataCenter } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { DatePicker } from './date-picker'
 

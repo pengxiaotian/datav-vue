@@ -136,11 +136,11 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, inject, provide } from 'vue'
-import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources, ApiStatus } from '@/components/data-source'
+import { defineComponent, ref, computed, PropType, inject, provide } from 'vue'
+import { ApiKeyName, ApiConfig, ApiDataConfig, FieldStatus, createDataSources, ApiStatus } from '@/components/data-source'
 import { useDebugStore } from '@/store/debug'
 import { useApiStore } from '@/store/api'
-import { setDatavData } from '@/mixins/data-center'
+import { setComponentData } from '@/components/_mixins/use-data-center'
 import { IconArrowRight, IconRefresh } from '@/icons'
 import DisplayApiStatus from '../components/display-api-status.vue'
 import SourceDrawer from './source-drawer.vue'
@@ -156,7 +156,7 @@ export default defineComponent({
   },
   props: {
     apiName: {
-      type: String,
+      type: String as PropType<ApiKeyName>,
       required: true,
     },
     activeName: String,
@@ -215,7 +215,7 @@ export default defineComponent({
     }
 
     const refreshData = () => {
-      setDatavData(com.value.id, props.apiName, apiConfig.value, apiDataConfig.value)
+      setComponentData(com.value.id, props.apiName, apiConfig.value, apiDataConfig.value)
     }
 
     return {

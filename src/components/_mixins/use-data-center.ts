@@ -53,7 +53,7 @@ const checkDataSchema = (data: any, fields: Record<string, FieldConfig>) => {
     }, Object.create(null)) as Record<string, FieldStatus>
 }
 
-export const setDatavData = async (
+export const setComponentData = async (
   comId: string,
   apiKey: ApiKeyName,
   aConfig: ApiConfig,
@@ -131,7 +131,7 @@ export const useDataCenter = (com: DatavComponent) => {
   const autoRefreshData = (apiKey: ApiKeyName, ac: ApiConfig) => {
     if (ac.useAutoUpdate && ac.autoUpdate > 0) {
       const timer = window.setInterval(() => {
-        setDatavData(com.id, apiKey, ac, apiData.value[apiKey])
+        setComponentData(com.id, apiKey, ac, apiData.value[apiKey])
       }, ac.autoUpdate * 1000)
       timers.value.push(timer)
     }
@@ -146,7 +146,7 @@ export const useDataCenter = (com: DatavComponent) => {
   const initData = (apiKey: ApiKeyName, ac: ApiConfig) => {
     const adc = apiData.value[apiKey]
     watch([ac, () => adc.type, adc.config], () => {
-      setDatavData(com.id, apiKey, ac, adc)
+      setComponentData(com.id, apiKey, ac, adc)
     }, {
       deep: true,
       immediate: true,
@@ -205,7 +205,7 @@ export const useDataCenter = (com: DatavComponent) => {
   instance.$DATAV_requestData = debounce(() => {
     stopAutoRefreshAllData()
 
-    const arr = apiKeys.map(apiKey => setDatavData(com.id, apiKey, apis.value[apiKey], apiData.value[apiKey]))
+    const arr = apiKeys.map(apiKey => setComponentData(com.id, apiKey, apis.value[apiKey], apiData.value[apiKey]))
     Promise.all(arr).then(() => {
       autoRefreshAllData()
     })

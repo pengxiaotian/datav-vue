@@ -17,8 +17,7 @@ import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
-import { AnimationEasing } from '@/utils/types'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
+import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { getAutoValue, getLimitValue, valueFormater } from '@/utils/echarts-utils'
 import { BasicLine } from './basic-line'
@@ -306,7 +305,7 @@ const option = computed(() => {
     },
     animation: animation.enabled,
     animationDuration: animation.duration,
-    animationEasing: animation.easing as AnimationEasing,
+    animationEasing: animation.easing,
     animationDelay: animation.delay,
     series: getSeries(keys),
   }

@@ -16,7 +16,7 @@
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
 import type { CSSProperties } from 'vue'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
+import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { MainTitle } from './main-title'
 

@@ -58,9 +58,9 @@ import { useMessage, useDialog } from 'naive-ui'
 import { useToolbarStore } from '@/store/toolbar'
 import { useFilterStore } from '@/store/filter'
 import { useComStore } from '@/store/com'
-import { ApiDataConfig } from '@/components/data-source'
+import { ApiDataConfig, ApiKeyName } from '@/components/data-source'
 import { DataFilter } from '@/components/data-filter'
-import { setDatavData } from '@/mixins/data-center'
+import { setComponentData } from '@/components/_mixins/use-data-center'
 import { IconWarning, IconDocument } from '@/icons'
 import FilterCollapsePanel from './filter-collapse-panel.vue'
 import { filterManagerInjectionKey } from './config'
@@ -156,11 +156,12 @@ export default defineComponent({
                   .filter(m => df.ids.includes(m.id))
                   .forEach(com => {
                     for (const key in com.apiData) {
-                      const ad = com.apiData[key] as ApiDataConfig
+                      const apiKey = key as ApiKeyName
+                      const ad = com.apiData[apiKey]
                       const pf = ad.pageFilters.find(m => m.id === id)
                       ad.pageFilters = ad.pageFilters.filter(m => m.id !== id)
                       if (pf && pf.enabled) {
-                        setDatavData(com.id, key, com.apis[key], ad)
+                        setComponentData(com.id, apiKey, com.apis[apiKey], ad)
                       }
                     }
                   })
@@ -184,10 +185,11 @@ export default defineComponent({
             .filter(m => df.ids.includes(m.id))
             .forEach(com => {
               for (const key in com.apiData) {
-                const ad = com.apiData[key] as ApiDataConfig
+                const apiKey = key as ApiKeyName
+                const ad = com.apiData[apiKey]
                 const pf = ad.pageFilters.find(m => m.id === data.id)
                 if (pf && pf.enabled) {
-                  setDatavData(com.id, key, com.apis[key], ad)
+                  setComponentData(com.id, apiKey, com.apis[apiKey], ad)
                 }
               }
             })

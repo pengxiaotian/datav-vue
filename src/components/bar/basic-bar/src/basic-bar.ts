@@ -6,6 +6,7 @@ import {
 import { createField } from '@/components/data-field'
 import { DataEventConfig } from '@/components/data-event'
 import { getStaticData } from '@/api/data'
+import { EChartEasing } from '@/utils/enums'
 
 export class BasicBarSeries extends DatavChartSeries {
   constructor(name: string) {
@@ -227,7 +228,7 @@ export class BasicBar extends DatavEChartsComponent {
     animation: {
       enabled: true,
       duration: 1000,
-      easing: 'cubicOut',
+      easing: EChartEasing.cubicOut,
       delay: 0,
     },
   }

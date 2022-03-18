@@ -9,7 +9,6 @@ import { useMessage } from 'naive-ui'
 export default defineComponent({
   setup() {
     // 为了兼容之前的旧代码，但是不推荐直接使用 `window.$message`
-    // @ts-expect-error
     window.$message = useMessage()
   },
 })

@@ -1,4 +1,4 @@
-import { DatavComponent, DatavChartSeries } from '@/components/datav-component'
+import { DatavEChartsComponent, DatavChartSeries } from '@/components/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
   initApiConfig, initApiData,
@@ -6,6 +6,7 @@ import {
 import { createField } from '@/components/data-field'
 import { DataEventConfig } from '@/components/data-event'
 import { getStaticData } from '@/api/data'
+import { EChartEasing } from '@/utils/enums'
 
 export class BasicLineSeries extends DatavChartSeries {
   constructor(name: string) {
@@ -57,7 +58,7 @@ export class BasicLineSeries extends DatavChartSeries {
 /**
  * BasicLine
  */
-export class BasicLine extends DatavComponent {
+export class BasicLine extends DatavEChartsComponent {
   config = {
     global: {
       fontFamily: 'Microsoft Yahei',
@@ -252,7 +253,7 @@ export class BasicLine extends DatavComponent {
     animation: {
       enabled: true,
       duration: 1000,
-      easing: 'cubicOut',
+      easing: EChartEasing.cubicOut,
       delay: 0,
     },
   }

@@ -101,7 +101,7 @@ import { loadAsyncComponent } from '@/utils/async-component'
 import { createDataSources, ApiType, createDataConfigForApi } from '@/components/data-source'
 import { useDebugStore } from '@/store/debug'
 import { useApiStore } from '@/store/api'
-import { setDatavData } from '@/mixins/data-center'
+import { setComponentData } from '@/components/_mixins/use-data-center'
 import { IconSearch, IconRefresh } from '@/icons'
 import FilterConfig from '@/views/screen-editor/data-filter/filter-config.vue'
 import FieldGrid from '../components/field-grid.vue'
@@ -159,7 +159,7 @@ export default defineComponent({
     })
 
     const refreshData = async () => {
-      await setDatavData(com.value.id, apiName, apiConfig.value, apiDataConfig.value)
+      await setComponentData(com.value.id, apiName, apiConfig.value, apiDataConfig.value)
     }
 
     provide(sourceDrawerInjectionKey, {

@@ -17,7 +17,7 @@ import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { BarChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
+import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { getAutoValue, getLimitValue, valueFormater } from '@/utils/echarts-utils'
 import { BasicBar } from './basic-bar'
@@ -286,7 +286,7 @@ export default defineComponent({
         },
         animation: animation.enabled,
         animationDuration: animation.duration,
-        animationEasing: animation.easing as any,
+        animationEasing: animation.easing,
         animationDelay: animation.delay,
         series: getSeries(),
       }

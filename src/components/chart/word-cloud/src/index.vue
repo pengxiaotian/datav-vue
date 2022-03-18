@@ -15,7 +15,7 @@ import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import 'echarts-wordcloud'
 import { GridComponent, TooltipComponent } from 'echarts/components'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
+import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { WordCloud } from './word-cloud'
 

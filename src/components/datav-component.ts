@@ -1,5 +1,6 @@
 import { generateId } from '@/utils/util'
 import { findComByName } from '@/data/system-components'
+import { AnimationEasing } from '@/utils/types'
 import { ApiConfigMap, ApiDataConfigMap } from './data-source'
 import { DataEventConfig } from './data-event'
 
@@ -111,7 +112,7 @@ export abstract class DatavEChartsComponent extends DatavComponent {
     animation: {
       enabled: boolean
       duration?: number
-      easing?: string
+      easing?: AnimationEasing
       delay?: number
       threshold?: number
       durationUpdate?: number
