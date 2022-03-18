@@ -122,11 +122,11 @@
 <script lang='ts'>
 import { defineComponent, ref, computed } from 'vue'
 import { UploadFileInfo, useMessage } from 'naive-ui'
+import html2canvas from 'html2canvas'
 import { globalConfig } from '@/config'
 import { useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
-import { ZoomMode } from '@/utils/enums'
-import html2canvas from 'html2canvas'
+import { ZoomMode } from '@/domains/editor'
 import { uploadHost, previewHost, validAllowImg, dataURLtoBlob } from '@/utils/upload-util'
 import { getTokenByEnv, upload } from '@/api/qiniu'
 import { generateId } from '@/utils/util'

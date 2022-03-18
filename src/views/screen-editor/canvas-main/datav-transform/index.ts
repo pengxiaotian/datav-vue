@@ -1,4 +1,4 @@
-import { DatavComponent, ComponentAttr } from '@/components/datav-component'
+import { DatavComponent, ComponentAttr } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
 
 /**

@@ -176,7 +176,7 @@
 <script lang='ts'>
 import { defineComponent, PropType, ref, inject, computed } from 'vue'
 import { useMessage } from 'naive-ui'
-import { DataFilter } from '@/components/data-filter'
+import { DataFilter } from '@/components/_models/data-filter'
 import { IconArrowLeft, IconEdit, IconRelease, IconDelete, IconDrag, IconClose } from '@/icons'
 import { filterManagerInjectionKey, filterConfigInjectionKey } from './config'
 import { SourceDrawerInjection, sourceDrawerInjectionKey } from '../config-panel/config'

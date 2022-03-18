@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { set } from 'lodash-es'
-import { ApiKeyName, ApiConfig, ApiDataConfig, ApiType, ApiRequestMethod } from '@/components/data-source'
+import {
+  ApiKeyName, ApiConfig, ApiDataConfig,
+  ApiType, ApiRequestMethod,
+} from '@/components/_models/data-source'
 import { isUrl, toJson, replaceTextParams } from '@/utils/util'
 import dcRequest from '@/utils/dc-request'
 

@@ -19,7 +19,7 @@ import { LineChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
-import { getAutoValue, getLimitValue, valueFormater } from '@/utils/echarts-utils'
+import { getAutoValue, getLimitValue, valueFormater } from '@/components/_utils/echarts-util'
 import { BasicLine } from './basic-line'
 
 use([

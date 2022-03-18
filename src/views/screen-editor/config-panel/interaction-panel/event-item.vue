@@ -83,7 +83,7 @@
 <script lang='ts'>
 import { defineComponent, ref, PropType, inject } from 'vue'
 import { IconArrowRight, IconDelete, IconPlus } from '@/icons'
-import { EventItemConfig } from '@/components/data-event'
+import { EventItemConfig } from '@/components/_models/data-event'
 import { interactionInjectionKey } from '../config'
 
 export default defineComponent({

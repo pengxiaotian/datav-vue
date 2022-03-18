@@ -70,7 +70,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, ref, onMounted } from 'vue'
-import { ComponentAttr } from '@/components/datav-component'
+import { ComponentAttr } from '@/components/_models/datav-component'
 import { IconFlipV, IconFlipH } from '@/icons'
 
 type filpType = 'v' | 'h'

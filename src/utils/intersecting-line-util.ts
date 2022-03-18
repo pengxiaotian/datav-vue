@@ -1,4 +1,4 @@
-import { DatavComponent } from '@/components/datav-component'
+import { DatavComponent } from '@/components/_models/datav-component'
 
 const diff = 5
 

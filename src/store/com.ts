@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { cloneDeep } from 'lodash-es'
-import { ComType, DatavComponent } from '@/components/datav-component'
+import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { generateId } from '@/utils/util'
 

@@ -32,7 +32,7 @@
 
 <script lang='ts'>
 import { defineComponent, computed, inject, ref, provide, onMounted, watch } from 'vue'
-import { EventItemConfig } from '@/components/data-event'
+import { EventItemConfig } from '@/components/_models/data-event'
 import { useEditorStore } from '@/store/editor'
 import { ArrayToObject } from '@/utils/util'
 import { IconArrowRight } from '@/icons'

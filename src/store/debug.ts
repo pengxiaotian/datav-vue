@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { set } from 'lodash-es'
-import { ApiKeyName, FieldStatus } from '@/components/data-source'
+import { ApiKeyName, FieldStatus } from '@/components/_models/data-source'
 
 export type DebugDataType = 'api' | 'filter'
 

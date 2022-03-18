@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { DataFilter } from '@/components/data-filter'
+import { DataFilter } from '@/components/_models/data-filter'
 import * as api from '@/api/filter'
 import dayjs from 'dayjs'
 

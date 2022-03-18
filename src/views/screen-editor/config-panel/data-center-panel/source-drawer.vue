@@ -98,7 +98,7 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, provide, inject } from 'vue'
 import { loadAsyncComponent } from '@/utils/async-component'
-import { createDataSources, ApiType, createDataConfigForApi } from '@/components/data-source'
+import { createDataSources, ApiType, createDataConfigForApi } from '@/components/_models/data-source'
 import { useDebugStore } from '@/store/debug'
 import { useApiStore } from '@/store/api'
 import { setComponentData } from '@/components/_mixins/use-data-center'

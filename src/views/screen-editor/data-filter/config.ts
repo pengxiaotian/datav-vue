@@ -1,5 +1,5 @@
 import { InjectionKey, ComputedRef } from 'vue'
-import { DataFilter } from '@/components/data-filter'
+import { DataFilter } from '@/components/_models/data-filter'
 
 interface FilterManagerInjection {
   usedFilters: ComputedRef<Record<number, {

@@ -88,7 +88,7 @@ import { useMessage, useDialog } from 'naive-ui'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { on, off } from '@/utils/dom'
-import { MoveType } from '@/utils/enums'
+import { MoveType } from '@/domains/editor'
 import {
   IconWarning,
   IconMoveUp,

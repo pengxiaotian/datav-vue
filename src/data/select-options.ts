@@ -1,4 +1,4 @@
-import { EChartEasing } from '@/utils/enums'
+import { EChartEasing } from '@/components/_models/echarts-animation'
 
 export const fontFamilys = [
   { id: 'Microsoft Yahei', value: '微软雅黑' },

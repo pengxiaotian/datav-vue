@@ -60,7 +60,7 @@
 <script lang='ts'>
 import { defineComponent, PropType, computed, getCurrentInstance } from 'vue'
 import type { CSSProperties } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
+import { DatavComponent } from '@/components/_models/datav-component'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import {

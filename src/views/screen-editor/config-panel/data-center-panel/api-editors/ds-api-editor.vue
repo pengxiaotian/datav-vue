@@ -59,7 +59,7 @@
 
 <script lang='ts'>
 import { defineComponent, inject } from 'vue'
-import { ApiRequestMethod } from '@/components/data-source'
+import { ApiRequestMethod } from '@/components/_models/data-source'
 import { useEditorStore } from '@/store/editor'
 import { comInjectionKey, sourcePanelInjectionKey } from '../../config'
 

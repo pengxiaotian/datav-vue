@@ -1,6 +1,6 @@
 import { InjectionKey, ComputedRef } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
-import { ApiKeyName, ApiConfig, ApiDataConfig } from '@/components/data-source'
+import { DatavComponent } from '@/components/_models/datav-component'
+import { ApiKeyName, ApiConfig, ApiDataConfig } from '@/components/_models/data-source'
 
 export interface SourceDrawerInjection {
   dataStatus?: ComputedRef<any>

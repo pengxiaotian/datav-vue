@@ -1,6 +1,6 @@
 import { generateId } from '@/utils/util'
-import { FilterConfig } from '@/components/data-filter'
-import { FieldConfig } from '@/components/data-field'
+import { FilterConfig } from '@/components/_models/data-filter'
+import { FieldConfig } from '@/components/_models/data-field'
 
 export enum ApiType {
   /**

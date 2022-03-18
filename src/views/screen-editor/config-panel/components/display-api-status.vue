@@ -22,7 +22,7 @@
 
 <script lang='ts'>
 import { defineComponent, computed, PropType } from 'vue'
-import { ApiStatus } from '@/components/data-source'
+import { ApiStatus } from '@/components/_models/data-source'
 
 export default defineComponent({
   name: 'DisplayApiStatus',

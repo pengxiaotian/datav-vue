@@ -204,7 +204,7 @@ import { useMessage, useDialog } from 'naive-ui'
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
-import { MoveType } from '@/utils/enums'
+import { MoveType } from '@/domains/editor'
 import {
   IconViewList,
   IconViewGrid,
