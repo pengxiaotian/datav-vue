@@ -103,17 +103,16 @@ import { useDebugStore } from '@/store/debug'
 import { useApiStore } from '@/store/api'
 import { setComponentData } from '@/components/_mixins/use-data-center'
 import { IconSearch, IconRefresh } from '@/icons'
-import FilterConfig from '@/views/screen-editor/data-filter/filter-config.vue'
 import FieldGrid from '../components/field-grid.vue'
 import { comInjectionKey, sourcePanelInjectionKey, sourceDrawerInjectionKey } from '../config'
 
 export default defineComponent({
   name: 'SourceDrawer',
   components: {
-    FilterConfig,
-    FieldGrid,
     IconSearch,
     IconRefresh,
+    FieldGrid,
+    FilterConfig: loadAsyncComponent(() => import('@/views/screen-editor/data-filter/filter-config.vue')),
     DsStaticEditor: loadAsyncComponent(() => import('./api-editors/ds-static-editor.vue')),
     DsApiEditor: loadAsyncComponent(() => import('./api-editors/ds-api-editor.vue')),
   },

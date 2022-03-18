@@ -66,8 +66,6 @@ export default ({ mode }: ConfigEnv) => {
         'vue-echarts',
         'vue-i18n',
         'vue-router',
-        'vuex',
-        'vuex-module-decorators',
       ],
       exclude: [],
     },

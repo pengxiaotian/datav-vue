@@ -17,6 +17,7 @@ specifiers:
   '@vitejs/plugin-vue': ^2.2.4
   '@vue/compiler-sfc': ^3.2.31
   '@vue/component-compiler-utils': ^3.3.0
+  '@vue/runtime-core': ^3.2.31
   '@vue/shared': ^3.2.31
   '@vueuse/core': ^7.7.1
   accounting: ^0.4.1
@@ -110,6 +111,7 @@ devDependencies:
   '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
   '@vue/compiler-sfc': 3.2.31
   '@vue/component-compiler-utils': 3.3.0
+  '@vue/runtime-core': 3.2.31
   conventional-changelog-cli: 2.2.2
   cross-env: 7.0.3
   eslint: 8.10.0
@@ -2067,7 +2069,6 @@ packages:
     dependencies:
       '@vue/reactivity': 3.2.31
       '@vue/shared': 3.2.31
-    dev: false
 
   /@vue/runtime-dom/3.2.31:
     resolution: {integrity: sha512-N+o0sICVLScUjfLG7u9u5XCjvmsexAiPt17GNnaWHJUfsKed5e85/A3SWgKxzlxx2SW/Hw7RQxzxbXez9PtY3g==}

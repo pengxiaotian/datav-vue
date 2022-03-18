@@ -266,10 +266,7 @@ export default defineComponent({
         const data = {
           screen: this.screen,
           config: this.pageConfig,
-          coms: [
-            ...this.coms,
-            ...this.subComs,
-          ],
+          coms: [...this.coms, ...this.subComs],
           variables: this.variables,
           dataFilters: this.dataFilters ?? [],
         }

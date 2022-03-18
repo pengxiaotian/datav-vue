@@ -1,20 +1,16 @@
 import { ref, toRefs, watch, onUnmounted, getCurrentInstance } from 'vue'
 import { debounce } from 'lodash-es'
-import { isPlainObject, isArray } from '@/utils/util'
+import { isPlainObject, isArray, hasOwn } from '@/utils/util'
 import { useEditorStore } from '@/store/editor'
 import { useFilterStore } from '@/store/filter'
 import { useToolbarStore } from '@/store/toolbar'
 import { useApiStore } from '@/store/api'
 import { useDebugStore } from '@/store/debug'
+import { useBlueprintStore } from '@/store/blueprint'
 import { DatavComponent } from '@/components/_models/datav-component'
 import { FieldConfig } from '@/components/_models/data-field'
 import { ApiKeyName, ApiConfig, ApiDataConfig, FieldStatus } from '@/components/_models/data-source'
 import { execFilter } from '@/components/_models/data-filter'
-import { useBlueprintStore } from '@/store/blueprint'
-import { DataVComponentInternalInstance } from '@/typings/datav'
-
-const hasOwnProperty = Object.prototype.hasOwnProperty
-const hasOwn = (val: any, key: string) => hasOwnProperty.call(val, key)
 
 export const getFieldMap = (fields: Record<string, FieldConfig>) => {
   const fieldMap: Record<string, string> = Object.create(null)
@@ -59,10 +55,10 @@ export const setComponentData = async (
   aConfig: ApiConfig,
   adConfig: ApiDataConfig,
 ) => {
+  const apiStore = useApiStore()
   const toolbarStore = useToolbarStore()
   const filterStore = useFilterStore()
   const debugStore = useDebugStore()
-  const apiStore = useApiStore()
   toolbarStore.addLoading()
 
   // 初始化字段状态
@@ -77,7 +73,7 @@ export const setComponentData = async (
     debugStore.setOrigin(comId, apiKey, res)
   } catch (error) {
     isError = true
-    res = { isError, message: error.String() }
+    res = { isError, message: `${error}` }
     debugStore.setDataStatus(comId, apiKey, 'api', res.message)
   }
 
@@ -89,7 +85,7 @@ export const setComponentData = async (
       }
     } catch (error) {
       isError = true
-      res = { isError, message: error.String() }
+      res = { isError, message: `${error}` }
       debugStore.setDataStatus(comId, apiKey, 'filter', res.message)
     }
   }
@@ -118,7 +114,7 @@ export const setComponentData = async (
 }
 
 export const useDataCenter = (com: DatavComponent) => {
-  const instance = getCurrentInstance() as DataVComponentInternalInstance
+  const instance = getCurrentInstance()
 
   const apiStore = useApiStore()
   const editorStore = useEditorStore()

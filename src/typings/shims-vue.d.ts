@@ -9,3 +9,11 @@ declare module '*.vue' {
 }
 
 declare module 'particles.vue3'
+
+declare module '*.hbs' {
+  const plainText: string
+
+  export {
+    plainText,
+  }
+}

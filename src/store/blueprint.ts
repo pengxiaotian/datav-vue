@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import { DataVComponentInternalInstance } from '@/typings/datav'
+import type { ComponentInternalInstance } from 'vue'
 
 export interface IBlueprintState {
   flows: any[]
-  datavComponents: Record<string, DataVComponentInternalInstance>
+  datavComponents: Record<string, ComponentInternalInstance>
 }
 
 export const useBlueprintStore = defineStore('blueprint', {
@@ -12,7 +12,7 @@ export const useBlueprintStore = defineStore('blueprint', {
     datavComponents: {},
   }),
   actions: {
-    setDatavComponentInstance(key: string, ins: DataVComponentInternalInstance) {
+    setDatavComponentInstance(key: string, ins: ComponentInternalInstance) {
       this.datavComponents[key] = ins
     },
     removeDatavComponent(key: string) {

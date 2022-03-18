@@ -7,3 +7,12 @@ declare global {
     $message: MessageApiInjection
   }
 }
+
+declare module '@vue/runtime-core' {
+  export interface ComponentInternalInstance {
+    /**
+     * 请求数据接口
+     */
+    $DATAV_requestData?: Function
+  }
+}
