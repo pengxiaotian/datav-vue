@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
+import { debounce } from 'lodash-es'
 import { Project } from '@/domains/project'
-import { PageConfig, PageVariable, MoveType } from '@/domains/editor'
+import { PageConfig, MoveType } from '@/domains/editor'
 import { getProject } from '@/api/project'
 import { DatavComponent } from '@/components/_models/datav-component'
-import { getTextParams } from '@/utils/util'
 import { calcIntersectingLines } from '@/utils/intersecting-line-util'
-import { debounce } from 'lodash-es'
 import { useComStore, findComIndex } from './com'
+import { useEventStore } from './event'
 
 export interface AlignLine {
   top: number
@@ -39,7 +39,6 @@ export interface IEditorState {
   contextMenu: {
     show: boolean
   }
-  variables: PageVariable
   isNormalResizeMode: boolean
 }
 
@@ -107,11 +106,6 @@ export const useEditorStore = defineStore('editor', {
     contextMenu: {
       show: false,
     },
-    variables: {
-      componentsView: {},
-      publishersView: {},
-      subscribersView: {},
-    },
     isNormalResizeMode: true,
   }),
   actions: {
@@ -160,59 +154,9 @@ export const useEditorStore = defineStore('editor', {
         }
       }
     },
-    setPublishersView(id: string, keys: string[], enable: boolean) {
-      const pv = this.variables.publishersView
-      const pvkeys = Object.keys(pv)
-      const allKeys = new Set([...keys, ...pvkeys])
-      allKeys.forEach(key => {
-        if (enable) {
-          if (!pvkeys.includes(key)) {
-            pv[key] = [id]
-          } else if (!pv[key].includes(id)) {
-            pv[key].push(id)
-          } else if (!keys.includes(key)) {
-            pv[key] = pv[key].filter(m => m !== id)
-          }
-        } else {
-          if (pvkeys.includes(key)) {
-            pv[key] = pv[key].filter(m => m !== id)
-          }
-        }
-
-        if (pv[key].length === 0) {
-          delete pv[key]
-        }
-      })
-    },
-    setSubscribersView(id: string, data: string) {
-      const sv = this.variables.subscribersView
-      const keys = getTextParams(data).map(m => m.substring(1))
-      const svkeys = Object.keys(sv)
-      const allKeys = new Set([...keys, ...svkeys])
-      for (const key of allKeys) {
-        if (keys.length > 0) {
-          if (!svkeys.includes(key)) {
-            sv[key] = [id]
-          } else if (!sv[key].includes(id)) {
-            sv[key].push(id)
-          } else if (!keys.includes(key)) {
-            sv[key] = sv[key].filter(m => m !== id)
-          }
-        } else {
-          if (svkeys.includes(key)) {
-            sv[key] = sv[key].filter(m => m !== id)
-          }
-        }
-
-        if (sv[key].length === 0) {
-          delete sv[key]
-        }
-      }
-    },
     setEditorOption(payload: {
       screen?: Partial<Project>
       config?: Partial<PageConfig>
-      variables?: PageVariable
       guideLine?: {
         h: number[]
         v: number[]
@@ -224,10 +168,6 @@ export const useEditorStore = defineStore('editor', {
 
       if (payload.config) {
         this.pageConfig = { ...this.pageConfig, ...payload.config }
-      }
-
-      if (payload.variables) {
-        this.variables = { ...payload.variables }
       }
 
       if (payload.guideLine) {
@@ -271,6 +211,7 @@ export const useEditorStore = defineStore('editor', {
     },
     async loadScreen(projectId: number) {
       try {
+        const eventStore = useEventStore()
         const { data } = await getProject(projectId)
         if (data.code === 0) {
           const { config } = data.data
@@ -290,8 +231,9 @@ export const useEditorStore = defineStore('editor', {
               grid: config.grid,
               styleFilterParams: config.styleFilterParams,
             },
-            variables: config.variables,
           })
+          const { componentsView, publishersView, subscribersView } = config.variables
+          eventStore.$patch({ componentsView, publishersView, subscribersView })
         } else {
           throw Error(data.message)
         }

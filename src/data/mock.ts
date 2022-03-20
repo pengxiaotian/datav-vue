@@ -5,9 +5,9 @@ import { useBlueprintStore } from '@/store/blueprint'
 import { useComStore } from '@/store/com'
 
 export const useMock = async () => {
-  const blueprintStore = useBlueprintStore()
-  const editorStore = useEditorStore()
   const comStore = useComStore()
+  const editorStore = useEditorStore()
+  const blueprintStore = useBlueprintStore()
 
   const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar', 'VMarquee', 'VParagraph', 'VTimer', 'VFullScreen', 'VMainImg', 'VWordCloud']
 

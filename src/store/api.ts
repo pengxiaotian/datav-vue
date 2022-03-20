@@ -6,6 +6,7 @@ import {
 } from '@/components/_models/data-source'
 import { isUrl, toJson, replaceTextParams } from '@/utils/util'
 import dcRequest from '@/utils/dc-request'
+import { useEventStore } from './event'
 
 export interface IApiState {
   dataMap: {
@@ -13,31 +14,18 @@ export interface IApiState {
       [k in ApiKeyName]?: any
     }
   }
-  variables: Record<string, any>
 }
 
 export const useApiStore = defineStore('api', {
   state: (): IApiState => ({
     dataMap: {},
-    variables: {},
   }),
   actions: {
     async setData(comId: string, apiKey: ApiKeyName, data: any) {
       set(this.dataMap, `${comId}.${apiKey}`, data)
     },
-    async setVariables(fields: Record<string, string>, data: Record<string, any>) {
-      const res = {}
-      for (const key in fields) {
-        const alias = fields[key] || key
-        res[alias] = data[key]
-      }
-
-      this.variables = {
-        ...this.variables,
-        ...res,
-      }
-    },
     async requestData(comId: string, aConfig: ApiConfig, adConfig: ApiDataConfig) {
+      const eventStore = useEventStore()
       const { type, config } = adConfig
       let res: unknown
       if (type === ApiType.static) {
@@ -57,7 +45,7 @@ export const useApiStore = defineStore('api', {
             withCredentials: config.cookie,
           }
 
-          const url = replaceTextParams(config.api, this.variables)
+          const url = replaceTextParams(config.api, eventStore.variables)
           if (config.apiMethod === ApiRequestMethod.GET) {
             res = await dcRequest.get(url, conf)
           } else {

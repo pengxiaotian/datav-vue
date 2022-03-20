@@ -58,13 +58,13 @@ import { comInjectionKey } from './config'
 export default defineComponent({
   name: 'ConfigPanel',
   components: {
+    IconSetting,
+    IconCloud,
+    IconInteract,
     PageConfig: loadAsyncComponent(() => import('./page-config.vue')),
     SettingPanel: loadAsyncComponent(() => import('./setting-panel.vue')),
     DataCenterPanel: loadAsyncComponent(() => import('./data-center-panel/index.vue')),
     InteractionPanel: loadAsyncComponent(() => import('./interaction-panel/index.vue')),
-    IconSetting,
-    IconCloud,
-    IconInteract,
   },
   setup() {
     const toolbarStore = useToolbarStore()

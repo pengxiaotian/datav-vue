@@ -64,7 +64,7 @@ import { defineComponent, PropType, computed, toRef, ref, watch } from 'vue'
 import type { CSSProperties } from 'vue'
 import { getFieldMap, useDataCenter } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
-import { DatePicker } from './date-picker'
+import { DatePicker, DatePickerEvent } from './date-picker'
 
 import dayjs from 'dayjs'
 import isLeapYear from 'dayjs/plugin/isLeapYear'
@@ -358,11 +358,13 @@ export default defineComponent({
     // 当日期变化时
     watch(viewDate, nv => {
       datavEmit(
-        'changed',
+        DatePickerEvent.changed,
         {
           ...dv_data.value,
           date: nv,
         })
+    }, {
+      immediate: true,
     })
 
     return {

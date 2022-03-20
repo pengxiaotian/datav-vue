@@ -60,22 +60,22 @@
 <script lang='ts'>
 import { defineComponent, inject } from 'vue'
 import { ApiRequestMethod } from '@/components/_models/data-source'
-import { useEditorStore } from '@/store/editor'
+import { useEventStore } from '@/store/event'
 import { comInjectionKey, sourcePanelInjectionKey } from '../../config'
 
 export default defineComponent({
   name: 'DsApiEditor',
   setup() {
-    const editorStore = useEditorStore()
+    const eventStore = useEventStore()
     const com = inject(comInjectionKey)
     const { apiDataConfig } = inject(sourcePanelInjectionKey)
     const apiMethods = Object.keys(ApiRequestMethod).map(value => ({ label: value, value }))
 
-    const variables = Object.keys(editorStore.variables.publishersView)
+    const variables = Object.keys(eventStore.publishersView)
 
     const updateData = (data: any) => {
       apiDataConfig.value.config.api = data.value
-      editorStore.setSubscribersView(com.value.id, data.value)
+      eventStore.setSubscribersView(com.value.id, data.value)
     }
 
     const updateApiHeaders = (data: any) => {

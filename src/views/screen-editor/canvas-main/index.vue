@@ -54,9 +54,10 @@ export default defineComponent({
   },
   setup() {
     const toolbarStore = useToolbarStore()
-    const blueprintStore = useBlueprintStore()
-    const editorStore = useEditorStore()
     const comStore = useComStore()
+    const editorStore = useEditorStore()
+    const blueprintStore = useBlueprintStore()
+
     const { pageConfig, canvas } = storeToRefs(editorStore)
     const { coms } = storeToRefs(comStore)
     const screenShotStyle = computed(() => {

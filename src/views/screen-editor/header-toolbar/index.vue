@@ -180,8 +180,9 @@ import { useMessage } from 'naive-ui'
 import { mapState, mapActions } from 'pinia'
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useFilterStore } from '@/store/filter'
-import { useEditorStore } from '@/store/editor'
+import { useEventStore } from '@/store/event'
 import { useComStore } from '@/store/com'
+import { useEditorStore } from '@/store/editor'
 import { saveScreen } from '@/api/screen'
 import {
   IconEditorCanvas,
@@ -232,8 +233,9 @@ export default defineComponent({
   computed: {
     ...mapState(useToolbarStore, ['layer', 'components', 'config', 'toolbox', 'filter']),
     ...mapState(useFilterStore, ['dataFilters']),
-    ...mapState(useEditorStore, ['screen', 'pageConfig', 'variables']),
+    ...mapState(useEventStore, ['componentsView', 'publishersView', 'subscribersView']),
     ...mapState(useComStore, ['coms', 'subComs']),
+    ...mapState(useEditorStore, ['screen', 'pageConfig']),
   },
   methods: {
     ...mapActions(useToolbarStore, ['setPanelState', 'setFilterState', 'addLoading', 'removeLoading']),
@@ -267,7 +269,11 @@ export default defineComponent({
           screen: this.screen,
           config: this.pageConfig,
           coms: [...this.coms, ...this.subComs],
-          variables: this.variables,
+          variables: {
+            componentsView: this.componentsView,
+            publishersView: this.publishersView,
+            subscribersView: this.subscribersView,
+          },
           dataFilters: this.dataFilters ?? [],
         }
         await saveScreen(data)

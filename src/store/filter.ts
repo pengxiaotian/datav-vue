@@ -12,9 +12,6 @@ export const useFilterStore = defineStore('filter', {
     dataFilters: [],
   }),
   actions: {
-    setFilterOption(dataFilters: DataFilter[]) {
-      this.dataFilters = dataFilters
-    },
     async loadFilters(projectId: number) {
       try {
         const res = await api.getFilters(projectId)

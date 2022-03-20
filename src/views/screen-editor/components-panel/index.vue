@@ -127,9 +127,10 @@ export default defineComponent({
   setup() {
     const nMessage = useMessage()
     const toolbarStore = useToolbarStore()
-    const blueprintStore = useBlueprintStore()
-    const editorStore = useEditorStore()
     const comStore = useComStore()
+    const editorStore = useEditorStore()
+    const blueprintStore = useBlueprintStore()
+
     const favoriteComs = ref([])
     const visiblePanel = computed(() => toolbarStore.components.show)
 

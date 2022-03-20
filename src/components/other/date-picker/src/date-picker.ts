@@ -7,6 +7,10 @@ import { createField } from '@/components/_models/data-field'
 import { DataEventConfig } from '@/components/_models/data-event'
 import { getStaticData } from '@/api/data'
 
+export const DatePickerEvent = {
+  changed: 'changed',
+}
+
 /**
  * DatePicker
  */
@@ -79,7 +83,7 @@ export class DatePicker extends DatavComponent {
     this.apiData = initApiData(this.id)
 
     this.events = {
-      changed: {
+      [DatePickerEvent.changed]: {
         description: '当日期变化时',
         fields: Object.assign({}, ...fields),
       },

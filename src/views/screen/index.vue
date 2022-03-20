@@ -48,6 +48,7 @@ import { globalConfig } from '@/config'
 import { useEditorStore } from '@/store/editor'
 import { useFilterStore } from '@/store/filter'
 import { useComStore } from '@/store/com'
+import { useEventStore } from '@/store/event'
 import { PageConfig, ZoomMode } from '@/domains/editor'
 import { setStyle, on } from '@/utils/dom'
 import { getScreen } from '@/api/screen'
@@ -66,6 +67,7 @@ export default defineComponent({
     const filterStore = useFilterStore()
     const editorStore = useEditorStore()
     const comStore = useComStore()
+    const eventStore = useEventStore()
     const loading = ref(true)
     const { pageConfig } = storeToRefs(editorStore)
     const { coms } = storeToRefs(comStore)
@@ -185,12 +187,13 @@ export default defineComponent({
           editorStore.setEditorOption({
             screen: data.screen,
             config: data.config,
-            variables: data.variables,
           })
           initPageInfo(data.config)
 
           comStore.setComs(data.coms)
-          filterStore.setFilterOption(data.dataFilters)
+          const { componentsView, publishersView, subscribersView } = data.variables
+          eventStore.$patch({ componentsView, publishersView, subscribersView })
+          filterStore.$patch({ dataFilters: data.dataFilters ?? [] })
 
           setTimeout(() => {
             loading.value = false

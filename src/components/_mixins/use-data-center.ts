@@ -7,6 +7,7 @@ import { useToolbarStore } from '@/store/toolbar'
 import { useApiStore } from '@/store/api'
 import { useDebugStore } from '@/store/debug'
 import { useBlueprintStore } from '@/store/blueprint'
+import { useEventStore } from '@/store/event'
 import { DatavComponent } from '@/components/_models/datav-component'
 import { FieldConfig } from '@/components/_models/data-field'
 import { ApiKeyName, ApiConfig, ApiDataConfig, FieldStatus } from '@/components/_models/data-source'
@@ -114,7 +115,7 @@ export const setComponentData = async (
 }
 
 export const useDataCenter = (com: DatavComponent) => {
-  const apiStore = useApiStore()
+  const eventStore = useEventStore()
   const editorStore = useEditorStore()
   const blueprintStore = useBlueprintStore()
 
@@ -163,7 +164,7 @@ export const useDataCenter = (com: DatavComponent) => {
 
   // 订阅的变量发生变化时刷新
   const onSubVariablesChange = (fields: Record<string, string>) => {
-    const sv = editorStore.variables.subscribersView
+    const sv = eventStore.subscribersView
     for (const fname in fields) {
       const key = fields[fname] || fname
       sv[key]?.forEach(comId => {
@@ -173,13 +174,13 @@ export const useDataCenter = (com: DatavComponent) => {
   }
 
   const datavEmit = (eventName: string, data: Record<string, any>) => {
-    const cv = editorStore.variables.componentsView[com.id]
+    const cv = eventStore.componentsView[com.id]
     if (!cv) {
       return
     }
     const eventItem = cv[eventName]
     if (eventItem && eventItem.enable) {
-      apiStore.setVariables(eventItem.fields, data)
+      eventStore.setVariables(eventItem.fields, data)
       onSubVariablesChange(eventItem.fields)
     }
   }

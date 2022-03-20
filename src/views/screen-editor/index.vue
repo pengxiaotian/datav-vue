@@ -28,6 +28,7 @@ import { useDebugStore } from '@/store/debug'
 import { useEditorStore } from '@/store/editor'
 import { useFilterStore } from '@/store/filter'
 import { useComStore } from '@/store/com'
+import { useEventStore } from '@/store/event'
 import { getSysTemplate } from '@/api/templates'
 import { useMock } from '@/data/mock'
 import { loadAsyncComponent } from '@/utils/async-component'
@@ -58,6 +59,7 @@ export default defineComponent({
     const debugStore = useDebugStore()
     const editorStore = useEditorStore()
     const comStore = useComStore()
+    const eventStore = useEventStore()
     const loading = ref(true)
 
     debugStore.enableDebug()
@@ -82,10 +84,11 @@ export default defineComponent({
                 bgcolor: config.bgcolor,
                 styleFilterParams: config.styleFilterParams,
               },
-              variables: config.variables,
             })
             comStore.setComs(config.coms)
-            filterStore.setFilterOption(config.dataFilters ?? [])
+            const { componentsView, publishersView, subscribersView } = config.variables
+            eventStore.$patch({ componentsView, publishersView, subscribersView })
+            filterStore.$patch({ dataFilters: config.dataFilters ?? [] })
           }
           if (tplId === 1) {
             useMock()

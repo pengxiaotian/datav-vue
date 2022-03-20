@@ -33,7 +33,7 @@
 <script lang='ts'>
 import { defineComponent, computed, inject, ref, provide, onMounted, watch } from 'vue'
 import { EventItemConfig } from '@/components/_models/data-event'
-import { useEditorStore } from '@/store/editor'
+import { useEventStore } from '@/store/event'
 import { ArrayToObject } from '@/utils/util'
 import { IconArrowRight } from '@/icons'
 import ConfigTitle from '../components/config-title.vue'
@@ -50,7 +50,7 @@ export default defineComponent({
     IconArrowRight,
   },
   setup() {
-    const editorStore = useEditorStore()
+    const eventStore = useEventStore()
     const com = inject(comInjectionKey)
     const visible = ref(true)
 
@@ -59,7 +59,7 @@ export default defineComponent({
     })
 
     const eventList = ref<EventItemConfig[]>([])
-    let events = ref(editorStore.variables.componentsView[com.value.id])
+    let events = ref(eventStore.componentsView[com.value.id])
 
     const createField = (name: string, mapName: string, description: string, custom = false) => {
       return {
@@ -130,7 +130,7 @@ export default defineComponent({
 
         const eItem = events.value[eventName]
         if (eItem.enable) {
-          editorStore.setPublishersView(
+          eventStore.setPublishersView(
             com.value.id,
             Object.entries(eItem.fields).map(m => m[1] || m[0]),
             true,
@@ -144,7 +144,7 @@ export default defineComponent({
       events.value[eventName].fields = ArrayToObject(fields, 'name', 'map')
 
       if (events.value[eventName].enable) {
-        editorStore.setPublishersView(
+        eventStore.setPublishersView(
           com.value.id,
           fields.map(m => m.map || m.name),
           true,
@@ -164,7 +164,7 @@ export default defineComponent({
         keys.push(eventItem.fields[key])
       }
 
-      editorStore.setPublishersView(com.value.id, keys, enable)
+      eventStore.setPublishersView(com.value.id, keys, enable)
     }
 
     provide(interactionInjectionKey, {
@@ -175,7 +175,7 @@ export default defineComponent({
     })
 
     watch(events, () => {
-      editorStore.variables.componentsView[com.value.id] = events.value
+      eventStore.componentsView[com.value.id] = events.value
     })
 
     onMounted(() => {

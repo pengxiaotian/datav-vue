@@ -9,6 +9,7 @@
         v-model:checked="isEnabled"
         class="enable-checkbox"
         @update:checked="onEnableChange"
+        @click.stop
       >
         启用
       </n-checkbox>
