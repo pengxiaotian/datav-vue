@@ -43,7 +43,7 @@ export default defineComponent({
     ComponentsPanel: loadAsyncComponent(() => import('./components-panel/index.vue')),
     ConfigPanel: loadAsyncComponent(() => import('./config-panel/index.vue')),
     ToolboxPanel: loadAsyncComponent(() => import('./toolbox-panel/index.vue')),
-    FilterManagerDrawer: loadAsyncComponent(() => import('./data-filter/filter-manager-drawer.vue')),
+    FilterManagerDrawer: loadAsyncComponent(() => import('./filter-manager/filter-manager-drawer.vue')),
   },
   props: {
     projectId: {

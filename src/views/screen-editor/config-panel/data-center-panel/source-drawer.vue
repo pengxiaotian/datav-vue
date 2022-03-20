@@ -112,7 +112,7 @@ export default defineComponent({
     IconSearch,
     IconRefresh,
     FieldGrid,
-    FilterPanel: loadAsyncComponent(() => import('@/views/screen-editor/data-filter/filter-panel.vue')),
+    FilterPanel: loadAsyncComponent(() => import('../../filter-manager/filter-panel.vue')),
     DsStaticEditor: loadAsyncComponent(() => import('./api-editors/ds-static-editor.vue')),
     DsApiEditor: loadAsyncComponent(() => import('./api-editors/ds-api-editor.vue')),
   },
