@@ -24,7 +24,7 @@
           </router-link>
         </p>
       </template>
-      <filter-collapse-panel
+      <filter-collapse-item
         v-if="newDataFilter"
         :data-filter="newDataFilter"
         :is-new="true"
@@ -32,7 +32,7 @@
         :has-feedback="false"
         :removable="true"
       />
-      <filter-collapse-panel
+      <filter-collapse-item
         v-for="df in dataFilters"
         :key="df.id"
         :data-filter="df"
@@ -62,14 +62,14 @@ import { ApiDataConfig, ApiKeyName } from '@/components/_models/data-source'
 import { DataFilter } from '@/components/_models/data-filter'
 import { setComponentData } from '@/components/_mixins/use-data-center'
 import { IconWarning, IconDocument } from '@/icons'
-import FilterCollapsePanel from './filter-collapse-panel.vue'
+import FilterCollapseItem from './filter-collapse-item.vue'
 import { filterManagerInjectionKey } from './config'
 
 export default defineComponent({
   name: 'FilterManagerDrawer',
   components: {
     IconDocument,
-    FilterCollapsePanel,
+    FilterCollapseItem,
   },
   setup() {
     const nMessage = useMessage()

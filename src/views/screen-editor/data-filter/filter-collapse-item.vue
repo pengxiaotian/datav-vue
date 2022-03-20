@@ -182,7 +182,7 @@ import { filterManagerInjectionKey, filterConfigInjectionKey } from './config'
 import { SourceDrawerInjection, sourceDrawerInjectionKey } from '../config-panel/config'
 
 export default defineComponent({
-  name: 'FilterCollapsePanel',
+  name: 'FilterCollapseItem',
   components: {
     IconArrowLeft, IconEdit, IconRelease, IconDelete, IconDrag, IconClose,
   },

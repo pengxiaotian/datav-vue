@@ -6,13 +6,13 @@
     }"
   >
     <div class="filter-list">
-      <filter-collapse-panel
+      <filter-collapse-item
         v-for="(df, idx) in selectedFilters"
         :key="df.id"
         :index="idx"
         :data-filter="df"
       />
-      <filter-collapse-panel
+      <filter-collapse-item
         v-if="newDataFilter"
         :data-filter="newDataFilter"
         :index="selectedFilters.length"
@@ -60,7 +60,7 @@ import { useComStore } from '@/store/com'
 import { ApiDataConfig } from '@/components/_models/data-source'
 import { DataFilter } from '@/components/_models/data-filter'
 import { IconPlus } from '@/icons'
-import FilterCollapsePanel from './filter-collapse-panel.vue'
+import FilterCollapseItem from './filter-collapse-item.vue'
 import { filterManagerInjectionKey, filterConfigInjectionKey } from './config'
 import { sourceDrawerInjectionKey, sourcePanelInjectionKey } from '../config-panel/config'
 
@@ -68,7 +68,7 @@ export default defineComponent({
   name: 'FilterConfig',
   components: {
     IconPlus,
-    FilterCollapsePanel,
+    FilterCollapseItem,
   },
   setup() {
     const filterId = ref<number | undefined>(undefined)
