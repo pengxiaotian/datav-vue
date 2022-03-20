@@ -65,7 +65,7 @@ import { filterManagerInjectionKey, filterConfigInjectionKey } from './config'
 import { sourceDrawerInjectionKey, sourcePanelInjectionKey } from '../config-panel/config'
 
 export default defineComponent({
-  name: 'FilterConfig',
+  name: 'FilterPanel',
   components: {
     IconPlus,
     FilterCollapseItem,

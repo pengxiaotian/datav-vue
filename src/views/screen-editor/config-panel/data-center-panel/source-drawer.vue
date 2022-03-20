@@ -69,7 +69,7 @@
         <span class="tutorial-popup">教程</span>
       </div>
 
-      <filter-config />
+      <filter-panel />
 
       <field-grid :fields="apiConfig.fields" />
       <div
@@ -112,7 +112,7 @@ export default defineComponent({
     IconSearch,
     IconRefresh,
     FieldGrid,
-    FilterConfig: loadAsyncComponent(() => import('@/views/screen-editor/data-filter/filter-config.vue')),
+    FilterPanel: loadAsyncComponent(() => import('@/views/screen-editor/data-filter/filter-panel.vue')),
     DsStaticEditor: loadAsyncComponent(() => import('./api-editors/ds-static-editor.vue')),
     DsApiEditor: loadAsyncComponent(() => import('./api-editors/ds-api-editor.vue')),
   },
