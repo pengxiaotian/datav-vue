@@ -215,7 +215,7 @@ export default defineComponent({
           dom.style.transform = transform
           await uploadCover(dataURLtoBlob(res.toDataURL('image/jpeg', 0.8)))
         } catch (error) {
-          nMessage.error(error.toString())
+          nMessage.error(error.message)
         } finally {
           cover.value.loading = false
         }
@@ -239,7 +239,7 @@ export default defineComponent({
       } catch (error) {
         toolbarStore.removeLoading()
         uploadLoading.value = false
-        nMessage.error(error.toString())
+        nMessage.error(error.message)
       }
 
       return false
@@ -268,7 +268,7 @@ export default defineComponent({
             }
           }
         } catch (error) {
-          nMessage.error(error.toString())
+          nMessage.error(error.message)
         }
       }
     }

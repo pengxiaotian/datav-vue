@@ -74,7 +74,7 @@ export const setComponentData = async (
     debugStore.setOrigin(comId, apiKey, res)
   } catch (error) {
     isError = true
-    res = { isError, message: `${error}` }
+    res = { isError, message: error.message }
     debugStore.setDataStatus(comId, apiKey, 'api', res.message)
   }
 
@@ -83,10 +83,12 @@ export const setComponentData = async (
       // 使用过滤器筛选数据
       if (adConfig.config.useFilter) {
         res = execFilter(filterStore.dataFilters, adConfig.pageFilters, res)
+      } else {
+        debugStore.setDataStatus(comId, apiKey, 'filter', '')
       }
     } catch (error) {
       isError = true
-      res = { isError, message: `${error}` }
+      res = { isError, message: error.message }
       debugStore.setDataStatus(comId, apiKey, 'filter', res.message)
     }
   }

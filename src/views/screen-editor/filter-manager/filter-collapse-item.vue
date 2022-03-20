@@ -137,6 +137,7 @@
               :height="180"
               editor-class="filter-editor"
               @change="changeCode"
+              @blur="updateCode"
             />
             <p class="fake-code --end">}</p>
             <div class="filter-actions">
@@ -230,12 +231,14 @@ export default defineComponent({
     const code = ref(props.dataFilter.origin)
 
     const errMsg = computed(() => {
-      let msg = ''
-      const err = dataStatus?.value.filter
-      if (err && err[props.dataFilter.id]) {
-        msg = err[props.dataFilter.id]
+      if (!props.hasFeedback) {
+        return ''
       }
-      return msg
+      const err = dataStatus?.value.filter
+      if (err && err.includes(`/${props.dataFilter.id}]`)) {
+        return err
+      }
+      return ''
     })
 
     const isEnabled = computed(() => (enabledFilters?.value[props.dataFilter.id] ?? false))
@@ -252,8 +255,11 @@ export default defineComponent({
     const changeCode = (data: any) => {
       if (data.value != props.dataFilter.origin) {
         isEdited.value = true
-        code.value = data.value
       }
+    }
+
+    const updateCode = (data: any) => {
+      code.value = data.value
     }
 
     const cancelEdit = () => {
@@ -334,6 +340,7 @@ export default defineComponent({
       editName,
       removeFilter,
       changeCode,
+      updateCode,
       cancelEdit,
       saveData,
       toggleEditor,

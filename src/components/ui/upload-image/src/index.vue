@@ -133,7 +133,7 @@ export default defineComponent({
         return true
       } catch (error) {
         loading.value = false
-        nMessage.error(error.toString())
+        nMessage.error(error.message)
       }
 
       return false

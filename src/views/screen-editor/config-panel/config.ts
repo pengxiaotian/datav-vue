@@ -1,9 +1,10 @@
 import { InjectionKey, ComputedRef } from 'vue'
 import { DatavComponent } from '@/components/_models/datav-component'
 import { ApiKeyName, ApiConfig, ApiDataConfig } from '@/components/_models/data-source'
+import { DebugDataType } from '@/store/debug'
 
 export interface SourceDrawerInjection {
-  dataStatus?: ComputedRef<any>
+  dataStatus?: ComputedRef<{ [k in DebugDataType]?: string }>
   refreshData: () => Promise<void>
 }
 

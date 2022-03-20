@@ -152,7 +152,7 @@ export default defineComponent({
           }
         }
       } catch (error) {
-        nMessage.error(error?.toString())
+        nMessage.error(error.message)
       } finally {
         loading.value = false
       }
@@ -164,7 +164,7 @@ export default defineComponent({
         configCode.value = JSON.stringify(list.value, null, 2)
         activeTab.value = 'code'
       } catch (error) {
-        nMessage.error(error?.toString())
+        nMessage.error(error.message)
       } finally {
         loading.value = false
       }
@@ -185,7 +185,7 @@ export default defineComponent({
         activeTab.value = 'template'
       } catch (error) {
         console.log(error)
-        nMessage.error(error?.toString())
+        nMessage.error(error.message)
       } finally {
         loading.value = false
       }
