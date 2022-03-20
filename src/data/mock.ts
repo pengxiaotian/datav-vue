@@ -37,7 +37,7 @@ export const useMock = async () => {
     await Promise.all(ps3)
     setTimeout(() => {
       comIds.forEach(id => {
-        blueprintStore.datavComponents[id].$DATAV_requestData()
+        blueprintStore.events[id]?.requestData()
       })
     }, 200)
   }

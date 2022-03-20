@@ -1,4 +1,4 @@
-import { ref, toRefs, watch, onUnmounted, getCurrentInstance } from 'vue'
+import { ref, toRefs, watch, onUnmounted } from 'vue'
 import { debounce } from 'lodash-es'
 import { isPlainObject, isArray, hasOwn } from '@/utils/util'
 import { useEditorStore } from '@/store/editor'
@@ -114,8 +114,6 @@ export const setComponentData = async (
 }
 
 export const useDataCenter = (com: DatavComponent) => {
-  const instance = getCurrentInstance()
-
   const apiStore = useApiStore()
   const editorStore = useEditorStore()
   const blueprintStore = useBlueprintStore()
@@ -169,7 +167,7 @@ export const useDataCenter = (com: DatavComponent) => {
     for (const fname in fields) {
       const key = fields[fname] || fname
       sv[key]?.forEach(comId => {
-        blueprintStore.datavComponents[comId]?.$DATAV_requestData()
+        blueprintStore.events[comId]?.requestData()
       })
     }
   }
@@ -194,11 +192,11 @@ export const useDataCenter = (com: DatavComponent) => {
 
   onUnmounted(() => {
     stopAutoRefreshAllData()
-    blueprintStore.removeDatavComponent(com.id)
+    blueprintStore.clearEvent(com.id)
   })
 
   // ------初始化默认公共动作------
-  instance.$DATAV_requestData = debounce(() => {
+  const requestData = debounce(() => {
     stopAutoRefreshAllData()
 
     const arr = apiKeys.map(apiKey => setComponentData(com.id, apiKey, apis.value[apiKey], apiData.value[apiKey]))
@@ -207,8 +205,7 @@ export const useDataCenter = (com: DatavComponent) => {
     })
   }, 300)
 
-  // 保存每个组件实例
-  blueprintStore.setDatavComponentInstance(com.id, instance)
+  blueprintStore.setEvent(com.id, 'requestData', requestData)
 
   return {
     datavEmit,

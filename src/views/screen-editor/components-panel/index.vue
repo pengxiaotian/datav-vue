@@ -178,7 +178,7 @@ export default defineComponent({
         if (com.apis.source) {
           await com.loadData()
           nextTick(() => {
-            blueprintStore.datavComponents[com.id].$DATAV_requestData()
+            blueprintStore.events[com.id]?.requestData()
           })
         }
       } else {
