@@ -66,8 +66,6 @@ export default ({ mode }: ConfigEnv) => {
         'vue-echarts',
         'vue-i18n',
         'vue-router',
-        'vuex',
-        'vuex-module-decorators',
       ],
       exclude: [],
     },
@@ -77,7 +75,7 @@ export default ({ mode }: ConfigEnv) => {
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'index.html'),
-          share: resolve(__dirname, 'share/index.html'),
+          share: resolve(__dirname, 'index.share.html'),
         },
       },
     },

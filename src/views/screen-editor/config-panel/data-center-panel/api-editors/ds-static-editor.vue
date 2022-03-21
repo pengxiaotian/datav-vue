@@ -10,13 +10,13 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ComputedRef, inject } from 'vue'
-import { ApiDataConfig } from '@/components/data-source'
+import { defineComponent, inject } from 'vue'
+import { sourcePanelInjectionKey } from '../../config'
 
 export default defineComponent({
   name: 'DsStaticEditor',
   setup() {
-    const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
+    const { apiDataConfig } = inject(sourcePanelInjectionKey)
 
     const updateData = (data: any) => {
       apiDataConfig.value.config.data = data.value

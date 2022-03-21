@@ -33,15 +33,8 @@ jobs:
       - name: Install dependencies
         run: pnpm run bootstrap
 
-      - name: Build Website
-        run: pnpm run build
+      - name: Lint
+        run: pnpm run lint
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: website
-          GIT_CONFIG_NAME: pengxiaotian
-          GIT_CONFIG_EMAIL: 673923162@qq.com
-          COMMIT_MESSAGE: website deploy
+      - name: Build
+        run: pnpm run build

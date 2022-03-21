@@ -106,9 +106,10 @@ import 'element-plus/es/components/tabs/style/css'
 import 'element-plus/es/components/tab-pane/style/css'
 import { ElTabs, ElTabPane } from 'element-plus'
 
-import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
-import { EditorModule } from '@/store/modules/editor'
-import { BlueprintModule } from '@/store/modules/blueprint'
+import { PanelType, useToolbarStore } from '@/store/toolbar'
+import { useEditorStore } from '@/store/editor'
+import { useBlueprintStore } from '@/store/blueprint'
+import { useComStore } from '@/store/com'
 import { classifications } from '@/data/system-components'
 import { createComponent } from '@/components/datav'
 import { IconSearch, IconBack } from '@/icons'
@@ -125,8 +126,13 @@ export default defineComponent({
   },
   setup() {
     const nMessage = useMessage()
+    const toolbarStore = useToolbarStore()
+    const comStore = useComStore()
+    const editorStore = useEditorStore()
+    const blueprintStore = useBlueprintStore()
+
     const favoriteComs = ref([])
-    const visiblePanel = computed(() => ToolbarModule.components.show)
+    const visiblePanel = computed(() => toolbarStore.components.show)
 
     const cloneCfs: CategoryType[] = cloneDeep(classifications)
     const first = { type: 'all', name: '全部', icon: 'v-icon-view-grid' }
@@ -151,30 +157,29 @@ export default defineComponent({
     })
 
     const changeVisible = () => {
-      ToolbarModule.setPanelState({ type: PanelType.components, value: !visiblePanel.value })
+      toolbarStore.setPanelState(PanelType.components, !visiblePanel.value)
     }
 
     const handleTabClick = () => {
       if (!visiblePanel.value) {
-        ToolbarModule.setPanelState({ type: PanelType.components, value: true })
+        toolbarStore.setPanelState(PanelType.components, true)
       }
     }
 
     const toAddCom = async (comName: string, used: boolean) => {
       if (used) {
-        ToolbarModule.addLoading()
-        const { pageConfig } = EditorModule
+        toolbarStore.addLoading()
         const com = await createComponent(comName)
-        com.attr.x = Math.floor((pageConfig.width - com.attr.w) / 2)
-        com.attr.y = Math.floor((pageConfig.height - com.attr.h) / 2)
-        await EditorModule.addCom(com)
-        EditorModule.selectCom(com.id)
-        ToolbarModule.removeLoading()
+        com.attr.x = Math.floor((editorStore.pageConfig.width - com.attr.w) / 2)
+        com.attr.y = Math.floor((editorStore.pageConfig.height - com.attr.h) / 2)
+        await comStore.addCom(com)
+        comStore.selectCom(com.id)
+        toolbarStore.removeLoading()
 
         if (com.apis.source) {
           await com.loadData()
           nextTick(() => {
-            BlueprintModule.datavComponents[com.id].$DATAV_requestData()
+            blueprintStore.events[com.id]?.requestData()
           })
         }
       } else {

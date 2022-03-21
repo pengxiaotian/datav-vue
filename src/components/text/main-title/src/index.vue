@@ -16,8 +16,8 @@
 <script lang='ts'>
 import { defineComponent, PropType, computed, toRef } from 'vue'
 import type { CSSProperties } from 'vue'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
-import { ApiModule } from '@/store/modules/api'
+import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
+import { useApiStore } from '@/store/api'
 import { MainTitle } from './main-title'
 
 export default defineComponent({
@@ -29,10 +29,11 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const apiStore = useApiStore()
     useDataCenter(props.com)
 
     const dv_data = computed(() => {
-      return ApiModule.dataMap[props.com.id]?.source ?? {}
+      return apiStore.dataMap[props.com.id]?.source ?? {}
     })
 
     const dv_field = computed(() => {

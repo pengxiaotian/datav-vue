@@ -22,12 +22,12 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ComputedRef, inject } from 'vue'
+import { defineComponent, inject } from 'vue'
 import { useMessage } from 'naive-ui'
-import { DatavComponent } from '@/components/datav-component'
 import { IconSearch } from '@/icons'
 import ConfigTitle from './components/config-title.vue'
 import BasicSetting from './components/basic-setting.vue'
+import { comInjectionKey } from './config'
 
 export default defineComponent({
   name: 'SettingPanel',
@@ -38,7 +38,7 @@ export default defineComponent({
   },
   setup() {
     const nMessage = useMessage()
-    const com = inject('com') as ComputedRef<DatavComponent>
+    const com = inject(comInjectionKey)
 
     const toSearch = () => {
       nMessage.warning('正在开发中。。。')

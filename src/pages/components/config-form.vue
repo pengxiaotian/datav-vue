@@ -196,7 +196,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType, computed } from 'vue'
-import { ToolboxType } from '@/utils/enums'
+import { ToolboxType } from '@/domains/editor'
 import { selectSuggests } from '@/data/select-options'
 import { IconArrowRight } from '@/icons'
 import { PropDto, ComponentType, DisplayMode, getSelectedOptions } from '../props-config/config'

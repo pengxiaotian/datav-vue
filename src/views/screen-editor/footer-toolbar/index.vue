@@ -82,10 +82,11 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, watch, onMounted, onUnmounted } from 'vue'
+import { defineComponent, ref, watch, computed, onMounted, onUnmounted } from 'vue'
 import { isMac } from '@/utils/util'
-import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
-import { EditorModule } from '@/store/modules/editor'
+import { PanelType, useToolbarStore } from '@/store/toolbar'
+import { useComStore } from '@/store/com'
+import { useEditorStore } from '@/store/editor'
 import { IconKeyboard, IconArrowDown } from '@/icons'
 
 export default defineComponent({
@@ -95,6 +96,10 @@ export default defineComponent({
     IconArrowDown,
   },
   setup() {
+    const toolbarStore = useToolbarStore()
+    const comStore = useComStore()
+    const editorStore = useEditorStore()
+
     const scale = ref(20)
     const inputScale = ref(20)
     const scaleList = [
@@ -105,24 +110,29 @@ export default defineComponent({
       { label: '自适应', value: -1 },
     ]
 
+    const selectedCom = computed(() => comStore.selectedCom)
+    const pageConfig = computed(() => editorStore.pageConfig)
+
     const getPanelOffset = () => ({
-      offsetX: ToolbarModule.getPanelOffsetX,
-      offsetY: ToolbarModule.getPanelOffsetY,
+      offsetX: toolbarStore.getPanelOffsetX,
+      offsetY: toolbarStore.getPanelOffsetY,
     })
 
     const submitScale = async (val: number) => {
       if (val === -1) {
-        EditorModule.autoCanvasScale(getPanelOffset)
+        editorStore.autoCanvasScale(getPanelOffset)
       } else {
-        EditorModule.setCanvasScale({
-          scale: val === 0 ? inputScale.value : val,
-          ...getPanelOffset(),
-        })
+        const { offsetX, offsetY } = getPanelOffset()
+        editorStore.setCanvasScale(
+          val === 0 ? inputScale.value : val,
+          offsetX,
+          offsetY,
+        )
       }
     }
 
     watch(
-      () => EditorModule.canvas.scale,
+      () => editorStore.canvas.scale,
       s => {
         const val = parseInt((s * 100).toFixed(2))
         scale.value = val
@@ -130,24 +140,40 @@ export default defineComponent({
       },
     )
 
+    const moveCom = (offsetY: number, offsetX: number) => {
+      selectedCom.value.attr.y += offsetY
+      selectedCom.value.attr.x += offsetX
+    }
+
     const addShortcuts = (ev: KeyboardEvent) => {
       const target = ev.target as HTMLElement
       if (!['input','textarea'].includes(target.tagName.toLowerCase())) {
         const ismac = isMac()
+        const key = ev.key.toLowerCase()
         if ((!ismac && ev.ctrlKey) || (ismac && ev.metaKey)) {
-          const key = ev.key.toLowerCase()
-          const { setPanelState } = ToolbarModule
-          if (key === 'arrowleft') {
-            setPanelState({ type: PanelType.layer, value: !ToolbarModule.layer.show })
-          } else if (key === 'arrowup') {
-            setPanelState({ type: PanelType.components, value: !ToolbarModule.components.show })
-          } else if (key === 'arrowright') {
-            setPanelState({ type: PanelType.config, value: !ToolbarModule.config.show })
-          } else if (key === 'a') {
-            EditorModule.autoCanvasScale(getPanelOffset)
-          }
-
           ev.preventDefault()
+          const { setPanelState } = toolbarStore
+          if (key === 'arrowleft') {
+            setPanelState(PanelType.layer, !toolbarStore.layer.show)
+          } else if (key === 'arrowup') {
+            setPanelState(PanelType.components, !toolbarStore.components.show)
+          } else if (key === 'arrowright') {
+            setPanelState(PanelType.config, !toolbarStore.config.show)
+          } else if (key === 'a') {
+            editorStore.autoCanvasScale(getPanelOffset)
+          }
+        } else if (selectedCom.value && ['arrowup', 'arrowright', 'arrowdown', 'arrowleft'].includes(key)) {
+          ev.preventDefault()
+          const { grid } = pageConfig.value
+          if (key === 'arrowup') {
+            moveCom(-grid, 0)
+          } else if (key === 'arrowright') {
+            moveCom(0, grid)
+          } else if (key === 'arrowdown') {
+            moveCom(grid, 0)
+          } else if (key === 'arrowleft') {
+            moveCom(0, -grid)
+          }
         }
       }
     }

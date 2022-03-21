@@ -63,7 +63,7 @@
 <script lang='ts'>
 import { defineComponent, PropType, computed, ref } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
-import { DatavImageType } from '@/utils/types'
+import { BorderImage } from '@/components/_models/border-image'
 import { IconSelectArrow } from '@/icons'
 
 export default defineComponent({
@@ -77,7 +77,7 @@ export default defineComponent({
       default: '',
     },
     images: {
-      type: Array as PropType<DatavImageType[]>,
+      type: Array as PropType<BorderImage[]>,
       default: () => [],
     },
     label: {
@@ -110,7 +110,7 @@ export default defineComponent({
       }
     })
 
-    const onSelectImg = (img: DatavImageType) => {
+    const onSelectImg = (img: BorderImage) => {
       visible.value = false
       ctx.emit(UPDATE_MODEL_EVENT, img.id)
     }

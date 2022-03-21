@@ -1,11 +1,12 @@
-import { DatavEChartsComponent, DatavChartSeries } from '@/components/datav-component'
+import { DatavEChartsComponent, DatavChartSeries } from '@/components/_models/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
   initApiConfig, initApiData,
-} from '@/components/data-source'
-import { createField } from '@/components/data-field'
-import { DataEventConfig } from '@/components/data-event'
+} from '@/components/_models/data-source'
+import { createField } from '@/components/_models/data-field'
+import { DataEventConfig } from '@/components/_models/data-event'
 import { getStaticData } from '@/api/data'
+import { EChartEasing } from '@/components/_models/echarts-animation'
 
 export class BasicBarSeries extends DatavChartSeries {
   constructor(name: string) {
@@ -227,7 +228,7 @@ export class BasicBar extends DatavEChartsComponent {
     animation: {
       enabled: true,
       duration: 1000,
-      easing: 'cubicOut',
+      easing: EChartEasing.cubicOut,
       delay: 0,
     },
   }

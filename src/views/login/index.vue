@@ -89,7 +89,7 @@
 <script lang='ts'>
 import { defineComponent, ref, watch, defineAsyncComponent } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { UserStore } from '@/domains/user'
+import { useUserStore } from '@/store/user'
 import { IconUser, IconKey } from '@/icons'
 
 const validateUsername = (rule: any, value: string, callback: Function) => {
@@ -126,6 +126,8 @@ export default defineComponent({
     IconKey,
   },
   setup() {
+    const userStore = useUserStore()
+
     const loginForm = ref({
       username: 'admin',
       password: '123123',
@@ -170,7 +172,7 @@ export default defineComponent({
       (loginFormRef.value as any).validate((errors: any) => {
         if (!errors) {
           loading.value = true
-          UserStore().doLogin(loginForm.value.username, loginForm.value.password)
+          userStore.login(loginForm.value.username, loginForm.value.password)
             .then(() => {
               router.push({ path: redirect.value || '/', query: otherQuery.value })
             })

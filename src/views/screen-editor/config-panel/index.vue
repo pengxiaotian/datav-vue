@@ -49,27 +49,30 @@
 
 <script lang='ts'>
 import { defineComponent, computed, provide } from 'vue'
-import { ToolbarModule } from '@/store/modules/toolbar'
-import { EditorModule } from '@/store/modules/editor'
+import { useToolbarStore } from '@/store/toolbar'
+import { useComStore } from '@/store/com'
 import { loadAsyncComponent } from '@/utils/async-component'
 import { IconSetting, IconCloud, IconInteract } from '@/icons'
+import { comInjectionKey } from './config'
 
 export default defineComponent({
   name: 'ConfigPanel',
   components: {
+    IconSetting,
+    IconCloud,
+    IconInteract,
     PageConfig: loadAsyncComponent(() => import('./page-config.vue')),
     SettingPanel: loadAsyncComponent(() => import('./setting-panel.vue')),
     DataCenterPanel: loadAsyncComponent(() => import('./data-center-panel/index.vue')),
     InteractionPanel: loadAsyncComponent(() => import('./interaction-panel/index.vue')),
-    IconSetting,
-    IconCloud,
-    IconInteract,
   },
   setup() {
-    const visiblePanel = computed(() => ToolbarModule.config.show)
-    const selectedCom = computed(() => EditorModule.selectedCom)
+    const toolbarStore = useToolbarStore()
+    const comStore = useComStore()
+    const visiblePanel = computed(() => toolbarStore.config.show)
+    const selectedCom = computed(() => comStore.selectedCom)
 
-    provide('com', selectedCom)
+    provide(comInjectionKey, selectedCom)
 
     return {
       visiblePanel,

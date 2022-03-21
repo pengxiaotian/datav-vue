@@ -117,9 +117,9 @@ export default defineComponent({
     const copyUrl = () => {
       if (isPublish.value) {
         nextTick(() => {
-          if (copyText(shareUrl.value)) {
+          copyText(shareUrl.value).then(() => {
             nMessage.success('复制成功')
-          }
+          })
         })
       }
     }

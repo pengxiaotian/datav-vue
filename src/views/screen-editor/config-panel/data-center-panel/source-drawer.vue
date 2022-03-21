@@ -2,6 +2,7 @@
   <n-drawer
     v-model:show="visible"
     width="500px"
+    :trap-focus="false"
     class="source-drawer"
     to="#edit-main-wp"
   >
@@ -68,7 +69,7 @@
         <span class="tutorial-popup">教程</span>
       </div>
 
-      <filter-config />
+      <filter-panel />
 
       <field-grid :fields="apiConfig.fields" />
       <div
@@ -95,28 +96,29 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, ComputedRef, provide, inject } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
+import { defineComponent, ref, computed, provide, inject } from 'vue'
 import { loadAsyncComponent } from '@/utils/async-component'
-import { createDataSources, ApiConfig, ApiDataConfig, ApiType, createDataConfigForApi } from '@/components/data-source'
-import { DebugModule } from '@/store/modules/debug'
-import { ApiModule } from '@/store/modules/api'
-import { setDatavData } from '@/mixins/data-center'
+import { createDataSources, ApiType, createDataConfigForApi } from '@/components/_models/data-source'
+import { useDebugStore } from '@/store/debug'
+import { useApiStore } from '@/store/api'
+import { setComponentData } from '@/components/_mixins/use-data-center'
 import { IconSearch, IconRefresh } from '@/icons'
-import FilterConfig from '@/views/screen-editor/data-filter/filter-config.vue'
 import FieldGrid from '../components/field-grid.vue'
+import { comInjectionKey, sourcePanelInjectionKey, sourceDrawerInjectionKey } from '../config'
 
 export default defineComponent({
   name: 'SourceDrawer',
   components: {
-    FilterConfig,
-    FieldGrid,
     IconSearch,
     IconRefresh,
+    FieldGrid,
+    FilterPanel: loadAsyncComponent(() => import('../../filter-manager/filter-panel.vue')),
     DsStaticEditor: loadAsyncComponent(() => import('./api-editors/ds-static-editor.vue')),
     DsApiEditor: loadAsyncComponent(() => import('./api-editors/ds-api-editor.vue')),
   },
   setup() {
+    const debugStore = useDebugStore()
+    const apiStore = useApiStore()
     const visible = ref(false)
     const visiblePreview = ref(false)
     const apiType = ApiType
@@ -127,18 +129,16 @@ export default defineComponent({
       visible.value = true
     }
 
-    const com = inject('com') as ComputedRef<DatavComponent>
-    const apiConfig = inject('apiConfig') as ComputedRef<ApiConfig>
-    const apiDataConfig = inject('apiDataConfig') as ComputedRef<ApiDataConfig>
-    const apiName = inject('apiName') as string
+    const com = inject(comInjectionKey)
+    const { apiName, apiConfig, apiDataConfig } = inject(sourcePanelInjectionKey)
 
     const dataStatus = computed(() => {
-      const data = DebugModule.dataStatusMap[com.value.id]
+      const data = debugStore.dataStatusMap[com.value.id]
       return data ? data[apiName] ?? {} : {}
     })
 
     const dataOrign = computed(() => {
-      const comData = DebugModule.originMap[com.value.id]
+      const comData = debugStore.originMap[com.value.id]
       return comData ? comData[apiName] : ''
     })
 
@@ -153,16 +153,18 @@ export default defineComponent({
     }
 
     const resData = computed(() => {
-      const data = ApiModule.dataMap[com.value.id]
+      const data = apiStore.dataMap[com.value.id]
       return data ? data[apiName] : ''
     })
 
     const refreshData = async () => {
-      await setDatavData(com.value.id, apiName, apiConfig.value, apiDataConfig.value)
+      await setComponentData(com.value.id, apiName, apiConfig.value, apiDataConfig.value)
     }
 
-    provide('refreshData', refreshData)
-    provide('dataStatus', dataStatus)
+    provide(sourceDrawerInjectionKey, {
+      dataStatus,
+      refreshData,
+    })
 
     return {
       visible,

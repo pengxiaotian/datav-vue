@@ -1,8 +1,8 @@
-import { DatavComponent } from '@/components/datav-component'
+import { DatavComponent } from '@/components/_models/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
-} from '@/components/data-source'
-import { DataEventConfig } from '@/components/data-event'
+} from '@/components/_models/data-source'
+import { DataEventConfig } from '@/components/_models/data-event'
 import { getStaticData } from '@/api/data'
 
 /**

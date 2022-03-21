@@ -80,7 +80,7 @@ import { useMessage } from 'naive-ui'
 import { pascalCase } from '@/utils/util'
 import Handlebars from 'handlebars'
 import '@/pages/templates/register'
-import { DatavComponent } from '@/components/datav-component'
+import { DatavComponent } from '@/components/_models/datav-component'
 import { PropDto, ComponentType, initPropData, mixinPropData, getUsedSelectOptions } from './config'
 import ConfigForm from '../components/config-form.vue'
 import ConfigPreview from '../components/config-preview.vue'
@@ -152,7 +152,7 @@ export default defineComponent({
           }
         }
       } catch (error) {
-        nMessage.error(error?.toString())
+        nMessage.error(error.message)
       } finally {
         loading.value = false
       }
@@ -164,7 +164,7 @@ export default defineComponent({
         configCode.value = JSON.stringify(list.value, null, 2)
         activeTab.value = 'code'
       } catch (error) {
-        nMessage.error(error?.toString())
+        nMessage.error(error.message)
       } finally {
         loading.value = false
       }
@@ -185,7 +185,7 @@ export default defineComponent({
         activeTab.value = 'template'
       } catch (error) {
         console.log(error)
-        nMessage.error(error?.toString())
+        nMessage.error(error.message)
       } finally {
         loading.value = false
       }

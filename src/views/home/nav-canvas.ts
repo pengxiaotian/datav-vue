@@ -111,7 +111,7 @@ export class NavCanvas {
     return Math.abs(a) > Math.abs(j * b) ? l * opt.speed : k * opt.speed
   }
 
-  calCurve( ctx: CanvasRenderingContext2D, a: number, b: number, c: number, d: number, e: number) {
+  calCurve(ctx: CanvasRenderingContext2D, a: number, b: number, c: number, d: number, e: number) {
     ctx.bezierCurveTo(a + e, b, c - e, d, c, d)
   }
 

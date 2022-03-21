@@ -27,8 +27,8 @@ import type { CSSProperties } from 'vue'
 import gsap from 'gsap'
 import Accounting from 'accounting'
 import NP from 'number-precision'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
-import { ApiModule } from '@/store/modules/api'
+import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
+import { useApiStore } from '@/store/api'
 import { calcStrWidth } from '@/utils/util'
 import { NumberTitleFlop } from './number-title-flop'
 
@@ -41,11 +41,12 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const apiStore = useApiStore()
     useDataCenter(props.com)
     const titleRef = ref(null)
 
     const dv_data = computed(() => {
-      return ApiModule.dataMap[props.com.id]?.source ?? {}
+      return apiStore.dataMap[props.com.id]?.source ?? {}
     })
 
     const dv_field = computed(() => {

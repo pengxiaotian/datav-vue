@@ -58,6 +58,7 @@ import { ProjectGroup } from '@/domains/project'
 import { IconSearch, IconArrowDown } from '@/icons'
 import MyScreen from './my-screen.vue'
 import PublishScreen from './publish-screen.vue'
+import { projectListInjectionKey } from './config'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
@@ -100,9 +101,11 @@ export default defineComponent({
       return sortBy(list, sort.value)
     })
 
-    provide('publish', (appId: number) => {
-      visiblePublish.value = true
-      publishAppId.value = appId
+    provide(projectListInjectionKey, {
+      publish(appId: number) {
+        visiblePublish.value = true
+        publishAppId.value = appId
+      },
     })
 
     return {

@@ -43,11 +43,13 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { globalConfig } from '@/config'
-import { EditorModule } from '@/store/modules/editor'
-import { FilterModule } from '@/store/modules/filter'
-import { PageConfig } from '@/domains/editor'
-import { ZoomMode } from '@/utils/enums'
+import { useEditorStore } from '@/store/editor'
+import { useFilterStore } from '@/store/filter'
+import { useComStore } from '@/store/com'
+import { useEventStore } from '@/store/event'
+import { PageConfig, ZoomMode } from '@/domains/editor'
 import { setStyle, on } from '@/utils/dom'
 import { getScreen } from '@/api/screen'
 
@@ -62,9 +64,13 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const filterStore = useFilterStore()
+    const editorStore = useEditorStore()
+    const comStore = useComStore()
+    const eventStore = useEventStore()
     const loading = ref(true)
-    const pageConfig = computed(() => EditorModule.pageConfig)
-    const coms = computed(() => EditorModule.coms)
+    const { pageConfig } = storeToRefs(editorStore)
+    const { coms } = storeToRefs(comStore)
     const styleFilter = computed(() => {
       const sf = pageConfig.value.styleFilterParams
       let filter = ''
@@ -153,7 +159,7 @@ export default defineComponent({
     }
 
     const initPageInfo = (config: PageConfig) => {
-      document.title = EditorModule.screen.name
+      document.title = editorStore.screen.name
       document.querySelector('meta[name="viewport"]')
         .setAttribute('content', `width=${config.width}`)
 
@@ -178,18 +184,16 @@ export default defineComponent({
       try {
         const data = await getScreen(+props.screenId)
         if (data) {
-          EditorModule.setEditorOption({
+          editorStore.setEditorOption({
             screen: data.screen,
             config: data.config,
-            coms: data.coms,
-            variables: data.variables,
           })
-
           initPageInfo(data.config)
 
-          FilterModule.setFilterOption({
-            dataFilters: data.dataFilters,
-          })
+          comStore.setComs(data.coms)
+          const { componentsView, publishersView, subscribersView } = data.variables
+          eventStore.$patch({ componentsView, publishersView, subscribersView })
+          filterStore.$patch({ dataFilters: data.dataFilters ?? [] })
 
           setTimeout(() => {
             loading.value = false

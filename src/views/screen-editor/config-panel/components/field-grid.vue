@@ -16,7 +16,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType } from 'vue'
-import { FieldConfig } from '@/components/data-field'
+import { FieldConfig } from '@/components/_models/data-field'
 
 export default defineComponent({
   name: 'FieldGrid',

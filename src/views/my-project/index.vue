@@ -89,10 +89,11 @@
 import { h, defineComponent, ref, computed, provide, onMounted } from 'vue'
 import { useMessage, useDialog } from 'naive-ui'
 import { ProjectGroup } from '@/domains/project'
-import { ProjectModule } from '@/store/modules/project'
+import { useProjectStore } from '@/store/project'
 import { addClass, removeClass } from '@/utils/dom'
 import { IconWarning, IconPlus, IconEdit, IconDelete } from '@/icons'
 import ProjectList from './project-list.vue'
+import { projectInjectionKey } from './config'
 
 export default defineComponent({
   name: 'MyProject',
@@ -105,19 +106,21 @@ export default defineComponent({
   setup() {
     const nMessage = useMessage()
     const nDialog = useDialog()
+    const projectStore = useProjectStore()
+
     const {
       getProjects, moveProject,
       createProjectGroup, deleteProjectGroup, updateProjectGroupName,
-    } = ProjectModule
+    } = projectStore
 
     const selectedGroupId = ref(-1)
     const loading = ref(true)
     const adding = ref(false)
     const draging = ref(false)
 
-    const group = computed(() => ProjectModule.group)
-    const ungroup = computed(() => ProjectModule.ungroup)
-    const groups = computed(() => ProjectModule.groups)
+    const group = computed(() => projectStore.group)
+    const ungroup = computed(() => projectStore.ungroup)
+    const groups = computed(() => projectStore.groups)
 
     const selectedGroup = computed(() => {
       if (selectedGroupId.value === -1) {
@@ -183,7 +186,7 @@ export default defineComponent({
       const newName = (e.target.value || '').trim()
       if (newName && group.name !== newName) {
         try {
-          await updateProjectGroupName({ id: group.id, newName })
+          await updateProjectGroupName(group.id, newName)
           group.name = newName
           group.editing = false
         } catch (error) {
@@ -213,11 +216,13 @@ export default defineComponent({
       })
     }
 
-    provide('dragStart', () => {
-      draging.value = true
-    })
-    provide('dragEnd', () => {
-      draging.value = false
+    provide(projectInjectionKey, {
+      dragStart() {
+        draging.value = true
+      },
+      dragEnd() {
+        draging.value = false
+      },
     })
 
     const onDragEnter = (event: any) => {
@@ -236,7 +241,7 @@ export default defineComponent({
       if (str) {
         const [pid, fromId] = str.split(',').map((m: string) => parseInt(m))
         if (fromId !== toGroup.id) {
-          moveProject({ pid, fromId, toId: toGroup.id })
+          moveProject(pid, fromId, toGroup.id)
         }
       }
     }

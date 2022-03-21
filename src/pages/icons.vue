@@ -21,11 +21,9 @@ import { copyText } from '@/utils/util'
 const nMessage = useMessage()
 
 const copyName = (name: string) => {
-  if (copyText(name)) {
+  copyText(name).then(() => {
     nMessage.success('复制成功')
-  } else {
-    nMessage.error('复制失败')
-  }
+  })
 }
 </script>
 

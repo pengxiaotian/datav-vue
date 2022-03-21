@@ -60,8 +60,9 @@
 <script lang='ts'>
 import { defineComponent, PropType, computed, getCurrentInstance } from 'vue'
 import type { CSSProperties } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
-import { EditorModule } from '@/store/modules/editor'
+import { DatavComponent } from '@/components/_models/datav-component'
+import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
 import {
   Direction, getCursors,
   handleMove, handleZoom, handleRotate,
@@ -82,8 +83,10 @@ export default defineComponent({
   },
   setup(props) {
     const instance = getCurrentInstance()
-    const referLine = computed(() => EditorModule.referLine)
-    const scale = computed(() => EditorModule.canvas.scale)
+    const editorStore = useEditorStore()
+    const comStore = useComStore()
+    const referLine = computed(() => editorStore.referLine)
+    const scale = computed(() => editorStore.canvas.scale)
 
     const transformClass = computed(() => ({
       selected: props.com.selected,
@@ -114,7 +117,7 @@ export default defineComponent({
 
     const comStyle = computed(() => {
       const { hided, attr } = props.com
-      const sf = EditorModule.pageConfig.styleFilterParams
+      const sf = editorStore.pageConfig.styleFilterParams
       let filter = ''
       if (sf.enable) {
         filter = `hue-rotate(${sf.hue}deg) contrast(${sf.contrast}%) opacity(${sf.opacity}%) saturate(${sf.saturate}%) brightness(${sf.brightness}%)`
@@ -186,7 +189,7 @@ export default defineComponent({
         return
       }
 
-      EditorModule.selectCom(props.com.id)
+      comStore.selectCom(props.com.id)
     }
 
     const onEnter = () => {
@@ -199,17 +202,47 @@ export default defineComponent({
 
     const onMove = (ev: MouseEvent) => {
       selectCom()
-      handleMove(ev, props.com, scale.value, EditorModule.pageConfig.grid)
-
+      handleMove(
+        ev,
+        props.com,
+        scale.value,
+        editorStore.pageConfig.grid,
+        () => {
+          editorStore.calcAlignLine(props.com)
+        },
+        () => {
+          editorStore.hideAlignLine(props.com.id)
+        },
+      )
     }
 
     const onZoom = (ev: MouseEvent, dir: Direction) => {
       selectCom()
-      handleZoom(ev, dir, props.com, scale.value)
+      handleZoom(
+        ev,
+        dir,
+        props.com,
+        scale.value,
+        editorStore.isNormalResizeMode,
+        () => {
+          editorStore.calcAlignLine(props.com)
+        },
+        () => {
+          editorStore.hideAlignLine(props.com.id)
+        },
+      )
     }
 
     const onRotate = (ev: MouseEvent) => {
-      handleRotate(ev, instance.vnode.el as HTMLElement, props.com)
+      handleRotate(
+        ev,
+        instance.vnode.el as HTMLElement,
+        props.com,
+        () => {},
+        () => {
+          editorStore.hideAlignLine(props.com.id)
+        },
+      )
     }
 
     const { showMenu } = useContextMenu()

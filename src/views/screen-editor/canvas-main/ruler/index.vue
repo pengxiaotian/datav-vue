@@ -21,7 +21,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref, onMounted, onUnmounted, watchEffect } from 'vue'
-import { EditorModule } from '@/store/modules/editor'
+import { useEditorStore } from '@/store/editor'
 import { IconLineShow, IconLineHide } from '@/icons'
 import { RulerBuilder } from './index'
 
@@ -32,6 +32,7 @@ export default defineComponent({
     IconLineHide,
   },
   setup() {
+    const editorStore = useEditorStore()
     const hRulerWpRef = ref<any>(null)
     const vRulerWpRef = ref<any>(null)
     const hRuler = ref<RulerBuilder | null>(null)
@@ -44,7 +45,7 @@ export default defineComponent({
 
     watchEffect(() => {
       if (hRulerWpRef.value && vRulerWpRef.value) {
-        const { canvas, guideLine } = EditorModule
+        const { canvas, guideLine } = editorStore
         const hWidth = Math.max(canvas.width, cw)
         if (hRuler.value) {
           hRuler.value.setSize(hWidth, 20, canvas.scale)

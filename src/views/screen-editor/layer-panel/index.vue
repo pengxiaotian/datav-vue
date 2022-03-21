@@ -201,9 +201,10 @@
 <script lang='ts'>
 import { h, defineComponent, ref, computed } from 'vue'
 import { useMessage, useDialog } from 'naive-ui'
-import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
-import { EditorModule } from '@/store/modules/editor'
-import { MoveType } from '@/utils/enums'
+import { PanelType, useToolbarStore } from '@/store/toolbar'
+import { useEditorStore } from '@/store/editor'
+import { useComStore } from '@/store/com'
+import { MoveType } from '@/domains/editor'
 import {
   IconViewList,
   IconViewGrid,
@@ -236,10 +237,14 @@ export default defineComponent({
   setup() {
     const nMessage = useMessage()
     const nDialog = useDialog()
+    const toolbarStore = useToolbarStore()
+    const editorStore = useEditorStore()
+    const comStore = useComStore()
+
     const showText = ref(false)
-    const visiblePanel = computed(() => ToolbarModule.layer.show)
-    const descComs = computed(() => [...EditorModule.coms].reverse())
-    const selectedCom = computed(() => EditorModule.selectedCom)
+    const visiblePanel = computed(() => toolbarStore.layer.show)
+    const descComs = computed(() => [...comStore.coms].reverse())
+    const selectedCom = computed(() => comStore.selectedCom)
 
     const enableBtnClass = computed(() => !!selectedCom.value)
     const enableLockBtnClass = computed(() => {
@@ -262,16 +267,16 @@ export default defineComponent({
     })
 
     const changeVisible = () => {
-      ToolbarModule.setPanelState({ type: PanelType.layer, value: !visiblePanel.value })
+      toolbarStore.setPanelState(PanelType.layer, !visiblePanel.value)
     }
 
     const selectCom = (id: string) => {
-      EditorModule.selectCom(id)
+      comStore.selectCom(id)
     }
 
     const moveCom = (moveType: MoveType) => {
       if (selectedCom.value) {
-        EditorModule.moveCom({ id: selectedCom.value.id, moveType })
+        editorStore.moveCom(selectedCom.value.id, moveType)
       }
     }
 
@@ -304,7 +309,7 @@ export default defineComponent({
           onPositiveClick: async () => {
             d.loading = true
             try {
-              await EditorModule.deleteCom(com)
+              await comStore.deleteCom(com)
             } catch (error) {
               nMessage.error(error.message)
             }

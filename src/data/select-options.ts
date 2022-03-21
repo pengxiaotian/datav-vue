@@ -1,4 +1,4 @@
-import { AnimationEasing } from '@/utils/enums'
+import { EChartEasing } from '@/components/_models/echarts-animation'
 
 export const fontFamilys = [
   { id: 'Microsoft Yahei', value: '微软雅黑' },
@@ -105,7 +105,7 @@ export const echartsLablePositions = [
   { id: 'insideBottomRight', value: '内-顶部居右' },
 ]
 
-export const animationEasings = Object.keys(AnimationEasing).map(m => ({ id: m, value: m }))
+export const animationEasings = Object.values(EChartEasing).map(m => ({ id: m, value: m }))
 
 export const selectSuggests = [
   { id: 'auto', value: '自适应' },

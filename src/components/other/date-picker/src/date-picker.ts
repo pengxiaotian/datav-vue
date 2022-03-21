@@ -1,11 +1,15 @@
-import { DatavComponent } from '@/components/datav-component'
+import { DatavComponent } from '@/components/_models/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
   initApiConfig, initApiData,
-} from '@/components/data-source'
-import { createField } from '@/components/data-field'
-import { DataEventConfig } from '@/components/data-event'
+} from '@/components/_models/data-source'
+import { createField } from '@/components/_models/data-field'
+import { DataEventConfig } from '@/components/_models/data-event'
 import { getStaticData } from '@/api/data'
+
+export const DatePickerEvent = {
+  changed: 'changed',
+}
 
 /**
  * DatePicker
@@ -79,7 +83,7 @@ export class DatePicker extends DatavComponent {
     this.apiData = initApiData(this.id)
 
     this.events = {
-      changed: {
+      [DatePickerEvent.changed]: {
         description: '当日期变化时',
         fields: Object.assign({}, ...fields),
       },

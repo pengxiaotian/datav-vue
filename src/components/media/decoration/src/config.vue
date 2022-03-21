@@ -30,7 +30,7 @@
 <script lang='ts'>
 import { defineComponent, PropType, toRef } from 'vue'
 import { Decoration, presetImages } from './decoration'
-import { DatavImageType } from '@/utils/types'
+import { BorderImage } from '@/components/_models/border-image'
 
 export default defineComponent({
   name: 'VDecorationProp',
@@ -43,7 +43,7 @@ export default defineComponent({
   setup(props) {
     const config = toRef(props.com, 'config')
 
-    const images: DatavImageType[] = []
+    const images: BorderImage[] = []
     for (const key in presetImages) {
       const item = presetImages[key]
       images.push({

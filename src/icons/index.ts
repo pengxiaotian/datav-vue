@@ -90,6 +90,8 @@ import IconShapeRect from './shape-rect.vue'
 import IconLayoutRow from './layout-row.vue'
 import IconLayoutColumn from './layout-column.vue'
 import IconRefresh from './refresh.vue'
+import IconRedo from './redo.vue'
+import IconUndo from './undo.vue'
 // -- prepend import placeholder --
 
 export {
@@ -185,5 +187,7 @@ export {
   IconLayoutRow,
   IconLayoutColumn,
   IconRefresh,
+  IconRedo,
+  IconUndo,
   // -- prepend export placeholder --
 }

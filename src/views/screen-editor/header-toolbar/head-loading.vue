@@ -2,20 +2,18 @@
   <div :class="loadingClass"></div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { ToolbarModule } from '@/store/modules/toolbar'
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useToolbarStore } from '@/store/toolbar'
 
-export default defineComponent({
-  name: 'HeadLoading',
-  computed: {
-    loadingClass() {
-      return {
-        'loading-indicator': true,
-        loading: ToolbarModule.loading > 0,
-      }
-    },
-  },
+
+const toolBarStore = useToolbarStore()
+
+const loadingClass = computed(() => {
+  return {
+    'loading-indicator': true,
+    loading: toolBarStore.loading > 0,
+  }
 })
 </script>
 

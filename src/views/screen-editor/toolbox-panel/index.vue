@@ -52,8 +52,8 @@
 <script lang="ts">
 import { defineComponent, computed, ref, watch } from 'vue'
 import { useMessage } from 'naive-ui'
-import { ToolbarModule } from '@/store/modules/toolbar'
-import { EditorModule } from '@/store/modules/editor'
+import { useToolbarStore } from '@/store/toolbar'
+import { useEditorStore } from '@/store/editor'
 import FilterToolboxPanel from './filter-toolbox-panel.vue'
 
 export default defineComponent({
@@ -63,12 +63,15 @@ export default defineComponent({
   },
   setup() {
     const nMessage = useMessage()
-    const visiblePanel = computed(() => ToolbarModule.toolbox.show)
-    const isNormal = ref(EditorModule.isNormalResizeMode)
-    const referLine = computed(() => EditorModule.referLine)
-    const alignLine = computed(() => EditorModule.alignLine)
+    const toolbarStore = useToolbarStore()
+    const editorStore = useEditorStore()
+
+    const isNormal = ref(editorStore.isNormalResizeMode)
     const visibleFilterPanel = ref(false)
-    const styleFilterParams = computed(() => EditorModule.pageConfig.styleFilterParams)
+    const visiblePanel = computed(() => toolbarStore.toolbox.show)
+    const referLine = computed(() => editorStore.referLine)
+    const alignLine = computed(() => editorStore.alignLine)
+    const styleFilterParams = computed(() => editorStore.pageConfig.styleFilterParams)
 
     const toggleFilterPanel = () => {
       visibleFilterPanel.value = !visibleFilterPanel.value
@@ -81,7 +84,7 @@ export default defineComponent({
 
     const handleResizeModeChange = (val: boolean) => {
       isNormal.value = val
-      EditorModule.changeResizeMode(val)
+      editorStore.isNormalResizeMode = val
     }
 
     watch(() => styleFilterParams.value.enable, (nv: boolean) => {

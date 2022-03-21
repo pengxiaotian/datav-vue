@@ -154,7 +154,7 @@
 import { defineComponent, ref, watch, PropType, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
-import { ToolboxType } from '@/utils/enums'
+import { ToolboxType } from '@/domains/editor'
 import { IconArrowRight, IconPlus, IconDelete, IconCopy, IconLayoutRow, IconLayoutColumn } from '@/icons'
 
 export default defineComponent({

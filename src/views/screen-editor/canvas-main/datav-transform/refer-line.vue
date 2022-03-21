@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import { ComponentAttr } from '@/components/datav-component'
+import { ComponentAttr } from '@/components/_models/datav-component'
 
 export default defineComponent({
   name: 'ReferLine',

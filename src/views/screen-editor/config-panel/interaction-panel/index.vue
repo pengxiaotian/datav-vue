@@ -31,15 +31,15 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, ComputedRef, inject, ref, provide, onMounted, watch } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
-import { EventItemConfig } from '@/components/data-event'
-import { EditorModule } from '@/store/modules/editor'
+import { defineComponent, computed, inject, ref, provide, onMounted, watch } from 'vue'
+import { EventItemConfig } from '@/components/_models/data-event'
+import { useEventStore } from '@/store/event'
 import { ArrayToObject } from '@/utils/util'
 import { IconArrowRight } from '@/icons'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
 import EventItem from './event-item.vue'
+import { comInjectionKey, interactionInjectionKey } from '../config'
 
 export default defineComponent({
   name: 'InteractionPanel',
@@ -50,7 +50,8 @@ export default defineComponent({
     IconArrowRight,
   },
   setup() {
-    const com = inject('com') as ComputedRef<DatavComponent>
+    const eventStore = useEventStore()
+    const com = inject(comInjectionKey)
     const visible = ref(true)
 
     const eventKeys = computed(() => {
@@ -58,7 +59,7 @@ export default defineComponent({
     })
 
     const eventList = ref<EventItemConfig[]>([])
-    let events = ref(EditorModule.variables.componentsView[com.value.id])
+    let events = ref(eventStore.componentsView[com.value.id])
 
     const createField = (name: string, mapName: string, description: string, custom = false) => {
       return {
@@ -129,11 +130,11 @@ export default defineComponent({
 
         const eItem = events.value[eventName]
         if (eItem.enable) {
-          EditorModule.setPublishersView({
-            id: com.value.id,
-            keys: Object.entries(eItem.fields).map(m => m[1] || m[0]),
-            enable: true,
-          })
+          eventStore.setPublishersView(
+            com.value.id,
+            Object.entries(eItem.fields).map(m => m[1] || m[0]),
+            true,
+          )
         }
       }
     }
@@ -143,11 +144,11 @@ export default defineComponent({
       events.value[eventName].fields = ArrayToObject(fields, 'name', 'map')
 
       if (events.value[eventName].enable) {
-        EditorModule.setPublishersView({
-          id: com.value.id,
-          keys: fields.map(m => m.map || m.name),
-          enable: true,
-        })
+        eventStore.setPublishersView(
+          com.value.id,
+          fields.map(m => m.map || m.name),
+          true,
+        )
       }
     }
 
@@ -163,16 +164,18 @@ export default defineComponent({
         keys.push(eventItem.fields[key])
       }
 
-      EditorModule.setPublishersView({ id: com.value.id, keys, enable })
+      eventStore.setPublishersView(com.value.id, keys, enable)
     }
 
-    provide('addField', addField)
-    provide('deleteField', deleteField)
-    provide('updateField', updateField)
-    provide('toggleEnable', toggleEnable)
+    provide(interactionInjectionKey, {
+      addField,
+      deleteField,
+      updateField,
+      toggleEnable,
+    })
 
     watch(events, () => {
-      EditorModule.variables.componentsView[com.value.id] = events.value
+      eventStore.componentsView[com.value.id] = events.value
     })
 
     onMounted(() => {

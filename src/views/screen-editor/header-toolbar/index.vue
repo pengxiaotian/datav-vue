@@ -28,7 +28,7 @@
           <n-tooltip :delay="500">
             <template #trigger>
               <div
-                :class="['head-btn mr4', { '--selected': layer }]"
+                :class="['head-btn mr4', { '--selected': layer.show }]"
                 @click="changeLayerPanel"
               >
                 <n-icon class="head-btn-icon">
@@ -41,10 +41,10 @@
           <n-tooltip :delay="500">
             <template #trigger>
               <div
-                :class="['head-btn mr4', { '--selected': components }]"
+                :class="['head-btn mr4', { '--selected': components.show }]"
                 @click="changeComponentsPanel"
               >
-                <n-icon class="head-btn-icon" :class="{ '--rotate': !components }">
+                <n-icon class="head-btn-icon" :class="{ '--rotate': !components.show }">
                   <IconBox />
                 </n-icon>
               </div>
@@ -54,7 +54,7 @@
           <n-tooltip :delay="500">
             <template #trigger>
               <div
-                :class="['head-btn mr4', { '--selected': config }]"
+                :class="['head-btn mr4', { '--selected': config.show }]"
                 @click="changeConfigPanel"
               >
                 <n-icon class="head-btn-icon">
@@ -67,7 +67,7 @@
           <n-tooltip :delay="500">
             <template #trigger>
               <div
-                :class="['head-btn mr4', { '--selected': toolbox }]"
+                :class="['head-btn mr4', { '--selected': toolbox.show }]"
                 @click="changeToolboxPanel"
               >
                 <n-icon class="head-btn-icon">
@@ -82,7 +82,7 @@
           <n-tooltip :delay="500">
             <template #trigger>
               <div
-                :class="['head-btn mr4', { '--selected': filter }]"
+                :class="['head-btn mr4', { '--selected': filter.show }]"
                 @click="changeFilterPanel"
               >
                 <n-icon class="head-btn-icon">
@@ -177,9 +177,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useMessage } from 'naive-ui'
-import { PanelType, ToolbarModule } from '@/store/modules/toolbar'
-import { FilterModule } from '@/store/modules/filter'
-import { EditorModule } from '@/store/modules/editor'
+import { mapState, mapActions } from 'pinia'
+import { PanelType, useToolbarStore } from '@/store/toolbar'
+import { useFilterStore } from '@/store/filter'
+import { useEventStore } from '@/store/event'
+import { useComStore } from '@/store/com'
+import { useEditorStore } from '@/store/editor'
 import { saveScreen } from '@/api/screen'
 import {
   IconEditorCanvas,
@@ -228,40 +231,28 @@ export default defineComponent({
     }
   },
   computed: {
-    screen() {
-      return EditorModule.screen
-    },
-    layer() {
-      return ToolbarModule.layer.show
-    },
-    components() {
-      return ToolbarModule.components.show
-    },
-    config() {
-      return ToolbarModule.config.show
-    },
-    toolbox() {
-      return ToolbarModule.toolbox.show
-    },
-    filter() {
-      return ToolbarModule.filter.show
-    },
+    ...mapState(useToolbarStore, ['layer', 'components', 'config', 'toolbox', 'filter']),
+    ...mapState(useFilterStore, ['dataFilters']),
+    ...mapState(useEventStore, ['componentsView', 'publishersView', 'subscribersView']),
+    ...mapState(useComStore, ['coms', 'subComs']),
+    ...mapState(useEditorStore, ['screen', 'pageConfig']),
   },
   methods: {
+    ...mapActions(useToolbarStore, ['setPanelState', 'setFilterState', 'addLoading', 'removeLoading']),
     changeLayerPanel() {
-      ToolbarModule.setPanelState({ type: PanelType.layer, value: !this.layer })
+      this.setPanelState(PanelType.layer, !this.layer.show)
     },
     changeComponentsPanel() {
-      ToolbarModule.setPanelState({ type: PanelType.components, value: !this.components })
+      this.setPanelState(PanelType.components, !this.components.show)
     },
     changeConfigPanel() {
-      ToolbarModule.setPanelState({ type: PanelType.config, value: !this.config })
+      this.setPanelState(PanelType.config, !this.config.show)
     },
     changeToolboxPanel() {
-      ToolbarModule.setPanelState({ type: PanelType.toolbox, value: !this.toolbox })
+      this.setPanelState(PanelType.toolbox, !this.toolbox.show)
     },
     changeFilterPanel() {
-      ToolbarModule.filter.show = !this.filter
+      this.setFilterState(!this.filter.show)
     },
     goHome() {
       const route = this.$router.resolve('/')
@@ -272,24 +263,25 @@ export default defineComponent({
       this.publishAppId = this.screen.id
     },
     async saveScreen() {
-      ToolbarModule.addLoading()
+      this.addLoading()
       try {
         const data = {
-          screen: EditorModule.screen,
-          config: EditorModule.pageConfig,
-          coms: [
-            ...EditorModule.coms,
-            ...EditorModule.subComs,
-          ],
-          variables: EditorModule.variables,
-          dataFilters: FilterModule.dataFilters ?? [],
+          screen: this.screen,
+          config: this.pageConfig,
+          coms: [...this.coms, ...this.subComs],
+          variables: {
+            componentsView: this.componentsView,
+            publishersView: this.publishersView,
+            subscribersView: this.subscribersView,
+          },
+          dataFilters: this.dataFilters ?? [],
         }
         await saveScreen(data)
         this.nMessage.success('大屏已保存')
       } catch (error) {
         this.nMessage.error(`保存大屏失败：${error}`)
       } finally {
-        ToolbarModule.removeLoading()
+        this.removeLoading()
       }
     },
     async goPreview() {

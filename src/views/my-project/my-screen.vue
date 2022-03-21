@@ -93,8 +93,9 @@ import { h, defineComponent, PropType, toRefs, computed, ref, inject } from 'vue
 import { useMessage, useDialog } from 'naive-ui'
 import { globalConfig } from '@/config'
 import { Project } from '@/domains/project'
-import { ProjectModule } from '@/store/modules/project'
+import { useProjectStore } from '@/store/project'
 import { IconWarning, IconMove, IconCopy, IconDelete, IconEdit, IconPreview, IconRelease } from '@/icons'
+import { projectInjectionKey, projectListInjectionKey } from './config'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
@@ -117,10 +118,12 @@ export default defineComponent({
   setup(props) {
     const nMessage = useMessage()
     const nDialog = useDialog()
-    const { deleteProject, copyProject, updateProjectName } = ProjectModule
+    const projectStore = useProjectStore()
     const { id, name, groupId, share, thumbnail } = toRefs(props.screen)
     const screenName = ref(name.value)
     const oldScreenName = ref(name.value)
+    const pConfig = inject(projectInjectionKey)
+    const plConfig = inject(projectListInjectionKey)
 
     const thumbnailStyle = computed(() => {
       if (thumbnail.value) {
@@ -149,7 +152,7 @@ export default defineComponent({
     const onInputBlur = async () => {
       if (screenName.value) {
         try {
-          await updateProjectName({ id: id.value, newName: screenName.value })
+          await projectStore.updateProjectName(id.value, screenName.value)
           name.value = screenName.value
         } catch (error) {
           nMessage.error(error.message)
@@ -160,7 +163,7 @@ export default defineComponent({
     }
 
     const confirmCopyProject = () => {
-      copyProject({ pid: id.value, gid: groupId.value })
+      projectStore.copyProject(id.value, groupId.value)
     }
 
     const confirmDeleteProject = () => {
@@ -173,7 +176,7 @@ export default defineComponent({
         onPositiveClick: async () => {
           d.loading = true
           try {
-            await deleteProject({ pid: id.value, gid: groupId.value })
+            await projectStore.deleteProject(id.value, groupId.value)
           } catch (error) {
             nMessage.error(error.message)
           }
@@ -181,15 +184,11 @@ export default defineComponent({
       })
     }
 
-    const dragStart = inject('dragStart') as Function
-    const dragEnd = inject('dragEnd') as Function
-    const publish = inject('publish') as Function
-
     const image = new Image()
     image.src = `${cdn}/datav/drag-thumbnail.png`
 
     const onDragStart = (event: DragEvent) => {
-      dragStart()
+      pConfig.dragStart()
 
       const dt = event.dataTransfer
       if (dt) {
@@ -200,11 +199,11 @@ export default defineComponent({
     }
 
     const onDragEnd = () => {
-      dragEnd()
+      pConfig.dragEnd()
     }
 
     const doPublish = () => {
-      publish(id.value)
+      plConfig.publish(id.value)
     }
 
     return {

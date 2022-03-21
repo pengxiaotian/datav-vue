@@ -17,10 +17,9 @@ import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LineChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
-import { AnimationEasing } from '@/utils/types'
-import { useDataCenter, getFieldMap } from '@/mixins/data-center'
-import { ApiModule } from '@/store/modules/api'
-import { getAutoValue, getLimitValue, valueFormater } from '@/utils/echarts-utils'
+import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
+import { useApiStore } from '@/store/api'
+import { getAutoValue, getLimitValue, valueFormater } from '@/components/_utils/echarts-util'
 import { BasicLine } from './basic-line'
 
 use([
@@ -38,10 +37,11 @@ const props = defineProps({
   },
 })
 
+const apiStore = useApiStore()
 const { datavEmit } = useDataCenter(props.com)
 
 const dv_data = computed(() => {
-  return ApiModule.dataMap[props.com.id]?.source ?? {}
+  return apiStore.dataMap[props.com.id]?.source ?? {}
 })
 
 const dv_field = computed(() => {
@@ -305,7 +305,7 @@ const option = computed(() => {
     },
     animation: animation.enabled,
     animationDuration: animation.duration,
-    animationEasing: animation.easing as AnimationEasing,
+    animationEasing: animation.easing,
     animationDelay: animation.delay,
     series: getSeries(keys),
   }

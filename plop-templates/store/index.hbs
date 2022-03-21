@@ -1,35 +1,8 @@
-import {
-  VuexModule, Module, Mutation, Action, getModule, config,
-} from 'vuex-module-decorators'
-import store from '@/store'
+import { defineStore } from 'pinia'
 
-config.rawError = true
-
-/* region interfaces */
-
-export interface I{{pascalCase name}}State {
-  field: string
-}
-
-/* endregion */
-
-@Module({ dynamic: true, store, name: '{{camelCase name}}' })
-class {{pascalCase name}} extends VuexModule implements I{{pascalCase name}}State {
-  public field = 'value'
-{{#if mutations}}
-
-  @Mutation
-  private SET_FIELD(payload: string) {
-    this.field = payload
-  }
-{{/if}}
-{{#if actions}}
-
-  @Action
-  public setField(payload: string) {
-    this.SET_FIELD(payload)
-  }
-{{/if}}
-}
-
-export const {{pascalCase name}}Module = getModule({{pascalCase name}})
+export const use{{pascalCase name}}Store = defineStore('{{camelCase name}}', {
+  state: () => ({
+  }),
+  actions: {
+  },
+})

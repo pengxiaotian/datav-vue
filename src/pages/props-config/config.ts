@@ -1,6 +1,6 @@
 
 import { isPlainObject, isArray, isNumber, isString, isBool } from '@/utils/util'
-import { ToolboxType } from '@/utils/enums'
+import { ToolboxType } from '@/domains/editor'
 import {
   fontFamilys,
   fontWeights,

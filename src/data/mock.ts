@@ -1,10 +1,13 @@
-import { EditorModule } from '@/store/modules/editor'
 import { createComponent } from '@/components/datav'
 import { getRandomInt } from '@/utils/util'
-import { BlueprintModule } from '@/store/modules/blueprint'
+import { useEditorStore } from '@/store/editor'
+import { useBlueprintStore } from '@/store/blueprint'
+import { useComStore } from '@/store/com'
 
 export const useMock = async () => {
-  const { pageConfig } = EditorModule
+  const comStore = useComStore()
+  const editorStore = useEditorStore()
+  const blueprintStore = useBlueprintStore()
 
   const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar', 'VMarquee', 'VParagraph', 'VTimer', 'VFullScreen', 'VMainImg', 'VWordCloud']
 
@@ -14,9 +17,9 @@ export const useMock = async () => {
   const ps2 = coms.map(com => {
     // com.apis.source.useAutoUpdate = true
     // com.apis.source.autoUpdate = 5
-    com.attr.x = getRandomInt(pageConfig.width - com.attr.w)
-    com.attr.y = getRandomInt(pageConfig.height - com.attr.h)
-    return EditorModule.addCom(com)
+    com.attr.x = getRandomInt(editorStore.pageConfig.width - com.attr.w)
+    com.attr.y = getRandomInt(editorStore.pageConfig.height - com.attr.h)
+    return comStore.addCom(com)
   })
 
   await Promise.all(ps2)
@@ -34,7 +37,7 @@ export const useMock = async () => {
     await Promise.all(ps3)
     setTimeout(() => {
       comIds.forEach(id => {
-        BlueprintModule.datavComponents[id].$DATAV_requestData()
+        blueprintStore.events[id]?.requestData()
       })
     }, 200)
   }

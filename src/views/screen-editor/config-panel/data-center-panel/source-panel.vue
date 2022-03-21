@@ -136,15 +136,18 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, ComputedRef, inject, provide } from 'vue'
-import { DatavComponent } from '@/components/datav-component'
-import { ApiConfig, ApiDataConfig, FieldStatus, createDataSources, ApiStatus } from '@/components/data-source'
-import { DebugModule } from '@/store/modules/debug'
-import { ApiModule } from '@/store/modules/api'
-import { setDatavData } from '@/mixins/data-center'
+import { defineComponent, ref, computed, PropType, inject, provide } from 'vue'
+import {
+  ApiKeyName, ApiConfig, ApiDataConfig,
+  FieldStatus, ApiStatus, createDataSources,
+} from '@/components/_models/data-source'
+import { useDebugStore } from '@/store/debug'
+import { useApiStore } from '@/store/api'
+import { setComponentData } from '@/components/_mixins/use-data-center'
 import { IconArrowRight, IconRefresh } from '@/icons'
 import DisplayApiStatus from '../components/display-api-status.vue'
 import SourceDrawer from './source-drawer.vue'
+import { comInjectionKey, changePanelInjectionKey, sourcePanelInjectionKey } from '../config'
 
 export default defineComponent({
   name: 'SourcePanel',
@@ -156,32 +159,36 @@ export default defineComponent({
   },
   props: {
     apiName: {
-      type: String,
+      type: String as PropType<ApiKeyName>,
       required: true,
     },
     activeName: String,
     collapse: Boolean,
   },
   setup(props) {
+    const debugStore = useDebugStore()
+    const apiStore = useApiStore()
     const visible = computed(() => props.apiName === props.activeName)
     const sourceDrawerRef = ref(null)
     const datasources = createDataSources()
 
-    const com = inject('com') as ComputedRef<DatavComponent>
+    const com = inject(comInjectionKey)
     const apiConfig = computed((): ApiConfig => com.value.apis[props.apiName])
     const apiDataConfig = computed((): ApiDataConfig => com.value.apiData[props.apiName])
 
-    provide('apiConfig', apiConfig)
-    provide('apiDataConfig', apiDataConfig)
-    provide('apiName', props.apiName)
+    provide(sourcePanelInjectionKey, {
+      apiName: props.apiName,
+      apiConfig,
+      apiDataConfig,
+    })
 
     const datav_data = computed(() => {
-      const comData = ApiModule.dataMap[com.value.id]
+      const comData = apiStore.dataMap[com.value.id]
       return comData ? comData[props.apiName] : ''
     })
 
     const fieldsStatus = computed(() => {
-      const comFields = DebugModule.fieldStatusMap[com.value.id]
+      const comFields = debugStore.fieldStatusMap[com.value.id]
       return comFields ? comFields[props.apiName] : {}
     })
 
@@ -198,7 +205,7 @@ export default defineComponent({
       return ApiStatus.completed
     })
 
-    const changePanel = inject('changePanel') as Function
+    const changePanel = inject(changePanelInjectionKey)
 
     const toggle = () => {
       if (props.collapse) {
@@ -211,7 +218,7 @@ export default defineComponent({
     }
 
     const refreshData = () => {
-      setDatavData(com.value.id, props.apiName, apiConfig.value, apiDataConfig.value)
+      setComponentData(com.value.id, props.apiName, apiConfig.value, apiDataConfig.value)
     }
 
     return {
