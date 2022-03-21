@@ -271,7 +271,7 @@ export default defineComponent({
     }
 
     const selectCom = (id: string) => {
-      editorStore.selectCom(id, comStore.coms)
+      comStore.selectCom(id)
     }
 
     const moveCom = (moveType: MoveType) => {

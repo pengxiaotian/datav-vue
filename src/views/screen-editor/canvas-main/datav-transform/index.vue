@@ -189,7 +189,7 @@ export default defineComponent({
         return
       }
 
-      editorStore.selectCom(props.com.id, comStore.coms)
+      comStore.selectCom(props.com.id)
     }
 
     const onEnter = () => {
@@ -207,9 +207,12 @@ export default defineComponent({
         props.com,
         scale.value,
         editorStore.pageConfig.grid,
-        comStore.coms,
-        editorStore.calcAlignLine,
-        editorStore.hideAlignLine,
+        () => {
+          editorStore.calcAlignLine(props.com)
+        },
+        () => {
+          editorStore.hideAlignLine(props.com.id)
+        },
       )
     }
 
@@ -221,14 +224,25 @@ export default defineComponent({
         props.com,
         scale.value,
         editorStore.isNormalResizeMode,
-        comStore.coms,
-        editorStore.calcAlignLine,
-        editorStore.hideAlignLine,
+        () => {
+          editorStore.calcAlignLine(props.com)
+        },
+        () => {
+          editorStore.hideAlignLine(props.com.id)
+        },
       )
     }
 
     const onRotate = (ev: MouseEvent) => {
-      handleRotate(ev, instance.vnode.el as HTMLElement, props.com)
+      handleRotate(
+        ev,
+        instance.vnode.el as HTMLElement,
+        props.com,
+        () => {},
+        () => {
+          editorStore.hideAlignLine(props.com.id)
+        },
+      )
     }
 
     const { showMenu } = useContextMenu()

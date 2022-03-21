@@ -82,9 +82,10 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, watch, onMounted, onUnmounted } from 'vue'
+import { defineComponent, ref, watch, computed, onMounted, onUnmounted } from 'vue'
 import { isMac } from '@/utils/util'
 import { PanelType, useToolbarStore } from '@/store/toolbar'
+import { useComStore } from '@/store/com'
 import { useEditorStore } from '@/store/editor'
 import { IconKeyboard, IconArrowDown } from '@/icons'
 
@@ -96,7 +97,9 @@ export default defineComponent({
   },
   setup() {
     const toolbarStore = useToolbarStore()
+    const comStore = useComStore()
     const editorStore = useEditorStore()
+
     const scale = ref(20)
     const inputScale = ref(20)
     const scaleList = [
@@ -106,6 +109,9 @@ export default defineComponent({
       { label: '50%', value: 50 },
       { label: '自适应', value: -1 },
     ]
+
+    const selectedCom = computed(() => comStore.selectedCom)
+    const pageConfig = computed(() => editorStore.pageConfig)
 
     const getPanelOffset = () => ({
       offsetX: toolbarStore.getPanelOffsetX,
@@ -134,12 +140,18 @@ export default defineComponent({
       },
     )
 
+    const moveCom = (offsetY: number, offsetX: number) => {
+      selectedCom.value.attr.y += offsetY
+      selectedCom.value.attr.x += offsetX
+    }
+
     const addShortcuts = (ev: KeyboardEvent) => {
       const target = ev.target as HTMLElement
       if (!['input','textarea'].includes(target.tagName.toLowerCase())) {
         const ismac = isMac()
+        const key = ev.key.toLowerCase()
         if ((!ismac && ev.ctrlKey) || (ismac && ev.metaKey)) {
-          const key = ev.key.toLowerCase()
+          ev.preventDefault()
           const { setPanelState } = toolbarStore
           if (key === 'arrowleft') {
             setPanelState(PanelType.layer, !toolbarStore.layer.show)
@@ -150,8 +162,18 @@ export default defineComponent({
           } else if (key === 'a') {
             editorStore.autoCanvasScale(getPanelOffset)
           }
-
+        } else if (selectedCom.value && ['arrowup', 'arrowright', 'arrowdown', 'arrowleft'].includes(key)) {
           ev.preventDefault()
+          const { grid } = pageConfig.value
+          if (key === 'arrowup') {
+            moveCom(-grid, 0)
+          } else if (key === 'arrowright') {
+            moveCom(0, grid)
+          } else if (key === 'arrowdown') {
+            moveCom(grid, 0)
+          } else if (key === 'arrowleft') {
+            moveCom(0, -grid)
+          }
         }
       }
     }

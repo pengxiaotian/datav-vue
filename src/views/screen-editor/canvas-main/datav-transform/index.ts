@@ -227,9 +227,8 @@ const setAttr = (
   scale: number,
   grid: number,
   resizeMode: ResizeMode,
-  coms: DatavComponent[],
-  calcAlignLine: (com: DatavComponent, coms: DatavComponent[]) => void,
-  hideAlignLine: (id: string, coms: DatavComponent[]) => void,
+  moveCallback: () => void,
+  upCallback: () => void,
 ) => {
   const attr = { ...com.attr }
   const pos = Object.create(null) as Partial<ComponentAttr>
@@ -270,15 +269,13 @@ const setAttr = (
     }
 
     com.attr = { ...com.attr, ...pos }
-
-    calcAlignLine(com, coms)
+    moveCallback()
   }
 
   const up = () => {
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
-
-    hideAlignLine(com.id, coms)
+    upCallback()
   }
 
   on(document, 'mousemove', move)
@@ -291,12 +288,11 @@ export const handleZoom = (
   com: DatavComponent,
   scale: number,
   isNormalResizeMode: boolean,
-  coms: DatavComponent[],
-  calcAlignLine: (com: DatavComponent, coms: DatavComponent[]) => void,
-  hideAlignLine: (id: string, coms: DatavComponent[]) => void,
+  moveCallback: () => void,
+  upCallback: () => void,
 ) => {
   const mode = isNormalResizeMode ? 'normal' : 'stretch'
-  setAttr(ev, dir, com, scale, 0, mode, coms, calcAlignLine, hideAlignLine)
+  setAttr(ev, dir, com, scale, 0, mode, moveCallback, upCallback)
 }
 
 export const handleMove = (
@@ -304,14 +300,19 @@ export const handleMove = (
   com: DatavComponent,
   scale: number,
   grid: number,
-  coms: DatavComponent[],
-  calcAlignLine: (com: DatavComponent, coms: DatavComponent[]) => void,
-  hideAlignLine: (id: string, coms: DatavComponent[]) => void,
+  moveCallback: () => void,
+  upCallback: () => void,
 ) => {
-  setAttr(ev, null, com, scale, grid, null, coms, calcAlignLine, hideAlignLine)
+  setAttr(ev, null, com, scale, grid, null, moveCallback, upCallback)
 }
 
-export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponent) => {
+export const handleRotate = (
+  ev: MouseEvent,
+  el: HTMLElement,
+  com: DatavComponent,
+  moveCallback: () => void,
+  upCallback: () => void,
+) => {
   // 获取元素中心点位置
   const rect = el.getBoundingClientRect()
   const centerX = rect.left + rect.width / 2
@@ -329,11 +330,14 @@ export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponen
     ) * 180 / Math.PI - startAngle
     const deg = Math.round(angle % 360)
     com.attr.deg = deg < 0 ? deg + 360 : deg
+
+    moveCallback()
   }
 
   const up = () => {
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
+    upCallback()
   }
 
   on(document, 'mousemove', move)

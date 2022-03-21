@@ -4,7 +4,7 @@ import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { generateId } from '@/utils/util'
 
-export interface IEditorState {
+export interface IComState {
   coms: DatavComponent[]
   subComs: DatavComponent[]
 }
@@ -22,7 +22,7 @@ const findComs = (coms: DatavComponent[], parentId?: string) => {
 }
 
 export const useComStore = defineStore('com', {
-  state: (): IEditorState => ({
+  state: (): IComState => ({
     coms: [],
     subComs: [],
   }),
@@ -32,6 +32,16 @@ export const useComStore = defineStore('com', {
     },
   },
   actions: {
+    selectCom(id: string) {
+      this.coms.forEach(com => {
+        if (com.id === id) {
+          com.selected = true
+        } else {
+          com.selected = false
+        }
+        com.hovered = false
+      })
+    },
     setComs(payload: DatavComponent[]) {
       const coms: DatavComponent[] = []
       const subComs: DatavComponent[] = []

@@ -42,17 +42,6 @@ export interface IEditorState {
   isNormalResizeMode: boolean
 }
 
-const selectCom = (id: string, coms: DatavComponent[]) => {
-  coms.forEach(com => {
-    if (com.id === id) {
-      com.selected = true
-    } else {
-      com.selected = false
-    }
-    com.hovered = false
-  })
-}
-
 export const useEditorStore = defineStore('editor', {
   state: (): IEditorState => ({
     editMode: false,
@@ -112,25 +101,24 @@ export const useEditorStore = defineStore('editor', {
     setEditMode() {
       this.editMode = true
     },
-    selectCom(id: string, coms: DatavComponent[]) {
-      selectCom(id, coms)
-    },
-    calcAlignLine(com: DatavComponent, coms: DatavComponent[]) {
+    calcAlignLine(com: DatavComponent) {
       if (!this.alignLine.enable) {
         return
       }
 
-      const attr = calcIntersectingLines(com, coms, this.canvas.scale)
+      const comStore = useComStore()
+      const attr = calcIntersectingLines(com, comStore.coms, this.canvas.scale)
       this.alignLine = { ...this.alignLine, ...attr, show: true }
     },
-    hideAlignLine(id: string, coms: DatavComponent[]) {
+    hideAlignLine(id: string) {
       if (!this.alignLine.enable) {
         return
       }
 
-      if (this.alignLine.enable && this.alignLine.show) {
+      const comStore = useComStore()
+      if (this.alignLine.show) {
         this.alignLine.show = false
-        selectCom(id, coms)
+        comStore.selectCom(id)
       }
     },
     moveCom(id: string, moveType: MoveType) {

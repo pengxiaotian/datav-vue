@@ -92,7 +92,7 @@ export default defineComponent({
           com.attr.x = Math.round(offsetX - com.attr.w / 2)
           com.attr.y = Math.round(offsetY - com.attr.h / 2)
           await comStore.addCom(com)
-          editorStore.selectCom(com.id, comStore.coms)
+          comStore.selectCom(com.id)
           toolbarStore.removeLoading()
 
           if (com.apis.source) {
@@ -108,7 +108,7 @@ export default defineComponent({
     }
 
     const cancelSelectCom = () => {
-      editorStore.selectCom('', comStore.coms)
+      comStore.selectCom('')
     }
 
     const dragOver = (ev: DragEvent) => {
