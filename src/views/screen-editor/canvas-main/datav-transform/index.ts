@@ -1,5 +1,6 @@
 import { DatavComponent, ComponentAttr } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
+import { angleToRadian } from '@/utils/editor'
 
 /**
  * 方位
@@ -78,10 +79,6 @@ export const getCursors = (startAngle: number) => {
   })
 
   return result as Record<Direction, BidirectionalCursor>
-}
-
-function angleToRadian(angle: number) {
-  return angle * Math.PI / 180
 }
 
 function getCenterPoint(p1: IPoint, p2: IPoint): IPoint {

@@ -7,7 +7,7 @@
           <div class="datav-marquee">
             <span class="content">
               <template v-for="n in 2" :key="n">
-                1. DataV 仅支持谷歌 Chrome 浏览器版本 60 以上。2. DataV 基于 Vue 3.x 开发。3. 项目地址：<a href="https://github.com/pengxiaotian/datav-vue" target="_blank" class="project-href">https://github.com/pengxiaotian/datav-vue</a>
+                1. DataV 仅支持谷歌 Chrome 浏览器版本 62 以上。2. DataV 基于 Vue 3.x 开发。3. 项目地址：<a href="https://github.com/pengxiaotian/datav-vue" target="_blank" class="project-href">https://github.com/pengxiaotian/datav-vue</a>
                 <span class="content-space"></span>
               </template>
             </span>

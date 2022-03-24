@@ -82,3 +82,14 @@ export interface PageConfig {
   useWatermark: boolean
   styleFilterParams: PageStyleFilter
 }
+
+export interface AlignLine {
+  top: number
+  bottom: number
+  left: number
+  right: number
+  vertical: number
+  horizontal: number
+  enable: boolean
+  show: boolean
+}

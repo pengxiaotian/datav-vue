@@ -1,9 +1,21 @@
 <template>
   <div class="canvas-main">
-    <div id="canvas-wp" class="canvas-panel-wrap" @mousedown.stop="cancelSelectCom">
-      <div class="screen-shot" :style="screenShotStyle">
+    <div id="canvas-wp" class="canvas-panel-wrap">
+      <div
+        ref="screenRef"
+        class="screen-shot"
+        :style="screenShotStyle"
+        @mousedown="handleMouseDown"
+      >
         <align-line />
         <ruler />
+        <canvas-area
+          v-show="showArea"
+          :start-x="areaStartX"
+          :start-y="areaStartY"
+          :width="areaWidth"
+          :height="areaHeight"
+        />
         <div
           id="canvas-coms"
           class="canvas-panel"
@@ -11,11 +23,7 @@
           @dragover="dragOver"
           @drop="dropToAddCom"
         >
-          <datav-transform
-            v-for="com in coms"
-            :key="com.id"
-            :com="com"
-          >
+          <datav-transform v-for="com in coms" :key="com.id" :com="com">
             <component
               :is="com.name"
               :com="com"
@@ -33,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, nextTick } from 'vue'
+import { defineComponent, computed, ref, nextTick } from 'vue'
 import type { CSSProperties } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useToolbarStore } from '@/store/toolbar'
@@ -41,8 +49,13 @@ import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
+import { DatavComponent } from '@/components/_models/datav-component'
+import { on, off } from '@/utils/dom'
+import { getComponentRotatedStyle } from '@/utils/editor'
+import { warn } from '@/utils/warn'
 import AlignLine from './align-line.vue'
 import Ruler from './ruler/index.vue'
+import CanvasArea from './canvas-area.vue'
 import DatavTransform from './datav-transform/index.vue'
 
 export default defineComponent({
@@ -50,6 +63,7 @@ export default defineComponent({
   components: {
     AlignLine,
     Ruler,
+    CanvasArea,
     DatavTransform,
   },
   setup() {
@@ -60,6 +74,18 @@ export default defineComponent({
 
     const { pageConfig, canvas } = storeToRefs(editorStore)
     const { coms } = storeToRefs(comStore)
+
+    const screenRef = ref(null)
+    const showArea = ref(false)
+    const editorX = ref(0)
+    const editorY = ref(0)
+    const areaStartX = ref(0)
+    const areaStartY = ref(0)
+    const areaWidth = ref(0)
+    const areaHeight = ref(0)
+    const offsetX = 60
+    const offsetY = 60
+
     const screenShotStyle = computed(() => {
       return {
         width: `${canvas.value.width}px`,
@@ -78,17 +104,17 @@ export default defineComponent({
       } as CSSProperties
     })
 
-    const dropToAddCom = async (event: any) => {
-      event.preventDefault()
+    const dropToAddCom = async (ev: DragEvent) => {
+      ev.preventDefault()
 
       try {
-        const name = event.dataTransfer.getData('text')
+        const name = ev.dataTransfer.getData('text')
         if (name) {
           toolbarStore.addLoading()
           let com = await createComponent(name)
           const { scale } = canvas.value
-          const offsetX = (event.clientX - toolbarStore.getPanelOffsetLeft) / scale
-          const offsetY = (event.clientY - toolbarStore.getPanelOffsetTop) / scale
+          const offsetX = (ev.clientX - toolbarStore.getPanelOffsetLeft) / scale
+          const offsetY = (ev.clientY - toolbarStore.getPanelOffsetTop) / scale
           com.attr.x = Math.round(offsetX - com.attr.w / 2)
           com.attr.y = Math.round(offsetY - com.attr.h / 2)
           await comStore.addCom(com)
@@ -102,13 +128,9 @@ export default defineComponent({
             })
           }
         }
-      } catch {
-        // TODO
+      } catch(error) {
+        warn('dropToAddCom', error.message)
       }
-    }
-
-    const cancelSelectCom = () => {
-      comStore.selectCom('')
     }
 
     const dragOver = (ev: DragEvent) => {
@@ -117,13 +139,151 @@ export default defineComponent({
       ev.dataTransfer.dropEffect = 'copy'
     }
 
+    const cancelSelectCom = () => {
+      comStore.selectCom('')
+    }
+
+    const hideArea = () => {
+      showArea.value = false
+      areaWidth.value = 0
+      areaHeight.value = 0
+
+      editorStore.$patch({
+        areaData: {
+          style: {
+            left: 0,
+            top: 0,
+            width: 0,
+            height: 0,
+          },
+        },
+      })
+    }
+
+    const getSelectArea = () => {
+      const result: DatavComponent[] = []
+      const { scale } = canvas.value
+      // 区域起点坐标
+      const sx = (areaStartX.value - offsetX) / scale // left
+      const ex = (areaStartX.value + areaWidth.value - offsetX) / scale // right
+      const sy = (areaStartY.value - offsetY) / scale // top
+      const ey = (areaStartY.value + areaHeight.value - offsetY) / scale // bottom
+      // 计算所有的组件数据，判断是否在选中区域内
+      coms.value.forEach(com => {
+        if (com.locked || com.hided) {
+          return
+        }
+
+        const { left, top, w, h } = getComponentRotatedStyle(com.attr)
+        if (sx <= left && sy <= top && (left + w <= ex) && (top + h <= ey)) {
+          result.push(com)
+        }
+      })
+
+      // 返回在选中区域内的所有组件
+      return result
+    }
+
+    const createGroup = () => {
+      // 获取选中区域的组件数据
+      const selectComs = getSelectArea()
+      if (selectComs.length < 2) {
+        hideArea()
+        return
+      }
+
+      // 根据选中区域和区域中每个组件的位移信息来创建 Group 组件
+      // 要遍历选择区域的每个组件，获取它们的 left top right bottom 信息来进行比较
+      let top = Infinity, left = Infinity
+      let right = -Infinity, bottom = -Infinity
+      selectComs.forEach(com => {
+        const style = getComponentRotatedStyle(com.attr)
+        if (style.left < left) left = style.left
+        if (style.top < top) top = style.top
+        if (style.right > right) right = style.right
+        if (style.bottom > bottom) bottom = style.bottom
+      })
+
+      const { scale } = canvas.value
+      areaStartX.value = left * scale + offsetX
+      areaStartY.value = top * scale + offsetY
+      areaWidth.value = (right - left) * scale
+      areaHeight.value = (bottom - top) * scale
+
+      // 设置选中区域位移大小信息和区域内的组件数据
+      editorStore.$patch({
+        areaData: {
+          style: {
+            left: areaStartX.value,
+            top: areaStartY.value,
+            width: areaWidth.value,
+            height: areaHeight.value,
+          },
+        },
+      })
+    }
+
+    const handleMouseDown = (ev: MouseEvent) => {
+      ev.stopPropagation()
+      ev.preventDefault()
+
+      cancelSelectCom()
+      hideArea()
+
+      // 获取编辑器的位移信息，每次点击时都需要获取一次。
+      const rectInfo = screenRef.value.getBoundingClientRect()
+      editorX.value = rectInfo.x
+      editorY.value = rectInfo.y
+
+      const sx = ev.clientX
+      const sy = ev.clientY
+      areaStartX.value = sx - editorX.value
+      areaStartY.value = sy - editorY.value
+      // 展示选中区域
+      showArea.value = true
+
+      const move = (e: MouseEvent) => {
+        if (e.clientX < sx) {
+          areaStartX.value = e.clientX - editorX.value
+        }
+
+        if (e.clientY < sy) {
+          areaStartY.value = e.clientY - editorY.value
+        }
+
+        areaWidth.value = Math.abs(e.clientX - sx)
+        areaHeight.value = Math.abs(e.clientY - sy)
+      }
+
+      const up = (e: MouseEvent) => {
+        off(document, 'mousemove', move)
+        off(document, 'mouseup', up)
+
+        if (e.clientX === sx && e.clientY === sy) {
+          hideArea()
+          return
+        }
+
+        createGroup()
+      }
+
+      on(document, 'mousemove', move)
+      on(document, 'mouseup', up)
+    }
+
     return {
       coms,
-      screenShotStyle,
       canvasPanelStyle,
-      dropToAddCom,
-      cancelSelectCom,
+      screenShotStyle,
+      screenRef,
+      showArea,
+      areaStartX,
+      areaStartY,
+      areaWidth,
+      areaHeight,
       dragOver,
+      dropToAddCom,
+      handleMouseDown,
     }
   },
 })

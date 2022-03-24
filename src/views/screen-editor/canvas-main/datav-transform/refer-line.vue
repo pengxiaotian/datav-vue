@@ -25,13 +25,15 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const offsetX = 60
+    const offsetY = 60
     const topLineStyle = computed(() => ({
-      height: `${props.attr.y + 60 / props.scale}px`,
+      height: `${props.attr.y + offsetX / props.scale}px`,
       borderLeftWidth: `${0.9 / props.scale}px`,
     }))
 
     const leftLineStyle = computed(() => ({
-      width: `${props.attr.x + 60 / props.scale}px`,
+      width: `${props.attr.x + offsetY / props.scale}px`,
       borderTopWidth: `${0.9 / props.scale}px`,
     }))
 

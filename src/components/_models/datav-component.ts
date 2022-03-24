@@ -8,6 +8,7 @@ export enum ComType {
   com = 'com',
   subCom = 'subCom',
   layer = 'layer',
+  group = 'group',
 }
 
 export interface ComponentAttr {
@@ -50,8 +51,10 @@ export abstract class DatavComponent {
   }
 
   projectId = 0
+  // 用于组合组件，如：底图和图层关系
   parentId?: string
-  // children: DatavComponent[] | null = null
+  // group 的子组件
+  children?: DatavComponent[]
 
   abstract config: Record<string, any>
 

@@ -72,7 +72,7 @@ export const useToolbarStore = defineStore('toolbar', {
       return offsetX
     },
     getPanelOffsetY(state) {
-      let offsetY = 0
+      let offsetY = 40
       if (state.toolbox.show) {
         offsetY += 40
       }

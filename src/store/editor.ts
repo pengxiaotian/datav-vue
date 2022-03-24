@@ -1,23 +1,12 @@
 import { defineStore } from 'pinia'
 import { debounce } from 'lodash-es'
 import { Project } from '@/domains/project'
-import { PageConfig, MoveType } from '@/domains/editor'
+import { MoveType, PageConfig, AlignLine } from '@/domains/editor'
 import { getProject } from '@/api/project'
 import { DatavComponent } from '@/components/_models/datav-component'
-import { calcIntersectingLines } from '@/utils/intersecting-line-util'
+import { calcIntersectingLines } from '@/utils/editor'
 import { useComStore, findComIndex } from './com'
 import { useEventStore } from './event'
-
-export interface AlignLine {
-  top: number
-  bottom: number
-  left: number
-  right: number
-  vertical: number
-  horizontal: number
-  enable: boolean
-  show: boolean
-}
 
 export interface IEditorState {
   editMode: boolean
@@ -36,6 +25,14 @@ export interface IEditorState {
     enable: boolean
   }
   alignLine: AlignLine
+  areaData: {
+    style: {
+      top: number
+      left: number
+      width: number
+      height: number
+    }
+  }
   contextMenu: {
     show: boolean
   }
@@ -92,6 +89,14 @@ export const useEditorStore = defineStore('editor', {
       vertical: 0,
       horizontal: 0,
     },
+    areaData: {
+      style: {
+        top: 0,
+        left: 0,
+        width: 0,
+        height: 0,
+      },
+    },
     contextMenu: {
       show: false,
     },
@@ -100,6 +105,26 @@ export const useEditorStore = defineStore('editor', {
   actions: {
     setEditMode() {
       this.editMode = true
+    },
+    setEditorOption(payload: {
+      screen?: Partial<Project>
+      config?: Partial<PageConfig>
+      guideLine?: {
+        h: number[]
+        v: number[]
+      }
+    }) {
+      if (payload.screen) {
+        this.screen = { ...this.screen, ...payload.screen }
+      }
+
+      if (payload.config) {
+        this.pageConfig = { ...this.pageConfig, ...payload.config }
+      }
+
+      if (payload.guideLine) {
+        this.guideLine = { ...payload.guideLine }
+      }
     },
     calcAlignLine(com: DatavComponent) {
       if (!this.alignLine.enable) {
@@ -140,26 +165,6 @@ export const useEditorStore = defineStore('editor', {
         if (i > 0) {
           comStore.coms.unshift(...comStore.coms.splice(i, 1))
         }
-      }
-    },
-    setEditorOption(payload: {
-      screen?: Partial<Project>
-      config?: Partial<PageConfig>
-      guideLine?: {
-        h: number[]
-        v: number[]
-      }
-    }) {
-      if (payload.screen) {
-        this.screen = { ...this.screen, ...payload.screen }
-      }
-
-      if (payload.config) {
-        this.pageConfig = { ...this.pageConfig, ...payload.config }
-      }
-
-      if (payload.guideLine) {
-        this.guideLine = { ...payload.guideLine }
       }
     },
     async autoCanvasScale(payload: () => { offsetX: number; offsetY: number; }) {

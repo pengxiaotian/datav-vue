@@ -1,6 +1,8 @@
-import { DatavComponent } from '@/components/_models/datav-component'
+import { ComponentAttr, DatavComponent } from '@/components/_models/datav-component'
 
 const diff = 5
+const offsetX = 60
+const offsetY = 60
 
 const isIntersectToTop = (from: DatavComponent, to: DatavComponent) => {
   return Math.abs(to.attr.y - from.attr.y) < diff
@@ -51,32 +53,32 @@ export const calcIntersectingLines = (target: DatavComponent, coms: DatavCompone
 
     const { attr } = target
     if (isIntersectToTop(target, com)) {
-      top = attr.y * scale + 60
+      top = attr.y * scale + offsetY
       intersected = true
     }
 
     if (isIntersectToBottom(target, com)) {
-      bottom = (attr.y + attr.h) * scale + 60
+      bottom = (attr.y + attr.h) * scale + offsetY
       intersected = true
     }
 
     if (isIntersectToLeft(target, com)) {
-      left = attr.x * scale + 60
+      left = attr.x * scale + offsetX
       intersected = true
     }
 
     if (isIntersectToRight(target, com)) {
-      right = (attr.x + attr.w) * scale + 60
+      right = (attr.x + attr.w) * scale + offsetX
       intersected = true
     }
 
     if (isIntersectToVertical(target, com)) {
-      vertical = (attr.x + attr.w / 2) * scale + 60
+      vertical = (attr.x + attr.w / 2) * scale + offsetY
       intersected = true
     }
 
     if (isIntersectToHorizontal(target, com)) {
-      horizontal = (attr.y + attr.h / 2) * scale + 60
+      horizontal = (attr.y + attr.h / 2) * scale + offsetX
       intersected = true
     }
 
@@ -91,4 +93,47 @@ export const calcIntersectingLines = (target: DatavComponent, coms: DatavCompone
     vertical,
     horizontal,
   }
+}
+
+export const angleToRadian = (angle: number) => {
+  return angle * Math.PI / 180
+}
+
+export const sin = (rotate: number) => {
+  return Math.abs(Math.sin(angleToRadian(rotate)))
+}
+
+export const cos = (rotate: number) => {
+  return Math.abs(Math.cos(angleToRadian(rotate)))
+}
+
+// 获取一个组件旋转 rotate 后的样式
+export const getComponentRotatedStyle = (attr: ComponentAttr) => {
+  const style = {
+    w: attr.w,
+    h: attr.h,
+    top: attr.y,
+    left: attr.x,
+    right: 0,
+    bottom: 0,
+  }
+  if (attr.deg !== 0) {
+    const newWidth = style.w * cos(attr.deg) + style.h * sin(attr.deg)
+    const diffX = (style.w - newWidth) / 2 // 旋转后范围变小是正值，变大是负值
+    style.left += diffX
+    style.right = style.left + newWidth
+
+    const newHeight = style.h * cos(attr.deg) + style.w * sin(attr.deg)
+    const diffY = (newHeight - style.h) / 2 // 始终是正
+    style.top -= diffY
+    style.bottom = style.top + newHeight
+
+    style.w = newWidth
+    style.h = newHeight
+  } else {
+    style.bottom = style.top + style.h
+    style.right = style.left + style.w
+  }
+
+  return style
 }
