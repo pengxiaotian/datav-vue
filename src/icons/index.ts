@@ -92,6 +92,8 @@ import IconLayoutColumn from './layout-column.vue'
 import IconRefresh from './refresh.vue'
 import IconRedo from './redo.vue'
 import IconUndo from './undo.vue'
+import IconGroup from './group.vue'
+import IconUngroup from './ungroup.vue'
 // -- prepend import placeholder --
 
 export {
@@ -189,5 +191,7 @@ export {
   IconRefresh,
   IconRedo,
   IconUndo,
+  IconGroup,
+  IconUngroup,
   // -- prepend export placeholder --
 }

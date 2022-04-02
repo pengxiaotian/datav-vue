@@ -32,6 +32,7 @@ import { useEventStore } from '@/store/event'
 import { getSysTemplate } from '@/api/templates'
 import { useMock } from '@/data/mock'
 import { loadAsyncComponent } from '@/utils/async-component'
+import { warn } from '@/utils/warn'
 
 export default defineComponent({
   name: 'ScreenEditor',
@@ -100,7 +101,7 @@ export default defineComponent({
           await comStore.loadComs(screenId)
         }
       } catch (error) {
-        console.log(error)
+        warn('editor', error.message)
       } finally {
         loading.value = false
         document.title = `${editorStore.screen.name} | 编辑器`
