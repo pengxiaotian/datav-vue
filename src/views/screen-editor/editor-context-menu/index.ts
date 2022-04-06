@@ -13,10 +13,10 @@ export const useContextMenu = (opts?: { beforeClose?: Function; }) => {
   const editorStore = useEditorStore()
   const comStore = useComStore()
   const contextMenu = computed(() => editorStore.contextMenu)
-  const selectedCom = computed(() => comStore.selectedCom)
+  const currCom = computed(() => comStore.selectedCom)
 
-  const isLocked = computed(() => selectedCom.value?.locked)
-  const isHided = computed(() => selectedCom.value?.hided)
+  const isLocked = computed(() => currCom.value?.locked)
+  const isHided = computed(() => currCom.value?.hided)
 
   const contextMenuStyle = computed(() => {
     return {
@@ -31,14 +31,13 @@ export const useContextMenu = (opts?: { beforeClose?: Function; }) => {
 
   const showMenu = (ev: MouseEvent) => {
     ev.preventDefault()
+    ev.stopPropagation()
 
-    if (selectedCom.value) {
-      pos.x = ev.clientX
-      pos.y = ev.clientY
-      contextMenu.value.show = true
+    pos.x = ev.clientX
+    pos.y = ev.clientY
+    contextMenu.value.show = true
 
-      on(document, 'click', hideMenu)
-    }
+    on(document, 'click', hideMenu)
   }
 
   const hideMenu = () => {
@@ -53,7 +52,7 @@ export const useContextMenu = (opts?: { beforeClose?: Function; }) => {
 
   return {
     contextMenu,
-    selectedCom,
+    currCom,
     isLocked,
     isHided,
     contextMenuStyle,

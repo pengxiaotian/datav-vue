@@ -83,7 +83,7 @@
 
 <script lang='ts'>
 import { defineComponent, ref, watch, computed, onMounted, onUnmounted } from 'vue'
-import { isMac } from '@/utils/util'
+import { macMetaOrCtrl } from '@/utils/util'
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useComStore } from '@/store/com'
 import { useEditorStore } from '@/store/editor'
@@ -110,8 +110,8 @@ export default defineComponent({
       { label: '自适应', value: -1 },
     ]
 
-    const selectedCom = computed(() => comStore.selectedCom)
     const pageConfig = computed(() => editorStore.pageConfig)
+    const currCom = computed(() => comStore.selectedCom)
 
     const getPanelOffset = () => ({
       offsetX: toolbarStore.getPanelOffsetX,
@@ -141,16 +141,15 @@ export default defineComponent({
     )
 
     const moveCom = (offsetY: number, offsetX: number) => {
-      selectedCom.value.attr.y += offsetY
-      selectedCom.value.attr.x += offsetX
+      currCom.value.attr.y += offsetY
+      currCom.value.attr.x += offsetX
     }
 
     const addShortcuts = (ev: KeyboardEvent) => {
       const target = ev.target as HTMLElement
       if (!['input','textarea'].includes(target.tagName.toLowerCase())) {
-        const ismac = isMac()
         const key = ev.key.toLowerCase()
-        if ((!ismac && ev.ctrlKey) || (ismac && ev.metaKey)) {
+        if (macMetaOrCtrl(ev)) {
           ev.preventDefault()
           const { setPanelState } = toolbarStore
           if (key === 'arrowleft') {
@@ -162,7 +161,7 @@ export default defineComponent({
           } else if (key === 'a') {
             editorStore.autoCanvasScale(getPanelOffset)
           }
-        } else if (selectedCom.value && ['arrowup', 'arrowright', 'arrowdown', 'arrowleft'].includes(key)) {
+        } else if (currCom.value && ['arrowup', 'arrowright', 'arrowdown', 'arrowleft'].includes(key)) {
           ev.preventDefault()
           const { grid } = pageConfig.value
           if (key === 'arrowup') {
@@ -210,59 +209,13 @@ export default defineComponent({
   user-select: none;
   align-items: center;
   justify-content: flex-end;
+}
 
-  .shortcut-btn {
-    margin-right: 20px;
-    font-size: 18px;
-    color: var(--datav-font-color);
-    cursor: pointer;
-  }
-
-  .scale-input-wp {
-    position: relative;
-    display: block;
-    width: 58px;
-    height: 20px;
-    line-height: 18px;
-    margin-right: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    background: var(--datav-dark-color);
-    border: var(--datav-outline);
-
-    .scale-input {
-      width: 27px;
-      padding-left: 5px;
-      font-size: 12px;
-      color: var(--datav-font-color);
-      text-align: right;
-      background: transparent;
-      caret-color: var(--datav-font-color);
-
-      &::-webkit-inner-spin-button,
-      &::-webkit-outer-spin-button {
-        margin: 0;
-        appearance: none;
-      }
-    }
-
-    .percent {
-      margin-left: 1px;
-      color: var(--datav-font-color);
-    }
-
-    .open-icon {
-      position: absolute;
-      font-weight: bold;
-      color: var(--datav-font-color);
-      transform: scale(0.6);
-      margin-top: 2px;
-    }
-  }
-
-  .scale-slider-wp {
-    width: 190px;
-  }
+.shortcut-btn {
+  margin-right: 20px;
+  font-size: 18px;
+  color: var(--datav-font-color);
+  cursor: pointer;
 }
 
 .shortcut-wp {
@@ -291,6 +244,52 @@ export default defineComponent({
     color: #08a1db;
     background: #262b33;
     border-radius: 2px;
+  }
+}
+
+.scale-slider-wp {
+  width: 190px;
+}
+
+.scale-input-wp {
+  position: relative;
+  display: block;
+  width: 58px;
+  height: 20px;
+  line-height: 18px;
+  margin-right: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--datav-dark-color);
+  border: var(--datav-outline);
+
+  .scale-input {
+    width: 27px;
+    padding-left: 5px;
+    font-size: 12px;
+    color: var(--datav-font-color);
+    text-align: right;
+    background: transparent;
+    caret-color: var(--datav-font-color);
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      margin: 0;
+      appearance: none;
+    }
+  }
+
+  .percent {
+    margin-left: 1px;
+    color: var(--datav-font-color);
+  }
+
+  .open-icon {
+    position: absolute;
+    font-weight: bold;
+    color: var(--datav-font-color);
+    transform: scale(0.6);
+    margin-top: 2px;
   }
 }
 

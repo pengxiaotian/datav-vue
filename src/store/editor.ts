@@ -169,15 +169,15 @@ export const useEditorStore = defineStore('editor', {
     },
     async autoCanvasScale(payload: () => { offsetX: number; offsetY: number; }) {
       const resize = debounce(() => {
-        const offset = payload()
-        const width = document.documentElement.clientWidth - offset.offsetX
-        const height = document.documentElement.clientHeight - 42 - 32 - offset.offsetY
+        const { offsetX, offsetY } = payload()
+        const width = document.documentElement.clientWidth - offsetX
+        const height = document.documentElement.clientHeight - offsetY
 
-        const a = (width - 120) / this.pageConfig.width
-        const b = (height - 140) / this.pageConfig.height
+        const a = (width - 180) / this.pageConfig.width
+        const b = (height - 200) / this.pageConfig.height
         const scale = parseFloat((a > b ? b : a).toFixed(6)) * 100
 
-        this.setCanvasScale(scale, offset.offsetX, offset.offsetY)
+        this.setCanvasScale(scale, offsetX, offsetY)
       }, 200)
 
       window.onresize = resize
@@ -185,8 +185,8 @@ export const useEditorStore = defineStore('editor', {
       resize()
     },
     async setCanvasScale(scale: number, offsetX: number, offsetY: number) {
-      let width = document.documentElement.clientWidth - offsetX
-      let height = document.documentElement.clientHeight - 42 - 32 - offsetY
+      let width = document.documentElement.clientWidth - offsetX - 50
+      let height = document.documentElement.clientHeight - offsetY - 50
       const deltaS = Math.min(Math.max(scale, 10), 200) / 100
 
       // 方便计算滚动条 和 标尺
@@ -233,6 +233,12 @@ export const useEditorStore = defineStore('editor', {
       } catch (error) {
         throw error
       }
+    },
+    compose() {
+
+    },
+    decompose() {
+
     },
   },
 })

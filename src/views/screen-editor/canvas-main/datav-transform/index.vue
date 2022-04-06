@@ -63,6 +63,7 @@ import type { CSSProperties } from 'vue'
 import { DatavComponent } from '@/components/_models/datav-component'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
+import { macMetaOrCtrl } from '@/utils/util'
 import {
   Direction, getCursors,
   handleMove, handleZoom, handleRotate,
@@ -85,6 +86,8 @@ export default defineComponent({
     const instance = getCurrentInstance()
     const editorStore = useEditorStore()
     const comStore = useComStore()
+    const { showMenu } = useContextMenu()
+
     const referLine = computed(() => editorStore.referLine)
     const scale = computed(() => editorStore.canvas.scale)
 
@@ -184,12 +187,13 @@ export default defineComponent({
       }
     })
 
-    const selectCom = () => {
-      if (props.com.selected) {
+    const selectCom = (ev: MouseEvent) => {
+      const isMult = macMetaOrCtrl(ev)
+      if (!isMult && props.com.selected) {
         return
       }
 
-      comStore.selectCom(props.com.id)
+      comStore.selectCom(props.com.id, isMult)
     }
 
     const onEnter = () => {
@@ -201,7 +205,7 @@ export default defineComponent({
     }
 
     const onMove = (ev: MouseEvent) => {
-      selectCom()
+      selectCom(ev)
       handleMove(
         ev,
         props.com,
@@ -217,7 +221,7 @@ export default defineComponent({
     }
 
     const onZoom = (ev: MouseEvent, dir: Direction) => {
-      selectCom()
+      selectCom(ev)
       handleZoom(
         ev,
         dir,
@@ -244,8 +248,6 @@ export default defineComponent({
         },
       )
     }
-
-    const { showMenu } = useContextMenu()
 
     return {
       referLine,

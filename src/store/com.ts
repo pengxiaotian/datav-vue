@@ -27,20 +27,33 @@ export const useComStore = defineStore('com', {
     subComs: [],
   }),
   getters: {
-    selectedCom(state) {
-      return state.coms.find(m => m.selected)
+    selectedComs(state) {
+      return state.coms.filter(m => m.selected)
+    },
+    selectedCom(): DatavComponent | null {
+      const coms = this.selectedComs
+      return coms.length === 1 ? coms[0] : null
     },
   },
   actions: {
-    selectCom(id: string) {
-      this.coms.forEach(com => {
-        if (com.id === id) {
-          com.selected = true
-        } else {
+    selectCom(id: string, multiple = false) {
+      if (id) {
+        this.coms.forEach(com => {
+          com.hovered = false
+          if (multiple) {
+            if (com.id === id) {
+              com.selected = !com.selected
+            }
+          } else {
+            com.selected = com.id === id
+          }
+        })
+      } else {
+        this.coms.forEach(com => {
+          com.hovered = false
           com.selected = false
-        }
-        com.hovered = false
-      })
+        })
+      }
     },
     setComs(payload: DatavComponent[]) {
       const coms: DatavComponent[] = []

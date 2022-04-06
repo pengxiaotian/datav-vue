@@ -35,7 +35,7 @@
           class="toolbar-icon standard"
           :class="enableBtnClass"
           :style="enableBtnStyle"
-          @click="moveUp"
+          @click="moveCom(MoveType.up)"
         >
           <IconMoveUp />
         </n-icon>
@@ -44,7 +44,7 @@
           class="toolbar-icon standard"
           :class="enableBtnClass"
           :style="enableBtnStyle"
-          @click="moveDown"
+          @click="moveCom(MoveType.down)"
         >
           <IconMoveDown />
         </n-icon>
@@ -53,7 +53,7 @@
           class="toolbar-icon standard"
           :class="enableBtnClass"
           :style="enableBtnStyle"
-          @click="moveTop"
+          @click="moveCom(MoveType.top)"
         >
           <IconMoveTop />
         </n-icon>
@@ -62,7 +62,7 @@
           class="toolbar-icon standard"
           :class="enableBtnClass"
           :style="enableBtnStyle"
-          @click="moveBottom"
+          @click="moveCom(MoveType.bottom)"
         >
           <IconMoveBottom />
         </n-icon>
@@ -79,7 +79,7 @@
               hovered: com.hovered,
               selected: com.selected
             }]"
-            @mousedown="selectCom(com.id)"
+            @mousedown="selectCom($event, com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
             @contextmenu="showMenu"
@@ -121,7 +121,7 @@
               hovered: com.hovered,
               selected: com.selected
             }]"
-            @mousedown="selectCom(com.id)"
+            @mousedown="selectCom($event, com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
             @contextmenu="showMenu"
@@ -163,7 +163,7 @@
             </div>
           </div>
         </template>
-        <div class="last-flex-item" @click="selectCom('')"></div>
+        <div class="last-flex-item" @click="selectCom($event, '')"></div>
       </div>
       <div class="layer-toolbar layer-toolbar-bottom">
         <n-icon
@@ -205,6 +205,7 @@ import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { MoveType } from '@/domains/editor'
+import { macMetaOrCtrl } from '@/utils/util'
 import {
   IconViewList,
   IconViewGrid,
@@ -240,29 +241,30 @@ export default defineComponent({
     const toolbarStore = useToolbarStore()
     const editorStore = useEditorStore()
     const comStore = useComStore()
+    const { showMenu } = useContextMenu()
 
     const showText = ref(false)
     const visiblePanel = computed(() => toolbarStore.layer.show)
     const descComs = computed(() => [...comStore.coms].reverse())
-    const selectedCom = computed(() => comStore.selectedCom)
+    const currCom = computed(() => comStore.selectedCom)
 
-    const enableBtnClass = computed(() => !!selectedCom.value)
+    const enableBtnClass = computed(() => !!currCom.value)
     const enableLockBtnClass = computed(() => {
       return {
-        enable: !!selectedCom.value,
-        checked: selectedCom.value?.locked,
+        enable: enableBtnClass.value,
+        checked: currCom.value?.locked,
       }
     })
     const enableHideBtnClass = computed(() => {
       return {
-        enable: !!selectedCom.value,
-        checked: selectedCom.value?.hided,
+        enable: enableBtnClass.value,
+        checked: currCom.value?.hided,
       }
     })
 
     const enableBtnStyle = computed(() => {
       return {
-        opacity: selectedCom.value ? 1 : 0.3,
+        opacity: currCom.value ? 1 : 0.3,
       }
     })
 
@@ -270,58 +272,47 @@ export default defineComponent({
       toolbarStore.setPanelState(PanelType.layer, !visiblePanel.value)
     }
 
-    const selectCom = (id: string) => {
-      comStore.selectCom(id)
+    const selectCom = (ev: MouseEvent, id: string) => {
+      const isMult = macMetaOrCtrl(ev)
+      if (!isMult && currCom.value.selected) {
+        return
+      }
+
+      comStore.selectCom(id, isMult)
     }
 
     const moveCom = (moveType: MoveType) => {
-      if (selectedCom.value) {
-        editorStore.moveCom(selectedCom.value.id, moveType)
-      }
+      editorStore.moveCom(currCom.value.id, moveType)
     }
 
-    const moveUp = () => moveCom(MoveType.up)
-    const moveDown = () => moveCom(MoveType.down)
-    const moveTop = () => moveCom(MoveType.top)
-    const moveBottom = () => moveCom(MoveType.bottom)
-
     const lockCom = () => {
-      if (selectedCom.value) {
-        selectedCom.value.locked = !selectedCom.value.locked
-      }
+      currCom.value.locked = !currCom.value.locked
     }
 
     const hideCom = () => {
-      if (selectedCom.value) {
-        selectedCom.value.hided = !selectedCom.value.hided
-      }
+      currCom.value.hided = !currCom.value.hided
     }
 
     const toDeleteCom = () => {
-      const com = selectedCom.value
-      if (com) {
-        const d = nDialog.create({
-          content: '是否删除选中的1个组件',
-          negativeText: '取消',
-          positiveText: '确定',
-          iconPlacement: 'top',
-          icon: () => h(IconWarning),
-          onPositiveClick: async () => {
-            d.loading = true
-            try {
-              await comStore.deleteCom(com)
-            } catch (error) {
-              nMessage.error(error.message)
-            }
-          },
-        })
-      }
+      const d = nDialog.create({
+        content: '是否删除选中的1个组件',
+        negativeText: '取消',
+        positiveText: '确定',
+        iconPlacement: 'top',
+        icon: () => h(IconWarning),
+        onPositiveClick: async () => {
+          d.loading = true
+          try {
+            await comStore.deleteCom(currCom.value)
+          } catch (error) {
+            nMessage.error(error.message)
+          }
+        },
+      })
     }
 
-    const { showMenu } = useContextMenu()
-
-
     return {
+      MoveType,
       showText,
       visiblePanel,
       descComs,
@@ -331,10 +322,7 @@ export default defineComponent({
       enableBtnStyle,
       changeVisible,
       selectCom,
-      moveUp,
-      moveDown,
-      moveTop,
-      moveBottom,
+      moveCom,
       lockCom,
       hideCom,
       toDeleteCom,

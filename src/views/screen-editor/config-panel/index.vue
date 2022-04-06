@@ -1,9 +1,8 @@
 <template>
   <div :class="['g-aside config-panel-wp', { '--hide': !visiblePanel }]">
     <div class="config-manager">
-      <page-config v-if="!selectedCom" />
-      <n-tabs v-else type="card" display-directive="show:lazy">
-        <n-tab-pane name="config">
+      <n-tabs v-if="currCom" type="card">
+        <n-tab-pane name="config" display-directive="show:lazy">
           <template #tab>
             <n-tooltip :delay="500">
               <template #trigger>
@@ -14,7 +13,7 @@
               配置
             </n-tooltip>
           </template>
-          <setting-panel :key="selectedCom.id" />
+          <setting-panel :key="currCom.id" />
         </n-tab-pane>
         <n-tab-pane name="data" display-directive="show:lazy">
           <template #tab>
@@ -27,7 +26,7 @@
               数据
             </n-tooltip>
           </template>
-          <data-center-panel :key="selectedCom.id" />
+          <data-center-panel :key="currCom.id" />
         </n-tab-pane>
         <n-tab-pane name="interaction" display-directive="show:lazy">
           <template #tab>
@@ -40,9 +39,10 @@
               交互
             </n-tooltip>
           </template>
-          <interaction-panel :key="selectedCom.id" />
+          <interaction-panel :key="currCom.id" />
         </n-tab-pane>
       </n-tabs>
+      <page-config v-else />
     </div>
   </div>
 </template>
@@ -69,14 +69,15 @@ export default defineComponent({
   setup() {
     const toolbarStore = useToolbarStore()
     const comStore = useComStore()
-    const visiblePanel = computed(() => toolbarStore.config.show)
-    const selectedCom = computed(() => comStore.selectedCom)
 
-    provide(comInjectionKey, selectedCom)
+    const visiblePanel = computed(() => toolbarStore.config.show)
+    const currCom = computed(() => comStore.selectedCom)
+
+    provide(comInjectionKey, currCom)
 
     return {
       visiblePanel,
-      selectedCom,
+      currCom,
     }
   },
 })

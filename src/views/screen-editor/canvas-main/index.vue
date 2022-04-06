@@ -7,15 +7,6 @@
         :style="screenShotStyle"
         @mousedown="handleMouseDown"
       >
-        <align-line />
-        <ruler />
-        <canvas-area
-          v-show="showArea"
-          :start-x="areaStartX"
-          :start-y="areaStartY"
-          :width="areaWidth"
-          :height="areaHeight"
-        />
         <div
           id="canvas-coms"
           class="canvas-panel"
@@ -34,6 +25,16 @@
             />
           </datav-transform>
         </div>
+
+        <canvas-area
+          v-if="showArea"
+          :start-x="areaStartX"
+          :start-y="areaStartY"
+          :width="areaWidth"
+          :height="areaHeight"
+        />
+        <align-line />
+        <ruler />
       </div>
     </div>
     <div class="thumbnail"></div>
@@ -41,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, nextTick } from 'vue'
+import { defineComponent, computed, ref, nextTick, watch } from 'vue'
 import type { CSSProperties } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useToolbarStore } from '@/store/toolbar'
@@ -49,7 +50,7 @@ import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
-import { DatavComponent } from '@/components/_models/datav-component'
+import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
 import { getComponentRotatedStyle } from '@/utils/editor'
 import { warn } from '@/utils/warn'
@@ -57,6 +58,7 @@ import AlignLine from './align-line.vue'
 import Ruler from './ruler/index.vue'
 import CanvasArea from './canvas-area.vue'
 import DatavTransform from './datav-transform/index.vue'
+import { useContextMenu } from '../editor-context-menu'
 
 export default defineComponent({
   name: 'CanvasMain',
@@ -71,6 +73,8 @@ export default defineComponent({
     const comStore = useComStore()
     const editorStore = useEditorStore()
     const blueprintStore = useBlueprintStore()
+
+    const { hideMenu } = useContextMenu()
 
     const { pageConfig, canvas } = storeToRefs(editorStore)
     const { coms } = storeToRefs(comStore)
@@ -95,7 +99,6 @@ export default defineComponent({
 
     const canvasPanelStyle = computed(() => {
       return {
-        position: 'absolute',
         width: `${pageConfig.value.width}px`,
         height: `${pageConfig.value.height}px`,
         transform: `scale(${canvas.value.scale}) translate(0px, 0px)`,
@@ -139,8 +142,9 @@ export default defineComponent({
       ev.dataTransfer.dropEffect = 'copy'
     }
 
-    const cancelSelectCom = () => {
+    const cancelSelected = () => {
       comStore.selectCom('')
+      hideMenu()
     }
 
     const hideArea = () => {
@@ -174,8 +178,17 @@ export default defineComponent({
           return
         }
 
+        if (com.type === ComType.group) {
+          // 只允许嵌套两层
+          const hasGroup = com.children?.some(m => m.type === ComType.group)
+          if (hasGroup) {
+            return
+          }
+        }
+
         const { left, top, w, h } = getComponentRotatedStyle(com.attr)
         if (sx <= left && sy <= top && (left + w <= ex) && (top + h <= ey)) {
+          com.hovered = true
           result.push(com)
         }
       })
@@ -187,7 +200,7 @@ export default defineComponent({
     const createGroup = () => {
       // 获取选中区域的组件数据
       const selectComs = getSelectArea()
-      if (selectComs.length < 2) {
+      if (selectComs.length < 1) {
         hideArea()
         return
       }
@@ -227,7 +240,7 @@ export default defineComponent({
       ev.stopPropagation()
       ev.preventDefault()
 
-      cancelSelectCom()
+      cancelSelected()
       hideArea()
 
       // 获取编辑器的位移信息，每次点击时都需要获取一次。
@@ -271,7 +284,23 @@ export default defineComponent({
       on(document, 'mouseup', up)
     }
 
+    watch(
+      () => editorStore.canvas.scale,
+      () => {
+        hideArea()
+      },
+    )
+
+    const bar = () => {
+      console.log(1)
+    }
+    const foo = () => {
+      console.log(2)
+    }
+
     return {
+      foo,
+      bar,
       coms,
       canvasPanelStyle,
       screenShotStyle,
@@ -308,6 +337,7 @@ export default defineComponent({
   overflow: auto;
 
   .canvas-panel {
+    position: absolute;
     top: 60px;
     left: 60px;
     background-position: center, right bottom;
@@ -316,6 +346,7 @@ export default defineComponent({
     box-shadow: rgb(0 0 0 / 50%) 0 0 30px 0;
     transition: 0.2s all ease-in-out;
     transform-origin: 0 0;
+    z-index: 1;
   }
 }
 </style>

@@ -229,3 +229,8 @@ export const calcStrWidth = (str: string, font: string) => {
   ctx.font
   return ctx.measureText(str).width
 }
+
+export const macMetaOrCtrl = (ev: MouseEvent | KeyboardEvent) => {
+  const ismac = isMac()
+  return (!ismac && ev.ctrlKey) || (ismac && ev.metaKey)
+}
