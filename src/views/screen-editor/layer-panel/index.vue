@@ -82,7 +82,7 @@
             @mousedown="selectCom($event, com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
-            @contextmenu="showMenu"
+            @contextmenu="handleContextMenu"
           >
             <g-com-icon :icon="com.icon" />
             <input
@@ -124,7 +124,7 @@
             @mousedown="selectCom($event, com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
-            @contextmenu="showMenu"
+            @contextmenu="handleContextMenu"
           >
             <div
               class="layer-item-thumbail"
@@ -163,7 +163,7 @@
             </div>
           </div>
         </template>
-        <div class="last-flex-item" @click="selectCom($event, '')"></div>
+        <div class="last-flex-item" @click="cancelSelect"></div>
       </div>
       <div class="layer-toolbar layer-toolbar-bottom">
         <n-icon
@@ -274,11 +274,15 @@ export default defineComponent({
 
     const selectCom = (ev: MouseEvent, id: string) => {
       const isMult = macMetaOrCtrl(ev)
-      if (!isMult && currCom.value.selected) {
+      if (!isMult && currCom.value?.id === id) {
         return
       }
 
       comStore.selectCom(id, isMult)
+    }
+
+    const cancelSelect = () => {
+      comStore.selectCom('')
     }
 
     const moveCom = (moveType: MoveType) => {
@@ -311,6 +315,10 @@ export default defineComponent({
       })
     }
 
+    const handleContextMenu = (ev: MouseEvent) => {
+      showMenu(ev)
+    }
+
     return {
       MoveType,
       showText,
@@ -322,11 +330,12 @@ export default defineComponent({
       enableBtnStyle,
       changeVisible,
       selectCom,
+      cancelSelect,
       moveCom,
       lockCom,
       hideCom,
       toDeleteCom,
-      showMenu,
+      handleContextMenu,
     }
   },
 })

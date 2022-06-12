@@ -50,9 +50,9 @@ import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
-import { ComType, DatavComponent } from '@/components/_models/datav-component'
+import { ComType } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
-import { getComponentRotatedStyle } from '@/utils/editor'
+import { getComponentRotatedStyle, checkRectIntersect } from '@/utils/editor'
 import { warn } from '@/utils/warn'
 import AlignLine from './align-line.vue'
 import Ruler from './ruler/index.vue'
@@ -151,57 +151,51 @@ export default defineComponent({
       showArea.value = false
       areaWidth.value = 0
       areaHeight.value = 0
-
-      editorStore.$patch({
-        areaData: {
-          style: {
-            left: 0,
-            top: 0,
-            width: 0,
-            height: 0,
-          },
-        },
-      })
     }
 
-    const getSelectArea = () => {
-      const result: DatavComponent[] = []
-      const { scale } = canvas.value
-      // 区域起点坐标
-      const sx = (areaStartX.value - offsetX) / scale // left
-      const ex = (areaStartX.value + areaWidth.value - offsetX) / scale // right
-      const sy = (areaStartY.value - offsetY) / scale // top
-      const ey = (areaStartY.value + areaHeight.value - offsetY) / scale // bottom
-      // 计算所有的组件数据，判断是否在选中区域内
-      coms.value.forEach(com => {
-        if (com.locked || com.hided) {
-          return
+    const getSelectComs = () => {
+      return coms.value.filter(com => {
+        if (com.locked || com.hided || !com.hovered) {
+          return false
         }
 
         if (com.type === ComType.group) {
           // 只允许嵌套两层
           const hasGroup = com.children?.some(m => m.type === ComType.group)
           if (hasGroup) {
-            return
+            return false
           }
         }
 
-        const { left, top, w, h } = getComponentRotatedStyle(com.attr)
-        if (sx <= left && sy <= top && (left + w <= ex) && (top + h <= ey)) {
-          com.hovered = true
-          result.push(com)
-        }
+        com.selected = true
+        return true
       })
+    }
 
-      // 返回在选中区域内的所有组件
-      return result
+    const handleSelectArea = () => {
+      const { scale } = canvas.value
+      // 区域起点坐标
+      const sx = (areaStartX.value - offsetX) / scale // left
+      const sy = (areaStartY.value - offsetY) / scale // top
+      const sw = areaWidth.value / scale // width
+      const sh = areaHeight.value / scale // height
+      // 计算所有的组件数据，判断是否和选中区域相交
+      coms.value.forEach(com => {
+        if (com.locked || com.hided) {
+          return
+        }
+
+        const { x, y, w, h } = com.attr
+        const rect1 = { x: sx, y: sy, w: sw, h: sh }
+        const rect2 = { x, y, w, h }
+        com.hovered = checkRectIntersect(rect1, rect2)
+      })
     }
 
     const createGroup = () => {
       // 获取选中区域的组件数据
-      const selectComs = getSelectArea()
+      const selectComs = getSelectComs()
       if (selectComs.length < 1) {
-        hideArea()
         return
       }
 
@@ -223,15 +217,13 @@ export default defineComponent({
       areaWidth.value = (right - left) * scale
       areaHeight.value = (bottom - top) * scale
 
-      // 设置选中区域位移大小信息和区域内的组件数据
+      // 设置选中区域位移大小信息
       editorStore.$patch({
         areaData: {
-          style: {
-            left: areaStartX.value,
-            top: areaStartY.value,
-            width: areaWidth.value,
-            height: areaHeight.value,
-          },
+          left: areaStartX.value,
+          top: areaStartY.value,
+          width: areaWidth.value,
+          height: areaHeight.value,
         },
       })
     }
@@ -241,7 +233,6 @@ export default defineComponent({
       ev.preventDefault()
 
       cancelSelected()
-      hideArea()
 
       // 获取编辑器的位移信息，每次点击时都需要获取一次。
       const rectInfo = screenRef.value.getBoundingClientRect()
@@ -266,18 +257,16 @@ export default defineComponent({
 
         areaWidth.value = Math.abs(e.clientX - sx)
         areaHeight.value = Math.abs(e.clientY - sy)
+
+        handleSelectArea()
       }
 
-      const up = (e: MouseEvent) => {
+      const up = () => {
         off(document, 'mousemove', move)
         off(document, 'mouseup', up)
 
-        if (e.clientX === sx && e.clientY === sy) {
-          hideArea()
-          return
-        }
-
         createGroup()
+        hideArea()
       }
 
       on(document, 'mousemove', move)
@@ -288,6 +277,7 @@ export default defineComponent({
       () => editorStore.canvas.scale,
       () => {
         hideArea()
+        hideMenu()
       },
     )
 

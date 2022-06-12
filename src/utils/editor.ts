@@ -107,7 +107,9 @@ export const cos = (rotate: number) => {
   return Math.abs(Math.cos(angleToRadian(rotate)))
 }
 
-// 获取一个组件旋转 rotate 后的样式
+/**
+ * 获取一个组件旋转 rotate 后的样式
+ */
 export const getComponentRotatedStyle = (attr: ComponentAttr) => {
   const style = {
     w: attr.w,
@@ -136,4 +138,22 @@ export const getComponentRotatedStyle = (attr: ComponentAttr) => {
   }
 
   return style
+}
+
+interface RectDto {
+  x: number
+  y: number
+  w: number
+  h: number
+}
+
+/**
+ * 判断两个矩形是否相交
+ */
+export const checkRectIntersect = (rect1: RectDto, rect2: RectDto) => {
+  const maxX = rect1.x + rect1.w >= rect2.x + rect2.w ? rect1.x + rect1.w : rect2.x + rect2.w
+  const maxY = rect1.y + rect1.h >= rect2.y + rect2.h ? rect1.y + rect1.h : rect2.y + rect2.h
+  const minX = rect1.x <= rect2.x ? rect1.x : rect2.x
+  const minY = rect1.y <= rect2.y ? rect1.y : rect2.y
+  return (maxX - minX <= rect1.w + rect2.w) && (maxY - minY <= rect1.h + rect2.h)
 }

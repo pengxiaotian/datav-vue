@@ -33,6 +33,10 @@ export const useContextMenu = (opts?: { beforeClose?: Function; }) => {
     ev.preventDefault()
     ev.stopPropagation()
 
+    if (!currCom.value) {
+      return
+    }
+
     pos.x = ev.clientX
     pos.y = ev.clientY
     contextMenu.value.show = true

@@ -7,14 +7,10 @@
       width: width + 'px',
       height: height + 'px',
     }"
-    @mousedown.stop
-    @contextmenu="showMenu"
   ></div>
 </template>
 
 <script lang="ts" setup>
-import { useContextMenu } from '../editor-context-menu'
-
 defineProps({
   startX: {
     type: Number,
@@ -33,8 +29,6 @@ defineProps({
     default: 0,
   },
 })
-
-const { showMenu } = useContextMenu()
 </script>
 
 <style lang="scss" scoped>

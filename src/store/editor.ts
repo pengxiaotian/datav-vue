@@ -26,12 +26,10 @@ export interface IEditorState {
   }
   alignLine: AlignLine
   areaData: {
-    style: {
-      top: number
-      left: number
-      width: number
-      height: number
-    }
+    top: number
+    left: number
+    width: number
+    height: number
   }
   contextMenu: {
     show: boolean
@@ -90,12 +88,10 @@ export const useEditorStore = defineStore('editor', {
       horizontal: 0,
     },
     areaData: {
-      style: {
-        top: 0,
-        left: 0,
-        width: 0,
-        height: 0,
-      },
+      top: 0,
+      left: 0,
+      width: 0,
+      height: 0,
     },
     contextMenu: {
       show: false,

@@ -14,7 +14,8 @@
       :style="hideStyle"
       @mouseenter="onEnter"
       @mouseleave="onLeave"
-      @mousedown.prevent.stop="onMove"
+      @click.stop="selectCom"
+      @mousedown.stop="onMove"
     >
       <div
         class="transform-handler"
@@ -34,12 +35,12 @@
             <span
               class="rotate-handler"
               :style="v.rotateStyle"
-              @mousedown.prevent.stop="onRotate"
+              @mousedown.stop="onRotate"
             >
               <span
                 class="control-point"
                 :style="v.style"
-                @mousedown.prevent.stop="onZoom($event, k)"
+                @mousedown.stop="onZoom($event, k)"
               ></span>
             </span>
           </i>
@@ -47,7 +48,7 @@
             <span
               class="control-point"
               :style="v.style"
-              @mousedown.prevent.stop="onZoom($event, k)"
+              @mousedown.stop="onZoom($event, k)"
             ></span>
           </i>
         </template>
@@ -205,7 +206,10 @@ export default defineComponent({
     }
 
     const onMove = (ev: MouseEvent) => {
-      selectCom(ev)
+      if (!props.com.selected) {
+        return false
+      }
+
       handleMove(
         ev,
         props.com,
@@ -221,7 +225,10 @@ export default defineComponent({
     }
 
     const onZoom = (ev: MouseEvent, dir: Direction) => {
-      selectCom(ev)
+      if (!props.com.selected) {
+        return false
+      }
+
       handleZoom(
         ev,
         dir,
@@ -260,6 +267,7 @@ export default defineComponent({
       comStyle,
       wrapperStyle,
       points,
+      selectCom,
       onEnter,
       onLeave,
       onMove,

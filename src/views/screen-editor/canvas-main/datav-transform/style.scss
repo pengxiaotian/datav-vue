@@ -33,7 +33,7 @@
 
 .control-point {
   z-index: 2;
-  display: flex;
+  display: none;
   width: 20px;
   height: 20px;
   justify-content: center;
@@ -162,6 +162,10 @@
       left: 0;
       z-index: -1;
       border: 1px dashed var(--datav-gui-primary-color);
+    }
+
+    .control-point {
+      display: flex;
     }
   }
 
