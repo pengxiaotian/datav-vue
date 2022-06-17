@@ -1,24 +1,28 @@
 <template>
-  <div v-if="contextMenu.show" class="context-menu-wrap" :style="contextMenuStyle">
-    <div class="context-menu-item" :class="disableClass" @click="moveCom(MoveType.top)">
+  <div
+    v-if="editorStore.contextMenu.show"
+    class="context-menu-wrap"
+    :style="contextMenuStyle"
+  >
+    <div class="context-menu-item" :class="singleClass" @click="moveCom(MoveType.top)">
       <n-icon class="menu-icon">
         <IconMoveTop />
       </n-icon>
       置顶
     </div>
-    <div class="context-menu-item" :class="disableClass" @click="moveCom(MoveType.bottom)">
+    <div class="context-menu-item" :class="singleClass" @click="moveCom(MoveType.bottom)">
       <n-icon class="menu-icon">
         <IconMoveBottom />
       </n-icon>
       置底
     </div>
-    <div class="context-menu-item" :class="disableClass" @click="moveCom(MoveType.up)">
+    <div class="context-menu-item" :class="singleClass" @click="moveCom(MoveType.up)">
       <n-icon class="menu-icon">
         <IconMoveUp />
       </n-icon>
       上移一层
     </div>
-    <div class="context-menu-item" :class="disableClass" @click="moveCom(MoveType.down)">
+    <div class="context-menu-item" :class="singleClass" @click="moveCom(MoveType.down)">
       <n-icon class="menu-icon">
         <IconMoveDown />
       </n-icon>
@@ -27,13 +31,13 @@
 
     <div class="context-menu-divider"></div>
 
-    <div class="context-menu-item" @click="composeComs">
+    <div class="context-menu-item" :class="{ disable: isGroup }" @click="composeComs">
       <n-icon class="menu-icon">
         <IconGroup />
       </n-icon>
       成组
     </div>
-    <div class="context-menu-item" @click="decomposeComs">
+    <div class="context-menu-item" :class="{ disable: !isGroup }" @click="decomposeComs">
       <n-icon class="menu-icon">
         <IconUngroup />
       </n-icon>
@@ -42,7 +46,7 @@
 
     <div class="context-menu-divider"></div>
 
-    <div class="context-menu-item" :class="disableClass" @click="lockCom">
+    <div class="context-menu-item" :class="singleClass" @click="lockCom">
       <template v-if="isLocked">
         <n-icon class="menu-icon">
           <IconUnlock />
@@ -56,7 +60,7 @@
         锁定
       </template>
     </div>
-    <div class="context-menu-item" :class="disableClass" @click="hideCom">
+    <div class="context-menu-item" :class="singleClass" @click="hideCom">
       <template v-if="isHided">
         <n-icon class="menu-icon">
           <IconShow />
@@ -73,19 +77,19 @@
 
     <div class="context-menu-divider"></div>
 
-    <div class="context-menu-item" :class="disableClass" @click="renameCom">
+    <div class="context-menu-item" :class="singleClass" @click="renameCom">
       <n-icon class="menu-icon">
         <IconEdit />
       </n-icon>
       重命名
     </div>
-    <div class="context-menu-item" :class="disableClass" @click="copyCom">
+    <div class="context-menu-item" :class="singleClass" @click="copyCom">
       <n-icon class="menu-icon">
         <IconCopy />
       </n-icon>
       复制
     </div>
-    <div class="context-menu-item" :class="disableClass" @click="confirmDeleteCom">
+    <div class="context-menu-item" :class="singleClass" @click="confirmDeleteCom">
       <n-icon class="menu-icon">
         <IconDelete />
       </n-icon>
@@ -125,12 +129,27 @@ const nMessage = useMessage()
 const nDialog = useDialog()
 const editorStore = useEditorStore()
 const comStore = useComStore()
-const {
-  contextMenu, contextMenuStyle,
-  currCom, isLocked, isHided,
-} = useContextMenu()
+const { pos } = useContextMenu()
 
-const disableClass = computed(() => ({ disable: !currCom.value }))
+const currCom = computed(() => comStore.selectedCom)
+const isLocked = computed(() => currCom.value?.locked)
+const isHided = computed(() => currCom.value?.hided)
+const isGroup = computed(() => currCom.value?.group)
+
+const contextMenuStyle = computed(() => {
+  return {
+    display: editorStore.contextMenu.show ? 'block' : 'none',
+    left: `${pos.x + 10}px`,
+    top: `${pos.y + 10}px`,
+    transform: document.documentElement.clientHeight - pos.y < 250
+      ? 'translate(0px, -100%)'
+      : '',
+  }
+})
+
+const singleClass = computed(() => ({
+  disable: comStore.selectedComs.length > 1,
+}))
 
 const moveCom = (moveType: MoveType) => {
   editorStore.moveCom(currCom.value.id, moveType)

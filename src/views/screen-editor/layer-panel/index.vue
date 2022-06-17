@@ -82,7 +82,7 @@
             @mousedown="selectCom($event, com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
-            @contextmenu="handleContextMenu"
+            @contextmenu="showMenu($event, com)"
           >
             <g-com-icon :icon="com.icon" />
             <input
@@ -124,7 +124,7 @@
             @mousedown="selectCom($event, com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
-            @contextmenu="handleContextMenu"
+            @contextmenu="showMenu($event, com)"
           >
             <div
               class="layer-item-thumbail"
@@ -315,10 +315,6 @@ export default defineComponent({
       })
     }
 
-    const handleContextMenu = (ev: MouseEvent) => {
-      showMenu(ev)
-    }
-
     return {
       MoveType,
       showText,
@@ -335,7 +331,7 @@ export default defineComponent({
       lockCom,
       hideCom,
       toDeleteCom,
-      handleContextMenu,
+      showMenu,
     }
   },
 })

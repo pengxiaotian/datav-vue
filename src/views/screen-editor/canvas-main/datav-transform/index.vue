@@ -27,7 +27,7 @@
           <div
             class="datav-wrapper-event-disable"
             :style="wrapperStyle"
-            @contextmenu="showMenu"
+            @contextmenu="showMenu($event, com)"
           ></div>
         </div>
         <template v-for="(v, k) in points" :key="k">
@@ -87,7 +87,7 @@ export default defineComponent({
     const instance = getCurrentInstance()
     const editorStore = useEditorStore()
     const comStore = useComStore()
-    const { showMenu } = useContextMenu()
+    const { showMenu, hideMenu } = useContextMenu()
 
     const referLine = computed(() => editorStore.referLine)
     const scale = computed(() => editorStore.canvas.scale)
@@ -206,6 +206,7 @@ export default defineComponent({
     }
 
     const onMove = (ev: MouseEvent) => {
+      hideMenu()
       if (!props.com.selected) {
         return false
       }
@@ -225,6 +226,7 @@ export default defineComponent({
     }
 
     const onZoom = (ev: MouseEvent, dir: Direction) => {
+      hideMenu()
       if (!props.com.selected) {
         return false
       }
@@ -245,6 +247,7 @@ export default defineComponent({
     }
 
     const onRotate = (ev: MouseEvent) => {
+      hideMenu()
       handleRotate(
         ev,
         instance.vnode.el as HTMLElement,

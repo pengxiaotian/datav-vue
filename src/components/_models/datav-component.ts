@@ -33,6 +33,7 @@ export abstract class DatavComponent {
 
   locked = false
   hided = false
+  group = false
 
   // 以下几个状态可以不进行持久化，为了操作方便在此声明
   selected = false
