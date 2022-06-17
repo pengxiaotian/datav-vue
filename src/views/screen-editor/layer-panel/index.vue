@@ -79,7 +79,7 @@
               hovered: com.hovered,
               selected: com.selected
             }]"
-            @mousedown="selectCom($event, com.id)"
+            @click="selectCom($event, com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
             @contextmenu="showMenu($event, com)"
@@ -121,7 +121,7 @@
               hovered: com.hovered,
               selected: com.selected
             }]"
-            @mousedown="selectCom($event, com.id)"
+            @click="selectCom($event, com.id)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
             @contextmenu="showMenu($event, com)"

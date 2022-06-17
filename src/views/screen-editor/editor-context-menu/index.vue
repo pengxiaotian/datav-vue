@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="editorStore.contextMenu.show"
-    class="context-menu-wrap"
-    :style="contextMenuStyle"
-  >
+  <div class="context-menu-wrap" :style="contextMenuStyle">
     <div class="context-menu-item" :class="singleClass" @click="moveCom(MoveType.top)">
       <n-icon class="menu-icon">
         <IconMoveTop />
@@ -31,7 +27,7 @@
 
     <div class="context-menu-divider"></div>
 
-    <div class="context-menu-item" :class="{ disable: isGroup }" @click="composeComs">
+    <div class="context-menu-item" :class="{ disable: disableGroup }" @click="composeComs">
       <n-icon class="menu-icon">
         <IconGroup />
       </n-icon>
@@ -150,6 +146,15 @@ const contextMenuStyle = computed(() => {
 const singleClass = computed(() => ({
   disable: comStore.selectedComs.length > 1,
 }))
+
+const disableGroup = computed(() => {
+  const coms = comStore.selectedComs
+  if (coms.length > 1) {
+    return coms.filter(m => m.group).some(m => m.group)
+  }
+
+  return isGroup.value
+})
 
 const moveCom = (moveType: MoveType) => {
   editorStore.moveCom(currCom.value.id, moveType)

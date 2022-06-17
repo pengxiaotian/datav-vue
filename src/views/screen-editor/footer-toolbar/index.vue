@@ -43,12 +43,14 @@
       <span class="percent">%</span>
       <n-popover
         :width="56"
-        placement="top"
+        placement="top-end"
         trigger="click"
         :show-arrow="false"
         raw
         :style="{
           '--n-color': 'var(--datav-component-bg)',
+          '--n-space': '12px',
+          'margin-right': '-4px',
         }"
       >
         <template #trigger>
@@ -111,7 +113,6 @@ export default defineComponent({
     ]
 
     const pageConfig = computed(() => editorStore.pageConfig)
-    const currCom = computed(() => comStore.selectedCom)
 
     const getPanelOffset = () => ({
       offsetX: toolbarStore.getPanelOffsetX,
@@ -141,8 +142,10 @@ export default defineComponent({
     )
 
     const moveCom = (offsetY: number, offsetX: number) => {
-      currCom.value.attr.y += offsetY
-      currCom.value.attr.x += offsetX
+      comStore.selectedComs.forEach(m => {
+        m.attr.y += offsetY
+        m.attr.x += offsetX
+      })
     }
 
     const addShortcuts = (ev: KeyboardEvent) => {
@@ -161,7 +164,7 @@ export default defineComponent({
           } else if (key === 'a') {
             editorStore.autoCanvasScale(getPanelOffset)
           }
-        } else if (currCom.value && ['arrowup', 'arrowright', 'arrowdown', 'arrowleft'].includes(key)) {
+        } else if (comStore.selectedComs.length && ['arrowup', 'arrowright', 'arrowdown', 'arrowleft'].includes(key)) {
           ev.preventDefault()
           const { grid } = pageConfig.value
           if (key === 'arrowup') {

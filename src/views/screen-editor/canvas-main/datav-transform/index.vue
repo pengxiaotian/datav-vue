@@ -14,7 +14,7 @@
       :style="hideStyle"
       @mouseenter="onEnter"
       @mouseleave="onLeave"
-      @click.stop="selectCom"
+      @click="selectCom"
       @mousedown.stop="onMove"
     >
       <div
@@ -211,18 +211,24 @@ export default defineComponent({
         return false
       }
 
-      handleMove(
-        ev,
-        props.com,
-        scale.value,
-        editorStore.pageConfig.grid,
-        () => {
-          editorStore.calcAlignLine(props.com)
-        },
-        () => {
-          editorStore.hideAlignLine(props.com.id)
-        },
-      )
+      comStore.selectedComs.forEach(m => {
+        handleMove(
+          ev,
+          m,
+          scale.value,
+          editorStore.pageConfig.grid,
+          () => {
+            if (props.com.id === m.id) {
+              editorStore.calcAlignLine(props.com)
+            }
+          },
+          () => {
+            if (props.com.id === m.id) {
+              editorStore.hideAlignLine(props.com.id)
+            }
+          },
+        )
+      })
     }
 
     const onZoom = (ev: MouseEvent, dir: Direction) => {
@@ -231,32 +237,17 @@ export default defineComponent({
         return false
       }
 
-      handleZoom(
-        ev,
-        dir,
-        props.com,
-        scale.value,
-        editorStore.isNormalResizeMode,
-        () => {
-          editorStore.calcAlignLine(props.com)
-        },
-        () => {
-          editorStore.hideAlignLine(props.com.id)
-        },
-      )
+      const isNormal = comStore.selectedComs.length > 1 ? true : editorStore.isNormalResizeMode
+      comStore.selectedComs.forEach(m => {
+        handleZoom(ev, dir, m, scale.value, isNormal)
+      })
     }
 
     const onRotate = (ev: MouseEvent) => {
       hideMenu()
-      handleRotate(
-        ev,
-        instance.vnode.el as HTMLElement,
-        props.com,
-        () => {},
-        () => {
-          editorStore.hideAlignLine(props.com.id)
-        },
-      )
+      comStore.selectedComs.forEach(m => {
+        handleRotate(ev, instance.vnode.el as HTMLElement, m)
+      })
     }
 
     return {

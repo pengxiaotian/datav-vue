@@ -217,15 +217,12 @@ function calcResizeForNormal(dir: Direction, attr: ComponentAttr, startPoint: IP
   }
 }
 
-const setAttr = (
+export const handleZoom = (
   ev: MouseEvent,
-  dir: Direction | null,
+  dir: Direction,
   com: DatavComponent,
   scale: number,
-  grid: number,
-  resizeMode: ResizeMode,
-  moveCallback: () => void,
-  upCallback: () => void,
+  isNormalResizeMode: boolean,
 ) => {
   const attr = { ...com.attr }
   const pos = Object.create(null) as Partial<ComponentAttr>
@@ -233,7 +230,10 @@ const setAttr = (
   let layoutRect: DOMRect // 画布位移信息
   let startPoint: IPoint // 当前点击坐标
   let symmetricPoint: IPoint // 对称点的坐标
-  if (resizeMode === 'stretch') {
+  const curPositon: IPoint = { x: 0, y: 0 } // 当前位置坐标
+  if (isNormalResizeMode) {
+    startPoint = { x: ev.clientX, y: ev.clientY }
+  } else {
     const center = { x: (attr.x + attr.w / 2) * scale, y: (attr.y + attr.h / 2) * scale }
     layoutRect = document.getElementById('canvas-coms').getBoundingClientRect()
     startPoint = { x: ev.clientX - layoutRect.left, y: ev.clientY - layoutRect.top }
@@ -241,29 +241,47 @@ const setAttr = (
   }
 
   const move = (e: MouseEvent) => {
-    if (dir) {
-      if (resizeMode === 'normal') {
-        calcResizeForNormal(
-          dir,
-          attr,
-          { x: ev.clientX, y: ev.clientY },
-          { x: e.clientX, y: e.clientY },
-          scale,
-          pos,
-        )
-      } else {
-        const curPositon = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
-        if (dir.length === 1) {
-          calcResizeForEdge(dir, attr, startPoint, curPositon, symmetricPoint, scale, pos)
-        } else {
-          calcResizeForCorner(dir, attr, curPositon, symmetricPoint, scale, pos)
-        }
-      }
+    if (isNormalResizeMode) {
+      curPositon.x = e.clientX
+      curPositon.y = e.clientY
+      calcResizeForNormal(dir, attr, startPoint, curPositon, scale, pos)
     } else {
-      // 每次移动固定格数
-      pos.x = attr.x + Math.round((e.clientX - ev.clientX) / scale / grid) * grid
-      pos.y = attr.y + Math.round((e.clientY - ev.clientY) / scale / grid) * grid
+      curPositon.x = e.clientX - layoutRect.left
+      curPositon.y = e.clientY - layoutRect.top
+      if (dir.length === 1) {
+        calcResizeForEdge(dir, attr, startPoint, curPositon, symmetricPoint, scale, pos)
+      } else {
+        calcResizeForCorner(dir, attr, curPositon, symmetricPoint, scale, pos)
+      }
     }
+
+    com.attr = { ...com.attr, ...pos }
+  }
+
+  const up = () => {
+    off(document, 'mousemove', move)
+    off(document, 'mouseup', up)
+  }
+
+  on(document, 'mousemove', move)
+  on(document, 'mouseup', up)
+}
+
+export const handleMove = (
+  ev: MouseEvent,
+  com: DatavComponent,
+  scale: number,
+  grid: number,
+  moveCallback: () => void,
+  upCallback: () => void,
+) => {
+  const attr = { ...com.attr }
+  const pos = Object.create(null) as Partial<ComponentAttr>
+
+  const move = (e: MouseEvent) => {
+    // 每次移动固定格数
+    pos.x = attr.x + Math.round((e.clientX - ev.clientX) / scale / grid) * grid
+    pos.y = attr.y + Math.round((e.clientY - ev.clientY) / scale / grid) * grid
 
     com.attr = { ...com.attr, ...pos }
     moveCallback()
@@ -279,37 +297,7 @@ const setAttr = (
   on(document, 'mouseup', up)
 }
 
-export const handleZoom = (
-  ev: MouseEvent,
-  dir: Direction,
-  com: DatavComponent,
-  scale: number,
-  isNormalResizeMode: boolean,
-  moveCallback: () => void,
-  upCallback: () => void,
-) => {
-  const mode = isNormalResizeMode ? 'normal' : 'stretch'
-  setAttr(ev, dir, com, scale, 0, mode, moveCallback, upCallback)
-}
-
-export const handleMove = (
-  ev: MouseEvent,
-  com: DatavComponent,
-  scale: number,
-  grid: number,
-  moveCallback: () => void,
-  upCallback: () => void,
-) => {
-  setAttr(ev, null, com, scale, grid, null, moveCallback, upCallback)
-}
-
-export const handleRotate = (
-  ev: MouseEvent,
-  el: HTMLElement,
-  com: DatavComponent,
-  moveCallback: () => void,
-  upCallback: () => void,
-) => {
+export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponent) => {
   // 获取元素中心点位置
   const rect = el.getBoundingClientRect()
   const centerX = rect.left + rect.width / 2
@@ -327,14 +315,11 @@ export const handleRotate = (
     ) * 180 / Math.PI - startAngle
     const deg = Math.round(angle % 360)
     com.attr.deg = deg < 0 ? deg + 360 : deg
-
-    moveCallback()
   }
 
   const up = () => {
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
-    upCallback()
   }
 
   on(document, 'mousemove', move)

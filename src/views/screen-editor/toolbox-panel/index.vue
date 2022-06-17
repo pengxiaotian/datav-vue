@@ -25,7 +25,7 @@
           <template #trigger>
             <span class="btn-text --help">组件缩放</span>
           </template>
-          勾选时为自然模式，否则为拉伸模式，默认勾选
+          勾选或选中多个组件时为自然模式，否则为拉伸模式，默认勾选
         </n-tooltip>
         <n-checkbox
           :checked="isNormal"
@@ -153,10 +153,11 @@ export default defineComponent({
 
     &.--label {
       cursor: pointer;
+      border-bottom: 1px solid #0000;
 
       &:hover {
         color: var(--datav-main-hover-color);
-        border-bottom: 1px solid var(--datav-main-hover-color);
+        border-bottom-color: var(--datav-main-hover-color);
       }
     }
   }
