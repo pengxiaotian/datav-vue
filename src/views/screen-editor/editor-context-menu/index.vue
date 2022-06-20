@@ -1,24 +1,24 @@
 <template>
   <div class="context-menu-wrap" :style="contextMenuStyle">
-    <div class="context-menu-item" :class="singleClass" @click="moveCom(MoveType.top)">
+    <div class="context-menu-item" @click="moveCom(MoveType.top)">
       <n-icon class="menu-icon">
         <IconMoveTop />
       </n-icon>
       置顶
     </div>
-    <div class="context-menu-item" :class="singleClass" @click="moveCom(MoveType.bottom)">
+    <div class="context-menu-item" @click="moveCom(MoveType.bottom)">
       <n-icon class="menu-icon">
         <IconMoveBottom />
       </n-icon>
       置底
     </div>
-    <div class="context-menu-item" :class="singleClass" @click="moveCom(MoveType.up)">
+    <div class="context-menu-item" @click="moveCom(MoveType.up)">
       <n-icon class="menu-icon">
         <IconMoveUp />
       </n-icon>
       上移一层
     </div>
-    <div class="context-menu-item" :class="singleClass" @click="moveCom(MoveType.down)">
+    <div class="context-menu-item" @click="moveCom(MoveType.down)">
       <n-icon class="menu-icon">
         <IconMoveDown />
       </n-icon>
@@ -42,7 +42,7 @@
 
     <div class="context-menu-divider"></div>
 
-    <div class="context-menu-item" :class="singleClass" @click="lockCom">
+    <div class="context-menu-item" @click="lockCom">
       <template v-if="isLocked">
         <n-icon class="menu-icon">
           <IconUnlock />
@@ -56,7 +56,7 @@
         锁定
       </template>
     </div>
-    <div class="context-menu-item" :class="singleClass" @click="hideCom">
+    <div class="context-menu-item" @click="hideCom">
       <template v-if="isHided">
         <n-icon class="menu-icon">
           <IconShow />
@@ -73,19 +73,19 @@
 
     <div class="context-menu-divider"></div>
 
-    <div class="context-menu-item" :class="singleClass" @click="renameCom">
+    <div class="context-menu-item" @click="renameCom">
       <n-icon class="menu-icon">
         <IconEdit />
       </n-icon>
       重命名
     </div>
-    <div class="context-menu-item" :class="singleClass" @click="copyCom">
+    <div class="context-menu-item" @click="copyCom">
       <n-icon class="menu-icon">
         <IconCopy />
       </n-icon>
       复制
     </div>
-    <div class="context-menu-item" :class="singleClass" @click="confirmDeleteCom">
+    <div class="context-menu-item" @click="confirmDeleteCom">
       <n-icon class="menu-icon">
         <IconDelete />
       </n-icon>
@@ -127,11 +127,6 @@ const editorStore = useEditorStore()
 const comStore = useComStore()
 const { pos } = useContextMenu()
 
-const currCom = computed(() => comStore.selectedCom)
-const isLocked = computed(() => currCom.value?.locked)
-const isHided = computed(() => currCom.value?.hided)
-const isGroup = computed(() => currCom.value?.group)
-
 const contextMenuStyle = computed(() => {
   return {
     display: editorStore.contextMenu.show ? 'block' : 'none',
@@ -143,10 +138,9 @@ const contextMenuStyle = computed(() => {
   }
 })
 
-const singleClass = computed(() => ({
-  disable: comStore.selectedComs.length > 1,
-}))
-
+const isLocked = computed(() => comStore.selectedComs.every(m => m.locked))
+const isHided = computed(() => comStore.selectedComs.every(m => m.hided))
+const isGroup = computed(() => comStore.selectedCom?.group)
 const disableGroup = computed(() => {
   const coms = comStore.selectedComs
   if (coms.length > 1) {
@@ -157,20 +151,38 @@ const disableGroup = computed(() => {
 })
 
 const moveCom = (moveType: MoveType) => {
-  editorStore.moveCom(currCom.value.id, moveType)
+  const coms = comStore.selectedComs
+  if (coms.length > 1) {
+    const ids = coms.map(m => m.id)
+    if (moveType === MoveType.bottom || moveType === MoveType.down) {
+      ids.reverse()
+    }
+    ids.forEach(id => {
+      editorStore.moveCom(id, moveType)
+    })
+  } else {
+    editorStore.moveCom(comStore.selectedCom.id, moveType)
+  }
 }
 
 const lockCom = () => {
-  currCom.value.locked = !currCom.value.locked
+  const locked = !isLocked.value
+  comStore.selectedComs.forEach(com => {
+    com.locked = locked
+  })
 }
 
 const hideCom = () => {
-  currCom.value.hided = !currCom.value.hided
+  const hided = !isHided.value
+  comStore.selectedComs.forEach(com => {
+    com.hided = hided
+  })
 }
 
 const confirmDeleteCom = () => {
+  const names = comStore.selectedComs.map(m => m.alias)
   const d = nDialog.create({
-    content: '是否删除选中的1个组件',
+    content: `删除后可能无法恢复，是否删除${names.join('，')}，共${names.length}个组件`,
     negativeText: '取消',
     positiveText: '确定',
     iconPlacement: 'top',
@@ -178,7 +190,7 @@ const confirmDeleteCom = () => {
     onPositiveClick: async () => {
       d.loading = true
       try {
-        await comStore.deleteCom(currCom.value)
+        await comStore.deleteComs(comStore.selectedComs)
       } catch (error) {
         nMessage.error(error.message)
       }
@@ -187,11 +199,13 @@ const confirmDeleteCom = () => {
 }
 
 const renameCom = () => {
-  currCom.value.renameing = true
+  comStore.selectedComs[0].renameing = true
 }
 
 const copyCom = () => {
-  comStore.copyCom(currCom.value.id)
+  comStore.selectedComs.forEach(com => {
+    comStore.copyCom(com.id)
+  })
 }
 
 const composeComs = () => {

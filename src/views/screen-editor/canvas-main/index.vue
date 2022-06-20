@@ -1,8 +1,8 @@
 <template>
   <div class="canvas-main">
-    <div id="canvas-wp" class="canvas-panel-wrap">
+    <div id="canvas-wp" class="canvas-panel-wrap" @click="cancelSelected">
       <div
-        ref="screenRef"
+        id="screen-wp"
         class="screen-shot"
         :style="screenShotStyle"
         @mousedown="handleMouseDown"
@@ -25,17 +25,20 @@
             />
           </datav-transform>
         </div>
-
-        <canvas-area
-          v-if="showArea"
-          :start-x="areaStartX"
-          :start-y="areaStartY"
-          :width="areaWidth"
-          :height="areaHeight"
-        />
         <align-line />
         <ruler />
       </div>
+      <canvas-area
+        v-if="areaWidth > 0 || areaHeight > 0"
+        :start-x="areaStartX"
+        :start-y="areaStartY"
+        :width="areaWidth"
+        :height="areaHeight"
+        :style="{
+          width: `${selectionW}px`,
+          height: `${selectionH}px`,
+        }"
+      />
     </div>
     <div class="thumbnail"></div>
   </div>
@@ -79,10 +82,9 @@ export default defineComponent({
     const { pageConfig, canvas } = storeToRefs(editorStore)
     const { coms } = storeToRefs(comStore)
 
-    const screenRef = ref(null)
-    const showArea = ref(false)
-    const editorX = ref(0)
-    const editorY = ref(0)
+    const cancelable = ref(false)
+    const selectionW = ref(0)
+    const selectionH = ref(0)
     const areaStartX = ref(0)
     const areaStartY = ref(0)
     const areaWidth = ref(0)
@@ -142,13 +144,24 @@ export default defineComponent({
       ev.dataTransfer.dropEffect = 'copy'
     }
 
+    const confirmCancel = (ev: MouseEvent) => {
+      const dom = ev.target as HTMLElement
+      const cls = ['canvas-panel', 'screen-shot', 'canvas-panel-wrap']
+      if (cls.includes(dom.className)){
+        cancelable.value = true
+      } else {
+        cancelable.value = false
+      }
+    }
+
     const cancelSelected = () => {
-      comStore.selectCom('')
-      hideMenu()
+      if (cancelable.value) {
+        cancelable.value = false
+        comStore.selectCom('')
+      }
     }
 
     const hideArea = () => {
-      showArea.value = false
       areaWidth.value = 0
       areaHeight.value = 0
     }
@@ -229,36 +242,43 @@ export default defineComponent({
     }
 
     const handleMouseDown = (ev: MouseEvent) => {
-      ev.stopPropagation()
-      ev.preventDefault()
+      // ev.stopPropagation()
+      cancelable.value = true
+      if (editorStore.contextMenu.show) {
+        cancelable.value = false
+        hideMenu()
+        return false
+      }
 
-      cancelSelected()
+      const screenWp = document.getElementById('screen-wp')
+      selectionW.value = screenWp.clientWidth
+      selectionH.value = screenWp.clientHeight
 
       // 获取编辑器的位移信息，每次点击时都需要获取一次。
-      const rectInfo = screenRef.value.getBoundingClientRect()
-      editorX.value = rectInfo.x
-      editorY.value = rectInfo.y
+      const rectInfo = screenWp.getBoundingClientRect()
+      const currX = rectInfo.x
+      const currY = rectInfo.y
 
       const sx = ev.clientX
       const sy = ev.clientY
-      areaStartX.value = sx - editorX.value
-      areaStartY.value = sy - editorY.value
-      // 展示选中区域
-      showArea.value = true
+      areaStartX.value = sx - currX
+      areaStartY.value = sy - currY
 
       const move = (e: MouseEvent) => {
         if (e.clientX < sx) {
-          areaStartX.value = e.clientX - editorX.value
+          areaStartX.value = e.clientX - currX
         }
 
         if (e.clientY < sy) {
-          areaStartY.value = e.clientY - editorY.value
+          areaStartY.value = e.clientY - currY
         }
 
         areaWidth.value = Math.abs(e.clientX - sx)
         areaHeight.value = Math.abs(e.clientY - sy)
 
         handleSelectArea()
+
+        cancelable.value = false
       }
 
       const up = () => {
@@ -267,6 +287,10 @@ export default defineComponent({
 
         createGroup()
         hideArea()
+
+        if (cancelable.value) {
+          confirmCancel(ev)
+        }
       }
 
       on(document, 'mousemove', move)
@@ -281,21 +305,12 @@ export default defineComponent({
       },
     )
 
-    const bar = () => {
-      console.log(1)
-    }
-    const foo = () => {
-      console.log(2)
-    }
-
     return {
-      foo,
-      bar,
       coms,
       canvasPanelStyle,
       screenShotStyle,
-      screenRef,
-      showArea,
+      selectionW,
+      selectionH,
       areaStartX,
       areaStartY,
       areaWidth,
@@ -303,6 +318,7 @@ export default defineComponent({
       dragOver,
       dropToAddCom,
       handleMouseDown,
+      cancelSelected,
     }
   },
 })
@@ -323,7 +339,7 @@ export default defineComponent({
 .canvas-panel-wrap {
   position: relative;
   width: 100%;
-  height: calc(100% - 32px);
+  height: 100%;
   overflow: auto;
 
   .canvas-panel {
@@ -336,7 +352,6 @@ export default defineComponent({
     box-shadow: rgb(0 0 0 / 50%) 0 0 30px 0;
     transition: 0.2s all ease-in-out;
     transform-origin: 0 0;
-    z-index: 1;
   }
 }
 </style>

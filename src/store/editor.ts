@@ -181,8 +181,8 @@ export const useEditorStore = defineStore('editor', {
       resize()
     },
     async setCanvasScale(scale: number, offsetX: number, offsetY: number) {
-      let width = document.documentElement.clientWidth - offsetX - 50
-      let height = document.documentElement.clientHeight - offsetY - 50
+      let width = document.documentElement.clientWidth - offsetX
+      let height = document.documentElement.clientHeight - offsetY
       const deltaS = Math.min(Math.max(scale, 10), 200) / 100
 
       // 方便计算滚动条 和 标尺

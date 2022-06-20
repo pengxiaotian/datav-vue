@@ -25,6 +25,19 @@ export const off = function(
   }
 }
 
+export const once = function(
+  element: HTMLElement | Document | Window,
+  event: string,
+  handler: any,
+): void {
+  const func = (ev: Event) => {
+    handler(ev)
+    off(element, event, func)
+  }
+  on(element, event, func)
+}
+
+
 export function hasClass(el: HTMLElement, cls: string): boolean {
   if (!el || !cls) return false
   if (cls.indexOf(' ') !== -1)

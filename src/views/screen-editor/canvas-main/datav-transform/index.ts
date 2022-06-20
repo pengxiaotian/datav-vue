@@ -17,26 +17,26 @@ export type BidirectionalCursor = 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'n
  */
 export type DirectionCursor = 'nw-resize' | 'n-resize' | 'ne-resize' | 'e-resize' | 'se-resize' | 's-resize' | 'sw-resize' | 'w-resize'
 
-export type ResizeMode = 'normal' | 'stretch'
-
 interface IPoint {
   x: number
   y: number
 }
 
-// 八个方位点对应的初始角度
+// 八个方位点对应的初始角度和光标
 const initialDirectionAngle: {
   direction: Direction
   angle: number
+  cursor: BidirectionalCursor
+  singleCursor: DirectionCursor
 }[] = [
-  { direction: 'lt', angle: 0 },
-  { direction: 't', angle: 45 },
-  { direction: 'rt', angle: 90 },
-  { direction: 'r', angle: 135 },
-  { direction: 'rb', angle: 180 },
-  { direction: 'b', angle: 225 },
-  { direction: 'lb', angle: 270 },
-  { direction: 'l', angle: 315 },
+  { direction: 'lt', angle: 0, cursor: 'nwse-resize', singleCursor: 'nw-resize' },
+  { direction: 't', angle: 45, cursor: 'ns-resize', singleCursor: 'n-resize' },
+  { direction: 'rt', angle: 90, cursor: 'nesw-resize', singleCursor: 'ne-resize' },
+  { direction: 'r', angle: 135, cursor: 'ew-resize', singleCursor: 'e-resize' },
+  { direction: 'rb', angle: 180, cursor: 'nwse-resize', singleCursor: 'se-resize' },
+  { direction: 'b', angle: 225, cursor: 'ns-resize', singleCursor: 's-resize' },
+  { direction: 'lb', angle: 270, cursor: 'nesw-resize', singleCursor: 'sw-resize' },
+  { direction: 'l', angle: 315, cursor: 'ew-resize', singleCursor: 'w-resize' },
 ]
 
 // 每个范围的角度对应的光标
@@ -44,15 +44,16 @@ const angleToCursor: {
   start: number
   end: number
   cursor: BidirectionalCursor
+  singleCursor: DirectionCursor
 }[] = [
-  { start: 338, end: 23, cursor: 'nwse-resize' },
-  { start: 23, end: 68, cursor: 'ns-resize' },
-  { start: 68, end: 113, cursor: 'nesw-resize' },
-  { start: 113, end: 158, cursor: 'ew-resize' },
-  { start: 158, end: 203, cursor: 'nwse-resize' },
-  { start: 203, end: 248, cursor: 'ns-resize' },
-  { start: 248, end: 293, cursor: 'nesw-resize' },
-  { start: 293, end: 338, cursor: 'ew-resize' },
+  { start: 338, end: 23, cursor: 'nwse-resize', singleCursor: 'nw-resize' },
+  { start: 23, end: 68, cursor: 'ns-resize', singleCursor: 'n-resize' },
+  { start: 68, end: 113, cursor: 'nesw-resize', singleCursor: 'ne-resize' },
+  { start: 113, end: 158, cursor: 'ew-resize', singleCursor: 'e-resize' },
+  { start: 158, end: 203, cursor: 'nwse-resize', singleCursor: 'se-resize' },
+  { start: 203, end: 248, cursor: 'ns-resize', singleCursor: 's-resize' },
+  { start: 248, end: 293, cursor: 'nesw-resize', singleCursor: 'sw-resize' },
+  { start: 293, end: 338, cursor: 'ew-resize', singleCursor: 'w-resize' },
 ]
 
 export const getCursors = (startAngle: number) => {
@@ -78,7 +79,7 @@ export const getCursors = (startAngle: number) => {
     }
   })
 
-  return result as Record<Direction, BidirectionalCursor>
+  return result
 }
 
 function getCenterPoint(p1: IPoint, p2: IPoint): IPoint {
@@ -253,6 +254,14 @@ export const handleZoom = (
       } else {
         calcResizeForCorner(dir, attr, curPositon, symmetricPoint, scale, pos)
       }
+    }
+
+    if (pos.h != undefined) {
+      pos.h = Math.max(10, pos.h)
+    }
+
+    if (pos.w != undefined) {
+      pos.w = Math.max(10, pos.w)
     }
 
     com.attr = { ...com.attr, ...pos }

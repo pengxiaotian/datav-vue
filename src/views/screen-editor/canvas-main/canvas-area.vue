@@ -1,13 +1,12 @@
 <template>
-  <div
-    class="canvas-area"
-    :style="{
-      left: startX + 'px',
-      top: startY + 'px',
-      width: width + 'px',
-      height: height + 'px',
-    }"
-  ></div>
+  <svg class="canvas-selection">
+    <path
+      fill="none"
+      stroke="rgba(255,255,255,0.5)"
+      :d="`M ${startX},${startY} L ${startX},${startY + height} L ${startX + width},${startY + height} L ${startX + width},${startY} Z`"
+      style="stroke-width: 1; stroke-dasharray: 3, 3;"
+    />
+  </svg>
 </template>
 
 <script lang="ts" setup>
@@ -32,9 +31,12 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.canvas-area {
+.canvas-selection {
+  pointer-events: none;
   position: absolute;
-  border: 1px dashed #758391;
-  z-index: 1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
 }
 </style>

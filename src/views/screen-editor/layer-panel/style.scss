@@ -85,11 +85,16 @@ $panel-width: 200px;
     color: var(--datav-font-color);
     border-radius: 1px;
     transition: background 0.2s;
+    opacity: 0.3;
 
-    &.enable:hover {
-      color: #fff;
-      cursor: pointer;
-      background: var(--datav-main-color) !important;
+    &.enable {
+      opacity: 1;
+
+      &:hover {
+        color: #fff;
+        cursor: pointer;
+        background: var(--datav-main-color) !important;
+      }
     }
 
     &.enable.checked {
@@ -167,7 +172,8 @@ $panel-width: 200px;
 
   &.hided,
   &.locked {
-    background: var(--datav-layer-item-color-locked);
+    color: var(--datav-layer-item-color-locked);
+    background: var(--datav-layer-item-bg-locked);
   }
 
   &.hovered {

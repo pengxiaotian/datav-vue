@@ -34,7 +34,6 @@
           title="上移一层"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
           @click="moveCom(MoveType.up)"
         >
           <IconMoveUp />
@@ -43,7 +42,6 @@
           title="下移一层"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
           @click="moveCom(MoveType.down)"
         >
           <IconMoveDown />
@@ -52,7 +50,6 @@
           title="置顶"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
           @click="moveCom(MoveType.top)"
         >
           <IconMoveTop />
@@ -61,7 +58,6 @@
           title="置底"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
           @click="moveCom(MoveType.bottom)"
         >
           <IconMoveBottom />
@@ -79,7 +75,7 @@
               hovered: com.hovered,
               selected: com.selected
             }]"
-            @click="selectCom($event, com.id)"
+            @mousedown="selectCom($event, com)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
             @contextmenu="showMenu($event, com)"
@@ -121,7 +117,7 @@
               hovered: com.hovered,
               selected: com.selected
             }]"
-            @click="selectCom($event, com.id)"
+            @mousedown="selectCom($event, com)"
             @mouseenter="com.hovered = true"
             @mouseleave="com.hovered = false"
             @contextmenu="showMenu($event, com)"
@@ -163,15 +159,14 @@
             </div>
           </div>
         </template>
-        <div class="last-flex-item" @click="cancelSelect"></div>
+        <div class="last-flex-item" @click="cancelSelected"></div>
       </div>
       <div class="layer-toolbar layer-toolbar-bottom">
         <n-icon
           title="删除"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
-          @click="toDeleteCom"
+          @click="confirmDeleteCom"
         >
           <IconDelete />
         </n-icon>
@@ -179,7 +174,6 @@
           title="锁定"
           class="toolbar-icon standard"
           :class="enableLockBtnClass"
-          :style="enableBtnStyle"
           @click="lockCom"
         >
           <IconLock />
@@ -188,7 +182,6 @@
           title="隐藏"
           class="toolbar-icon standard"
           :class="enableHideBtnClass"
-          :style="enableBtnStyle"
           @click="hideCom"
         >
           <IconHide />
@@ -205,6 +198,7 @@ import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { MoveType } from '@/domains/editor'
+import { DatavComponent } from '@/components/_models/datav-component'
 import { macMetaOrCtrl } from '@/utils/util'
 import {
   IconViewList,
@@ -246,25 +240,28 @@ export default defineComponent({
     const showText = ref(false)
     const visiblePanel = computed(() => toolbarStore.layer.show)
     const descComs = computed(() => [...comStore.coms].reverse())
-    const currCom = computed(() => comStore.selectedCom)
 
-    const enableBtnClass = computed(() => !!currCom.value)
+    const enableBtn = computed(() => comStore.selectedComs.length > 0)
+    const isLocked = computed(() => comStore.selectedComs.every(m => m.locked))
+    const isHided = computed(() => comStore.selectedComs.every(m => m.hided))
+
+    const enableBtnClass = computed(() => {
+      return {
+        enable: enableBtn.value,
+      }
+    })
+
     const enableLockBtnClass = computed(() => {
       return {
-        enable: enableBtnClass.value,
-        checked: currCom.value?.locked,
-      }
-    })
-    const enableHideBtnClass = computed(() => {
-      return {
-        enable: enableBtnClass.value,
-        checked: currCom.value?.hided,
+        enable: enableBtn.value,
+        checked: isLocked.value,
       }
     })
 
-    const enableBtnStyle = computed(() => {
+    const enableHideBtnClass = computed(() => {
       return {
-        opacity: currCom.value ? 1 : 0.3,
+        enable: enableBtn.value,
+        checked: isHided.value,
       }
     })
 
@@ -272,34 +269,52 @@ export default defineComponent({
       toolbarStore.setPanelState(PanelType.layer, !visiblePanel.value)
     }
 
-    const selectCom = (ev: MouseEvent, id: string) => {
+    const selectCom = (ev: MouseEvent, com: DatavComponent) => {
       const isMult = macMetaOrCtrl(ev)
-      if (!isMult && currCom.value?.id === id) {
+      if (!isMult && com.selected) {
         return
       }
 
-      comStore.selectCom(id, isMult)
+      comStore.selectCom(com.id, isMult)
     }
 
-    const cancelSelect = () => {
+    const cancelSelected = () => {
       comStore.selectCom('')
     }
 
     const moveCom = (moveType: MoveType) => {
-      editorStore.moveCom(currCom.value.id, moveType)
+      const coms = comStore.selectedComs
+      if (coms.length > 1) {
+        const ids = coms.map(m => m.id)
+        if (moveType === MoveType.bottom || moveType === MoveType.down) {
+          ids.reverse()
+        }
+        ids.forEach(id => {
+          editorStore.moveCom(id, moveType)
+        })
+      } else {
+        editorStore.moveCom(comStore.selectedCom.id, moveType)
+      }
     }
 
     const lockCom = () => {
-      currCom.value.locked = !currCom.value.locked
+      const locked = !isLocked.value
+      comStore.selectedComs.forEach(com => {
+        com.locked = locked
+      })
     }
 
     const hideCom = () => {
-      currCom.value.hided = !currCom.value.hided
+      const hided = !isHided.value
+      comStore.selectedComs.forEach(com => {
+        com.hided = hided
+      })
     }
 
-    const toDeleteCom = () => {
+    const confirmDeleteCom = () => {
+      const names = comStore.selectedComs.map(m => m.alias)
       const d = nDialog.create({
-        content: '是否删除选中的1个组件',
+        content: `删除后可能无法恢复，是否删除${names.join('，')}，共${names.length}个组件`,
         negativeText: '取消',
         positiveText: '确定',
         iconPlacement: 'top',
@@ -307,7 +322,7 @@ export default defineComponent({
         onPositiveClick: async () => {
           d.loading = true
           try {
-            await comStore.deleteCom(currCom.value)
+            comStore.deleteComs(comStore.selectedComs)
           } catch (error) {
             nMessage.error(error.message)
           }
@@ -323,14 +338,13 @@ export default defineComponent({
       enableBtnClass,
       enableLockBtnClass,
       enableHideBtnClass,
-      enableBtnStyle,
       changeVisible,
       selectCom,
-      cancelSelect,
+      cancelSelected,
       moveCom,
       lockCom,
       hideCom,
-      toDeleteCom,
+      confirmDeleteCom,
       showMenu,
     }
   },

@@ -10,12 +10,13 @@
       :scale="scale"
     />
     <div
-      :class="['datav-scale', { hovered: com.hovered }]"
+      :class="['datav-scale', { hovered: !com.selected && com.hovered }]"
       :style="hideStyle"
       @mouseenter="onEnter"
       @mouseleave="onLeave"
-      @click="selectCom"
       @mousedown.stop="onMove"
+      @contextmenu="showMenu($event, com)"
+      @click.stop
     >
       <div
         class="transform-handler"
@@ -24,11 +25,7 @@
       >
         <div class="datav-com" :style="comStyle">
           <slot></slot>
-          <div
-            class="datav-wrapper-event-disable"
-            :style="wrapperStyle"
-            @contextmenu="showMenu($event, com)"
-          ></div>
+          <div class="datav-wrapper-event-disable" :style="wrapperStyle"></div>
         </div>
         <template v-for="(v, k) in points" :key="k">
           <i v-if="v.rotateStyle" :class="`${v.name}-handler`" data-html2canvas-ignore>
@@ -59,12 +56,13 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, computed, getCurrentInstance } from 'vue'
+import { defineComponent, PropType, computed, getCurrentInstance, ref } from 'vue'
 import type { CSSProperties } from 'vue'
 import { DatavComponent } from '@/components/_models/datav-component'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { macMetaOrCtrl } from '@/utils/util'
+import { once } from '@/utils/dom'
 import {
   Direction, getCursors,
   handleMove, handleZoom, handleRotate,
@@ -115,7 +113,7 @@ export default defineComponent({
     }))
 
     const handlerStyle = computed(() => ({
-      cursor: 'move',
+      cursor: props.com.selected ? 'move' : 'pointer',
       transform: `rotate(${props.com.attr.deg}deg)`,
     }))
 
@@ -188,6 +186,16 @@ export default defineComponent({
       }
     })
 
+    const onEnter = () => {
+      if (!props.com.selected) {
+        props.com.hovered = true
+      }
+    }
+
+    const onLeave = () => {
+      props.com.hovered = false
+    }
+
     const selectCom = (ev: MouseEvent) => {
       const isMult = macMetaOrCtrl(ev)
       if (!isMult && props.com.selected) {
@@ -197,17 +205,16 @@ export default defineComponent({
       comStore.selectCom(props.com.id, isMult)
     }
 
-    const onEnter = () => {
-      props.com.hovered = true
-    }
-
-    const onLeave = () => {
-      props.com.hovered = false
-    }
+    const isMoveing = ref(false)
 
     const onMove = (ev: MouseEvent) => {
-      hideMenu()
+      if (editorStore.contextMenu.show) {
+        hideMenu()
+        return false
+      }
+
       if (!props.com.selected) {
+        once(ev.target as HTMLElement, 'mouseup', selectCom)
         return false
       }
 
@@ -219,11 +226,17 @@ export default defineComponent({
           editorStore.pageConfig.grid,
           () => {
             if (props.com.id === m.id) {
+              isMoveing.value = true
               editorStore.calcAlignLine(props.com)
             }
           },
           () => {
             if (props.com.id === m.id) {
+              if (isMoveing.value) {
+                isMoveing.value = false
+              } else if (ev.button === 0) {
+                comStore.selectCom(props.com.id)
+              }
               editorStore.hideAlignLine(props.com.id)
             }
           },
@@ -261,7 +274,6 @@ export default defineComponent({
       comStyle,
       wrapperStyle,
       points,
-      selectCom,
       onEnter,
       onLeave,
       onMove,

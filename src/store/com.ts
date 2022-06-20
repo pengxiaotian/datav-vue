@@ -82,14 +82,20 @@ export const useComStore = defineStore('com', {
       }
     },
     async deleteCom(com: DatavComponent) {
+      this.deleteComs([com])
+    },
+    async deleteComs(coms: DatavComponent[]) {
       try {
-        const res = await deleteCom(com.id)
+        const ids = coms.map(m => m.id).join()
+        const res = await deleteCom(ids)
         if (res.data.code === 0) {
-          if (com.type === ComType.com) {
-            this.coms.splice(findComIndex(this.coms, com.id), 1)
-          } else {
-            this.subComs.splice(findComIndex(this.subComs, com.id), 1)
-          }
+          coms.forEach(com => {
+            if (com.type === ComType.com) {
+              this.coms.splice(findComIndex(this.coms, com.id), 1)
+            } else {
+              this.subComs.splice(findComIndex(this.subComs, com.id), 1)
+            }
+          })
         } else {
           throw Error(res.data.message)
         }
@@ -122,7 +128,7 @@ export const useComStore = defineStore('com', {
             ncom.attr.y += 30
 
             ncom.hovered = false
-            ncom.selected = false
+            ncom.selected = true
             ncom.renameing = false
 
             ncom.parentId = parentId
@@ -137,6 +143,8 @@ export const useComStore = defineStore('com', {
 
           const ocom = findCom(this.coms, id)
           if (ocom) {
+            ocom.hovered = false
+            ocom.selected = false
             const ncom = getNewCom(ocom)
             const nSubComs = findComs(this.subComs, ocom.id).map(m => getNewCom(m, ncom.id))
             this.coms.push(ncom)

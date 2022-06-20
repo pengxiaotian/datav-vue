@@ -15,7 +15,6 @@
     width: 100%;
     height: 100%;
     cursor: move;
-    background: rgb(0 231 255 / 11%);
   }
 
   &.hided {
@@ -71,7 +70,7 @@
       content: "";
       position: absolute;
       z-index: 1;
-      background: var(--datav-gui-primary-color);
+      background: var(--datav-com-focus-color);
 
       @if ($placement == 'top' or $placement == 'bottom') {
         width: 100%;
@@ -129,16 +128,7 @@
   }
 
   &.hovered {
-    .datav-com {
-      background: rgb(36 63 162 / 3%);
-    }
-
-    .bottom-handler,
-    .left-handler,
-    .right-handler,
-    .top-handler {
-      display: flex !important;
-    }
+    outline: 1px solid var(--datav-com-focus-color);
   }
 }
 
@@ -149,10 +139,6 @@
   &.selected {
     z-index: 1;
 
-    .datav-com {
-      background: rgb(36 63 162 / 3%);
-    }
-
     .datav-scale::after {
       content: "";
       position: absolute;
@@ -161,7 +147,7 @@
       bottom: 0;
       left: 0;
       z-index: -1;
-      border: 1px dashed var(--datav-gui-primary-color);
+      outline: 1px solid var(--datav-com-focus-color);
     }
 
     .control-point {
