@@ -202,7 +202,7 @@ export default defineComponent({
         return
       }
 
-      comStore.selectCom(props.com.id, isMult)
+      comStore.select(props.com.id, isMult)
     }
 
     const isMoveing = ref(false)
@@ -235,7 +235,7 @@ export default defineComponent({
               if (isMoveing.value) {
                 isMoveing.value = false
               } else if (ev.button === 0) {
-                comStore.selectCom(props.com.id)
+                comStore.select(props.com.id)
               }
               editorStore.hideAlignLine(props.com.id)
             }

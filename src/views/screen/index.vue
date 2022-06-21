@@ -190,7 +190,7 @@ export default defineComponent({
           })
           initPageInfo(data.config)
 
-          comStore.setComs(data.coms)
+          comStore.load(data.coms)
           const { componentsView, publishersView, subscribersView } = data.variables
           eventStore.$patch({ componentsView, publishersView, subscribersView })
           filterStore.$patch({ dataFilters: data.dataFilters ?? [] })

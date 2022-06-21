@@ -162,7 +162,7 @@ $panel-width: 200px;
   cursor: pointer;
   background: var(--datav-layer-item-bg);
   box-sizing: border-box;
-  transition: background 0.2s;
+  transition: 0.2s;
   align-items: center;
   flex: none;
 
@@ -252,4 +252,19 @@ $panel-width: 200px;
 .last-flex-item {
   flex: auto;
   min-height: 40px;
+}
+
+.layer-move-to-line {
+  height: 2px;
+  width: 100%;
+  background: #00c1de;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.draging-wrap {
+  position: fixed;
+  right: 150%;
+  width: 226px;
 }

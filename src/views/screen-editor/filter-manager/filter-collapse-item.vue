@@ -10,6 +10,7 @@
       '--error': !!errMsg,
     }"
     @dragenter="dragEnter"
+    @dragover="dragOver"
   >
     <div class="panel-header">
       <div class="panel-title">
@@ -325,6 +326,12 @@ export default defineComponent({
       updateIndicator(true, props.index, panelRef.value)
     }
 
+    const dragOver = (ev: DragEvent) => {
+      ev.preventDefault()
+      ev.stopPropagation()
+      ev.dataTransfer.dropEffect = 'copy'
+    }
+
     return {
       panelRef,
       code,
@@ -347,6 +354,7 @@ export default defineComponent({
       dragStart,
       dragEnd,
       dragEnter,
+      dragOver,
     }
   },
 })

@@ -97,14 +97,11 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, h, onBeforeMount, onUnmounted } from 'vue'
-import { useMessage, useDialog } from 'naive-ui'
+import { computed, onBeforeMount, onUnmounted } from 'vue'
 import { useEditorStore } from '@/store/editor'
-import { useComStore } from '@/store/com'
 import { on, off } from '@/utils/dom'
 import { MoveType } from '@/domains/editor'
 import {
-  IconWarning,
   IconMoveUp,
   IconMoveDown,
   IconMoveTop,
@@ -121,11 +118,22 @@ import {
 } from '@/icons'
 import { useContextMenu } from './index'
 
-const nMessage = useMessage()
-const nDialog = useDialog()
 const editorStore = useEditorStore()
-const comStore = useComStore()
-const { pos } = useContextMenu()
+const {
+  pos,
+  isLocked,
+  isHided,
+  isGroup,
+  disableGroup,
+  moveCom,
+  lockCom,
+  hideCom,
+  confirmDeleteCom,
+  renameCom,
+  copyCom,
+  composeComs,
+  decomposeComs,
+} = useContextMenu()
 
 const contextMenuStyle = computed(() => {
   return {
@@ -138,84 +146,6 @@ const contextMenuStyle = computed(() => {
   }
 })
 
-const isLocked = computed(() => comStore.selectedComs.every(m => m.locked))
-const isHided = computed(() => comStore.selectedComs.every(m => m.hided))
-const isGroup = computed(() => comStore.selectedCom?.group)
-const disableGroup = computed(() => {
-  const coms = comStore.selectedComs
-  if (coms.length > 1) {
-    return coms.filter(m => m.group).some(m => m.group)
-  }
-
-  return isGroup.value
-})
-
-const moveCom = (moveType: MoveType) => {
-  const coms = comStore.selectedComs
-  if (coms.length > 1) {
-    const ids = coms.map(m => m.id)
-    if (moveType === MoveType.bottom || moveType === MoveType.down) {
-      ids.reverse()
-    }
-    ids.forEach(id => {
-      editorStore.moveCom(id, moveType)
-    })
-  } else {
-    editorStore.moveCom(comStore.selectedCom.id, moveType)
-  }
-}
-
-const lockCom = () => {
-  const locked = !isLocked.value
-  comStore.selectedComs.forEach(com => {
-    com.locked = locked
-  })
-}
-
-const hideCom = () => {
-  const hided = !isHided.value
-  comStore.selectedComs.forEach(com => {
-    com.hided = hided
-  })
-}
-
-const confirmDeleteCom = () => {
-  const names = comStore.selectedComs.map(m => m.alias)
-  const d = nDialog.create({
-    content: `删除后可能无法恢复，是否删除${names.join('，')}，共${names.length}个组件`,
-    negativeText: '取消',
-    positiveText: '确定',
-    iconPlacement: 'top',
-    icon: () => h(IconWarning),
-    onPositiveClick: async () => {
-      d.loading = true
-      try {
-        await comStore.deleteComs(comStore.selectedComs)
-      } catch (error) {
-        nMessage.error(error.message)
-      }
-    },
-  })
-}
-
-const renameCom = () => {
-  comStore.selectedComs[0].renameing = true
-}
-
-const copyCom = () => {
-  comStore.selectedComs.forEach(com => {
-    comStore.copyCom(com.id)
-  })
-}
-
-const composeComs = () => {
-  editorStore.compose()
-}
-
-const decomposeComs = () => {
-  editorStore.decompose()
-}
-
 const handleContextmenu = (ev: Event) => ev.preventDefault()
 
 onBeforeMount(() => {
@@ -225,7 +155,6 @@ onBeforeMount(() => {
 onUnmounted(() => {
   off(document, 'contextmenu', handleContextmenu)
 })
-
 </script>
 
 <style lang="scss" scoped>

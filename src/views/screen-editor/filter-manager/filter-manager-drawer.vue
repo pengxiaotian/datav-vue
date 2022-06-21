@@ -6,6 +6,7 @@
     :trap-focus="false"
     class="filter-manager-drawer"
     to="#edit-main-wp"
+    show-mask
   >
     <n-drawer-content closable>
       <template #header>

@@ -86,7 +86,7 @@ export default defineComponent({
                 styleFilterParams: config.styleFilterParams,
               },
             })
-            comStore.setComs(config.coms)
+            comStore.load(config.coms)
             const { componentsView, publishersView, subscribersView } = config.variables
             eventStore.$patch({ componentsView, publishersView, subscribersView })
             filterStore.$patch({ dataFilters: config.dataFilters ?? [] })
@@ -98,7 +98,7 @@ export default defineComponent({
           const screenId = +props.projectId
           editorStore.loadScreen(screenId)
           filterStore.loadFilters(screenId)
-          await comStore.loadComs(screenId)
+          await comStore.request(screenId)
         }
       } catch (error) {
         warn('editor', error.message)

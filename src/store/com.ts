@@ -3,13 +3,15 @@ import { cloneDeep } from 'lodash-es'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { generateId } from '@/utils/util'
+import { MoveType } from '@/domains/editor'
 
 export interface IComState {
   coms: DatavComponent[]
   subComs: DatavComponent[]
 }
 
-export const findComIndex = (coms: DatavComponent[], id: string) => {
+export const findComIndex = (coms: DatavComponent[], data: string | DatavComponent) => {
+  const id = typeof data === 'string' ? data : data.id
   return coms.findIndex(c => c.id === id)
 }
 
@@ -36,7 +38,21 @@ export const useComStore = defineStore('com', {
     },
   },
   actions: {
-    selectCom(id: string, multiple = false) {
+    load(payload: DatavComponent[]) {
+      const coms: DatavComponent[] = []
+      const subComs: DatavComponent[] = []
+      payload.forEach(c => {
+        if (c.type === ComType.com) {
+          coms.push(c)
+        } else if (c.type === ComType.subCom) {
+          subComs.push(c)
+        }
+      })
+
+      this.coms = coms
+      this.subComs = subComs
+    },
+    select(id: string, multiple = false) {
       if (id) {
         this.coms.forEach(com => {
           com.hovered = false
@@ -55,25 +71,67 @@ export const useComStore = defineStore('com', {
         })
       }
     },
-    setComs(payload: DatavComponent[]) {
-      const coms: DatavComponent[] = []
-      const subComs: DatavComponent[] = []
-      payload.forEach(c => {
-        if (c.type === ComType.com) {
-          coms.push(c)
-        } else if (c.type === ComType.subCom) {
-          subComs.push(c)
+    selects(toCom: DatavComponent) {
+      const scoms = this.selectedComs
+      if (toCom.selected || scoms.length > 0) {
+        // 虽有小bug，但是够用。O(∩_∩)O哈哈~
+        let fromIdx = findComIndex(this.coms, scoms[0])
+        const toIdx = findComIndex(this.coms, toCom)
+        if (scoms.length > 1) {
+          const sidx = fromIdx
+          const ecom = scoms[scoms.length - 1]
+          if (ecom.id !== toCom.id) {
+            const eidx = findComIndex(this.coms, ecom)
+            fromIdx =  Math.abs(toIdx - sidx) > Math.abs(toIdx - eidx) ? eidx : sidx
+          }
         }
-      })
-
-      this.coms = coms
-      this.subComs = subComs
+        if (fromIdx === toIdx) {
+          return
+        }
+        const sidx = Math.min(fromIdx, toIdx)
+        const eidx = Math.max(fromIdx, toIdx)
+        this.coms.forEach((com, idx) => {
+          com.selected = sidx <= idx && idx <= eidx
+        })
+      } else {
+        toCom.selected = true
+      }
     },
-    async loadComs(projectId: number) {
+    moveCom(id: string, moveType: MoveType) {
+      const i = findComIndex(this.coms, id)
+      if (moveType === MoveType.up) {
+        if (i + 1 < this.coms.length) {
+          this.coms.splice(i + 1, 0, ...this.coms.splice(i, 1))
+        }
+      } else if (moveType === MoveType.down) {
+        if (i > 0) {
+          this.coms.splice(i - 1, 0, ...this.coms.splice(i, 1))
+        }
+      } else if (moveType === MoveType.top) {
+        if (i + 1 < this.coms.length) {
+          this.coms.push(...this.coms.splice(i, 1))
+        }
+      } else if (moveType === MoveType.bottom) {
+        if (i > 0) {
+          this.coms.unshift(...this.coms.splice(i, 1))
+        }
+      }
+    },
+    moveTo(toIndex: number) {
+      let toIdx = toIndex
+      const coms = this.coms.filter(m => !m.selected)
+      const toCom = this.coms[toIdx]
+      if (toCom) {
+        toIdx = findComIndex(coms, toCom)
+      }
+      coms.splice(toIdx, 0, ...this.selectedComs)
+      this.coms = coms
+    },
+    async request(projectId: number) {
       try {
         const res = await getComs(projectId)
         if (res.data.code === 0) {
-          this.setComs(res.data.data)
+          this.load(res.data.data)
         } else {
           throw Error(res.data.message)
         }
@@ -82,7 +140,7 @@ export const useComStore = defineStore('com', {
       }
     },
     async deleteCom(com: DatavComponent) {
-      this.deleteComs([com])
+      await this.deleteComs([com])
     },
     async deleteComs(coms: DatavComponent[]) {
       try {

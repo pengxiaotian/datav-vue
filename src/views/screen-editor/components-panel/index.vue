@@ -173,7 +173,7 @@ export default defineComponent({
         com.attr.x = Math.floor((editorStore.pageConfig.width - com.attr.w) / 2)
         com.attr.y = Math.floor((editorStore.pageConfig.height - com.attr.h) / 2)
         await comStore.addCom(com)
-        comStore.selectCom(com.id)
+        comStore.select(com.id)
         toolbarStore.removeLoading()
 
         if (com.apis.source) {

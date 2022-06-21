@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { debounce } from 'lodash-es'
 import { Project } from '@/domains/project'
-import { MoveType, PageConfig, AlignLine } from '@/domains/editor'
+import { PageConfig, AlignLine } from '@/domains/editor'
 import { getProject } from '@/api/project'
 import { DatavComponent } from '@/components/_models/datav-component'
 import { calcIntersectingLines } from '@/utils/editor'
-import { useComStore, findComIndex } from './com'
+import { useComStore } from './com'
 import { useEventStore } from './event'
 
 export interface IEditorState {
@@ -139,28 +139,7 @@ export const useEditorStore = defineStore('editor', {
       const comStore = useComStore()
       if (this.alignLine.show) {
         this.alignLine.show = false
-        comStore.selectCom(id)
-      }
-    },
-    moveCom(id: string, moveType: MoveType) {
-      const comStore = useComStore()
-      const i = findComIndex(comStore.coms, id)
-      if (moveType === MoveType.up) {
-        if (i + 1 < comStore.coms.length) {
-          comStore.coms.splice(i + 1, 0, ...comStore.coms.splice(i, 1))
-        }
-      } else if (moveType === MoveType.down) {
-        if (i > 0) {
-          comStore.coms.splice(i - 1, 0, ...comStore.coms.splice(i, 1))
-        }
-      } else if (moveType === MoveType.top) {
-        if (i + 1 < comStore.coms.length) {
-          comStore.coms.push(...comStore.coms.splice(i, 1))
-        }
-      } else if (moveType === MoveType.bottom) {
-        if (i > 0) {
-          comStore.coms.unshift(...comStore.coms.splice(i, 1))
-        }
+        comStore.select(id)
       }
     },
     async autoCanvasScale(payload: () => { offsetX: number; offsetY: number; }) {
