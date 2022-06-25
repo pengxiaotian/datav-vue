@@ -63,7 +63,7 @@ export default defineComponent({
     const eventStore = useEventStore()
     const loading = ref(true)
 
-    debugStore.enableDebug()
+    debugStore.enable()
     editorStore.setEditMode()
 
     onMounted(async () => {
@@ -96,19 +96,18 @@ export default defineComponent({
           }
         } else {
           const screenId = +props.projectId
-          editorStore.loadScreen(screenId)
-          filterStore.loadFilters(screenId)
-          await comStore.request(screenId)
+          await Promise.all([
+            editorStore.loadScreen(screenId),
+            filterStore.request(screenId),
+            comStore.request(screenId),
+          ])
         }
       } catch (error) {
         warn('editor', error.message)
       } finally {
         loading.value = false
         document.title = `${editorStore.screen.name} | 编辑器`
-        editorStore.autoCanvasScale(() => ({
-          offsetX: toolbarStore.getPanelOffsetX,
-          offsetY: toolbarStore.getPanelOffsetY,
-        }))
+        editorStore.autoCanvasScale(() => toolbarStore.getPanelOffset)
       }
     })
 

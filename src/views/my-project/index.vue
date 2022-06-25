@@ -108,11 +108,6 @@ export default defineComponent({
     const nDialog = useDialog()
     const projectStore = useProjectStore()
 
-    const {
-      getProjects, moveProject,
-      createProjectGroup, deleteProjectGroup, updateProjectGroupName,
-    } = projectStore
-
     const selectedGroupId = ref(-1)
     const loading = ref(true)
     const adding = ref(false)
@@ -158,7 +153,7 @@ export default defineComponent({
       if (name) {
         try {
           adding.value = false
-          await createProjectGroup(name)
+          await projectStore.createGroup(name)
         } catch (error) {
           nMessage.error(error.message)
         }
@@ -186,7 +181,7 @@ export default defineComponent({
       const newName = (e.target.value || '').trim()
       if (newName && group.name !== newName) {
         try {
-          await updateProjectGroupName(group.id, newName)
+          await projectStore.updateGroupName(group.id, newName)
           group.name = newName
           group.editing = false
         } catch (error) {
@@ -207,7 +202,7 @@ export default defineComponent({
         onPositiveClick: async () => {
           d.loading = true
           try {
-            await deleteProjectGroup(group.id)
+            await projectStore.deleteGroup(group.id)
             toggleProject(ungroup.value.id)
           } catch (error) {
             nMessage.error(error.message)
@@ -241,13 +236,13 @@ export default defineComponent({
       if (str) {
         const [pid, fromId] = str.split(',').map((m: string) => parseInt(m))
         if (fromId !== toGroup.id) {
-          moveProject(pid, fromId, toGroup.id)
+          projectStore.move(pid, fromId, toGroup.id)
         }
       }
     }
 
     onMounted(() => {
-      getProjects().finally(() => {
+      projectStore.request().finally(() => {
         loading.value = false
       })
     })

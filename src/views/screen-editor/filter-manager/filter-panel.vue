@@ -151,7 +151,7 @@ export default defineComponent({
       if (newName && df.name !== newName) {
         df.name = newName
         if (df.id > 0) {
-          filterStore.updateFilterName(df)
+          filterStore.updateName(df)
         }
       }
     }
@@ -181,12 +181,12 @@ export default defineComponent({
 
     const saveFilter = async (data: DataFilter) => {
       if (data.id > 0) {
-        await filterStore.updateFilter(data)
+        await filterStore.update(data)
         if (enabledFilters.value[data.id]) {
           refreshData()
         }
       } else {
-        const newId = await filterStore.createFilter(data)
+        const newId = await filterStore.create(data)
         apiDataConfig.value.pageFilters.push({ id: newId, enabled: true })
         newDataFilter.value = null
         refreshData()

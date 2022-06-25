@@ -142,17 +142,17 @@ export const useEditorStore = defineStore('editor', {
         comStore.select(id)
       }
     },
-    async autoCanvasScale(payload: () => { offsetX: number; offsetY: number; }) {
+    async autoCanvasScale(offset: () => { x: number; y: number; }) {
       const resize = debounce(() => {
-        const { offsetX, offsetY } = payload()
-        const width = document.documentElement.clientWidth - offsetX
-        const height = document.documentElement.clientHeight - offsetY
+        const { x, y } = offset()
+        const width = document.documentElement.clientWidth - x
+        const height = document.documentElement.clientHeight - y
 
         const a = (width - 180) / this.pageConfig.width
         const b = (height - 200) / this.pageConfig.height
         const scale = parseFloat((a > b ? b : a).toFixed(6)) * 100
 
-        this.setCanvasScale(scale, offsetX, offsetY)
+        this.setCanvasScale(scale, x, y)
       }, 200)
 
       window.onresize = resize

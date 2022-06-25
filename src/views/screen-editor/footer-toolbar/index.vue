@@ -114,20 +114,14 @@ export default defineComponent({
 
     const pageConfig = computed(() => editorStore.pageConfig)
 
-    const getPanelOffset = () => ({
-      offsetX: toolbarStore.getPanelOffsetX,
-      offsetY: toolbarStore.getPanelOffsetY,
-    })
-
     const submitScale = async (val: number) => {
       if (val === -1) {
-        editorStore.autoCanvasScale(getPanelOffset)
+        editorStore.autoCanvasScale(() => toolbarStore.getPanelOffset)
       } else {
-        const { offsetX, offsetY } = getPanelOffset()
         editorStore.setCanvasScale(
           val === 0 ? inputScale.value : val,
-          offsetX,
-          offsetY,
+          toolbarStore.getPanelOffset.x,
+          toolbarStore.getPanelOffset.y,
         )
       }
     }
@@ -162,7 +156,7 @@ export default defineComponent({
           } else if (key === 'arrowright') {
             setPanelState(PanelType.config, !toolbarStore.config.show)
           } else if (key === 'a') {
-            editorStore.autoCanvasScale(getPanelOffset)
+            editorStore.autoCanvasScale(() => toolbarStore.getPanelOffset)
           }
         } else if (comStore.selectedComs.length && ['arrowup', 'arrowright', 'arrowdown', 'arrowleft'].includes(key)) {
           ev.preventDefault()

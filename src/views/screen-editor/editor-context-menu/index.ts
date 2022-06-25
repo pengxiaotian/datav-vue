@@ -40,10 +40,10 @@ export const useContextMenu = () => {
         ids.reverse()
       }
       ids.forEach(id => {
-        comStore.moveCom(id, moveType)
+        comStore.move(id, moveType)
       })
     } else {
-      comStore.moveCom(comStore.selectedCom.id, moveType)
+      comStore.move(comStore.selectedCom.id, moveType)
     }
   }
 
@@ -84,7 +84,7 @@ export const useContextMenu = () => {
       onPositiveClick: async () => {
         d.loading = true
         try {
-          await comStore.deleteComs(coms)
+          await comStore.deletes(coms)
         } catch (error) {
           nMessage.error(error.message)
         }
@@ -98,7 +98,7 @@ export const useContextMenu = () => {
 
   const copyCom = () => {
     comStore.selectedComs.forEach(com => {
-      comStore.copyCom(com.id)
+      comStore.copy(com.id)
     })
   }
 

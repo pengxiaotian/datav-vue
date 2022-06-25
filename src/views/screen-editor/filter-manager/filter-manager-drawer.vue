@@ -134,7 +134,7 @@ export default defineComponent({
       if (newName && df.name !== newName) {
         df.name = newName
         if (df.id > 0) {
-          filterStore.updateFilterName(df)
+          filterStore.updateName(df)
         }
       }
     }
@@ -150,7 +150,7 @@ export default defineComponent({
           onPositiveClick: async () => {
             d.loading = true
             try {
-              await filterStore.deleteFilter(id)
+              await filterStore.delete(id)
               const df = usedFilters.value[id]
               if (df) {
                 [...comStore.coms, ...comStore.subComs]
@@ -179,7 +179,7 @@ export default defineComponent({
 
     const saveFilter = async (data: DataFilter) => {
       if (data.id > 0) {
-        await filterStore.updateFilter(data)
+        await filterStore.update(data)
         const df = usedFilters.value[data.id]
         if (df) {
           [...comStore.coms, ...comStore.subComs]
@@ -196,7 +196,7 @@ export default defineComponent({
             })
         }
       } else {
-        await filterStore.createFilter(data)
+        await filterStore.create(data)
         newDataFilter.value = null
       }
     }

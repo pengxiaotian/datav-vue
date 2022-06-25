@@ -118,11 +118,12 @@ export default defineComponent({
           toolbarStore.addLoading()
           let com = await createComponent(name)
           const { scale } = canvas.value
-          const offsetX = (ev.clientX - toolbarStore.getPanelOffsetLeft) / scale
-          const offsetY = (ev.clientY - toolbarStore.getPanelOffsetTop) / scale
-          com.attr.x = Math.round(offsetX - com.attr.w / 2)
-          com.attr.y = Math.round(offsetY - com.attr.h / 2)
-          await comStore.addCom(com)
+          const { left, top } = toolbarStore.getPanelOffset
+          const offsetLeft = (ev.clientX - left) / scale
+          const offsetTop = (ev.clientY - top) / scale
+          com.attr.x = Math.round(offsetLeft - com.attr.w / 2)
+          com.attr.y = Math.round(offsetTop - com.attr.h / 2)
+          await comStore.add(com)
           comStore.select(com.id)
           toolbarStore.removeLoading()
 

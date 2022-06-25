@@ -97,7 +97,7 @@ export const useComStore = defineStore('com', {
         toCom.selected = true
       }
     },
-    moveCom(id: string, moveType: MoveType) {
+    move(id: string, moveType: MoveType) {
       const i = findComIndex(this.coms, id)
       if (moveType === MoveType.up) {
         if (i + 1 < this.coms.length) {
@@ -139,10 +139,10 @@ export const useComStore = defineStore('com', {
         throw error
       }
     },
-    async deleteCom(com: DatavComponent) {
-      await this.deleteComs([com])
+    async delete(com: DatavComponent) {
+      await this.deletes([com])
     },
-    async deleteComs(coms: DatavComponent[]) {
+    async deletes(coms: DatavComponent[]) {
       try {
         const ids = coms.map(m => m.id).join()
         const res = await deleteCom(ids)
@@ -161,7 +161,7 @@ export const useComStore = defineStore('com', {
         throw error
       }
     },
-    async addCom(com: DatavComponent) {
+    async add(com: DatavComponent) {
       try {
         const res = await addCom(com)
         if (res.data.code === 0) {
@@ -173,7 +173,7 @@ export const useComStore = defineStore('com', {
         throw error
       }
     },
-    async copyCom(id: string) {
+    async copy(id: string) {
       try {
         const res = await copyCom(id)
         if (res.data.code === 0) {

@@ -12,7 +12,7 @@ export const useFilterStore = defineStore('filter', {
     dataFilters: [],
   }),
   actions: {
-    async loadFilters(projectId: number) {
+    async request(projectId: number) {
       try {
         const res = await api.getFilters(projectId)
         if (res.data.code === 0) {
@@ -24,7 +24,7 @@ export const useFilterStore = defineStore('filter', {
         throw error
       }
     },
-    async createFilter(payload: DataFilter) {
+    async create(payload: DataFilter) {
       try {
         const res = await api.createFilter(payload)
         if (res.data.code === 0) {
@@ -40,7 +40,7 @@ export const useFilterStore = defineStore('filter', {
         throw error
       }
     },
-    async updateFilter(payload: DataFilter) {
+    async update(payload: DataFilter) {
       try {
         const res = await api.updateFilter(payload)
         if (res.data.code === 0) {
@@ -58,7 +58,7 @@ export const useFilterStore = defineStore('filter', {
         throw error
       }
     },
-    async updateFilterName(payload: Pick<DataFilter, 'id' | 'name'>) {
+    async updateName(payload: Pick<DataFilter, 'id' | 'name'>) {
       try {
         const res = await api.updateFilterName(payload)
         if (res.data.code === 0) {
@@ -74,7 +74,7 @@ export const useFilterStore = defineStore('filter', {
         throw error
       }
     },
-    async deleteFilter(payload: number) {
+    async delete(payload: number) {
       try {
         const res = await api.deleteFilter(payload)
         if (res.data.code === 0) {

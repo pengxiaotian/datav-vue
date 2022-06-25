@@ -6,7 +6,13 @@
         <div class="screen-edit">
           <div class="screen-button">
             <router-link
-              :to="{ name: 'ScreenEditor', params: { projectId: screen.id } }"
+              :to="{
+                name: 'ScreenEditor',
+                params: { projectId: screen.id },
+                query: {
+                  tpl: screen.id < 100 ? screen.id : undefined,
+                },
+              }"
               target="_blank"
               class="edit-wrap"
             >
@@ -45,7 +51,10 @@
           </div>
 
           <router-link
-            :to="{ name: 'Preview', params: { screenId: screen.id } }"
+            :to="{
+              name: 'Preview',
+              params: { screenId: screen.id }
+            }"
             target="_blank"
             class="preview"
           >
@@ -152,7 +161,7 @@ export default defineComponent({
     const onInputBlur = async () => {
       if (screenName.value) {
         try {
-          await projectStore.updateProjectName(id.value, screenName.value)
+          await projectStore.updateName(id.value, screenName.value)
           name.value = screenName.value
         } catch (error) {
           nMessage.error(error.message)
@@ -163,7 +172,7 @@ export default defineComponent({
     }
 
     const confirmCopyProject = () => {
-      projectStore.copyProject(id.value, groupId.value)
+      projectStore.copy(id.value, groupId.value)
     }
 
     const confirmDeleteProject = () => {
@@ -176,7 +185,7 @@ export default defineComponent({
         onPositiveClick: async () => {
           d.loading = true
           try {
-            await projectStore.deleteProject(id.value, groupId.value)
+            await projectStore.delete(id.value, groupId.value)
           } catch (error) {
             nMessage.error(error.message)
           }
