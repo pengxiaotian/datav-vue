@@ -296,29 +296,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.config-manager-page {
-  height: 100%;
-  background: var(--datav-left-nav-bg);
-  user-select: none;
-
-  .config-manager-head {
-    width: 100%;
-    height: 30px;
-    font-size: 12px;
-    line-height: 30px;
-    text-align: center;
-    color: var(--datav-font-color);
-    background: var(--datav-layer-bg);
-    user-select: none;
-  }
-
-  .config-manager-body {
-    width: 100%;
-    height: 100%;
-    padding-top: 36px;
-    margin-top: -36px;
-  }
-}
+@import './config.scss';
 
 .page-config {
   position: relative;
@@ -327,7 +305,6 @@ export default defineComponent({
   overflow-y: scroll;
   font-size: 12px;
   color: var(--datav-gui-font-color-1);
-  background: var(--datav-gui-bgcolor-front);
 }
 
 .page-config-wp {

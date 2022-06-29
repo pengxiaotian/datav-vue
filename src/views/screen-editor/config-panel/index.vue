@@ -42,6 +42,7 @@
           <interaction-panel :key="currCom.id" />
         </n-tab-pane>
       </n-tabs>
+      <multi-layout-config v-else-if="selectedCount > 1" />
       <page-config v-else />
     </div>
   </div>
@@ -62,6 +63,7 @@ export default defineComponent({
     IconCloud,
     IconInteract,
     PageConfig: loadAsyncComponent(() => import('./page-config.vue')),
+    MultiLayoutConfig: loadAsyncComponent(() => import('./multi-layout-config.vue')),
     SettingPanel: loadAsyncComponent(() => import('./setting-panel.vue')),
     DataCenterPanel: loadAsyncComponent(() => import('./data-center-panel/index.vue')),
     InteractionPanel: loadAsyncComponent(() => import('./interaction-panel/index.vue')),
@@ -72,12 +74,14 @@ export default defineComponent({
 
     const visiblePanel = computed(() => toolbarStore.config.show)
     const currCom = computed(() => comStore.selectedCom)
+    const selectedCount = computed(() => comStore.selectedComs.length)
 
     provide(comInjectionKey, currCom)
 
     return {
       visiblePanel,
       currCom,
+      selectedCount,
     }
   },
 })

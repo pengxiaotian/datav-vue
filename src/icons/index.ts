@@ -94,6 +94,14 @@ import IconRedo from './redo.vue'
 import IconUndo from './undo.vue'
 import IconGroup from './group.vue'
 import IconUngroup from './ungroup.vue'
+import IconAlignLeft from './align-left.vue'
+import IconAlignCenter from './align-center.vue'
+import IconAlignRight from './align-right.vue'
+import IconAlignTop from './align-top.vue'
+import IconAlignMiddle from './align-middle.vue'
+import IconAlignBottom from './align-bottom.vue'
+import IconAlignHorizontal from './align-horizontal.vue'
+import IconAlignVertical from './align-vertical.vue'
 // -- prepend import placeholder --
 
 export {
@@ -193,5 +201,13 @@ export {
   IconUndo,
   IconGroup,
   IconUngroup,
+  IconAlignLeft,
+  IconAlignCenter,
+  IconAlignRight,
+  IconAlignTop,
+  IconAlignMiddle,
+  IconAlignBottom,
+  IconAlignHorizontal,
+  IconAlignVertical,
   // -- prepend export placeholder --
 }
