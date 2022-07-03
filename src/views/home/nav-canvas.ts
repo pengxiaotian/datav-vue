@@ -99,11 +99,10 @@ export class NavCanvas {
     this.pattern = canvas.getContext('2d').createPattern(imgCanvas, 'repeat-x')
   }
 
-  calcAVGSpeed(a: number) {
+  calcAvgSpeed(a: number) {
     const { l, j, k } = this
-    let b = (l * j * a + k * (1 - j) * a) / (k * l * 20)
-    b = Math.max(Math.abs(b), 2.5) * Math.sign(b)
-    return b
+    const b = (l * j * a + k * (1 - j) * a) / (k * l * 20)
+    return Math.max(Math.abs(b), 2.5) * Math.sign(b)
   }
 
   getCurSpeed(a: number, b: number) {
@@ -139,7 +138,7 @@ export class NavCanvas {
     gradient.addColorStop(1, 'rgba(0,0,0,0)')
     ctx.lineWidth = 1.5
     ctx.strokeStyle = gradient
-    ctx.fillStyle = this.pattern!
+    ctx.fillStyle = this.pattern
     this.draw(ctx, true)
   }
 
@@ -229,7 +228,7 @@ export class NavCanvas {
       && (!opt.animating || navindex !== opt.nextIndex)) {
       opt.animating = true
       opt.distance = tabWidthList[navindex] - tabWidthList[opt.currentIndex]
-      opt.speed = this.calcAVGSpeed(opt.distance)
+      opt.speed = this.calcAvgSpeed(opt.distance)
       opt.curDisX = 0
       opt.nextIndex = navindex
     }
