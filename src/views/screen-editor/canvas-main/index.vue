@@ -53,9 +53,8 @@ import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
-import { ComType } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
-import { getComponentRotatedStyle, checkRectIntersect } from '@/utils/editor'
+import { checkRectIntersect } from '@/utils/editor'
 import { warn } from '@/utils/warn'
 import AlignLine from './align-line.vue'
 import Ruler from './ruler/index.vue'
@@ -173,15 +172,6 @@ export default defineComponent({
           com.selected = false
           return false
         }
-
-        if (com.type === ComType.group) {
-          // 只允许嵌套两层
-          const hasGroup = com.children?.some(m => m.type === ComType.group)
-          if (hasGroup) {
-            return false
-          }
-        }
-
         com.selected = true
         return true
       })
@@ -204,42 +194,6 @@ export default defineComponent({
         const rect1 = { x: sx, y: sy, w: sw, h: sh }
         const rect2 = { x, y, w, h }
         com.hovered = checkRectIntersect(rect1, rect2)
-      })
-    }
-
-    const createGroup = () => {
-      // 获取选中区域的组件数据
-      const selectComs = getSelectComs()
-      if (selectComs.length < 1) {
-        return
-      }
-
-      // 根据选中区域和区域中每个组件的位移信息来创建 Group 组件
-      // 要遍历选择区域的每个组件，获取它们的 left top right bottom 信息来进行比较
-      let top = Infinity, left = Infinity
-      let right = -Infinity, bottom = -Infinity
-      selectComs.forEach(com => {
-        const style = getComponentRotatedStyle(com.attr)
-        if (style.left < left) left = style.left
-        if (style.top < top) top = style.top
-        if (style.right > right) right = style.right
-        if (style.bottom > bottom) bottom = style.bottom
-      })
-
-      const { scale } = canvas.value
-      areaStartX.value = left * scale + offsetX
-      areaStartY.value = top * scale + offsetY
-      areaWidth.value = (right - left) * scale
-      areaHeight.value = (bottom - top) * scale
-
-      // 设置选中区域位移大小信息
-      editorStore.$patch({
-        areaData: {
-          left: areaStartX.value,
-          top: areaStartY.value,
-          width: areaWidth.value,
-          height: areaHeight.value,
-        },
       })
     }
 
@@ -287,8 +241,8 @@ export default defineComponent({
         off(document, 'mousemove', move)
         off(document, 'mouseup', up)
 
-        createGroup()
         hideArea()
+        getSelectComs()
 
         if (cancelable.value) {
           confirmCancel(ev)

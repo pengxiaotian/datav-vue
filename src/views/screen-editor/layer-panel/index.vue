@@ -64,80 +64,54 @@
         </n-icon>
       </div>
       <div class="layer-manager-wrap">
-        <template v-for="(com, idx) in descComs" :key="com.id">
-          <div
-            :title="com.alias"
-            class="layer-manager-item"
-            :class="[{
-              'thumbail-wrap': !showText,
-              hided: com.hided,
-              locked: com.locked,
-              hovered: !com.selected && com.hovered,
-              selected: com.selected && !isDraging
-            }]"
+        <!-- <layer-manager-item
+          v-for="(com, idx) in descComs"
+          :key="com.id"
+          :com="com"
+          :level="0"
+          :show-text="showText"
+          :class="{
+            selected: com.selected && !isDraging
+          }"
+          @mouseup="selectCom($event, com)"
+          @dragstart="dragStart($event, com)"
+          @dragend="dragEnd"
+          @dragenter.self="dragEnter($event, idx)"
+          @dragover="dragOver"
+        /> -->
+        <template v-for="(com0, idx0) in descComs" :key="com0.id">
+          <layer-manager-item
+            :com="com0"
+            :level="0"
+            :show-text="showText"
+            :class="{
+              selected: com0.selected && !isDraging
+            }"
             draggable="true"
-            @mouseup="selectCom($event, com)"
-            @mouseenter="com.hovered = true"
-            @mouseleave="com.hovered = false"
-            @contextmenu="showMenu($event, com)"
-            @dragstart="dragStart($event, com)"
+            @mouseup="selectCom($event, com0)"
+            @dragstart="dragStart($event, com0)"
             @dragend="dragEnd"
-            @dragenter.self="dragEnter($event, idx)"
+            @dragenter.self="dragEnter($event, idx0)"
             @dragover="dragOver"
-          >
-            <template v-if="showText">
-              <g-com-icon :icon="com.icon" />
-              <input
-                v-if="com.renameing"
-                v-model.trim="com.alias"
-                v-focus
-                class="layer-item-input"
-                @blur="com.renameing = false"
-                @keydown.enter="com.renameing = false"
-              >
-              <span v-else class="layer-item-span">
-                <span class="layer-item-text" @dblclick="com.renameing = true">
-                  {{ com.alias }}
-                </span>
-              </span>
-              <n-icon v-if="com.hided" class="show-toggle-btn" @click="com.hided = false">
-                <IconHide />
-              </n-icon>
-              <n-icon v-if="com.locked" class="show-toggle-btn" @click="com.locked = false">
-                <IconLock />
-              </n-icon>
+          />
+          <template v-if="!com0.fold">
+            <template v-for="(com1, idx1) in com0.children" :key="com1.id">
+              <layer-manager-item
+                :com="com1"
+                :level="1"
+                :show-text="showText"
+                :class="{
+                  selected: com1.selected && !isDraging
+                }"
+                draggable="true"
+                @mouseup="selectCom($event, com1)"
+                @dragstart="dragStart($event, com1)"
+                @dragend="dragEnd"
+                @dragenter.self="dragEnter($event, idx1)"
+                @dragover="dragOver"
+              />
             </template>
-            <template v-else>
-              <div
-                class="layer-item-thumbail"
-                :alt="com.alias"
-                :style="`background-image: url(${com.img})`"
-              ></div>
-              <div class="layer-manager-thumbail">
-                <input
-                  v-if="com.renameing"
-                  v-model.trim="com.alias"
-                  v-focus
-                  class="layer-item-input"
-                  @blur="com.renameing = false"
-                  @keydown.enter="com.renameing = false"
-                >
-                <span v-else class="layer-item-span">
-                  <span class="layer-item-text" @dblclick="com.renameing = true">
-                    {{ com.alias }}
-                  </span>
-                </span>
-              </div>
-              <div class="layer-thumbail-item">
-                <n-icon v-if="com.hided" class="show-toggle-btn" @click="com.hided = false">
-                  <IconHide />
-                </n-icon>
-                <n-icon v-if="com.locked" class="show-toggle-btn" @click="com.locked = false">
-                  <IconLock />
-                </n-icon>
-              </div>
-            </template>
-          </div>
+          </template>
         </template>
         <div class="last-flex-item" @click="cancelSelected"></div>
         <div
@@ -206,7 +180,8 @@ import {
   IconDelete,
   IconGroup,
 } from '@/icons'
-import { useContextMenu } from '../editor-context-menu/index'
+import { useContextMenu } from '../editor-context-menu'
+import LayerManagerItem from './layer-manager-item.vue'
 
 const toolbarStore = useToolbarStore()
 const editorStore = useEditorStore()
@@ -215,7 +190,6 @@ const {
   isLocked,
   isHided,
   disableGroup,
-  showMenu,
   moveCom,
   lockCom,
   hideCom,
@@ -227,6 +201,7 @@ const showText = ref(false)
 const visiblePanel = computed(() => toolbarStore.layer.show)
 const descComs = computed(() => [...comStore.coms].reverse())
 const isDraging = ref(false)
+const moveToIndex = ref(-1)
 const dragInfo = ref({
   visible: false,
   x: 0,
@@ -297,8 +272,6 @@ const dragStart = (ev: DragEvent, com: DatavComponent) => {
     comStore.select(com.id)
   }
 }
-
-const moveToIndex = ref(-1)
 
 const dragEnd = () => {
   isDraging.value = false

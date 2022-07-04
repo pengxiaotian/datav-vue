@@ -3,7 +3,7 @@ import { reactive, computed, h } from 'vue'
 import { useMessage, useDialog } from 'naive-ui'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
-import { DatavComponent } from '@/components/_models/datav-component'
+import { DatavComponent, ComType } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
 import { MoveType } from '@/domains/editor'
 import { IconWarning } from '@/icons'
@@ -18,14 +18,25 @@ export const useContextMenu = () => {
 
   const isLocked = computed(() => comStore.selectedComs.every(m => m.locked))
   const isHided = computed(() => comStore.selectedComs.every(m => m.hided))
-  const isGroup = computed(() => comStore.selectedCom?.group)
+  const isGroup = computed(() => {
+    return comStore.selectedComs.every(com => com.type === ComType.layer)
+  })
   const disableGroup = computed(() => {
     const coms = comStore.selectedComs
-    if (coms.length > 1) {
-      return coms.filter(m => m.group).some(m => m.group)
+    const pid = coms[0]?.parentId
+    if (pid) {
+      // 判断是否是子组
+      if (coms.some(m => m.type === ComType.layer)) {
+        return true
+      }
+
+      // 查找一级列表，判断父级是一级还是二级
+      return !comStore.coms.find(m => m.id === pid)
+
     }
 
-    return isGroup.value
+    // 全是一级时，判断是否有子组
+    return coms.some(m => m.children?.some(s => s.type === ComType.layer))
   })
 
   const moveCom = (moveType: MoveType) => {
@@ -43,7 +54,7 @@ export const useContextMenu = () => {
         comStore.move(id, moveType)
       })
     } else {
-      comStore.move(comStore.selectedCom.id, moveType)
+      comStore.move(coms[0].id, moveType)
     }
   }
 
@@ -107,7 +118,7 @@ export const useContextMenu = () => {
     if (coms.length === 0) {
       return
     }
-    editorStore.compose()
+    comStore.createGroup()
   }
 
   const decomposeComs = () => {

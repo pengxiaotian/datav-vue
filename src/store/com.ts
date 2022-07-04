@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { cloneDeep } from 'lodash-es'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
+import { Group } from '@/components/_internal/group/src/group'
 import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
 import { generateId } from '@/utils/util'
 import { MoveType } from '@/domains/editor'
@@ -21,6 +22,17 @@ const findCom = (coms: DatavComponent[], id: string) => {
 
 const findComs = (coms: DatavComponent[], parentId?: string) => {
   return coms.filter(c => c.parentId === parentId)
+}
+
+const cancelSelect = (coms?: DatavComponent[]) => {
+  coms.forEach(com => {
+    com.hovered = false
+    com.selected = false
+
+    if (com.children) {
+      cancelSelect(com.children)
+    }
+  })
 }
 
 export const useComStore = defineStore('com', {
@@ -65,10 +77,7 @@ export const useComStore = defineStore('com', {
           }
         })
       } else {
-        this.coms.forEach(com => {
-          com.hovered = false
-          com.selected = false
-        })
+        cancelSelect(this.coms)
       }
     },
     selects(toCom: DatavComponent) {
@@ -148,10 +157,10 @@ export const useComStore = defineStore('com', {
         const res = await deleteCom(ids)
         if (res.data.code === 0) {
           coms.forEach(com => {
-            if (com.type === ComType.com) {
-              this.coms.splice(findComIndex(this.coms, com.id), 1)
-            } else {
+            if (com.type === ComType.subCom) {
               this.subComs.splice(findComIndex(this.subComs, com.id), 1)
+            } else {
+              this.coms.splice(findComIndex(this.coms, com.id), 1)
             }
           })
         } else {
@@ -214,6 +223,26 @@ export const useComStore = defineStore('com', {
       } catch (error) {
         throw error
       }
+    },
+    createGroup() {
+      let top = Infinity, left = Infinity
+      let right = -Infinity, bottom = -Infinity
+      this.selectedComs.forEach(({ attr }) => {
+        top = Math.min(attr.y, top)
+        left = Math.min(attr.x, left)
+        right = Math.max(attr.x + attr.w, right)
+        bottom = Math.max(attr.y + attr.h, bottom)
+      })
+
+      const gcom = new Group({
+        x: left,
+        y: top,
+        w: right - left,
+        h: bottom - top,
+      })
+      gcom.children.push(...this.selectedComs)
+      this.coms = this.coms.filter(m => !m.selected)
+      this.add(gcom)
     },
   },
 })
