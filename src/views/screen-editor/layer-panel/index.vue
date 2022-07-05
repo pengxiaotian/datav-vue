@@ -64,55 +64,24 @@
         </n-icon>
       </div>
       <div class="layer-manager-wrap">
-        <!-- <layer-manager-item
-          v-for="(com, idx) in descComs"
-          :key="com.id"
-          :com="com"
-          :level="0"
-          :show-text="showText"
-          :class="{
-            selected: com.selected && !isDraging
-          }"
-          @mouseup="selectCom($event, com)"
-          @dragstart="dragStart($event, com)"
-          @dragend="dragEnd"
-          @dragenter.self="dragEnter($event, idx)"
-          @dragover="dragOver"
-        /> -->
-        <template v-for="(com0, idx0) in descComs" :key="com0.id">
-          <layer-manager-item
-            :com="com0"
-            :level="0"
-            :show-text="showText"
-            :class="{
-              selected: com0.selected && !isDraging
-            }"
-            draggable="true"
-            @mouseup="selectCom($event, com0)"
-            @dragstart="dragStart($event, com0)"
-            @dragend="dragEnd"
-            @dragenter.self="dragEnter($event, idx0)"
-            @dragover="dragOver"
-          />
-          <template v-if="!com0.fold">
-            <template v-for="(com1, idx1) in com0.children" :key="com1.id">
-              <layer-manager-item
-                :com="com1"
-                :level="1"
-                :show-text="showText"
-                :class="{
-                  selected: com1.selected && !isDraging
-                }"
-                draggable="true"
-                @mouseup="selectCom($event, com1)"
-                @dragstart="dragStart($event, com1)"
-                @dragend="dragEnd"
-                @dragenter.self="dragEnter($event, idx1)"
-                @dragover="dragOver"
-              />
-            </template>
+        <LayerManagerWrap>
+          <template #default="{ com, idx, level }">
+            <layer-manager-item
+              :com="com"
+              :level="level"
+              :show-text="showText"
+              :class="{
+                selected: com.selected && !isDraging
+              }"
+              draggable="true"
+              @mouseup="selectCom($event, com)"
+              @dragstart="dragStart($event, com)"
+              @dragend="dragEnd"
+              @dragenter.self="dragEnter($event, idx)"
+              @dragover="dragOver"
+            />
           </template>
-        </template>
+        </LayerManagerWrap>
         <div class="last-flex-item" @click="cancelSelected"></div>
         <div
           v-if="dragInfo.visible"
@@ -181,6 +150,7 @@ import {
   IconGroup,
 } from '@/icons'
 import { useContextMenu } from '../editor-context-menu'
+import LayerManagerWrap from './layer-manager-wrap.vue'
 import LayerManagerItem from './layer-manager-item.vue'
 
 const toolbarStore = useToolbarStore()
@@ -199,7 +169,6 @@ const {
 
 const showText = ref(false)
 const visiblePanel = computed(() => toolbarStore.layer.show)
-const descComs = computed(() => [...comStore.coms].reverse())
 const isDraging = ref(false)
 const moveToIndex = ref(-1)
 const dragInfo = ref({
@@ -286,7 +255,7 @@ const dragEnter = (ev: any, idx: number) => {
   const top = ev.clientY - 104
   const i = top % 48 > 24 ? idx + 1 : idx
   dragInfo.value.y = i * 48
-  moveToIndex.value = descComs.value.length - i
+  moveToIndex.value = comStore.coms.length - i
 }
 
 const dragOver = (ev: any) => {
