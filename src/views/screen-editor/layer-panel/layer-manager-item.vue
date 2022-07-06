@@ -6,9 +6,11 @@
       'layer-manager-group': com.type === ComType.layer,
       'layer-manager-item': true,
       'layer-manager-thumbail-wrap': !showText,
+      '--child-hovered': childState.hovered,
+      '--child-selected': childState.selected,
       hided: com.hided,
       locked: com.locked,
-      hovered: !com.selected && com.hovered,
+      hovered: com.hovered,
     }"
     :style="{
       paddingLeft: `${6 + level * 10}px`
@@ -17,8 +19,17 @@
     @mouseleave="toggleHover(0)"
     @contextmenu="showMenu($event, com)"
   >
+    <template v-if="com.type === ComType.layer">
+      <n-icon class="fold-toggle-btn" :class="{ 'icon-fold': com.fold }">
+        <IconArrowRight />
+      </n-icon>
+      <n-icon class="layer-item-icon">
+        <IconGroup />
+      </n-icon>
+    </template>
+
     <template v-if="showText">
-      <g-com-icon :icon="com.icon" />
+      <g-com-icon v-if="com.type === ComType.com" :icon="com.icon" />
       <input
         v-if="com.renameing"
         v-model.trim="com.alias"
@@ -40,16 +51,8 @@
       </n-icon>
     </template>
     <template v-else>
-      <template v-if="com.type === ComType.layer">
-        <n-icon class="fold-toggle-btn" :class="{ 'icon-fold': com.fold }">
-          <IconArrowRight />
-        </n-icon>
-        <n-icon class="layer-item-icon">
-          <IconGroup />
-        </n-icon>
-      </template>
       <div
-        v-else
+        v-if="com.type === ComType.com"
         class="layer-item-thumbail"
         :style="`background-image: url(${com.img})`"
       ></div>
@@ -77,22 +80,21 @@
           <IconLock />
         </n-icon>
       </div>
-
-      <div
-        v-if="com.type === ComType.layer"
-        class="group-fold-controller"
-        :style="{
-          width: `${level > 0 ? 50 : 40}px`,
-          transform: `translateX(-${6 + level * 10}px)`
-        }"
-        @mouseup.stop="toggleFold"
-      ></div>
     </template>
+    <div
+      v-if="com.type === ComType.layer"
+      class="group-fold-controller"
+      :style="{
+        width: `${level > 0 ? 50 : 40}px`,
+        transform: `translateX(-${6 + level * 10}px)`
+      }"
+      @mouseup.stop="toggleFold"
+    ></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { DatavComponent, ComType } from '@/components/_models/datav-component'
 import {
   IconLock,
@@ -110,12 +112,46 @@ const props = defineProps<{
 
 const { showMenu } = useContextMenu()
 
+const getChildState = (com: DatavComponent): {
+  hovered: boolean
+  selected: boolean
+} => {
+  let hovered = false
+  let selected = false
+  if (com.type === ComType.layer) {
+    for (let i = 0, len = com.children.length; i < len; i++) {
+      const sc = com.children[i]
+      if (sc.selected) selected = sc.selected
+      if (sc.hovered) hovered = sc.hovered
+
+      if (!selected && sc.type === ComType.layer) {
+        const s = getChildState(sc)
+        if (s.selected) selected = s.selected
+        if (s.hovered) hovered = s.hovered
+      }
+
+      if (selected && hovered) {
+        break
+      }
+    }
+  }
+
+  return {
+    hovered,
+    selected,
+  }
+}
+
+const childState = computed(() => {
+  return getChildState(props.com)
+})
+
 const toggleRename = (flag: number) => {
   props.com.renameing = flag === 1
 }
 
 const toggleHover = (flag: number) => {
-  props.com.hovered = flag === 1
+  props.com.hovered = props.com.selected ? false : flag === 1
 }
 
 const toggleHide = (flag: number) => {
@@ -152,6 +188,16 @@ const toggleFold = () => {
     .fold-toggle-btn {
       line-height: 48px;
     }
+  }
+
+  &.--child-hovered {
+    color: #fff;
+    background: rgb(143 225 255 / 10%);
+  }
+
+  &.--child-selected {
+    color: #fff;
+    background: rgb(143 225 255 / 7%);
   }
 
   &.hided,

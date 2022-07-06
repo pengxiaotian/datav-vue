@@ -24,7 +24,24 @@ const findComs = (coms: DatavComponent[], parentId?: string) => {
   return coms.filter(c => c.parentId === parentId)
 }
 
-const cancelSelect = (coms?: DatavComponent[]) => {
+const confirmSelect = (coms: DatavComponent[], id: string, multiple = false) => {
+  coms.forEach(com => {
+    com.hovered = false
+    if (multiple) {
+      if (com.id === id) {
+        com.selected = !com.selected
+      }
+    } else {
+      com.selected = com.id === id
+    }
+
+    if (com.children) {
+      confirmSelect(com.children, id, multiple)
+    }
+  })
+}
+
+const cancelSelect = (coms: DatavComponent[]) => {
   coms.forEach(com => {
     com.hovered = false
     com.selected = false
@@ -66,16 +83,7 @@ export const useComStore = defineStore('com', {
     },
     select(id: string, multiple = false) {
       if (id) {
-        this.coms.forEach(com => {
-          com.hovered = false
-          if (multiple) {
-            if (com.id === id) {
-              com.selected = !com.selected
-            }
-          } else {
-            com.selected = com.id === id
-          }
-        })
+        confirmSelect(this.coms, id, multiple)
       } else {
         cancelSelect(this.coms)
       }

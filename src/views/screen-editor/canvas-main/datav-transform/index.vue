@@ -10,7 +10,7 @@
       :scale="scale"
     />
     <div
-      :class="['datav-scale', { hovered: !com.selected && com.hovered }]"
+      :class="['datav-scale', { hovered: com.hovered }]"
       :style="hideStyle"
       @mouseenter="onEnter"
       @mouseleave="onLeave"
