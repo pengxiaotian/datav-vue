@@ -46,7 +46,7 @@ export abstract class DatavComponent {
   selected = false
   hovered = false
   renameing = false
-  fold = true
+  fold: boolean
 
   attr: ComponentAttr = {
     x: 0,

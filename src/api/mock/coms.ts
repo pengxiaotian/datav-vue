@@ -119,4 +119,10 @@ export default (adapter: MockAdapter) => {
       code: 0,
       message: 'ok',
     }))
+
+  adapter.onDelete('/coms/some')
+    .reply(200, Mock.mock({
+      code: 0,
+      message: 'ok',
+    }))
 }

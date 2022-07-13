@@ -1,44 +1,83 @@
 import { defineStore } from 'pinia'
-import { cloneDeep } from 'lodash-es'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import { Group } from '@/components/_internal/group/src/group'
-import { getComs, deleteCom, addCom, copyCom } from '@/api/coms'
-import { generateId } from '@/utils/util'
+import { getComs, deleteComs, addCom, copyCom } from '@/api/coms'
 import { MoveType } from '@/domains/editor'
+import { getNewCom } from '@/data/mock-copy'
 
 export interface IComState {
   coms: DatavComponent[]
   subComs: DatavComponent[]
 }
 
-export const findComIndex = (coms: DatavComponent[], data: string | DatavComponent) => {
+const findCom = (coms: DatavComponent[], id: string): DatavComponent | null => {
+  for (let i = 0, len = coms.length; i < len; i++) {
+    const com = coms[i]
+    if (com.id === id) {
+      return com
+    }
+
+    if (com.type === ComType.layer) {
+      const subCom = findCom(com.children, id)
+      if (subCom) {
+        return subCom
+      }
+    }
+  }
+
+  return null
+}
+
+const findComs = (coms: DatavComponent[], parentId?: string) => {
+  if (!parentId) {
+    return coms
+  }
+
+  for (let i = 0, len = coms.length; i < len; i++) {
+    const com = coms[i]
+    if (com.id === parentId) {
+      return com.children
+    }
+
+    if (com.type === ComType.layer) {
+      const item = com.children.find(m => m.id === parentId)
+      if (item) {
+        return item.children
+      }
+    }
+  }
+}
+
+const getComIndex = (coms: DatavComponent[], data: string | DatavComponent) => {
   const id = typeof data === 'string' ? data : data.id
   return coms.findIndex(c => c.id === id)
 }
 
-const findCom = (coms: DatavComponent[], id: string) => {
-  return coms.find(c => c.id === id)
-}
-
-const findComs = (coms: DatavComponent[], parentId?: string) => {
+const getSubComs = (coms: DatavComponent[], parentId?: string) => {
   return coms.filter(c => c.parentId === parentId)
 }
 
-const confirmSelect = (coms: DatavComponent[], id: string, multiple = false) => {
-  coms.forEach(com => {
+const confirmSelect = (coms: DatavComponent[], id: string, pid: string, multiple = false, callback?: Function) => {
+  for (let i = 0, len = coms.length; i < len; i++) {
+    const com = coms[i]
     com.hovered = false
     if (multiple) {
       if (com.id === id) {
         com.selected = !com.selected
+        if (com.parentId != pid) {
+          callback?.()
+          com.selected = true
+          break
+        }
       }
     } else {
       com.selected = com.id === id
     }
 
-    if (com.children) {
-      confirmSelect(com.children, id, multiple)
+    if (com.type === ComType.layer) {
+      confirmSelect(com.children, id, pid, multiple, callback)
     }
-  })
+  }
 }
 
 const cancelSelect = (coms: DatavComponent[]) => {
@@ -46,10 +85,29 @@ const cancelSelect = (coms: DatavComponent[]) => {
     com.hovered = false
     com.selected = false
 
-    if (com.children) {
+    if (com.type === ComType.layer) {
       cancelSelect(com.children)
     }
   })
+}
+
+const getSelected = (coms: DatavComponent[]) => {
+  let list = coms.filter(m => m.selected)
+  if (list.length > 0) {
+    return list
+  }
+
+  for (let i = 0, len = coms.length; i < len; i++) {
+    const com = coms[i]
+    if (com.type === ComType.layer) {
+      list = getSelected(com.children)
+      if (list.length > 0) {
+        return list
+      }
+    }
+  }
+
+  return list
 }
 
 export const useComStore = defineStore('com', {
@@ -59,7 +117,7 @@ export const useComStore = defineStore('com', {
   }),
   getters: {
     selectedComs(state) {
-      return state.coms.filter(m => m.selected)
+      return getSelected(state.coms)
     },
     selectedCom(): DatavComponent | null {
       const coms = this.selectedComs
@@ -81,9 +139,18 @@ export const useComStore = defineStore('com', {
       this.coms = coms
       this.subComs = subComs
     },
-    select(id: string, multiple = false) {
+    select(id: string, parentId?: string, multiple = false) {
       if (id) {
-        confirmSelect(this.coms, id, multiple)
+        let pid = parentId
+        if (multiple) {
+          const scoms = this.selectedComs
+          if (scoms.length > 0) {
+            pid = scoms[0].parentId
+          }
+        }
+        confirmSelect(this.coms, id, pid, multiple, () => {
+          cancelSelect(this.coms)
+        })
       } else {
         cancelSelect(this.coms)
       }
@@ -91,14 +158,20 @@ export const useComStore = defineStore('com', {
     selects(toCom: DatavComponent) {
       const scoms = this.selectedComs
       if (toCom.selected || scoms.length > 0) {
+        if (toCom.parentId != scoms[0].parentId) {
+          this.select(toCom.id, toCom.parentId)
+          return
+        }
+
         // 虽有小bug，但是够用。O(∩_∩)O哈哈~
-        let fromIdx = findComIndex(this.coms, scoms[0])
-        const toIdx = findComIndex(this.coms, toCom)
+        const list = findComs(this.coms, toCom.parentId)
+        let fromIdx = getComIndex(list, scoms[0])
+        const toIdx = getComIndex(list, toCom)
         if (scoms.length > 1) {
           const sidx = fromIdx
           const ecom = scoms[scoms.length - 1]
           if (ecom.id !== toCom.id) {
-            const eidx = findComIndex(this.coms, ecom)
+            const eidx = getComIndex(list, ecom)
             fromIdx =  Math.abs(toIdx - sidx) > Math.abs(toIdx - eidx) ? eidx : sidx
           }
         }
@@ -107,42 +180,133 @@ export const useComStore = defineStore('com', {
         }
         const sidx = Math.min(fromIdx, toIdx)
         const eidx = Math.max(fromIdx, toIdx)
-        this.coms.forEach((com, idx) => {
+        list.forEach((com, idx) => {
           com.selected = sidx <= idx && idx <= eidx
         })
       } else {
         toCom.selected = true
       }
     },
-    move(id: string, moveType: MoveType) {
-      const i = findComIndex(this.coms, id)
+    move(moveType: MoveType, id: string, pid: string) {
+      let com: DatavComponent = null
+      let i = -1, len = 0
+      if (pid) {
+        com = findCom(this.coms, pid)
+        i = getComIndex(com.children, id)
+        len = com.children.length
+      } else {
+        i = getComIndex(this.coms, id)
+        len = this.coms.length
+      }
+
       if (moveType === MoveType.up) {
-        if (i + 1 < this.coms.length) {
-          this.coms.splice(i + 1, 0, ...this.coms.splice(i, 1))
+        if (i > 0) {
+          if (com) {
+            com.children.splice(i - 1, 0, ...com.children.splice(i, 1))
+          } else {
+            this.coms.splice(i - 1, 0, ...this.coms.splice(i, 1))
+          }
         }
       } else if (moveType === MoveType.down) {
-        if (i > 0) {
-          this.coms.splice(i - 1, 0, ...this.coms.splice(i, 1))
+        if (i + 1 < len) {
+          if (com) {
+            com.children.splice(i + 1, 0, ...com.children.splice(i, 1))
+          } else {
+            this.coms.splice(i + 1, 0, ...this.coms.splice(i, 1))
+          }
         }
       } else if (moveType === MoveType.top) {
-        if (i + 1 < this.coms.length) {
-          this.coms.push(...this.coms.splice(i, 1))
+        if (i > 0) {
+          if (com) {
+            com.children.unshift(...com.children.splice(i, 1))
+          } else {
+            this.coms.unshift(...this.coms.splice(i, 1))
+          }
         }
       } else if (moveType === MoveType.bottom) {
-        if (i > 0) {
-          this.coms.unshift(...this.coms.splice(i, 1))
+        if (i + 1 < len) {
+          if (com) {
+            com.children.push(...com.children.splice(i, 1))
+          } else {
+            this.coms.push(...this.coms.splice(i, 1))
+          }
         }
       }
     },
-    moveTo(toIndex: number) {
-      let toIdx = toIndex
-      const coms = this.coms.filter(m => !m.selected)
-      const toCom = this.coms[toIdx]
-      if (toCom) {
-        toIdx = findComIndex(coms, toCom)
+    moveTo(toLevel: number, toIndex: number, toId: string, toParentId: string) {
+      const scoms = this.selectedComs
+      const fromParentId = scoms[0].parentId
+      if (toLevel === 0) {
+        let toIdx = this.coms.length - toIndex
+        if (fromParentId == toParentId) {
+          const coms = this.coms.filter(m => !m.selected)
+          const toCom = this.coms[toIdx]
+          if (toCom) {
+            toIdx = getComIndex(coms, toCom)
+          }
+          coms.splice(toIdx, 0, ...scoms)
+          this.coms = coms
+        } else {
+          const fromParentCom = findCom(this.coms, fromParentId)
+          fromParentCom.children = fromParentCom.children.filter(m => !m.selected)
+          scoms.forEach(m => {
+            m.parentId = toParentId
+          })
+          this.coms.splice(toIdx, 0, ...scoms)
+
+          if (fromParentCom.children.length === 0) {
+            this.removes([fromParentCom.id], fromParentCom.parentId)
+          }
+        }
+        return
       }
-      coms.splice(toIdx, 0, ...this.selectedComs)
-      this.coms = coms
+
+      const moveChild = (item: DatavComponent) => {
+        if (item.type !== ComType.layer || item.fold) {
+          return false
+        }
+
+        for (let i = 0, len = item.children.length; i < len; i++) {
+          const com = item.children[i]
+          if (com.id === toId) {
+            let toIdx = len - toIndex
+            if (fromParentId == toParentId) {
+              const coms = item.children.filter(m => !m.selected)
+              const toCom = item.children[toIdx]
+              if (toCom) {
+                toIdx = getComIndex(coms, toCom)
+              }
+              coms.splice(toIdx, 0, ...scoms)
+              item.children = coms
+            } else {
+              if (fromParentId) {
+                const fromParentCom = findCom(this.coms, fromParentId)
+                fromParentCom.children = fromParentCom.children.filter(m => !m.selected)
+                if (fromParentCom.children.length === 0) {
+                  this.removes([fromParentCom.id], fromParentCom.parentId)
+                }
+              } else {
+                this.coms = this.coms.filter(m => !m.selected)
+              }
+
+              scoms.forEach(m => {
+                m.parentId = toParentId
+              })
+              item.children.splice(toIdx, 0, ...scoms)
+            }
+            return true
+          } else if (com.id === toParentId && moveChild(com)) {
+            return true
+          }
+        }
+        return false
+      }
+
+      for (let i = 0, len = this.coms.length; i < len; i++) {
+        if (moveChild(this.coms[i])) {
+          break
+        }
+      }
     },
     async request(projectId: number) {
       try {
@@ -161,16 +325,15 @@ export const useComStore = defineStore('com', {
     },
     async deletes(coms: DatavComponent[]) {
       try {
-        const ids = coms.map(m => m.id).join()
-        const res = await deleteCom(ids)
+        const ids = coms.map(m => m.id)
+        const res = await deleteComs(ids)
         if (res.data.code === 0) {
-          coms.forEach(com => {
-            if (com.type === ComType.subCom) {
-              this.subComs.splice(findComIndex(this.subComs, com.id), 1)
-            } else {
-              this.coms.splice(findComIndex(this.coms, com.id), 1)
-            }
-          })
+          const com = coms[0]
+          if (com.type === ComType.subCom) {
+            this.subComs = this.subComs.filter(m => !ids.includes(m.id))
+          } else {
+            this.removes(ids, com.parentId)
+          }
         } else {
           throw Error(res.data.message)
         }
@@ -178,11 +341,26 @@ export const useComStore = defineStore('com', {
         throw error
       }
     },
+    removes(ids: string[], pid: string) {
+      if (pid) {
+        const pcom = findCom(this.coms, pid)
+        pcom.children = pcom.children.filter(m => !ids.includes(m.id))
+        if (pcom.children.length === 0) {
+          this.removes([pcom.id], pcom.parentId)
+        }
+      } else {
+        this.coms = this.coms.filter(m => !ids.includes(m.id))
+      }
+    },
     async add(com: DatavComponent) {
       try {
         const res = await addCom(com)
         if (res.data.code === 0) {
-          this.coms.push(com)
+          if (com.parentId) {
+            findCom(this.coms, com.parentId).children.push(com)
+          } else {
+            this.coms.push(com)
+          }
         } else {
           throw Error(res.data.message)
         }
@@ -195,34 +373,17 @@ export const useComStore = defineStore('com', {
         const res = await copyCom(id)
         if (res.data.code === 0) {
           // 模拟后端复制
-          const getNewCom = (com: DatavComponent, parentId?: string) => {
-            const ncom = cloneDeep(com)
-            ncom.id = generateId(ncom.name)
-            ncom.alias += '_copy'
-            ncom.attr.x += 30
-            ncom.attr.y += 30
-
-            ncom.hovered = false
-            ncom.selected = true
-            ncom.renameing = false
-
-            ncom.parentId = parentId
-
-            for (const key in ncom.apiData) {
-              ncom.apiData[key].id = generateId()
-              ncom.apiData[key].comId = ncom.id
-            }
-
-            return ncom
-          }
-
           const ocom = findCom(this.coms, id)
           if (ocom) {
             ocom.hovered = false
             ocom.selected = false
-            const ncom = getNewCom(ocom)
-            const nSubComs = findComs(this.subComs, ocom.id).map(m => getNewCom(m, ncom.id))
-            this.coms.push(ncom)
+            const ncom = getNewCom(ocom, ocom.parentId)
+            const nSubComs = getSubComs(this.subComs, ocom.id).map(m => getNewCom(m, ncom.id))
+            if (ncom.parentId) {
+              findCom(this.coms, ncom.parentId).children.push(ncom)
+            } else {
+              this.coms.push(ncom)
+            }
             this.subComs.push(...nSubComs)
           }
         } else {
@@ -233,9 +394,10 @@ export const useComStore = defineStore('com', {
       }
     },
     createGroup() {
+      const scoms = this.selectedComs
       let top = Infinity, left = Infinity
       let right = -Infinity, bottom = -Infinity
-      this.selectedComs.forEach(({ attr }) => {
+      scoms.forEach(({ attr }) => {
         top = Math.min(attr.y, top)
         left = Math.min(attr.x, left)
         right = Math.max(attr.x + attr.w, right)
@@ -248,9 +410,40 @@ export const useComStore = defineStore('com', {
         w: right - left,
         h: bottom - top,
       })
-      gcom.children.push(...this.selectedComs)
-      this.coms = this.coms.filter(m => !m.selected)
-      this.add(gcom)
+      gcom.parentId = scoms[0].parentId
+      gcom.children.push(...scoms)
+      gcom.children.forEach(com => {
+        com.parentId = gcom.id
+      })
+
+      if (gcom.parentId) {
+        const com = findCom(this.coms, gcom.parentId)
+        com.children = com.children.filter(m => !m.selected)
+      } else {
+        this.coms = this.coms.filter(m => !m.selected)
+      }
+
+      this.add(gcom).then(() => {
+        this.select(gcom.id)
+      })
+    },
+    cancelGroup() {
+      const scoms = this.selectedComs
+      const ids = scoms.map(m => m.id).join()
+      const pid = scoms[0].parentId
+      const coms = scoms.flatMap(m => m.children)
+      coms.forEach(com => {
+        com.parentId = pid
+      })
+
+      if (pid) {
+        const com = findCom(this.coms, pid)
+        com.children = com.children.filter(com => !ids.includes(com.id))
+        com.children.push(...coms)
+      } else {
+        this.coms = this.coms.filter(com => !ids.includes(com.id))
+        this.coms.push(...coms)
+      }
     },
   },
 })

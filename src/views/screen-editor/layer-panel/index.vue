@@ -34,7 +34,7 @@
           title="上移一层"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          @click="moveCom(MoveType.up)"
+          @click="moveCom(MoveType.down)"
         >
           <IconMoveUp />
         </n-icon>
@@ -42,7 +42,7 @@
           title="下移一层"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          @click="moveCom(MoveType.down)"
+          @click="moveCom(MoveType.up)"
         >
           <IconMoveDown />
         </n-icon>
@@ -50,7 +50,7 @@
           title="置顶"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          @click="moveCom(MoveType.top)"
+          @click="moveCom(MoveType.bottom)"
         >
           <IconMoveTop />
         </n-icon>
@@ -58,7 +58,7 @@
           title="置底"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          @click="moveCom(MoveType.bottom)"
+          @click="moveCom(MoveType.top)"
         >
           <IconMoveBottom />
         </n-icon>
@@ -77,7 +77,7 @@
               @mouseup="selectCom($event, com)"
               @dragstart="dragStart($event, com)"
               @dragend="dragEnd"
-              @dragenter.self="dragEnter($event, idx)"
+              @dragenter.self="dragEnter($event, idx, level, com)"
               @dragover="dragOver"
             />
           </template>
@@ -86,7 +86,10 @@
         <div
           v-if="dragInfo.visible"
           class="layer-move-to-line"
-          :style="`transform: translate(${dragInfo.x}px, ${dragInfo.y}px);`"
+          :style="{
+            width: `calc(100% - ${dragInfo.x}px)`,
+            transform: `translate(${dragInfo.x}px, ${dragInfo.y}px)`
+          }"
         ></div>
         <div class="draging-wrap"></div>
       </div>
@@ -170,13 +173,14 @@ const {
 const showText = ref(false)
 const visiblePanel = computed(() => toolbarStore.layer.show)
 const isDraging = ref(false)
-const moveToIndex = ref(-1)
 const dragInfo = ref({
   visible: false,
   x: 0,
   y: 0,
-  from: 0,
-  to: 0,
+  toLevel: 0,
+  toIndex: 0,
+  toId: '',
+  toParentId: '',
 })
 
 const enableBtn = computed(() => comStore.selectedComs.length > 0)
@@ -215,7 +219,7 @@ const selectCom = (ev: MouseEvent, com: DatavComponent) => {
   if (ev.shiftKey && !isMult) {
     comStore.selects(com)
   } else if (!com.selected || (ev.button === 0 && (isMult || comStore.selectedComs.length > 1))) {
-    comStore.select(com.id, isMult)
+    comStore.select(com.id, com.parentId, isMult)
   }
 }
 
@@ -238,24 +242,31 @@ const dragStart = (ev: DragEvent, com: DatavComponent) => {
     })
     ev.dataTransfer.setDragImage(nodewp, 0, 1)
   } else {
-    comStore.select(com.id)
+    comStore.select(com.id, com.parentId)
   }
 }
 
 const dragEnd = () => {
   isDraging.value = false
   dragInfo.value.visible = false
-  comStore.moveTo(moveToIndex.value)
+  const info = dragInfo.value
+  comStore.moveTo(info.toLevel, info.toIndex, info.toId, info.toParentId)
   const nodewp = document.querySelector('.draging-wrap')
   nodewp.innerHTML = ''
 }
 
-const dragEnter = (ev: any, idx: number) => {
+const dragEnter = (ev: any, idx: number, level: number, com: DatavComponent) => {
   dragInfo.value.visible = true
   const top = ev.clientY - 104
-  const i = top % 48 > 24 ? idx + 1 : idx
-  dragInfo.value.y = i * 48
-  moveToIndex.value = comStore.coms.length - i
+  const h = 48
+  const isHalf = top % h > 24
+  const i = isHalf ? Math.ceil(top / h) : Math.floor(top / h)
+  dragInfo.value.y = i * h
+  dragInfo.value.x = level * 10
+  dragInfo.value.toLevel = level
+  dragInfo.value.toIndex = isHalf ? idx + 1 : idx
+  dragInfo.value.toId = com.id
+  dragInfo.value.toParentId = com.parentId
 }
 
 const dragOver = (ev: any) => {

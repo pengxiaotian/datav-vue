@@ -1,24 +1,24 @@
 <template>
   <div class="context-menu-wrap" :style="contextMenuStyle">
-    <div class="context-menu-item" @click="moveCom(MoveType.top)">
+    <div class="context-menu-item" @click="moveCom(MoveType.bottom)">
       <n-icon class="menu-icon">
         <IconMoveTop />
       </n-icon>
       置顶
     </div>
-    <div class="context-menu-item" @click="moveCom(MoveType.bottom)">
+    <div class="context-menu-item" @click="moveCom(MoveType.top)">
       <n-icon class="menu-icon">
         <IconMoveBottom />
       </n-icon>
       置底
     </div>
-    <div class="context-menu-item" @click="moveCom(MoveType.up)">
+    <div class="context-menu-item" @click="moveCom(MoveType.down)">
       <n-icon class="menu-icon">
         <IconMoveUp />
       </n-icon>
       上移一层
     </div>
-    <div class="context-menu-item" @click="moveCom(MoveType.down)">
+    <div class="context-menu-item" @click="moveCom(MoveType.up)">
       <n-icon class="menu-icon">
         <IconMoveDown />
       </n-icon>

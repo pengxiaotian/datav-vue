@@ -8,6 +8,10 @@ export function deleteCom(id: string) {
   return request.delete(`/coms/${id}`)
 }
 
+export function deleteComs(ids: string[]) {
+  return request.delete(`/coms/some?ids=${ids.join()}`)
+}
+
 export function addCom(data: any) {
   return request.post('/coms', data)
 }

@@ -45,17 +45,14 @@ export const useContextMenu = () => {
       return
     }
 
-    if (coms.length > 1) {
-      const ids = coms.map(m => m.id)
-      if (moveType === MoveType.bottom || moveType === MoveType.up) {
-        ids.reverse()
-      }
-      ids.forEach(id => {
-        comStore.move(id, moveType)
-      })
-    } else {
-      comStore.move(coms[0].id, moveType)
+    const pid = coms[0].parentId
+    const ids = coms.map(m => m.id)
+    if (moveType === MoveType.top || moveType === MoveType.down) {
+      ids.reverse()
     }
+    ids.forEach(id => {
+      comStore.move(moveType, id, pid)
+    })
   }
 
   const lockCom = () => {
@@ -126,7 +123,7 @@ export const useContextMenu = () => {
     if (coms.length === 0) {
       return
     }
-    editorStore.decompose()
+    comStore.cancelGroup()
   }
 
   const showMenu = (ev: MouseEvent, com: DatavComponent) => {

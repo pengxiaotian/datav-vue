@@ -48,6 +48,8 @@ export class Group extends DatavComponent {
     },
   }
 
+  fold = true
+
   config: {
     transform3d: GroupTransform3d
   }[] = []
@@ -70,6 +72,7 @@ export class Group extends DatavComponent {
 
   initData() {
     this.children = []
+    console.log(this)
     return this
   }
 

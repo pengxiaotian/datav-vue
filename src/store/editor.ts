@@ -209,11 +209,5 @@ export const useEditorStore = defineStore('editor', {
         throw error
       }
     },
-    compose() {
-
-    },
-    decompose() {
-
-    },
   },
 })

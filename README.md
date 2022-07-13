@@ -234,3 +234,7 @@ setup() {
 ## 许可
 
 DataV Vue 使用 [MIT license](https://opensource.org/licenses/MIT) 许可证书。
+
+## 注意
+
+本项目主要用来研究与学习，如果商用请注意：项目里含有一些第三方付费素材。
