@@ -179,8 +179,7 @@ const dragInfo = ref({
   y: 0,
   toLevel: 0,
   toIndex: 0,
-  toId: '',
-  toParentId: '',
+  toCom: null,
 })
 
 const enableBtn = computed(() => comStore.selectedComs.length > 0)
@@ -250,7 +249,7 @@ const dragEnd = () => {
   isDraging.value = false
   dragInfo.value.visible = false
   const info = dragInfo.value
-  comStore.moveTo(info.toLevel, info.toIndex, info.toId, info.toParentId)
+  comStore.moveTo(info.toLevel, info.toIndex, info.toCom)
   const nodewp = document.querySelector('.draging-wrap')
   nodewp.innerHTML = ''
 }
@@ -265,8 +264,7 @@ const dragEnter = (ev: any, idx: number, level: number, com: DatavComponent) => 
   dragInfo.value.x = level * 10
   dragInfo.value.toLevel = level
   dragInfo.value.toIndex = isHalf ? idx + 1 : idx
-  dragInfo.value.toId = com.id
-  dragInfo.value.toParentId = com.parentId
+  dragInfo.value.toCom = com
 }
 
 const dragOver = (ev: any) => {

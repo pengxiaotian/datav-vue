@@ -14,16 +14,7 @@
           @dragover="dragOver"
           @drop="dropToAddCom"
         >
-          <datav-transform v-for="com in coms" :key="com.id" :com="com">
-            <component
-              :is="com.name"
-              :com="com"
-              :style="{
-                transform: 'translateZ(0px)',
-                opacity: com.attr.opacity,
-              }"
-            />
-          </datav-transform>
+          <datav-transform v-for="com in coms" :key="com.id" :com="com" />
         </div>
         <align-line />
         <ruler />
@@ -53,6 +44,7 @@ import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
+import { ComType } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
 import { checkRectIntersect } from '@/utils/editor'
 import { warn } from '@/utils/warn'
@@ -262,6 +254,7 @@ export default defineComponent({
     )
 
     return {
+      ComType,
       coms,
       canvasPanelStyle,
       screenShotStyle,

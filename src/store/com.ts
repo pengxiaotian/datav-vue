@@ -110,6 +110,14 @@ const getSelected = (coms: DatavComponent[]) => {
   return list
 }
 
+const sumPos = (coms: DatavComponent[]) => {
+  return coms.reduce((prev, { attr }) => {
+    prev.x += attr.x
+    prev.y += attr.y
+    return prev
+  }, { x: 0, y: 0 })
+}
+
 export const useComStore = defineStore('com', {
   state: (): IComState => ({
     coms: [],
@@ -138,6 +146,9 @@ export const useComStore = defineStore('com', {
 
       this.coms = coms
       this.subComs = subComs
+    },
+    getCom(id: string) {
+      return findCom(this.coms, id)
     },
     select(id: string, parentId?: string, multiple = false) {
       if (id) {
@@ -233,12 +244,63 @@ export const useComStore = defineStore('com', {
         }
       }
     },
-    moveTo(toLevel: number, toIndex: number, toId: string, toParentId: string) {
+    getParents(pid: string) {
+      const parentComs: DatavComponent[] = []
+
+      const getParent = (id: string) => {
+        const com = findCom(this.coms, id)
+        parentComs.push(com)
+
+        if (com.parentId) {
+          getParent(com.parentId)
+        }
+      }
+
+      if (pid) {
+        getParent(pid)
+      }
+
+      return parentComs
+    },
+    resizeParents(parentComs: DatavComponent | DatavComponent[]) {
+      const resizeParent = (com: DatavComponent) => {
+        let top = Infinity, left = Infinity
+        let right = -Infinity, bottom = -Infinity
+        com.children.forEach(({ attr }) => {
+          // 先还原在父容器里的位置，然后计算边界
+          attr.x += com.attr.x
+          attr.y += com.attr.y
+          top = Math.min(attr.y, top)
+          left = Math.min(attr.x, left)
+          right = Math.max(attr.x + attr.w, right)
+          bottom = Math.max(attr.y + attr.h, bottom)
+        })
+
+        com.attr.x = left
+        com.attr.y = top
+        com.attr.w = right - left
+        com.attr.h = bottom - top
+
+        com.children.forEach(({ attr }) => {
+          attr.x -= left
+          attr.y -= top
+        })
+      }
+
+      if (Array.isArray(parentComs)) {
+        parentComs.forEach(com => {
+          resizeParent(com)
+        })
+      } else {
+        resizeParent(parentComs)
+      }
+    },
+    moveTo(toLevel: number, toIndex: number, targetCom: DatavComponent) {
       const scoms = this.selectedComs
       const fromParentId = scoms[0].parentId
       if (toLevel === 0) {
         let toIdx = this.coms.length - toIndex
-        if (fromParentId == toParentId) {
+        if (fromParentId == targetCom.parentId) {
           const coms = this.coms.filter(m => !m.selected)
           const toCom = this.coms[toIdx]
           if (toCom) {
@@ -247,15 +309,21 @@ export const useComStore = defineStore('com', {
           coms.splice(toIdx, 0, ...scoms)
           this.coms = coms
         } else {
-          const fromParentCom = findCom(this.coms, fromParentId)
+          const fromParents = this.getParents(fromParentId)
+          const fromParentCom = fromParents[0]
           fromParentCom.children = fromParentCom.children.filter(m => !m.selected)
+          const fromPos = sumPos(fromParents)
           scoms.forEach(m => {
-            m.parentId = toParentId
+            m.parentId = targetCom.parentId
+            m.attr.x += fromPos.x
+            m.attr.y += fromPos.y
           })
           this.coms.splice(toIdx, 0, ...scoms)
 
           if (fromParentCom.children.length === 0) {
             this.removes([fromParentCom.id], fromParentCom.parentId)
+          } else {
+            this.resizeParents(fromParents)
           }
         }
         return
@@ -268,9 +336,9 @@ export const useComStore = defineStore('com', {
 
         for (let i = 0, len = item.children.length; i < len; i++) {
           const com = item.children[i]
-          if (com.id === toId) {
+          if (com.id === targetCom.id) {
             let toIdx = len - toIndex
-            if (fromParentId == toParentId) {
+            if (fromParentId == targetCom.parentId) {
               const coms = item.children.filter(m => !m.selected)
               const toCom = item.children[toIdx]
               if (toCom) {
@@ -279,23 +347,32 @@ export const useComStore = defineStore('com', {
               coms.splice(toIdx, 0, ...scoms)
               item.children = coms
             } else {
+              const fromParents = this.getParents(fromParentId)
+              const toParents = this.getParents(targetCom.parentId)
+              const fromPos = sumPos(fromParents)
+              const toPos = sumPos(toParents)
               if (fromParentId) {
-                const fromParentCom = findCom(this.coms, fromParentId)
+                const fromParentCom = fromParents[0]
                 fromParentCom.children = fromParentCom.children.filter(m => !m.selected)
                 if (fromParentCom.children.length === 0) {
                   this.removes([fromParentCom.id], fromParentCom.parentId)
+                } else {
+                  this.resizeParents(fromParents)
                 }
               } else {
                 this.coms = this.coms.filter(m => !m.selected)
               }
 
               scoms.forEach(m => {
-                m.parentId = toParentId
+                m.parentId = targetCom.parentId
+                m.attr.x += fromPos.x - toPos.x
+                m.attr.y += fromPos.y - toPos.y
               })
               item.children.splice(toIdx, 0, ...scoms)
+              this.resizeParents(toParents)
             }
             return true
-          } else if (com.id === toParentId && moveChild(com)) {
+          } else if (com.id === targetCom.parentId && moveChild(com)) {
             return true
           }
         }
@@ -414,6 +491,8 @@ export const useComStore = defineStore('com', {
       gcom.children.push(...scoms)
       gcom.children.forEach(com => {
         com.parentId = gcom.id
+        com.attr.x -= gcom.attr.x
+        com.attr.y -= gcom.attr.y
       })
 
       if (gcom.parentId) {
@@ -431,9 +510,13 @@ export const useComStore = defineStore('com', {
       const scoms = this.selectedComs
       const ids = scoms.map(m => m.id).join()
       const pid = scoms[0].parentId
-      const coms = scoms.flatMap(m => m.children)
-      coms.forEach(com => {
-        com.parentId = pid
+      const coms = scoms.flatMap(m => {
+        m.children.forEach(c => {
+          c.parentId = pid
+          c.attr.x += m.attr.x
+          c.attr.y += m.attr.y
+        })
+        return m.children
       })
 
       if (pid) {

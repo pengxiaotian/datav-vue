@@ -3,7 +3,7 @@
     <div class="nav-line-top" :style="topLineStyle"></div>
     <div class="nav-line-left" :style="leftLineStyle"></div>
     <div class="nav-line-account" :style="accountStyle">
-      {{ attr.x }}, {{ attr.y }}
+      {{ pos.x }}, {{ pos.y }}
     </div>
   </div>
 </template>
@@ -15,8 +15,8 @@ import { ComponentAttr } from '@/components/_models/datav-component'
 export default defineComponent({
   name: 'ReferLine',
   props: {
-    attr: {
-      type: Object as PropType<ComponentAttr>,
+    pos: {
+      type: Object as PropType<Pick<ComponentAttr, 'x' | 'y'>>,
       required: true,
     },
     scale: {
@@ -28,12 +28,12 @@ export default defineComponent({
     const offsetX = 60
     const offsetY = 60
     const topLineStyle = computed(() => ({
-      height: `${props.attr.y + offsetX / props.scale}px`,
+      height: `${props.pos.y + offsetX / props.scale}px`,
       borderLeftWidth: `${0.9 / props.scale}px`,
     }))
 
     const leftLineStyle = computed(() => ({
-      width: `${props.attr.x + offsetY / props.scale}px`,
+      width: `${props.pos.x + offsetY / props.scale}px`,
       borderTopWidth: `${0.9 / props.scale}px`,
     }))
 

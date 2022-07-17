@@ -112,19 +112,30 @@
   width: 100%;
   height: 100%;
   transform-origin: 0 0;
+  transition: outline 0.1s;
 
-  .datav-com {
+  .datav-layer {
+    position: absolute;
+    will-change: transform;
+    cursor: pointer;
+  }
+
+  .datav-com,
+  .datav-layer {
     width: 100%;
     height: 100%;
     outline: 0;
     box-sizing: border-box;
     transform-origin: 50% 50%;
-    transform: scaleX(1) scaleY(1);
 
     .datav-wrapper-event-disable {
       position: absolute;
       top: 0;
     }
+  }
+
+  &.--relative-hovered {
+    outline: 1px dashed var(--datav-com-hover-color);
   }
 
   &.hovered {
@@ -135,19 +146,27 @@
 .datav-transform {
   position: absolute;
   will-change: transform;
+  cursor: pointer;
 
   &.selected {
     z-index: 1;
 
-    .datav-scale::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: -1;
-      outline: 1px solid var(--datav-com-focus-color);
+    & > .datav-scale {
+      & > .datav-com,
+      & > .datav-layer {
+        background: var(--datav-com-focus-bg);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        outline: 1px solid var(--datav-com-focus-color);
+      }
     }
 
     .control-point {

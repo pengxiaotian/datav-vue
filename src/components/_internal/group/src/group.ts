@@ -72,7 +72,6 @@ export class Group extends DatavComponent {
 
   initData() {
     this.children = []
-    console.log(this)
     return this
   }
 
