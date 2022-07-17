@@ -62,7 +62,7 @@
 </template>
 
 <script lang='ts' setup>
-import { PropType, computed, getCurrentInstance, ref } from 'vue'
+import { PropType, computed, getCurrentInstance, ref, ComponentInternalInstance } from 'vue'
 import type { CSSProperties } from 'vue'
 import { DatavComponent } from '@/components/_models/datav-component'
 import { useEditorStore } from '@/store/editor'
@@ -289,16 +289,15 @@ const onRotate = (ev: MouseEvent) => {
 
 const getParentComs = (): DatavComponent[] => {
   const coms = []
-  const pcom1 = instance.parent.props.com
-  if (pcom1) {
-    coms.push(pcom1)
-
-    const pcom2 = instance.parent.parent.props.com
-    if (pcom2) {
-      coms.push(pcom2)
+  const getParent = (ins: ComponentInternalInstance) => {
+    const pc = ins.props.parentCom
+    if (pc) {
+      coms.push(pc)
+      getParent(instance.parent)
     }
   }
 
+  getParent(instance)
   return coms
 }
 
