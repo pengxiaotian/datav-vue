@@ -1,6 +1,8 @@
+import { Ref } from 'vue'
 import { DatavComponent, ComponentAttr } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
 import { angleToRadian } from '@/utils/editor'
+import { createInjectionKey } from '@/utils/vue-util'
 
 /**
  * 方位
@@ -224,6 +226,8 @@ export const handleZoom = (
   com: DatavComponent,
   scale: number,
   isNormalResizeMode: boolean,
+  moveCallback: () => void,
+  upCallback: () => void,
 ) => {
   const attr = { ...com.attr }
   const pos = Object.create(null) as Partial<ComponentAttr>
@@ -256,20 +260,29 @@ export const handleZoom = (
       }
     }
 
-    if (pos.h != undefined) {
-      pos.h = Math.max(10, pos.h)
+    if (pos.x != undefined) {
+      com.attr.x = pos.x
+    }
+
+    if (pos.y != undefined) {
+      com.attr.y = pos.y
     }
 
     if (pos.w != undefined) {
-      pos.w = Math.max(10, pos.w)
+      com.scaling.w = Math.max(10, pos.w)
     }
 
-    com.attr = { ...com.attr, ...pos }
+    if (pos.h != undefined) {
+      com.scaling.h = Math.max(10, pos.h)
+    }
+
+    moveCallback()
   }
 
   const up = () => {
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
+    upCallback()
   }
 
   on(document, 'mousemove', move)
@@ -284,15 +297,11 @@ export const handleMove = (
   moveCallback: () => void,
   upCallback: () => void,
 ) => {
-  const attr = { ...com.attr }
-  const pos = Object.create(null) as Partial<ComponentAttr>
-
+  const { x, y } = com.attr
   const move = (e: MouseEvent) => {
     // 每次移动固定格数
-    pos.x = attr.x + Math.round((e.clientX - ev.clientX) / scale / grid) * grid
-    pos.y = attr.y + Math.round((e.clientY - ev.clientY) / scale / grid) * grid
-
-    com.attr = { ...com.attr, ...pos }
+    com.attr.x = x + Math.round((e.clientX - ev.clientX) / scale / grid) * grid
+    com.attr.y = y + Math.round((e.clientY - ev.clientY) / scale / grid) * grid
     moveCallback()
   }
 
@@ -334,3 +343,12 @@ export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponen
   on(document, 'mousemove', move)
   on(document, 'mouseup', up)
 }
+
+export interface TransformInjection {
+  moveScale: Ref<{
+    x: number
+    y: number
+  }>
+}
+
+export const transformInjectionKey = createInjectionKey<TransformInjection>('datav-transform')

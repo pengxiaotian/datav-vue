@@ -2,25 +2,27 @@
   <div class="basic-setting-wp">
     <g-field label="图表尺寸" :is-flat="true">
       <g-input-number
-        v-model="attr.w"
+        v-model="com.scaling.w"
         :min="10"
         :max="888888"
         inline
+        @update:modelValue="updateWidth"
       />
       <g-input-number
-        v-model="attr.h"
+        v-model="com.scaling.h"
         :min="10"
         :max="888888"
         inline
+        @update:modelValue="updateHeight"
       />
     </g-field>
     <g-field label="图表位置" :is-flat="true">
-      <g-input-number v-model="attr.x" inline />
-      <g-input-number v-model="attr.y" inline />
+      <g-input-number v-model="com.attr.x" inline />
+      <g-input-number v-model="com.attr.y" inline />
     </g-field>
     <g-field label="旋转角度" :is-flat="true">
       <g-input-number
-        v-model="attr.deg"
+        v-model="com.attr.deg"
         :min="0"
         :max="360"
         :step="1"
@@ -59,7 +61,7 @@
     </g-field>
     <g-field label="透明度">
       <g-slider
-        v-model="attr.opacity"
+        v-model="com.attr.opacity"
         :min="0"
         :max="1"
         :step="0.05"
@@ -69,9 +71,9 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref, onMounted } from 'vue'
-import { ComponentAttr } from '@/components/_models/datav-component'
+import { defineComponent, ref, onMounted, inject } from 'vue'
 import { IconFlipV, IconFlipH } from '@/icons'
+import { comInjectionKey } from '../config'
 
 type filpType = 'v' | 'h'
 
@@ -81,14 +83,17 @@ export default defineComponent({
     IconFlipV,
     IconFlipH,
   },
-  props: {
-    attr: {
-      type: Object as PropType<ComponentAttr>,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
+    const com = inject(comInjectionKey)
     const filps = ref<filpType[]>([])
+
+    const updateWidth = (val: number) => {
+      com.value.attr.w = val
+    }
+
+    const updateHeight = (val: number) => {
+      com.value.attr.h = val
+    }
 
     const onFilpChange = (key: filpType) => {
       if (filps.value.includes(key)) {
@@ -96,22 +101,25 @@ export default defineComponent({
       } else {
         filps.value.push(key)
       }
-      props.attr.filpV = filps.value.includes('v')
-      props.attr.filpH = filps.value.includes('h')
+      com.value.attr.filpV = filps.value.includes('v')
+      com.value.attr.filpH = filps.value.includes('h')
     }
 
     onMounted(() => {
-      if (props.attr.filpV) {
+      if (com.value.attr.filpV) {
         filps.value.push('v')
       }
 
-      if (props.attr.filpH) {
+      if (com.value.attr.filpH) {
         filps.value.push('h')
       }
     })
 
     return {
+      com,
       filps,
+      updateWidth,
+      updateHeight,
       onFilpChange,
     }
   },

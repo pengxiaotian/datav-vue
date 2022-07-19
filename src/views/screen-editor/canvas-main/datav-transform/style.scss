@@ -18,8 +18,8 @@
   }
 
   &.hided {
-    .transform-bg,
-    i[class$="-handler"] {
+    > .transform-bg,
+    > i[class$="-handler"] {
       display: none;
     }
   }

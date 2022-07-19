@@ -295,6 +295,24 @@ export const useComStore = defineStore('com', {
         resizeParent(parentComs)
       }
     },
+    resizeChildren(parentCom: DatavComponent) {
+      const { sx, sy } = parentCom.scaling
+
+      const resize = (coms: DatavComponent[]) => {
+        coms.forEach(com => {
+          const { attr } = com
+          attr.x = Math.round(attr.x * sx)
+          attr.y = Math.round(attr.y * sy)
+          attr.w = Math.round(attr.w * sx)
+          attr.h = Math.round(attr.h * sy)
+          if (com.type === ComType.layer) {
+            resize(com.children)
+          }
+        })
+      }
+
+      resize(parentCom.children)
+    },
     moveTo(toLevel: number, toIndex: number, targetCom: DatavComponent) {
       const scoms = this.selectedComs
       const fromParentId = scoms[0].parentId

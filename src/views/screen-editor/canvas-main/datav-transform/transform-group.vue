@@ -17,7 +17,7 @@
           '--relative-hovered': relativeState.hovered,
         }
       ]"
-      :style="hideStyle"
+      :style="scaleStyle"
       @mouseenter.stop="onEnter"
       @mouseleave.stop="onLeave"
       @mousedown.stop="onMove"
@@ -73,7 +73,7 @@
 <script lang='ts' setup>
 import { PropType, computed, getCurrentInstance, ref } from 'vue'
 import type { CSSProperties } from 'vue'
-import { ComType, DatavComponent } from '@/components/_models/datav-component'
+import { ComType, DatavComponent, checkComponentAttr } from '@/components/_models/datav-component'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { macMetaOrCtrl } from '@/utils/util'
@@ -96,19 +96,22 @@ const props = defineProps({
 })
 
 
+checkComponentAttr(props.com)
+
 const instance = getCurrentInstance()
 const editorStore = useEditorStore()
 const comStore = useComStore()
 const { showMenu, hideMenu } = useContextMenu()
 
+const isMoveing = ref(false)
 const scale = computed(() => editorStore.canvas.scale)
 const referLine = computed(() => editorStore.referLine)
 const referLinePos = computed(() => {
   let { x, y } = props.com.attr
-  const pcom = instance.parent.props.com as DatavComponent
-  if (pcom) {
-    x += pcom.attr.x
-    y += pcom.attr.y
+  const pattr = props.parentCom?.attr
+  if (pattr) {
+    x += pattr.x
+    y += pattr.y
   }
   return { x, y }
 })
@@ -119,17 +122,39 @@ const transformClass = computed(() => ({
   locked: props.com.locked,
 }))
 
-const transformStyle = computed(() => ({
-  top: 0,
-  left: 0,
-  width: `${props.com.attr.w}px`,
-  height: `${props.com.attr.h}px`,
-  transform: `translate(${props.com.attr.x}px, ${props.com.attr.y}px)`,
-}))
+const transformStyle = computed(() => {
+  const { x, y, w, h } = props.com.attr
+  return {
+    top: 0,
+    left: 0,
+    width: `${w}px`,
+    height: `${h}px`,
+    transform: `translate(${x}px, ${y}px)`,
+  }
+})
 
-const hideStyle = computed(() => ({
-  display: props.com.hided ? 'none' : 'block',
-}))
+const scaleStyle = computed(() => {
+  const { zoom, sx, sy } = props.com.scaling
+  return {
+    transform: zoom ? `scale(${sx.toFixed(6)}, ${sy.toFixed(6)})` : 'none',
+  }
+})
+
+const layerStyle = computed(() => {
+  const style = {
+    transform: `rotate(${props.com.attr.deg}deg)`,
+    opacity: props.com.attr.opacity,
+    overflow: 'visible',
+    display: props.com.hided ? 'none' : 'block',
+  }
+
+  const { zoom, sx, sy } = props.com.scaling
+  if (zoom) {
+    style.transform = `scale(${(1 / sx).toFixed(6)}, ${(1 / sy).toFixed(6)}) ${style.transform} scale(${sx.toFixed(6)}, ${sy.toFixed(6)})`
+  }
+
+  return style
+})
 
 const handlerClass = computed(() => ({
   hided: !props.com.selected || props.com.locked,
@@ -137,7 +162,6 @@ const handlerClass = computed(() => ({
 
 const handlerStyle = computed(() => ({
   cursor: props.com.selected ? 'move' : 'inherit',
-  transform: `rotate(${props.com.attr.deg}deg)`,
 }))
 
 const cursor = computed(() => getCursors(props.com.attr.deg))
@@ -149,7 +173,10 @@ const points = computed<{
     rotateStyle?: Partial<CSSProperties>
   }
 }>(() => {
-  const transform = `scale(${1 / scale.value}, ${1 / scale.value})`
+  const { zoom, sx, sy } = props.com.scaling
+  const transform = zoom
+    ? `scale(${1 / sx / scale.value}, ${1 / sy / scale.value})`
+    : `scale(${1 / scale.value}, ${1 / scale.value})`
   return {
     t: {
       name: 'top',
@@ -209,8 +236,6 @@ const selectCom = (ev: MouseEvent) => {
   comStore.select(props.com.id, props.com.parentId, isMult)
 }
 
-const isMoveing = ref(false)
-
 const onMove = (ev: MouseEvent) => {
   if (editorStore.contextMenu.show) {
     hideMenu()
@@ -257,10 +282,38 @@ const onZoom = (ev: MouseEvent, dir: Direction) => {
     return false
   }
 
-  const isNormal = comStore.selectedComs.length > 1 ? true : editorStore.isNormalResizeMode
-  comStore.selectedComs.forEach(m => {
-    handleZoom(ev, dir, m, scale.value, isNormal)
-  })
+  const doZoom = (m: DatavComponent, isNormal: boolean) => {
+    m.scaling.w = m.attr.w
+    m.scaling.h = m.attr.h
+    handleZoom(
+      ev,
+      dir,
+      m,
+      scale.value,
+      isNormal,
+      () => {
+        m.scaling.zoom = true
+        m.scaling.sx = m.scaling.w / m.attr.w
+        m.scaling.sy = m.scaling.h / m.attr.h
+      },
+      () => {
+        comStore.resizeChildren(m)
+        m.scaling.zoom = false
+        m.scaling.sx = 1
+        m.scaling.sy = 1
+        m.attr.w = m.scaling.w
+        m.attr.h = m.scaling.h
+      },
+    )
+  }
+
+  if (comStore.selectedComs.length > 1) {
+    comStore.selectedComs.forEach(m => {
+      doZoom(m, true)
+    })
+  } else {
+    doZoom(props.com, editorStore.isNormalResizeMode)
+  }
 }
 
 const onRotate = (ev: MouseEvent) => {
@@ -303,15 +356,6 @@ const relativeState = computed(() => {
   }
 })
 
-const layerStyle = computed(() => {
-  return {
-    transform: 'rotate(0deg)',
-    opacity: 1,
-    overflow: 'visible',
-    display: 'block',
-  }
-})
-
 const getSliderItemStyle = (item: DatavComponent) => {
   const { attr } = item
   const style: CSSProperties = {
@@ -327,7 +371,6 @@ const getSliderItemStyle = (item: DatavComponent) => {
   }
   return style
 }
-
 </script>
 
 <style lang="scss" scoped>

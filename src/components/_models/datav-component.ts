@@ -43,10 +43,17 @@ export abstract class DatavComponent {
   hided = false
 
   // 以下几个状态可以不进行持久化，为了操作方便在此声明
-  selected = false
-  hovered = false
-  renameing = false
-  fold: boolean
+  selected? = false
+  hovered? = false
+  renameing? = false
+  fold?: boolean
+  scaling? = {
+    zoom: false,
+    w: 0,
+    h: 0,
+    sx: 1,
+    sy: 1,
+  }
 
   attr: ComponentAttr = {
     x: 0,
@@ -132,6 +139,18 @@ export abstract class DatavEChartsComponent extends DatavComponent {
       durationUpdate?: number
       easingUpdate?: string
       delayUpdate?: number
+    }
+  }
+}
+
+export const checkComponentAttr = (com: DatavComponent) => {
+  if (!com.scaling) {
+    com.scaling = {
+      zoom: false,
+      w: com.attr.w,
+      h: com.attr.h,
+      sx: 1,
+      sy: 1,
     }
   }
 }
