@@ -20,9 +20,10 @@
       :style="scaleStyle"
       @mouseenter.stop="onEnter"
       @mouseleave.stop="onLeave"
-      @mousedown.stop="onMove"
+      @mousedown.stop="onDown"
       @contextmenu="showMenu($event, com)"
       @click.stop
+      @dblclick.stop="selectInnerItem"
     >
       <div
         class="transform-handler"
@@ -84,6 +85,9 @@ const props = defineProps({
   parentCom: {
     type: Object as PropType<DatavComponent>,
   },
+  editable: {
+    type: Boolean,
+  },
 })
 
 
@@ -99,8 +103,8 @@ const scale = computed(() => editorStore.canvas.scale)
 const referLine = computed(() => editorStore.referLine)
 const referLinePos = computed(() => {
   let { x, y } = props.com.attr
-  const pcoms = getParentComs()
-  pcoms.forEach(m => {
+  const ps = getParentProps()
+  ps.coms.forEach(m => {
     x += m.attr.x
     y += m.attr.y
   })
@@ -229,7 +233,11 @@ const points = computed<{
 })
 
 const onEnter = () => {
-  if (!props.com.selected) {
+  if (props.parentCom) {
+    if (props.editable && !props.com.selected) {
+      props.com.hovered = true
+    }
+  } else if (!props.com.selected) {
     props.com.hovered = true
   }
 }
@@ -245,6 +253,17 @@ const selectCom = (ev: MouseEvent) => {
   }
 
   comStore.select(props.com.id, props.com.parentId, isMult)
+}
+
+const onDown = (ev: MouseEvent) => {
+  if (props.parentCom && !props.editable) {
+    const ps = getParentProps()
+    const idx = ps.editables.lastIndexOf(false)
+    const pins = ps.instances[idx]
+    pins.exposed.onMove(ev)
+  } else {
+    onMove(ev)
+  }
 }
 
 const onMove = (ev: MouseEvent) => {
@@ -275,9 +294,9 @@ const onMove = (ev: MouseEvent) => {
           if (isMoveing.value) {
             isMoveing.value = false
             editorStore.hideAlignLine(props.com.id)
-            const pcoms = getParentComs()
-            if (pcoms.length > 0) {
-              comStore.resizeParents(pcoms)
+            const ps = getParentProps()
+            if (ps.coms.length > 0) {
+              comStore.resizeParents(ps.coms)
             }
           } else if (ev.button === 0) {
             comStore.select(props.com.id, props.com.parentId)
@@ -314,6 +333,10 @@ const onZoom = (ev: MouseEvent, dir: Direction) => {
         m.scaling.sy = 1
         m.attr.w = m.scaling.w
         m.attr.h = m.scaling.h
+        const ps = getParentProps()
+        if (ps.coms.length > 0) {
+          comStore.resizeParents(ps.coms)
+        }
       },
     )
   }
@@ -334,18 +357,42 @@ const onRotate = (ev: MouseEvent) => {
   })
 }
 
-const getParentComs = (): DatavComponent[] => {
+const getParentProps = (): {
+  coms: DatavComponent[]
+  editables: boolean[]
+  instances: ComponentInternalInstance[]
+} => {
   const coms = []
+  const editables = []
+  const instances = []
   const getParent = (ins: ComponentInternalInstance) => {
     const pc = ins.props.parentCom
     if (pc) {
       coms.push(pc)
+      editables.push(ins.props.editable ?? false)
+      instances.push(ins.parent)
       getParent(ins.parent)
     }
   }
 
   getParent(instance)
-  return coms
+
+  return {
+    coms,
+    editables,
+    instances,
+  }
+}
+
+const selectInnerItem = (ev: MouseEvent) => {
+  if (props.parentCom && !props.editable) {
+    if (props.parentCom.selected) {
+      selectCom(ev)
+    } else {
+      const ps = getParentProps()
+      ps.instances[0].exposed.selectCom(ev)
+    }
+  }
 }
 </script>
 

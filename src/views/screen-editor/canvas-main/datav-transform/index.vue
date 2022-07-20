@@ -13,9 +13,9 @@ export default defineComponent({
     },
   },
   setup() {
-    const create = (com: DatavComponent, parentCom?: DatavComponent) => {
+    const create = (com: DatavComponent, parentCom?: DatavComponent, editable?: boolean) => {
       if (com.type === ComType.com) {
-        return h(DatavTransformItem, { com, parentCom }, {
+        return h(DatavTransformItem, { com, parentCom, editable }, {
           default: () => {
             return h(resolveComponent(com.name), {
               com,
@@ -28,9 +28,9 @@ export default defineComponent({
         })
       }
 
-      return h(DatavTransformGroup, { com, parentCom }, {
-        default: ({ data }: { data: DatavComponent; }) => {
-          return create(data, com)
+      return h(DatavTransformGroup, { com, parentCom, editable }, {
+        default: ({ data, editable }) => {
+          return create(data, com, editable)
         },
       })
     }
