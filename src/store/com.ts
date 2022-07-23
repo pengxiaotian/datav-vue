@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
-import { Group } from '@/components/_internal/group/src/group'
+import { Group } from '@/components/_internal/group'
 import { getComs, deleteComs, addCom, copyCom } from '@/api/coms'
 import { MoveType } from '@/domains/editor'
 import { getNewCom } from '@/data/mock-copy'
@@ -117,6 +117,34 @@ const sumPos = (coms: DatavComponent[]) => {
     return prev
   }, { x: 0, y: 0 })
 }
+
+export const getChildState = (com: DatavComponent): { hovered: boolean; selected: boolean; } => {
+  let hovered = false
+  let selected = false
+  if (com.type === ComType.layer) {
+    for (let i = 0, len = com.children.length; i < len; i++) {
+      const sc = com.children[i]
+      if (sc.selected) selected = sc.selected
+      if (sc.hovered) hovered = sc.hovered
+
+      if (!selected && sc.type === ComType.layer) {
+        const s = getChildState(sc)
+        if (s.selected) selected = s.selected
+        if (s.hovered) hovered = s.hovered
+      }
+
+      if (selected && hovered) {
+        break
+      }
+    }
+  }
+
+  return {
+    hovered,
+    selected,
+  }
+}
+
 
 export const useComStore = defineStore('com', {
   state: (): IComState => ({

@@ -74,9 +74,9 @@
 <script lang='ts' setup>
 import { PropType, computed, getCurrentInstance, ref, ComponentInternalInstance } from 'vue'
 import type { CSSProperties } from 'vue'
-import { ComType, DatavComponent, checkComponentAttr } from '@/components/_models/datav-component'
+import { DatavComponent, checkComponentAttr } from '@/components/_models/datav-component'
 import { useEditorStore } from '@/store/editor'
-import { useComStore } from '@/store/com'
+import { useComStore, getChildState } from '@/store/com'
 import { macMetaOrCtrl } from '@/utils/util'
 import { once } from '@/utils/dom'
 import {
@@ -355,36 +355,6 @@ const onRotate = (ev: MouseEvent) => {
       handleChildrenRotate(m, deg)
     })
   })
-}
-
-const getChildState = (com: DatavComponent): {
-  hovered: boolean
-  selected: boolean
-} => {
-  let hovered = false
-  let selected = false
-  if (com.type === ComType.layer) {
-    for (let i = 0, len = com.children.length; i < len; i++) {
-      const sc = com.children[i]
-      if (sc.selected) selected = sc.selected
-      if (sc.hovered) hovered = sc.hovered
-
-      if (!selected && sc.type === ComType.layer) {
-        const s = getChildState(sc)
-        if (s.selected) selected = s.selected
-        if (s.hovered) hovered = s.hovered
-      }
-
-      if (selected && hovered) {
-        break
-      }
-    }
-  }
-
-  return {
-    hovered,
-    selected,
-  }
 }
 
 const relativeState = computed(() => {

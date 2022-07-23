@@ -109,6 +109,7 @@ import {
   IconGroup,
   IconArrowRight,
 } from '@/icons'
+import { getChildState } from '@/store/com'
 import { useContextMenu } from '../editor-context-menu'
 
 const props = defineProps<{
@@ -122,36 +123,6 @@ const emits = defineEmits(['dragGroup'])
 const { showMenu } = useContextMenu()
 
 const dragGroupHover = ref(false)
-
-const getChildState = (com: DatavComponent): {
-  hovered: boolean
-  selected: boolean
-} => {
-  let hovered = false
-  let selected = false
-  if (com.type === ComType.layer) {
-    for (let i = 0, len = com.children.length; i < len; i++) {
-      const sc = com.children[i]
-      if (sc.selected) selected = sc.selected
-      if (sc.hovered) hovered = sc.hovered
-
-      if (!selected && sc.type === ComType.layer) {
-        const s = getChildState(sc)
-        if (s.selected) selected = s.selected
-        if (s.hovered) hovered = s.hovered
-      }
-
-      if (selected && hovered) {
-        break
-      }
-    }
-  }
-
-  return {
-    hovered,
-    selected,
-  }
-}
 
 const childState = computed(() => {
   return getChildState(props.com)
