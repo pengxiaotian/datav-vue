@@ -21,7 +21,7 @@
       @mouseenter.stop="onEnter"
       @mouseleave.stop="onLeave"
       @mousedown.stop="onDown"
-      @contextmenu="showMenu($event, com)"
+      @contextmenu="showContextMenu"
       @click.stop
       @dblclick.stop="selectInnerItem"
     >
@@ -81,7 +81,7 @@ import { macMetaOrCtrl } from '@/utils/util'
 import { once } from '@/utils/dom'
 import {
   Direction, getCursors,
-  handleMove, handleZoom, handleRotate,
+  handleMove, handleZoom, handleRotate, handleChildrenRotate,
 } from './index'
 import { useContextMenu } from '../../editor-context-menu/index'
 import ReferLine from './refer-line.vue'
@@ -244,6 +244,14 @@ const selectCom = (ev: MouseEvent) => {
   comStore.select(props.com.id, props.com.parentId, isMult)
 }
 
+const showContextMenu = (ev: MouseEvent) => {
+  if (props.parentCom && !props.editable) {
+    showMenu(ev, props.parentCom)
+  } else {
+    showMenu(ev, props.com)
+  }
+}
+
 const onDown = (ev: MouseEvent) => {
   if (props.parentCom && !props.editable) {
     const ps = getParentProps()
@@ -343,7 +351,9 @@ const onZoom = (ev: MouseEvent, dir: Direction) => {
 const onRotate = (ev: MouseEvent) => {
   hideMenu()
   comStore.selectedComs.forEach(m => {
-    handleRotate(ev, instance.vnode.el as HTMLElement, m)
+    handleRotate(ev, instance.vnode.el as HTMLElement, m, deg => {
+      handleChildrenRotate(m, deg)
+    })
   })
 }
 

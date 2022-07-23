@@ -6,7 +6,7 @@
       'layer-manager-group': com.type === ComType.layer,
       'layer-manager-item': true,
       'layer-manager-thumbail-wrap': !showText,
-      '--child-hovered': childState.hovered,
+      '--child-hovered': childState.hovered || dragGroupHover,
       '--child-selected': childState.selected,
       hided: com.hided,
       locked: com.locked,
@@ -15,6 +15,7 @@
     :style="{
       paddingLeft: `${6 + level * 10}px`
     }"
+    draggable="true"
     @mouseenter="toggleHover(1)"
     @mouseleave="toggleHover(0)"
     @contextmenu="showMenu($event, com)"
@@ -66,7 +67,13 @@
           @blur="toggleRename(0)"
           @keydown.enter="toggleRename(0)"
         >
-        <span v-else class="layer-item-span">
+        <span
+          v-else
+          class="layer-item-span"
+          @dragenter="dragEnterGroup"
+          @dragleave="dragLeaveGroup"
+          @drop="dropGroup"
+        >
           <span class="layer-item-text" @dblclick="toggleRename(1)">
             {{ com.alias }}
           </span>
@@ -94,7 +101,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { DatavComponent, ComType } from '@/components/_models/datav-component'
 import {
   IconLock,
@@ -110,7 +117,11 @@ const props = defineProps<{
   showText: boolean
 }>()
 
+const emits = defineEmits(['dragGroup'])
+
 const { showMenu } = useContextMenu()
+
+const dragGroupHover = ref(false)
 
 const getChildState = (com: DatavComponent): {
   hovered: boolean
@@ -164,6 +175,31 @@ const toggleLock = (flag: number) => {
 
 const toggleFold = () => {
   props.com.fold = !props.com.fold
+}
+
+const dragEnterGroup = () => {
+  if (props.com.type === ComType.layer) {
+    dragGroupHover.value = true
+    emits('dragGroup', { key: 'enter' })
+  }
+}
+
+const dragLeaveGroup = () => {
+  if (props.com.type === ComType.layer) {
+    dragGroupHover.value = false
+    emits('dragGroup', { key: 'leave' })
+  }
+}
+
+const dropGroup = () => {
+  if (props.com.type === ComType.layer) {
+    dragGroupHover.value = false
+    emits('dragGroup', {
+      key: 'drop',
+      level: props.level + 1,
+      com: props.com.children[0],
+    })
+  }
 }
 </script>
 

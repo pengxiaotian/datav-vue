@@ -73,12 +73,12 @@
               :class="{
                 selected: com.selected && !isDraging
               }"
-              draggable="true"
               @mouseup="selectCom($event, com)"
               @dragstart="dragStart($event, com)"
               @dragend="dragEnd"
               @dragenter.self="dragEnter($event, idx, level, com)"
               @dragover="dragOver"
+              @dragGroup="dragGroup"
             />
           </template>
         </LayerManagerWrap>
@@ -180,6 +180,7 @@ const dragInfo = ref({
   toLevel: 0,
   toIndex: 0,
   toCom: null,
+  drop: false,
 })
 
 const enableBtn = computed(() => comStore.selectedComs.length > 0)
@@ -248,18 +249,23 @@ const dragStart = (ev: DragEvent, com: DatavComponent) => {
 const dragEnd = () => {
   isDraging.value = false
   dragInfo.value.visible = false
+  dragInfo.value.drop = false
   const info = dragInfo.value
   comStore.moveTo(info.toLevel, info.toIndex, info.toCom)
   const nodewp = document.querySelector('.draging-wrap')
   nodewp.innerHTML = ''
 }
 
-const dragEnter = (ev: any, idx: number, level: number, com: DatavComponent) => {
-  dragInfo.value.visible = true
-  const top = ev.clientY - 104
+const dragEnter = (ev: DragEvent, idx: number, level: number, com: DatavComponent) => {
+  if (dragInfo.value.drop) {
+    return
+  }
+
   const h = 48
+  const top = ev.clientY - 104
   const isHalf = top % h > 24
   const i = isHalf ? Math.ceil(top / h) : Math.floor(top / h)
+  dragInfo.value.visible = true
   dragInfo.value.y = i * h
   dragInfo.value.x = level * 10
   dragInfo.value.toLevel = level
@@ -271,6 +277,20 @@ const dragOver = (ev: any) => {
   ev.preventDefault()
   ev.stopPropagation()
   ev.dataTransfer.dropEffect = 'copy'
+}
+
+const dragGroup = (data: any) => {
+  if (data.key === 'enter') {
+    dragInfo.value.visible = false
+    dragInfo.value.drop = true
+  } else if (data.key === 'leave') {
+    dragInfo.value.visible = true
+    dragInfo.value.drop = false
+  } else {
+    dragInfo.value.toLevel = data.level
+    dragInfo.value.toIndex = 0
+    dragInfo.value.toCom = data.com
+  }
 }
 </script>
 

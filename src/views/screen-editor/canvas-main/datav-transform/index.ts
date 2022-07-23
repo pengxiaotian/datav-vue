@@ -1,5 +1,5 @@
 import { Ref } from 'vue'
-import { DatavComponent, ComponentAttr } from '@/components/_models/datav-component'
+import { DatavComponent, ComponentAttr, ComType } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
 import { angleToRadian } from '@/utils/editor'
 import { createInjectionKey } from '@/utils/vue-util'
@@ -315,12 +315,18 @@ export const handleMove = (
   on(document, 'mouseup', up)
 }
 
-export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponent) => {
+export const handleRotate = (
+  ev: MouseEvent,
+  el: HTMLElement,
+  com: DatavComponent,
+  upCallback: (deg: number) => void,
+) => {
   // 获取元素中心点位置
   const rect = el.getBoundingClientRect()
   const centerX = rect.left + rect.width / 2
   const centerY = rect.top + rect.height / 2
 
+  let deg = 0
   const startAngle = Math.atan2(
     centerY - ev.clientY,
     centerX - ev.clientX,
@@ -331,17 +337,30 @@ export const handleRotate = (ev: MouseEvent, el: HTMLElement, com: DatavComponen
       centerY - e.clientY,
       centerX - e.clientX,
     ) * 180 / Math.PI - startAngle
-    const deg = Math.round(angle % 360)
+    deg = Math.round(angle % 360)
     com.attr.deg = deg < 0 ? deg + 360 : deg
   }
 
   const up = () => {
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
+    upCallback(deg)
   }
 
   on(document, 'mousemove', move)
   on(document, 'mouseup', up)
+}
+
+export const handleChildrenRotate = (parentCom: DatavComponent, deg: number) => {
+  parentCom.attr.deg = 0
+  parentCom.children.forEach(com => {
+    if (com.type === ComType.layer) {
+      handleChildrenRotate(com, deg)
+    } else {
+      const angle = Math.round((com.attr.deg + deg) % 360)
+      com.attr.deg = angle < 0 ? angle + 360 : angle
+    }
+  })
 }
 
 export interface TransformInjection {
