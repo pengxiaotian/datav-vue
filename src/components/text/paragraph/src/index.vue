@@ -88,13 +88,13 @@ export default defineComponent({
         if (height.value > attr.value.h) {
           transform.value = `translateY(-${height.value}px)`
           transition.value = `transform ${config.value.scroll.duration}ms linear 0s`
-          timeId.value = setTimeout(() => {
+          timeId.value = window.setTimeout(() => {
             transform.value = 'translateY(0)'
             transition.value = 'none 0s ease 0s'
             if (config.value.scroll.overScroll) {
               doMarquee()
             }
-          }, config.value.scroll.duration) as any
+          }, config.value.scroll.duration)
         } else {
           height.value = attr.value.h
           transform.value = 'translateY(0)'

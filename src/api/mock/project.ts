@@ -13,7 +13,7 @@ export default (adapter: MockAdapter) => {
           name: '@word',
           'children|1-3': [
             {
-              'id|1-10000': 1,
+              'id|100-10000': 1,
               name: '@word',
               'share|0-1': '@url',
               groupId: 0,
@@ -34,7 +34,7 @@ export default (adapter: MockAdapter) => {
       return [200, Mock.mock({
         code: 0,
         message: 'ok',
-        'data|1-10000': 1,
+        'data|100-10000': 1,
       })]
     })
 

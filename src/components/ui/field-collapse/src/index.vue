@@ -204,7 +204,9 @@ export default defineComponent({
       type: Number,
       default: 1000,
     },
-    tab: String,
+    tab: {
+      type: [String, Function],
+    },
     addItem: {
       type: Function,
       default: () => {},
@@ -305,7 +307,11 @@ export default defineComponent({
     }
 
     const getTabLabel = (idx: number) => {
-      return (props.tab || props.label) + (idx + 1)
+      const { tab, label } = props
+      if (typeof tab === 'function') {
+        return tab(props.list[idx])
+      }
+      return (tab || label) + (idx + 1)
     }
 
     const changeTab = (idx: number) => {

@@ -5,6 +5,7 @@
     :trap-focus="false"
     class="source-drawer"
     to="#edit-main-wp"
+    show-mask
   >
     <n-drawer-content closable>
       <template #header>

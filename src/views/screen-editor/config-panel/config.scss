@@ -1,0 +1,23 @@
+.config-manager-page {
+  height: 100%;
+  background: var(--datav-left-nav-bg);
+  user-select: none;
+
+  .config-manager-head {
+    width: 100%;
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    color: var(--datav-font-color);
+    background: var(--datav-layer-bg);
+    user-select: none;
+  }
+
+  .config-manager-body {
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+    margin-top: -30px;
+  }
+}

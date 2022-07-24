@@ -1,28 +1,43 @@
 <template>
-  <div v-if="contextMenu.show" class="context-menu-wrap" :style="contextMenuStyle">
-    <div class="context-menu-item" @click="moveTop">
+  <div class="context-menu-wrap" :style="contextMenuStyle">
+    <div class="context-menu-item" @click="moveCom(MoveType.bottom)">
       <n-icon class="menu-icon">
         <IconMoveTop />
       </n-icon>
       置顶
     </div>
-    <div class="context-menu-item" @click="moveBottom">
+    <div class="context-menu-item" @click="moveCom(MoveType.top)">
       <n-icon class="menu-icon">
         <IconMoveBottom />
       </n-icon>
       置底
     </div>
-    <div class="context-menu-item" @click="moveUp">
+    <div class="context-menu-item" @click="moveCom(MoveType.down)">
       <n-icon class="menu-icon">
         <IconMoveUp />
       </n-icon>
       上移一层
     </div>
-    <div class="context-menu-item" @click="moveDown">
+    <div class="context-menu-item" @click="moveCom(MoveType.up)">
       <n-icon class="menu-icon">
         <IconMoveDown />
       </n-icon>
       下移一层
+    </div>
+
+    <div class="context-menu-divider"></div>
+
+    <div class="context-menu-item" :class="{ disable: disableGroup }" @click="composeComs">
+      <n-icon class="menu-icon">
+        <IconGroup />
+      </n-icon>
+      成组
+    </div>
+    <div class="context-menu-item" :class="{ disable: !isGroup }" @click="decomposeComs">
+      <n-icon class="menu-icon">
+        <IconUngroup />
+      </n-icon>
+      取消成组
     </div>
 
     <div class="context-menu-divider"></div>
@@ -64,13 +79,13 @@
       </n-icon>
       重命名
     </div>
-    <div class="context-menu-item" @click="toCopyCom">
+    <div class="context-menu-item" @click="copyCom">
       <n-icon class="menu-icon">
         <IconCopy />
       </n-icon>
       复制
     </div>
-    <div class="context-menu-item" @click="toDeleteCom">
+    <div class="context-menu-item" @click="confirmDeleteCom">
       <n-icon class="menu-icon">
         <IconDelete />
       </n-icon>
@@ -81,16 +96,12 @@
   </div>
 </template>
 
-
-<script lang='ts'>
-import { h, defineComponent, onBeforeMount, onUnmounted } from 'vue'
-import { useMessage, useDialog } from 'naive-ui'
+<script lang='ts' setup>
+import { computed, onBeforeMount, onUnmounted } from 'vue'
 import { useEditorStore } from '@/store/editor'
-import { useComStore } from '@/store/com'
 import { on, off } from '@/utils/dom'
 import { MoveType } from '@/domains/editor'
 import {
-  IconWarning,
   IconMoveUp,
   IconMoveDown,
   IconMoveTop,
@@ -102,116 +113,47 @@ import {
   IconCopy,
   IconEdit,
   IconDelete,
+  IconGroup,
+  IconUngroup,
 } from '@/icons'
 import { useContextMenu } from './index'
 
-export default defineComponent({
-  name: 'EditorContextMenu',
-  components: {
-    IconMoveUp,
-    IconMoveDown,
-    IconMoveTop,
-    IconMoveBottom,
-    IconLock,
-    IconUnlock,
-    IconShow,
-    IconHide,
-    IconCopy,
-    IconEdit,
-    IconDelete,
-  },
-  setup() {
-    const nMessage = useMessage()
-    const nDialog = useDialog()
-    const editorStore = useEditorStore()
-    const comStore = useComStore()
-    const {
-      contextMenu, selectedCom,
-      isLocked, isHided, contextMenuStyle,
-    } = useContextMenu()
+const editorStore = useEditorStore()
+const {
+  pos,
+  isLocked,
+  isHided,
+  isGroup,
+  disableGroup,
+  moveCom,
+  lockCom,
+  hideCom,
+  confirmDeleteCom,
+  renameCom,
+  copyCom,
+  composeComs,
+  decomposeComs,
+} = useContextMenu()
 
-    const moveCom = (moveType: MoveType) => {
-      if (selectedCom.value) {
-        editorStore.moveCom(selectedCom.value.id, moveType)
-      }
-    }
+const contextMenuStyle = computed(() => {
+  return {
+    display: editorStore.contextMenu.show ? 'block' : 'none',
+    left: `${pos.x + 10}px`,
+    top: `${pos.y + 10}px`,
+    transform: document.documentElement.clientHeight - pos.y < 250
+      ? 'translate(0px, -100%)'
+      : '',
+  }
+})
 
-    const moveUp = () => moveCom(MoveType.up)
-    const moveDown = () => moveCom(MoveType.down)
-    const moveTop = () => moveCom(MoveType.top)
-    const moveBottom = () => moveCom(MoveType.bottom)
+const handleContextmenu = (ev: Event) => ev.preventDefault()
 
-    const lockCom = () => {
-      if (selectedCom.value) {
-        selectedCom.value.locked = !selectedCom.value.locked
-      }
-    }
+onBeforeMount(() => {
+  on(document, 'contextmenu', handleContextmenu)
+})
 
-    const hideCom = () => {
-      if (selectedCom.value) {
-        selectedCom.value.hided = !selectedCom.value.hided
-      }
-    }
-
-    const toDeleteCom = () => {
-      const com = selectedCom.value
-      if (com) {
-        const d = nDialog.create({
-          content: '是否删除选中的1个组件',
-          negativeText: '取消',
-          positiveText: '确定',
-          iconPlacement: 'top',
-          icon: () => h(IconWarning),
-          onPositiveClick: async () => {
-            d.loading = true
-            try {
-              await comStore.deleteCom(com)
-            } catch (error) {
-              nMessage.error(error.message)
-            }
-          },
-        })
-      }
-    }
-
-    const renameCom = () => {
-      if (selectedCom.value) {
-        selectedCom.value.renameing = true
-      }
-    }
-
-    const toCopyCom = () => {
-      if (selectedCom.value) {
-        comStore.copyCom(selectedCom.value.id)
-      }
-    }
-
-    const handleContextmenu = (ev: Event) => ev.preventDefault()
-
-    onBeforeMount(() => {
-      on(document, 'contextmenu', handleContextmenu)
-    })
-
-    onUnmounted(() => {
-      off(document, 'contextmenu', handleContextmenu)
-    })
-
-    return {
-      contextMenu,
-      isLocked,
-      isHided,
-      contextMenuStyle,
-      moveUp,
-      moveDown,
-      moveTop,
-      moveBottom,
-      lockCom,
-      hideCom,
-      toDeleteCom,
-      renameCom,
-      toCopyCom,
-    }
-  },
+onUnmounted(() => {
+  off(document, 'contextmenu', handleContextmenu)
 })
 </script>
 

@@ -19,7 +19,7 @@ export const useMock = async () => {
     // com.apis.source.autoUpdate = 5
     com.attr.x = getRandomInt(editorStore.pageConfig.width - com.attr.w)
     com.attr.y = getRandomInt(editorStore.pageConfig.height - com.attr.h)
-    return comStore.addCom(com)
+    return comStore.add(com)
   })
 
   await Promise.all(ps2)

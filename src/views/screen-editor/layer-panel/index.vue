@@ -34,8 +34,7 @@
           title="上移一层"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
-          @click="moveUp"
+          @click="moveCom(MoveType.down)"
         >
           <IconMoveUp />
         </n-icon>
@@ -43,8 +42,7 @@
           title="下移一层"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
-          @click="moveDown"
+          @click="moveCom(MoveType.up)"
         >
           <IconMoveDown />
         </n-icon>
@@ -52,8 +50,7 @@
           title="置顶"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
-          @click="moveTop"
+          @click="moveCom(MoveType.bottom)"
         >
           <IconMoveTop />
         </n-icon>
@@ -61,117 +58,55 @@
           title="置底"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
-          @click="moveBottom"
+          @click="moveCom(MoveType.top)"
         >
           <IconMoveBottom />
         </n-icon>
       </div>
       <div class="layer-manager-wrap">
-        <template v-for="com in descComs" :key="com.id">
-          <div
-            v-if="showText"
-            :title="com.alias"
-            class="layer-manager-item"
-            :class="[{
-              hided: com.hided,
-              locked: com.locked,
-              hovered: com.hovered,
-              selected: com.selected
-            }]"
-            @mousedown="selectCom(com.id)"
-            @mouseenter="com.hovered = true"
-            @mouseleave="com.hovered = false"
-            @contextmenu="showMenu"
-          >
-            <g-com-icon :icon="com.icon" />
-            <input
-              v-if="com.renameing"
-              v-model.trim="com.alias"
-              v-focus
-              class="layer-item-input"
-              @blur="com.renameing = false"
-              @keydown.enter="com.renameing = false"
-            >
-            <span v-else class="layer-item-span">
-              <span class="layer-item-text">{{ com.alias }}</span>
-            </span>
-            <n-icon
-              v-if="com.hided"
-              class="show-toggle-btn"
-              @click="com.hided = false"
-            >
-              <IconHide />
-            </n-icon>
-            <n-icon
-              v-if="com.locked"
-              class="show-toggle-btn"
-              @click="com.locked = false"
-            >
-              <IconLock />
-            </n-icon>
-          </div>
-          <div
-            v-else
-            :title="com.alias"
-            class="layer-manager-item thumbail-wrap"
-            :class="[{
-              hided: com.hided,
-              locked: com.locked,
-              hovered: com.hovered,
-              selected: com.selected
-            }]"
-            @mousedown="selectCom(com.id)"
-            @mouseenter="com.hovered = true"
-            @mouseleave="com.hovered = false"
-            @contextmenu="showMenu"
-          >
-            <div
-              class="layer-item-thumbail"
-              :alt="com.alias"
-              :style="`background-image: url(${com.img})`"
-            >
-            </div>
-            <div class="layer-manager-thumbail">
-              <input
-                v-if="com.renameing"
-                v-model.trim="com.alias"
-                v-focus
-                class="layer-item-input"
-                @blur="com.renameing = false"
-                @keydown.enter="com.renameing = false"
-              >
-              <span v-else class="layer-item-span">
-                <span class="layer-item-text">{{ com.alias }}</span>
-              </span>
-            </div>
-            <div class="layer-thumbail-item">
-              <n-icon
-                v-if="com.hided"
-                class="show-toggle-btn"
-                @click="com.hided = false"
-              >
-                <IconHide />
-              </n-icon>
-              <n-icon
-                v-if="com.locked"
-                class="show-toggle-btn"
-                @click="com.locked = false"
-              >
-                <IconLock />
-              </n-icon>
-            </div>
-          </div>
-        </template>
-        <div class="last-flex-item" @click="selectCom('')"></div>
+        <LayerManagerWrap>
+          <template #default="{ com, idx, level }">
+            <layer-manager-item
+              :com="com"
+              :level="level"
+              :show-text="showText"
+              :class="{
+                selected: com.selected && !isDraging
+              }"
+              @mouseup="selectCom($event, com)"
+              @dragstart="dragStart($event, com)"
+              @dragend="dragEnd"
+              @dragenter.self="dragEnter($event, idx, level, com)"
+              @dragover="dragOver"
+              @dragGroup="dragGroup"
+            />
+          </template>
+        </LayerManagerWrap>
+        <div class="last-flex-item" @click="cancelSelected"></div>
+        <div
+          v-if="dragInfo.visible"
+          class="layer-move-to-line"
+          :style="{
+            width: `calc(100% - ${dragInfo.x}px)`,
+            transform: `translate(${dragInfo.x}px, ${dragInfo.y}px)`
+          }"
+        ></div>
+        <div class="draging-wrap"></div>
       </div>
       <div class="layer-toolbar layer-toolbar-bottom">
+        <n-icon
+          title="成组"
+          class="toolbar-icon standard"
+          :class="enableGroupBtnClass"
+          @click="composeComs"
+        >
+          <IconGroup />
+        </n-icon>
         <n-icon
           title="删除"
           class="toolbar-icon standard"
           :class="enableBtnClass"
-          :style="enableBtnStyle"
-          @click="toDeleteCom"
+          @click="confirmDeleteCom"
         >
           <IconDelete />
         </n-icon>
@@ -179,7 +114,6 @@
           title="锁定"
           class="toolbar-icon standard"
           :class="enableLockBtnClass"
-          :style="enableBtnStyle"
           @click="lockCom"
         >
           <IconLock />
@@ -188,7 +122,6 @@
           title="隐藏"
           class="toolbar-icon standard"
           :class="enableHideBtnClass"
-          :style="enableBtnStyle"
           @click="hideCom"
         >
           <IconHide />
@@ -198,18 +131,18 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { h, defineComponent, ref, computed } from 'vue'
-import { useMessage, useDialog } from 'naive-ui'
+<script lang='ts' setup>
+import { ref, computed } from 'vue'
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
 import { MoveType } from '@/domains/editor'
+import { DatavComponent } from '@/components/_models/datav-component'
+import { macMetaOrCtrl } from '@/utils/util'
 import {
   IconViewList,
   IconViewGrid,
   IconBack,
-  IconWarning,
   IconMoveUp,
   IconMoveDown,
   IconMoveTop,
@@ -217,131 +150,148 @@ import {
   IconLock,
   IconHide,
   IconDelete,
+  IconGroup,
 } from '@/icons'
-import { useContextMenu } from '../editor-context-menu/index'
+import { useContextMenu } from '../editor-context-menu'
+import LayerManagerWrap from './layer-manager-wrap.vue'
+import LayerManagerItem from './layer-manager-item.vue'
 
-export default defineComponent({
-  name: 'LayerPanel',
-  components:{
-    IconViewList,
-    IconViewGrid,
-    IconBack,
-    IconMoveUp,
-    IconMoveDown,
-    IconMoveTop,
-    IconMoveBottom,
-    IconLock,
-    IconHide,
-    IconDelete,
-  },
-  setup() {
-    const nMessage = useMessage()
-    const nDialog = useDialog()
-    const toolbarStore = useToolbarStore()
-    const editorStore = useEditorStore()
-    const comStore = useComStore()
+const toolbarStore = useToolbarStore()
+const editorStore = useEditorStore()
+const comStore = useComStore()
+const {
+  isLocked,
+  isHided,
+  disableGroup,
+  moveCom,
+  lockCom,
+  hideCom,
+  confirmDeleteCom,
+  composeComs,
+} = useContextMenu()
 
-    const showText = ref(false)
-    const visiblePanel = computed(() => toolbarStore.layer.show)
-    const descComs = computed(() => [...comStore.coms].reverse())
-    const selectedCom = computed(() => comStore.selectedCom)
-
-    const enableBtnClass = computed(() => !!selectedCom.value)
-    const enableLockBtnClass = computed(() => {
-      return {
-        enable: !!selectedCom.value,
-        checked: selectedCom.value?.locked,
-      }
-    })
-    const enableHideBtnClass = computed(() => {
-      return {
-        enable: !!selectedCom.value,
-        checked: selectedCom.value?.hided,
-      }
-    })
-
-    const enableBtnStyle = computed(() => {
-      return {
-        opacity: selectedCom.value ? 1 : 0.3,
-      }
-    })
-
-    const changeVisible = () => {
-      toolbarStore.setPanelState(PanelType.layer, !visiblePanel.value)
-    }
-
-    const selectCom = (id: string) => {
-      comStore.selectCom(id)
-    }
-
-    const moveCom = (moveType: MoveType) => {
-      if (selectedCom.value) {
-        editorStore.moveCom(selectedCom.value.id, moveType)
-      }
-    }
-
-    const moveUp = () => moveCom(MoveType.up)
-    const moveDown = () => moveCom(MoveType.down)
-    const moveTop = () => moveCom(MoveType.top)
-    const moveBottom = () => moveCom(MoveType.bottom)
-
-    const lockCom = () => {
-      if (selectedCom.value) {
-        selectedCom.value.locked = !selectedCom.value.locked
-      }
-    }
-
-    const hideCom = () => {
-      if (selectedCom.value) {
-        selectedCom.value.hided = !selectedCom.value.hided
-      }
-    }
-
-    const toDeleteCom = () => {
-      const com = selectedCom.value
-      if (com) {
-        const d = nDialog.create({
-          content: '是否删除选中的1个组件',
-          negativeText: '取消',
-          positiveText: '确定',
-          iconPlacement: 'top',
-          icon: () => h(IconWarning),
-          onPositiveClick: async () => {
-            d.loading = true
-            try {
-              await comStore.deleteCom(com)
-            } catch (error) {
-              nMessage.error(error.message)
-            }
-          },
-        })
-      }
-    }
-
-    const { showMenu } = useContextMenu()
-
-
-    return {
-      showText,
-      visiblePanel,
-      descComs,
-      enableBtnClass,
-      enableLockBtnClass,
-      enableHideBtnClass,
-      enableBtnStyle,
-      changeVisible,
-      selectCom,
-      moveUp,
-      moveDown,
-      moveTop,
-      moveBottom,
-      lockCom,
-      hideCom,
-      toDeleteCom,
-      showMenu,
-    }
-  },
+const showText = ref(false)
+const visiblePanel = computed(() => toolbarStore.layer.show)
+const isDraging = ref(false)
+const dragInfo = ref({
+  visible: false,
+  x: 0,
+  y: 0,
+  toLevel: 0,
+  toIndex: 0,
+  toCom: null,
+  drop: false,
 })
+
+const enableBtn = computed(() => comStore.selectedComs.length > 0)
+const enableBtnClass = computed(() => {
+  return {
+    enable: enableBtn.value,
+  }
+})
+
+const enableLockBtnClass = computed(() => {
+  return {
+    enable: enableBtn.value,
+    checked: isLocked.value,
+  }
+})
+
+const enableHideBtnClass = computed(() => {
+  return {
+    enable: enableBtn.value,
+    checked: isHided.value,
+  }
+})
+
+const enableGroupBtnClass = computed(() => {
+  return {
+    enable: enableBtn.value && !disableGroup.value,
+  }
+})
+
+const changeVisible = () => {
+  toolbarStore.setPanelState(PanelType.layer, !visiblePanel.value)
+}
+
+const selectCom = (ev: MouseEvent, com: DatavComponent) => {
+  const isMult = macMetaOrCtrl(ev)
+  if (ev.shiftKey && !isMult) {
+    comStore.selects(com)
+  } else if (!com.selected || (ev.button === 0 && (isMult || comStore.selectedComs.length > 1))) {
+    comStore.select(com.id, com.parentId, isMult)
+  }
+}
+
+const cancelSelected = () => {
+  comStore.select('')
+}
+
+const dragStart = (ev: DragEvent, com: DatavComponent) => {
+  if (editorStore.contextMenu.show || com.renameing) {
+    ev.preventDefault()
+    return false
+  }
+  isDraging.value = true
+  if (com.selected) {
+    const nodewp = document.querySelector('.draging-wrap')
+    nodewp.innerHTML = ''
+    const nodes = document.querySelectorAll('.layer-manager-wrap .selected')
+    nodes.forEach(node => {
+      nodewp.appendChild(node.cloneNode(true))
+    })
+    ev.dataTransfer.setDragImage(nodewp, 0, 1)
+  } else {
+    comStore.select(com.id, com.parentId)
+  }
+}
+
+const dragEnd = () => {
+  isDraging.value = false
+  dragInfo.value.visible = false
+  dragInfo.value.drop = false
+  const info = dragInfo.value
+  comStore.moveTo(info.toLevel, info.toIndex, info.toCom)
+  const nodewp = document.querySelector('.draging-wrap')
+  nodewp.innerHTML = ''
+}
+
+const dragEnter = (ev: DragEvent, idx: number, level: number, com: DatavComponent) => {
+  if (dragInfo.value.drop) {
+    return
+  }
+
+  const h = 48
+  const top = ev.clientY - 104
+  const isHalf = top % h > 24
+  const i = isHalf ? Math.ceil(top / h) : Math.floor(top / h)
+  dragInfo.value.visible = true
+  dragInfo.value.y = i * h
+  dragInfo.value.x = level * 10
+  dragInfo.value.toLevel = level
+  dragInfo.value.toIndex = isHalf ? idx + 1 : idx
+  dragInfo.value.toCom = com
+}
+
+const dragOver = (ev: any) => {
+  ev.preventDefault()
+  ev.stopPropagation()
+  ev.dataTransfer.dropEffect = 'copy'
+}
+
+const dragGroup = (data: any) => {
+  if (data.key === 'enter') {
+    dragInfo.value.visible = false
+    dragInfo.value.drop = true
+  } else if (data.key === 'leave') {
+    dragInfo.value.visible = true
+    dragInfo.value.drop = false
+  } else {
+    dragInfo.value.toLevel = data.level
+    dragInfo.value.toIndex = 0
+    dragInfo.value.toCom = data.com
+  }
+}
 </script>
 
 <style lang="scss" scoped>

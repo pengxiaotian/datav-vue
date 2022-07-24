@@ -33,10 +33,10 @@ export const useDebugStore = defineStore('debug', {
     dataStatusMap: {},
   }),
   actions: {
-    enableDebug() {
+    enable() {
       this.debug = true
     },
-    stopDebug() {
+    stop() {
       this.debug = false
     },
     async setOrigin(comId: string, apiKey: ApiKeyName, data: any) {

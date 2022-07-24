@@ -11,9 +11,11 @@
       :style="`transform: rotate(90deg) translateX(-${vScroll}px);`"
     ></div>
     <div title="切换参考线" class="ruler-corner" @click="toggleGuides">
-      <n-icon>
-        <IconLineShow v-if="visible" style="z-index: 10;" />
-        <IconLineHide v-else />
+      <n-icon v-if="visible">
+        <IconLineShow />
+      </n-icon>
+      <n-icon v-else>
+        <IconLineHide />
       </n-icon>
     </div>
   </div>

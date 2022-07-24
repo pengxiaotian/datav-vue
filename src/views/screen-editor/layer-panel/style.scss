@@ -85,11 +85,16 @@ $panel-width: 200px;
     color: var(--datav-font-color);
     border-radius: 1px;
     transition: background 0.2s;
+    opacity: 0.3;
 
-    &.enable:hover {
-      color: #fff;
-      cursor: pointer;
-      background: var(--datav-main-color) !important;
+    &.enable {
+      opacity: 1;
+
+      &:hover {
+        color: #fff;
+        cursor: pointer;
+        background: var(--datav-main-color) !important;
+      }
     }
 
     &.enable.checked {
@@ -147,104 +152,22 @@ $panel-width: 200px;
   flex-direction: column;
 }
 
-.layer-manager-item {
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 32px;
-  padding: 0 6px;
-  padding-left: 8px;
-  cursor: pointer;
-  background: var(--datav-layer-item-bg);
-  box-sizing: border-box;
-  transition: background 0.2s;
-  align-items: center;
-  flex: none;
-
-  &.thumbail-wrap {
-    height: 48px;
-  }
-
-  &.hided,
-  &.locked {
-    color: var(--datav-layer-item-color-locked);
-    background: var(--datav-layer-item-color-locked);
-  }
-
-  &.hovered {
-    color: #fff;
-    background: rgb(143 225 255 / 10%);
-  }
-
-  &.selected {
-    color: #fff;
-    background: var(--datav-main-color);
-  }
-
-  .layer-item-thumbail {
-    width: 53px;
-    height: 34px;
-    flex: none;
-    display: block;
-    border: var(--datav-border);
-    background: var(--datav-layer-item-thumbail-bg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-  }
-
-  .layer-manager-thumbail {
-    flex: auto;
-    width: 0;
-    margin-left: 6px;
-  }
-
-  .layer-item-span {
-    flex: auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    .layer-item-text {
-      flex: 0 1 auto;
-      text-indent: 7px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-  }
-
-  .layer-item-input {
-    width: 100%;
-    color: var(--datav-font-color);
-    padding: 0 4px;
-    height: 20px;
-    line-height: 20px;
-    background: 0 0;
-    border: none;
-    outline: 0;
-    font-size: 12px;
-    text-indent: 2px;
-
-    &:focus {
-      color: #fff;
-      background: var(--datav-layer-input-bg);
-    }
-  }
-
-  .layer-thumbail-item {
-    position: absolute;
-    top: 3px;
-    right: 4px;
-    line-height: 1;
-  }
-
-  .show-toggle-btn {
-    padding: 0 2px;
-  }
-}
-
 .last-flex-item {
   flex: auto;
   min-height: 40px;
+}
+
+.layer-move-to-line {
+  height: 2px;
+  width: 100%;
+  background: #00c1de;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.draging-wrap {
+  position: fixed;
+  right: 150%;
+  width: 226px;
 }

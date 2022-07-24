@@ -1,9 +1,9 @@
 <template>
   <div :class="['g-aside config-panel-wp', { '--hide': !visiblePanel }]">
     <div class="config-manager">
-      <page-config v-if="!selectedCom" />
-      <n-tabs v-else type="card" display-directive="show:lazy">
-        <n-tab-pane name="config">
+      <layer-setting-panel v-if="currCom && currCom.type === ComType.layer" />
+      <n-tabs v-else-if="currCom" type="card">
+        <n-tab-pane name="config" display-directive="show:lazy">
           <template #tab>
             <n-tooltip :delay="500">
               <template #trigger>
@@ -14,7 +14,7 @@
               配置
             </n-tooltip>
           </template>
-          <setting-panel :key="selectedCom.id" />
+          <setting-panel :key="currCom.id" />
         </n-tab-pane>
         <n-tab-pane name="data" display-directive="show:lazy">
           <template #tab>
@@ -27,7 +27,7 @@
               数据
             </n-tooltip>
           </template>
-          <data-center-panel :key="selectedCom.id" />
+          <data-center-panel :key="currCom.id" />
         </n-tab-pane>
         <n-tab-pane name="interaction" display-directive="show:lazy">
           <template #tab>
@@ -40,15 +40,18 @@
               交互
             </n-tooltip>
           </template>
-          <interaction-panel :key="selectedCom.id" />
+          <interaction-panel :key="currCom.id" />
         </n-tab-pane>
       </n-tabs>
+      <multi-layout-config v-else-if="selectedCount > 1" />
+      <page-config v-else />
     </div>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, computed, provide } from 'vue'
+import { ComType } from '@/components/_models/datav-component'
 import { useToolbarStore } from '@/store/toolbar'
 import { useComStore } from '@/store/com'
 import { loadAsyncComponent } from '@/utils/async-component'
@@ -62,21 +65,27 @@ export default defineComponent({
     IconCloud,
     IconInteract,
     PageConfig: loadAsyncComponent(() => import('./page-config.vue')),
+    MultiLayoutConfig: loadAsyncComponent(() => import('./multi-layout-config.vue')),
     SettingPanel: loadAsyncComponent(() => import('./setting-panel.vue')),
     DataCenterPanel: loadAsyncComponent(() => import('./data-center-panel/index.vue')),
     InteractionPanel: loadAsyncComponent(() => import('./interaction-panel/index.vue')),
+    LayerSettingPanel: loadAsyncComponent(() => import('./layer-setting-panel.vue')),
   },
   setup() {
     const toolbarStore = useToolbarStore()
     const comStore = useComStore()
-    const visiblePanel = computed(() => toolbarStore.config.show)
-    const selectedCom = computed(() => comStore.selectedCom)
 
-    provide(comInjectionKey, selectedCom)
+    const visiblePanel = computed(() => toolbarStore.config.show)
+    const currCom = computed(() => comStore.selectedCom)
+    const selectedCount = computed(() => comStore.selectedComs.length)
+
+    provide(comInjectionKey, currCom)
 
     return {
+      ComType,
       visiblePanel,
-      selectedCom,
+      currCom,
+      selectedCount,
     }
   },
 })

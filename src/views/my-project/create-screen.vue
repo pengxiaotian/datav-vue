@@ -233,7 +233,7 @@ export default defineComponent({
       getProjects()
         .then(({ data }) => {
           if (data.code === 0) {
-            groups.value.push(...data.data.map(({ id, name }: any) => ({ id, name })))
+            groups.value.push(...data.data.map(({ id, name }) => ({ id, name })))
           }
         })
     })

@@ -1,5 +1,8 @@
-import { DatavComponent, ComponentAttr } from '@/components/_models/datav-component'
+import { Ref } from 'vue'
+import { DatavComponent, ComponentAttr, ComType } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
+import { angleToRadian } from '@/utils/editor'
+import { createInjectionKey } from '@/utils/vue-util'
 
 /**
  * 方位
@@ -16,26 +19,26 @@ export type BidirectionalCursor = 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'n
  */
 export type DirectionCursor = 'nw-resize' | 'n-resize' | 'ne-resize' | 'e-resize' | 'se-resize' | 's-resize' | 'sw-resize' | 'w-resize'
 
-export type ResizeMode = 'normal' | 'stretch'
-
 interface IPoint {
   x: number
   y: number
 }
 
-// 八个方位点对应的初始角度
+// 八个方位点对应的初始角度和光标
 const initialDirectionAngle: {
   direction: Direction
   angle: number
+  cursor: BidirectionalCursor
+  singleCursor: DirectionCursor
 }[] = [
-  { direction: 'lt', angle: 0 },
-  { direction: 't', angle: 45 },
-  { direction: 'rt', angle: 90 },
-  { direction: 'r', angle: 135 },
-  { direction: 'rb', angle: 180 },
-  { direction: 'b', angle: 225 },
-  { direction: 'lb', angle: 270 },
-  { direction: 'l', angle: 315 },
+  { direction: 'lt', angle: 0, cursor: 'nwse-resize', singleCursor: 'nw-resize' },
+  { direction: 't', angle: 45, cursor: 'ns-resize', singleCursor: 'n-resize' },
+  { direction: 'rt', angle: 90, cursor: 'nesw-resize', singleCursor: 'ne-resize' },
+  { direction: 'r', angle: 135, cursor: 'ew-resize', singleCursor: 'e-resize' },
+  { direction: 'rb', angle: 180, cursor: 'nwse-resize', singleCursor: 'se-resize' },
+  { direction: 'b', angle: 225, cursor: 'ns-resize', singleCursor: 's-resize' },
+  { direction: 'lb', angle: 270, cursor: 'nesw-resize', singleCursor: 'sw-resize' },
+  { direction: 'l', angle: 315, cursor: 'ew-resize', singleCursor: 'w-resize' },
 ]
 
 // 每个范围的角度对应的光标
@@ -43,15 +46,16 @@ const angleToCursor: {
   start: number
   end: number
   cursor: BidirectionalCursor
+  singleCursor: DirectionCursor
 }[] = [
-  { start: 338, end: 23, cursor: 'nwse-resize' },
-  { start: 23, end: 68, cursor: 'ns-resize' },
-  { start: 68, end: 113, cursor: 'nesw-resize' },
-  { start: 113, end: 158, cursor: 'ew-resize' },
-  { start: 158, end: 203, cursor: 'nwse-resize' },
-  { start: 203, end: 248, cursor: 'ns-resize' },
-  { start: 248, end: 293, cursor: 'nesw-resize' },
-  { start: 293, end: 338, cursor: 'ew-resize' },
+  { start: 338, end: 23, cursor: 'nwse-resize', singleCursor: 'nw-resize' },
+  { start: 23, end: 68, cursor: 'ns-resize', singleCursor: 'n-resize' },
+  { start: 68, end: 113, cursor: 'nesw-resize', singleCursor: 'ne-resize' },
+  { start: 113, end: 158, cursor: 'ew-resize', singleCursor: 'e-resize' },
+  { start: 158, end: 203, cursor: 'nwse-resize', singleCursor: 'se-resize' },
+  { start: 203, end: 248, cursor: 'ns-resize', singleCursor: 's-resize' },
+  { start: 248, end: 293, cursor: 'nesw-resize', singleCursor: 'sw-resize' },
+  { start: 293, end: 338, cursor: 'ew-resize', singleCursor: 'w-resize' },
 ]
 
 export const getCursors = (startAngle: number) => {
@@ -77,11 +81,7 @@ export const getCursors = (startAngle: number) => {
     }
   })
 
-  return result as Record<Direction, BidirectionalCursor>
-}
-
-function angleToRadian(angle: number) {
-  return angle * Math.PI / 180
+  return result
 }
 
 function getCenterPoint(p1: IPoint, p2: IPoint): IPoint {
@@ -220,13 +220,12 @@ function calcResizeForNormal(dir: Direction, attr: ComponentAttr, startPoint: IP
   }
 }
 
-const setAttr = (
+export const handleZoom = (
   ev: MouseEvent,
-  dir: Direction | null,
+  dir: Direction,
   com: DatavComponent,
   scale: number,
-  grid: number,
-  resizeMode: ResizeMode,
+  isNormalResizeMode: boolean,
   moveCallback: () => void,
   upCallback: () => void,
 ) => {
@@ -236,7 +235,10 @@ const setAttr = (
   let layoutRect: DOMRect // 画布位移信息
   let startPoint: IPoint // 当前点击坐标
   let symmetricPoint: IPoint // 对称点的坐标
-  if (resizeMode === 'stretch') {
+  const curPositon: IPoint = { x: 0, y: 0 } // 当前位置坐标
+  if (isNormalResizeMode) {
+    startPoint = { x: ev.clientX, y: ev.clientY }
+  } else {
     const center = { x: (attr.x + attr.w / 2) * scale, y: (attr.y + attr.h / 2) * scale }
     layoutRect = document.getElementById('canvas-coms').getBoundingClientRect()
     startPoint = { x: ev.clientX - layoutRect.left, y: ev.clientY - layoutRect.top }
@@ -244,31 +246,36 @@ const setAttr = (
   }
 
   const move = (e: MouseEvent) => {
-    if (dir) {
-      if (resizeMode === 'normal') {
-        calcResizeForNormal(
-          dir,
-          attr,
-          { x: ev.clientX, y: ev.clientY },
-          { x: e.clientX, y: e.clientY },
-          scale,
-          pos,
-        )
-      } else {
-        const curPositon = { x: e.clientX - layoutRect.left, y: e.clientY - layoutRect.top }
-        if (dir.length === 1) {
-          calcResizeForEdge(dir, attr, startPoint, curPositon, symmetricPoint, scale, pos)
-        } else {
-          calcResizeForCorner(dir, attr, curPositon, symmetricPoint, scale, pos)
-        }
-      }
+    if (isNormalResizeMode) {
+      curPositon.x = e.clientX
+      curPositon.y = e.clientY
+      calcResizeForNormal(dir, attr, startPoint, curPositon, scale, pos)
     } else {
-      // 每次移动固定格数
-      pos.x = attr.x + Math.round((e.clientX - ev.clientX) / scale / grid) * grid
-      pos.y = attr.y + Math.round((e.clientY - ev.clientY) / scale / grid) * grid
+      curPositon.x = e.clientX - layoutRect.left
+      curPositon.y = e.clientY - layoutRect.top
+      if (dir.length === 1) {
+        calcResizeForEdge(dir, attr, startPoint, curPositon, symmetricPoint, scale, pos)
+      } else {
+        calcResizeForCorner(dir, attr, curPositon, symmetricPoint, scale, pos)
+      }
     }
 
-    com.attr = { ...com.attr, ...pos }
+    if (pos.x != undefined) {
+      com.attr.x = pos.x
+    }
+
+    if (pos.y != undefined) {
+      com.attr.y = pos.y
+    }
+
+    if (pos.w != undefined) {
+      com.scaling.w = Math.max(10, pos.w)
+    }
+
+    if (pos.h != undefined) {
+      com.scaling.h = Math.max(10, pos.h)
+    }
+
     moveCallback()
   }
 
@@ -280,19 +287,6 @@ const setAttr = (
 
   on(document, 'mousemove', move)
   on(document, 'mouseup', up)
-}
-
-export const handleZoom = (
-  ev: MouseEvent,
-  dir: Direction,
-  com: DatavComponent,
-  scale: number,
-  isNormalResizeMode: boolean,
-  moveCallback: () => void,
-  upCallback: () => void,
-) => {
-  const mode = isNormalResizeMode ? 'normal' : 'stretch'
-  setAttr(ev, dir, com, scale, 0, mode, moveCallback, upCallback)
 }
 
 export const handleMove = (
@@ -303,34 +297,11 @@ export const handleMove = (
   moveCallback: () => void,
   upCallback: () => void,
 ) => {
-  setAttr(ev, null, com, scale, grid, null, moveCallback, upCallback)
-}
-
-export const handleRotate = (
-  ev: MouseEvent,
-  el: HTMLElement,
-  com: DatavComponent,
-  moveCallback: () => void,
-  upCallback: () => void,
-) => {
-  // 获取元素中心点位置
-  const rect = el.getBoundingClientRect()
-  const centerX = rect.left + rect.width / 2
-  const centerY = rect.top + rect.height / 2
-
-  const startAngle = Math.atan2(
-    centerY - ev.clientY,
-    centerX - ev.clientX,
-  ) * 180 / Math.PI - com.attr.deg
-
+  const { x, y } = com.attr
   const move = (e: MouseEvent) => {
-    const angle = Math.atan2(
-      centerY - e.clientY,
-      centerX - e.clientX,
-    ) * 180 / Math.PI - startAngle
-    const deg = Math.round(angle % 360)
-    com.attr.deg = deg < 0 ? deg + 360 : deg
-
+    // 每次移动固定格数
+    com.attr.x = x + Math.round((e.clientX - ev.clientX) / scale / grid) * grid
+    com.attr.y = y + Math.round((e.clientY - ev.clientY) / scale / grid) * grid
     moveCallback()
   }
 
@@ -343,3 +314,60 @@ export const handleRotate = (
   on(document, 'mousemove', move)
   on(document, 'mouseup', up)
 }
+
+export const handleRotate = (
+  ev: MouseEvent,
+  el: HTMLElement,
+  com: DatavComponent,
+  upCallback: (deg: number) => void,
+) => {
+  // 获取元素中心点位置
+  const rect = el.getBoundingClientRect()
+  const centerX = rect.left + rect.width / 2
+  const centerY = rect.top + rect.height / 2
+
+  let deg = 0
+  const startAngle = Math.atan2(
+    centerY - ev.clientY,
+    centerX - ev.clientX,
+  ) * 180 / Math.PI - com.attr.deg
+
+  const move = (e: MouseEvent) => {
+    const angle = Math.atan2(
+      centerY - e.clientY,
+      centerX - e.clientX,
+    ) * 180 / Math.PI - startAngle
+    deg = Math.round(angle % 360)
+    com.attr.deg = deg < 0 ? deg + 360 : deg
+  }
+
+  const up = () => {
+    off(document, 'mousemove', move)
+    off(document, 'mouseup', up)
+    upCallback(deg)
+  }
+
+  on(document, 'mousemove', move)
+  on(document, 'mouseup', up)
+}
+
+export const handleChildrenRotate = (parentCom: DatavComponent, deg: number) => {
+  parentCom.attr.deg = 0
+  parentCom.children.forEach(com => {
+    if (com.type === ComType.layer) {
+      handleChildrenRotate(com, deg)
+    } else {
+      const angle = Math.round((com.attr.deg + deg) % 360)
+      com.attr.deg = angle < 0 ? angle + 360 : angle
+    }
+  })
+}
+
+export interface TransformInjection {
+  moveScale: Ref<{
+    x: number
+    y: number
+  }>
+}
+
+export const transformInjectionKey = createInjectionKey<TransformInjection>('datav-transform')

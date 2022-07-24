@@ -15,12 +15,11 @@
     width: 100%;
     height: 100%;
     cursor: move;
-    background: rgb(0 231 255 / 11%);
   }
 
   &.hided {
-    .transform-bg,
-    i[class$="-handler"] {
+    > .transform-bg,
+    > i[class$="-handler"] {
       display: none;
     }
   }
@@ -33,7 +32,7 @@
 
 .control-point {
   z-index: 2;
-  display: flex;
+  display: none;
   width: 20px;
   height: 20px;
   justify-content: center;
@@ -71,7 +70,7 @@
       content: "";
       position: absolute;
       z-index: 1;
-      background: var(--datav-gui-primary-color);
+      background: var(--datav-com-focus-color);
 
       @if ($placement == 'top' or $placement == 'bottom') {
         width: 100%;
@@ -113,14 +112,21 @@
   width: 100%;
   height: 100%;
   transform-origin: 0 0;
+  transition: outline 0.1s;
 
-  .datav-com {
+  .datav-layer {
+    position: absolute;
+    will-change: transform;
+    cursor: pointer;
+  }
+
+  .datav-com,
+  .datav-layer {
     width: 100%;
     height: 100%;
     outline: 0;
     box-sizing: border-box;
     transform-origin: 50% 50%;
-    transform: scaleX(1) scaleY(1);
 
     .datav-wrapper-event-disable {
       position: absolute;
@@ -128,40 +134,43 @@
     }
   }
 
-  &.hovered {
-    .datav-com {
-      background: rgb(36 63 162 / 3%);
-    }
+  &.--relative-hovered {
+    outline: 1px dashed var(--datav-com-hover-color);
+  }
 
-    .bottom-handler,
-    .left-handler,
-    .right-handler,
-    .top-handler {
-      display: flex !important;
-    }
+  &.hovered {
+    outline: 1px solid var(--datav-com-focus-color);
   }
 }
 
 .datav-transform {
   position: absolute;
   will-change: transform;
+  cursor: pointer;
 
   &.selected {
     z-index: 1;
 
-    .datav-com {
-      background: rgb(36 63 162 / 3%);
+    & > .datav-scale {
+      & > .datav-com,
+      & > .datav-layer {
+        background: var(--datav-com-focus-bg);
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        outline: 1px solid var(--datav-com-focus-color);
+      }
     }
 
-    .datav-scale::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: -1;
-      border: 1px dashed var(--datav-gui-primary-color);
+    .control-point {
+      display: flex;
     }
   }
 

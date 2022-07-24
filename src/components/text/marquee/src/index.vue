@@ -95,18 +95,18 @@ export default defineComponent({
           }
           transform.value = `translateX(-${width.value}px)`
           transition.value = `transform ${t}ms linear 0s`
-          timeId1.value = setTimeout(
+          timeId1.value = window.setTimeout(
             () => {
               transform.value = 'translateX(0)'
               transition.value = 'none 0s ease 0s'
               if (config.value.loop) {
                 if (config.value.timeout > 0) {
-                  timeId2.value = setTimeout(doMarquee, config.value.timeout) as any
+                  timeId2.value = window.setTimeout(doMarquee, config.value.timeout)
                 } else {
                   doMarquee()
                 }
               }
-            }, t) as any
+            }, t)
         } else {
           width.value = attr.value.w
           transform.value = 'translateX(0)'

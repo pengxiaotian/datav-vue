@@ -32,6 +32,7 @@ import { useEventStore } from '@/store/event'
 import { getSysTemplate } from '@/api/templates'
 import { useMock } from '@/data/mock'
 import { loadAsyncComponent } from '@/utils/async-component'
+import { warn } from '@/utils/warn'
 
 export default defineComponent({
   name: 'ScreenEditor',
@@ -62,7 +63,7 @@ export default defineComponent({
     const eventStore = useEventStore()
     const loading = ref(true)
 
-    debugStore.enableDebug()
+    debugStore.enable()
     editorStore.setEditMode()
 
     onMounted(async () => {
@@ -85,7 +86,7 @@ export default defineComponent({
                 styleFilterParams: config.styleFilterParams,
               },
             })
-            comStore.setComs(config.coms)
+            comStore.load(config.coms)
             const { componentsView, publishersView, subscribersView } = config.variables
             eventStore.$patch({ componentsView, publishersView, subscribersView })
             filterStore.$patch({ dataFilters: config.dataFilters ?? [] })
@@ -95,19 +96,18 @@ export default defineComponent({
           }
         } else {
           const screenId = +props.projectId
-          editorStore.loadScreen(screenId)
-          filterStore.loadFilters(screenId)
-          await comStore.loadComs(screenId)
+          await Promise.all([
+            editorStore.loadScreen(screenId),
+            filterStore.request(screenId),
+            comStore.request(screenId),
+          ])
         }
       } catch (error) {
-        console.log(error)
+        warn('editor', error.message)
       } finally {
         loading.value = false
         document.title = `${editorStore.screen.name} | 编辑器`
-        editorStore.autoCanvasScale(() => ({
-          offsetX: toolbarStore.getPanelOffsetX,
-          offsetY: toolbarStore.getPanelOffsetY,
-        }))
+        editorStore.autoCanvasScale(() => toolbarStore.getPanelOffset)
       }
     })
 

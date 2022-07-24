@@ -20,6 +20,9 @@
         <template v-if="suffix" #suffix>
           {{ suffix }}
         </template>
+        <template v-if="prefix" #prefix>
+          {{ prefix }}
+        </template>
       </n-input-number>
     </n-config-provider>
     <span v-if="label" class="g-input__caption">
@@ -63,12 +66,13 @@ export default defineComponent({
       type: [Boolean, String],
       default: false,
     },
+    prefix: String,
     suffix: String,
   },
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
     const handleInput = (value: number) => {
-      ctx.emit(UPDATE_MODEL_EVENT, value)
+      ctx.emit(UPDATE_MODEL_EVENT, value, props.modelValue)
     }
 
     const themeOverrides = {

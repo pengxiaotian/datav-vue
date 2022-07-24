@@ -38,13 +38,14 @@
   --datav-shadow: 0 0 10px -6px #000;
   --datav-menu-bg: #27343e;
   --datav-menu-bg-hover: var(--datav-bgcolor-2);
-  --datav-menu-color-hover: #00baff;
+  --datav-menu-color-hover: #2681ff;
   --datav-menu-color-disabled: #576369;
   --datav-layer-wp-bg: #1d2126;
   --datav-layer-bg: #2e343c;
   --datav-layer-bg-dark: #0a0b0d;
   --datav-layer-item-bg: #1b1f25;
   --datav-layer-item-color-locked: #576369;
+  --datav-layer-item-bg-locked: #1c1f25;
   --datav-layer-item-thumbail-bg: #282a30;
   --datav-layer-toolbar-bg: #20242a;
   --datav-layer-toolbar-bg-hover: #3a4650;
@@ -54,6 +55,9 @@
   --datav-config-bg: #1c1f25;
   --datav-config-border: 1px solid #282f3a;
   --datav-data-form-bgcolor: #0e1013;
+  --datav-com-focus-color: #2483ff;
+  --datav-com-hover-color: #409fff;
+  --datav-com-focus-bg: rgb(36 131 255 / 2%);
 }
 
 // GUI

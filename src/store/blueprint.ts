@@ -1,14 +1,6 @@
 import { defineStore } from 'pinia'
+import { BlueprintEvent, BlueprintEventType } from '@/domains/blueprint'
 
-
-export interface BlueprintEvent {
-  /**
-   * 请求数据接口
-   */
-  requestData?: Function
-}
-
-export type BlueprintEventType = keyof BlueprintEvent
 
 export interface IBlueprintState {
   flows: any[]

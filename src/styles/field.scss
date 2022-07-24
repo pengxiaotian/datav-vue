@@ -63,7 +63,7 @@
 
 .g-field-wp {
   display: flex;
-  padding: 4px 4px 4px 8px;
+  padding: 4px 4px 8px 8px;
 
   &:first-child {
     padding-top: 16px;
@@ -78,8 +78,12 @@
     padding-right: 5px;
   }
 
+  &.--lv1 {
+    background: var(--datav-gui-bgcolor-front);
+  }
+
   &.--lv2 {
-    // margin-bottom: 4px;
+    background: var(--datav-gui-bgcolor-back);
 
     .g-field {
       color: var(--datav-gui-font-color-2);

@@ -1,23 +1,12 @@
 import { defineStore } from 'pinia'
 import { debounce } from 'lodash-es'
 import { Project } from '@/domains/project'
-import { PageConfig, MoveType } from '@/domains/editor'
+import { PageConfig, AlignLine } from '@/domains/editor'
 import { getProject } from '@/api/project'
 import { DatavComponent } from '@/components/_models/datav-component'
-import { calcIntersectingLines } from '@/utils/intersecting-line-util'
-import { useComStore, findComIndex } from './com'
+import { calcIntersectingLines } from '@/utils/editor'
+import { useComStore } from './com'
 import { useEventStore } from './event'
-
-export interface AlignLine {
-  top: number
-  bottom: number
-  left: number
-  right: number
-  vertical: number
-  horizontal: number
-  enable: boolean
-  show: boolean
-}
 
 export interface IEditorState {
   editMode: boolean
@@ -36,6 +25,12 @@ export interface IEditorState {
     enable: boolean
   }
   alignLine: AlignLine
+  areaData: {
+    top: number
+    left: number
+    width: number
+    height: number
+  }
   contextMenu: {
     show: boolean
   }
@@ -92,6 +87,12 @@ export const useEditorStore = defineStore('editor', {
       vertical: 0,
       horizontal: 0,
     },
+    areaData: {
+      top: 0,
+      left: 0,
+      width: 0,
+      height: 0,
+    },
     contextMenu: {
       show: false,
     },
@@ -100,47 +101,6 @@ export const useEditorStore = defineStore('editor', {
   actions: {
     setEditMode() {
       this.editMode = true
-    },
-    calcAlignLine(com: DatavComponent) {
-      if (!this.alignLine.enable) {
-        return
-      }
-
-      const comStore = useComStore()
-      const attr = calcIntersectingLines(com, comStore.coms, this.canvas.scale)
-      this.alignLine = { ...this.alignLine, ...attr, show: true }
-    },
-    hideAlignLine(id: string) {
-      if (!this.alignLine.enable) {
-        return
-      }
-
-      const comStore = useComStore()
-      if (this.alignLine.show) {
-        this.alignLine.show = false
-        comStore.selectCom(id)
-      }
-    },
-    moveCom(id: string, moveType: MoveType) {
-      const comStore = useComStore()
-      const i = findComIndex(comStore.coms, id)
-      if (moveType === MoveType.up) {
-        if (i + 1 < comStore.coms.length) {
-          comStore.coms.splice(i + 1, 0, ...comStore.coms.splice(i, 1))
-        }
-      } else if (moveType === MoveType.down) {
-        if (i > 0) {
-          comStore.coms.splice(i - 1, 0, ...comStore.coms.splice(i, 1))
-        }
-      } else if (moveType === MoveType.top) {
-        if (i + 1 < comStore.coms.length) {
-          comStore.coms.push(...comStore.coms.splice(i, 1))
-        }
-      } else if (moveType === MoveType.bottom) {
-        if (i > 0) {
-          comStore.coms.unshift(...comStore.coms.splice(i, 1))
-        }
-      }
     },
     setEditorOption(payload: {
       screen?: Partial<Project>
@@ -162,17 +122,37 @@ export const useEditorStore = defineStore('editor', {
         this.guideLine = { ...payload.guideLine }
       }
     },
-    async autoCanvasScale(payload: () => { offsetX: number; offsetY: number; }) {
-      const resize = debounce(() => {
-        const offset = payload()
-        const width = document.documentElement.clientWidth - offset.offsetX
-        const height = document.documentElement.clientHeight - 42 - 32 - offset.offsetY
+    calcAlignLine(com: DatavComponent) {
+      if (!this.alignLine.enable) {
+        return
+      }
 
-        const a = (width - 120) / this.pageConfig.width
-        const b = (height - 140) / this.pageConfig.height
+      const comStore = useComStore()
+      const attr = calcIntersectingLines(com, comStore.coms, this.canvas.scale)
+      this.alignLine = { ...this.alignLine, ...attr, show: true }
+    },
+    hideAlignLine(id: string) {
+      if (!this.alignLine.enable) {
+        return
+      }
+
+      const comStore = useComStore()
+      if (this.alignLine.show) {
+        this.alignLine.show = false
+        comStore.select(id)
+      }
+    },
+    async autoCanvasScale(offset: () => { x: number; y: number; }) {
+      const resize = debounce(() => {
+        const { x, y } = offset()
+        const width = document.documentElement.clientWidth - x
+        const height = document.documentElement.clientHeight - y
+
+        const a = (width - 180) / this.pageConfig.width
+        const b = (height - 200) / this.pageConfig.height
         const scale = parseFloat((a > b ? b : a).toFixed(6)) * 100
 
-        this.setCanvasScale(scale, offset.offsetX, offset.offsetY)
+        this.setCanvasScale(scale, x, y)
       }, 200)
 
       window.onresize = resize
@@ -181,7 +161,7 @@ export const useEditorStore = defineStore('editor', {
     },
     async setCanvasScale(scale: number, offsetX: number, offsetY: number) {
       let width = document.documentElement.clientWidth - offsetX
-      let height = document.documentElement.clientHeight - 42 - 32 - offsetY
+      let height = document.documentElement.clientHeight - offsetY
       const deltaS = Math.min(Math.max(scale, 10), 200) / 100
 
       // 方便计算滚动条 和 标尺

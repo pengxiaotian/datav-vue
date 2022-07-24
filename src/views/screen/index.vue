@@ -20,22 +20,7 @@
       <img :src="LOGO">
     </a>
     <div class="scene">
-      <div
-        v-for="com in coms"
-        :key="com.id"
-        :style="{
-          left: com.attr.x + 'px',
-          top: com.attr.y + 'px',
-          width: com.attr.w + 'px',
-          height: com.attr.h + 'px',
-          opacity: com.attr.opacity,
-          transform: `rotate(${com.attr.deg}deg) ${com.attr.filpH ? 'scaleX(-1)' : ''} ${com.attr.filpV ? 'scaleY(-1)' : ''}`,
-          filter: styleFilter,
-        }"
-        class="-datav-com absolute"
-      >
-        <component :is="com.name" :com="com" />
-      </div>
+      <datav-com v-for="com in coms" :key="com.id" :com="com" />
     </div>
   </div>
 </template>
@@ -52,11 +37,15 @@ import { useEventStore } from '@/store/event'
 import { PageConfig, ZoomMode } from '@/domains/editor'
 import { setStyle, on } from '@/utils/dom'
 import { getScreen } from '@/api/screen'
+import DatavCom from './datav/index.vue'
 
 const cdn = import.meta.env.VITE_APP_CDN
 
 export default defineComponent({
   name: 'Preview',
+  components: {
+    DatavCom,
+  },
   props: {
     screenId: {
       type: [String, Number],
@@ -190,7 +179,7 @@ export default defineComponent({
           })
           initPageInfo(data.config)
 
-          comStore.setComs(data.coms)
+          comStore.load(data.coms)
           const { componentsView, publishersView, subscribersView } = data.variables
           eventStore.$patch({ componentsView, publishersView, subscribersView })
           filterStore.$patch({ dataFilters: data.dataFilters ?? [] })

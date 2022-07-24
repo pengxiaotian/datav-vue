@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { cloneDeep } from 'lodash-es'
 import { ProjectGroupType, ProjectGroup } from '@/domains/project'
 import * as api from '@/api/project'
+import { getSysTemplate } from '@/api/templates'
 
 export interface IProjectState {
   allGroups: ProjectGroup[]
@@ -25,14 +26,20 @@ export const useProjectStore = defineStore('project', {
     },
   },
   actions: {
-    async getProjects() {
+    async request() {
       try {
+        // 展示全部组件示例
+        const { data } = await getSysTemplate(1)
         const res = await api.getProjects()
         if (res.data.code === 0) {
           const list: ProjectGroup[] = res.data.data || []
 
           // TODO: 如果用关系数据库就不用赋值 groupId
           const ungroup = new ProjectGroup(0, '未分组', [])
+          if (data) {
+            data.name = `All-${data.name}`
+            ungroup.children.push(data)
+          }
           list.forEach(item => {
             item.children.forEach(subitem => {
               if (item.type === ProjectGroupType.ungroup) {
@@ -52,7 +59,7 @@ export const useProjectStore = defineStore('project', {
         throw error
       }
     },
-    async deleteProject(pid: number, gid: number) {
+    async delete(pid: number, gid: number) {
       try {
         const res = await api.deleteProject(pid)
         if (res.data.code === 0) {
@@ -67,7 +74,7 @@ export const useProjectStore = defineStore('project', {
         throw error
       }
     },
-    async updateProjectName(id: number, newName: string) {
+    async updateName(id: number, newName: string) {
       try {
         const res = await api.updateProjectName(id, newName)
         if (res.data.code !== 0) {
@@ -77,7 +84,7 @@ export const useProjectStore = defineStore('project', {
         throw error
       }
     },
-    async moveProject(pid: number, fromId: number, toId: number) {
+    async move(pid: number, fromId: number, toId: number) {
       try {
         const res = await api.moveProject(pid, fromId, toId)
         if (res.data.code === 0) {
@@ -96,7 +103,7 @@ export const useProjectStore = defineStore('project', {
         throw error
       }
     },
-    async copyProject(pid: number, gid: number) {
+    async copy(pid: number, gid: number) {
       try {
         const res = await api.copyProject(pid)
         if (res.data.code === 0) {
@@ -116,7 +123,7 @@ export const useProjectStore = defineStore('project', {
         throw error
       }
     },
-    async createProjectGroup(name: string) {
+    async createGroup(name: string) {
       try {
         const { data } = await api.createProjectGroup({ name })
         if (data.code === 0) {
@@ -130,7 +137,7 @@ export const useProjectStore = defineStore('project', {
         throw error
       }
     },
-    async deleteProjectGroup(id: number) {
+    async deleteGroup(id: number) {
       try {
         const res = await api.deleteProjectGroup(id)
         if (res.data.code === 0) {
@@ -150,7 +157,7 @@ export const useProjectStore = defineStore('project', {
         throw error
       }
     },
-    async updateProjectGroupName(id: number, newName: string) {
+    async updateGroupName(id: number, newName: string) {
       try {
         const res = await api.updateProjectGroupName(id, newName)
         if (res.data.code !== 0) {

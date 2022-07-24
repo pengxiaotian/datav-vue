@@ -53,53 +53,39 @@ export const useToolbarStore = defineStore('toolbar', {
     loading: 0,
   }),
   getters: {
-    getPanelOffsetX(state) {
-      let offsetX = 0
+    getPanelOffset(state) {
+      let x = 0
+      let y = 41
+      let left = 60
+      let top = 100
       if (state.layer.show) {
-        offsetX += 200
+        x += 200
+        left += 200
       }
 
       if (state.components.show) {
-        offsetX += 324
+        x += 324
+        left += 324
       } else {
-        offsetX += 45
+        x += 45
+        left += 45
+      }
+
+      if (state.toolbox.show) {
+        y += 40
+        top += 40
       }
 
       if (state.config.show) {
-        offsetX += 332
+        x += 332
       }
 
-      return offsetX
-    },
-    getPanelOffsetY(state) {
-      let offsetY = 0
-      if (state.toolbox.show) {
-        offsetY += 40
+      return {
+        x,
+        y,
+        left,
+        top,
       }
-
-      return offsetY
-    },
-    getPanelOffsetLeft(state) {
-      let offsetX = 60
-      if (state.layer.show) {
-        offsetX += 200
-      }
-
-      if (state.components.show) {
-        offsetX += 324
-      } else {
-        offsetX += 45
-      }
-
-      return offsetX
-    },
-    getPanelOffsetTop(state) {
-      let offsetY = 100
-      if (state.toolbox.show) {
-        offsetY += 40
-      }
-
-      return offsetY
     },
   },
   actions: {

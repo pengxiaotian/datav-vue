@@ -36,7 +36,6 @@
 | ------ | ------ |
 | ![登录页](./demo/login.png)  |  ![可视化列表](./demo/home.png) |
 | ![模板列表](./demo/template.png)  |  ![编辑器](./demo/editor.png) |
-|||
 
 ## CheckList
 
@@ -207,7 +206,7 @@ pnpm run new icons
 
 ### 使用
 
-- 在模板中使用：
+- Options API：
 ```html
 <template>
   ...
@@ -231,10 +230,17 @@ setup() {
 ...
 ```
 
+## Donate
+
+如果你觉得这个项目帮助到了你，你可以帮作者买一杯奶茶或点心表示鼓励 :gift_heart:
+|Alipay|Wechat|
+| :------: | :------: |
+| ![donate-Alipay](./demo/donate/alipay.jpg)  |  ![donate-Wechat](./demo/donate/wechat.jpg) |
+
 ## 许可
 
 DataV Vue 使用 [MIT license](https://opensource.org/licenses/MIT) 许可证书。
 
 ## 注意
 
-本项目主要用来研究与学习，如果商用请注意：项目里含有一些第三方付费素材，如：`orbitron-bold` 字体。
+本项目主要用来研究与学习，如果商用请注意：项目里含有一些第三方付费素材。

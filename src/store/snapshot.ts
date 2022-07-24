@@ -28,10 +28,10 @@ export const useSnapshotStore = defineStore('snapshot', {
           // 如果当前组件不在 snapshotComs 中，则置空
           const needClean = !snapshotComs.some(component => curCom.id === component.id)
           if (needClean) {
-            comStore.selectCom('')
+            comStore.select('')
           }
         }
-        comStore.setComs(snapshotComs)
+        comStore.load(snapshotComs)
       }
     },
 
@@ -40,7 +40,7 @@ export const useSnapshotStore = defineStore('snapshot', {
         this.snapshotIndex++
         const comStore = useComStore()
         const snapshotComs = cloneDeep(this.snapshotData[this.snapshotIndex]) || []
-        comStore.setComs(snapshotComs)
+        comStore.load(snapshotComs)
       }
     },
 

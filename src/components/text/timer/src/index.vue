@@ -86,9 +86,9 @@ export default defineComponent({
     const updateDateTime = () => {
       let duration = config.value.time.duration || 100
       dateTime.value = dayjs(dateTime.value).add(duration, 'ms')
-      timerId.value = setTimeout(() => {
+      timerId.value = window.setTimeout(() => {
         updateDateTime()
-      }, duration) as any
+      }, duration)
     }
 
     updateDateTime()

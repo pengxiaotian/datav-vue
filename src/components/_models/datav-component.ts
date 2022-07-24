@@ -21,6 +21,15 @@ export interface ComponentAttr {
   filpH: boolean
 }
 
+export interface ComponentGroupAttr extends ComponentAttr {
+  apply3d: boolean
+  perspective: number
+  perspectiveOrigin: {
+    x: number
+    y: number
+  }
+}
+
 export abstract class DatavComponent {
   id: string
   readonly name: string
@@ -34,9 +43,17 @@ export abstract class DatavComponent {
   hided = false
 
   // 以下几个状态可以不进行持久化，为了操作方便在此声明
-  selected = false
-  hovered = false
-  renameing = false
+  selected? = false
+  hovered? = false
+  renameing? = false
+  fold?: boolean
+  scaling? = {
+    zoom: false,
+    w: 0,
+    h: 0,
+    sx: 1,
+    sy: 1,
+  }
 
   attr: ComponentAttr = {
     x: 0,
@@ -50,8 +67,10 @@ export abstract class DatavComponent {
   }
 
   projectId = 0
+  // 用于组合组件，如：底图和图层关系
   parentId?: string
-  // children: DatavComponent[] | null = null
+  // group 的子组件
+  children?: DatavComponent[]
 
   abstract config: Record<string, any>
 
@@ -73,10 +92,12 @@ export abstract class DatavComponent {
     this.name = `V${name}`
     this.type = type
 
-    const obj = findComByName(this.name)!
-    this.alias = obj.com.alias
-    this.icon = obj.category.icon
-    this.img = obj.com.thum
+    if (type !== ComType.layer) {
+      const obj = findComByName(this.name)
+      this.alias = obj.com.alias
+      this.icon = obj.category.icon
+      this.img = obj.com.thum
+    }
 
     this.attr = { ...this.attr, ...attr }
   }
@@ -118,6 +139,18 @@ export abstract class DatavEChartsComponent extends DatavComponent {
       durationUpdate?: number
       easingUpdate?: string
       delayUpdate?: number
+    }
+  }
+}
+
+export const checkComponentAttr = (com: DatavComponent) => {
+  if (!com.scaling) {
+    com.scaling = {
+      zoom: false,
+      w: com.attr.w,
+      h: com.attr.h,
+      sx: 1,
+      sy: 1,
     }
   }
 }
