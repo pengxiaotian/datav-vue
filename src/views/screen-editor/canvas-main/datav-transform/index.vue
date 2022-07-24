@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, h, PropType, resolveComponent } from 'vue'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
+import { DatavGroup } from '@/components/_internal/group'
 import DatavTransformItem from './transform-item.vue'
 import DatavTransformGroup from './transform-group.vue'
 
@@ -28,7 +29,11 @@ export default defineComponent({
         })
       }
 
-      return h(DatavTransformGroup, { com, parentCom, editable }, {
+      return h(DatavTransformGroup, {
+        com: com as DatavGroup,
+        parentCom: parentCom as DatavGroup,
+        editable,
+      }, {
         default: ({ data, editable }) => {
           return create(data, com, editable)
         },

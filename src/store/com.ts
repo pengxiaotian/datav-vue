@@ -165,10 +165,10 @@ export const useComStore = defineStore('com', {
       const coms: DatavComponent[] = []
       const subComs: DatavComponent[] = []
       payload.forEach(c => {
-        if (c.type === ComType.com) {
-          coms.push(c)
-        } else if (c.type === ComType.subCom) {
+        if (c.type === ComType.subCom) {
           subComs.push(c)
+        } else {
+          coms.push(c)
         }
       })
 
