@@ -36,7 +36,6 @@
 | ------ | ------ |
 | ![登录页](./demo/login.png)  |  ![可视化列表](./demo/home.png) |
 | ![模板列表](./demo/template.png)  |  ![编辑器](./demo/editor.png) |
-|||
 
 ## CheckList
 
@@ -230,6 +229,13 @@ setup() {
 }
 ...
 ```
+
+## Donate
+
+如果你觉得这个项目帮助到了你，你可以帮作者买一杯奶茶或点心表示鼓励 :gift_heart:
+|Alipay|Wechat|
+| :------: | :------: |
+| ![donate-Alipay](./demo/donate/alipay.jpg)  |  ![donate-Wechat](./demo/donate/wechat.jpg) |
 
 ## 许可
 
