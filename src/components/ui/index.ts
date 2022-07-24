@@ -36,6 +36,7 @@ const install = (app: App): void => {
   app.component('GSelectSuggest', defineAsyncComponent(() => import('./select-suggest')))
   app.component('GSelectShape', defineAsyncComponent(() => import('./select-shape')))
   app.component('GComIcon', defineAsyncComponent(() => import('./com-icon')))
+  app.component('GSwitch', defineAsyncComponent(() => import('./switch')))
 
   // async registry with loading
   app.component('GMonacoEditor', loadAsyncComponent(() => import('./monaco-editor')))

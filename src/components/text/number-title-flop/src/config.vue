@@ -370,7 +370,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, toRef, computed } from 'vue'
+import { defineComponent, PropType, toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
@@ -389,11 +389,11 @@ export default defineComponent({
   setup(props) {
     const config = toRef(props.com, 'config')
 
-    const arrangements = computed(() => ([
+    const arrangements = [
       { id: 'top', value: '标题在上' },
       { id: 'left', value: '标题在左' },
       { id: 'bottom', value: '标题在下' },
-    ]))
+    ]
 
     return {
       config,
