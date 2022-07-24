@@ -6,14 +6,10 @@ import { DataEventConfig } from '@/components/_models/data-event'
 
 
 export interface GroupTransform3d {
-  _id: string
-  _label: string
-  _icon: string
+  id: string
   rotate3d: {
+    axis: string
     deg: number
-    x: number
-    y: number
-    z: number
   }
   scale3d: {
     x: number
@@ -27,10 +23,49 @@ export interface GroupTransform3d {
   }
 }
 
+export interface GroupConfig {
+  transform3d: GroupTransform3d
+}
+
+export const createTransform3d = (com: DatavComponent): GroupTransform3d => {
+  return {
+    id: com.id,
+    rotate3d: {
+      axis: 'y',
+      deg: 30,
+    },
+    scale3d: {
+      x: 1,
+      y: 1,
+      lock: false,
+    },
+    translate3d: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+  }
+}
+
+export const createGroupConfig = (com: DatavComponent) => {
+  return {
+    transform3d: createTransform3d(com),
+  }
+}
+
+export const sortGroupConfig = (group: DatavGroup) => {
+  const list = []
+  group.children.forEach(com => {
+    const oc = group.config.find(m => com.id === m.transform3d.id)
+    list.push(oc ?? createGroupConfig(com))
+  })
+  group.config = list
+}
+
 /**
- * Group
+ * DatavGroup
  */
-export class Group extends DatavComponent {
+export class DatavGroup extends DatavComponent {
   attr: ComponentGroupAttr = {
     x: 0,
     y: 0,
@@ -50,9 +85,7 @@ export class Group extends DatavComponent {
 
   fold = true
 
-  config: {
-    transform3d: GroupTransform3d
-  }[] = []
+  config: GroupConfig[] = []
 
   apis: Partial<ApiConfigMap>
   apiData: Partial<ApiDataConfigMap>
@@ -66,6 +99,13 @@ export class Group extends DatavComponent {
     this.icon = 'group'
     this.img = `${import.meta.env.VITE_APP_CDN}/com-thum/group-200-200.png`,
     this.attr = { ...this.attr, ...attr }
+    this.scaling = {
+      zoom: false,
+      w: attr.w,
+      h: attr.h,
+      sx: 1,
+      sy: 1,
+    }
 
     this.initData()
   }
@@ -78,4 +118,4 @@ export class Group extends DatavComponent {
   async loadData() {}
 }
 
-export default Group
+export default DatavGroup

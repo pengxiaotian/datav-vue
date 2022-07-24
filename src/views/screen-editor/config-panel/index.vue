@@ -1,7 +1,8 @@
 <template>
   <div :class="['g-aside config-panel-wp', { '--hide': !visiblePanel }]">
     <div class="config-manager">
-      <n-tabs v-if="currCom" type="card">
+      <layer-setting-panel v-if="currCom && currCom.type === ComType.layer" />
+      <n-tabs v-else-if="currCom" type="card">
         <n-tab-pane name="config" display-directive="show:lazy">
           <template #tab>
             <n-tooltip :delay="500">
@@ -50,6 +51,7 @@
 
 <script lang='ts'>
 import { defineComponent, computed, provide } from 'vue'
+import { ComType } from '@/components/_models/datav-component'
 import { useToolbarStore } from '@/store/toolbar'
 import { useComStore } from '@/store/com'
 import { loadAsyncComponent } from '@/utils/async-component'
@@ -67,6 +69,7 @@ export default defineComponent({
     SettingPanel: loadAsyncComponent(() => import('./setting-panel.vue')),
     DataCenterPanel: loadAsyncComponent(() => import('./data-center-panel/index.vue')),
     InteractionPanel: loadAsyncComponent(() => import('./interaction-panel/index.vue')),
+    LayerSettingPanel: loadAsyncComponent(() => import('./layer-setting-panel.vue')),
   },
   setup() {
     const toolbarStore = useToolbarStore()
@@ -79,6 +82,7 @@ export default defineComponent({
     provide(comInjectionKey, currCom)
 
     return {
+      ComType,
       visiblePanel,
       currCom,
       selectedCount,

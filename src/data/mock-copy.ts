@@ -1,6 +1,7 @@
 import { cloneDeep } from 'lodash-es'
-import { DatavComponent } from '@/components/_models/datav-component'
+import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import { generateId } from '@/utils/util'
+import { DatavGroup, sortGroupConfig } from '@/components/_internal/group'
 
 export const getNewChildCom = (coms: DatavComponent[], parentId?: string) => {
   coms.forEach(ncom => {
@@ -13,8 +14,9 @@ export const getNewChildCom = (coms: DatavComponent[], parentId?: string) => {
       ncom.apiData[key].comId = ncom.id
     }
 
-    if (ncom.children) {
+    if (ncom.type === ComType.layer) {
       getNewChildCom(ncom.children, ncom.id)
+      sortGroupConfig(ncom as DatavGroup)
     }
   })
 }
@@ -39,8 +41,9 @@ export const getNewCom = (com: DatavComponent, parentId?: string) => {
     ncom.apiData[key].comId = ncom.id
   }
 
-  if (ncom.children) {
+  if (ncom.type === ComType.layer) {
     getNewChildCom(ncom.children, ncom.id)
+    sortGroupConfig(ncom as DatavGroup)
   }
 
   return ncom

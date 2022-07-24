@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
-import { Group } from '@/components/_internal/group'
+import { DatavGroup, createGroupConfig, sortGroupConfig } from '@/components/_internal/group'
 import { getComs, deleteComs, addCom, copyCom } from '@/api/coms'
 import { MoveType } from '@/domains/editor'
 import { getNewCom } from '@/data/mock-copy'
@@ -226,52 +226,6 @@ export const useComStore = defineStore('com', {
         toCom.selected = true
       }
     },
-    move(moveType: MoveType, id: string, pid: string) {
-      let com: DatavComponent = null
-      let i = -1, len = 0
-      if (pid) {
-        com = findCom(this.coms, pid)
-        i = getComIndex(com.children, id)
-        len = com.children.length
-      } else {
-        i = getComIndex(this.coms, id)
-        len = this.coms.length
-      }
-
-      if (moveType === MoveType.up) {
-        if (i > 0) {
-          if (com) {
-            com.children.splice(i - 1, 0, ...com.children.splice(i, 1))
-          } else {
-            this.coms.splice(i - 1, 0, ...this.coms.splice(i, 1))
-          }
-        }
-      } else if (moveType === MoveType.down) {
-        if (i + 1 < len) {
-          if (com) {
-            com.children.splice(i + 1, 0, ...com.children.splice(i, 1))
-          } else {
-            this.coms.splice(i + 1, 0, ...this.coms.splice(i, 1))
-          }
-        }
-      } else if (moveType === MoveType.top) {
-        if (i > 0) {
-          if (com) {
-            com.children.unshift(...com.children.splice(i, 1))
-          } else {
-            this.coms.unshift(...this.coms.splice(i, 1))
-          }
-        }
-      } else if (moveType === MoveType.bottom) {
-        if (i + 1 < len) {
-          if (com) {
-            com.children.push(...com.children.splice(i, 1))
-          } else {
-            this.coms.push(...this.coms.splice(i, 1))
-          }
-        }
-      }
-    },
     getParents(pid: string) {
       const parentComs: DatavComponent[] = []
 
@@ -341,6 +295,56 @@ export const useComStore = defineStore('com', {
 
       resize(parentCom.children)
     },
+    move(moveType: MoveType, id: string, pid: string) {
+      let com: DatavComponent = null
+      let i = -1, len = 0
+      if (pid) {
+        com = findCom(this.coms, pid)
+        i = getComIndex(com.children, id)
+        len = com.children.length
+      } else {
+        i = getComIndex(this.coms, id)
+        len = this.coms.length
+      }
+
+      if (moveType === MoveType.up) {
+        if (i > 0) {
+          if (com) {
+            com.children.splice(i - 1, 0, ...com.children.splice(i, 1))
+          } else {
+            this.coms.splice(i - 1, 0, ...this.coms.splice(i, 1))
+          }
+        }
+      } else if (moveType === MoveType.down) {
+        if (i + 1 < len) {
+          if (com) {
+            com.children.splice(i + 1, 0, ...com.children.splice(i, 1))
+          } else {
+            this.coms.splice(i + 1, 0, ...this.coms.splice(i, 1))
+          }
+        }
+      } else if (moveType === MoveType.top) {
+        if (i > 0) {
+          if (com) {
+            com.children.unshift(...com.children.splice(i, 1))
+          } else {
+            this.coms.unshift(...this.coms.splice(i, 1))
+          }
+        }
+      } else if (moveType === MoveType.bottom) {
+        if (i + 1 < len) {
+          if (com) {
+            com.children.push(...com.children.splice(i, 1))
+          } else {
+            this.coms.push(...this.coms.splice(i, 1))
+          }
+        }
+      }
+
+      if (com) {
+        sortGroupConfig(com as DatavGroup)
+      }
+    },
     moveTo(toLevel: number, toIndex: number, targetCom: DatavComponent) {
       const scoms = this.selectedComs
       const fromParentId = scoms[0].parentId
@@ -392,6 +396,7 @@ export const useComStore = defineStore('com', {
               }
               coms.splice(toIdx, 0, ...scoms)
               item.children = coms
+              sortGroupConfig(item as DatavGroup)
             } else {
               const fromParents = this.getParents(fromParentId)
               const toParents = this.getParents(targetCom.parentId)
@@ -404,6 +409,7 @@ export const useComStore = defineStore('com', {
                   this.removes([fromParentCom.id], fromParentCom.parentId)
                 } else {
                   this.resizeParents(fromParents)
+                  sortGroupConfig(fromParentCom as DatavGroup)
                 }
               } else {
                 this.coms = this.coms.filter(m => !m.selected)
@@ -416,6 +422,7 @@ export const useComStore = defineStore('com', {
               })
               item.children.splice(toIdx, 0, ...scoms)
               this.resizeParents(toParents)
+              sortGroupConfig(item as DatavGroup)
             }
             return true
           } else if (com.id === targetCom.parentId && moveChild(com)) {
@@ -466,10 +473,12 @@ export const useComStore = defineStore('com', {
     },
     removes(ids: string[], pid: string) {
       if (pid) {
-        const pcom = findCom(this.coms, pid)
-        pcom.children = pcom.children.filter(m => !ids.includes(m.id))
-        if (pcom.children.length === 0) {
-          this.removes([pcom.id], pcom.parentId)
+        const com = findCom(this.coms, pid)
+        com.children = com.children.filter(m => !ids.includes(m.id))
+        if (com.children.length === 0) {
+          this.removes([com.id], com.parentId)
+        } else {
+          sortGroupConfig(com as DatavGroup)
         }
       } else {
         this.coms = this.coms.filter(m => !ids.includes(m.id))
@@ -480,7 +489,9 @@ export const useComStore = defineStore('com', {
         const res = await addCom(com)
         if (res.data.code === 0) {
           if (com.parentId) {
-            findCom(this.coms, com.parentId).children.push(com)
+            const g = findCom(this.coms, com.parentId)
+            g.children.push(com)
+            sortGroupConfig(g as DatavGroup)
           } else {
             this.coms.push(com)
           }
@@ -503,7 +514,9 @@ export const useComStore = defineStore('com', {
             const ncom = getNewCom(ocom, ocom.parentId)
             const nSubComs = getSubComs(this.subComs, ocom.id).map(m => getNewCom(m, ncom.id))
             if (ncom.parentId) {
-              findCom(this.coms, ncom.parentId).children.push(ncom)
+              const g = findCom(this.coms, ncom.parentId)
+              g.children.push(ncom)
+              sortGroupConfig(g as DatavGroup)
             } else {
               this.coms.push(ncom)
             }
@@ -527,7 +540,7 @@ export const useComStore = defineStore('com', {
         bottom = Math.max(attr.y + attr.h, bottom)
       })
 
-      const gcom = new Group({
+      const gcom = new DatavGroup({
         x: left,
         y: top,
         w: right - left,
@@ -539,6 +552,7 @@ export const useComStore = defineStore('com', {
         com.parentId = gcom.id
         com.attr.x -= gcom.attr.x
         com.attr.y -= gcom.attr.y
+        gcom.config.push(createGroupConfig(com))
       })
 
       if (gcom.parentId) {
@@ -569,6 +583,7 @@ export const useComStore = defineStore('com', {
         const com = findCom(this.coms, pid)
         com.children = com.children.filter(com => !ids.includes(com.id))
         com.children.push(...coms)
+        sortGroupConfig(com as DatavGroup)
       } else {
         this.coms = this.coms.filter(com => !ids.includes(com.id))
         this.coms.push(...coms)

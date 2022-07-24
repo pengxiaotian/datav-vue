@@ -72,7 +72,7 @@ export default defineComponent({
   emits: [UPDATE_MODEL_EVENT],
   setup(props, ctx) {
     const handleInput = (value: number) => {
-      ctx.emit(UPDATE_MODEL_EVENT, value)
+      ctx.emit(UPDATE_MODEL_EVENT, value, props.modelValue)
     }
 
     const themeOverrides = {
