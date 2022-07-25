@@ -1,6 +1,7 @@
 <template>
   <vue-particles
     id="bg-particles"
+    :particles-init="particlesInit"
     :options="particlesOpts"
   />
 </template>
@@ -8,6 +9,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { ParticlesComponent as VueParticles } from 'particles.vue3'
+import { loadFull } from 'tsparticles'
 
 export default defineComponent({
   name: 'BackgroundParticles',
@@ -15,7 +17,7 @@ export default defineComponent({
     VueParticles,
   },
   setup() {
-    const particlesOpts = {
+    const particlesOpts: any = {
       particles: {
         number: {
           value: 50,
@@ -121,8 +123,13 @@ export default defineComponent({
       detectRetina: true,
     }
 
+    const particlesInit = async engine => {
+      await loadFull(engine)
+    }
+
     return {
       particlesOpts,
+      particlesInit,
     }
   },
 })

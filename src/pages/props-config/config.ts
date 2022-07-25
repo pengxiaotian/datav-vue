@@ -1,5 +1,6 @@
 
-import { isPlainObject, isArray, isNumber, isString, isBool } from '@/utils/util'
+import { isPlainObject, isArray, isString } from 'lodash-es'
+import { isNumber, isBool } from '@/utils/util'
 import { ToolboxType } from '@/domains/editor'
 import {
   fontFamilys,

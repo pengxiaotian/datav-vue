@@ -1,31 +1,22 @@
-import {
-  isObject,
-  isPlainObject,
-  isArray,
-  isString,
-  capitalize,
-  hyphenate,
-  looseEqual,
-  extend,
-  camelize,
-  hasOwn,
-  toRawType,
-} from '@vue/shared'
+import { isString, extend } from 'lodash-es'
 import shortid from 'shortid'
 
-export {
-  isObject,
-  isPlainObject,
-  isArray,
-  isString,
-  capitalize,
-  looseEqual,
-  extend,
-  camelize,
-  hasOwn,
+const cacheStringFunction = (fn: Function) => {
+  const cache = Object.create(null)
+  return ((str: string): string => {
+    const hit = cache[str]
+    return hit || (cache[str] = fn(str))
+  })
 }
 
-export const kebabCase = hyphenate
+const camelizeRE = /-(\w)/g
+
+export const camelize = cacheStringFunction((str: string) => {
+  return str.replace(camelizeRE, (_, c) => (c ? c.toUpperCase() : ''))
+})
+
+const hasOwnProperty = Object.prototype.hasOwnProperty
+export const hasOwn = (val: object, key: string | symbol) => hasOwnProperty.call(val, key)
 
 /**
  * Remove leading and trailing whitespace and non-word
@@ -113,7 +104,6 @@ export const isMac = () => /macintosh|mac os x/i.test(navigator.userAgent)
 export const isBool = (val: unknown) => typeof val === 'boolean'
 export const isNumber = (val: unknown) => typeof val === 'number'
 export const isUndefined = (val: unknown) => val === void 0
-export const isHTMLElement = (val: unknown) => toRawType(val).startsWith('HTML')
 
 export const isUrl = (val: string) => /^[a-zA-z]+:\/\/[^\s]*$/.test(val)
 
