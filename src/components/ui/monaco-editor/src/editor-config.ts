@@ -39,7 +39,9 @@ export const defaultOpts: MEditor.IStandaloneEditorConstructionOptions = {
   selectOnLineNumbers: true,
   autoIndent: 'advanced',
   glyphMargin: false,
-  renderIndentGuides: true,
+  guides: {
+    indentation: true,
+  },
   renderLineHighlight: 'line',
   renderWhitespace: 'none',
   scrollBeyondLastColumn: 2,

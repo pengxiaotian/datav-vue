@@ -37,8 +37,6 @@
 }
 
 .g-field-collapse.n-collapse {
-  padding-bottom: 5px;
-
   .n-collapse-item {
     .n-collapse-item__header {
       padding-left: 8px;
@@ -55,6 +53,10 @@
       cursor: not-allowed;
       opacity: 0.5;
     }
+  }
+
+  & + .g-field-wp {
+    padding-top: 8px;
   }
 }
 

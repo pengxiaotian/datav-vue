@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   '@babel/core': ~7.18.9
@@ -6,7 +6,7 @@ specifiers:
   '@babel/preset-typescript': ~7.18.6
   '@commitlint/cli': ~17.0.3
   '@commitlint/config-conventional': ~17.0.3
-  '@monaco-editor/loader': ^1.3.2
+  '@monaco-editor/loader': 1.3.2
   '@types/accounting': ~0.4.2
   '@types/crypto-js': ~4.1.1
   '@types/lodash-es': ~4.17.6
@@ -40,7 +40,7 @@ specifiers:
   lint-staged: ~13.0.3
   lodash-es: ~4.17.21
   mockjs: ~1.1.0
-  monaco-editor: 0.27.0
+  monaco-editor: 0.33.0
   naive-ui: ^2.31.0
   number-precision: ~1.5.2
   particles.vue3: ~2.1.3
@@ -68,7 +68,7 @@ specifiers:
   vue-tsc: ^0.39.0
 
 dependencies:
-  '@monaco-editor/loader': 1.3.2_monaco-editor@0.27.0
+  '@monaco-editor/loader': 1.3.2_monaco-editor@0.33.0
   '@vueuse/core': 8.9.4_vue@3.2.37
   accounting: 0.4.1
   axios: 0.27.2
@@ -77,17 +77,17 @@ dependencies:
   dayjs: 1.11.4
   echarts: 5.3.3
   echarts-wordcloud: 2.0.0_echarts@5.3.3
-  element-plus: 2.0.5_4fb2081d65a634eb6a924bc0577c4b85
+  element-plus: 2.0.5_j6zaqhlfuy2ow2usjpafo7clqu
   gsap: 3.10.4
   html2canvas: 1.4.1
   js-cookie: 3.0.1
   lodash-es: 4.17.21
   mockjs: 1.1.0
-  monaco-editor: 0.27.0
+  monaco-editor: 0.33.0
   naive-ui: 2.31.0_vue@3.2.37
   number-precision: 1.5.2
   particles.vue3: 2.1.3
-  pinia: 2.0.16_typescript@4.7.4+vue@3.2.37
+  pinia: 2.0.16_j6bzmzd4ujpabbp5objtwxyjp4
   shortid: 2.2.16
   tsparticles: 2.1.3
   vue: 3.2.37
@@ -106,8 +106,8 @@ devDependencies:
   '@types/lodash-es': 4.17.6
   '@types/mockjs': 1.0.6
   '@types/shortid': 0.0.29
-  '@typescript-eslint/eslint-plugin': 5.30.7_f59730a40ab520cf82d095906622871f
-  '@typescript-eslint/parser': 5.30.7_eslint@8.20.0+typescript@4.7.4
+  '@typescript-eslint/eslint-plugin': 5.30.7_6wltbjakwuqm7awqswigmiuhd4
+  '@typescript-eslint/parser': 5.30.7_he2ccbldppg44uulnyq4rwocfa
   '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.37
   '@vue/compiler-sfc': 3.2.37
   '@vue/component-compiler-utils': 3.3.0
@@ -1427,7 +1427,7 @@ packages:
       '@types/node': 17.0.21
       chalk: 4.1.2
       cosmiconfig: 7.0.1
-      cosmiconfig-typescript-loader: 2.0.2_e6fa45c66305bf393cad9090c20eec92
+      cosmiconfig-typescript-loader: 2.0.2_435elrtdaw7tspfnscimedxmsi
       lodash: 4.17.21
       resolve-from: 5.0.0
       typescript: 4.7.4
@@ -1525,7 +1525,7 @@ packages:
       vue: 3.2.37
     dev: false
 
-  /@csstools/selector-specificity/2.0.2_e73911252e8c76a7ba13ab9c39479e7d:
+  /@csstools/selector-specificity/2.0.2_444rcjjorr3kpoqtvoodsr46pu:
     resolution: {integrity: sha512-IkpVW/ehM1hWKln4fCA3NzJU8KwD+kIOvPZA4cqxoJHtE21CCzjyp+Kxbu0i5I4tBNOlXPL9mjwnWlL0VEG4Fg==}
     engines: {node: ^12 || ^14 || >=16}
     peerDependencies:
@@ -1680,12 +1680,12 @@ packages:
     resolution: {integrity: sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==}
     dev: false
 
-  /@monaco-editor/loader/1.3.2_monaco-editor@0.27.0:
+  /@monaco-editor/loader/1.3.2_monaco-editor@0.33.0:
     resolution: {integrity: sha512-BTDbpHl3e47r3AAtpfVFTlAi7WXv4UQ/xZmz8atKl4q7epQV5e7+JbigFDViWF71VBi4IIBdcWP57Hj+OWuc9g==}
     peerDependencies:
       monaco-editor: '>= 0.21.0 < 1'
     dependencies:
-      monaco-editor: 0.27.0
+      monaco-editor: 0.33.0
       state-local: 1.0.7
     dev: false
 
@@ -1953,7 +1953,7 @@ packages:
     resolution: {integrity: sha512-5d2RhCard1nQUC3aHcq/gHzWYO6K0WJmAbjO7mQJgCQKtZpgXxv1rOM6O/dBDhDYYVutk1sciOgNSe+5YyfM8A==}
     dev: false
 
-  /@typescript-eslint/eslint-plugin/5.30.7_f59730a40ab520cf82d095906622871f:
+  /@typescript-eslint/eslint-plugin/5.30.7_6wltbjakwuqm7awqswigmiuhd4:
     resolution: {integrity: sha512-l4L6Do+tfeM2OK0GJsU7TUcM/1oN/N25xHm3Jb4z3OiDU4Lj8dIuxX9LpVMS9riSXQs42D1ieX7b85/r16H9Fw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -1964,10 +1964,10 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.30.7_eslint@8.20.0+typescript@4.7.4
+      '@typescript-eslint/parser': 5.30.7_he2ccbldppg44uulnyq4rwocfa
       '@typescript-eslint/scope-manager': 5.30.7
-      '@typescript-eslint/type-utils': 5.30.7_eslint@8.20.0+typescript@4.7.4
-      '@typescript-eslint/utils': 5.30.7_eslint@8.20.0+typescript@4.7.4
+      '@typescript-eslint/type-utils': 5.30.7_he2ccbldppg44uulnyq4rwocfa
+      '@typescript-eslint/utils': 5.30.7_he2ccbldppg44uulnyq4rwocfa
       debug: 4.3.4
       eslint: 8.20.0
       functional-red-black-tree: 1.0.1
@@ -1980,7 +1980,7 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/parser/5.30.7_eslint@8.20.0+typescript@4.7.4:
+  /@typescript-eslint/parser/5.30.7_he2ccbldppg44uulnyq4rwocfa:
     resolution: {integrity: sha512-Rg5xwznHWWSy7v2o0cdho6n+xLhK2gntImp0rJroVVFkcYFYQ8C8UJTSuTw/3CnExBmPjycjmUJkxVmjXsld6A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -2008,7 +2008,7 @@ packages:
       '@typescript-eslint/visitor-keys': 5.30.7
     dev: true
 
-  /@typescript-eslint/type-utils/5.30.7_eslint@8.20.0+typescript@4.7.4:
+  /@typescript-eslint/type-utils/5.30.7_he2ccbldppg44uulnyq4rwocfa:
     resolution: {integrity: sha512-nD5qAE2aJX/YLyKMvOU5jvJyku4QN5XBVsoTynFrjQZaDgDV6i7QHFiYCx10wvn7hFvfuqIRNBtsgaLe0DbWhw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -2018,7 +2018,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/utils': 5.30.7_eslint@8.20.0+typescript@4.7.4
+      '@typescript-eslint/utils': 5.30.7_he2ccbldppg44uulnyq4rwocfa
       debug: 4.3.4
       eslint: 8.20.0
       tsutils: 3.21.0_typescript@4.7.4
@@ -2053,7 +2053,7 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils/5.30.7_eslint@8.20.0+typescript@4.7.4:
+  /@typescript-eslint/utils/5.30.7_he2ccbldppg44uulnyq4rwocfa:
     resolution: {integrity: sha512-Z3pHdbFw+ftZiGUnm1GZhkJgVqsDL5CYW2yj+TB2mfXDFOMqtbzQi2dNJIyPqPbx9mv2kUxS1gU+r2gKlKi1rQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -3054,7 +3054,7 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
-  /cosmiconfig-typescript-loader/2.0.2_e6fa45c66305bf393cad9090c20eec92:
+  /cosmiconfig-typescript-loader/2.0.2_435elrtdaw7tspfnscimedxmsi:
     resolution: {integrity: sha512-KmE+bMjWMXJbkWCeY4FJX/npHuZPNr9XF9q9CIQ/bpFwi1qHfCmSiKarrCcRa0LO4fWjk93pVoeRtJAkTGcYNw==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -3063,7 +3063,7 @@ packages:
     dependencies:
       '@types/node': 17.0.21
       cosmiconfig: 7.0.1
-      ts-node: 10.9.1_e6fa45c66305bf393cad9090c20eec92
+      ts-node: 10.9.1_435elrtdaw7tspfnscimedxmsi
       typescript: 4.7.4
     transitivePeerDependencies:
       - '@swc/core'
@@ -3333,7 +3333,7 @@ packages:
     resolution: {integrity: sha512-WIGME0Cs7oob3mxsJwHbeWkH0tYkIE/sjkJ8ML2BYmuRcjhRl/q5kVDXG7W9LOOKwzPU5M0LBlXRq9rlSgnNlg==}
     dev: true
 
-  /element-plus/2.0.5_4fb2081d65a634eb6a924bc0577c4b85:
+  /element-plus/2.0.5_j6zaqhlfuy2ow2usjpafo7clqu:
     resolution: {integrity: sha512-zeyICvdDHSs7nwOGPAfI0B3y1HfH8o6IcKI5OA5JnHxildoQHqMycB0PPdEXAewzrsuCNigo6ihrwD9OuhDLHA==}
     peerDependencies:
       vue: ^3.2.0
@@ -3346,7 +3346,7 @@ packages:
       dayjs: 1.11.4
       lodash: 4.17.21
       lodash-es: 4.17.21
-      lodash-unified: 1.0.2_da03a4540fbd16bbaafbb96724306afd
+      lodash-unified: 1.0.2_3ib2ivapxullxkx3xftsimdk7u
       memoize-one: 6.0.0
       normalize-wheel-es: 1.1.1
       vue: 3.2.37
@@ -4899,7 +4899,7 @@ packages:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: false
 
-  /lodash-unified/1.0.2_da03a4540fbd16bbaafbb96724306afd:
+  /lodash-unified/1.0.2_3ib2ivapxullxkx3xftsimdk7u:
     resolution: {integrity: sha512-OGbEy+1P+UT26CYi4opY4gebD8cWRDxAT6MAObIVQMiqYdxZr1g3QHWCToVsm31x2NkLS4K3+MC2qInaRMa39g==}
     peerDependencies:
       '@types/lodash-es': '*'
@@ -5160,8 +5160,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /monaco-editor/0.27.0:
-    resolution: {integrity: sha512-UhwP78Wb8w0ZSYoKXQNTV/0CHObp6NS3nCt51QfKE6sKyBo5PBsvuDOHoI2ooBakc6uIwByRLHVeT7+yXQe2fQ==}
+  /monaco-editor/0.33.0:
+    resolution: {integrity: sha512-VcRWPSLIUEgQJQIE0pVT8FcGBIgFoxz7jtqctE+IiCxWugD0DwgyQBcZBhdSrdMC84eumoqMZsGl2GTreOzwqw==}
     dev: false
 
   /ms/2.0.0:
@@ -5631,7 +5631,7 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /pinia/2.0.16_typescript@4.7.4+vue@3.2.37:
+  /pinia/2.0.16_j6bzmzd4ujpabbp5objtwxyjp4:
     resolution: {integrity: sha512-9/LMVO+/epny1NBfC77vnps4g3JRezxhhoF1xLUk8mZkUIxVnwfEAIRiAX8mYBTD/KCwZqnDMqXc8w3eU0FQGg==}
     peerDependencies:
       '@vue/composition-api': ^1.4.0
@@ -6328,7 +6328,7 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
     dependencies:
-      '@csstools/selector-specificity': 2.0.2_e73911252e8c76a7ba13ab9c39479e7d
+      '@csstools/selector-specificity': 2.0.2_444rcjjorr3kpoqtvoodsr46pu
       balanced-match: 2.0.0
       colord: 2.9.2
       cosmiconfig: 7.0.1
@@ -6493,7 +6493,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ts-node/10.9.1_e6fa45c66305bf393cad9090c20eec92:
+  /ts-node/10.9.1_435elrtdaw7tspfnscimedxmsi:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:

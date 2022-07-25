@@ -45,8 +45,6 @@ const themeOverrides: GlobalThemeOverrides = {
     ...vars,
   },
   Button: { // small 和 medium 一样大
-    fontWeight: '700',
-
     iconSizeTiny: '12px',
 
     heightTiny: '26px',
@@ -108,6 +106,8 @@ const themeOverrides: GlobalThemeOverrides = {
     closeIconColor: vars.primaryColor,
     closeIconColorHover: vars.primaryColor,
     closeIconColorPressed: vars.primaryColor,
+    closeColorHover: '#0000',
+    closeColorPressed: '#0000',
     closeMargin: '16px 20px 0 0',
     iconSize: '65px',
     iconColor: '#ff4f43',
@@ -216,11 +216,13 @@ const themeOverrides: GlobalThemeOverrides = {
     color: '#1d2126',
     bodyPadding: '0 20px 80px 20px',
     textColor: vars.primaryColor,
+    titleFontWeight: 'normal',
     headerBorderBottom: '1px solid rgba(255, 255, 255, 0.15)',
     closeIconColor: vars.primaryColor,
     closeIconColorHover: vars.primaryColor,
     closeIconColorPressed: vars.primaryColor,
-    titleFontWeight: 'normal',
+    closeColorHover: '#0000',
+    closeColorPressed: '#0000',
   },
   Select: {
     peers: {
@@ -248,6 +250,7 @@ const themeOverrides: GlobalThemeOverrides = {
         color: '#1d2126',
         optionColorActive: '#1b3964',
         optionColorPending: '#1b3964',
+        optionColorActivePending: '#1b3964',
         optionTextColor: vars2.guiFontColor,
         optionTextColorActive: '#fff',
         optionHeightSmall: '28px',

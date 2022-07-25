@@ -12,18 +12,17 @@
       width: 100%;
     }
 
-    &.n-base-select-option--selected {
-      font-weight: 700;
+    &::before {
+      left: 0;
+      right: 2px;
+    }
 
-      &::before {
-        content: " ● ";
-        color: var(--datav-main-color);
-        font-family: "Helvetica Neue";
-        display: inline-block;
-        position: absolute;
-        left: 4px;
-        vertical-align: middle;
-      }
+    &.n-base-select-option--selected::before {
+      content: " ● ";
+      color: var(--datav-main-color);
+      font-family: "Helvetica Neue";
+      line-height: 28px;
+      padding-left: 4px;
     }
 
     &:hover {
