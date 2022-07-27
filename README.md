@@ -178,12 +178,6 @@ main-title
 
 ### 更多新建选项
 
-- 快速创建一个组件
-
-```bash
-pnpm run gc [component name]
-```
-
 - 通过选项模式
 
 ```bash
