@@ -1,6 +1,6 @@
 import { ref, toRefs, watch, onUnmounted } from 'vue'
-import { debounce } from 'lodash-es'
-import { isPlainObject, isArray, hasOwn } from '@/utils/util'
+import { debounce, isPlainObject, isArray } from 'lodash-es'
+import { hasOwn } from '@/utils/util'
 import { useEditorStore } from '@/store/editor'
 import { useFilterStore } from '@/store/filter'
 import { useToolbarStore } from '@/store/toolbar'

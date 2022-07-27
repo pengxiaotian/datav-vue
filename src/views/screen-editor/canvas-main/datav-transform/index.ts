@@ -1,8 +1,7 @@
-import { Ref } from 'vue'
+import type { CSSProperties } from 'vue'
 import { DatavComponent, ComponentAttr, ComType } from '@/components/_models/datav-component'
 import { on, off } from '@/utils/dom'
 import { angleToRadian } from '@/utils/editor'
-import { createInjectionKey } from '@/utils/vue-util'
 
 /**
  * 方位
@@ -18,6 +17,14 @@ export type BidirectionalCursor = 'ew-resize' | 'ns-resize' | 'nesw-resize' | 'n
  * 单向指示
  */
 export type DirectionCursor = 'nw-resize' | 'n-resize' | 'ne-resize' | 'e-resize' | 'se-resize' | 's-resize' | 'sw-resize' | 'w-resize'
+
+export type ControlPoint = {
+  [k in Direction]: {
+    name: string
+    style: Partial<CSSProperties>
+    rotateStyle?: Partial<CSSProperties>
+  }
+}
 
 interface IPoint {
   x: number
@@ -362,12 +369,3 @@ export const handleChildrenRotate = (parentCom: DatavComponent, deg: number) => 
     }
   })
 }
-
-export interface TransformInjection {
-  moveScale: Ref<{
-    x: number
-    y: number
-  }>
-}
-
-export const transformInjectionKey = createInjectionKey<TransformInjection>('datav-transform')

@@ -5,6 +5,11 @@
     border-left: 3px solid transparent;
     transition: 0.2s;
 
+    .n-dropdown-option-body::before {
+      right: 0;
+      left: 0;
+    }
+
     .n-dropdown-option-body__prefix--show-icon {
       margin: 0 6px 0 12px;
     }

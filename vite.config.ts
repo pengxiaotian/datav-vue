@@ -43,7 +43,6 @@ export default ({ mode }: ConfigEnv) => {
     optimizeDeps: {
       include: [
         '@monaco-editor/loader',
-        '@vue/shared',
         'accounting',
         'axios',
         'axios-mock-adapter',

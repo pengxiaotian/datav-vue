@@ -1,4 +1,5 @@
-import { camelize, isObject } from './util'
+import { camelize } from './util'
+import { isObject } from 'lodash-es'
 
 const trim = function(s: string) {
   return (s || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')

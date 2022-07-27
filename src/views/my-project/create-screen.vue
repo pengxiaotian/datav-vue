@@ -20,13 +20,10 @@
               <n-button
                 type="primary"
                 :focusable="false"
-                :style="{
-                  '--n-icon-size': '12px'
-                }"
                 @click="confirmCreate(null)"
               >
                 <template #icon>
-                  <n-icon :size="12">
+                  <n-icon>
                     <IconPlus />
                   </n-icon>
                 </template>

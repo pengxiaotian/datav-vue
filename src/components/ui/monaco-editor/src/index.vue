@@ -46,18 +46,21 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, nextTick, onMounted, onUnmounted, ref, PropType, watch } from 'vue'
+import { defineComponent, nextTick, onMounted, onUnmounted, ref, PropType, watch } from 'vue'
 import { debounce } from 'lodash-es'
 import { useMessage } from 'naive-ui'
-import loader from '@monaco-editor/loader'
 import type { editor as MEditor } from 'monaco-editor'
+import loader from '@monaco-editor/loader'
 import { generateId, copyText } from '@/utils/util'
 import { IconCopy, IconFullscreen, IconFullscreenExit } from '@/icons'
 import AsyncLoading from '@/components/ui/loading/src/async-loading.vue'
-import { languageType, defaultOpts, registerDatavDarkTheme, registerApiCompletion, handleInputCode, formatDocument, Monaco } from './editor-config'
+import {
+  Monaco, languageType,
+  defaultOpts, registerDatavDarkTheme, registerApiCompletion,
+  handleInputCode, formatDocument,
+} from './editor-config'
 
-
-loader.config({ paths: { vs: 'https://unpkg.com/monaco-editor@0.27.0/min/vs' } })
+loader.config({ paths: { vs: 'https://unpkg.com/monaco-editor@0.33.0/min/vs' } })
 
 export default defineComponent({
   name: 'GMonacoEditor',
@@ -88,8 +91,10 @@ export default defineComponent({
     },
     autoFormat: Boolean,
     options: {
-      type: Object,
-      default: () => {},
+      type: Object as PropType<Partial<MEditor.IStandaloneEditorConstructionOptions>>,
+      default() {
+        return {}
+      },
     },
     completions: Array as PropType<Array<string>>,
     extra: Object,
@@ -106,14 +111,15 @@ export default defineComponent({
   emits: ['change', 'blur'],
   setup(props, ctx) {
     const nMessage = useMessage()
-    const loading = ref(false)
-    const editorId = computed(() => `datav-editor-${generateId()}`)
-    let monaco = null as Monaco | null
-    let editor = null as MEditor.IStandaloneCodeEditor | null
-    let fullEditor = null as MEditor.IStandaloneCodeEditor | null
-    const themeName = 'datav-dark-theme'
 
+    const themeName = 'datav-dark-theme'
+    const editorId = `datav-editor-${generateId()}`
     const isFullScreen = ref(false)
+    const loading = ref(false)
+
+    let monaco: Monaco | null = null
+    let editor: MEditor.IStandaloneCodeEditor | null = null
+    let fullEditor: MEditor.IStandaloneCodeEditor | null = null
 
     const copyData = () => {
       if (editor) {
@@ -132,6 +138,7 @@ export default defineComponent({
         })
       }
     }
+
     const blurHandler = () => {
       if (editor) {
         const value = editor.getValue()
@@ -221,7 +228,7 @@ export default defineComponent({
 
       await nextTick()
 
-      const dom = document.getElementById(editorId.value)
+      const dom = document.getElementById(editorId)
       if (dom) {
         const opts = Object.assign(
           {},
@@ -240,8 +247,8 @@ export default defineComponent({
             wordWrap: props.wordWrap,
           },
         )
-        const ce = monaco.editor.create(dom, opts)
 
+        const ce = monaco.editor.create(dom, opts)
         const inputCode = handleInputCode(props.language, props.code)
         ce.setValue(inputCode)
         if (props.autoFormat) {

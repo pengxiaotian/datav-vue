@@ -1,6 +1,7 @@
 <template>
   <vue-particles
     id="bg-particles"
+    :particles-init="particlesInit"
     :options="particlesOpts"
   />
 </template>
@@ -8,6 +9,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { ParticlesComponent as VueParticles } from 'particles.vue3'
+import { loadFull } from 'tsparticles'
+
+type ParticleOption = InstanceType<typeof VueParticles>['$props']['options']
 
 export default defineComponent({
   name: 'BackgroundParticles',
@@ -15,13 +19,13 @@ export default defineComponent({
     VueParticles,
   },
   setup() {
-    const particlesOpts = {
+    const particlesOpts: ParticleOption = {
       particles: {
         number: {
           value: 50,
           density: {
             enable: true,
-            valueArea: 800,
+            value_area: 800,
           },
         },
         color: {
@@ -43,7 +47,7 @@ export default defineComponent({
           anim: {
             enable: false,
             speed: 1,
-            opacityMin: 0.1,
+            opacity_min: 0.1,
             sync: false,
           },
         },
@@ -53,7 +57,7 @@ export default defineComponent({
           anim: {
             enable: false,
             speed: 40,
-            sizeMin: 0.1,
+            size_min: 0.1,
             sync: false,
           },
         },
@@ -104,25 +108,29 @@ export default defineComponent({
             size: 8,
             duration: 10,
             opacity: 0.24775224775224775,
-            speed: 3,
           },
           repulse: {
             distance: 200,
             duration: 0.4,
           },
           push: {
-            particlesNb: 4,
+            particles_nb: 4,
           },
           remove: {
-            particlesNb: 2,
+            particles_nb: 2,
           },
         },
       },
       detectRetina: true,
     }
 
+    const particlesInit = async engine => {
+      await loadFull(engine)
+    }
+
     return {
       particlesOpts,
+      particlesInit,
     }
   },
 })

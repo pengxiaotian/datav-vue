@@ -2,8 +2,7 @@
 import { defineComponent, h, PropType, resolveComponent } from 'vue'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import { DatavGroup } from '@/components/_internal/group'
-import DatavTransformItem from './transform-item.vue'
-import DatavTransformGroup from './transform-group.vue'
+import DatavTransformLayer from './transform-layer.vue'
 
 export default defineComponent({
   name: 'DatavTransform',
@@ -16,20 +15,22 @@ export default defineComponent({
   setup() {
     const create = (com: DatavComponent, parentCom?: DatavComponent, editable?: boolean) => {
       if (com.type === ComType.com) {
-        return h(DatavTransformItem, { com, parentCom, editable }, {
-          default: () => {
-            return h(resolveComponent(com.name), {
-              com,
-              style:{
-                transform: 'translateZ(0)',
-                opacity: com.attr.opacity,
-              },
-            })
-          },
+        return h(DatavTransformLayer, {
+          com,
+          parentCom,
+          editable,
+        }, {
+          default: () => h(resolveComponent(com.name), {
+            com,
+            style:{
+              transform: 'translateZ(0)',
+              opacity: com.attr.opacity,
+            },
+          }),
         })
       }
 
-      return h(DatavTransformGroup, {
+      return h(DatavTransformLayer, {
         com: com as DatavGroup,
         parentCom: parentCom as DatavGroup,
         editable,

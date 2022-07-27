@@ -1,4 +1,4 @@
-import { kebabCase } from '@/utils/util'
+import { kebabCase } from 'lodash-es'
 
 export async function createComponent(name: string) {
   const path = kebabCase(name.substring(1))

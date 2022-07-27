@@ -1,6 +1,6 @@
 import type { editor as MEditor, languages, IRange } from 'monaco-editor'
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api'
-import { isObject, isArray, isString } from '@/utils/util'
+import { isObject, isArray, isString } from 'lodash-es'
 
 export type Monaco = typeof monacoEditor
 
@@ -39,7 +39,9 @@ export const defaultOpts: MEditor.IStandaloneEditorConstructionOptions = {
   selectOnLineNumbers: true,
   autoIndent: 'advanced',
   glyphMargin: false,
-  renderIndentGuides: true,
+  guides: {
+    indentation: true,
+  },
   renderLineHighlight: 'line',
   renderWhitespace: 'none',
   scrollBeyondLastColumn: 2,
