@@ -256,7 +256,9 @@ export default defineComponent({
 
     const showContextMenu = (ev: MouseEvent) => {
       if (props.parentCom && !props.editable) {
-        showMenu(ev, props.parentCom)
+        const ps = getParentProps()
+        const idx = ps.editables.lastIndexOf(false)
+        showMenu(ev, ps.coms[idx])
       } else {
         showMenu(ev, props.com)
       }
@@ -401,19 +403,13 @@ export default defineComponent({
     }
 
     const selectInnerItem = (ev: MouseEvent) => {
-      if (isLayer.value) {
-        if (props.parentCom && !props.editable) {
+      if (props.parentCom && !props.editable) {
+        if (props.parentCom.selected) {
           selectCom(ev)
-        }
-      } else {
-        if (props.parentCom && !props.editable) {
-          if (props.parentCom.selected) {
-            selectCom(ev)
-          } else {
-            const ps = getParentProps()
-            // @ts-ignore
-            ps.instances[0].proxy.selectCom(ev)
-          }
+        } else {
+          const ps = getParentProps()
+          // @ts-ignore
+          ps.instances[0].proxy.selectCom(ev)
         }
       }
     }
