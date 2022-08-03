@@ -74,7 +74,7 @@ export default (adapter: MockAdapter) => {
                   optional: true,
                 },
               },
-              render: 'render',
+              handler: 'render',
               useAutoUpdate: false,
             },
           },

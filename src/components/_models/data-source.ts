@@ -36,9 +36,9 @@ export enum ApiRequestMethod {
 export interface ApiConfig {
   fields: Record<string, FieldConfig>
   /**
-   * 执行指定的渲染函数，默认值是 render
+   * 执行指定的处理函数，默认值是 render
    */
-  render: string
+  handler: string
   description: string
   useAutoUpdate: boolean
   autoUpdate: number
@@ -46,6 +46,7 @@ export interface ApiConfig {
 
 export interface ApiConfigMap {
   source: ApiConfig
+  [key: string]: ApiConfig
 }
 
 export type ApiKeyName = keyof ApiConfigMap
@@ -55,8 +56,8 @@ export interface ApiDataConfig {
   comId: string
   type: ApiType
   config: {
-    useFilter: boolean
-    data: string
+    useFilter?: boolean
+    data?: string
     api?: string
     apiMethod?: ApiRequestMethod
     apiHeaders?: string
@@ -69,16 +70,17 @@ export interface ApiDataConfig {
 
 export interface ApiDataConfigMap {
   source: ApiDataConfig
+  [key: string]: ApiDataConfig
 }
 
 /**
  * 初始化数据接口配置
  */
-export function initApiConfig(options: Partial<ApiConfigMap['source']>) {
+export function initApiConfig(options: Partial<ApiConfig>) {
   const config: Partial<ApiConfigMap> = {
     source: {
       fields: {},
-      render: 'render',
+      handler: 'render',
       description: '',
       useAutoUpdate: false,
       autoUpdate: 1,
@@ -107,6 +109,37 @@ export function initApiData(comId: string) {
   }
 
   return config
+}
+
+/**
+ * 设置数据接口配置
+ */
+export function setApiConfig(config: Partial<ApiConfigMap>, options: Partial<ApiConfig>, name: ApiKeyName = 'source') {
+  config[name] = {
+    fields: {},
+    handler: 'render',
+    description: '',
+    useAutoUpdate: false,
+    autoUpdate: 1,
+    ...options,
+  }
+}
+
+/**
+ * 设置源数据
+ */
+export function setApiData(config: Partial<ApiDataConfigMap>, comId: string, options: Partial<ApiDataConfig>, name: ApiKeyName = 'source') {
+  config[name] = {
+    id: generateId(),
+    type: ApiType.static,
+    pageFilters: [],
+    config: {
+      useFilter: false,
+      data: '',
+    },
+    ...options,
+    comId,
+  }
 }
 
 export function createDataSources() {

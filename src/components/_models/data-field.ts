@@ -16,16 +16,23 @@ export interface FieldConfig {
 }
 
 /**
+ * 创建字段配置
+ */
+export function createFieldConfig(config?: Partial<FieldConfig>) {
+  return {
+    type: 'string',
+    map: '',
+    description: '',
+    optional: false,
+    ...(config ?? {}),
+  }
+}
+
+/**
  * 创建字段
  */
 export function createField(name: string, config?: Partial<FieldConfig>) {
   return {
-    [name]: {
-      type: 'string',
-      map: '',
-      description: '',
-      optional: false,
-      ...(config ?? {}),
-    },
+    [name]: createFieldConfig(config),
   }
 }
