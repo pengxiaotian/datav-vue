@@ -1,6 +1,7 @@
 import { ref, toRefs, watch, onUnmounted } from 'vue'
 import { debounce, isPlainObject, isArray } from 'lodash-es'
 import { hasOwn } from '@/utils/util'
+import { useMessageUtil } from '@/utils/naive-ui-util'
 import { useEditorStore } from '@/store/editor'
 import { useFilterStore } from '@/store/filter'
 import { useToolbarStore } from '@/store/toolbar'
@@ -94,7 +95,7 @@ export const setComponentData = async (
   }
 
   if (isError) {
-    window.$message.error(res.message)
+    useMessageUtil().error(res.message)
   }
 
   // 传入组件的数据
