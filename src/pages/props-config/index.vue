@@ -77,7 +77,7 @@
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
 import { useMessage } from 'naive-ui'
-import { pascalCase } from '@/utils/util'
+import { pascalCase } from '@/utils/string-util'
 import Handlebars from 'handlebars'
 import '@/pages/templates/register'
 import { DatavComponent } from '@/components/_models/datav-component'

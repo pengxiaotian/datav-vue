@@ -1,9 +1,5 @@
-import { camelize } from './util'
-import { isObject } from 'lodash-es'
-
-const trim = function(s: string) {
-  return (s || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
-}
+import { camelize } from './string-util'
+import { isObject, trim } from 'lodash-es'
 
 export const on = function(
   element: HTMLElement | Document | Window,
@@ -141,16 +137,4 @@ export function removeStyle(element: HTMLElement, style: CSSStyleDeclaration | s
   } else {
     setStyle(element, style, '')
   }
-}
-
-export const getOffsetTop = (el: HTMLElement) => {
-  let offset = 0
-  let parent = el
-
-  while (parent) {
-    offset += parent.offsetTop
-    parent = parent.offsetParent as HTMLElement
-  }
-
-  return offset
 }

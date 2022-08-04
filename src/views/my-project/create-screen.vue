@@ -193,7 +193,7 @@ import { useMessage } from 'naive-ui'
 import { ProjectGroup, ProjectTemplate } from '@/domains/project'
 import { getProjects, createProject } from '@/api/project'
 import { getSysTemplates } from '@/api/templates'
-import { scrollToLeft } from '@/utils/animation'
+import { scrollToLeft } from '@/utils/scroll-util'
 import { IconArrowLeft, IconArrowRight, IconBack, IconPlus } from '@/icons'
 
 export default defineComponent({

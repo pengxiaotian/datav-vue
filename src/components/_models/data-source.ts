@@ -1,4 +1,5 @@
 import { generateId } from '@/utils/util'
+import { capitalize } from '@/utils/string-util'
 import { FilterConfig } from '@/components/_models/data-filter'
 import { FieldConfig } from '@/components/_models/data-field'
 
@@ -117,11 +118,11 @@ export function initApiData(comId: string) {
 export function setApiConfig(config: Partial<ApiConfigMap>, options: Partial<ApiConfig>, name: ApiKeyName = 'source') {
   config[name] = {
     fields: {},
-    handler: 'render',
     description: '',
     useAutoUpdate: false,
     autoUpdate: 1,
     ...options,
+    handler: name === 'source' ? 'render' : `set${capitalize(name as string)}`,
   }
 }
 
