@@ -116,6 +116,9 @@ export function initApiData(comId: string) {
  * 设置数据接口配置
  */
 export function setApiConfig(config: Partial<ApiConfigMap>, options: Partial<ApiConfig>, name: ApiKeyName = 'source') {
+  if (!config) {
+    config = {}
+  }
   config[name] = {
     fields: {},
     description: '',
@@ -130,6 +133,9 @@ export function setApiConfig(config: Partial<ApiConfigMap>, options: Partial<Api
  * 设置源数据
  */
 export function setApiData(config: Partial<ApiDataConfigMap>, comId: string, options: Partial<ApiDataConfig>, name: ApiKeyName = 'source') {
+  if (!config) {
+    config = {}
+  }
   config[name] = {
     id: generateId(),
     type: ApiType.static,

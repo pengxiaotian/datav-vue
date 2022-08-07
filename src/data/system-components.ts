@@ -1,4 +1,24 @@
-export const bar = {
+interface ComDataType {
+  type: string
+  name: string
+  icon: string
+  data: {
+    name: string
+    alias: string
+    img: string
+    thum: string
+    used: boolean
+    children?: {
+      name: string
+      alias: string
+      img: string
+      thum: string
+      used: boolean
+    }[]
+  }[]
+}
+
+export const bar: ComDataType = {
   type: 'bar',
   name: '柱状图',
   icon: 'v-icon-chart-bar',
@@ -25,7 +45,7 @@ export const bar = {
   ],
 }
 
-export const horizontalBar = {
+export const horizontalBar: ComDataType = {
   type: 'horizontal-bar',
   name: '条形图',
   icon: 'v-icon-chart-bar',
@@ -40,7 +60,7 @@ export const horizontalBar = {
   ],
 }
 
-export const line = {
+export const line: ComDataType = {
   type: 'line',
   name: '折线图',
   icon: 'v-icon-chart-line',
@@ -55,7 +75,7 @@ export const line = {
   ],
 }
 
-export const area = {
+export const area: ComDataType = {
   type: 'area',
   name: '区域图',
   icon: 'v-icon-chart-line',
@@ -70,7 +90,7 @@ export const area = {
   ],
 }
 
-export const pie = {
+export const pie: ComDataType = {
   type: 'pie',
   name: '饼环图',
   icon: 'v-icon-chart-pie',
@@ -91,7 +111,7 @@ export const pie = {
   ],
 }
 
-export const relation = {
+export const relation: ComDataType = {
   type: 'relation',
   name: '关系图',
   icon: 'v-icon-relation',
@@ -106,7 +126,7 @@ export const relation = {
   ],
 }
 
-export const chart = {
+export const chart: ComDataType = {
   type: 'chart',
   name: '其他',
   icon: 'v-icon-other',
@@ -121,7 +141,7 @@ export const chart = {
   ],
 }
 
-export const map = {
+export const map: ComDataType = {
   type: 'map',
   name: '地图',
   icon: 'v-icon-map',
@@ -164,7 +184,7 @@ export const map = {
   ],
 }
 
-export const title = {
+export const title: ComDataType = {
   type: 'title',
   name: '标题',
   icon: 'v-icon-title',
@@ -203,7 +223,7 @@ export const title = {
   ],
 }
 
-export const list = {
+export const list: ComDataType = {
   type: 'list',
   name: '列表',
   icon: 'v-icon-view-list',
@@ -224,7 +244,7 @@ export const list = {
   ],
 }
 
-export const button = {
+export const button: ComDataType = {
   type: 'button',
   name: '按钮类',
   icon: 'v-icon-interact',
@@ -239,7 +259,7 @@ export const button = {
   ],
 }
 
-export const select = {
+export const select: ComDataType = {
   type: 'select',
   name: '选择类',
   icon: 'v-icon-interact',
@@ -254,7 +274,7 @@ export const select = {
   ],
 }
 
-export const interactData = {
+export const interactData: ComDataType = {
   type: 'interact-data',
   name: '数据类',
   icon: 'v-icon-interact',
@@ -269,7 +289,7 @@ export const interactData = {
   ],
 }
 
-export const material = {
+export const material: ComDataType = {
   type: 'material',
   name: '素材',
   icon: 'v-icon-material',
@@ -302,7 +322,7 @@ export const material = {
   ],
 }
 
-export const other = {
+export const other: ComDataType = {
   type: 'other',
   name: '其他',
   icon: 'v-icon-other',
@@ -362,12 +382,30 @@ export const classifications = [
   },
 ]
 
+const getCom = (coms: ComDataType['data'], name: string) => {
+  for (let i = 0, len = coms.length; i < len; i++) {
+    const com = coms[i]
+    if (com.name === name) {
+      return com
+    }
+
+    if (com.children) {
+      const subCom = getCom(com.children, name)
+      if (subCom) {
+        return subCom
+      }
+    }
+  }
+
+  return null
+}
+
 export function findComByName(name: string) {
   for (let i = 0; i < classifications.length; i++) {
     const classification = classifications[i]
     for (let j = 0; j < classification.data.length; j++) {
       const category = classification.data[j]
-      const com = category.data.find(m => m.name === name)
+      const com = getCom(category.data, name)
       if (com) {
         return {
           classification,
