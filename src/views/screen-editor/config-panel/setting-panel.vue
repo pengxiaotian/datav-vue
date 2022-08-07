@@ -9,6 +9,7 @@
       </div>
     </config-title>
     <div class="setting-panel-content">
+      <children-manager />
       <div class="scroll-container">
         <basic-setting :key="`${com.id}'_basic-setting`" :attr="com.attr" />
         <component
@@ -25,16 +26,18 @@
 import { defineComponent, inject } from 'vue'
 import { useMessage } from 'naive-ui'
 import { IconSearch } from '@/icons'
+import { comInjectionKey } from './config'
 import ConfigTitle from './components/config-title.vue'
 import BasicSetting from './components/basic-setting.vue'
-import { comInjectionKey } from './config'
+import ChildrenManager from './components/children-manager.vue'
 
 export default defineComponent({
   name: 'SettingPanel',
   components: {
+    IconSearch,
     ConfigTitle,
     BasicSetting,
-    IconSearch,
+    ChildrenManager,
   },
   setup() {
     const nMessage = useMessage()

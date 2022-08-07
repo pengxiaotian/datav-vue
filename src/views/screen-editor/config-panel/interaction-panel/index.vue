@@ -1,6 +1,7 @@
 <template>
   <div class="interaction-panle">
     <config-title :com-name="com.name" :com-alias="com.alias" />
+    <children-manager />
     <div v-if="eventKeys.length > 0">
       <div class="com-events">
         <div class="events-title" @click="visible = !visible">
@@ -36,18 +37,20 @@ import { EventItemConfig } from '@/components/_models/data-event'
 import { useEventStore } from '@/store/event'
 import { ArrayToObject } from '@/utils/util'
 import { IconArrowRight } from '@/icons'
+import { comInjectionKey, interactionInjectionKey } from '../config'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
 import EventItem from './event-item.vue'
-import { comInjectionKey, interactionInjectionKey } from '../config'
+import ChildrenManager from '../components/children-manager.vue'
 
 export default defineComponent({
   name: 'InteractionPanel',
   components: {
+    IconArrowRight,
     ConfigTitle,
     EmptyPanel,
     EventItem,
-    IconArrowRight,
+    ChildrenManager,
   },
   setup() {
     const eventStore = useEventStore()

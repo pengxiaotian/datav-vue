@@ -3,6 +3,7 @@
     <config-title :com-name="com.name" :com-alias="com.alias" />
     <div class="scroll-container">
       <template v-if="dataKeys.length > 0">
+        <children-manager />
         <source-panel
           v-for="dk in dataKeys"
           :key="dk"
@@ -19,15 +20,17 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, provide, inject } from 'vue'
 import { loadAsyncComponent } from '@/utils/async-component'
+import { comInjectionKey, changePanelInjectionKey } from '../config'
 import ConfigTitle from '../components/config-title.vue'
 import EmptyPanel from '../components/empty-panel.vue'
-import { comInjectionKey, changePanelInjectionKey } from '../config'
+import ChildrenManager from '../components/children-manager.vue'
 
 export default defineComponent({
   name: 'DataCenterPanel',
   components: {
     ConfigTitle,
     EmptyPanel,
+    ChildrenManager,
     SourcePanel: loadAsyncComponent(() => import('./source-panel.vue')),
   },
   setup() {

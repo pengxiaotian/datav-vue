@@ -78,6 +78,10 @@ const themeOverrides: GlobalThemeOverrides = {
     textColorGhostHover: '#fff',
     textColorGhostPressed: '#fff',
     textColorGhostFocus: vars.primaryColor,
+
+    colorDisabled: '#282f3a',
+    textColorDisabled: '#90a0ae',
+    borderDisabled: '1px solid #0000',
   },
   Message: {
     minWidth: '380px',

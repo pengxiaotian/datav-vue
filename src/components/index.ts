@@ -5,8 +5,6 @@ import VMarquee from './text/marquee'
 import VParagraph from './text/paragraph'
 import VTimer from './text/timer'
 
-import VDatePicker from './other/date-picker'
-
 import VBgBox from './media/bg-box'
 import VBorderBox from './media/border-box'
 import VDecoration from './media/decoration'
@@ -14,27 +12,32 @@ import VMainImg from './media/main-img'
 
 import VBasicBar from './bar/basic-bar'
 
-import VFullScreen from './button/full-screen'
+import VBasicLine from './line/basic-line'
+
+import VChina2d from './map/china2d'
 
 import VWordCloud from './chart/word-cloud'
 
-import VBasicLine from './line/basic-line'
+import VFullScreen from './button/full-screen'
+
+import VDatePicker from './other/date-picker'
 
 const components = [
   VMainTitle,
   VNumberTitleFlop,
-  VDatePicker,
-  VBgBox,
-  VBorderBox,
-  VDecoration,
-  VBasicBar,
   VMarquee,
   VParagraph,
   VTimer,
-  VFullScreen,
+  VBgBox,
+  VBorderBox,
+  VDecoration,
   VMainImg,
-  VWordCloud,
+  VBasicBar,
   VBasicLine,
+  VChina2d,
+  VWordCloud,
+  VFullScreen,
+  VDatePicker,
 ]
 
 const install = (app: App): void => {
