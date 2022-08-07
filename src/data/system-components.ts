@@ -131,20 +131,27 @@ export const map = {
       alias: '基础平面地图',
       img: `${import.meta.env.VITE_APP_CDN}/com/2d-china-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/2d-china-368-208.png`,
-      used: false,
+      used: true,
       children: [
+        {
+          name: 'VChina2dArea',
+          alias: '区域热力层',
+          img: `${import.meta.env.VITE_APP_CDN}/com/2d-china-area-180-180.png`,
+          thum: `${import.meta.env.VITE_APP_CDN}/com/2d-china-area-180-180.png`,
+          used: true,
+        },
         {
           name: 'VChina2dBubbles',
           alias: '呼吸气泡层',
           img: `${import.meta.env.VITE_APP_CDN}/com/2d-china-bubbles-180-180.png`,
           thum: `${import.meta.env.VITE_APP_CDN}/com/2d-china-bubbles-180-180.png`,
-          used: false,
+          used: true,
         }, {
-          name: 'VChina2dFlyLines',
+          name: 'VChina2dFlyingline',
           alias: '飞线层',
-          img: `${import.meta.env.VITE_APP_CDN}/com/2d-china-fly-lines-180-180.png`,
-          thum: `${import.meta.env.VITE_APP_CDN}/com/2d-china-fly-lines-180-180.png`,
-          used: false,
+          img: `${import.meta.env.VITE_APP_CDN}/com/2d-china-flyingline-180-180.png`,
+          thum: `${import.meta.env.VITE_APP_CDN}/com/2d-china-flyingline-180-180.png`,
+          used: true,
         },
       ],
     }, {
