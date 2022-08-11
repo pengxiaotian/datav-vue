@@ -1,4 +1,4 @@
-import { isString, extend } from 'lodash-es'
+import { isString, extend, isEmpty } from 'lodash-es'
 import shortid from 'shortid'
 
 const hasOwnProperty = Object.prototype.hasOwnProperty
@@ -30,6 +30,13 @@ export const isNumber = (val: unknown) => typeof val === 'number'
 export const isUndefined = (val: unknown) => val === void 0
 
 export const isUrl = (val: string) => /^[a-zA-z]+:\/\/[^\s]*$/.test(val)
+
+export function objToArray(obj) {
+  if (Array.isArray(obj)) {
+    return obj
+  }
+  return isEmpty(obj) ? [] : [obj]
+}
 
 export function deduplicate<T>(arr: T[]) {
   return Array.from(new Set(arr))

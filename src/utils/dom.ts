@@ -1,5 +1,4 @@
-import { camelize } from './string-util'
-import { isObject, trim } from 'lodash-es'
+import { isObject, trim, camelCase } from 'lodash-es'
 
 export const on = function(
   element: HTMLElement | Document | Window,
@@ -89,14 +88,14 @@ export function removeClass(el: HTMLElement, cls: string): void {
 
 // Here I want to use the type CSSStyleDeclaration, but the definition for CSSStyleDeclaration
 // has { [index: number]: string } in its type annotation, which does not satisfy the method
-// camelize(s: string)
+// camelCase(s: string)
 // Same as the return type
 export const getStyle = function(
   element: HTMLElement,
   styleName: string,
 ): string {
   if (!element || !styleName) return null
-  styleName = camelize(styleName)
+  styleName = camelCase(styleName)
   if (styleName === 'float') {
     styleName = 'cssFloat'
   }
@@ -122,7 +121,7 @@ export function setStyle(
       setStyle(element, prop, styleName[prop])
     })
   } else {
-    styleName = camelize(styleName)
+    styleName = camelCase(styleName)
     element.style[styleName] = value
   }
 }

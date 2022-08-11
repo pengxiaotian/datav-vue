@@ -1,5 +1,5 @@
+import { capitalize } from 'lodash-es'
 import { generateId } from '@/utils/util'
-import { capitalize } from '@/utils/string-util'
 import { FilterConfig } from '@/components/_models/data-filter'
 import { FieldConfig } from '@/components/_models/data-field'
 

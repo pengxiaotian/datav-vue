@@ -3,6 +3,8 @@ import { plainText as propConfigTpl } from './partials/prop-config-tpl.hbs'
 import { plainText as propComponentTpl } from './partials/prop-component-tpl.hbs'
 
 // ------Helpers------
+// https://github.com/helpers/handlebars-helpers
+
 Handlebars.registerHelper('eq', (a, b) => a === b)
 Handlebars.registerHelper('neq', (a, b) => a !== b)
 Handlebars.registerHelper('and', (a, b) => a && b)

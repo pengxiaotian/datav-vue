@@ -1,7 +1,13 @@
-import { changeCase } from '@/utils/string-util'
+import { kebabCase } from 'lodash-es'
+
+const correctStr = (str: string) => {
+  return str
+    .replace('-2-d', '2d')
+    .replace('-3-d', '3d')
+}
 
 export async function createComponent(name: string) {
-  const path = changeCase(name.substring(1))
+  const path = correctStr(kebabCase(name.substring(1)))
   switch (name.substring(1)) {
     // bar
     case 'BasicBar':
