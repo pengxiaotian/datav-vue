@@ -138,11 +138,11 @@ export const useContextMenu = () => {
     pos.y = ev.clientY
     editorStore.contextMenu.show = true
 
-    on(document, 'mouseup', hideMenu)
+    on(document, 'click', hideMenu)
   }
 
   const hideMenu = () => {
-    off(document, 'mouseup', hideMenu)
+    off(document, 'click', hideMenu)
 
     editorStore.contextMenu.show = false
   }
