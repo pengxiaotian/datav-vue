@@ -147,7 +147,9 @@ export default defineComponent({
       if (!['input','textarea'].includes(target.tagName.toLowerCase())) {
         const key = ev.key.toLowerCase()
         if (macMetaOrCtrl(ev)) {
-          ev.preventDefault()
+          if (['arrowleft', 'arrowup', 'arrowright', 'a'].includes(key)) {
+            ev.preventDefault()
+          }
           const { setPanelState } = toolbarStore
           if (key === 'arrowleft') {
             setPanelState(PanelType.layer, !toolbarStore.layer.show)
