@@ -3,6 +3,7 @@ import { loadEnv, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import ElementPlus from 'unplugin-element-plus/vite'
 import plainText from 'vite-plugin-plain-text'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 import { resolve } from 'path'
 
@@ -22,10 +23,11 @@ export default ({ mode }: ConfigEnv) => {
       vue(),
       ElementPlus(),
       plainText(/\.hbs$/),
+      process.env.ANALYZE === 'true' ? visualizer() : [],
     ],
     server: {
       host: '0.0.0.0',
-      port: 9090,
+      port: 9000,
     },
     resolve: {
       alias: {
