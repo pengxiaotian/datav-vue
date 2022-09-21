@@ -84,6 +84,7 @@
     "stylelint-config-standard": "~26.0.0",
     "tslib": "~2.4.0",
     "typescript": "~4.7.4",
+    "unocss": "^0.45.22",
     "unplugin-element-plus": "0.3.4",
     "vite": "^2.8.6",
     "vite-plugin-plain-text": "^1.2.1",

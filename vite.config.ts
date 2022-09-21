@@ -4,6 +4,8 @@ import vue from '@vitejs/plugin-vue'
 import ElementPlus from 'unplugin-element-plus/vite'
 import plainText from 'vite-plugin-plain-text'
 import { visualizer } from 'rollup-plugin-visualizer'
+import Unocss from 'unocss/vite'
+import { presetUno } from 'unocss'
 
 import { resolve } from 'path'
 
@@ -21,6 +23,9 @@ export default ({ mode }: ConfigEnv) => {
     base: env.VITE_PUBLIC_PATH,
     plugins: [
       vue(),
+      Unocss({
+        presets: [presetUno()],
+      }),
       ElementPlus(),
       plainText(/\.hbs$/),
       process.env.ANALYZE === 'true' ? visualizer() : [],

@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+import 'uno.css'
+
 import i18n from '@/locales'
 
 import NaiveUI from '@/components/naive-ui'
