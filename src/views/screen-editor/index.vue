@@ -66,6 +66,15 @@ export default defineComponent({
     debugStore.enable()
     editorStore.setEditMode()
 
+    onMounted(() => {
+      // set body style: overflow: hidden
+      document.body.style.overflow = 'hidden'
+      return () => {
+        // reset body style
+        document.body.style.overflow = 'auto'
+      }
+    })
+
     onMounted(async () => {
       try {
         const tplId = parseInt(route.query.tpl as string)
