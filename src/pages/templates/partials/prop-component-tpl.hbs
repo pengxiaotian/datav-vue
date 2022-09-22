@@ -102,12 +102,11 @@
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
-  :data="[]"
+  :data="config.pairs || []"
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
-  disabled
 />
 {{else if (eq config.component componentTypes.uploadImage)}}
 <g-upload-image

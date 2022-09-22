@@ -98,7 +98,7 @@ export default defineComponent({
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')
-    const ext = ref<'.ts' | '.json' | '.ts&.json'>('.ts')
+    const ext = ref<'.ts' | '.json' | '.ts&.json'>('.ts&.json')
     const extOpts = [
       { value: '.ts', label: '.ts' },
       { value: '.json', label: '.json' },

@@ -165,8 +165,8 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef, defineProps } from 'vue'
 import {
   fontFamilys,
   fontWeights,
@@ -174,28 +174,18 @@ import {
   writingModes,
   lineStyles,
 } from '@/data/select-options'
-import { MainTitle } from './main-title'
+import type { MainTitle } from './main-title'
 
-export default defineComponent({
+type Props = {
+  com: MainTitle
+}
+const props = defineProps<Props>()
+
+const config = toRef(props.com, 'config')
+</script>
+
+<script lang="ts">
+export default {
   name: 'VMainTitleProp',
-  props: {
-    com: {
-      type: Object as PropType<MainTitle>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
-
-    return {
-      config,
-
-      fontFamilys,
-      fontWeights,
-      justifyContents,
-      writingModes,
-      lineStyles,
-    }
-  },
-})
+}
 </script>

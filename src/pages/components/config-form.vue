@@ -88,7 +88,7 @@
               <n-input v-model:value="item.config.suffix" />
             </n-form-item>
           </template>
-          <template v-else-if="item.config.component === ComponentType.radio">
+          <template v-else-if="[ComponentType.radio, ComponentType.select].includes(item.config.component)">
             <n-form-item label="枚举值">
               <n-dynamic-input
                 v-model:value="item.config.pairs"

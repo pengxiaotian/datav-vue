@@ -79,10 +79,9 @@
   <g-select
     v-else-if="componentType === componentTypes.select"
     v-model="strValue"
-    :data="[]"
+    :data="pairs || []"
     :inline="mode"
     :label="mode ? label : ''"
-    disabled
   />
   <template v-else-if="AllOptionKeys.includes(componentType + 's')">
     <n-radio-group

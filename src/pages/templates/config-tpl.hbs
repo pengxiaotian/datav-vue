@@ -11,33 +11,25 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef, defineProps } from 'vue'
 import {
   {{#each selectOpts}}
   {{this}},
   {{/each}}
 } from '@/data/select-options'
-import { {{comName}} } from './{{fileName}}'
+import type { {{comName}} } from './{{fileName}}'
 
-export default defineComponent({
+type Props = {
+  com: {{comName}}
+}
+const props = defineProps<Props>()
+
+const config = toRef(props.com, 'config')
+</script>
+
+<script lang="ts">
+export default {
   name: 'V{{comName}}Prop',
-  props: {
-    com: {
-      type: Object as PropType<{{comName}}>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
-
-    return {
-      config,
-
-      {{#each selectOpts}}
-      {{this}},
-      {{/each}}
-    }
-  },
-})
+}
 </script>

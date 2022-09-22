@@ -23,8 +23,10 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, PropType, ref, computed } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
+
+type Option = { id: string | number; value: string | number; } | { key: string | number; value: string | number; }
 
 export default defineComponent({
   name: 'GSelect',
@@ -34,7 +36,7 @@ export default defineComponent({
       default: 0,
     },
     data: {
-      type: Array as PropType<{ id: string | number; value: string | number; }[]>,
+      type: Array as PropType<Option[]>,
       default: () => [],
     },
     label: {
@@ -57,7 +59,16 @@ export default defineComponent({
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 
-    const opts = ref(props.data.map(m => ({ label: m.value, value: m.id })))
+    const opts = computed(
+      () => {
+        return props.data.map(item => {
+          return {
+            label: item.value,
+            value: 'id' in item ? item.id : item.key,
+          }
+        })
+      },
+    )
 
     return {
       opts,
