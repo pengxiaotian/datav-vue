@@ -4,6 +4,7 @@ import VNumberTitleFlop from './text/number-title-flop'
 import VMarquee from './text/marquee'
 import VParagraph from './text/paragraph'
 import VTimer from './text/timer'
+import VStatusCard from './text/status-card'
 
 import VDatePicker from './other/date-picker'
 
@@ -22,6 +23,7 @@ import VBasicLine from './line/basic-line'
 
 const components = [
   VMainTitle,
+  VStatusCard,
   VNumberTitleFlop,
   VDatePicker,
   VBgBox,

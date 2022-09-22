@@ -116,7 +116,6 @@ export default defineComponent({
           com.attr.y = Math.round(offsetTop - com.attr.h / 2)
           await comStore.add(com)
           comStore.select(com.id)
-          toolbarStore.removeLoading()
 
           if (com.apis.source) {
             await com.loadData()
@@ -127,6 +126,8 @@ export default defineComponent({
         }
       } catch(error) {
         warn('dropToAddCom', error.message)
+      } finally {
+        toolbarStore.removeLoading()
       }
     }
 

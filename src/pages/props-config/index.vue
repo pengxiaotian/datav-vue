@@ -33,7 +33,7 @@
       <div class="g-main">
         <n-grid :x-gap="24" :cols="2">
           <n-gi>
-            <n-card size="small" title="属性配置">
+            <n-card size="small" title="属性配置" content-style="max-height: calc(100vh - 160px);overflow-y: auto">
               <template #header-extra>
                 <n-space>
                   <n-button @click="genConfig">生成配置代码</n-button>
@@ -44,7 +44,7 @@
             </n-card>
           </n-gi>
           <n-gi>
-            <n-card size="small">
+            <n-card size="small" content-style="max-height: calc(100vh - 160px);overflow-y: auto">
               <n-tabs v-model:value="activeTab">
                 <n-tab-pane tab="配置预览" name="config" display-directive="show:lazy">
                   <config-preview :config="list" />
@@ -94,7 +94,7 @@ export default defineComponent({
   },
   setup() {
     const nMessage = useMessage()
-    const classPath = ref('text/main-title')
+    const classPath = ref('text/status-card')
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')

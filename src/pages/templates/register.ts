@@ -22,6 +22,15 @@ Handlebars.registerHelper('enumsToTpl', (arr: string[]) => {
   })
   return `${str}]`
 })
+Handlebars.registerHelper('jsonStringify', function(context) {
+  let res = 'JSON.stringify error'
+  try {
+    res = JSON.stringify(context)
+  } catch (err) {
+    console.error(err)
+  }
+  return res
+})
 Handlebars.registerHelper('pairsToTpl', (arr: { key: string; value: string; }[]) => {
   let str = '['
   arr.forEach((item, i) => {

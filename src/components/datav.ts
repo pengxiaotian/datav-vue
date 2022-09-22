@@ -30,6 +30,7 @@ export async function createComponent(name: string) {
     case 'NumberTitleFlop':
     case 'Paragraph':
     case 'Timer':
+    case 'StatusCard':
     {
       const comModule = await import(`./text/${path}/src/${path}.ts`)
       return new comModule.default()

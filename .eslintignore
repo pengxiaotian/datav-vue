@@ -9,8 +9,4 @@ plop-templates/
 handlebars/
 website/
 build/
-<<<<<<< Updated upstream
 *.json
-=======
-*/**/*.json
->>>>>>> Stashed changes

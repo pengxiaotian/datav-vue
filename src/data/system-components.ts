@@ -193,6 +193,13 @@ export const title = {
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/timer-370-208.png`,
       used: true,
     },
+    {
+      name: 'VStatusCard',
+      alias: '状态卡片',
+      img: 'https://cdn-asset.oss-cn-shanghai.aliyuncs.com/datav/%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6%E5%9B%BE/TB1N_HqlHj1gK0jSZFOXXc7GpXa-160-116.png',
+      thum: 'https://cdn-asset.oss-cn-shanghai.aliyuncs.com/datav/%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6%E5%9B%BE/TB1N_HqlHj1gK0jSZFOXXc7GpXa-160-116.png',
+      used: true,
+    },
   ],
 }
 
