@@ -9,3 +9,4 @@ plop-templates/
 handlebars/
 website/
 build/
+*.json
