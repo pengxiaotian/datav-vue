@@ -68,9 +68,6 @@ type Props = {
 }
 const props = defineProps<Props>()
 
-watch(() => props.com, v => {
-  console.log(v)
-})
 const apiStore = useApiStore()
 useDataCenter(props.com)
 

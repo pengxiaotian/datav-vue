@@ -49,7 +49,8 @@
                         :title="com.alias"
                         :draggable="com.used"
                         class="components-item double"
-                        @dragstart="dragStart($event, com.name)"
+                        @dragstart="dragStart($event, com.name, com.width, com.height)"
+                        @dragend="dragEnd"
                         @click="toAddCom(com.name, com.used)"
                       >
                         <div class="components-item-text">{{ com.alias }}</div>
@@ -73,7 +74,8 @@
                     :title="com.alias"
                     :draggable="com.used"
                     class="components-item double"
-                    @dragstart="dragStart($event, com.name)"
+                    @dragstart="dragStart($event, com.name, com.width, com.height)"
+                    @dragend="dragEnd"
                     @click="toAddCom(com.name, com.used)"
                   >
                     <div class="components-item-text">{{ com.alias }}</div>
@@ -115,6 +117,23 @@ import { createComponent } from '@/components/datav'
 import { IconSearch, IconBack } from '@/icons'
 
 type CategoryType = typeof classifications[0]
+
+const DRAG_GHOST_CLASS = 'dragging-ghost'
+const createDragImage = (width: number, height: number) => {
+  const ghostEle = document.createElement('div')
+  ghostEle.classList.add(DRAG_GHOST_CLASS)
+
+  ghostEle.style.cssText = `
+    border: 2px dotted #ccc;
+    width: ${width}px;
+    height: ${height}px;
+    position: absolute;
+    z-index: 1000;
+    top: -100000px;
+  `
+  document.body.appendChild(ghostEle)
+  return ghostEle
+}
 
 export default defineComponent({
   name: 'ComponentsPanel',
@@ -187,8 +206,19 @@ export default defineComponent({
       }
     }
 
-    const dragStart = (ev: any, comName: string) => {
+    const dragStart = (ev: DragEvent, comName: string, width: number, height: number) => {
+      const scale = editorStore.canvas.scale
+      const ghostWidth = width * scale
+      const ghostHeight = height * scale
       ev.dataTransfer.setData('text', comName)
+      ev.dataTransfer.setDragImage(createDragImage(ghostWidth, ghostHeight), ghostWidth, ghostHeight)
+    }
+
+    const dragEnd = () => {
+      const ghostEle = document.querySelector(`.${DRAG_GHOST_CLASS}`)
+      if (ghostEle) {
+        document.body.removeChild(ghostEle)
+      }
     }
 
     const dragOver = (ev: DragEvent) => {
@@ -204,6 +234,7 @@ export default defineComponent({
       handleTabClick,
       toAddCom,
       dragStart,
+      dragEnd,
       dragOver,
     }
   },
