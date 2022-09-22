@@ -4,37 +4,34 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, computed, toRef } from 'vue'
+<script lang='ts' setup>
+import { computed, toRef, defineProps } from 'vue'
 import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
-import { {{ pascalCase name }} } from './{{ dashCase name }}'
+import type { {{ pascalCase name }} } from './{{ dashCase name }}'
 
-export default defineComponent({
-  name: 'V{{pascalCase name}}',
-  props: {
-    com: {
-      type: Object as PropType<{{ pascalCase name }}>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const apiStore = useApiStore()
-    useDataCenter(props.com)
+type Props = {
+  com: {{ pascalCase name }}
+}
 
-    const dv_data = computed(() => {
-      return apiStore.dataMap[props.com.id]?.source ?? {}
-    })
+const props = defineProps<Props>()
 
-    const dv_field = computed(() => {
-      return getFieldMap(props.com.apis.source.fields)
-    })
+const apiStore = useApiStore()
+useDataCenter(props.com)
 
-    const config = toRef(props.com, 'config')
-    const attr = toRef(props.com, 'attr')
-
-    return {
-    }
-  },
+const dv_data = computed(() => {
+  return apiStore.dataMap[props.com.id]?.source ?? {}
 })
+
+const dv_field = computed(() => {
+  return getFieldMap(props.com.apis.source.fields)
+})
+
+const config = toRef(props.com, 'config')
+const attr = toRef(props.com, 'attr')
 </script>
+
+<script lang='ts'>
+export default {
+  name: 'V{{pascalCase name}}',
+}
