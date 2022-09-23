@@ -82,7 +82,7 @@ export class NumberTitleFlop extends DatavComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('NumberTitleFlop', { w: 350, h: 64 })
+    super('NumberTitleFlop', { w: 180, h: 64 })
 
     this.initData()
   }

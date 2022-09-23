@@ -45,7 +45,7 @@ export class MainTitle extends DatavComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('MainTitle', { w: 300, h: 56 })
+    super('MainTitle', { w: 160, h: 56 })
 
     this.initData()
   }

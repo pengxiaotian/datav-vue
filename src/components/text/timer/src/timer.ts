@@ -38,7 +38,7 @@ export class Timer extends DatavComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('Timer', { w: 300, h: 56 })
+    super('Timer', { w: 240, h: 46 })
 
     this.initData()
   }

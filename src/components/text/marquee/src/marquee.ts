@@ -33,7 +33,7 @@ export class Marquee extends DatavComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('Marquee', { w: 300, h: 56 })
+    super('Marquee', { w: 300, h: 36 })
 
     this.initData()
   }
