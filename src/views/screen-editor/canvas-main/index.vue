@@ -110,8 +110,13 @@ export default defineComponent({
           let com = await createComponent(name)
           const { scale } = canvas.value
           const { left, top } = toolbarStore.getPanelOffset
-          const offsetLeft = (ev.clientX - left) / scale
-          const offsetTop = (ev.clientY - top) / scale
+
+          const canvasWp = document.getElementById('canvas-wp')
+          const scrollLeft = canvasWp?.scrollLeft || 0 // 水平滚动条滚动距离
+          const scrollTop = canvasWp?.scrollTop || 0 // 垂直滚动条滚动距离
+
+          const offsetLeft = (scrollLeft + ev.clientX - left) / scale
+          const offsetTop = (scrollTop + ev.clientY - top) / scale
           com.attr.x = Math.round(offsetLeft - com.attr.w / 2)
           com.attr.y = Math.round(offsetTop - com.attr.h / 2)
           await comStore.add(com)

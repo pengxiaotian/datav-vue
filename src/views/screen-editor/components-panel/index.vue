@@ -139,7 +139,7 @@ const createDragImage = (width: number, height: number) => {
           }
         }
       </style>
-      <rect style="animation: line-animation 30s infinite linear;" width="${width}" height="${height}" fill="none" stroke="#ccc" stroke-dasharray="4" rx="4" stroke-width="1" />
+      <rect style="animation: line-animation 30s infinite linear;" width="${width}" height="${height}" fill="none" stroke="#ccc" stroke-dasharray="1 4" rx="0" stroke-width="1" />
     </svg>
   `
   document.body.appendChild(ghostEle)
@@ -228,7 +228,7 @@ export default defineComponent({
     const dragEnd = () => {
       const ghostEle = document.querySelector(`.${DRAG_GHOST_CLASS}`)
       if (ghostEle) {
-        // document.body.removeChild(ghostEle)
+        document.body.removeChild(ghostEle)
       }
     }
 
