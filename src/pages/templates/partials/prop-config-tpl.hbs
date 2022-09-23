@@ -10,7 +10,7 @@
 {{#if (eq item.config.displayMode 'nest')}}
 <g-field-collapse
   {{#if item.config.whichEnum.field}}
-  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === {{boolStringFormat item.config.whichEnum.value}}"
   {{/if}}
   {{#if item.config.toggleCol}}
   v-model="{{getSlotPath item.path item.virtualPath}}.{{item.key}}.{{item.config.toggleCol}}"
@@ -32,7 +32,7 @@
 {{else if (eq item.config.displayMode 'nest-array')}}
 <g-field-collapse
   {{#if item.config.whichEnum.field}}
-  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === {{boolStringFormat item.config.whichEnum.value}}"
   {{/if}}
   {{#if item.config.tip}}
   tooltip="{{{item.config.tip}}}"
@@ -83,7 +83,7 @@
 {{else if (eq item.config.displayMode 'flat')}}
 <g-field
   {{#if item.config.whichEnum.field}}
-  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === {{boolStringFormat item.config.whichEnum.value}}"
   {{/if}}
   {{#if (neq ../level 1)}}
   :level="{{../level}}"
@@ -107,7 +107,7 @@
 {{else if (neq ../toggleCol item.key)}}
 <g-field
   {{#if item.config.whichEnum.field}}
-  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === {{boolStringFormat item.config.whichEnum.value}}"
   {{/if}}
   {{#if (neq ../level 1)}}
   :level="{{../level}}"

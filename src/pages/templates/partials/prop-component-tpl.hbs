@@ -1,7 +1,7 @@
 {{#if (eq config.component componentTypes.input)}}
 <g-input
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   {{#if (getInlineMode config.displayMode)}}
@@ -12,7 +12,7 @@
 {{else if (eq config.component componentTypes.number)}}
 <g-input-number
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   {{#unless config.InfiniteMin}}
@@ -33,7 +33,7 @@
 {{else if (eq config.component componentTypes.color)}}
 <g-color-picker
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   {{#if (getInlineMode config.displayMode)}}
@@ -44,21 +44,21 @@
 {{else if (eq config.component componentTypes.checkbox)}}
 <n-checkbox
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model:checked="{{ getPath path virtualPath }}"
 />
 {{else if (eq config.component componentTypes.switch)}}
 <n-switch
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model:value="{{ getPath path virtualPath }}"
 />
 {{else if (eq config.component componentTypes.radio)}}
 <n-radio-group
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model:value="{{ getPath path virtualPath }}"
   size="small"
@@ -78,7 +78,7 @@
 {{else if (eq config.component componentTypes.slider)}}
 <g-slider
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   {{#unless config.InfiniteMin}}
@@ -99,7 +99,7 @@
 {{else if (eq config.component componentTypes.select)}}
 <g-select
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   :data="[{{#each config.pairs as | pair |}}
@@ -114,7 +114,7 @@
 {{else if (eq config.component componentTypes.uploadImage)}}
 <g-upload-image
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   {{#if (getInlineMode config.displayMode)}}
@@ -125,7 +125,7 @@
 {{else if (eq config.component componentTypes.selectImage)}}
 <g-select-image
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   :images="[]"
@@ -137,7 +137,7 @@
 {{else if (eq config.component componentTypes.selectSuggest)}}
 <g-select-suggest
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{boolStringFormat config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   :data="{{config.component}}s"
@@ -150,7 +150,7 @@
 {{else if (eq config.component componentTypes.legendIcon)}}
 <g-select-shape
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === {{boolStringFormat config.whichEnum.value}}"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   :shapes="{{config.component}}s"
@@ -163,7 +163,7 @@
 {{#if config.flatValue}}
 <n-radio-group
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === {{boolStringFormat config.whichEnum.value}}"
   {{/if}}
   v-model:value="{{ getPath path virtualPath }}"
   size="small"
@@ -179,7 +179,7 @@
 {{else}}
 <g-select
   {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === {{boolStringFormat config.whichEnum.value}}"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   :data="{{config.component}}s"

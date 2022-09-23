@@ -252,6 +252,8 @@ export default defineComponent({
         if (config) {
           if (config.config.component === ComponentType.radio) {
             return config.config.pairs.map(m => m.key)
+          } else if (config.config.component === ComponentType.switch) {
+            return ['true', 'false']
           } else {
             return getSelectedOptions(config.config.component).map(m => m.id)
           }

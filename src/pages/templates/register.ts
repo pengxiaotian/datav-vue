@@ -22,6 +22,8 @@ Handlebars.registerHelper('enumsToTpl', (arr: string[]) => {
   })
   return `${str}]`
 })
+
+// JSON.stringify
 Handlebars.registerHelper('jsonStringify', function(context) {
   let res = 'JSON.stringify error'
   try {
@@ -29,6 +31,12 @@ Handlebars.registerHelper('jsonStringify', function(context) {
   } catch (err) {
     console.error(err)
   }
+  return res
+})
+
+// 如果是字符串类型的 true false, 转换为 boolean 类型， 否则直接返回
+Handlebars.registerHelper('boolStringFormat', function(context: string) {
+  const res = ['true', 'false'].includes(context) ? context === 'true' : context
   return res
 })
 Handlebars.registerHelper('pairsToTpl', (arr: { key: string; value: string; }[]) => {

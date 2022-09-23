@@ -16,8 +16,8 @@ module.exports = {
       type: 'list',
       name: 'category',
       message: 'component category:',
-      choices: ['bar', 'horizontal-bar', 'line', 'area', 'pie', 'relation', 'chart', 'map', 'text', 'table', 'button', 'select', 'interact-data', 'media', 'other'],
-      default: 'other',
+      choices: ['root', 'bar', 'horizontal-bar', 'line', 'area', 'pie', 'relation', 'chart', 'map', 'text', 'table', 'button', 'select', 'interact-data', 'media', 'other'],
+      default: 'root',
     },
     {
       when: (value) => value.category === 'other',
@@ -27,8 +27,8 @@ module.exports = {
     },
   ],
   actions: (data) => {
-    const subDir = data.otherName || data.category
-    const dir = `${process.cwd()}/src/components/${subDir}/{{dashCase name}}`;
+    const subDir = data.otherName || data.category === 'root' ? '' : data.category
+    const dir = `${process.cwd()}/src/element/${subDir}/{{dashCase name}}`;
     const actions = [
       {
         type: 'add',
