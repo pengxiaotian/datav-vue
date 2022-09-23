@@ -21,6 +21,8 @@ import VWordCloud from './chart/word-cloud'
 
 import VBasicLine from './line/basic-line'
 
+import Iframe from './iframe'
+
 const components = [
   VMainTitle,
   VStatusCard,
@@ -37,6 +39,7 @@ const components = [
   VMainImg,
   VWordCloud,
   VBasicLine,
+  Iframe,
 ]
 
 const install = (app: App): void => {

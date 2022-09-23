@@ -43,6 +43,12 @@ export async function createComponent(name: string) {
       return new comModule.default()
     }
 
+    case 'Iframe':
+    {
+      const comModule = await import(`./iframe/src/${path}.ts`)
+      return new comModule.default()
+    }
+
     // media
     case 'BgBox':
     case 'BorderBox':

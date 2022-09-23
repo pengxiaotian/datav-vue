@@ -1,0 +1,122 @@
+[
+  {
+    "key": "url",
+    "config": {
+      "type": "string",
+      "component": "input",
+      "alias": "链接",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": "https://www.baidu.com",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "pairs": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
+    },
+    "path": "url",
+    "virtualPath": ""
+  },
+  {
+    "key": "closeButton",
+    "config": {
+      "type": "boolean",
+      "component": "switch",
+      "alias": "关闭按钮",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": true,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "pairs": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
+    },
+    "path": "closeButton",
+    "virtualPath": ""
+  },
+  {
+    "key": "alwaysShowCloseButton",
+    "config": {
+      "type": "boolean",
+      "component": "switch",
+      "alias": "始终显示关闭按钮",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": false,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "pairs": [],
+      "whichEnum": {
+        "field": "closeButton",
+        "value": "true"
+      },
+      "flatValue": false
+    },
+    "path": "alwaysShowCloseButton",
+    "virtualPath": ""
+  },
+  {
+    "key": "noScrolling",
+    "config": {
+      "type": "boolean",
+      "component": "switch",
+      "alias": "不可滚动",
+      "tip": "",
+      "displayMode": "single",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": false,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "pairs": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false
+    },
+    "path": "noScrolling",
+    "virtualPath": ""
+  }
+]

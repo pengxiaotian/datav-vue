@@ -324,6 +324,15 @@ export const interactData = {
       // width: 100,
       // height: 100,
     },
+    {
+      name: 'VIframe',
+      alias: '内嵌网页',
+      img: 'https://cdn-asset.oss-cn-shanghai.aliyuncs.com/datav/%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6%E5%9B%BE/TB1aVnmlUH1gK0jSZSyXXXtlpXa-160-116.png',
+      thum: 'https://cdn-asset.oss-cn-shanghai.aliyuncs.com/datav/%E7%B3%BB%E7%BB%9F%E7%BB%84%E4%BB%B6%E5%9B%BE/TB1aVnmlUH1gK0jSZSyXXXtlpXa-160-116.png',
+      used: true,
+      width: 300,
+      height: 180,
+    },
   ],
 }
 
