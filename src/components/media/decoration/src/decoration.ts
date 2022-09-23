@@ -37,7 +37,8 @@ export class Decoration extends DatavComponent {
     return this
   }
 
-  async loadData() {}
+  /** 加载静态数据 */
+  async loadStaticData() {}
 }
 
 export const presetImages: {

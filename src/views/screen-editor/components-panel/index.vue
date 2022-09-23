@@ -207,7 +207,7 @@ export default defineComponent({
         toolbarStore.removeLoading()
 
         if (com.apis.source) {
-          await com.loadData()
+          await com.loadStaticData()
           nextTick(() => {
             blueprintStore.events[com.id]?.requestData()
           })

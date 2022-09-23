@@ -59,9 +59,10 @@ export class Paragraph extends DatavComponent {
     return this
   }
 
-  async loadData() {
+  /** 加载静态数据 */
+  async loadStaticData() {
     try {
-      const path = 'text/paragraph'
+      const path = 'paragraph'
       const res = await getStaticData(this.id, path)
       this.apiData.source.config.data = JSON.stringify(res.data)
     } catch (error) {

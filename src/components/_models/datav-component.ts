@@ -110,7 +110,7 @@ export abstract class DatavComponent {
   /**
    * 将静态数据和配置分离 减少 bundle size
    */
-  abstract loadData(): Promise<void>
+  abstract loadStaticData(): Promise<void>
 }
 
 export abstract class DatavChartSeries {

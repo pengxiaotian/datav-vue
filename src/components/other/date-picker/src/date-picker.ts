@@ -94,9 +94,10 @@ export class DatePicker extends DatavComponent {
     return this
   }
 
-  async loadData() {
+  /** 加载静态数据 */
+  async loadStaticData() {
     try {
-      const path = 'other/date-picker'
+      const path = 'date-picker'
       const res = await getStaticData(this.id, path)
       this.apiData.source.config.data = JSON.stringify(res.data)
     } catch (error) {

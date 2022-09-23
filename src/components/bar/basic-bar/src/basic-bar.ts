@@ -270,9 +270,10 @@ export class BasicBar extends DatavEChartsComponent {
     return this
   }
 
-  async loadData() {
+  /** 加载静态数据 */
+  async loadStaticData() {
     try {
-      const path = 'bar/basic-bar'
+      const path = 'basic-bar'
       const res = await getStaticData(this.id, path)
       this.apiData.source.config.data = JSON.stringify(res.data)
     } catch (error) {

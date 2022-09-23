@@ -56,9 +56,10 @@ export class Marquee extends DatavComponent {
     return this
   }
 
-  async loadData() {
+  /** 加载静态数据 */
+  async loadStaticData() {
     try {
-      const path = 'text/marquee'
+      const path = 'marquee'
       const res = await getStaticData(this.id, path)
       this.apiData.source.config.data = JSON.stringify(res.data)
     } catch (error) {

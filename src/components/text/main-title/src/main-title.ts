@@ -68,9 +68,10 @@ export class MainTitle extends DatavComponent {
     return this
   }
 
-  async loadData() {
+  /** 加载静态数据 */
+  async loadStaticData() {
     try {
-      const path = 'text/main-title'
+      const path = 'main-title'
       const res = await getStaticData(this.id, path)
       this.apiData.source.config.data = JSON.stringify(res.data)
     } catch (error) {

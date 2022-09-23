@@ -118,9 +118,10 @@ export class NumberTitleFlop extends DatavComponent {
     return this
   }
 
-  async loadData() {
+  /** 加载静态数据 */
+  async loadStaticData() {
     try {
-      const path = 'text/number-title-flop'
+      const path = 'number-title-flop'
       const res = await getStaticData(this.id, path)
       this.apiData.source.config.data = JSON.stringify(res.data)
     } catch (error) {

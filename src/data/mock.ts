@@ -29,7 +29,7 @@ export const useMock = async () => {
   coms.forEach(com => {
     if (com.apis.source) {
       comIds.push(com.id)
-      ps3.push(com.loadData())
+      ps3.push(com.loadStaticData())
     }
   })
 
