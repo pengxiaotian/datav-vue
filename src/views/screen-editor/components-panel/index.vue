@@ -124,12 +124,23 @@ const createDragImage = (width: number, height: number) => {
   ghostEle.classList.add(DRAG_GHOST_CLASS)
 
   ghostEle.style.cssText = `
-    border: 2px dotted #ccc;
     width: ${width}px;
     height: ${height}px;
     position: absolute;
     z-index: 1000;
     top: -100000px;
+  `
+  ghostEle.innerHTML = `
+    <svg style="width: ${width}px;height: ${height}px;" viewBox="0 0 ${width} ${height}" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <style>
+        @keyframes line-animation {
+          to {
+            stroke-dashoffset: -1000
+          }
+        }
+      </style>
+      <rect style="animation: line-animation 30s infinite linear;" width="${width}" height="${height}" fill="none" stroke="#ccc" stroke-dasharray="4" rx="4" stroke-width="1" />
+    </svg>
   `
   document.body.appendChild(ghostEle)
   return ghostEle
@@ -217,7 +228,7 @@ export default defineComponent({
     const dragEnd = () => {
       const ghostEle = document.querySelector(`.${DRAG_GHOST_CLASS}`)
       if (ghostEle) {
-        document.body.removeChild(ghostEle)
+        // document.body.removeChild(ghostEle)
       }
     }
 
