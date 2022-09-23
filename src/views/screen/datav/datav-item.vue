@@ -1,7 +1,7 @@
 <template>
   <div
     :style="{
-      'pointer-events': 'none',
+      // 'pointer-events': 'none',
       'z-index': 0,
       left: com.attr.x + 'px',
       top: com.attr.y + 'px',
