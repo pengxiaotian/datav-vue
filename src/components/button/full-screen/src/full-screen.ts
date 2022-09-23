@@ -25,7 +25,7 @@ export class FullScreen extends DatavComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('FullScreen', { w: 200, h: 200 })
+    super('FullScreen', { w: 30, h: 30 })
 
     this.initData()
   }

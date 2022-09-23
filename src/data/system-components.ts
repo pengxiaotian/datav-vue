@@ -287,8 +287,8 @@ export const button = {
       img: `${import.meta.env.VITE_APP_CDN}/com/full-screen-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/full-screen-368-208.png`,
       used: true,
-      width: 100,
-      height: 100,
+      width: 30,
+      height: 30,
     },
   ],
 }
