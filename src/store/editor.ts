@@ -160,8 +160,9 @@ export const useEditorStore = defineStore('editor', {
       resize()
     },
     async setCanvasScale(scale: number, offsetX: number, offsetY: number) {
-      let width = document.documentElement.clientWidth - offsetX
-      let height = document.documentElement.clientHeight - offsetY
+      // 减去滚动条 4px
+      let width = document.documentElement.clientWidth - offsetX - 4
+      let height = document.documentElement.clientHeight - offsetY - 4
       const deltaS = Math.min(Math.max(scale, 10), 200) / 100
 
       // 方便计算滚动条 和 标尺
@@ -172,7 +173,7 @@ export const useEditorStore = defineStore('editor', {
       }
 
       if (height < deltaH) {
-        height = deltaH + 400
+        height = deltaH + 390
       }
 
       this.canvas = { scale: deltaS, width, height }

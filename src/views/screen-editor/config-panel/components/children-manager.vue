@@ -3,10 +3,12 @@
     <div class="children-manager-title">
       <div>
         <n-popover
+          v-model:show="showManagerPopover"
           :show-arrow="false"
           trigger="click"
           placement="left-start"
           raw
+          style="--n-space: 1px;"
         >
           <template #trigger>
             <div class="add-child-icon-wrapper" title="添加子组件">
@@ -17,15 +19,21 @@
           </template>
           <div class="children-manager-selector">
             <div class="children-manager-selector-component">
-              <div class="children-manager-selector-option selected">
-                <img src="//files.pengxiaotian.com/com/2d-china-bubbles-180-180.png" class="children-manager-selector-option-image">
-                <span class="children-manager-selector-option-name">区域热力层</span>
+              <div
+                v-for="sm in sysSubComs"
+                :key="sm.name"
+                class="children-manager-selector-option"
+                :class="selectedItems.includes(sm.name) ? 'selected' : ''"
+                @click="toggleSelectSubMap(sm.name)"
+              >
+                <img :src="sm.img" class="children-manager-selector-option-image">
+                <span class="children-manager-selector-option-name">{{ sm.alias }}</span>
               </div>
             </div>
             <div class="children-manager-selector-info">
               <div class="children-manager-selector-count">
                 已选择
-                <span style="color: rgb(36 131 255);"> 0 </span>
+                <span style="color: rgb(36 131 255);"> {{ selectedItems.length }} </span>
                 个子组件
               </div>
             </div>
@@ -33,7 +41,8 @@
               <n-button
                 size="tiny"
                 :focusable="false"
-                :disabled="true"
+                :disabled="selectedItems.length === 0"
+                @click="addSubComs"
               >
                 <template #icon>
                   <n-icon>
@@ -61,7 +70,14 @@
     </div>
     <div class="children-manager-list">
       <div class="children-list-container">
-        <div v-for="item in subComs" :key="item.id" class="children-item">
+        <div
+          v-for="(item, aidx) in subComs"
+          :key="item.id"
+          class="children-item"
+          :class="{ entering: dragInfo.toIdx === aidx }"
+          @dragenter="dragEnter(item.id, aidx)"
+          @dragover="dragOver"
+        >
           <div>
             <div title="更改标签">
               <n-popover
@@ -93,23 +109,24 @@
               v-focus
               class="com-alias-ipt"
               @blur="item.renameing = false"
+              @keydown.enter="item.renameing = false"
             >
             <template v-else>
               <a draggable="false" href="javascript:;" class="com-alias-text">
                 {{ item.alias }}
               </a>
-              <div title="点击隐藏" @click="item.show = !item.show">
-                <n-icon v-if="item.show" class="child-status-btn">
-                  <IconShow />
+              <div title="点击隐藏" @click="item.hided = !item.hided">
+                <n-icon v-if="item.hided" class="child-status-btn">
+                  <IconHide />
                 </n-icon>
                 <n-icon v-else class="child-status-btn">
-                  <IconHide />
+                  <IconShow />
                 </n-icon>
               </div>
             </template>
           </div>
           <div>
-            <span title="复制" class="child-btn">
+            <span title="复制" class="child-btn" @click="copySubCom(item.id)">
               <n-icon>
                 <IconCopy />
               </n-icon>
@@ -119,19 +136,31 @@
                 <IconEdit />
               </n-icon>
             </span>
-            <span title="删除" class="child-btn">
+            <span title="删除" class="child-btn" @click="confirmDeleteSubCom(item)">
               <n-icon>
                 <IconDelete />
               </n-icon>
             </span>
-            <span title="排序" class="child-btn" draggable="true">
+            <span
+              title="排序"
+              class="child-btn"
+              draggable="true"
+              @dragstart="dragStart($event, item.id)"
+              @dragend="dragEnd"
+            >
               <n-icon>
                 <IconDrag />
               </n-icon>
             </span>
           </div>
         </div>
-        <div v-if="subComs.length > 0" class="children-item last-placeholder"></div>
+        <div
+          v-if="subComs.length > 0"
+          class="children-item last-placeholder"
+          :class="{ entering: dragInfo.toIdx === subComs.length }"
+          @dragenter="dragEnter('', subComs.length)"
+          @dragover="dragOver"
+        ></div>
         <div v-else class="children-manager-child-not-exist">
           {{ filterTag > -1 ? '过滤结果为空' : '子组件列表为空' }}
         </div>
@@ -141,8 +170,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { IconPlus, IconShow, IconHide, IconCopy, IconEdit, IconDelete, IconDrag } from '@/icons'
+import { h, computed, ref, inject } from 'vue'
+import { useDialog, useMessage } from 'naive-ui'
+import { IconPlus, IconShow, IconHide, IconCopy, IconEdit, IconDelete, IconDrag, IconWarning } from '@/icons'
+import { getSystemSubComs } from '@/data/system-components'
+import { useComStore } from '@/store/com'
+import { createComponent } from '@/components/datav'
+import { ComType, DatavComponent } from '@/components/_models/datav-component'
+import { comInjectionKey } from '../config'
 
 const tagColors = [
   'background: rgb(28, 31, 37); border-color: rgb(151, 151, 151);',
@@ -154,20 +189,107 @@ const tagColors = [
   'background: rgb(0, 127, 255);',
 ]
 
-const filterTag = ref(-1)
+const nDialog = useDialog()
+const nMessage = useMessage()
+const com = inject(comInjectionKey)
+const comStore = useComStore()
 
-const subComs = ref([
-  {
-    id: '11',
-    alias: '飞线层',
-    show: true,
-    tag: 0,
-    renameing: false,
-  },
-])
+const showManagerPopover = ref(false)
+const filterTag = ref(-1)
+const selectedItems = ref([])
+const dragInfo = ref({
+  from: '',
+  to: '',
+  toIdx: -1,
+})
+
+const subComs = computed(() => {
+  const list = comStore.subComs.filter(m => m.parentId === com.value.id)
+  if (filterTag.value > -1) {
+    if (filterTag.value === 0) {
+      return list.filter(m => !m.tag)
+    }
+
+    return list.filter(m => m.tag === filterTag.value)
+  }
+  return list
+})
+
+const sysSubComs = computed(() => {
+  return getSystemSubComs(com.value.name)
+})
+
+const toggleSelectSubMap = (name: string) => {
+  if (selectedItems.value.includes(name)) {
+    selectedItems.value = selectedItems.value.filter(m => m !== name)
+  } else {
+    selectedItems.value.push(name)
+  }
+}
 
 const selectTag = (tag: number) => {
   filterTag.value = filterTag.value === tag ? -1 : tag
+}
+
+const addSubComs = () => {
+  Promise.all(selectedItems.value.map(m => createComponent(m)))
+    .then(coms => {
+      showManagerPopover.value = false
+      selectedItems.value = []
+      coms.forEach(m => m.parentId = com.value.id)
+      comStore.addComs(coms)
+    })
+}
+
+const confirmDeleteSubCom = (com: DatavComponent) => {
+  const d = nDialog.create({
+    content: `删除后可能无法恢复，是否删除${com.alias}`,
+    negativeText: '取消',
+    positiveText: '确定',
+    iconPlacement: 'top',
+    icon: () => h(IconWarning),
+    onPositiveClick: async () => {
+      d.loading = true
+      try {
+        await comStore.delete(com)
+      } catch (error) {
+        nMessage.error(error.message)
+      }
+    },
+  })
+}
+
+const copySubCom = (id: string) => {
+  comStore.copy(id, ComType.subCom)
+}
+
+const dragStart = (ev: any, id: string) => {
+  dragInfo.value.from = id
+  const node = ev.target.parentNode.parentNode
+  ev.dataTransfer.setDragImage(node, 308, 15)
+}
+
+const dragEnd = () => {
+  const { from, to, toIdx } = dragInfo.value
+  const isEnd = toIdx === subComs.value.length
+  const toId = isEnd ? subComs.value[toIdx - 1].id : to
+  comStore.sortSubCom(from, toId, isEnd)
+  dragInfo.value = {
+    from: '',
+    to: '',
+    toIdx: -1,
+  }
+}
+
+const dragEnter = (id: string, idx: number) => {
+  dragInfo.value.to = id
+  dragInfo.value.toIdx = idx
+}
+
+const dragOver = (ev: DragEvent) => {
+  ev.preventDefault()
+  ev.stopPropagation()
+  ev.dataTransfer.dropEffect = 'copy'
 }
 </script>
 
@@ -308,6 +430,10 @@ const selectTag = (tag: number) => {
         }
       }
 
+      &.entering {
+        border-top: 1px solid var(--datav-sort-line-border-color) !important;
+      }
+
       &:hover {
         border-left: 2px solid var(--datav-main-color);
 
@@ -381,6 +507,7 @@ const selectTag = (tag: number) => {
   max-height: 100%;
   padding: 10px;
   background: #21242b;
+  font-size: 12px;
   box-sizing: content-box;
   z-index: 5;
 
@@ -397,6 +524,10 @@ const selectTag = (tag: number) => {
       margin-bottom: 10px;
       box-sizing: border-box;
       position: relative;
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
 
       .children-manager-selector-option-image {
         width: 100%;
@@ -439,6 +570,10 @@ const selectTag = (tag: number) => {
           background: var(--datav-main-color);
         }
       }
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 

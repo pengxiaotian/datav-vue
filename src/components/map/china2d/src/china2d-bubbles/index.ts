@@ -1,4 +1,4 @@
-import { DatavComponent } from '@/components/_models/datav-component'
+import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
   setApiConfig, setApiData,
@@ -39,7 +39,7 @@ export class China2dBubbles extends DatavComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('China2dBubbles', {})
+    super('China2dBubbles', {}, ComType.subCom)
 
     this.initData()
   }

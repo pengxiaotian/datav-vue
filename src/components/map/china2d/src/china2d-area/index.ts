@@ -1,4 +1,4 @@
-import { DatavComponent } from '@/components/_models/datav-component'
+import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import {
   ApiType,
   ApiConfigMap, ApiDataConfigMap,
@@ -73,7 +73,7 @@ export class China2dArea extends DatavComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('China2dArea', {})
+    super('China2dArea', {}, ComType.subCom)
 
     this.initData()
   }

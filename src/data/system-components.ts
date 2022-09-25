@@ -400,6 +400,11 @@ const getCom = (coms: ComDataType['data'], name: string) => {
   return null
 }
 
+export function getSystemSubComs(name: string) {
+  const subComs = map.data.find(m => m.name === name)
+  return subComs && subComs.children ? subComs.children : []
+}
+
 export function findComByName(name: string) {
   for (let i = 0; i < classifications.length; i++) {
     const classification = classifications[i]

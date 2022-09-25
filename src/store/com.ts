@@ -438,6 +438,15 @@ export const useComStore = defineStore('com', {
         }
       }
     },
+    sortSubCom(fromId: string, toId: string, isEnd: boolean) {
+      const fromIdx = getComIndex(this.subComs, fromId)
+      let toIndx = getComIndex(this.subComs, toId)
+      if (isEnd) {
+        toIndx += 1
+      }
+
+      this.subComs.splice(toIndx, 0, ...this.subComs.splice(fromIdx, 1))
+    },
     async request(projectId: number) {
       try {
         const res = await getComs(projectId)
@@ -488,10 +497,8 @@ export const useComStore = defineStore('com', {
       try {
         const res = await addCom(com)
         if (res.data.code === 0) {
-          if (com.parentId) {
-            const g = findCom(this.coms, com.parentId)
-            g.children.push(com)
-            sortGroupConfig(g as DatavGroup)
+          if (com.type === ComType.subCom) {
+            this.subComs.push(com)
           } else {
             this.coms.push(com)
           }
@@ -502,25 +509,51 @@ export const useComStore = defineStore('com', {
         throw error
       }
     },
-    async copy(id: string) {
+    async addComs(coms: DatavComponent[]) {
+      try {
+        const res = await addCom(coms)
+        if (res.data.code === 0) {
+          for (const com of coms) {
+            if (com.type === ComType.subCom) {
+              this.subComs.push(com)
+            } else {
+              this.coms.push(com)
+            }
+          }
+        } else {
+          throw Error(res.data.message)
+        }
+      } catch (error) {
+        throw error
+      }
+    },
+    async copy(id: string, type = ComType.com) {
       try {
         const res = await copyCom(id)
         if (res.data.code === 0) {
           // 模拟后端复制
-          const ocom = findCom(this.coms, id)
-          if (ocom) {
-            ocom.hovered = false
-            ocom.selected = false
-            const ncom = getNewCom(ocom, ocom.parentId)
-            const nSubComs = getSubComs(this.subComs, ocom.id).map(m => getNewCom(m, ncom.id))
-            if (ncom.parentId) {
-              const g = findCom(this.coms, ncom.parentId)
-              g.children.push(ncom)
-              sortGroupConfig(g as DatavGroup)
-            } else {
-              this.coms.push(ncom)
+          if (type === ComType.com) {
+            const ocom = findCom(this.coms, id)
+            if (ocom) {
+              ocom.hovered = false
+              ocom.selected = false
+              const ncom = getNewCom(ocom, ocom.parentId)
+              const nSubComs = getSubComs(this.subComs, ocom.id).map(m => getNewCom(m, ncom.id))
+              if (ncom.parentId) {
+                const g = findCom(this.coms, ncom.parentId)
+                g.children.push(ncom)
+                sortGroupConfig(g as DatavGroup)
+              } else {
+                this.coms.push(ncom)
+              }
+              this.subComs.push(...nSubComs)
             }
-            this.subComs.push(...nSubComs)
+          } else if (type === ComType.subCom) {
+            const ocom = findCom(this.subComs, id)
+            if (ocom) {
+              const ncom = getNewCom(ocom, ocom.parentId)
+              this.subComs.push(ncom)
+            }
           }
         } else {
           throw Error(res.data.message)
