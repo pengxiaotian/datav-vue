@@ -43,7 +43,7 @@
           <interaction-panel :key="currCom.id" />
         </n-tab-pane>
       </n-tabs>
-      <multi-layout-config v-else-if="selectedCount > 1" />
+      <multi-layout-config v-else-if="selectedCount > 1" :selected-count="selectedCount" />
       <page-config v-else />
     </div>
   </div>
@@ -76,8 +76,8 @@ export default defineComponent({
     const comStore = useComStore()
 
     const visiblePanel = computed(() => toolbarStore.config.show)
-    const currCom = computed(() => comStore.selectedCom)
     const selectedCount = computed(() => comStore.selectedComs.length)
+    const currCom = computed(() => comStore.selectedSubCom || comStore.selectedCom)
 
     provide(comInjectionKey, currCom)
 

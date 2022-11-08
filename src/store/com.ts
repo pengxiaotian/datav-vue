@@ -159,6 +159,14 @@ export const useComStore = defineStore('com', {
       const coms = this.selectedComs
       return coms.length === 1 ? coms[0] : null
     },
+    selectedSubCom(state): DatavComponent | null {
+      const com = this.selectedCom
+      if (com) {
+        const subCom = state.subComs.find(m => m.selected && m.parentId === com.id)
+        return subCom
+      }
+      return null
+    },
   },
   actions: {
     load(payload: DatavComponent[]) {
@@ -225,6 +233,11 @@ export const useComStore = defineStore('com', {
       } else {
         toCom.selected = true
       }
+    },
+    selectSubCom(id: string) {
+      this.subComs.forEach(com => {
+        com.selected = com.id === id
+      })
     },
     getParents(pid: string) {
       const parentComs: DatavComponent[] = []

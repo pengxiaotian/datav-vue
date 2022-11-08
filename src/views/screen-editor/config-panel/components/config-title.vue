@@ -1,19 +1,22 @@
 <template>
   <div class="com-title-wp">
+    <n-icon v-if="com.type === ComType.subCom" class="back-icon" @click="back">
+      <IconBack />
+    </n-icon>
     <div class="com-title">
       <div class="title-name">
-        <span class="alias-name">{{ comAlias }}</span>
+        <span class="alias-name">{{ com.alias }}</span>
         <n-tooltip placement="right">
           <template #trigger>
             <n-icon class="com-doc-icon">
               <IconDocument />
             </n-icon>
           </template>
-          {{ `${comTitle}文档` }}
+          {{ `${com.name}文档` }}
         </n-tooltip>
       </div>
       <div class="version-tag">
-        <span>{{ comTitle }}</span>
+        <span>{{ com.name }}</span>
       </div>
     </div>
     <slot></slot>
@@ -21,33 +24,30 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed } from 'vue'
-import { findComByName } from '@/data/system-components'
-import { IconDocument } from '@/icons'
+import { defineComponent, inject } from 'vue'
+import { IconBack, IconDocument } from '@/icons'
+import { ComType } from '@/components/_models/datav-component'
+import { comInjectionKey } from '../config'
+import { useComStore } from '@/store/com'
 
 export default defineComponent({
   name: 'SettingPanel',
   components: {
+    IconBack,
     IconDocument,
   },
-  props: {
-    comName: {
-      type: String,
-      required: true,
-    },
-    comAlias: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
-    const comTitle = computed(() => {
-      const obj = findComByName(props.comName)
-      return obj?.com.name
-    })
+  setup() {
+    const com = inject(comInjectionKey)
+    const comStore = useComStore()
+
+    const back = () => {
+      comStore.selectSubCom('')
+    }
 
     return {
-      comTitle,
+      ComType,
+      com,
+      back,
     }
   },
 })
@@ -63,6 +63,14 @@ export default defineComponent({
   color: #fff;
   align-items: flex-start;
   justify-content: space-between;
+
+  .back-icon {
+    display: inline-block;
+    padding-left: 5px;
+    cursor: pointer;
+    transform: scale(0.8);
+    line-height: 24px;
+  }
 
   .com-title {
     padding-right: 5px;

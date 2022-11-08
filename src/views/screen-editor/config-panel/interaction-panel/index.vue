@@ -1,6 +1,6 @@
 <template>
   <div class="interaction-panle">
-    <config-title :com-name="com.name" :com-alias="com.alias" />
+    <config-title />
     <children-manager />
     <div v-if="eventKeys.length > 0">
       <div class="com-events">

@@ -1,6 +1,6 @@
 <template>
   <div class="data-center-panel">
-    <config-title :com-name="com.name" :com-alias="com.alias" />
+    <config-title />
     <div class="scroll-container">
       <template v-if="dataKeys.length > 0">
         <children-manager />

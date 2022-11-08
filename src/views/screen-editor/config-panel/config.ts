@@ -24,6 +24,10 @@ interface InteractionInjection {
   toggleEnable: (eventName: string, enable: boolean) => void
 }
 
+export const parentComInjectionKey: InjectionKey<ComputedRef<DatavComponent>> = Symbol('parentComInjectionKey')
+
+export const subComInjectionKey: InjectionKey<ComputedRef<DatavComponent>> = Symbol('subComInjectionKey')
+
 export const comInjectionKey: InjectionKey<ComputedRef<DatavComponent>> = Symbol('comInjectionKey')
 
 export const changePanelInjectionKey: InjectionKey<(panelName: string) => void> = Symbol('changePanelInjectionKey')

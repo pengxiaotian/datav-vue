@@ -25,14 +25,8 @@ module.exports = {
     actions.push({
       type: 'modify',
       path: `${process.cwd()}/src/icons/index.ts`,
-      pattern: /(\/\/ -- prepend import placeholder --)/gi,
-      template: 'import Icon{{pascalCase name}} from \'./{{dashCase name}}.vue\'\n$1',
-    });
-    actions.push({
-      type: 'modify',
-      path: `${process.cwd()}/src/icons/index.ts`,
       pattern: /(\/\/ -- prepend export placeholder --)/gi,
-      template: 'Icon{{pascalCase name}},\n  $1',
+      template: 'export { default as Icon{{pascalCase name}} } from \'./{{dashCase name}}.vue\'\n$1',
     });
 
     return actions;

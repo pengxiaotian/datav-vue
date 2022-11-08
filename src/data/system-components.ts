@@ -423,3 +423,7 @@ export function findComByName(name: string) {
 
   return null
 }
+
+export const supportedSubComs = [
+  ...map.data.map(m => m.name),
+]

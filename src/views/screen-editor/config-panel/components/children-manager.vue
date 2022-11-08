@@ -1,5 +1,5 @@
 <template>
-  <div class="children-manager">
+  <div v-if="isSupportedSubCom" class="children-manager">
     <div class="children-manager-title">
       <div>
         <n-popover
@@ -112,7 +112,12 @@
               @keydown.enter="item.renameing = false"
             >
             <template v-else>
-              <a draggable="false" href="javascript:;" class="com-alias-text">
+              <a
+                draggable="false"
+                href="javascript:;"
+                class="com-alias-text"
+                @click="selectSubCom(item)"
+              >
                 {{ item.alias }}
               </a>
               <div title="点击隐藏" @click="item.hided = !item.hided">
@@ -173,7 +178,7 @@
 import { h, computed, ref, inject } from 'vue'
 import { useDialog, useMessage } from 'naive-ui'
 import { IconPlus, IconShow, IconHide, IconCopy, IconEdit, IconDelete, IconDrag, IconWarning } from '@/icons'
-import { getSystemSubComs } from '@/data/system-components'
+import { supportedSubComs, getSystemSubComs } from '@/data/system-components'
 import { useComStore } from '@/store/com'
 import { createComponent } from '@/components/datav'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
@@ -203,6 +208,7 @@ const dragInfo = ref({
   toIdx: -1,
 })
 
+const isSupportedSubCom = computed(() => supportedSubComs.includes(com.value.name))
 const subComs = computed(() => {
   const list = comStore.subComs.filter(m => m.parentId === com.value.id)
   if (filterTag.value > -1) {
@@ -261,6 +267,10 @@ const confirmDeleteSubCom = (com: DatavComponent) => {
 
 const copySubCom = (id: string) => {
   comStore.copy(id, ComType.subCom)
+}
+
+const selectSubCom = (com: DatavComponent) => {
+  comStore.selectSubCom(com.id)
 }
 
 const dragStart = (ev: any, id: string) => {
