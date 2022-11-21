@@ -194,7 +194,9 @@ export default defineComponent({
     const genTemplate = () => {
       const data = {
         fileName: fileName.value,
-        comName: pascalCase(comName.value),
+        comName: pascalCase(comName.value)
+          .replace('2D', '2d')
+          .replace('3D', '3d'),
         componentTypes: { ...ComponentType },
         configs: list.value,
         selectOpts: getUsedSelectOptions(list.value),

@@ -33,6 +33,7 @@ const install = (app: App): void => {
   app.component('GFieldCollapse', defineAsyncComponent(() => import('./field-collapse')))
   app.component('GSelectImage', defineAsyncComponent(() => import('./select-image')))
   app.component('GSlider', defineAsyncComponent(() => import('./slider')))
+  app.component('GSliderRange', defineAsyncComponent(() => import('./slider-range')))
   app.component('GSelectSuggest', defineAsyncComponent(() => import('./select-suggest')))
   app.component('GSelectShape', defineAsyncComponent(() => import('./select-shape')))
   app.component('GComIcon', defineAsyncComponent(() => import('./com-icon')))

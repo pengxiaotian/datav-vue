@@ -28,3 +28,27 @@
     margin-left: 4px;
   }
 }
+
+.g-slider-range {
+  width: 196px;
+
+  .g-slider-main {
+    height: 28px;
+  }
+
+  .g-slider-range-wrap {
+    height: 12px;
+    line-height: 12px;
+    margin: -2px 0 2px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--datav-gui-font-color-description);
+
+    .g-slider-range-current {
+      width: 100%;
+      padding: 0 4px;
+      text-align: center;
+    }
+  }
+}

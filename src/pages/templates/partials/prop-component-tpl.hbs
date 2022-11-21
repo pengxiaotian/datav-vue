@@ -96,6 +96,24 @@
   label="{{config.alias}}"
   {{/if}}
 />
+{{else if (eq config.component componentTypes.sliderRange)}}
+<g-slider-range
+  {{#if (and judgeEnum config.whichEnum.field)}}
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  {{/if}}
+  v-model="{{ getPath path virtualPath }}"
+  {{#unless config.InfiniteMin}}
+  :min="{{config.min}}"
+  {{/unless}}
+  {{#unless config.InfiniteMax}}
+  :max="{{config.max}}"
+  {{/unless}}
+  :step="{{config.step}}"
+  {{#if (getInlineMode config.displayMode)}}
+  inline="{{config.displayMode}}"
+  label="{{config.alias}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.select)}}
 <g-select
   {{#if (and judgeEnum config.whichEnum.field)}}

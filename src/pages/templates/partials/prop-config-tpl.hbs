@@ -6,7 +6,7 @@
   selectOpts=../selectOpts
   judgeEnum=true
 }}
-{{else if item.children}}
+{{else if (and item.children (not item.config.isRange))}}
 {{#if (eq item.config.displayMode 'nest')}}
 <g-field-collapse
   {{#if item.config.whichEnum.field}}

@@ -49,6 +49,7 @@ export enum ComponentType {
   radio = 'radio',
   color = 'color',
   slider = 'slider',
+  sliderRange = 'sliderRange',
   select = 'select',
   fontFamily = 'fontFamily',
   fontWeight = 'fontWeight',
@@ -110,6 +111,7 @@ export interface PropConfig {
     value: string
   }
   flatValue: boolean
+  isRange: boolean
 }
 
 export const createPropConfig = () => {
@@ -137,6 +139,7 @@ export const createPropConfig = () => {
       value: '',
     },
     flatValue: false,
+    isRange: false,
   }
 
   return data
@@ -194,6 +197,9 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       pc.displayMode = DisplayMode.nest
       dto.children = []
       // dto.cols = Object.keys(val[0])
+      if (isNumber(val[0])) {
+        pc.defaultValue = val
+      }
       initPropData([val[0]], dto.children, dto.path)
     }
     arr.push(dto)

@@ -33,6 +33,13 @@
     v-model="numValue"
     size="medium"
   />
+  <g-slider-range
+    v-else-if="componentType === componentTypes.sliderRange"
+    v-model="arrValue"
+    size="medium"
+    :min="0"
+    :max="100"
+  />
   <g-upload-image
     v-else-if="componentType === componentTypes.uploadImage"
     v-model="strValue"

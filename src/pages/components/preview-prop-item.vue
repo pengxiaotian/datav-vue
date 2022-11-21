@@ -48,6 +48,15 @@
     :inline="mode"
     :label="mode ? label : ''"
   />
+  <g-slider-range
+    v-else-if="componentType === componentTypes.sliderRange"
+    v-model="arrValue"
+    :min="min"
+    :max="max"
+    :step="step"
+    :inline="mode"
+    :label="mode ? label : ''"
+  />
   <g-upload-image
     v-else-if="componentType === componentTypes.uploadImage"
     v-model="strValue"
