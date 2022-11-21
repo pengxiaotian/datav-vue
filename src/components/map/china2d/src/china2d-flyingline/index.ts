@@ -53,11 +53,11 @@ export class China2dFlyingline extends DatavComponent {
       createField('to', { description: '飞线结束位置' }),
     ]
 
-    setApiConfig(this.apis, {
+    setApiConfig(this, {
       fields: Object.assign({}, ...fields),
     })
 
-    setApiData(this.apiData, this.id, {})
+    setApiData(this)
 
     this.events = {}
     this.actions = {}

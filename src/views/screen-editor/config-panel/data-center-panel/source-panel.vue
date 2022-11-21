@@ -209,7 +209,7 @@ export default defineComponent({
 
     const toggle = () => {
       if (props.collapse) {
-        changePanel(props.apiName)
+        changePanel(props.apiName as string)
       }
     }
 

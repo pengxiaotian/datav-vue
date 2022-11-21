@@ -98,19 +98,19 @@ export class China2dArea extends DatavComponent {
       }),
     ]
 
-    setApiConfig(this.apis, { description: '地理边界geojson数据接口' })
-    setApiConfig(this.apis, {
+    setApiConfig(this, { description: '地理边界geojson数据接口' })
+    setApiConfig(this, {
       fields: Object.assign({}, ...fields),
       description: '热力值数据接口',
     }, 'mappingData')
 
-    setApiData(this.apiData,  this.id, {
+    setApiData(this, {
       type: ApiType.api,
       config: {
         api: 'https://geo.datav.aliyun.com/areas_v2/bound/100000_full.json',
       },
     })
-    setApiData(this.apiData, this.id, {}, 'mappingData')
+    setApiData(this, {}, 'mappingData')
 
     const fileConfig = createFieldConfig({ description: '区域关联id' })
     this.events = {

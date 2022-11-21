@@ -52,11 +52,11 @@ export class China2dBubbles extends DatavComponent {
       createField('type', { type: 'number',  description: '气泡类型' }),
     ]
 
-    setApiConfig(this.apis, {
+    setApiConfig(this, {
       fields: Object.assign({}, ...fields),
     })
 
-    setApiData(this.apiData, this.id, {})
+    setApiData(this)
 
     this.events = {}
     this.actions = {}

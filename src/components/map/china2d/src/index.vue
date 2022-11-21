@@ -1,6 +1,10 @@
 <template>
   <div class="datav-wrapper">
     China2d
+
+    <div v-for="sc in com.children" :key="sc.id">
+      {{ sc.id }}
+    </div>
   </div>
 </template>
 

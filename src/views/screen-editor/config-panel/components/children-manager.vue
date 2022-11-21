@@ -42,6 +42,7 @@
                 size="tiny"
                 :focusable="false"
                 :disabled="selectedItems.length === 0"
+                :loading="loading"
                 @click="addSubComs"
               >
                 <template #icon>
@@ -175,11 +176,12 @@
 </template>
 
 <script lang="ts" setup>
-import { h, computed, ref, inject } from 'vue'
+import { h, computed, ref, inject, nextTick } from 'vue'
 import { useDialog, useMessage } from 'naive-ui'
 import { IconPlus, IconShow, IconHide, IconCopy, IconEdit, IconDelete, IconDrag, IconWarning } from '@/icons'
 import { supportedSubComs, getSystemSubComs } from '@/data/system-components'
 import { useComStore } from '@/store/com'
+import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
 import { comInjectionKey } from '../config'
@@ -198,10 +200,12 @@ const nDialog = useDialog()
 const nMessage = useMessage()
 const com = inject(comInjectionKey)
 const comStore = useComStore()
+const blueprintStore = useBlueprintStore()
 
 const showManagerPopover = ref(false)
+const loading = ref(false)
 const filterTag = ref(-1)
-const selectedItems = ref([])
+const selectedItems = ref<string[]>([])
 const dragInfo = ref({
   from: '',
   to: '',
@@ -237,14 +241,38 @@ const selectTag = (tag: number) => {
   filterTag.value = filterTag.value === tag ? -1 : tag
 }
 
-const addSubComs = () => {
-  Promise.all(selectedItems.value.map(m => createComponent(m)))
-    .then(coms => {
-      showManagerPopover.value = false
-      selectedItems.value = []
-      coms.forEach(m => m.parentId = com.value.id)
-      comStore.addComs(coms)
+const addSubComs = async () => {
+  try {
+    loading.value = true
+
+    const ps: Promise<any>[] = []
+    const comIds = []
+    const coms = await Promise.all(selectedItems.value.map(m => createComponent(m)))
+    coms.forEach(m => {
+      m.parentId = com.value.id
+      if (m.apis.source) {
+        comIds.push(m.id)
+        ps.push(m.loadData())
+      }
     })
+    await comStore.addComs(coms)
+
+    showManagerPopover.value = false
+    selectedItems.value = []
+
+    if (ps.length > 0) {
+      await Promise.all(ps)
+      nextTick(() => {
+        comIds.forEach(id => {
+          blueprintStore.events[id]?.requestData()
+        })
+      })
+    }
+  } catch (error) {
+    nMessage.error(error.message)
+  } finally {
+    loading.value = false
+  }
 }
 
 const confirmDeleteSubCom = (com: DatavComponent) => {

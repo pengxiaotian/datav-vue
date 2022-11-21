@@ -2,6 +2,7 @@ import { capitalize } from 'lodash-es'
 import { generateId } from '@/utils/util'
 import { FilterConfig } from '@/components/_models/data-filter'
 import { FieldConfig } from '@/components/_models/data-field'
+import { DatavComponent } from './datav-component'
 
 export enum ApiType {
   /**
@@ -34,6 +35,7 @@ export enum ApiRequestMethod {
   POST = 'POST',
 }
 
+// ************************ ApiConfig ************************
 export interface ApiConfig {
   fields: Record<string, FieldConfig>
   /**
@@ -50,8 +52,7 @@ export interface ApiConfigMap {
   [key: string]: ApiConfig
 }
 
-export type ApiKeyName = keyof ApiConfigMap
-
+// ************************ ApiDataConfig ************************
 export interface ApiDataConfig {
   id: string
   comId: string
@@ -74,52 +75,16 @@ export interface ApiDataConfigMap {
   [key: string]: ApiDataConfig
 }
 
-/**
- * 初始化数据接口配置
- */
-export function initApiConfig(options: Partial<ApiConfig>) {
-  const config: Partial<ApiConfigMap> = {
-    source: {
-      fields: {},
-      handler: 'render',
-      description: '',
-      useAutoUpdate: false,
-      autoUpdate: 1,
-      ...options,
-    },
-  }
-
-  return config
-}
-
-/**
- * 初始化源数据
- */
-export function initApiData(comId: string) {
-  const config: Partial<ApiDataConfigMap> = {
-    source: {
-      comId,
-      id: generateId(),
-      type: ApiType.static,
-      pageFilters: [],
-      config: {
-        useFilter: false,
-        data: '',
-      },
-    },
-  }
-
-  return config
-}
+export type ApiKeyName = keyof ApiConfigMap
 
 /**
  * 设置数据接口配置
  */
-export function setApiConfig(config: Partial<ApiConfigMap>, options: Partial<ApiConfig>, name: ApiKeyName = 'source') {
-  if (!config) {
-    config = {}
+export function setApiConfig(com: DatavComponent, options?: Partial<ApiConfig>, name: ApiKeyName = 'source') {
+  if (!com.apis) {
+    com.apis = {}
   }
-  config[name] = {
+  com.apis[name] = {
     fields: {},
     description: '',
     useAutoUpdate: false,
@@ -132,11 +97,11 @@ export function setApiConfig(config: Partial<ApiConfigMap>, options: Partial<Api
 /**
  * 设置源数据
  */
-export function setApiData(config: Partial<ApiDataConfigMap>, comId: string, options: Partial<ApiDataConfig>, name: ApiKeyName = 'source') {
-  if (!config) {
-    config = {}
+export function setApiData(com: DatavComponent, options?: Partial<ApiDataConfig>, name: ApiKeyName = 'source') {
+  if (!com.apiData) {
+    com.apiData = {}
   }
-  config[name] = {
+  com.apiData[name] = {
     id: generateId(),
     type: ApiType.static,
     pageFilters: [],
@@ -145,7 +110,7 @@ export function setApiData(config: Partial<ApiDataConfigMap>, comId: string, opt
       data: '',
     },
     ...options,
-    comId,
+    comId: com.id,
   }
 }
 

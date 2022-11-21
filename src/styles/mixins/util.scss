@@ -10,7 +10,8 @@
 
 @mixin utils-ellipsis-n($n: 2) {
   .ellipsis#{$n} {
-    display: box;
+    /* stylelint-disable-next-line value-no-vendor-prefix */
+    display: -webkit-box;
     word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
