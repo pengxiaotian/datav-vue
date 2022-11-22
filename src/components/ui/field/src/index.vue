@@ -3,16 +3,19 @@
     :class="[
       `g-field-wp --lv${level}`,
       {
-        '--disable': disabled || (toggle && !modelValue)
+        '--field-disabled': disabled || (toggle && !modelValue)
       }
     ]"
   >
     <n-gi class="g-field" v-bind="labelStyle">
       <i class="g-field-show-placeholder">
-        <n-icon v-if="toggle" class="g-field-show" @click="toggleVisible">
-          <IconShow v-if="modelValue" />
-          <IconHide v-else />
-        </n-icon>
+        <n-switch
+          v-if="toggle"
+          :value="modelValue"
+          size="small"
+          @click.stop
+          @update:value="toggleVisible"
+        />
       </i>
       <template v-if="tooltip">
         <n-tooltip placement="top">
@@ -44,14 +47,9 @@
 <script lang='ts'>
 import { defineComponent, computed } from 'vue'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
-import { IconShow, IconHide } from '@/icons'
 
 export default defineComponent({
   name: 'GField',
-  components: {
-    IconShow,
-    IconHide,
-  },
   props: {
     label: {
       type: String,

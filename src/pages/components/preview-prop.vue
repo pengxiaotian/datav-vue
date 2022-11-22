@@ -1,6 +1,6 @@
 <template>
   <template v-for="item in config" :key="item.key">
-    <template v-if="!item.config.isHide && judgeDisplay(item)">
+    <template v-if="!item.config.isHide && toggleCol !== item.key && judgeDisplay(item)">
       <preview-prop-item
         v-if="isFlat"
         :key="item.config.component"
@@ -17,7 +17,7 @@
         :inline="item.config.displayMode"
         :flat-value="item.config.flatValue"
       />
-      <template v-else-if="item.children">
+      <template v-else-if="item.children && !item.config.isRange">
         <g-field-collapse
           v-if="item.config.displayMode === 'nest'"
           :label="item.config.alias"
@@ -50,6 +50,8 @@
               v-if="slotProps.item.config.displayMode === 'flat'"
               :label="slotProps.item.config.alias"
               :tooltip="slotProps.item.config.tip"
+              :toggle="!!slotProps.item.config.toggleCol"
+              :model-value="true"
               :level="2"
               :is-flat="true"
             >
@@ -72,6 +74,8 @@
           v-else-if="item.config.displayMode === 'flat'"
           :label="item.config.alias"
           :tooltip="item.config.tip"
+          :toggle="!!item.config.toggleCol"
+          :model-value="true"
           :level="level"
           :is-flat="true"
         >

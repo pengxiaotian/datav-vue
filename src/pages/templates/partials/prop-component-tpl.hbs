@@ -75,6 +75,26 @@
     \{{ pair.value }}
   </n-radio-button>
 </n-radio-group>
+{{else if (eq config.component componentTypes.radioBase)}}
+<n-radio-group
+  {{#if (and judgeEnum config.whichEnum.field)}}
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  {{/if}}
+  v-model:value="{{ getPath path virtualPath }}"
+  size="small"
+>
+  <n-radio
+    v-for="pair in [
+      {{#each config.pairs as | pair |}}
+      {{{pairToTpl pair}}},
+      {{/each}}
+    ]"
+    :key="pair.key"
+    :value="pair.key"
+  >
+    \{{ pair.value }}
+  </n-radio>
+</n-radio-group>
 {{else if (eq config.component componentTypes.slider)}}
 <g-slider
   {{#if (and judgeEnum config.whichEnum.field)}}

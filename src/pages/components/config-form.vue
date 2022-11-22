@@ -10,7 +10,7 @@
       :key="item.key"
       :title="item.path"
       :name="item.key"
-      :class="{ '--disabled': toggleCol === item.key }"
+      :disabled="toggleCol === item.key"
     >
       <n-form
         label-placement="left"
@@ -101,7 +101,7 @@
               <n-input v-model:value="item.config.suffix" />
             </n-form-item>
           </template>
-          <template v-else-if="item.config.component === ComponentType.radio">
+          <template v-else-if="item.config.component === ComponentType.radio || item.config.component === ComponentType.radioBase">
             <n-form-item label="枚举值">
               <n-dynamic-input
                 v-model:value="item.config.pairs"

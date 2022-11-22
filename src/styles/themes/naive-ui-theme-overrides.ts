@@ -186,7 +186,7 @@ const themeOverrides: GlobalThemeOverrides = {
     buttonBorderColor: vars2.borderColor,
     color: '#0000',
     textColor: vars.textColor1,
-    boxShadowFocus: 'var(--box-shadow-active)',
+    boxShadowFocus: 'var(--n-box-shadow-active)',
   },
   Input: {
     fontSizeSmall: '12px',

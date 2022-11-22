@@ -28,6 +28,14 @@
       {{ pair.value }}
     </n-radio-button>
   </n-radio-group>
+  <n-radio-group
+    v-else-if="componentType === componentTypes.radioBase"
+    v-model:value="strValue"
+  >
+    <n-radio v-for="pair in pairs" :key="pair.key" :value="pair.key">
+      {{ pair.value }}
+    </n-radio>
+  </n-radio-group>
   <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"

@@ -47,6 +47,7 @@ export enum ComponentType {
   checkbox = 'checkbox',
   switch = 'switch',
   radio = 'radio',
+  radioBase = 'radioBase',
   color = 'color',
   slider = 'slider',
   sliderRange = 'sliderRange',
