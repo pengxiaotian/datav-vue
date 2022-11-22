@@ -22,7 +22,7 @@ export class China2dArea extends DatavComponent {
       stroke: {
         color: 'rgba(255, 255, 255, 0.2)',
         weight: 1,
-        dashArray: '',
+        dashArray: 'dashed',
       },
     },
     labelStyle: {
@@ -46,10 +46,10 @@ export class China2dArea extends DatavComponent {
       lineHeight: 1.4,
       borderRadius: 5,
       padding: {
+        top: 10,
         bottom: 10,
         left: 20,
         right: 20,
-        top: 10,
       },
       bgColor: 'rgba(6, 75, 199, 0.8)',
     },

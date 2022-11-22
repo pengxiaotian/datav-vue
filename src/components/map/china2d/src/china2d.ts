@@ -13,11 +13,10 @@ export class China2d extends DatavComponent {
   config = {
     global: {
       bgColor: 'rgba(0,0,0,0)',
-      scaleLimit: {
-        min: 0,
-        max: 18,
+      zoom: {
+        range: [0, 18],
+        value: 4.5,
       },
-      zoom: 1,
       center: {
         lng: 108,
         lat: 38,
@@ -33,10 +32,10 @@ export class China2d extends DatavComponent {
       lineHeight: 1.4,
       borderRadius: 5,
       padding: {
+        top: 10,
         bottom: 10,
         left: 20,
         right: 20,
-        top: 10,
       },
       bgColor: 'rgba(6, 75, 199, 0.8)',
     },

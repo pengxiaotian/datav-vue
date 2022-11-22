@@ -14,20 +14,20 @@ export class China2dBubbles extends DatavComponent {
   config = {
     defaultStyle: {
       effectType: 'ripple',
-      size: {
-        min: 5,
-        max: 20,
-      },
+      sizeRange: [5, 20],
+      offset: 5,
       opacity: 0.85,
       speed: 0.2,
     },
     typeSeries: [
       {
-        bubbleType: 'circle',
+        bubbleType: '1',
+        bubbleKey: 'circle',
         fillColor: 'rgba(191, 191, 191, 0.96)',
       },
       {
-        bubbleType: 'circle',
+        bubbleType: '2',
+        bubbleKey: 'circle',
         fillColor: 'rgba(26, 255, 140, 0.81)',
       },
     ],

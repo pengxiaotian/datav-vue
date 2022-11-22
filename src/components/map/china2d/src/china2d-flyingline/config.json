@@ -1,1 +1,587 @@
-[]
+[
+  {
+    "key": "flyinglineStyle",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "飞线样式",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "pairs": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false,
+      "isRange": false
+    },
+    "path": "flyinglineStyle",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "fromColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "起点颜色",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "#0ea7ff",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.fromColor",
+        "virtualPath": ""
+      },
+      {
+        "key": "toColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "终点颜色",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "#4affac",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.toColor",
+        "virtualPath": ""
+      },
+      {
+        "key": "constantSpeed",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "固定速度",
+          "tip": "设置大于 0 时忽略动画时长",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 0,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.constantSpeed",
+        "virtualPath": ""
+      },
+      {
+        "key": "trailLength",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "尾迹长度",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 0.2,
+          "min": 0,
+          "max": 1,
+          "step": 0.1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.trailLength",
+        "virtualPath": ""
+      },
+      {
+        "key": "lineWidth",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞线粗细",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 4,
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.lineWidth",
+        "virtualPath": ""
+      },
+      {
+        "key": "curveness",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "高度比例",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 0,
+          "min": 0,
+          "max": 1,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.curveness",
+        "virtualPath": ""
+      },
+      {
+        "key": "period",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "动画时长",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 2,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "s",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.period",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "fromColor",
+      "toColor",
+      "constantSpeed",
+      "trailLength",
+      "lineWidth",
+      "curveness",
+      "period"
+    ]
+  },
+  {
+    "key": "flareStyle",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "耀斑样式",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "show",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "pairs": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false,
+      "isRange": false
+    },
+    "path": "flareStyle",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "show",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": true,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flareStyle.show",
+        "virtualPath": ""
+      },
+      {
+        "key": "type",
+        "config": {
+          "type": "string",
+          "component": "select",
+          "alias": "类型",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "arrow",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flareStyle.type",
+        "virtualPath": ""
+      },
+      {
+        "key": "color",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "颜色",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "#0eff90",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flareStyle.color",
+        "virtualPath": ""
+      },
+      {
+        "key": "size",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "大小",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 1,
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "px",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flareStyle.size",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "show",
+      "type",
+      "color",
+      "size"
+    ]
+  },
+  {
+    "key": "circleStyle",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "气泡样式",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "show",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "pairs": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false,
+      "isRange": false
+    },
+    "path": "circleStyle",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "show",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": false,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "circleStyle.show",
+        "virtualPath": ""
+      },
+      {
+        "key": "color",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "颜色",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "#a8ebf7",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "circleStyle.color",
+        "virtualPath": ""
+      },
+      {
+        "key": "radius",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "半径",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 20,
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "px",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "circleStyle.radius",
+        "virtualPath": ""
+      },
+      {
+        "key": "speed",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "速率",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 4,
+          "min": 1,
+          "max": 10,
+          "step": 0.1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "circleStyle.speed",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "show",
+      "color",
+      "radius",
+      "speed"
+    ]
+  }
+]
