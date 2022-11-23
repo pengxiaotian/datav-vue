@@ -12,7 +12,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+import { toRef } from 'vue'
 import {
   {{#each selectOpts}}
   {{this}},
@@ -20,24 +20,9 @@ import {
 } from '@/data/select-options'
 import { {{comName}} } from './{{fileName}}'
 
-export default defineComponent({
-  name: 'V{{comName}}Prop',
-  props: {
-    com: {
-      type: Object as PropType<{{comName}}>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: {{comName}}
+}>()
 
-    return {
-      config,
-
-      {{#each selectOpts}}
-      {{this}},
-      {{/each}}
-    }
-  },
-})
+const config = toRef(props.com, 'config')
 </script>

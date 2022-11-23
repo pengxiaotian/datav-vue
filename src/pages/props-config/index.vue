@@ -16,14 +16,14 @@
             <n-input
               v-model:value="classSubPath"
               size="large"
-              placeholder="输入子组件目录"
-              style="width: 150px;"
+              placeholder="子组件, 如: china2d-area"
+              style="width: 200px;"
             />
             <n-select
               v-model:value="ext"
               :options="extOpts"
               size="large"
-              style="width: 90px;"
+              style="width: 110px;"
             />
           </n-input-group>
           <n-button
@@ -101,7 +101,7 @@ export default defineComponent({
   setup() {
     const nMessage = useMessage()
     const classPath = ref('map/china2d')
-    const classSubPath = ref('china2d-area')
+    const classSubPath = ref('')
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')
