@@ -53,10 +53,6 @@ const getComIndex = (coms: DatavComponent[], data: string | DatavComponent) => {
   return coms.findIndex(c => c.id === id)
 }
 
-const getSubComs = (coms: DatavComponent[], parentId?: string) => {
-  return coms.filter(c => c.parentId === parentId)
-}
-
 const confirmSelect = (coms: DatavComponent[], id: string, pid: string, multiple = false, callback?: Function) => {
   for (let i = 0, len = coms.length; i < len; i++) {
     const com = coms[i]
@@ -460,6 +456,9 @@ export const useComStore = defineStore('com', {
 
       this.subComs.splice(toIndx, 0, ...this.subComs.splice(fromIdx, 1))
     },
+    getSubComs(parentId: string) {
+      return this.subComs.filter(c => c.parentId === parentId)
+    },
     async request(projectId: number) {
       try {
         const res = await getComs(projectId)
@@ -551,7 +550,7 @@ export const useComStore = defineStore('com', {
               ocom.hovered = false
               ocom.selected = false
               const ncom = getNewCom(ocom, ocom.parentId)
-              const nSubComs = getSubComs(this.subComs, ocom.id).map(m => getNewCom(m, ncom.id))
+              const nSubComs = this.getSubComs(ocom.id).map(m => getNewCom(m, ncom.id))
               if (ncom.parentId) {
                 const g = findCom(this.coms, ncom.parentId)
                 g.children.push(ncom)

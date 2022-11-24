@@ -176,14 +176,14 @@
 </template>
 
 <script lang="ts" setup>
-import { h, computed, ref, inject, nextTick } from 'vue'
+import { h, computed, ref, inject } from 'vue'
 import { useDialog, useMessage } from 'naive-ui'
 import { IconPlus, IconShow, IconHide, IconCopy, IconEdit, IconDelete, IconDrag, IconWarning } from '@/icons'
 import { supportedSubComs, getSystemSubComs } from '@/data/system-components'
 import { useComStore } from '@/store/com'
-import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
 import { ComType, DatavComponent } from '@/components/_models/datav-component'
+import { loadSubComs } from '@/components/_utils/component-util'
 import { comInjectionKey } from '../config'
 
 const tagColors = [
@@ -200,7 +200,6 @@ const nDialog = useDialog()
 const nMessage = useMessage()
 const com = inject(comInjectionKey)
 const comStore = useComStore()
-const blueprintStore = useBlueprintStore()
 
 const showManagerPopover = ref(false)
 const loading = ref(false)
@@ -244,30 +243,10 @@ const selectTag = (tag: number) => {
 const addSubComs = async () => {
   try {
     loading.value = true
-
-    const ps: Promise<any>[] = []
-    const comIds = []
     const coms = await Promise.all(selectedItems.value.map(m => createComponent(m)))
-    coms.forEach(m => {
-      m.parentId = com.value.id
-      if (m.apis.source) {
-        comIds.push(m.id)
-        ps.push(m.loadData())
-      }
-    })
-    await comStore.addComs(coms)
-
+    await loadSubComs(com.value, coms)
     showManagerPopover.value = false
     selectedItems.value = []
-
-    if (ps.length > 0) {
-      await Promise.all(ps)
-      nextTick(() => {
-        comIds.forEach(id => {
-          blueprintStore.events[id]?.requestData()
-        })
-      })
-    }
   } catch (error) {
     nMessage.error(error.message)
   } finally {
