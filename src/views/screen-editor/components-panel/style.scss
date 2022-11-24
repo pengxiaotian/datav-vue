@@ -209,4 +209,31 @@ $panel-width: 324px;
       }
     }
   }
+
+  .components-single-menu.--wider .components-item.double {
+    .components-item-img {
+      height: 92px;
+    }
+  }
+
+  .components-item-img {
+    .mask {
+      width: 100%;
+      height: 100%;
+      background: rgb(0 0 0 / 30%);
+      text-align: center;
+      cursor: not-allowed;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .datav-icon {
+        font-size: 16px;
+        color: #fff;
+      }
+    }
+  }
 }

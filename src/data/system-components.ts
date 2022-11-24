@@ -148,7 +148,7 @@ export const map: ComDataType = {
   data: [
     {
       name: 'VChina2d',
-      alias: '基础平面地图',
+      alias: '基础平面中国地图',
       img: `${import.meta.env.VITE_APP_CDN}/com/2d-china-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/2d-china-368-208.png`,
       used: true,
@@ -175,10 +175,22 @@ export const map: ComDataType = {
         },
       ],
     }, {
-      name: 'VWorld3d',
-      alias: '3D平面世界地图',
-      img: `${import.meta.env.VITE_APP_CDN}/com/3d-world-332-144.png`,
-      thum: `${import.meta.env.VITE_APP_CDN}/com-thum/3d-world-368-208.png`,
+      name: 'VMap2d',
+      alias: '基础平面地图',
+      img: `${import.meta.env.VITE_APP_CDN}/com/2d-map-664-288.jpg`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com/2d-map-664-288.jpg`,
+      used: false,
+    }, {
+      name: 'VMap3d',
+      alias: '3D平面地图',
+      img: `${import.meta.env.VITE_APP_CDN}/com/3d-map-664-288.jpg`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com/3d-map-664-288.jpg`,
+      used: false,
+    }, {
+      name: 'VEarth3d',
+      alias: '3D地球',
+      img: `${import.meta.env.VITE_APP_CDN}/com/3d-earth-664-288.jpg`,
+      thum: `${import.meta.env.VITE_APP_CDN}/com/3d-earth-664-288.jpg`,
       used: false,
     },
   ],

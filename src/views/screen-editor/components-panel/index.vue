@@ -52,11 +52,24 @@
                         @dragstart="dragStart($event, com.name)"
                         @click="toAddCom(com.name, com.used)"
                       >
-                        <div class="components-item-text">{{ com.alias }}</div>
+                        <div class="components-item-text">
+                          {{ com.alias }}
+                        </div>
                         <div
                           class="components-item-img"
                           :style="`background-image: url(${com.img});`"
-                        ></div>
+                        >
+                          <span v-if="!com.used" class="mask" @click.stop>
+                            <n-tooltip>
+                              <template #trigger>
+                                <n-icon class="datav-icon">
+                                  <IconLock />
+                                </n-icon>
+                              </template>
+                              正在开发中。。。🚀
+                            </n-tooltip>
+                          </span>
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -76,11 +89,24 @@
                     @dragstart="dragStart($event, com.name)"
                     @click="toAddCom(com.name, com.used)"
                   >
-                    <div class="components-item-text">{{ com.alias }}</div>
+                    <div class="components-item-text">
+                      {{ com.alias }}
+                    </div>
                     <div
                       class="components-item-img"
                       :style="`background-image: url(${com.img});`"
-                    ></div>
+                    >
+                      <span v-if="!com.used" class="mask" @click.stop>
+                        <n-tooltip>
+                          <template #trigger>
+                            <n-icon class="datav-icon">
+                              <IconLock />
+                            </n-icon>
+                          </template>
+                          正在开发中。。。🚀
+                        </n-tooltip>
+                      </span>
+                    </div>
                   </li>
                 </ul>
                 <template v-if="cate.data[0].data.length === 0">
@@ -100,7 +126,6 @@
 <script lang='ts'>
 import { defineComponent, ref, computed, nextTick } from 'vue'
 import { cloneDeep } from 'lodash-es'
-import { useMessage } from 'naive-ui'
 
 import 'element-plus/es/components/tabs/style/css'
 import 'element-plus/es/components/tab-pane/style/css'
@@ -112,7 +137,7 @@ import { useBlueprintStore } from '@/store/blueprint'
 import { useComStore } from '@/store/com'
 import { classifications } from '@/data/system-components'
 import { createComponent } from '@/components/datav'
-import { IconSearch, IconBack } from '@/icons'
+import { IconSearch, IconBack, IconLock } from '@/icons'
 
 type CategoryType = typeof classifications[0]
 
@@ -121,11 +146,11 @@ export default defineComponent({
   components: {
     IconSearch,
     IconBack,
+    IconLock,
     ElTabs,
     ElTabPane,
   },
   setup() {
-    const nMessage = useMessage()
     const toolbarStore = useToolbarStore()
     const comStore = useComStore()
     const editorStore = useEditorStore()
@@ -182,8 +207,6 @@ export default defineComponent({
             blueprintStore.events[com.id]?.requestData()
           })
         }
-      } else {
-        nMessage.warning('正在开发中。。。')
       }
     }
 
