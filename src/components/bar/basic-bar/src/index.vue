@@ -19,6 +19,7 @@ import { BarChart } from 'echarts/charts'
 import { GridComponent, TooltipComponent, LegendComponent } from 'echarts/components'
 import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
+import { useEventStore } from '@/store/event'
 import { getAutoValue, getLimitValue, valueFormater } from '@/components/_utils/echarts-util'
 import { BasicBar } from './basic-bar'
 
@@ -43,7 +44,8 @@ export default defineComponent({
   },
   setup(props) {
     const apiStore = useApiStore()
-    const { datavEmit } = useDataCenter(props.com)
+    const eventStore = useEventStore()
+    useDataCenter(props.com)
 
     const dv_data = computed(() => {
       return apiStore.dataMap[props.com.id]?.source ?? []
@@ -294,7 +296,8 @@ export default defineComponent({
     })
 
     const onClick = (params: any) => {
-      datavEmit(
+      eventStore.handleSubVariablesChange(
+        props.com.id,
         'click',
         {
           ...params.data.dataRef,

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { PageVariable } from '@/domains/editor'
 import { getTextParams } from '@/utils/util'
+import { useBlueprintStore } from '@/store/blueprint'
 
 export interface IEventState {
   componentsView: PageVariable['componentsView']
@@ -68,7 +69,7 @@ export const useEventStore = defineStore('event', {
     },
     async setVariables(fields: Record<string, string>, data: Record<string, any>) {
       const res = {}
-      for (const key in fields) {
+      for (const key of Object.keys(fields)) {
         const alias = fields[key] || key
         res[alias] = data[key]
       }
@@ -76,6 +77,24 @@ export const useEventStore = defineStore('event', {
       this.variables = {
         ...this.variables,
         ...res,
+      }
+    },
+    // 订阅的变量发生变化时刷新
+    handleSubVariablesChange(comId: string, eventName: string, data: Record<string, any>) {
+      const eventItem = this.componentsView[comId]?.[eventName]
+      if (!eventItem || !eventItem.enable) {
+        return
+      }
+
+      this.setVariables(eventItem.fields, data)
+
+      const blueprintStore = useBlueprintStore()
+      const sv = this.subscribersView
+      for (const fname of Object.keys(eventItem.fields)) {
+        const key = eventItem.fields[fname] || fname
+        sv[key]?.forEach(comId => {
+          blueprintStore.events[comId]?.requestData()
+        })
       }
     },
   },
