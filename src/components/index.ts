@@ -1,4 +1,6 @@
 import type { App } from 'vue'
+import DatavWrapper from './_internal/datav-wrapper.vue'
+
 import VMainTitle from './text/main-title'
 import VNumberTitleFlop from './text/number-title-flop'
 import VMarquee from './text/marquee'
@@ -41,6 +43,8 @@ const components = [
 ]
 
 const install = (app: App): void => {
+  app.component('DatavWrapper', DatavWrapper)
+
   components.forEach(component => {
     app.use(component)
   })

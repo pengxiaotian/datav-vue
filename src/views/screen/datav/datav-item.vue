@@ -13,7 +13,13 @@
     }"
     class="-datav-com absolute"
   >
-    <component :is="com.name" :com="com" />
+    <component
+      :is="com.name"
+      :com="com"
+      :style="{
+        'pointer-events': 'auto',
+      }"
+    />
   </div>
 </template>
 
