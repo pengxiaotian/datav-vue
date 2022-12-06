@@ -1,6 +1,5 @@
-import { ComType, DatavComponent } from '@/components/_models/datav-component'
+import { ComType, DatavEChartsComponent } from '@/components/_models/datav-component'
 import {
-  ApiType,
   ApiConfigMap, ApiDataConfigMap,
   setApiConfig, setApiData,
 } from '@/components/_models/data-source'
@@ -11,7 +10,7 @@ import { getStaticData } from '@/api/data'
 /**
  * China2dArea
  */
-export class China2dArea extends DatavComponent {
+export class China2dArea extends DatavEChartsComponent {
   config = {
     defaultStyle: {
       fill: {
@@ -26,6 +25,7 @@ export class China2dArea extends DatavComponent {
       },
     },
     labelStyle: {
+      show: true,
       fontFamily: 'Microsoft Yahei',
       fontWeight: 'normal',
       fontSize: 12,
@@ -58,7 +58,7 @@ export class China2dArea extends DatavComponent {
         show: true,
         fillColor: 'rgba(0,192,255,0.6)',
         strokeColor: 'rgba(25,254,48,0.6)',
-        weight: 6,
+        weight: 4,
       },
       clickZoom: {
         show: true,
@@ -98,19 +98,11 @@ export class China2dArea extends DatavComponent {
       }),
     ]
 
-    setApiConfig(this, { description: '地理边界geojson数据接口' })
     setApiConfig(this, {
       fields: Object.assign({}, ...fields),
-      description: '热力值数据接口',
-    }, 'mappingData')
-
-    setApiData(this, {
-      type: ApiType.api,
-      config: {
-        api: 'https://geo.datav.aliyun.com/areas_v2/bound/100000_full.json',
-      },
     })
-    setApiData(this, {}, 'mappingData')
+
+    setApiData(this)
 
     const fileConfig = createFieldConfig({ description: '区域关联id' })
     this.events = {
@@ -142,7 +134,7 @@ export class China2dArea extends DatavComponent {
     try {
       const path = 'map/china2d-area'
       const res = await getStaticData(this.id, path)
-      this.apiData.mappingData.config.data = JSON.stringify(res.data)
+      this.apiData.source.config.data = JSON.stringify(res.data)
     } catch (error) {
       throw error
     }

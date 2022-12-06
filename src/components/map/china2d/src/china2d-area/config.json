@@ -308,7 +308,7 @@
       "displayMode": "nest",
       "features": [],
       "layout": "horizontal",
-      "toggleCol": null,
+      "toggleCol": "show",
       "isHide": false,
       "defaultValue": null,
       "min": 0,
@@ -329,6 +329,37 @@
     "path": "labelStyle",
     "virtualPath": "",
     "children": [
+      {
+        "key": "show",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": true,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "labelStyle.show",
+        "virtualPath": ""
+      },
       {
         "key": "fontFamily",
         "config": {
@@ -486,6 +517,7 @@
       }
     ],
     "cols": [
+      "show",
       "fontFamily",
       "fontWeight",
       "fontSize",
@@ -612,7 +644,7 @@
               "value": "点击区域"
             },
             {
-              "key": "hover",
+              "key": "mousemove",
               "value": "鼠标移入时"
             }
           ],
@@ -1265,7 +1297,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": false,
-              "defaultValue": 6,
+              "defaultValue": 4,
               "min": 0,
               "max": 20,
               "step": 1,

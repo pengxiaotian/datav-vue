@@ -52,6 +52,8 @@
       </g-field>
     </g-field-collapse>
     <g-field-collapse
+      v-model="config.labelStyle.show"
+      :toggle="true"
       label="标注"
     >
       <g-field
@@ -127,7 +129,7 @@
           <n-radio
             v-for="pair in [
               { key: 'click', value: '点击区域' },
-              { key: 'hover', value: '鼠标移入时' },
+              { key: 'mousemove', value: '鼠标移入时' },
             ]"
             :key="pair.key"
             :value="pair.key"
@@ -313,8 +315,8 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   lineStyles,
   fontFamilys,
@@ -322,24 +324,9 @@ import {
 } from '@/data/select-options'
 import { China2dArea } from './index'
 
-export default defineComponent({
-  name: 'VChina2dAreaProp',
-  props: {
-    com: {
-      type: Object as PropType<China2dArea>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: China2dArea
+}>()
 
-    return {
-      config,
-
-      lineStyles,
-      fontFamilys,
-      fontWeights,
-    }
-  },
-})
+const config = toRef(props.com, 'config')
 </script>
