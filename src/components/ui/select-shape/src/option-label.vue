@@ -13,6 +13,8 @@
       <IconShapeEmptyHeart v-else-if="icon === 'shape-empty-heart'" />
       <IconShapeRoundRect v-else-if="icon === 'shape-round-rect'" />
       <IconShapeRect v-else-if="icon === 'shape-rect'" />
+      <IconShapePin v-else-if="icon === 'shape-pin'" />
+      <IconShapeAirplane v-else-if="icon === 'shape-airplane'" />
       <IconHelp v-else />
     </n-icon>
     <span class="g-select-shape-item-text" :title="label">{{ label }}</span>
@@ -34,6 +36,8 @@ import {
   IconShapeEmptyHeart,
   IconShapeRoundRect,
   IconShapeRect,
+  IconShapePin,
+  IconShapeAirplane,
   IconHelp,
 } from '@/icons'
 
@@ -52,6 +56,8 @@ export default defineComponent({
     IconShapeEmptyHeart,
     IconShapeRoundRect,
     IconShapeRect,
+    IconShapePin,
+    IconShapeAirplane,
     IconHelp,
   },
   props: {
