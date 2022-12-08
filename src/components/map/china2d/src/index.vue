@@ -32,12 +32,13 @@ import { useEventStore } from '@/store/event'
 import { China2d, China2dSubType } from './china2d'
 import { DatavEChartsComponent } from '@/components/_models/datav-component'
 import { China2dArea } from './china2d-area/index'
+import { China2dBubbles } from './china2d-bubbles/index'
 
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { GridComponent, TooltipComponent, GeoComponent, VisualMapComponent } from 'echarts/components'
-import { MapChart, HeatmapChart } from 'echarts/charts'
+import { MapChart, EffectScatterChart } from 'echarts/charts'
 import { registerMapAsync } from '@/components/_utils/echarts-util'
 
 use([
@@ -47,7 +48,7 @@ use([
   GeoComponent,
   VisualMapComponent,
   MapChart,
-  HeatmapChart,
+  EffectScatterChart,
 ])
 
 const props = defineProps<{
@@ -234,6 +235,7 @@ const getAreaSerie = (subCom: China2dArea) => {
   }
 
   return {
+    id: subCom.id,
     type: 'map',
     // https://github.com/apache/echarts/issues/18005
     nameProperty: 'name', // 目前只能是 name
@@ -242,6 +244,59 @@ const getAreaSerie = (subCom: China2dArea) => {
     select: {
       disabled: true,
     },
+  }
+}
+
+const getBubbleSerie = (subCom: China2dBubbles) => {
+  let data = getSubComData(subCom.id)
+  const fieldMap = getSubComField(subCom)
+  if (!Array.isArray(data)) {
+    data = [data]
+  }
+
+  const { defaultStyle, typeSeries } = subCom.config
+  const typeMap: Record<string, typeof typeSeries[0]> = {}
+  for (const ts of typeSeries) {
+    typeMap[ts.bubbleType] = ts
+  }
+
+  const list = []
+  for (const item of data) {
+    const ts = typeMap[item[fieldMap.type]] ?? typeSeries[0]
+    list.push({
+      dataRef: item,
+      value: [
+        item[fieldMap.lng],
+        item[fieldMap.lat],
+        item[fieldMap.value],
+      ],
+      symbol: ts.bubbleKey,
+      itemStyle: {
+        color: ts.fillColor,
+      },
+    })
+  }
+
+  return {
+    id: subCom.id,
+    type: 'effectScatter',
+    coordinateSystem: 'geo',
+    symbolSize: (val: number[]) => {
+      const v = val[2]
+      const [min, max] = defaultStyle.sizeRange
+      return v > min ? v > max ? max : v : min
+    },
+    effectType: defaultStyle.effectType,
+    rippleEffect: {
+      number: defaultStyle.number,
+      period: defaultStyle.speed,
+      scale: defaultStyle.offset,
+      brushType: defaultStyle.brushType,
+    },
+    itemStyle: {
+      opacity: defaultStyle.opacity,
+    },
+    data: list,
   }
 }
 
@@ -261,6 +316,8 @@ const option = computed(() => {
       tooltip = getTooltipConfig(subCom as China2dArea)
       areaStyle = getAreaStyle(subCom as China2dArea, i)
       series.push(getAreaSerie(subCom as China2dArea))
+    } else if (subCom.name === China2dSubType.bubbles) {
+      series.push(getBubbleSerie(subCom as China2dBubbles))
     }
   }
 

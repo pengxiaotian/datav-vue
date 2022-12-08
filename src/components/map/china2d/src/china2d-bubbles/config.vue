@@ -13,7 +13,7 @@
         >
           <n-radio
             v-for="pair in [
-              { key: 'ripple', value: '呼吸动效' },
+              { key: 'ripple', value: '涟漪动效' },
             ]"
             :key="pair.key"
             :value="pair.key"
@@ -61,9 +61,29 @@
       >
         <g-slider
           v-model="config.defaultStyle.speed"
-          :min="0"
-          :max="1"
+          :min="0.1"
+          :max="10"
           :step="0.1"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="波纹数量"
+      >
+        <g-input-number
+          v-model="config.defaultStyle.number"
+          :min="1"
+          :max="10"
+          :step="1"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="绘制方式"
+      >
+        <g-select-image
+          v-model="config.defaultStyle.brushType"
+          :images="brushTypes"
         />
       </g-field>
     </g-field-collapse>
@@ -93,7 +113,7 @@
         >
           <g-select-shape
             v-model="slotProps.item.bubbleKey"
-            :shapes="legendIcons"
+            :shapes="bubbleTypes"
           />
         </g-field>
         <g-field
@@ -109,38 +129,21 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
-import {
-  legendIcons,
-} from '@/data/select-options'
-import { China2dBubbles } from './index'
+<script lang='ts' setup>
+import { toRef } from 'vue'
+import { China2dBubbles, bubbleTypes, brushTypes } from './index'
 
-export default defineComponent({
-  name: 'VChina2dBubblesProp',
-  props: {
-    com: {
-      type: Object as PropType<China2dBubbles>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: China2dBubbles
+}>()
 
-    const handleAddTypeSeriesItem = () => {
-      return {
-        bubbleType: '1',
-        bubbleKey: 'circle',
-        fillColor: 'rgba(198, 236, 238, 1)',
-      }
-    }
+const config = toRef(props.com, 'config')
 
-    return {
-      config,
-
-      legendIcons,
-      handleAddTypeSeriesItem,
-    }
-  },
-})
+const handleAddTypeSeriesItem = () => {
+  return {
+    bubbleType: '1',
+    bubbleKey: 'circle',
+    fillColor: 'rgba(198, 236, 238, 1)',
+  }
+}
 </script>
