@@ -1,44 +1,359 @@
 <template>
-  <div class="datav-wrapper">
-    China2d
+  <datav-wrapper :attr="com.attr">
+    <v-chart
+      ref="chartRef"
+      autoresize
+      :option="option"
+      :update-options="updateOptions"
+      @mousedown="handleMousedown"
+      @mouseup="handleMouseup"
+      @click="handleClick"
+      @mouseover="handleMouseover"
+      @mouseout="handleMouseout"
+    />
 
-    <div v-for="sc in com.children" :key="sc.id">
-      {{ sc.id }}
+    <div class="subcoms-box">
+      <component
+        :is="sc.name"
+        v-for="sc in subComs"
+        :key="sc.id"
+        :com="sc"
+      />
     </div>
-  </div>
+  </datav-wrapper>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, computed, toRef } from 'vue'
+<script lang='ts' setup>
+import { computed, toRef, ref, shallowRef, onBeforeMount } from 'vue'
 import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
-import { China2d } from './china2d'
+import { useComStore } from '@/store/com'
+import { useEventStore } from '@/store/event'
+import { China2d, China2dSubType } from './china2d'
+import { DatavEChartsComponent } from '@/components/_models/datav-component'
+import { China2dArea } from './china2d-area/index'
 
-export default defineComponent({
-  name: 'VChina2d',
-  props: {
-    com: {
-      type: Object as PropType<China2d>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const apiStore = useApiStore()
-    useDataCenter(props.com)
+import VChart from 'vue-echarts'
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { GridComponent, TooltipComponent, GeoComponent, VisualMapComponent } from 'echarts/components'
+import { MapChart, HeatmapChart } from 'echarts/charts'
+import { registerMapAsync } from '@/components/_utils/echarts-util'
 
-    const dv_data = computed(() => {
-      return apiStore.dataMap[props.com.id]?.source ?? {}
-    })
+use([
+  CanvasRenderer,
+  GridComponent,
+  TooltipComponent,
+  GeoComponent,
+  VisualMapComponent,
+  MapChart,
+  HeatmapChart,
+])
 
-    const dv_field = computed(() => {
-      return getFieldMap(props.com.apis.source.fields)
-    })
+const props = defineProps<{
+  com: China2d
+}>()
 
-    const config = toRef(props.com, 'config')
-    const attr = toRef(props.com, 'attr')
+const apiStore = useApiStore()
+const comStore = useComStore()
+const eventStore = useEventStore()
+useDataCenter(props.com)
 
+const isLoadMap = ref(false)
+
+const updateOptions = {
+  replaceMerge: ['series'],
+}
+
+const chartRef = shallowRef(null)
+const config = toRef(props.com, 'config')
+
+const dv_data = computed(() => {
+  return apiStore.dataMap[props.com.id]?.source ?? {}
+})
+
+const dv_field = computed(() => {
+  return getFieldMap(props.com.apis.source.fields)
+})
+
+const subComs = computed<DatavEChartsComponent[]>(() => {
+  return comStore.subComs.filter(c => c.parentId === props.com.id && !c.hided)
+})
+
+const chartData = computed(() => {
+  const { zoom, center } = config.value.global
+  const data = Array.isArray(dv_data.value) ? dv_data.value[0] : dv_data.value
+  if (data) {
     return {
+      zoom: data[dv_field.value.zoom] ?? zoom.value,
+      lng: data[dv_field.value.lng] ?? center.lat,
+      lat: data[dv_field.value.lat] ?? center.lng,
     }
-  },
+  }
+
+  return {
+    zoom: zoom.value,
+    lng: center.lng,
+    lat: center.lat,
+  }
+})
+
+const getSubComData = (comId: string) => {
+  return apiStore.dataMap[comId]?.source ?? []
+}
+
+const getSubComField = (com: DatavEChartsComponent) => {
+  return getFieldMap(com.apis.source.fields)
+}
+
+const getTooltipConfig = (subCom: China2dArea) => {
+  const tt = subCom.config.tooltip
+  if (tt.show) {
+    const tooltip = tt.styleType === 'parent'
+      ? config.value.tooltip
+      : tt
+    const fieldMap = getSubComField(subCom)
+    return {
+      show: true,
+      trigger: 'item',
+      triggerOn: tt.eventType,
+      textStyle: {
+        ...tooltip.textStyle,
+        lineHeight: tooltip.lineHeight,
+      },
+      padding: [
+        tooltip.padding.top,
+        tooltip.padding.right,
+        tooltip.padding.bottom,
+        tooltip.padding.left,
+      ],
+      backgroundColor: tooltip.bgColor,
+      borderWidth: 0,
+      extraCssText: `border-radius: ${tooltip.borderRadius}px;`,
+      formatter: (params: any) => {
+        if (tt.infoField && params.data) {
+          const txt = params.data[fieldMap.info]
+          if (txt) {
+            return txt
+          }
+        }
+        const param = Array.isArray(params) ? params[0] : params
+        return `名称: ${param.name}<br>数值: ${param.value}`
+      },
+    }
+  }
+
+  return {
+    show: false,
+  }
+}
+
+const getAreaStyle = (subCom: China2dArea, index: number) => {
+  let data = getSubComData(subCom.id)
+  const fieldMap = getSubComField(subCom)
+  if (!Array.isArray(data)) {
+    data = [data]
+  }
+
+  let min = 0, max = 1
+  for (const item of data) {
+    const val = item[fieldMap.value]
+    if (min > val) {
+      min = val
+    } else if (max < val) {
+      max = val
+    }
+  }
+
+  const { fill, stroke } = subCom.config.defaultStyle
+  const { labelStyle, interactive } = subCom.config
+  const visualMap = {
+    show: false,
+    min,
+    max,
+    realtime: false,
+    seriesIndex: index,
+    inRange: {
+      color: [fill.minFillColor, fill.maxFillColor],
+    },
+  }
+
+  const itemStyle = {
+    areaColor: fill.fillColor,
+    borderType: stroke.dashArray,
+    borderColor: stroke.color,
+    borderWidth: stroke.weight,
+  }
+
+  const label = {
+    show: labelStyle.show,
+    color: labelStyle.color,
+    fontFamily: labelStyle.fontFamily,
+    fontSize: labelStyle.fontSize,
+    textShadowColor: labelStyle.shadowColor,
+    textShadowBlur: 2,
+  }
+
+  const emphasis = {
+    disabled: !interactive.isHover.show,
+    itemStyle: {
+      areaColor: interactive.isHover.fillColor,
+      borderType: 'solid',
+      borderColor: interactive.isHover.strokeColor,
+      borderWidth: interactive.isHover.weight,
+    },
+    label: {
+      color: labelStyle.color,
+    },
+  }
+
+  return {
+    visualMap,
+    itemStyle,
+    label,
+    emphasis,
+  }
+}
+
+const getAreaSerie = (subCom: China2dArea) => {
+  let data = getSubComData(subCom.id)
+  const fieldMap = getSubComField(subCom)
+  if (!Array.isArray(data)) {
+    data = [data]
+  }
+
+  const list = []
+  for (const item of data) {
+    list.push({
+      area_id: item[fieldMap.area_id],
+      name: item[fieldMap.name],
+      value: item[fieldMap.value],
+      info: item[fieldMap.info],
+      dataRef: item,
+    })
+  }
+
+  return {
+    type: 'map',
+    // https://github.com/apache/echarts/issues/18005
+    nameProperty: 'name', // 目前只能是 name
+    data: list,
+    geoIndex: 0,
+    select: {
+      disabled: true,
+    },
+  }
+}
+
+const option = computed(() => {
+  if (!isLoadMap.value) {
+    return {}
+  }
+
+  let tooltip = { show: false }
+  let areaStyle: any = {}
+  const series = []
+
+  const { global, interactive } = config.value
+  for (let i = 0, len = subComs.value.length; i < len; i++) {
+    const subCom = subComs.value[i]
+    if (subCom.name === China2dSubType.area) {
+      tooltip = getTooltipConfig(subCom as China2dArea)
+      areaStyle = getAreaStyle(subCom as China2dArea, i)
+      series.push(getAreaSerie(subCom as China2dArea))
+    }
+  }
+
+  const opts = {
+    backgroundColor: global.bgColor,
+    geo: {
+      map: 'China',
+      roam: interactive.scrollWheelZoom && interactive.dragging
+        ? true : interactive.scrollWheelZoom
+          ? 'scale' : interactive.dragging
+            ? 'move' : false,
+      silent: !interactive.isInteractive,
+      scaleLimit: {
+        min: global.zoom.range[0],
+        max: global.zoom.range[1],
+      },
+      center: [chartData.value.lng, chartData.value.lat],
+      zoom: chartData.value.zoom,
+      itemStyle: areaStyle.itemStyle ?? {
+        areaColor: '#0000',
+        borderWidth: 0,
+      },
+      label: areaStyle.label,
+      emphasis: areaStyle.emphasis,
+    },
+    visualMap: areaStyle.visualMap,
+    tooltip,
+    series,
+  }
+  return opts
+})
+
+const commonProcess = (eventName: string, params: any) => {
+  for (const subCom of subComs.value) {
+    if (subCom.events[eventName]) {
+      eventStore.handleSubVariablesChange(subCom.id, eventName,
+        {
+          ...(params.data ? params.data.dataRef : {}),
+          name: params.name,
+        })
+    }
+  }
+}
+
+const isMove = ref(false)
+const handleMousedown = () => {
+  chartRef.value.chart.on('mousemove', () => {
+    chartRef.value.chart.off('mousemove')
+    if (!isMove.value) {
+      isMove.value = true
+      const geo = chartRef.value.getOption().geo[0]
+      eventStore.handleSubVariablesChange(
+        props.com.id,
+        'map-move',
+        {
+          lng: geo.center[0],
+          lat: geo.center[1],
+          zoom: geo.zoom,
+        })
+    }
+  })
+}
+
+const handleMouseup = () => {
+  chartRef.value.chart.off('mousemove')
+  if (isMove.value) {
+    isMove.value = false
+    const geo = chartRef.value.getOption().geo[0]
+    eventStore.handleSubVariablesChange(
+      props.com.id,
+      'map-moveend',
+      {
+        lng: geo.center[0],
+        lat: geo.center[1],
+        zoom: geo.zoom,
+      })
+  }
+}
+
+const handleClick = (params: any) => {
+  commonProcess('click', params)
+}
+
+const handleMouseover = (params: any) => {
+  commonProcess('mouseover', params)
+}
+
+const handleMouseout = (params: any) => {
+  commonProcess('mouseout', params)
+}
+
+onBeforeMount(async () => {
+  await registerMapAsync('China')
+  isLoadMap.value = true
 })
 </script>

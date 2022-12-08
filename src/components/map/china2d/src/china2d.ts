@@ -1,21 +1,23 @@
-import { DatavComponent } from '@/components/_models/datav-component'
+import { DatavEChartsComponent } from '@/components/_models/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
   setApiConfig, setApiData,
 } from '@/components/_models/data-source'
 import { createField } from '@/components/_models/data-field'
 import { DataEventConfig } from '@/components/_models/data-event'
+import { loadSubComs } from '@/components/_utils/component-util'
+import { China2dArea } from './china2d-area'
 
 /**
  * China2d
  */
-export class China2d extends DatavComponent {
+export class China2d extends DatavEChartsComponent {
   config = {
     global: {
       bgColor: 'rgba(0,0,0,0)',
       zoom: {
         range: [0, 18],
-        value: 4.5,
+        value: 1.5,
       },
       center: {
         lng: 108,
@@ -94,18 +96,27 @@ export class China2d extends DatavComponent {
     }
     this.actions = {}
 
-    this.children = []
-
     return this
   }
 
   async loadData() {
     try {
       this.apiData.source.config.data = '[]'
+      this.loadSubComs()
     } catch (error) {
       throw error
     }
   }
+
+  async loadSubComs() {
+    await loadSubComs(this, [new China2dArea()])
+  }
 }
 
 export default China2d
+
+export enum China2dSubType {
+  area = 'VChina2dArea',
+  bubbles = 'VChina2dBubbles',
+  flyingline = 'VChina2dFlyingline'
+}

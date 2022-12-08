@@ -9,7 +9,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, computed, toRef, ref, onMounted, watch } from 'vue'
+import { defineComponent, PropType, computed, toRef, shallowRef, onMounted, watch } from 'vue'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -40,6 +40,10 @@ export default defineComponent({
     const apiStore = useApiStore()
     useDataCenter(props.com)
 
+    const config = toRef(props.com, 'config')
+    const attr = toRef(props.com, 'attr')
+    const chartRef = shallowRef(null)
+
     const dv_data = computed(() => {
       return apiStore.dataMap[props.com.id]?.source ?? []
     })
@@ -47,11 +51,6 @@ export default defineComponent({
     const dv_field = computed(() => {
       return getFieldMap(props.com.apis.source.fields)
     })
-
-    const config = toRef(props.com, 'config')
-    const attr = toRef(props.com, 'attr')
-
-    const chartRef = ref(null)
 
     const wrapperStyle = computed(() => {
       return {
