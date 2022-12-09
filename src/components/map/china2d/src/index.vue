@@ -281,11 +281,6 @@ const getBubbleSerie = (subCom: China2dBubbles) => {
     id: subCom.id,
     type: 'effectScatter',
     coordinateSystem: 'geo',
-    symbolSize: (val: number[]) => {
-      const v = val[2]
-      const [min, max] = defaultStyle.sizeRange
-      return v > min ? v > max ? max : v : min
-    },
     effectType: defaultStyle.effectType,
     rippleEffect: {
       number: defaultStyle.number,
@@ -293,6 +288,12 @@ const getBubbleSerie = (subCom: China2dBubbles) => {
       scale: defaultStyle.offset,
       brushType: defaultStyle.brushType,
     },
+    symbolSize: (val: number[]) => {
+      const v = val[2]
+      const [min, max] = defaultStyle.sizeRange
+      return v > min ? v > max ? max : v : min
+    },
+    symbolSize2: defaultStyle.sizeRange, // 无实际意义，方便 vue watch
     itemStyle: {
       opacity: defaultStyle.opacity,
     },

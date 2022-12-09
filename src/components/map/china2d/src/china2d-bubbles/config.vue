@@ -70,7 +70,7 @@
         :level="2"
         label="波纹数量"
       >
-        <g-input-number
+        <g-slider
           v-model="config.defaultStyle.number"
           :min="1"
           :max="10"

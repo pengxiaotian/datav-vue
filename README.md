@@ -149,7 +149,7 @@ main-title
 
 #### 使用工具
 
-> 其中 `config.vue` 和 `config.json` 文件，可以在 `development` 模式下，通过访问 `http://localhost:9090/#/dev/props-config` 配置生成。
+> 其中 `config.vue` 和 `config.json` 文件，可以在 `development` 模式下，通过访问 `http://localhost:9000/#/dev/props-config` 配置生成。
 
 - 工具预览
 ![prop-config](./demo/prop-config.png)

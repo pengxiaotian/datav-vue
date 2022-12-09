@@ -230,7 +230,7 @@
         "key": "number",
         "config": {
           "type": "number",
-          "component": "number",
+          "component": "slider",
           "alias": "波纹数量",
           "tip": "",
           "displayMode": "single",
