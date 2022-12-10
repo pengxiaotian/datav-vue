@@ -138,7 +138,7 @@
                         "optional": true
                     }
                 },
-                "render": "render",
+                "handler": "render",
                 "description": "",
                 "useAutoUpdate": false,
                 "autoUpdate": 1
@@ -421,7 +421,7 @@
                         "optional": false
                     }
                 },
-                "render": "render",
+                "handler": "render",
                 "description": "基本柱状图接口",
                 "useAutoUpdate": false,
                 "autoUpdate": 1
