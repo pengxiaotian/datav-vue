@@ -57,13 +57,14 @@
       </g-field>
       <g-field
         :level="2"
-        label="动效速度"
+        label="动画时长"
       >
         <g-slider
-          v-model="config.defaultStyle.speed"
+          v-model="config.defaultStyle.period"
           :min="0.1"
           :max="10"
           :step="0.1"
+          suffix="s"
         />
       </g-field>
       <g-field

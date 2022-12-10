@@ -17,7 +17,7 @@ export class China2dBubbles extends DatavComponent {
       sizeRange: [5, 20],
       offset: 5,
       opacity: 0.85,
-      speed: 4,
+      period: 4,
       number: 3,
       brushType: 'stroke',
     },
