@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Sync to Gitee
-      uses: wearerequired/git-mirror-action@master
+      uses: wearerequired/git-mirror-action@1.2.0
       env:
         SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
       with:
@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Build Gitee Pages
-        uses: yanglbme/gitee-pages-action@main
+        uses: yanglbme/gitee-pages-action@1.4.1
         with:
           gitee-username: pengxiaotian
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
