@@ -31,7 +31,7 @@ export function getLanguage(): string {
  * 前提是该语言文件已经加载好了，否则请使用 loadLocaleMessages
  */
 export function setLanguage(locale: string) {
-  i18n.global.locale.value = locale
+  i18n.global.locale.value = locale as any
   document.documentElement.lang = locale
 }
 
