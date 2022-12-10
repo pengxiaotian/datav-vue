@@ -20,7 +20,7 @@ import {
   echartsLablePositions,
   animationEasings,
   selectSuggests,
-  legendIcons,
+  echartIcons,
   orients,
   axisTypes,
   valueFormats,
@@ -29,7 +29,7 @@ import {
 } from '@/data/select-options'
 
 // 用于生成模板
-export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'selectSuggests', 'legendIcons', 'orients', 'axisTypes', 'valueFormats', 'timeFormats', 'imageTypes']
+export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'selectSuggests', 'echartIcons', 'orients', 'axisTypes', 'valueFormats', 'timeFormats', 'imageTypes']
 
 export enum PropDataType {
   unknown = 'unknown',
@@ -71,7 +71,7 @@ export enum ComponentType {
   echartsLablePosition = 'echartsLablePosition',
   animationEasing = 'animationEasing',
   selectSuggest = 'selectSuggest',
-  legendIcon = 'legendIcon',
+  echartIcon = 'echartIcon',
   orient = 'orient',
   axisType = 'axisType',
   valueFormat = 'valueFormat',
@@ -314,8 +314,8 @@ export const getSelectedOptions = (type: ComponentType) => {
     return animationEasings
   }
 
-  if (type === ComponentType.legendIcon) {
-    return legendIcons
+  if (type === ComponentType.echartIcon) {
+    return echartIcons
   }
 
   if (type === ComponentType.selectSuggest) {

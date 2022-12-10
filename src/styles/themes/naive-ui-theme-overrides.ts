@@ -11,7 +11,7 @@ const vars: Partial<GlobalTheme['common']> = {
   infoColor: '#90a0ae',
   successColor: '#50e3c2',
 
-  textColor1: '#bcc9d4',
+  textColor1: '#ffffff',
 
   borderColor: '#3a4659',
   borderRadius: '0',

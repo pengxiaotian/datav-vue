@@ -402,7 +402,7 @@
             "key": "bubbleKey",
             "config": {
               "type": "string",
-              "component": "legendIcon",
+              "component": "echartIcon",
               "alias": "气泡类型",
               "tip": "",
               "displayMode": "single",

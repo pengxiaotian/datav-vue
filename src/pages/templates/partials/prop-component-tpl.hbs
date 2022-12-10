@@ -183,7 +183,7 @@
   label="{{config.alias}}"
   {{/if}}
 />
-{{else if (eq config.component componentTypes.legendIcon)}}
+{{else if (eq config.component componentTypes.echartIcon)}}
 <g-select-shape
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"

@@ -135,7 +135,7 @@ export const legendLocations = [
   { id: 'bottom-right', value: '底部居右' },
 ]
 
-export const legendIcons = [
+export const echartIcons = [
   { id: 'auto', value: '自适应', icon: 'shape-auto' },
   { id: 'circle', value: '圆形', icon: 'shape-circle' },
   { id: 'rect', value: '矩形', icon: 'shape-rect' },
