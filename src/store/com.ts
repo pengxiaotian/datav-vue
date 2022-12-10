@@ -483,6 +483,7 @@ export const useComStore = defineStore('com', {
           if (com.type === ComType.subCom) {
             this.subComs = this.subComs.filter(m => !ids.includes(m.id))
           } else {
+            this.subComs = this.subComs.filter(m => !ids.includes(m.parentId))
             this.removes(ids, com.parentId)
           }
         } else {

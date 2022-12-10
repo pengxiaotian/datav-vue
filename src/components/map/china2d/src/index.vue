@@ -33,12 +33,13 @@ import { China2d, China2dSubType } from './china2d'
 import { DatavEChartsComponent } from '@/components/_models/datav-component'
 import { China2dArea } from './china2d-area/index'
 import { China2dBubbles } from './china2d-bubbles/index'
+import { China2dFlyingline, flareIcons } from './china2d-flyingline/index'
 
 import VChart from 'vue-echarts'
-import { use } from 'echarts/core'
+import { use, graphic } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { GridComponent, TooltipComponent, GeoComponent, VisualMapComponent } from 'echarts/components'
-import { MapChart, EffectScatterChart } from 'echarts/charts'
+import { MapChart, EffectScatterChart, LinesChart } from 'echarts/charts'
 import { registerMapAsync } from '@/components/_utils/echarts-util'
 
 use([
@@ -49,6 +50,7 @@ use([
   VisualMapComponent,
   MapChart,
   EffectScatterChart,
+  LinesChart,
 ])
 
 const props = defineProps<{
@@ -237,6 +239,7 @@ const getAreaSerie = (subCom: China2dArea) => {
   return {
     id: subCom.id,
     type: 'map',
+    zlevel: 1,
     // https://github.com/apache/echarts/issues/18005
     nameProperty: 'name', // 目前只能是 name
     data: list,
@@ -264,7 +267,6 @@ const getBubbleSerie = (subCom: China2dBubbles) => {
   for (const item of data) {
     const ts = typeMap[item[fieldMap.type]] ?? typeSeries[0]
     list.push({
-      dataRef: item,
       value: [
         item[fieldMap.lng],
         item[fieldMap.lat],
@@ -281,10 +283,11 @@ const getBubbleSerie = (subCom: China2dBubbles) => {
     id: subCom.id,
     type: 'effectScatter',
     coordinateSystem: 'geo',
+    zlevel: 2,
     effectType: defaultStyle.effectType,
     rippleEffect: {
       number: defaultStyle.number,
-      period: defaultStyle.speed,
+      period: defaultStyle.period,
       scale: defaultStyle.offset,
       brushType: defaultStyle.brushType,
     },
@@ -299,6 +302,85 @@ const getBubbleSerie = (subCom: China2dBubbles) => {
     },
     data: list,
   }
+}
+
+const getFlyinglineSerie = (subCom: China2dFlyingline) => {
+  let data = getSubComData(subCom.id)
+  const fieldMap = getSubComField(subCom)
+  if (!Array.isArray(data)) {
+    data = [data]
+  }
+
+  const { flyinglineStyle, flareStyle } = subCom.config
+  const list = []
+  for (const item of data) {
+    list.push({
+      coords: [
+        item[fieldMap.from].split(','),
+        item[fieldMap.to].split(','),
+      ],
+    })
+  }
+
+  const flyline = {
+    id: `${subCom.id}_1`,
+    name: subCom.id,
+    type: 'lines',
+    coordinateSystem: 'geo',
+    zlevel: 2,
+    effect: {
+      show: true,
+      period: flyinglineStyle.period,
+      constantSpeed: flyinglineStyle.constantSpeed,
+      trailLength: flyinglineStyle.trailLength,
+      symbol: 'circle',
+      symbolSize: flyinglineStyle.trailSize,
+    },
+    lineStyle: {
+      width: flyinglineStyle.lineWidth,
+      opacity: flyinglineStyle.opacity,
+      curveness: flyinglineStyle.curveness,
+      color: new graphic.LinearGradient(0, 0, 0, 1, [
+        { offset: 0, color: flyinglineStyle.fromColor },
+        { offset: flyinglineStyle.k, color: flyinglineStyle.toColor  },
+        { offset: 1, color: '#0000'  },
+      ]),
+    },
+    data: list,
+  }
+
+  if (flareStyle.show) {
+    return [
+      flyline,
+      {
+        id: `${subCom.id}_2`,
+        name: subCom.id,
+        type: 'lines',
+        coordinateSystem: 'geo',
+        zlevel: 2,
+        effect: {
+          show: true,
+          period: flyinglineStyle.period,
+          constantSpeed: flyinglineStyle.constantSpeed,
+          trailLength: 0,
+          // 修改这个不能立即生效??
+          symbol: flareIcons[flareStyle.type]
+            ? flareIcons[flareStyle.type]
+            : flareStyle.type,
+          symbolSize: flareStyle.size,
+          color: flareStyle.color,
+        },
+        lineStyle: {
+          width: 0,
+          opacity: 0,
+          curveness: flyinglineStyle.curveness,
+        },
+        data: list,
+      },
+    ]
+  }
+
+  return [flyline]
 }
 
 const option = computed(() => {
@@ -319,6 +401,8 @@ const option = computed(() => {
       series.push(getAreaSerie(subCom as China2dArea))
     } else if (subCom.name === China2dSubType.bubbles) {
       series.push(getBubbleSerie(subCom as China2dBubbles))
+    } else if (subCom.name === China2dSubType.flyingline) {
+      series.push(...getFlyinglineSerie(subCom as China2dFlyingline))
     }
   }
 

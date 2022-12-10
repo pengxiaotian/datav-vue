@@ -25,7 +25,7 @@ export default ({ mode }: ConfigEnv) => {
     ],
     server: {
       host: '0.0.0.0',
-      port: 9000,
+      port: 9096,
     },
     resolve: {
       alias: {

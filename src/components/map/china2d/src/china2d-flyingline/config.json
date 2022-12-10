@@ -93,21 +93,21 @@
         "virtualPath": ""
       },
       {
-        "key": "constantSpeed",
+        "key": "k",
         "config": {
           "type": "number",
           "component": "slider",
-          "alias": "固定速度",
-          "tip": "设置大于 0 时忽略动画时长",
+          "alias": "飞线渐变",
+          "tip": "",
           "displayMode": "single",
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
           "isHide": false,
-          "defaultValue": 0,
+          "defaultValue": 1,
           "min": 0,
-          "max": 100,
-          "step": 1,
+          "max": 1,
+          "step": 0.01,
           "InfiniteMin": false,
           "InfiniteMax": false,
           "suffix": "",
@@ -120,7 +120,7 @@
           "flatValue": false,
           "isRange": false
         },
-        "path": "flyinglineStyle.constantSpeed",
+        "path": "flyinglineStyle.k",
         "virtualPath": ""
       },
       {
@@ -128,7 +128,7 @@
         "config": {
           "type": "number",
           "component": "slider",
-          "alias": "尾迹长度",
+          "alias": "飞线长度",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -155,7 +155,7 @@
         "virtualPath": ""
       },
       {
-        "key": "lineWidth",
+        "key": "trailSize",
         "config": {
           "type": "number",
           "component": "slider",
@@ -166,8 +166,132 @@
           "layout": "horizontal",
           "toggleCol": "",
           "isHide": false,
+          "defaultValue": 2,
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.trailSize",
+        "virtualPath": ""
+      },
+      {
+        "key": "curveness",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞线曲率",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": -0.3,
+          "min": -1,
+          "max": 1,
+          "step": 0.01,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.curveness",
+        "virtualPath": ""
+      },
+      {
+        "key": "constantSpeed",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞行速度",
+          "tip": "设置大于 0 时忽略动画时长",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 50,
+          "min": 0,
+          "max": 500,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.constantSpeed",
+        "virtualPath": ""
+      },
+      {
+        "key": "period",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞行时长",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
           "defaultValue": 4,
-          "min": 1,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "s",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.period",
+        "virtualPath": ""
+      },
+      {
+        "key": "lineWidth",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "轨迹粗细",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 1,
+          "min": 0,
           "max": 20,
           "step": 1,
           "InfiniteMin": false,
@@ -186,11 +310,11 @@
         "virtualPath": ""
       },
       {
-        "key": "curveness",
+        "key": "opacity",
         "config": {
           "type": "number",
           "component": "slider",
-          "alias": "高度比例",
+          "alias": "轨迹透明度",
           "tip": "",
           "displayMode": "single",
           "features": [],
@@ -200,7 +324,7 @@
           "defaultValue": 0,
           "min": 0,
           "max": 1,
-          "step": 1,
+          "step": 0.01,
           "InfiniteMin": false,
           "InfiniteMax": false,
           "suffix": "",
@@ -213,49 +337,21 @@
           "flatValue": false,
           "isRange": false
         },
-        "path": "flyinglineStyle.curveness",
-        "virtualPath": ""
-      },
-      {
-        "key": "period",
-        "config": {
-          "type": "number",
-          "component": "slider",
-          "alias": "动画时长",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": 2,
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "s",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false,
-          "isRange": false
-        },
-        "path": "flyinglineStyle.period",
+        "path": "flyinglineStyle.opacity",
         "virtualPath": ""
       }
     ],
     "cols": [
       "fromColor",
       "toColor",
-      "constantSpeed",
+      "k",
       "trailLength",
-      "lineWidth",
+      "trailSize",
       "curveness",
-      "period"
+      "constantSpeed",
+      "period",
+      "lineWidth",
+      "opacity"
     ]
   },
   {
@@ -324,15 +420,15 @@
         "key": "type",
         "config": {
           "type": "string",
-          "component": "select",
+          "component": "legendIcon",
           "alias": "类型",
-          "tip": "",
+          "tip": "修改此选项不会立即生效, 可以刷新组件或者在预览页查看",
           "displayMode": "single",
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
           "isHide": false,
-          "defaultValue": "arrow",
+          "defaultValue": "circle",
           "min": 0,
           "max": 100,
           "step": 1,
@@ -419,169 +515,6 @@
       "type",
       "color",
       "size"
-    ]
-  },
-  {
-    "key": "circleStyle",
-    "config": {
-      "type": "object",
-      "component": "none",
-      "alias": "气泡样式",
-      "tip": "",
-      "displayMode": "nest",
-      "features": [],
-      "layout": "horizontal",
-      "toggleCol": "show",
-      "isHide": false,
-      "defaultValue": null,
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "InfiniteMin": false,
-      "InfiniteMax": false,
-      "suffix": "",
-      "enums": [],
-      "pairs": [],
-      "whichEnum": {
-        "field": "",
-        "value": ""
-      },
-      "flatValue": false,
-      "isRange": false
-    },
-    "path": "circleStyle",
-    "virtualPath": "",
-    "children": [
-      {
-        "key": "show",
-        "config": {
-          "type": "boolean",
-          "component": "switch",
-          "alias": "",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": false,
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false,
-          "isRange": false
-        },
-        "path": "circleStyle.show",
-        "virtualPath": ""
-      },
-      {
-        "key": "color",
-        "config": {
-          "type": "string",
-          "component": "color",
-          "alias": "颜色",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": "#a8ebf7",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false,
-          "isRange": false
-        },
-        "path": "circleStyle.color",
-        "virtualPath": ""
-      },
-      {
-        "key": "radius",
-        "config": {
-          "type": "number",
-          "component": "slider",
-          "alias": "半径",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": 20,
-          "min": 0,
-          "max": 30,
-          "step": 1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "px",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false,
-          "isRange": false
-        },
-        "path": "circleStyle.radius",
-        "virtualPath": ""
-      },
-      {
-        "key": "speed",
-        "config": {
-          "type": "number",
-          "component": "slider",
-          "alias": "速率",
-          "tip": "",
-          "displayMode": "single",
-          "features": [],
-          "layout": "horizontal",
-          "toggleCol": "",
-          "isHide": false,
-          "defaultValue": 4,
-          "min": 1,
-          "max": 10,
-          "step": 0.1,
-          "InfiniteMin": false,
-          "InfiniteMax": false,
-          "suffix": "",
-          "enums": [],
-          "pairs": [],
-          "whichEnum": {
-            "field": "",
-            "value": ""
-          },
-          "flatValue": false,
-          "isRange": false
-        },
-        "path": "circleStyle.speed",
-        "virtualPath": ""
-      }
-    ],
-    "cols": [
-      "show",
-      "color",
-      "radius",
-      "speed"
     ]
   }
 ]

@@ -21,19 +21,18 @@
       </g-field>
       <g-field
         :level="2"
-        tooltip="设置大于 0 时忽略动画时长"
-        label="固定速度"
+        label="飞线渐变"
       >
         <g-slider
-          v-model="config.flyinglineStyle.constantSpeed"
+          v-model="config.flyinglineStyle.k"
           :min="0"
-          :max="100"
-          :step="1"
+          :max="1"
+          :step="0.01"
         />
       </g-field>
       <g-field
         :level="2"
-        label="尾迹长度"
+        label="飞线长度"
       >
         <g-slider
           v-model="config.flyinglineStyle.trailLength"
@@ -47,26 +46,38 @@
         label="飞线粗细"
       >
         <g-slider
-          v-model="config.flyinglineStyle.lineWidth"
-          :min="1"
+          v-model="config.flyinglineStyle.trailSize"
+          :min="0"
           :max="20"
           :step="1"
         />
       </g-field>
       <g-field
         :level="2"
-        label="高度比例"
+        label="飞线曲率"
       >
         <g-slider
           v-model="config.flyinglineStyle.curveness"
-          :min="0"
+          :min="-1"
           :max="1"
+          :step="0.01"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        tooltip="设置大于 0 时忽略动画时长"
+        label="飞行速度"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.constantSpeed"
+          :min="0"
+          :max="500"
           :step="1"
         />
       </g-field>
       <g-field
         :level="2"
-        label="动画时长"
+        label="飞行时长"
       >
         <g-slider
           v-model="config.flyinglineStyle.period"
@@ -74,6 +85,28 @@
           :max="100"
           :step="1"
           suffix="s"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="轨迹粗细"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.lineWidth"
+          :min="0"
+          :max="20"
+          :step="1"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="轨迹透明度"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.opacity"
+          :min="0"
+          :max="1"
+          :step="0.01"
         />
       </g-field>
     </g-field-collapse>
@@ -84,11 +117,12 @@
     >
       <g-field
         :level="2"
+        tooltip="修改此选项不会立即生效, 可以刷新组件或者在预览页查看"
         label="类型"
       >
-        <g-select
+        <g-select-shape
           v-model="config.flareStyle.type"
-          :data="flareTypes"
+          :shapes="flareTypes"
         />
       </g-field>
       <g-field
@@ -112,68 +146,16 @@
         />
       </g-field>
     </g-field-collapse>
-    <g-field-collapse
-      v-model="config.circleStyle.show"
-      :toggle="true"
-      label="气泡样式"
-    >
-      <g-field
-        :level="2"
-        label="颜色"
-      >
-        <g-color-picker
-          v-model="config.circleStyle.color"
-        />
-      </g-field>
-      <g-field
-        :level="2"
-        label="半径"
-      >
-        <g-slider
-          v-model="config.circleStyle.radius"
-          :min="0"
-          :max="30"
-          :step="1"
-          suffix="px"
-        />
-      </g-field>
-      <g-field
-        :level="2"
-        label="速率"
-      >
-        <g-slider
-          v-model="config.circleStyle.speed"
-          :min="1"
-          :max="10"
-          :step="0.1"
-        />
-      </g-field>
-    </g-field-collapse>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
-import {
-} from '@/data/select-options'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import { China2dFlyingline, flareTypes } from './index'
 
-export default defineComponent({
-  name: 'VChina2dFlyinglineProp',
-  props: {
-    com: {
-      type: Object as PropType<China2dFlyingline>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: China2dFlyingline
+}>()
 
-    return {
-      config,
-
-      flareTypes,
-    }
-  },
-})
+const config = toRef(props.com, 'config')
 </script>
