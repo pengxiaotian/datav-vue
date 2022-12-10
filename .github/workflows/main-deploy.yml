@@ -40,7 +40,7 @@ jobs:
         run: pnpm run build
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.4.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
@@ -55,7 +55,7 @@ jobs:
 
     steps:
     - name: Sync to Gitee
-      uses: wearerequired/git-mirror-action@1.2.0
+      uses: wearerequired/git-mirror-action@v1.2.0
       env:
         SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
       with:
