@@ -1007,7 +1007,7 @@
         >
           <g-select-shape
             v-model="config.legend.symbol.icon"
-            :shapes="legendIcons"
+            :shapes="echartIcons"
           />
         </g-field>
         <g-field
@@ -1236,7 +1236,7 @@ import {
   hAligns,
   legendLocations,
   orients,
-  legendIcons,
+  echartIcons,
   fillTypes,
   animationEasings,
 } from '@/data/select-options'
@@ -1273,7 +1273,7 @@ export default defineComponent({
       hAligns,
       legendLocations,
       orients,
-      legendIcons,
+      echartIcons,
       fillTypes,
       animationEasings,
     }

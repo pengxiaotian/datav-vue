@@ -26,7 +26,7 @@
         <g-field label="分布">
           <n-icon
             class="datav-icon"
-            :class="{ disable: comLen < 3 }"
+            :class="{ disable: selectedCount < 3 }"
             title="水平"
             @click="alignHorizontal"
           >
@@ -34,7 +34,7 @@
           </n-icon>
           <n-icon
             class="datav-icon"
-            :class="{ disable: comLen < 3 }"
+            :class="{ disable: selectedCount < 3 }"
             title="垂直"
             @click="alignVertical"
           >
@@ -47,7 +47,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
 import { maxBy, minBy, sortBy } from 'lodash-es'
 import {
   IconAlignLeft, IconAlignCenter, IconAlignRight,
@@ -56,9 +55,11 @@ import {
 } from '@/icons'
 import { useComStore } from '@/store/com'
 
-const comStore = useComStore()
+defineProps<{
+  selectedCount: number
+}>()
 
-const comLen = computed(() => comStore.selectedComs.length)
+const comStore = useComStore()
 
 const alignLeft = () => {
   const minCom = minBy(comStore.selectedComs, com => com.attr.x)

@@ -20,7 +20,7 @@ import {
   echartsLablePositions,
   animationEasings,
   selectSuggests,
-  legendIcons,
+  echartIcons,
   orients,
   axisTypes,
   valueFormats,
@@ -29,7 +29,7 @@ import {
 } from '@/data/select-options'
 
 // 用于生成模板
-export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'selectSuggests', 'legendIcons', 'orients', 'axisTypes', 'valueFormats', 'timeFormats', 'imageTypes']
+export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'selectSuggests', 'echartIcons', 'orients', 'axisTypes', 'valueFormats', 'timeFormats', 'imageTypes']
 
 export enum PropDataType {
   unknown = 'unknown',
@@ -47,8 +47,10 @@ export enum ComponentType {
   checkbox = 'checkbox',
   switch = 'switch',
   radio = 'radio',
+  radioBase = 'radioBase',
   color = 'color',
   slider = 'slider',
+  sliderRange = 'sliderRange',
   select = 'select',
   fontFamily = 'fontFamily',
   fontWeight = 'fontWeight',
@@ -69,7 +71,7 @@ export enum ComponentType {
   echartsLablePosition = 'echartsLablePosition',
   animationEasing = 'animationEasing',
   selectSuggest = 'selectSuggest',
-  legendIcon = 'legendIcon',
+  echartIcon = 'echartIcon',
   orient = 'orient',
   axisType = 'axisType',
   valueFormat = 'valueFormat',
@@ -110,6 +112,7 @@ export interface PropConfig {
     value: string
   }
   flatValue: boolean
+  isRange: boolean
 }
 
 export const createPropConfig = () => {
@@ -137,6 +140,7 @@ export const createPropConfig = () => {
       value: '',
     },
     flatValue: false,
+    isRange: false,
   }
 
   return data
@@ -194,6 +198,9 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       pc.displayMode = DisplayMode.nest
       dto.children = []
       // dto.cols = Object.keys(val[0])
+      if (isNumber(val[0])) {
+        pc.defaultValue = val
+      }
       initPropData([val[0]], dto.children, dto.path)
     }
     arr.push(dto)
@@ -307,8 +314,8 @@ export const getSelectedOptions = (type: ComponentType) => {
     return animationEasings
   }
 
-  if (type === ComponentType.legendIcon) {
-    return legendIcons
+  if (type === ComponentType.echartIcon) {
+    return echartIcons
   }
 
   if (type === ComponentType.selectSuggest) {

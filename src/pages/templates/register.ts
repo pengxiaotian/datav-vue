@@ -3,10 +3,13 @@ import { plainText as propConfigTpl } from './partials/prop-config-tpl.hbs'
 import { plainText as propComponentTpl } from './partials/prop-component-tpl.hbs'
 
 // ------Helpers------
+// https://github.com/helpers/handlebars-helpers
+
 Handlebars.registerHelper('eq', (a, b) => a === b)
 Handlebars.registerHelper('neq', (a, b) => a !== b)
 Handlebars.registerHelper('and', (a, b) => a && b)
 Handlebars.registerHelper('or', (a, b) => a || b)
+Handlebars.registerHelper('not', val => !val)
 Handlebars.registerHelper('getPath', (path, vpath) => (vpath ? vpath : `config.${path}`))
 Handlebars.registerHelper('capitalize', str => (str.charAt(0).toUpperCase() + str.slice(1)))
 Handlebars.registerHelper('includes', (arr, val) => arr.includes(val))

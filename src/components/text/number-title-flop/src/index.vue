@@ -29,7 +29,7 @@ import Accounting from 'accounting'
 import NP from 'number-precision'
 import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
-import { calcStrWidth } from '@/utils/util'
+import { calcStrWidth } from '@/utils/string-util'
 import { NumberTitleFlop } from './number-title-flop'
 
 export default defineComponent({

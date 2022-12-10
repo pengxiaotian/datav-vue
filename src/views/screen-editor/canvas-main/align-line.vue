@@ -54,10 +54,10 @@ export default defineComponent({
 }
 
 .x-line {
-  border-top: 1px dashed #00c1de;
+  border-top: 1px dashed var(--datav-sort-line-border-color);
 }
 
 .y-line {
-  border-left: 1px dashed #00c1de;
+  border-left: 1px dashed var(--datav-sort-line-border-color);
 }
 </style>

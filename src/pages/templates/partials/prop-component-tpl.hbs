@@ -75,6 +75,26 @@
     \{{ pair.value }}
   </n-radio-button>
 </n-radio-group>
+{{else if (eq config.component componentTypes.radioBase)}}
+<n-radio-group
+  {{#if (and judgeEnum config.whichEnum.field)}}
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  {{/if}}
+  v-model:value="{{ getPath path virtualPath }}"
+  size="small"
+>
+  <n-radio
+    v-for="pair in [
+      {{#each config.pairs as | pair |}}
+      {{{pairToTpl pair}}},
+      {{/each}}
+    ]"
+    :key="pair.key"
+    :value="pair.key"
+  >
+    \{{ pair.value }}
+  </n-radio>
+</n-radio-group>
 {{else if (eq config.component componentTypes.slider)}}
 <g-slider
   {{#if (and judgeEnum config.whichEnum.field)}}
@@ -91,6 +111,24 @@
   {{#if config.suffix}}
   suffix="{{config.suffix}}"
   {{/if}}
+  {{#if (getInlineMode config.displayMode)}}
+  inline="{{config.displayMode}}"
+  label="{{config.alias}}"
+  {{/if}}
+/>
+{{else if (eq config.component componentTypes.sliderRange)}}
+<g-slider-range
+  {{#if (and judgeEnum config.whichEnum.field)}}
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  {{/if}}
+  v-model="{{ getPath path virtualPath }}"
+  {{#unless config.InfiniteMin}}
+  :min="{{config.min}}"
+  {{/unless}}
+  {{#unless config.InfiniteMax}}
+  :max="{{config.max}}"
+  {{/unless}}
+  :step="{{config.step}}"
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
@@ -145,7 +183,7 @@
   label="{{config.alias}}"
   {{/if}}
 />
-{{else if (eq config.component componentTypes.legendIcon)}}
+{{else if (eq config.component componentTypes.echartIcon)}}
 <g-select-shape
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"

@@ -1,7 +1,7 @@
 import { DatavEChartsComponent, DatavChartSeries } from '@/components/_models/datav-component'
 import {
   ApiConfigMap, ApiDataConfigMap,
-  initApiConfig, initApiData,
+  setApiConfig, setApiData,
 } from '@/components/_models/data-source'
 import { createField } from '@/components/_models/data-field'
 import { DataEventConfig } from '@/components/_models/data-event'
@@ -74,11 +74,11 @@ export class WordCloud extends DatavEChartsComponent {
       createField('type', { description: '系列' }),
     ]
 
-    this.apis = initApiConfig({
+    setApiConfig(this, {
       fields: Object.assign({}, ...fields),
     })
 
-    this.apiData = initApiData(this.id)
+    setApiData(this)
 
     this.events = {}
     this.actions = {}

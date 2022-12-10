@@ -4608,7 +4608,7 @@
             "key": "icon",
             "config": {
               "type": "string",
-              "component": "legendIcon",
+              "component": "echartIcon",
               "alias": "图标",
               "tip": "",
               "displayMode": "single",

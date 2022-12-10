@@ -160,7 +160,7 @@ $panel-width: 200px;
 .layer-move-to-line {
   height: 2px;
   width: 100%;
-  background: #00c1de;
+  background: var(--datav-sort-line-border-color);
   position: absolute;
   left: 0;
   top: 0;

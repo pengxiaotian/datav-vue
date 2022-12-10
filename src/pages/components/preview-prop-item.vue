@@ -38,6 +38,15 @@
       {{ pair.value }}
     </n-radio-button>
   </n-radio-group>
+  <n-radio-group
+    v-else-if="componentType === componentTypes.radioBase"
+    v-model:value="strValue"
+    size="small"
+  >
+    <n-radio v-for="pair in pairs" :key="pair.key" :value="pair.key">
+      {{ pair.value }}
+    </n-radio>
+  </n-radio-group>
   <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
@@ -45,6 +54,15 @@
     :max="max"
     :step="step"
     :suffix="suffix"
+    :inline="mode"
+    :label="mode ? label : ''"
+  />
+  <g-slider-range
+    v-else-if="componentType === componentTypes.sliderRange"
+    v-model="arrValue"
+    :min="min"
+    :max="max"
+    :step="step"
     :inline="mode"
     :label="mode ? label : ''"
   />
@@ -70,7 +88,7 @@
     :label="mode ? label : ''"
   />
   <g-select-shape
-    v-else-if="componentType === componentTypes.legendIcon"
+    v-else-if="componentType === componentTypes.echartIcon"
     v-model="strValue"
     :shapes="selectOptions"
     :inline="mode"

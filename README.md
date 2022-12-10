@@ -81,10 +81,13 @@
 - [ ] 关系
   * [ ] 树图
 - [ ] 地图
+  * [x] 基础平面中国地图
+    - [x] 区域热力层
+    - [x] 动态气泡层
+    - [x] 飞线层
   * [ ] 基础平面地图
-    - [ ] 动态气泡层
-    - [ ] 飞线层
-  * [ ] 世界地图
+  * [ ] 3D平面地图
+  * [ ] 3D地球
 - [x] 文本标题
   * [x] 通用标题
   * [x] 数字翻牌器
@@ -146,7 +149,7 @@ main-title
 
 #### 使用工具
 
-> 其中 `config.vue` 和 `config.json` 文件，可以在 `development` 模式下，通过访问 `http://localhost:9090/#/dev/props-config` 配置生成。
+> 其中 `config.vue` 和 `config.json` 文件，可以在 `development` 模式下，通过访问 `http://localhost:9096/#/dev/props-config` 配置生成。
 
 - 工具预览
 ![prop-config](./demo/prop-config.png)

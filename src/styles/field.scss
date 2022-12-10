@@ -39,15 +39,6 @@
   margin-right: 4px;
   height: 28px;
   line-height: 24px;
-
-  .g-field-show {
-    color: var(--datav-gui-font-color-base);
-    cursor: pointer;
-
-    &:hover {
-      color: var(--datav-main-hover-color);
-    }
-  }
 }
 
 .g-field-container {
@@ -90,10 +81,18 @@
     }
   }
 
-  &.--disable {
+  &.--field-disabled {
     cursor: not-allowed;
-    opacity: 0.5;
-    pointer-events: none;
+
+    .g-field-title {
+      opacity: 0.6;
+    }
+
+    .g-field-container {
+      cursor: not-allowed;
+      opacity: 0.6;
+      pointer-events: none;
+    }
   }
 }
 

@@ -1,0 +1,520 @@
+[
+  {
+    "key": "flyinglineStyle",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "飞线样式",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "pairs": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false,
+      "isRange": false
+    },
+    "path": "flyinglineStyle",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "fromColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "起点颜色",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "#0ea7ff",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.fromColor",
+        "virtualPath": ""
+      },
+      {
+        "key": "toColor",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "终点颜色",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "#4affac",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.toColor",
+        "virtualPath": ""
+      },
+      {
+        "key": "k",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞线渐变",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 1,
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.k",
+        "virtualPath": ""
+      },
+      {
+        "key": "trailLength",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞线长度",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 0.2,
+          "min": 0,
+          "max": 1,
+          "step": 0.1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.trailLength",
+        "virtualPath": ""
+      },
+      {
+        "key": "trailSize",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞线粗细",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 2,
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.trailSize",
+        "virtualPath": ""
+      },
+      {
+        "key": "curveness",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞线曲率",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": -0.3,
+          "min": -1,
+          "max": 1,
+          "step": 0.01,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.curveness",
+        "virtualPath": ""
+      },
+      {
+        "key": "constantSpeed",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞行速度",
+          "tip": "设置大于 0 时忽略动画时长",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 50,
+          "min": 0,
+          "max": 500,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.constantSpeed",
+        "virtualPath": ""
+      },
+      {
+        "key": "period",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "飞行时长",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 4,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "s",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.period",
+        "virtualPath": ""
+      },
+      {
+        "key": "lineWidth",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "轨迹粗细",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 1,
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.lineWidth",
+        "virtualPath": ""
+      },
+      {
+        "key": "opacity",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "轨迹透明度",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 0,
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flyinglineStyle.opacity",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "fromColor",
+      "toColor",
+      "k",
+      "trailLength",
+      "trailSize",
+      "curveness",
+      "constantSpeed",
+      "period",
+      "lineWidth",
+      "opacity"
+    ]
+  },
+  {
+    "key": "flareStyle",
+    "config": {
+      "type": "object",
+      "component": "none",
+      "alias": "耀斑样式",
+      "tip": "",
+      "displayMode": "nest",
+      "features": [],
+      "layout": "horizontal",
+      "toggleCol": "show",
+      "isHide": false,
+      "defaultValue": null,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "InfiniteMin": false,
+      "InfiniteMax": false,
+      "suffix": "",
+      "enums": [],
+      "pairs": [],
+      "whichEnum": {
+        "field": "",
+        "value": ""
+      },
+      "flatValue": false,
+      "isRange": false
+    },
+    "path": "flareStyle",
+    "virtualPath": "",
+    "children": [
+      {
+        "key": "show",
+        "config": {
+          "type": "boolean",
+          "component": "switch",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": true,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flareStyle.show",
+        "virtualPath": ""
+      },
+      {
+        "key": "type",
+        "config": {
+          "type": "string",
+          "component": "echartIcon",
+          "alias": "类型",
+          "tip": "修改此选项不会立即生效, 可以刷新组件或者在预览页查看",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "circle",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flareStyle.type",
+        "virtualPath": ""
+      },
+      {
+        "key": "color",
+        "config": {
+          "type": "string",
+          "component": "color",
+          "alias": "颜色",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": "#0eff90",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flareStyle.color",
+        "virtualPath": ""
+      },
+      {
+        "key": "size",
+        "config": {
+          "type": "number",
+          "component": "slider",
+          "alias": "大小",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": false,
+          "defaultValue": 1,
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "px",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flareStyle.size",
+        "virtualPath": ""
+      }
+    ],
+    "cols": [
+      "show",
+      "type",
+      "color",
+      "size"
+    ]
+  }
+]

@@ -189,7 +189,7 @@ export default defineComponent({
 
     const fieldsStatus = computed(() => {
       const comFields = debugStore.fieldStatusMap[com.value.id]
-      return comFields ? comFields[props.apiName] : {}
+      return comFields?.[props.apiName] ?? {}
     })
 
     const totalStatus = computed(() => {
@@ -209,7 +209,7 @@ export default defineComponent({
 
     const toggle = () => {
       if (props.collapse) {
-        changePanel(props.apiName)
+        changePanel(props.apiName as string)
       }
     }
 

@@ -1,15 +1,23 @@
 <template>
-  <router-view />
+  <n-config-provider :theme-overrides="themeOverrides" abstract>
+    <n-message-provider closable keep-alive-on-hover>
+      <n-dialog-provider>
+        <router-view />
+      </n-dialog-provider>
+    </n-message-provider>
+  </n-config-provider>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from 'vue'
-import { useMessage } from 'naive-ui'
+import { themeOverrides } from '@/styles/themes/naive-ui-theme-overrides'
 
 export default defineComponent({
+  name: 'AppRoot',
   setup() {
-    // 为了兼容之前的旧代码，但是不推荐直接使用 `window.$message`
-    window.$message = useMessage()
+    return {
+      themeOverrides,
+    }
   },
 })
 </script>

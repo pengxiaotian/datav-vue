@@ -1,12 +1,12 @@
 {{#each configs as | item |}}
-{{#unless item.config.isHide}}
+{{#if (and (not item.config.isHide) (neq ../toggleCol item.key))}}
 {{#if ../isFlat}}
 {{> prop-component-tpl
   componentTypes=../componentTypes
   selectOpts=../selectOpts
   judgeEnum=true
 }}
-{{else if item.children}}
+{{else if (and item.children (not item.config.isRange))}}
 {{#if (eq item.config.displayMode 'nest')}}
 <g-field-collapse
   {{#if item.config.whichEnum.field}}
@@ -34,6 +34,10 @@
   {{#if item.config.whichEnum.field}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
   {{/if}}
+  {{#if item.config.toggleCol}}
+  v-model="{{getSlotPath item.path item.virtualPath}}.{{item.key}}.{{item.config.toggleCol}}"
+  :toggle="true"
+  {{/if}}
   {{#if item.config.tip}}
   tooltip="{{{item.config.tip}}}"
   {{/if}}
@@ -54,6 +58,10 @@
   <template #default="slotProps">
     {{#if (eq item.children.0.config.displayMode 'flat')}}
     <g-field
+      {{#if item.children.0.config.toggleCol}}
+      v-model="{{getSlotPath item.children.0.path item.children.0.virtualPath}}.{{item.children.0.key}}.{{item.children.0.config.toggleCol}}"
+      :toggle="true"
+      {{/if}}
       label="{{item.children.0.config.alias}}"
       tooltip="{{item.children.0.config.tip}}"
       :level="2"
@@ -84,6 +92,10 @@
 <g-field
   {{#if item.config.whichEnum.field}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  {{/if}}
+  {{#if item.config.toggleCol}}
+  v-model="{{getSlotPath item.path item.virtualPath}}.{{item.key}}.{{item.config.toggleCol}}"
+  :toggle="true"
   {{/if}}
   {{#if (neq ../level 1)}}
   :level="{{../level}}"
@@ -123,5 +135,5 @@
   }}
 </g-field>
 {{/if}}
-{{/unless}}
+{{/if}}
 {{/each}}

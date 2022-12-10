@@ -11,18 +11,15 @@ export const useMock = async () => {
 
   const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar', 'VMarquee', 'VParagraph', 'VTimer', 'VFullScreen', 'VMainImg', 'VWordCloud']
 
-  const ps1 = names.map(name => createComponent(name))
-  const coms = await Promise.all(ps1)
-
-  const ps2 = coms.map(com => {
+  const coms = await Promise.all(names.map(name => createComponent(name)))
+  coms.map(com => {
     // com.apis.source.useAutoUpdate = true
     // com.apis.source.autoUpdate = 5
     com.attr.x = getRandomInt(editorStore.pageConfig.width - com.attr.w)
     com.attr.y = getRandomInt(editorStore.pageConfig.height - com.attr.h)
-    return comStore.add(com)
   })
 
-  await Promise.all(ps2)
+  await comStore.addComs(coms)
 
   const ps3: Promise<any>[] = []
   const comIds = []

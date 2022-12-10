@@ -11,7 +11,7 @@ const vars: Partial<GlobalTheme['common']> = {
   infoColor: '#90a0ae',
   successColor: '#50e3c2',
 
-  textColor1: '#bcc9d4',
+  textColor1: '#ffffff',
 
   borderColor: '#3a4659',
   borderRadius: '0',
@@ -78,6 +78,10 @@ const themeOverrides: GlobalThemeOverrides = {
     textColorGhostHover: '#fff',
     textColorGhostPressed: '#fff',
     textColorGhostFocus: vars.primaryColor,
+
+    colorDisabled: '#282f3a',
+    textColorDisabled: '#90a0ae',
+    borderDisabled: '1px solid #0000',
   },
   Message: {
     minWidth: '380px',
@@ -182,7 +186,7 @@ const themeOverrides: GlobalThemeOverrides = {
     buttonBorderColor: vars2.borderColor,
     color: '#0000',
     textColor: vars.textColor1,
-    boxShadowFocus: 'var(--box-shadow-active)',
+    boxShadowFocus: 'var(--n-box-shadow-active)',
   },
   Input: {
     fontSizeSmall: '12px',

@@ -10,7 +10,7 @@
       :key="item.key"
       :title="item.path"
       :name="item.key"
-      :class="{ '--disabled': toggleCol === item.key }"
+      :disabled="toggleCol === item.key"
     >
       <n-form
         label-placement="left"
@@ -22,7 +22,20 @@
         <n-form-item label="显示模式">
           <n-select v-model:value="item.config.displayMode" :options="displayModes" />
         </n-form-item>
-        <template v-if="item.children">
+        <n-form-item>
+          <template #label>
+            <n-tooltip>
+              <template #trigger>
+                <label class="g-field-title-with-description">
+                  区间范围
+                </label>
+              </template>
+              如果需要用到slider-range组件
+            </n-tooltip>
+          </template>
+          <n-checkbox v-model:checked="item.config.isRange" />
+        </n-form-item>
+        <template v-if="item.children && !item.config.isRange">
           <n-form-item label="控制显示的属性名">
             <n-select
               v-model:value="item.config.toggleCol"
@@ -64,7 +77,7 @@
             </template>
             <n-checkbox v-model:checked="item.config.flatValue" />
           </n-form-item>
-          <template v-if="item.config.component === ComponentType.number || item.config.component === ComponentType.slider">
+          <template v-if="item.config.component === ComponentType.number || item.config.component === ComponentType.slider || item.config.component === ComponentType.sliderRange">
             <n-form-item label="最小值">
               <n-space align="center">
                 <g-input-number v-model="item.config.min" size="medium" />
@@ -88,7 +101,7 @@
               <n-input v-model:value="item.config.suffix" />
             </n-form-item>
           </template>
-          <template v-else-if="item.config.component === ComponentType.radio">
+          <template v-else-if="item.config.component === ComponentType.radio || item.config.component === ComponentType.radioBase">
             <n-form-item label="枚举值">
               <n-dynamic-input
                 v-model:value="item.config.pairs"
@@ -186,7 +199,7 @@
       </n-form>
 
       <config-form
-        v-if="item.children"
+        v-if="item.children && !item.config.isRange"
         :config="item.children"
         :toggle-col="item.config.toggleCol"
       />

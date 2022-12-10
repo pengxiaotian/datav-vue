@@ -1,13 +1,13 @@
 import { ref, toRefs, watch, onUnmounted } from 'vue'
 import { debounce, isPlainObject, isArray } from 'lodash-es'
 import { hasOwn } from '@/utils/util'
+import { useMessageUtil } from '@/utils/naive-ui-util'
 import { useEditorStore } from '@/store/editor'
 import { useFilterStore } from '@/store/filter'
 import { useToolbarStore } from '@/store/toolbar'
 import { useApiStore } from '@/store/api'
 import { useDebugStore } from '@/store/debug'
 import { useBlueprintStore } from '@/store/blueprint'
-import { useEventStore } from '@/store/event'
 import { DatavComponent } from '@/components/_models/datav-component'
 import { FieldConfig } from '@/components/_models/data-field'
 import { ApiKeyName, ApiConfig, ApiDataConfig, FieldStatus } from '@/components/_models/data-source'
@@ -94,7 +94,7 @@ export const setComponentData = async (
   }
 
   if (isError) {
-    window.$message.error(res.message)
+    useMessageUtil().error(res.message)
   }
 
   // 传入组件的数据
@@ -117,7 +117,6 @@ export const setComponentData = async (
 }
 
 export const useDataCenter = (com: DatavComponent) => {
-  const eventStore = useEventStore()
   const editorStore = useEditorStore()
   const blueprintStore = useBlueprintStore()
 
@@ -164,29 +163,6 @@ export const useDataCenter = (com: DatavComponent) => {
     })
   }
 
-  // 订阅的变量发生变化时刷新
-  const onSubVariablesChange = (fields: Record<string, string>) => {
-    const sv = eventStore.subscribersView
-    for (const fname in fields) {
-      const key = fields[fname] || fname
-      sv[key]?.forEach(comId => {
-        blueprintStore.events[comId]?.requestData()
-      })
-    }
-  }
-
-  const datavEmit = (eventName: string, data: Record<string, any>) => {
-    const cv = eventStore.componentsView[com.id]
-    if (!cv) {
-      return
-    }
-    const eventItem = cv[eventName]
-    if (eventItem && eventItem.enable) {
-      eventStore.setVariables(eventItem.fields, data)
-      onSubVariablesChange(eventItem.fields)
-    }
-  }
-
   initAllData()
 
   if (!editorStore.editMode) {
@@ -209,8 +185,4 @@ export const useDataCenter = (com: DatavComponent) => {
   }, 300)
 
   blueprintStore.setEvent(com.id, 'requestData', requestData)
-
-  return {
-    datavEmit,
-  }
 }

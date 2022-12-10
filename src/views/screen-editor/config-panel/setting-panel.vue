@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel">
-    <config-title :com-name="com.name" :com-alias="com.alias">
+    <config-title>
       <div class="search-config" @click="toSearch">
         <n-icon class="search-icon">
           <IconSearch />
@@ -9,8 +9,13 @@
       </div>
     </config-title>
     <div class="setting-panel-content">
+      <children-manager />
       <div class="scroll-container">
-        <basic-setting :key="`${com.id}'_basic-setting`" :attr="com.attr" />
+        <basic-setting
+          v-if="com.type === ComType.com"
+          :key="com.id"
+          :attr="com.attr"
+        />
         <component
           :is="com.name + 'Prop'"
           :key="com.id"
@@ -24,17 +29,20 @@
 <script lang='ts'>
 import { defineComponent, inject } from 'vue'
 import { useMessage } from 'naive-ui'
+import { ComType } from '@/components/_models/datav-component'
 import { IconSearch } from '@/icons'
+import { comInjectionKey } from './config'
 import ConfigTitle from './components/config-title.vue'
 import BasicSetting from './components/basic-setting.vue'
-import { comInjectionKey } from './config'
+import ChildrenManager from './components/children-manager.vue'
 
 export default defineComponent({
   name: 'SettingPanel',
   components: {
+    IconSearch,
     ConfigTitle,
     BasicSetting,
-    IconSearch,
+    ChildrenManager,
   },
   setup() {
     const nMessage = useMessage()
@@ -45,8 +53,9 @@ export default defineComponent({
     }
 
     return {
-      toSearch,
+      ComType,
       com,
+      toSearch,
     }
   },
 })

@@ -46,6 +46,7 @@ export abstract class DatavComponent {
   selected? = false
   hovered? = false
   renameing? = false
+  tag? = 0
   fold?: boolean
   scaling? = {
     zoom: false,
@@ -100,6 +101,8 @@ export abstract class DatavComponent {
     }
 
     this.attr = { ...this.attr, ...attr }
+    this.scaling.w = attr.w
+    this.scaling.h = attr.h
   }
 
   /**
@@ -129,8 +132,8 @@ export abstract class DatavEChartsComponent extends DatavComponent {
   abstract config: Record<string, any> & {
     legend?: Record<string, any>
     tooltip?: Record<string, any>
-    series: DatavChartSeries | DatavChartSeries[]
-    animation: {
+    series?: DatavChartSeries | DatavChartSeries[]
+    animation?: {
       enabled: boolean
       duration?: number
       easing?: AnimationEasing

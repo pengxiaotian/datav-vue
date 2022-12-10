@@ -1,7 +1,13 @@
 import { kebabCase } from 'lodash-es'
 
+const correctStr = (str: string) => {
+  return str
+    .replace('-2-d', '2d')
+    .replace('-3-d', '3d')
+}
+
 export async function createComponent(name: string) {
-  const path = kebabCase(name.substring(1))
+  const path = correctStr(kebabCase(name.substring(1)))
   switch (name.substring(1)) {
     // bar
     case 'BasicBar':
@@ -14,6 +20,20 @@ export async function createComponent(name: string) {
     case 'BasicLine':
     {
       const comModule = await import(`./line/${path}/src/${path}.ts`)
+      return new comModule.default()
+    }
+
+    // map
+    case 'China2d':
+    {
+      const comModule = await import(`./map/${path}/src/${path}.ts`)
+      return new comModule.default()
+    }
+    case 'China2dArea':
+    case 'China2dBubbles':
+    case 'China2dFlyingline':
+    {
+      const comModule = await import(`./map/china2d/src/${path}/index.ts`)
       return new comModule.default()
     }
 

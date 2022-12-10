@@ -1,6 +1,8 @@
+import { capitalize } from 'lodash-es'
 import { generateId } from '@/utils/util'
 import { FilterConfig } from '@/components/_models/data-filter'
 import { FieldConfig } from '@/components/_models/data-field'
+import { DatavComponent } from './datav-component'
 
 export enum ApiType {
   /**
@@ -33,12 +35,13 @@ export enum ApiRequestMethod {
   POST = 'POST',
 }
 
+// ************************ ApiConfig ************************
 export interface ApiConfig {
   fields: Record<string, FieldConfig>
   /**
-   * 执行指定的渲染函数，默认值是 render
+   * 执行指定的处理函数，默认值是 render
    */
-  render: string
+  handler: string
   description: string
   useAutoUpdate: boolean
   autoUpdate: number
@@ -46,17 +49,17 @@ export interface ApiConfig {
 
 export interface ApiConfigMap {
   source: ApiConfig
+  [key: string]: ApiConfig
 }
 
-export type ApiKeyName = keyof ApiConfigMap
-
+// ************************ ApiDataConfig ************************
 export interface ApiDataConfig {
   id: string
   comId: string
   type: ApiType
   config: {
-    useFilter: boolean
-    data: string
+    useFilter?: boolean
+    data?: string
     api?: string
     apiMethod?: ApiRequestMethod
     apiHeaders?: string
@@ -69,44 +72,46 @@ export interface ApiDataConfig {
 
 export interface ApiDataConfigMap {
   source: ApiDataConfig
+  [key: string]: ApiDataConfig
+}
+
+export type ApiKeyName = keyof ApiConfigMap
+
+/**
+ * 设置数据接口配置
+ */
+export function setApiConfig(com: DatavComponent, options?: Partial<ApiConfig>, name: ApiKeyName = 'source') {
+  if (!com.apis) {
+    com.apis = {}
+  }
+  com.apis[name] = {
+    fields: {},
+    description: '',
+    useAutoUpdate: false,
+    autoUpdate: 1,
+    ...options,
+    handler: name === 'source' ? 'render' : `set${capitalize(name as string)}`,
+  }
 }
 
 /**
- * 初始化数据接口配置
+ * 设置源数据
  */
-export function initApiConfig(options: Partial<ApiConfigMap['source']>) {
-  const config: Partial<ApiConfigMap> = {
-    source: {
-      fields: {},
-      render: 'render',
-      description: '',
-      useAutoUpdate: false,
-      autoUpdate: 1,
-      ...options,
-    },
+export function setApiData(com: DatavComponent, options?: Partial<ApiDataConfig>, name: ApiKeyName = 'source') {
+  if (!com.apiData) {
+    com.apiData = {}
   }
-
-  return config
-}
-
-/**
- * 初始化源数据
- */
-export function initApiData(comId: string) {
-  const config: Partial<ApiDataConfigMap> = {
-    source: {
-      comId,
-      id: generateId(),
-      type: ApiType.static,
-      pageFilters: [],
-      config: {
-        useFilter: false,
-        data: '',
-      },
+  com.apiData[name] = {
+    id: generateId(),
+    type: ApiType.static,
+    pageFilters: [],
+    config: {
+      useFilter: false,
+      data: '',
     },
+    ...options,
+    comId: com.id,
   }
-
-  return config
 }
 
 export function createDataSources() {

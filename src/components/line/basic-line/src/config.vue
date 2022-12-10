@@ -981,7 +981,7 @@
         >
           <g-select-shape
             v-model="config.legend.symbol.icon"
-            :shapes="legendIcons"
+            :shapes="echartIcons"
           />
         </g-field>
         <g-field
@@ -1155,7 +1155,7 @@
         >
           <g-select-shape
             v-model="slotProps.item.point.icon"
-            :shapes="legendIcons"
+            :shapes="echartIcons"
             inline="inline"
             label="符号"
           />
@@ -1369,7 +1369,7 @@ import {
   hAligns,
   legendLocations,
   orients,
-  legendIcons,
+  echartIcons,
   animationEasings,
 } from '@/data/select-options'
 import { BasicLine, BasicLineSeries } from './basic-line'
@@ -1404,7 +1404,7 @@ export default defineComponent({
       hAligns,
       legendLocations,
       orients,
-      legendIcons,
+      echartIcons,
       animationEasings,
     }
   },

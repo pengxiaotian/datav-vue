@@ -10,14 +10,20 @@
             <n-input
               v-model:value="classPath"
               size="large"
-              placeholder="输入组件目录, 如: text/main-title"
-              style="width: 400px;"
+              placeholder="输入组件目录, 如: map/china2d"
+              style="width: 250px;"
+            />
+            <n-input
+              v-model:value="classSubPath"
+              size="large"
+              placeholder="子组件, 如: china2d-area"
+              style="width: 200px;"
             />
             <n-select
               v-model:value="ext"
               :options="extOpts"
               size="large"
-              style="width: 90px;"
+              style="width: 110px;"
             />
           </n-input-group>
           <n-button
@@ -77,7 +83,7 @@
 <script lang='ts'>
 import { defineComponent, ref } from 'vue'
 import { useMessage } from 'naive-ui'
-import { pascalCase } from '@/utils/util'
+import { pascalCase } from '@/utils/string-util'
 import Handlebars from 'handlebars'
 import '@/pages/templates/register'
 import { DatavComponent } from '@/components/_models/datav-component'
@@ -94,10 +100,12 @@ export default defineComponent({
   },
   setup() {
     const nMessage = useMessage()
-    const classPath = ref('text/main-title')
+    const classPath = ref('map/china2d')
+    const classSubPath = ref('')
     const activeTab = ref('config')
     const loading = ref(false)
     const fileName = ref('')
+    const comName = ref('')
     const ext = ref<'.ts' | '.json' | '.ts&.json'>('.ts')
     const extOpts = [
       { value: '.ts', label: '.ts' },
@@ -109,9 +117,12 @@ export default defineComponent({
     const configCode = ref('{}')
     const templateCode = ref('<template></template>')
 
-    const getConfigByTS = async (comName: string) => {
-      const path = `${classPath.value}/src/${comName}`
-      const comModule = await import(`../../components/${path}.ts`)
+    const getConfigByTS = async (fileName: string) => {
+      let path = `${classPath.value}/src`
+      if (classSubPath.value) {
+        path += `/${classSubPath.value}`
+      }
+      const comModule = await import(`../../components/${path}/${fileName}.ts`)
       const arr: PropDto[] = []
       if (comModule.default.prototype instanceof DatavComponent) {
         const dvc = new comModule.default()
@@ -123,13 +134,16 @@ export default defineComponent({
     }
 
     const getConfigByJson = async () => {
-      const path = `${classPath.value}/src/config`
-      const comModule = await import(`../../components/${path}.json`)
+      let path = `${classPath.value}/src`
+      if (classSubPath.value) {
+        path += `/${classSubPath.value}`
+      }
+      const comModule = await import(`../../components/${path}/config.json`)
       return comModule.default as PropDto[]
     }
 
-    const getConfigByMixin = async (comName: string) => {
-      const tsList = await getConfigByTS(comName)
+    const getConfigByMixin = async (fileName: string) => {
+      const tsList = await getConfigByTS(fileName)
       const jsonList = await getConfigByJson()
       mixinPropData(tsList, jsonList)
       return tsList
@@ -139,19 +153,25 @@ export default defineComponent({
       try {
         if (classPath.value) {
           loading.value = true
-          const name = classPath.value.split('/').pop()
-          fileName.value = name
+          if (classSubPath.value) {
+            fileName.value = 'index'
+            comName.value = classSubPath.value.split('/').pop()
+          } else {
+            fileName.value = classPath.value.split('/').pop()
+            comName.value = fileName.value
+          }
           if (ext.value === '.ts') {
-            list.value = await getConfigByTS(name)
+            list.value = await getConfigByTS(fileName.value)
           } else if (ext.value === '.json') {
             list.value = await getConfigByJson()
           } else if (ext.value === '.ts&.json') {
-            list.value = await getConfigByMixin(name)
+            list.value = await getConfigByMixin(fileName.value)
           } else {
             throw new Error(`未识别的文件格式`)
           }
         }
       } catch (error) {
+        console.log(error)
         nMessage.error(error.message)
       } finally {
         loading.value = false
@@ -164,6 +184,7 @@ export default defineComponent({
         configCode.value = JSON.stringify(list.value, null, 2)
         activeTab.value = 'code'
       } catch (error) {
+        console.log(error)
         nMessage.error(error.message)
       } finally {
         loading.value = false
@@ -173,7 +194,9 @@ export default defineComponent({
     const genTemplate = () => {
       const data = {
         fileName: fileName.value,
-        comName: pascalCase(fileName.value),
+        comName: pascalCase(comName.value)
+          .replace('2D', '2d')
+          .replace('3D', '3d'),
         componentTypes: { ...ComponentType },
         configs: list.value,
         selectOpts: getUsedSelectOptions(list.value),
@@ -193,6 +216,7 @@ export default defineComponent({
 
     return {
       classPath,
+      classSubPath,
       ext,
       extOpts,
       activeTab,

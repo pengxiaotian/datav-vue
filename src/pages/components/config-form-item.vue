@@ -28,10 +28,25 @@
       {{ pair.value }}
     </n-radio-button>
   </n-radio-group>
+  <n-radio-group
+    v-else-if="componentType === componentTypes.radioBase"
+    v-model:value="strValue"
+  >
+    <n-radio v-for="pair in pairs" :key="pair.key" :value="pair.key">
+      {{ pair.value }}
+    </n-radio>
+  </n-radio-group>
   <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
     size="medium"
+  />
+  <g-slider-range
+    v-else-if="componentType === componentTypes.sliderRange"
+    v-model="arrValue"
+    size="medium"
+    :min="0"
+    :max="100"
   />
   <g-upload-image
     v-else-if="componentType === componentTypes.uploadImage"
@@ -49,7 +64,7 @@
     :filters="enums"
   />
   <g-select-shape
-    v-else-if="componentType === componentTypes.legendIcon"
+    v-else-if="componentType === componentTypes.echartIcon"
     v-model="strValue"
     :shapes="selectOptions"
   />

@@ -1,4 +1,8 @@
 import Accounting from 'accounting'
+import { getMap, registerMap } from 'echarts/core'
+import { getStaticData } from '@/api/data'
+
+export type MapChartType = 'China' | 'USA'
 
 export const getAutoValue = (val: string | number) => {
   if (typeof val === 'number') {
@@ -54,4 +58,14 @@ export const valueFormater = (val: string, format: string) => {
   }
 
   return val
+}
+
+export const registerMapAsync = async (mayType: MapChartType) => {
+  const map = getMap(mayType)
+  if (map) {
+    return
+  }
+
+  const res = await getStaticData('0', `common/geo/${mayType.toLowerCase()}`)
+  registerMap(mayType, res.data)
 }

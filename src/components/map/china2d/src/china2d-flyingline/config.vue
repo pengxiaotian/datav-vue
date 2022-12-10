@@ -1,0 +1,161 @@
+<template>
+  <div class="setting-panel-gui">
+    <g-field-collapse
+      label="飞线样式"
+    >
+      <g-field
+        :level="2"
+        label="起点颜色"
+      >
+        <g-color-picker
+          v-model="config.flyinglineStyle.fromColor"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="终点颜色"
+      >
+        <g-color-picker
+          v-model="config.flyinglineStyle.toColor"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="飞线渐变"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.k"
+          :min="0"
+          :max="1"
+          :step="0.01"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="飞线长度"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.trailLength"
+          :min="0"
+          :max="1"
+          :step="0.1"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="飞线粗细"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.trailSize"
+          :min="0"
+          :max="20"
+          :step="1"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="飞线曲率"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.curveness"
+          :min="-1"
+          :max="1"
+          :step="0.01"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        tooltip="设置大于 0 时忽略动画时长"
+        label="飞行速度"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.constantSpeed"
+          :min="0"
+          :max="500"
+          :step="1"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="飞行时长"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.period"
+          :min="0"
+          :max="100"
+          :step="1"
+          suffix="s"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="轨迹粗细"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.lineWidth"
+          :min="0"
+          :max="20"
+          :step="1"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="轨迹透明度"
+      >
+        <g-slider
+          v-model="config.flyinglineStyle.opacity"
+          :min="0"
+          :max="1"
+          :step="0.01"
+        />
+      </g-field>
+    </g-field-collapse>
+    <g-field-collapse
+      v-model="config.flareStyle.show"
+      :toggle="true"
+      label="耀斑样式"
+    >
+      <g-field
+        :level="2"
+        tooltip="修改此选项不会立即生效, 可以刷新组件或者在预览页查看"
+        label="类型"
+      >
+        <g-select-shape
+          v-model="config.flareStyle.type"
+          :shapes="flareTypes"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="颜色"
+      >
+        <g-color-picker
+          v-model="config.flareStyle.color"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="大小"
+      >
+        <g-slider
+          v-model="config.flareStyle.size"
+          :min="0"
+          :max="20"
+          :step="1"
+          suffix="px"
+        />
+      </g-field>
+    </g-field-collapse>
+  </div>
+</template>
+
+<script lang='ts' setup>
+import { toRef } from 'vue'
+import { China2dFlyingline, flareTypes } from './index'
+
+const props = defineProps<{
+  com: China2dFlyingline
+}>()
+
+const config = toRef(props.com, 'config')
+</script>
