@@ -16,19 +16,20 @@ export class China2dFlyingline extends DatavComponent {
       fromColor: '#0ea7ff',
       toColor: '#4affac',
       k: 1,
-      trailLength: 0.2, // 飞线长度
-      trailSize: 2, // 飞线粗细
-      curveness: -0.3, // 飞线曲率
-      constantSpeed: 50, // 飞行速度
-      period: 4, // 飞行时长
-      lineWidth: 1, // 轨迹粗细
-      opacity: 0, // 轨迹透明度
+      trailLength: 0.2,
+      trailSize: 2,
+      curveness: -0.3,
+      constantSpeed: 50,
+      period: 4,
+      lineWidth: 1,
+      opacity: 0,
     },
     flareStyle: {
       show: true,
       type: 'circle',
       color: '#0eff90',
       size: 1,
+      lineWidth: 1, // 用来修复 echarts 中修改图标不立刻生效bug
     },
   }
 

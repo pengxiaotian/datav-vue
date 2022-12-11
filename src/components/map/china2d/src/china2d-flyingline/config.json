@@ -508,13 +508,45 @@
         },
         "path": "flareStyle.size",
         "virtualPath": ""
+      },
+      {
+        "key": "lineWidth",
+        "config": {
+          "type": "number",
+          "component": "number",
+          "alias": "",
+          "tip": "",
+          "displayMode": "single",
+          "features": [],
+          "layout": "horizontal",
+          "toggleCol": "",
+          "isHide": true,
+          "defaultValue": 1,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "InfiniteMin": false,
+          "InfiniteMax": false,
+          "suffix": "",
+          "enums": [],
+          "pairs": [],
+          "whichEnum": {
+            "field": "",
+            "value": ""
+          },
+          "flatValue": false,
+          "isRange": false
+        },
+        "path": "flareStyle.lineWidth",
+        "virtualPath": ""
       }
     ],
     "cols": [
       "show",
       "type",
       "color",
-      "size"
+      "size",
+      "lineWidth"
     ]
   }
 ]

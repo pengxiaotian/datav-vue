@@ -24,7 +24,7 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, toRef, ref, shallowRef, onBeforeMount } from 'vue'
+import { computed, toRef, ref, shallowRef, onBeforeMount, watch, nextTick } from 'vue'
 import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { useComStore } from '@/store/com'
@@ -283,7 +283,7 @@ const getBubbleSerie = (subCom: China2dBubbles) => {
     id: subCom.id,
     type: 'effectScatter',
     coordinateSystem: 'geo',
-    zlevel: 2,
+    zlevel: 1,
     effectType: defaultStyle.effectType,
     rippleEffect: {
       number: defaultStyle.number,
@@ -305,13 +305,17 @@ const getBubbleSerie = (subCom: China2dBubbles) => {
 }
 
 const getFlyinglineSerie = (subCom: China2dFlyingline) => {
+  const { flyinglineStyle, flareStyle } = subCom.config
+  if (flareStyle.lineWidth === 0) {
+    return []
+  }
+
   let data = getSubComData(subCom.id)
   const fieldMap = getSubComField(subCom)
   if (!Array.isArray(data)) {
     data = [data]
   }
 
-  const { flyinglineStyle, flareStyle } = subCom.config
   const list = []
   for (const item of data) {
     list.push({
@@ -357,7 +361,7 @@ const getFlyinglineSerie = (subCom: China2dFlyingline) => {
         name: subCom.id,
         type: 'lines',
         coordinateSystem: 'geo',
-        zlevel: 2,
+        zlevel: 3,
         effect: {
           show: true,
           period: flyinglineStyle.period,
@@ -371,7 +375,7 @@ const getFlyinglineSerie = (subCom: China2dFlyingline) => {
           color: flareStyle.color,
         },
         lineStyle: {
-          width: 0,
+          width: flareStyle.lineWidth || 0,
           opacity: 0,
           curveness: flyinglineStyle.curveness,
         },
@@ -402,11 +406,14 @@ const option = computed(() => {
     } else if (subCom.name === China2dSubType.bubbles) {
       series.push(getBubbleSerie(subCom as China2dBubbles))
     } else if (subCom.name === China2dSubType.flyingline) {
-      series.push(...getFlyinglineSerie(subCom as China2dFlyingline))
+      const arr = getFlyinglineSerie(subCom as China2dFlyingline)
+      if (arr.length > 0) {
+        series.push(...arr)
+      }
     }
   }
 
-  const opts = {
+  return {
     backgroundColor: global.bgColor,
     geo: {
       map: 'China',
@@ -432,7 +439,29 @@ const option = computed(() => {
     tooltip,
     series,
   }
-  return opts
+})
+
+// 修复修改飞线的symbol后不生效bug
+watch(() => {
+  const list = subComs.value.filter(m => m.name === China2dSubType.flyingline)
+  let str = ''
+  list.forEach(item => {
+    str += `${item.config.flareStyle.show}-${item.config.flareStyle.type},`
+  })
+  return str
+}, (nVal, oVal) => {
+  if (nVal && oVal) {
+    const list = subComs.value.filter(m => m.name === China2dSubType.flyingline)
+    list.forEach(item => {
+      item.config.flareStyle.lineWidth = 0
+    })
+
+    nextTick(() => {
+      list.forEach(item => {
+        item.config.flareStyle.lineWidth = 1
+      })
+    })
+  }
 })
 
 const commonProcess = (eventName: string, params: any) => {
