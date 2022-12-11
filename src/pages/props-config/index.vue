@@ -81,7 +81,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, shallowRef } from 'vue'
 import { useMessage } from 'naive-ui'
 import { pascalCase } from '@/utils/string-util'
 import Handlebars from 'handlebars'
@@ -100,6 +100,8 @@ export default defineComponent({
   },
   setup() {
     const nMessage = useMessage()
+
+    const comModules = shallowRef<Record<string, () => Promise<any>>>(null)
     const classPath = ref('map/china2d')
     const classSubPath = ref('')
     const activeTab = ref('config')
@@ -122,7 +124,8 @@ export default defineComponent({
       if (classSubPath.value) {
         path += `/${classSubPath.value}`
       }
-      const comModule = await import(`../../components/${path}/${fileName}.ts`)
+
+      const comModule = await comModules.value[`/src/components/${path}/${fileName}.ts`]()
       const arr: PropDto[] = []
       if (comModule.default.prototype instanceof DatavComponent) {
         const dvc = new comModule.default()
@@ -138,7 +141,7 @@ export default defineComponent({
       if (classSubPath.value) {
         path += `/${classSubPath.value}`
       }
-      const comModule = await import(`../../components/${path}/config.json`)
+      const comModule = await comModules.value[`/src/components/${path}/config.json`]()
       return comModule.default as PropDto[]
     }
 
@@ -151,6 +154,16 @@ export default defineComponent({
 
     const loadModule = async () => {
       try {
+
+        if (!comModules.value) {
+          comModules.value = import.meta.glob([
+            '@/components/**/*.{ts,json}',
+            '!@/components/_*/**/*',
+            '!@/components/ui/**/*',
+            '!@/components/*',
+          ])
+        }
+
         if (classPath.value) {
           loading.value = true
           if (classSubPath.value) {
