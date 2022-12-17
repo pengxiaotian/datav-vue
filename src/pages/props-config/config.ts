@@ -1,6 +1,6 @@
 
-import { isPlainObject, isArray, isString } from 'lodash-es'
-import { isNumber, isBool } from '@/utils/util'
+import { isArray, isString } from 'lodash-es'
+import { isNumber, isBool, isObject } from '@/utils/util'
 import { ToolboxType } from '@/domains/editor'
 import {
   fontFamilys,
@@ -169,6 +169,7 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
         virtualPath = `slotProps.item${prev.substring(idx + 2)}.${key}`
       }
     }
+
     const dto: PropDto = {
       key,
       config: pc,
@@ -187,7 +188,7 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       pc.type = PropDataType.boolean
       pc.component = ComponentType.switch
       pc.defaultValue = val
-    } else if (isPlainObject(val)) {
+    } else if (isObject(val)) {
       pc.type = PropDataType.object
       pc.displayMode = DisplayMode.nest
       dto.children = []

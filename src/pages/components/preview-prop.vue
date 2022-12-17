@@ -114,7 +114,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType } from 'vue'
-import { PropDto } from '../props-config/config'
+import { PropDataType, PropDto } from '../props-config/config'
 import PreviewPropItem from './preview-prop-item.vue'
 
 export default defineComponent({
@@ -141,7 +141,11 @@ export default defineComponent({
       if (whichEnum.field && whichEnum.value) {
         const obj = props.config.find(m => m.key === whichEnum.field)
         if (obj) {
-          isok = obj.config.defaultValue === whichEnum.value
+          if (obj.config.type === PropDataType.boolean) {
+            isok = whichEnum.value === 'true'
+          } else {
+            isok = obj.config.defaultValue === whichEnum.value
+          }
         } else {
           isok = false
         }

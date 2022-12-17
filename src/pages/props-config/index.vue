@@ -87,7 +87,14 @@ import { pascalCase } from '@/utils/string-util'
 import Handlebars from 'handlebars'
 import '@/pages/templates/register'
 import { DatavComponent } from '@/components/_models/datav-component'
-import { PropDto, ComponentType, initPropData, mixinPropData, getUsedSelectOptions } from './config'
+import {
+  PropDto,
+  PropDataType,
+  ComponentType,
+  initPropData,
+  mixinPropData,
+  getUsedSelectOptions,
+} from './config'
 import ConfigForm from '../components/config-form.vue'
 import ConfigPreview from '../components/config-preview.vue'
 import { plainText as configTpl } from '../templates/config-tpl.hbs'
@@ -102,7 +109,7 @@ export default defineComponent({
     const nMessage = useMessage()
 
     const comModules = shallowRef<Record<string, () => Promise<any>>>(null)
-    const classPath = ref('map/china2d')
+    const classPath = ref('text/carousel-table')
     const classSubPath = ref('')
     const activeTab = ref('config')
     const loading = ref(false)
@@ -210,6 +217,7 @@ export default defineComponent({
         comName: pascalCase(comName.value)
           .replace('2D', '2d')
           .replace('3D', '3d'),
+        propDataTypes: { ...PropDataType },
         componentTypes: { ...ComponentType },
         configs: list.value,
         selectOpts: getUsedSelectOptions(list.value),

@@ -15,7 +15,6 @@
     "lint:fix": "pnpm run lint:fix-code && pnpm run lint:fix-css",
     "lint:fix-code": "eslint --fix \"src/**/*.{js,ts,vue}\"",
     "lint:fix-css": "stylelint --fix \"src/**/*.(css|scss|vue)\"",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -63,7 +62,6 @@
     "@vue/compiler-sfc": "^3.2.45",
     "@vue/component-compiler-utils": "^3.3.0",
     "@vue/runtime-core": "^3.2.45",
-    "conventional-changelog-cli": "^2.2.2",
     "cross-env": "^7.0.3",
     "eslint": "^8.29.0",
     "eslint-plugin-import": "^2.26.0",
@@ -85,7 +83,7 @@
     "unplugin-element-plus": "^0.4.1",
     "vite": "^3.2.5",
     "vite-plugin-plain-text": "^1.2.1",
-    "vue-tsc": "^1.0.12"
+    "vue-tsc": "^1.0.13"
   },
   "lint-staged": {
     "src/**/*.{js,ts,vue}": "eslint --fix"

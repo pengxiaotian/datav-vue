@@ -212,7 +212,13 @@ import { defineComponent, PropType, computed } from 'vue'
 import { ToolboxType } from '@/domains/editor'
 import { selectSuggests } from '@/data/select-options'
 import { IconArrowRight } from '@/icons'
-import { PropDto, ComponentType, DisplayMode, getSelectedOptions } from '../props-config/config'
+import {
+  PropDto,
+  DisplayMode,
+  PropDataType,
+  ComponentType,
+  getSelectedOptions,
+} from '../props-config/config'
 import ConfigFormItem from './config-form-item.vue'
 
 const objectToOpts = (obj: Object) => {
@@ -263,8 +269,10 @@ export default defineComponent({
       if (field) {
         const config = props.config.find(m => m.key === field)
         if (config) {
-          if (config.config.component === ComponentType.radio) {
+          if (config.config.component === ComponentType.radio || config.config.component === ComponentType.radioBase) {
             return config.config.pairs.map(m => m.key)
+          } else if (config.config.type === PropDataType.boolean) {
+            return ['true', 'false']
           } else {
             return getSelectedOptions(config.config.component).map(m => m.id)
           }
@@ -303,6 +311,10 @@ export default defineComponent({
   .g-field-title-with-description {
     font-size: 14px;
     color: var(--datav-gui-font-color-base);
+  }
+
+  .n-select .n-tag {
+    background: var(--datav-dark-color);
   }
 }
 </style>

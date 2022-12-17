@@ -63,7 +63,10 @@ Handlebars.registerHelper('getInlineMode', val => {
 
   return false
 })
-
+Handlebars.registerHelper('isTypeOf', (configList, key, type) => {
+  const item = configList.find(m => m.key === key)
+  return item ? item.config.type === type : false
+})
 // ------Partials------
 Handlebars.registerPartial('prop-config-tpl', propConfigTpl)
 Handlebars.registerPartial('prop-component-tpl', propComponentTpl)

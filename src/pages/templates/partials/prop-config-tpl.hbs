@@ -10,7 +10,11 @@
 {{#if (eq item.config.displayMode 'nest')}}
 <g-field-collapse
   {{#if item.config.whichEnum.field}}
+  {{#if (isTypeOf ../configs item.config.whichEnum.field ../propDataTypes.boolean)}}
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}}"
+  {{else}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  {{/if}}
   {{/if}}
   {{#if item.config.toggleCol}}
   v-model="{{getSlotPath item.path item.virtualPath}}.{{item.key}}.{{item.config.toggleCol}}"
@@ -22,6 +26,7 @@
   label="{{item.config.alias}}"
 >
   {{> prop-config-tpl
+    propDataTypes=../propDataTypes
     componentTypes=../componentTypes
     selectOpts=../selectOpts
     configs=item.children
@@ -32,7 +37,11 @@
 {{else if (eq item.config.displayMode 'nest-array')}}
 <g-field-collapse
   {{#if item.config.whichEnum.field}}
+  {{#if (isTypeOf ../configs item.config.whichEnum.field ../propDataTypes.boolean)}}
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}}"
+  {{else}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  {{/if}}
   {{/if}}
   {{#if item.config.toggleCol}}
   v-model="{{getSlotPath item.path item.virtualPath}}.{{item.key}}.{{item.config.toggleCol}}"
@@ -68,6 +77,7 @@
       :is-flat="true"
     >
       {{> prop-config-tpl
+        propDataTypes=../propDataTypes
         componentTypes=../componentTypes
         selectOpts=../selectOpts
         configs=item.children.0.children
@@ -78,6 +88,7 @@
     </g-field>
     {{else}}
     {{> prop-config-tpl
+        propDataTypes=../propDataTypes
         componentTypes=../componentTypes
         selectOpts=../selectOpts
         configs=item.children.0.children
@@ -91,7 +102,11 @@
 {{else if (eq item.config.displayMode 'flat')}}
 <g-field
   {{#if item.config.whichEnum.field}}
+  {{#if (isTypeOf ../configs item.config.whichEnum.field ../propDataTypes.boolean)}}
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}}"
+  {{else}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  {{/if}}
   {{/if}}
   {{#if item.config.toggleCol}}
   v-model="{{getSlotPath item.path item.virtualPath}}.{{item.key}}.{{item.config.toggleCol}}"
@@ -107,6 +122,7 @@
   :is-flat="true"
 >
   {{> prop-config-tpl
+    propDataTypes=../propDataTypes
     componentTypes=../componentTypes
     selectOpts=../selectOpts
     configs=item.children
@@ -119,7 +135,11 @@
 {{else if (neq ../toggleCol item.key)}}
 <g-field
   {{#if item.config.whichEnum.field}}
+  {{#if (isTypeOf ../configs item.config.whichEnum.field ../propDataTypes.boolean)}}
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}}"
+  {{else}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
+  {{/if}}
   {{/if}}
   {{#if (neq ../level 1)}}
   :level="{{../level}}"
