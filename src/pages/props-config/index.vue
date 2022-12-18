@@ -109,7 +109,7 @@ export default defineComponent({
     const nMessage = useMessage()
 
     const comModules = shallowRef<Record<string, () => Promise<any>>>(null)
-    const classPath = ref('text/carousel-table')
+    const classPath = ref('table/carousel-table')
     const classSubPath = ref('')
     const activeTab = ref('config')
     const loading = ref(false)

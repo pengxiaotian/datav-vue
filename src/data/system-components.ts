@@ -245,7 +245,7 @@ export const list: ComDataType = {
       alias: '轮播列表',
       img: `${import.meta.env.VITE_APP_CDN}/com/carousel-table-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/carousel-table-370-208.png`,
-      used: false,
+      used: true,
     }, {
       name: 'VTableBar',
       alias: '轮播列表柱状图',
