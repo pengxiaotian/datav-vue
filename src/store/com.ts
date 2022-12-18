@@ -253,6 +253,13 @@ export const useComStore = defineStore('com', {
 
       return parentComs
     },
+    checkParent(sourceCom: DatavComponent, targetComs: DatavComponent[]) {
+      const pids = this.getParents(sourceCom.parentId).map(m => m.id)
+      if (pids.length > 0) {
+        return targetComs.some(m => pids.includes(m.id))
+      }
+      return false
+    },
     resizeParents(parentComs: DatavComponent | DatavComponent[]) {
       const resizeParent = (com: DatavComponent) => {
         let top = Infinity, left = Infinity
@@ -356,6 +363,10 @@ export const useComStore = defineStore('com', {
     },
     moveTo(toLevel: number, toIndex: number, targetCom: DatavComponent) {
       const scoms = this.selectedComs
+      // 父级不能移动到自己里面
+      if (this.checkParent(targetCom, scoms)) {
+        return
+      }
       const fromParentId = scoms[0].parentId
       if (toLevel === 0) {
         let toIdx = this.coms.length - toIndex
@@ -383,6 +394,7 @@ export const useComStore = defineStore('com', {
             this.removes([fromParentCom.id], fromParentCom.parentId)
           } else {
             this.resizeParents(fromParents)
+            sortGroupConfig(fromParentCom as DatavGroup)
           }
         }
         return
@@ -553,9 +565,9 @@ export const useComStore = defineStore('com', {
               const ncom = getNewCom(ocom, ocom.parentId)
               const nSubComs = this.getSubComs(ocom.id).map(m => getNewCom(m, ncom.id))
               if (ncom.parentId) {
-                const g = findCom(this.coms, ncom.parentId)
+                const g = findCom(this.coms, ncom.parentId) as DatavGroup
                 g.children.push(ncom)
-                sortGroupConfig(g as DatavGroup)
+                g.config.push(createGroupConfig(ncom))
               } else {
                 this.coms.push(ncom)
               }
@@ -577,6 +589,7 @@ export const useComStore = defineStore('com', {
     },
     createGroup() {
       const scoms = this.selectedComs
+      const sids = scoms.map(m => m.id)
       let top = Infinity, left = Infinity
       let right = -Infinity, bottom = -Infinity
       scoms.forEach(({ attr }) => {
@@ -602,19 +615,21 @@ export const useComStore = defineStore('com', {
       })
 
       if (gcom.parentId) {
-        const com = findCom(this.coms, gcom.parentId)
-        com.children = com.children.filter(m => !m.selected)
+        const oldGroup = findCom(this.coms, gcom.parentId) as DatavGroup
+        oldGroup.children = oldGroup.children.filter(m => !sids.includes(m.id))
+        oldGroup.config = oldGroup.config.filter(m => !sids.includes(m.transform3d.id))
+        oldGroup.children.push(gcom)
+        oldGroup.config.push(createGroupConfig(gcom))
       } else {
         this.coms = this.coms.filter(m => !m.selected)
+        this.add(gcom).then(() => {
+          this.select(gcom.id)
+        })
       }
-
-      this.add(gcom).then(() => {
-        this.select(gcom.id)
-      })
     },
     cancelGroup() {
       const scoms = this.selectedComs
-      const ids = scoms.map(m => m.id).join()
+      const sids = scoms.map(m => m.id)
       const pid = scoms[0].parentId
       const coms = scoms.flatMap(m => {
         m.children.forEach(c => {
@@ -626,12 +641,15 @@ export const useComStore = defineStore('com', {
       })
 
       if (pid) {
-        const com = findCom(this.coms, pid)
-        com.children = com.children.filter(com => !ids.includes(com.id))
-        com.children.push(...coms)
-        sortGroupConfig(com as DatavGroup)
+        const oldGroup = findCom(this.coms, pid) as DatavGroup
+        oldGroup.children = oldGroup.children.filter(m => !sids.includes(m.id))
+        oldGroup.config = oldGroup.config.filter(m => !sids.includes(m.transform3d.id))
+        oldGroup.children.push(...coms)
+        coms.forEach(com => {
+          oldGroup.config.push(createGroupConfig(com))
+        })
       } else {
-        this.coms = this.coms.filter(com => !ids.includes(com.id))
+        this.coms = this.coms.filter(com => !sids.includes(com.id))
         this.coms.push(...coms)
       }
     },
