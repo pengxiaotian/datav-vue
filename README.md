@@ -171,13 +171,15 @@ main-title
 
 #### 使用组件
 
-- 想要在项目中使用组件还需要进行注册：
+打开文件 `src/data/system-components.ts`, 找到或新增对应组件节点：
 
 ```js
-// 涉及三个文件：
-// 1. 组件注册：src/components/index.ts
-// 2. 组件工厂：src/components/datav.ts
-// 3. 组件列表：src/data/system-components.ts
+{
+  name: '',
+  alias: '',
+  used: true, // 启用需改为 true
+  // ...
+}
 ```
 
 ### 更多新建选项
