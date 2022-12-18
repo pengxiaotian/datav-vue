@@ -61,11 +61,18 @@ defineProps<{
 
 const comStore = useComStore()
 
+const resizeBox = () => {
+  const pid = comStore.selectedComs[0].parentId
+  const ps = comStore.getParents(pid)
+  comStore.resizeParents(ps)
+}
+
 const alignLeft = () => {
   const minCom = minBy(comStore.selectedComs, com => com.attr.x)
   comStore.selectedComs.forEach(com => {
     com.attr.x = minCom.attr.x
   })
+  resizeBox()
 }
 
 const alignCenter = () => {
@@ -74,6 +81,7 @@ const alignCenter = () => {
     const diff = maxCom.attr.w - com.attr.w
     com.attr.x = maxCom.attr.x + Math.round(diff / 2)
   })
+  resizeBox()
 }
 
 const alignRight = () => {
@@ -81,6 +89,7 @@ const alignRight = () => {
   comStore.selectedComs.forEach(com => {
     com.attr.x = maxCom.attr.x + maxCom.attr.w - com.attr.w
   })
+  resizeBox()
 }
 
 const alignTop = () => {
@@ -88,6 +97,7 @@ const alignTop = () => {
   comStore.selectedComs.forEach(com => {
     com.attr.y = minCom.attr.y
   })
+  resizeBox()
 }
 
 const alignMiddle = () => {
@@ -96,6 +106,7 @@ const alignMiddle = () => {
     const diff = maxCom.attr.h - com.attr.h
     com.attr.y = maxCom.attr.y + Math.round(diff / 2)
   })
+  resizeBox()
 }
 
 const alignBottom = () => {
@@ -103,6 +114,7 @@ const alignBottom = () => {
   comStore.selectedComs.forEach(com => {
     com.attr.y = maxCom.attr.y + maxCom.attr.h - com.attr.h
   })
+  resizeBox()
 }
 
 const alignHorizontal = () => {
@@ -118,6 +130,7 @@ const alignHorizontal = () => {
     com.attr.x = minX + horizontalTotalOffset
     horizontalTotalOffset += gap + com.attr.w
   })
+  resizeBox()
 }
 
 const alignVertical = () => {
@@ -133,6 +146,7 @@ const alignVertical = () => {
     com.attr.y = minY + verticalTotalOffset
     verticalTotalOffset += gap + com.attr.h
   })
+  resizeBox()
 }
 </script>
 
