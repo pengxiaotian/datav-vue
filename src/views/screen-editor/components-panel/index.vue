@@ -124,7 +124,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, computed, nextTick } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
 
 import 'element-plus/es/components/tabs/style/css'
@@ -133,10 +133,9 @@ import { ElTabs, ElTabPane } from 'element-plus'
 
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
-import { useBlueprintStore } from '@/store/blueprint'
-import { useComStore } from '@/store/com'
 import { classifications } from '@/data/system-components'
 import { createComponent } from '@/components/datav'
+import { loadCom } from '@/components/_utils/component-util'
 import { IconSearch, IconBack, IconLock } from '@/icons'
 
 type CategoryType = typeof classifications[0]
@@ -152,9 +151,7 @@ export default defineComponent({
   },
   setup() {
     const toolbarStore = useToolbarStore()
-    const comStore = useComStore()
     const editorStore = useEditorStore()
-    const blueprintStore = useBlueprintStore()
 
     const favoriteComs = ref([])
     const visiblePanel = computed(() => toolbarStore.components.show)
@@ -197,16 +194,8 @@ export default defineComponent({
         const com = await createComponent(comName)
         com.attr.x = Math.floor((editorStore.pageConfig.width - com.attr.w) / 2)
         com.attr.y = Math.floor((editorStore.pageConfig.height - com.attr.h) / 2)
-        await comStore.add(com)
-        comStore.select(com.id)
+        await loadCom(com)
         toolbarStore.removeLoading()
-
-        if (com.apis.source) {
-          await com.loadData()
-          nextTick(() => {
-            blueprintStore.events[com.id]?.requestData()
-          })
-        }
       }
     }
 

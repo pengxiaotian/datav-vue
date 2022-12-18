@@ -36,15 +36,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, nextTick, watch } from 'vue'
+import { defineComponent, computed, ref, watch } from 'vue'
 import type { CSSProperties } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
 import { useComStore } from '@/store/com'
-import { useBlueprintStore } from '@/store/blueprint'
 import { createComponent } from '@/components/datav'
 import { ComType } from '@/components/_models/datav-component'
+import { loadCom } from '@/components/_utils/component-util'
 import { on, off } from '@/utils/dom'
 import { checkRectIntersect } from '@/utils/editor'
 import { warn } from '@/utils/warn'
@@ -66,7 +66,6 @@ export default defineComponent({
     const toolbarStore = useToolbarStore()
     const comStore = useComStore()
     const editorStore = useEditorStore()
-    const blueprintStore = useBlueprintStore()
 
     const { hideMenu } = useContextMenu()
 
@@ -117,16 +116,8 @@ export default defineComponent({
           const offsetTop = (scrollTop + ev.clientY - top) / scale
           com.attr.x = Math.round(offsetLeft - com.attr.w / 2)
           com.attr.y = Math.round(offsetTop - com.attr.h / 2)
-          await comStore.add(com)
-          comStore.select(com.id)
+          await loadCom(com)
           toolbarStore.removeLoading()
-
-          if (com.apis.source) {
-            await com.loadData()
-            nextTick(() => {
-              blueprintStore.events[com.id]?.requestData()
-            })
-          }
         }
       } catch(error) {
         warn('dropToAddCom', error.message)
