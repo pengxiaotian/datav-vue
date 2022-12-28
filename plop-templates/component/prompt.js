@@ -36,36 +36,13 @@ module.exports = {
         return 'View require at least a <script> or <template> tag.';
       },
     },
-    {
-      type: 'list',
-      name: 'category',
-      message: 'Where would you like to put this component?',
-      choices: ['components', 'views', 'pages'],
-      default: 'components',
-    },
-    {
-      type: 'input',
-      name: 'subdirectory',
-      message: 'subdirectory name:',
-    },
-    {
-      type: 'confirm',
-      name: 'withFolder',
-      message: 'Whether to create component as folder?',
-    },
-    {
-      when: (value) => value.withFolder,
-      type: 'confirm',
-      name: 'withPlugin',
-      message: 'Compatible with plugin type?',
-    },
   ],
   actions: (data) => {
-    const dir = `${process.cwd()}/src/${data.category}/${data.subdirectory}/{{dashCase name}}`;
+    const dir = `${process.cwd()}/src/components/ui/{{dashCase name}}`;
     const actions = [
       {
         type: 'add',
-        path: data.withFolder ? `${dir}/src/index.vue` : `${dir}.vue`,
+        path: `${dir}/src/index.vue`,
         templateFile: './component/index.hbs',
         data: {
           name: data.name,
@@ -73,20 +50,22 @@ module.exports = {
           script: data.blocks.includes('script'),
           style: data.blocks.includes('style'),
         },
-      }
-    ];
-
-    if (data.withFolder) {
-      actions.push({
+      },
+      {
         type: 'add',
         path: `${dir}/index.ts`,
         templateFile: './component/index-ts.hbs',
         data: {
           name: data.name,
-          withPlugin: data.withPlugin,
         },
-      });
-    }
+      },
+      {
+        type: 'modify',
+        path: `${process.cwd()}/src/components/ui/index.ts`,
+        pattern: /(\/\/ -- prepend async register placeholder --)/gi,
+        template: "app.component('G{{ pascalCase name }}', defineAsyncComponent(() => import('./{{ dashCase name }}')))\n  $1",
+      }
+    ];
 
     return actions;
   },
