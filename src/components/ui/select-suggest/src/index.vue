@@ -24,8 +24,10 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRefs, computed } from 'vue'
+<script lang='ts' setup>
+import { PropType, toRefs, computed } from 'vue'
+import { NSelect } from 'naive-ui'
+import type { Size } from 'naive-ui/es/select/src/interface'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 interface DataDto {
@@ -33,73 +35,63 @@ interface DataDto {
   value: string | number
 }
 
-export default defineComponent({
-  name: 'GSelectSuggest',
-  props: {
-    modelValue: {
-      type: [String, Number],
-      default: 0,
-    },
-    data: {
-      type: Array as PropType<DataDto[]>,
-      default: () => [],
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    size: {
-      type: String,
-      default: 'small',
-    },
-    inline: {
-      type: [Boolean, String],
-      default: false,
-    },
-    disabled: Boolean,
-    filters: Array as PropType<(number | string)[]>,
+const props = defineProps({
+  modelValue: {
+    type: [String, Number],
+    default: 0,
   },
-  emits: [UPDATE_MODEL_EVENT],
-  setup(props, ctx) {
-    const handleInput = (value: string | number) => {
-      ctx.emit(UPDATE_MODEL_EVENT, value)
+  data: {
+    type: Array as PropType<DataDto[]>,
+    default: () => [],
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  size: {
+    type: String as PropType<Size>,
+    default: 'small',
+  },
+  inline: {
+    type: [Boolean, String],
+    default: false,
+  },
+  disabled: Boolean,
+  filters: Array as PropType<(number | string)[]>,
+})
+
+const emits = defineEmits([UPDATE_MODEL_EVENT])
+
+const handleInput = (value: string | number) => {
+  emits(UPDATE_MODEL_EVENT, value)
+}
+
+const { data, filters } = toRefs(props)
+let list: DataDto[] = []
+if (filters.value && filters.value.length > 0) {
+  filters.value.forEach(m => {
+    const dto = data.value.find(n => n.id === m)
+    if (dto) {
+      list.push(dto)
+    } else {
+      list.push({ id: m, value: m })
     }
+  })
+}
 
-    const { data, filters } = toRefs(props)
-    let list: DataDto[] = []
-    if (filters.value && filters.value.length > 0) {
-      filters.value.forEach(m => {
-        const dto = data.value.find(n => n.id === m)
-        if (dto) {
-          list.push(dto)
-        } else {
-          list.push({ id: m, value: m })
-        }
-      })
-    }
-
-    // const opts = ref(list.map(m => ({ label: m.value, value: m.id })))
-
-    const opts = computed(() => {
-      const { data, filters } = props
-      let list: DataDto[] = []
-      if (filters && filters.length > 0) {
-        filters.forEach(m => {
-          const dto = data.find(n => n.id === m)
-          if (dto) {
-            list.push(dto)
-          } else {
-            list.push({ id: m, value: m })
-          }
-        })
+const opts = computed<any[]>(() => {
+  const { data, filters } = props
+  let list: DataDto[] = []
+  if (filters && filters.length > 0) {
+    filters.forEach(m => {
+      const dto = data.find(n => n.id === m)
+      if (dto) {
+        list.push(dto)
+      } else {
+        list.push({ id: m, value: m })
       }
-      return list.map(m => ({ label: m.value, value: m.id }))
     })
-
-    return {
-      opts,
-      handleInput,
-    }
-  },
+  }
+  return list.map(m => ({ label: m.value, value: m.id }))
 })
 </script>

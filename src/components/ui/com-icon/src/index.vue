@@ -19,8 +19,8 @@
   </n-icon>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script lang='ts' setup>
+import { NIcon } from 'naive-ui'
 import {
   IconHelp,
   IconViewGrid,
@@ -40,31 +40,7 @@ import {
   IconMedia,
 } from '@/icons'
 
-export default defineComponent({
-  name: 'GComIcon',
-  components: {
-    IconHelp,
-    IconViewGrid,
-    IconFavorite,
-    IconChartBar,
-    IconChartLine,
-    IconChartPie,
-    IconRelation,
-    IconOther,
-    IconMap,
-    IconTitle,
-    IconInteract,
-    IconMaterial,
-    IconChart,
-    IconComInfo,
-    IconTable,
-    IconMedia,
-  },
-  props: {
-    icon: {
-      type: String,
-      required: true,
-    },
-  },
-})
+defineProps<{
+  icon: string
+}>()
 </script>

@@ -60,66 +60,56 @@
   </n-popover>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, computed, ref } from 'vue'
+<script lang='ts' setup>
+import { PropType, computed, ref } from 'vue'
+import { NPopover, NIcon } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import { BorderImage } from '@/components/_models/border-image'
 import { IconSelectArrow } from '@/icons'
 
-export default defineComponent({
-  name: 'GSelectImage',
-  components: {
-    IconSelectArrow,
-  },
-  props: {
-    modelValue: {
-      type: String,
-      default: '',
-    },
-    images: {
-      type: Array as PropType<BorderImage[]>,
-      default: () => [],
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    inline: {
-      type: [Boolean, String],
-      default: false,
-    },
-    placement: {
-      type: String,
-      default: 'left',
-    },
-  },
-  emits: [UPDATE_MODEL_EVENT],
-  setup(props, ctx) {
-    const visible = ref(false)
-    const selectedImg = computed(() => {
-      return props.images.find(m => m.id === props.modelValue) || {
-        id: 'img-12138',
-        name: 'img-12138',
-        src: 'https://files.pengxiaotian.com/datav/custom-bg-border.png',
-        border: {
-          slice: '32 37 fill',
-          width: '32px 37px',
-          outset: '0',
-          repeat: 'no-repeat',
-        },
-      }
-    })
+type Placement = 'top' | 'bottom' | 'left' | 'right' | 'top-start' | 'top-end' | 'left-start' | 'left-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end'
 
-    const onSelectImg = (img: BorderImage) => {
-      visible.value = false
-      ctx.emit(UPDATE_MODEL_EVENT, img.id)
-    }
-
-    return {
-      visible,
-      selectedImg,
-      onSelectImg,
-    }
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: '',
+  },
+  images: {
+    type: Array as PropType<BorderImage[]>,
+    default: () => [],
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  inline: {
+    type: [Boolean, String],
+    default: false,
+  },
+  placement: {
+    type: String as PropType<Placement>,
+    default: 'left',
   },
 })
+const emits = defineEmits([UPDATE_MODEL_EVENT])
+
+const visible = ref(false)
+const selectedImg = computed(() => {
+  return props.images.find(m => m.id === props.modelValue) || {
+    id: 'img-12138',
+    name: 'img-12138',
+    src: 'https://files.pengxiaotian.com/datav/custom-bg-border.png',
+    border: {
+      slice: '32 37 fill',
+      width: '32px 37px',
+      outset: '0',
+      repeat: 'no-repeat',
+    },
+  }
+})
+
+const onSelectImg = (img: BorderImage) => {
+  visible.value = false
+  emits(UPDATE_MODEL_EVENT, img.id)
+}
 </script>

@@ -64,6 +64,12 @@ module.exports = {
         path: `${process.cwd()}/src/components/ui/index.ts`,
         pattern: /(\/\/ -- prepend async register placeholder --)/gi,
         template: "app.component('G{{ pascalCase name }}', defineAsyncComponent(() => import('./{{ dashCase name }}')))\n  $1",
+      },
+      {
+        type: 'modify',
+        path: `${process.cwd()}/datav-cli-ui/ui-components/index.ts`,
+        pattern: /(\/\/ -- prepend register placeholder --)/gi,
+        template: "export { default as G{{ pascalCase name }} } from '../../src/components/ui/{{ dashCase name }}'\n$1",
       }
     ];
 

@@ -291,6 +291,9 @@ const themeOverrides: GlobalThemeOverrides = {
     tabTextColorHoverCard: vars.primaryColorHover,
     tabTextColorActiveCard: vars.primaryColorHover,
   },
+  PageHeader: {
+    backColor: '#fff',
+  },
 }
 
 export {

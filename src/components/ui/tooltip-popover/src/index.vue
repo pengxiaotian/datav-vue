@@ -26,25 +26,26 @@
     </n-popover>
   </n-config-provider>
 </template>
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script lang='ts' setup>
+import { PropType } from 'vue'
+import { NConfigProvider, NPopover } from 'naive-ui'
+import type { PopoverTrigger } from 'naive-ui/es/popover/src/interface'
 
-export default defineComponent({
-  name: 'GTooltipPopover',
-  props: {
-    trigger: {
-      type: String,
-      default: 'hover',
-    },
-    placement: {
-      type: String,
-      default: 'bottom',
-    },
-    delay: {
-      type: Number,
-      default: 500,
-    },
-    content: String,
+type Placement = 'top' | 'bottom' | 'left' | 'right' | 'top-start' | 'top-end' | 'left-start' | 'left-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end'
+
+defineProps({
+  trigger: {
+    type: String as PropType<PopoverTrigger>,
+    default: 'hover',
   },
+  placement: {
+    type: String as PropType<Placement>,
+    default: 'bottom',
+  },
+  delay: {
+    type: Number,
+    default: 500,
+  },
+  content: String,
 })
 </script>
