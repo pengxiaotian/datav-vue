@@ -145,7 +145,7 @@
           列表为空
         </span>
       </template>
-      <slot v-else></slot>
+      <slot v-else :item="defaultSlotData"></slot>
     </n-collapse-item>
   </n-collapse>
 </template>
@@ -208,6 +208,7 @@ const emits = defineEmits([UPDATE_MODEL_EVENT])
 const activeNames = ref<string[]>([])
 const activeTab = ref(0)
 const isLayoutRow = ref(props.defaultLayout === ToolboxType.horizontal)
+const defaultSlotData = {} as any
 
 const visibleToolbox = computed(() => {
   return activeNames.value.length > 0 && props.features.length > 0

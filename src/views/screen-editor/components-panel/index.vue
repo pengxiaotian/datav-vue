@@ -133,12 +133,10 @@ import { ElTabs, ElTabPane } from 'element-plus'
 
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
-import { classifications } from '@/data/system-components'
+import { classifications, ComDataType, ComDataDto } from '@/data/system-components'
 import { createComponent } from '@/components/datav'
 import { loadCom } from '@/components/_utils/component-util'
 import { IconSearch, IconBack, IconLock } from '@/icons'
-
-type CategoryType = typeof classifications[0]
 
 export default defineComponent({
   name: 'ComponentsPanel',
@@ -156,15 +154,15 @@ export default defineComponent({
     const favoriteComs = ref([])
     const visiblePanel = computed(() => toolbarStore.components.show)
 
-    const cloneCfs: CategoryType[] = cloneDeep(classifications)
+    const cloneCfs = cloneDeep(classifications)
     const first = { type: 'all', name: '全部', icon: 'v-icon-view-grid' }
 
     const categories = computed(() => {
-      const list: CategoryType[] = cloneCfs
+      const list = cloneCfs
       list.forEach(item => {
         item.data.unshift({
           ...first,
-          data: item.data.flatMap(m => m.data),
+          data: (item.data as ComDataType[]).flatMap(m => m.data),
         })
       })
 

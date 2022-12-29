@@ -32,7 +32,7 @@ import OptionLabel from './option-label.vue'
 interface ShapeType {
   id: string
   value: string
-  icon: string
+  icon?: string
 }
 
 const props = defineProps({
