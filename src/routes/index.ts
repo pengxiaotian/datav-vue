@@ -72,23 +72,6 @@ const routes: Array<RouteRecordRaw> = [
   },
 ]
 
-if (__DEV__) {
-  routes.unshift(
-    {
-      path: '/dev/props-config',
-      name: 'DevPropsConfig',
-      component: () => import('@/pages/props-config/index.vue'),
-      meta: { title: '属性配置' },
-    },
-    {
-      path: '/dev/icons',
-      name: 'DevIcons',
-      component: () => import('@/pages/icons.vue'),
-      meta: { title: '全部图标' },
-    },
-  )
-}
-
 const router = createRouter({
   history: createWebHashHistory(),
   routes,

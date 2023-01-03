@@ -123,111 +123,97 @@
   <span v-else>--</span>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, ref, computed, watch } from 'vue'
-import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '../props-config/config'
+<script lang='ts' setup>
+import type { PropType } from 'vue'
+import { NCheckbox, NSwitch, NRadioGroup, NRadioButton, NRadio } from 'naive-ui'
+import { GInput, GInputNumber, GColorPicker, GSlider, GSliderRange, GUploadImage, GSelectImage, GSelectSuggest, GSelectShape, GSelect } from '~~/ui-components'
+import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '~~/domains/prop-data'
 
-export default defineComponent({
-  name: 'PreviewPropItem',
-  props: {
-    dataType: {
-      type: String as PropType<PropDataType>,
-      required: true,
-    },
-    componentType: {
-      type: String as PropType<ComponentType>,
-      required: true,
-    },
-    defaultValue: {
-      type: [String, Number, Boolean, Array, Object],
-    },
-    min: {
-      type: Number,
-      default: -Infinity,
-    },
-    max: {
-      type: Number,
-      default: Infinity,
-    },
-    step: {
-      type: Number,
-      default: 1,
-    },
-    suffix: String,
-    label: String,
-    inline: {
-      type: String,
-      default: 'single',
-    },
-    enums: {
-      type: Array as PropType<string[]>,
-      default: () => [],
-    },
-    pairs: {
-      type: Array as PropType<{ key: string; value: string; }[]>,
-      default: () => [],
-    },
-    whichEnum: {
-      type: Object as PropType<{
-        field: string
-        value: string
-      }>,
-      default: () => ({
-        field: '',
-        value: '',
-      }),
-    },
-    flatValue: Boolean,
+const props = defineProps({
+  dataType: {
+    type: String as PropType<PropDataType>,
+    required: true,
   },
-  setup(props) {
-    const componentTypes = ref({ ...ComponentType })
-
-    const strValue = ref('')
-    const numValue = ref(0)
-    const boolValue = ref(false)
-    const arrValue = ref<(string | number)[]>([])
-
-    const mode = computed(() => {
-      if (props.inline === 'inline' || props.inline === 'inline-single') {
-        return props.inline
-      }
-
-      return false
-    })
-
-    const selectOptions = computed(() => {
-      return getSelectedOptions(props.componentType)
-    })
-
-    watch(
-      () => props.componentType,
-      () => {
-        const dv = props.defaultValue
-        if (dv !== undefined) {
-          if (props.dataType === PropDataType.string) {
-            strValue.value = dv as string
-          } else if (props.dataType === PropDataType.number) {
-            numValue.value = dv as number
-          } else if (props.dataType === PropDataType.boolean) {
-            boolValue.value = dv as boolean
-          } else if (props.dataType === PropDataType.array) {
-            arrValue.value = dv as (string | number)[]
-          }
-        }
-      }, {
-        immediate: true,
-      })
-
-    return {
-      componentTypes,
-      strValue,
-      numValue,
-      boolValue,
-      arrValue,
-      mode,
-      AllOptionKeys,
-      selectOptions,
-    }
+  componentType: {
+    type: String as PropType<ComponentType>,
+    required: true,
   },
+  defaultValue: {
+    type: [String, Number, Boolean, Array, Object],
+  },
+  min: {
+    type: Number,
+    default: -Infinity,
+  },
+  max: {
+    type: Number,
+    default: Infinity,
+  },
+  step: {
+    type: Number,
+    default: 1,
+  },
+  suffix: String,
+  label: String,
+  inline: {
+    type: String,
+    default: 'single',
+  },
+  enums: {
+    type: Array as PropType<string[]>,
+    default: () => [],
+  },
+  pairs: {
+    type: Array as PropType<{ key: string; value: string; }[]>,
+    default: () => [],
+  },
+  whichEnum: {
+    type: Object as PropType<{
+      field: string
+      value: string
+    }>,
+    default: () => ({
+      field: '',
+      value: '',
+    }),
+  },
+  flatValue: Boolean,
 })
+
+const componentTypes = ref({ ...ComponentType })
+const strValue = ref('')
+const numValue = ref(0)
+const boolValue = ref(false)
+const arrValue = ref<any[]>([])
+
+const mode = computed(() => {
+  if (props.inline === 'inline' || props.inline === 'inline-single') {
+    return props.inline
+  }
+
+  return false
+})
+
+const selectOptions = computed(() => {
+  return getSelectedOptions(props.componentType)
+})
+
+watch(
+  () => props.componentType,
+  () => {
+    const dv = props.defaultValue
+    if (dv !== undefined) {
+      if (props.dataType === PropDataType.string) {
+        strValue.value = dv as string
+      } else if (props.dataType === PropDataType.number) {
+        numValue.value = dv as number
+      } else if (props.dataType === PropDataType.boolean) {
+        boolValue.value = dv as boolean
+      } else if (props.dataType === PropDataType.array) {
+        arrValue.value = dv as any[]
+      }
+    }
+  }, {
+    immediate: true,
+  })
 </script>

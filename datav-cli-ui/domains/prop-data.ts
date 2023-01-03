@@ -1,35 +1,9 @@
-
 import { isArray, isString } from 'lodash-es'
-import { isNumber, isBool, isObject } from '@/utils/util'
+import { isNumber, isBool, isObject, getRandomInt } from '@/utils/util'
 import { ToolboxType } from '@/domains/editor'
-import {
-  fontFamilys,
-  fontWeights,
-  fontStyles,
-  hAligns,
-  vAligns,
-  writingModes,
-  justifyContents,
-  aligns,
-  angles,
-  legendLocations,
-  titleLocations,
-  lineStyles,
-  fillTypes,
-  repeatTypes,
-  echartsLablePositions,
-  animationEasings,
-  selectSuggests,
-  echartIcons,
-  orients,
-  axisTypes,
-  valueFormats,
-  timeFormats,
-  imageTypes,
-} from '@/data/select-options'
+import * as selectOptions from '@/data/select-options'
 
-// 用于生成模板
-export const AllOptionKeys = ['fontFamilys', 'fontWeights', 'fontStyles', 'hAligns', 'vAligns', 'writingModes', 'justifyContents', 'aligns', 'angles', 'legendLocations', 'titleLocations', 'lineStyles', 'fillTypes', 'repeatTypes', 'echartsLablePositions', 'animationEasings', 'selectSuggests', 'echartIcons', 'orients', 'axisTypes', 'valueFormats', 'timeFormats', 'imageTypes']
+export const AllOptionKeys = Object.keys(selectOptions)
 
 export enum PropDataType {
   unknown = 'unknown',
@@ -89,6 +63,7 @@ export enum DisplayMode {
 }
 
 export interface PropConfig {
+  id: number
   type: PropDataType
   component: ComponentType
   alias: string
@@ -115,8 +90,18 @@ export interface PropConfig {
   isRange: boolean
 }
 
+export interface PropDto {
+  key: string
+  config: PropConfig
+  path: string
+  virtualPath: string
+  children?: PropDto[]
+  cols?: string[]
+}
+
 export const createPropConfig = () => {
   const data: PropConfig = {
+    id: getRandomInt(9999),
     type: PropDataType.unknown,
     component: ComponentType.none,
     alias: '',
@@ -144,15 +129,6 @@ export const createPropConfig = () => {
   }
 
   return data
-}
-
-export interface PropDto {
-  key: string
-  config: PropConfig
-  path: string
-  virtualPath: string
-  children?: PropDto[]
-  cols?: string[]
 }
 
 export const initPropData = (data: any, arr: PropDto[], prev: string) => {
@@ -250,98 +226,9 @@ export const getUsedSelectOptions = (dtos: PropDto[]) => {
   return [...opts]
 }
 
-export const getSelectedOptions = (type: ComponentType) => {
-  if (type === ComponentType.fontFamily) {
-    return fontFamilys
-  }
-
-  if (type === ComponentType.fontWeight) {
-    return fontWeights
-  }
-
-  if (type === ComponentType.fontStyle) {
-    return fontStyles
-  }
-
-  if (type === ComponentType.hAlign) {
-    return hAligns
-  }
-
-  if (type === ComponentType.vAlign) {
-    return vAligns
-  }
-
-  if (type === ComponentType.writingMode) {
-    return writingModes
-  }
-
-  if (type === ComponentType.justifyContent) {
-    return justifyContents
-  }
-
-  if (type === ComponentType.align) {
-    return aligns
-  }
-
-  if (type === ComponentType.angle) {
-    return angles
-  }
-
-  if (type === ComponentType.legendLocation) {
-    return legendLocations
-  }
-
-  if (type === ComponentType.titleLocation) {
-    return titleLocations
-  }
-
-  if (type === ComponentType.lineStyle) {
-    return lineStyles
-  }
-
-  if (type === ComponentType.fillType) {
-    return fillTypes
-  }
-
-  if (type === ComponentType.repeatType) {
-    return repeatTypes
-  }
-
-  if (type === ComponentType.echartsLablePosition) {
-    return echartsLablePositions
-  }
-
-  if (type === ComponentType.animationEasing) {
-    return animationEasings
-  }
-
-  if (type === ComponentType.echartIcon) {
-    return echartIcons
-  }
-
-  if (type === ComponentType.selectSuggest) {
-    return selectSuggests
-  }
-
-  if (type === ComponentType.orient) {
-    return orients
-  }
-
-  if (type === ComponentType.axisType) {
-    return axisTypes
-  }
-
-  if (type === ComponentType.valueFormat) {
-    return valueFormats
-  }
-
-  if (type === ComponentType.timeFormat) {
-    return timeFormats
-  }
-
-  if (type === ComponentType.imageType) {
-    return imageTypes
-  }
-
-  return []
+export const getSelectedOptions = (type: ComponentType): {
+  id: string
+  value: string
+}[] => {
+  return selectOptions[`${type}s`] || []
 }

@@ -112,51 +112,40 @@
   </template>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType } from 'vue'
-import { PropDataType, PropDto } from '../props-config/config'
-import PreviewPropItem from './preview-prop-item.vue'
+<script lang='ts' setup>
+import { PropType } from 'vue'
+import { PropDataType, PropDto } from '~~/domains/prop-data'
+import { GField, GFieldCollapse } from '~~/ui-components'
 
-export default defineComponent({
-  name: 'PreviewProp',
-  components: {
-    PreviewPropItem,
+const props = defineProps({
+  config: {
+    type: Array as PropType<PropDto[]>,
+    required: true,
   },
-  props: {
-    config: {
-      type: Array as PropType<PropDto[]>,
-      required: true,
-    },
-    toggleCol: String,
-    level: {
-      type: Number,
-      default: 1,
-    },
-    isFlat: Boolean,
+  toggleCol: String,
+  level: {
+    type: Number,
+    default: 1,
   },
-  setup(props) {
-    const judgeDisplay = (item: PropDto) => {
-      let isok = true
-      const { whichEnum } = item.config
-      if (whichEnum.field && whichEnum.value) {
-        const obj = props.config.find(m => m.key === whichEnum.field)
-        if (obj) {
-          if (obj.config.type === PropDataType.boolean) {
-            isok = whichEnum.value === 'true'
-          } else {
-            isok = obj.config.defaultValue === whichEnum.value
-          }
-        } else {
-          isok = false
-        }
-      }
-
-      return isok
-    }
-
-    return {
-      judgeDisplay,
-    }
-  },
+  isFlat: Boolean,
 })
+
+const judgeDisplay = (item: PropDto) => {
+  let isok = true
+  const { whichEnum } = item.config
+  if (whichEnum.field && whichEnum.value) {
+    const obj = props.config.find(m => m.key === whichEnum.field)
+    if (obj) {
+      if (obj.config.type === PropDataType.boolean) {
+        isok = whichEnum.value === 'true'
+      } else {
+        isok = obj.config.defaultValue === whichEnum.value
+      }
+    } else {
+      isok = false
+    }
+  }
+
+  return isok
+}
 </script>

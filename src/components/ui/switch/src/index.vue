@@ -21,40 +21,34 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script lang='ts' setup>
+import { PropType } from 'vue'
+import { NSwitch } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
-export default defineComponent({
-  name: 'GSwitch',
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    size: {
-      type: String,
-      default: 'medium',
-    },
-    inline: {
-      type: [Boolean, String],
-      default: false,
-    },
-    disabled: Boolean,
+defineProps({
+  modelValue: {
+    type: Boolean,
+    default: false,
   },
-  emits: [UPDATE_MODEL_EVENT],
-  setup(props, ctx) {
-    const handleInput = (value: string | number) => {
-      ctx.emit(UPDATE_MODEL_EVENT, value)
-    }
-
-    return {
-      handleInput,
-    }
+  label: {
+    type: String,
+    default: '',
   },
+  size: {
+    type: String as PropType<'medium' | 'small' | 'large'>,
+    default: 'medium',
+  },
+  inline: {
+    type: [Boolean, String],
+    default: false,
+  },
+  disabled: Boolean,
 })
+
+const emits = defineEmits([UPDATE_MODEL_EVENT])
+
+const handleInput = (value: boolean) => {
+  emits(UPDATE_MODEL_EVENT, value)
+}
 </script>

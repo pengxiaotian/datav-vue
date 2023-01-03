@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@css-render/vue3-ssr": "^0.15.12",
+    "handlebars": "^4.7.7",
+    "lodash-es": "^4.17.21",
+    "naive-ui": "^2.34.3",
+    "nuxt": "3.0.0",
+    "vite-plugin-plain-text": "^1.2.1",
+    "vue": "^3.2.45"
+  }
+}

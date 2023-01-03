@@ -44,59 +44,50 @@
   </n-grid>
 </template>
 
-<script lang='ts'>
-import { defineComponent, computed } from 'vue'
+<script lang='ts' setup>
+import { computed } from 'vue'
+import { NGrid, NGi, NSwitch, NTooltip } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
-export default defineComponent({
-  name: 'GField',
-  props: {
-    label: {
-      type: String,
-      required: true,
-    },
-    tooltip: String,
-    toggle: Boolean,
-    modelValue: {
-      type: Boolean,
-      default: true,
-    },
-    level: {
-      type: Number,
-      default: 1,
-    },
-    nest: Boolean,
-    caption: String,
-    disabled: Boolean,
-    isFlat: Boolean,
-    labelSpan: {
-      type: Number,
-      default: 9,
-    },
+const props = defineProps({
+  label: {
+    type: String,
+    required: true,
   },
-  emits: [UPDATE_MODEL_EVENT],
-  setup(props, ctx) {
-    const toggleVisible = () => {
-      ctx.emit(UPDATE_MODEL_EVENT, !props.modelValue)
-    }
-
-    const labelStyle = computed(() => {
-      return {
-        span: props.nest ? 24 : props.labelSpan,
-      }
-    })
-
-    const contentStyle = computed(() => {
-      return {
-        span: props.nest ? 24 : 15,
-      }
-    })
-
-    return {
-      toggleVisible,
-      labelStyle,
-      contentStyle,
-    }
+  tooltip: String,
+  toggle: Boolean,
+  modelValue: {
+    type: Boolean,
+    default: true,
   },
+  level: {
+    type: Number,
+    default: 1,
+  },
+  nest: Boolean,
+  caption: String,
+  disabled: Boolean,
+  isFlat: Boolean,
+  labelSpan: {
+    type: Number,
+    default: 9,
+  },
+})
+const emits = defineEmits([UPDATE_MODEL_EVENT])
+
+const toggleVisible = () => {
+  emits(UPDATE_MODEL_EVENT, !props.modelValue)
+}
+
+const labelStyle = computed(() => {
+  return {
+    span: props.nest ? 24 : props.labelSpan,
+  }
+})
+
+const contentStyle = computed(() => {
+  return {
+    span: props.nest ? 24 : 15,
+  }
 })
 </script>

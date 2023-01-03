@@ -59,145 +59,121 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, ref, watch } from 'vue'
-import { useMessage, UploadFileInfo } from 'naive-ui'
+<script lang='ts' setup>
+import { ref, watch } from 'vue'
+import { useMessage, UploadFileInfo, NInput, NUpload, NIcon, NSpin, NUploadDragger } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import { generateId } from '@/utils/util'
 import { uploadHost, previewHost, validAllowImg } from '@/utils/upload-util'
 import { getTokenByEnv } from '@/api/qiniu'
 import { IconLink, IconImg } from '@/icons'
 
-export default defineComponent({
-  name: 'GUploadImage',
-  components: {
-    IconLink,
-    IconImg,
+const props = defineProps({
+  modelValue: String,
+  allowType: {
+    type: String,
+    default: 'gif|jpeg|jpg|png',
   },
-  props: {
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    allowType: {
-      type: String,
-      default: 'gif|jpeg|jpg|png',
-    },
-    size: {
-      type: Number,
-      default: 2,
-    },
-    action: {
-      type: String,
-      default: uploadHost,
-    },
-    previewHost: {
-      type: String,
-      default: previewHost,
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    inline: {
-      type: [Boolean, String],
-      default: false,
-    },
+  size: {
+    type: Number,
+    default: 2,
   },
-  emits: [UPDATE_MODEL_EVENT],
-  setup(props, ctx) {
-    const nMessage = useMessage()
-    const loading = ref(false)
-    const form = ref({
-      key: '',
-      token: '',
-    })
-    const iserr = ref(false)
-    const visibleCover = ref(false)
-
-    const beforeUpload = async (options: { file: UploadFileInfo; event: Event; }) => {
-      const valid = validAllowImg(options.file.file, {
-        allowType: props.allowType,
-        allowSize: props.size,
-      })
-
-      if (valid) {
-        nMessage.error(valid)
-        return false
-      }
-
-      try {
-        loading.value = true
-        form.value.token = await getTokenByEnv()
-        form.value.key = `upload/${generateId()}_${options.file.name}`
-        return true
-      } catch (error) {
-        loading.value = false
-        nMessage.error(error.message)
-      }
-
-      return false
-    }
-
-    const finishUpload = (options: { file: UploadFileInfo; event: Event; }) => {
-      loading.value = false
-
-      const res = JSON.parse((options.event.target as XMLHttpRequest).response)
-      if (res.error) {
-        nMessage.error(res.error)
-      } else {
-        ctx.emit(UPDATE_MODEL_EVENT, `${props.previewHost}/${res.key}`)
-      }
-    }
-
-    const handleInput = (value: string) => {
-      ctx.emit(UPDATE_MODEL_EVENT, value)
-    }
-
-    const zoomImage = () => {
-      const img = new Image()
-      img.src = props.modelValue
-      img.onload = () => {
-        iserr.value = false
-      }
-
-      img.onerror = () => {
-        iserr.value = true
-        if (props.modelValue) {
-          nMessage.error('图片加载失败')
-        }
-      }
-    }
-
-    const handleMouseEnter = () => {
-      if (props.modelValue) {
-        visibleCover.value = true
-      }
-    }
-
-    const handleMouseLeave = () => {
-      visibleCover.value = false
-    }
-
-    const removeImage = () => {
-      handleInput('')
-      visibleCover.value = false
-    }
-
-    watch(() => props.modelValue, zoomImage)
-
-    return {
-      loading,
-      form,
-      iserr,
-      visibleCover,
-      beforeUpload,
-      finishUpload,
-      handleInput,
-      handleMouseEnter,
-      handleMouseLeave,
-      removeImage,
-    }
+  action: {
+    type: String,
+    default: uploadHost,
+  },
+  previewHost: {
+    type: String,
+    default: previewHost,
+  },
+  label: {
+    type: String,
+    default: '',
+  },
+  inline: {
+    type: [Boolean, String],
+    default: false,
   },
 })
+const emits = defineEmits([UPDATE_MODEL_EVENT])
+
+const nMessage = useMessage()
+const loading = ref(false)
+const form = ref({
+  key: '',
+  token: '',
+})
+const iserr = ref(false)
+const visibleCover = ref(false)
+
+const beforeUpload = async (options: { file: UploadFileInfo; }) => {
+  const valid = validAllowImg(options.file.file, {
+    allowType: props.allowType,
+    allowSize: props.size,
+  })
+
+  if (valid) {
+    nMessage.error(valid)
+    return false
+  }
+
+  try {
+    loading.value = true
+    form.value.token = await getTokenByEnv()
+    form.value.key = `upload/${generateId()}_${options.file.name}`
+    return true
+  } catch (error) {
+    loading.value = false
+    nMessage.error(error.message)
+  }
+
+  return false
+}
+
+const finishUpload = (options: { file: UploadFileInfo; event?: ProgressEvent; }) => {
+  loading.value = false
+
+  const res = JSON.parse((options.event.target as XMLHttpRequest).response)
+  if (res.error) {
+    nMessage.error(res.error)
+  } else {
+    emits(UPDATE_MODEL_EVENT, `${props.previewHost}/${res.key}`)
+  }
+}
+
+const handleInput = (value: string) => {
+  emits(UPDATE_MODEL_EVENT, value)
+}
+
+const zoomImage = () => {
+  const img = new Image()
+  img.src = props.modelValue
+  img.onload = () => {
+    iserr.value = false
+  }
+
+  img.onerror = () => {
+    iserr.value = true
+    if (props.modelValue) {
+      nMessage.error('图片加载失败')
+    }
+  }
+}
+
+const handleMouseEnter = () => {
+  if (props.modelValue) {
+    visibleCover.value = true
+  }
+}
+
+const handleMouseLeave = () => {
+  visibleCover.value = false
+}
+
+const removeImage = () => {
+  handleInput('')
+  visibleCover.value = false
+}
+
+watch(() => props.modelValue, zoomImage)
 </script>

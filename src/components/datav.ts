@@ -18,7 +18,7 @@ export async function createComponent(name: string) {
   const paths = Object.keys(modules)
   let path = paths.find(m => m.includes(`src/${file}.ts`))
   if (!path) {
-    path = paths.find(m => m.includes(`${file}/index.ts`))
+    path = paths.find(m => m.includes(`src/${file}/index.ts`))
   }
 
   if (path) {

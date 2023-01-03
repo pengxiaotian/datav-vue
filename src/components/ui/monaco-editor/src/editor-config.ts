@@ -1,8 +1,6 @@
 import type { editor as MEditor, languages, IRange } from 'monaco-editor'
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api'
+import type { Monaco } from '@monaco-editor/loader'
 import { isObject, isArray, isString } from 'lodash-es'
-
-export type Monaco = typeof monacoEditor
 
 export type languageType = 'plaintext' | 'html' | 'javascript' | 'json' | 'sql'
 

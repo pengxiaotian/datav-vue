@@ -207,19 +207,13 @@
   </n-collapse>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, computed } from 'vue'
+<script lang='ts' setup>
+import { NCollapse, NCollapseItem, NIcon, NSpace, NForm, NFormItem, NFormItemGi, NGrid, NTooltip, NInput, NSelect, NCheckbox, NDynamicInput, NRadio, NRadioGroup } from 'naive-ui'
+import { GInputNumber } from '~~/ui-components'
+import { IconArrowRight } from '@/icons'
 import { ToolboxType } from '@/domains/editor'
 import { selectSuggests } from '@/data/select-options'
-import { IconArrowRight } from '@/icons'
-import {
-  PropDto,
-  DisplayMode,
-  PropDataType,
-  ComponentType,
-  getSelectedOptions,
-} from '../props-config/config'
-import ConfigFormItem from './config-form-item.vue'
+import { PropDto, DisplayMode, PropDataType, ComponentType, getSelectedOptions } from '~~/domains/prop-data'
 
 const objectToOpts = (obj: Object) => {
   return Object.values(obj).map(m => ({ value: m, label: m }))
@@ -229,72 +223,48 @@ const arrToOpts = (arr: string[]) => {
   return arr?.map(m => ({ value: m, label: m }))
 }
 
-export default defineComponent({
-  name: 'ConfigForm',
-  components: {
-    IconArrowRight,
-    ConfigFormItem,
-  },
-  props: {
-    config: {
-      type: Array as PropType<PropDto[]>,
-      required: true,
-    },
-    toggleCol: String,
-  },
-  setup(props) {
-    const componentTypes = objectToOpts(ComponentType)
-    const displayModes = objectToOpts(DisplayMode)
-    const toolboxTypes = objectToOpts(ToolboxType)
+const props = defineProps<{
+  config: PropDto[]
+  toggleCol?: String
+}>()
 
-    const fields = computed(() => {
-      return props.config.map(m => m.key)
-    })
+const componentTypes = objectToOpts(ComponentType)
+const displayModes = objectToOpts(DisplayMode)
+const toolboxTypes = objectToOpts(ToolboxType)
 
-    const querys = [
-      '请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体',
-      '支持从数据中获取标题内容，详见数据面板',
-      '分隔符最长一位，超出一位取第一位，无法以数字为分隔符',
-      '当传入数据不变时始终开启动画',
-      '溢出文本加省略号',
-      '点击标题区域可跳转至设定的超链接',
-      '不设时自适应，可以是绝对值例如 40 或者百分数例如 40%。',
-      '默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。',
-      '这是个预估值，实际显示会做调整，可以设置成 0 强制显示所有标签。',
-      '整数参照 d, 浮点参照 .1f',
-      '时间请参照 YYYY/MM/DD HH:mm:ss',
-    ].map(m => ({ value: m, label: m }))
-
-    const getEnums = (field: string) => {
-      if (field) {
-        const config = props.config.find(m => m.key === field)
-        if (config) {
-          if (config.config.component === ComponentType.radio || config.config.component === ComponentType.radioBase) {
-            return config.config.pairs.map(m => m.key)
-          } else if (config.config.type === PropDataType.boolean) {
-            return ['true', 'false']
-          } else {
-            return getSelectedOptions(config.config.component).map(m => m.id)
-          }
-        }
-      }
-      return []
-    }
-
-    return {
-      ComponentType,
-      ToolboxType,
-      componentTypes,
-      displayModes,
-      toolboxTypes,
-      fields,
-      selectSuggests: selectSuggests.map(m => ({ value: m.id, label: m.value })),
-      querys,
-      getEnums,
-      arrToOpts,
-    }
-  },
+const fields = computed(() => {
+  return props.config.map(m => m.key)
 })
+
+const querys = [
+  '请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体',
+  '支持从数据中获取标题内容，详见数据面板',
+  '分隔符最长一位，超出一位取第一位，无法以数字为分隔符',
+  '当传入数据不变时始终开启动画',
+  '溢出文本加省略号',
+  '点击标题区域可跳转至设定的超链接',
+  '不设时自适应，可以是绝对值例如 40 或者百分数例如 40%。',
+  '默认会采用标签不重叠的策略间隔显示标签，可以设置成 0 强制显示所有标签。',
+  '这是个预估值，实际显示会做调整，可以设置成 0 强制显示所有标签。',
+  '整数参照 d, 浮点参照 .1f',
+  '时间请参照 YYYY/MM/DD HH:mm:ss',
+].map(m => ({ value: m, label: m }))
+
+const getEnums = (field: string) => {
+  if (field) {
+    const config = props.config.find(m => m.key === field)
+    if (config) {
+      if (config.config.component === ComponentType.radio || config.config.component === ComponentType.radioBase) {
+        return config.config.pairs.map(m => m.key)
+      } else if (config.config.type === PropDataType.boolean) {
+        return ['true', 'false']
+      } else {
+        return getSelectedOptions(config.config.component).map(m => m.id)
+      }
+    }
+  }
+  return []
+}
 </script>
 
 <style lang="scss">

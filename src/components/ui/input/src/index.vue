@@ -19,39 +19,33 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script lang='ts' setup>
+import { PropType } from 'vue'
+import { NInput } from 'naive-ui'
+import type { Size } from 'naive-ui/es/input/src/interface'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
-export default defineComponent({
-  name: 'GInput',
-  props: {
-    modelValue: {
-      type: [String, Number],
-      default: '',
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    size: {
-      type: String,
-      default: 'small',
-    },
-    inline: {
-      type: [Boolean, String],
-      default: false,
-    },
+defineProps({
+  modelValue: {
+    type: [String],
+    default: '',
   },
-  emits: [UPDATE_MODEL_EVENT],
-  setup(props, ctx) {
-    const handleInput = (value: string | number) => {
-      ctx.emit(UPDATE_MODEL_EVENT, value)
-    }
-
-    return {
-      handleInput,
-    }
+  label: {
+    type: String,
+    default: '',
+  },
+  size: {
+    type: String as PropType<Size>,
+    default: 'small',
+  },
+  inline: {
+    type: [Boolean, String],
+    default: false,
   },
 })
+const emits = defineEmits([UPDATE_MODEL_EVENT])
+
+const handleInput = (value: string | number) => {
+  emits(UPDATE_MODEL_EVENT, value)
+}
 </script>
