@@ -148,27 +148,6 @@ main-title
     └── config.json      # 用于生成 config.vue 的配置文件
 ```
 
-#### 使用工具
-
-> 其中 `config.vue` 和 `config.json` 文件，可以通过 [datav-cli-ui](./datav-cli-ui/) 工具进行配置，[更多详情 »](./datav-cli-ui/README.md)。
-
-- 工具预览
-![prop-config](./demo/prop-config.png)
-
-- 目前还是个简易版生成工具，使用说明：
-```js
-// 1. 输入组件路径
-
-// 2. 选择加载模式，有三种模式可选：
-// 模式1(.ts): 使用组件同名 .ts 文件生成。
-// 模式2(.json): 使用 config.json 文件生成。
-// 模式3(.ts&.json): 同时加载组件同名 .ts 文件和 config.json，然后进行策略混合。
-
-// 3. 按需配置好组件属性后，点击 `生成配置代码` 或 `生成模板代码` 按钮。
-
-// 4. 复制生成后的代码到相应文件中即可。如果需要复杂逻辑判断的，需要在代码生成后手动处理。
-```
-
 #### 使用组件
 
 打开文件 `src/data/system-components.ts`, 找到或新增对应组件节点：
@@ -181,6 +160,13 @@ main-title
   // ...
 }
 ```
+
+#### 使用 DataV-CLI-UI 工具
+
+> 其中 `config.vue` 和 `config.json` 文件，可以通过 [datav-cli-ui](./datav-cli-ui/) 工具进行配置，[更多详情 »](./datav-cli-ui/README.md)。
+
+- 工具预览
+![prop-config](./demo/prop-config.png)
 
 ### 更多新建选项
 
