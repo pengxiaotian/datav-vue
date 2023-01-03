@@ -10,30 +10,19 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType } from 'vue'
-import { PropDto } from '../props-config/config'
-import PreviewProp from './preview-prop.vue'
+<script lang='ts' setup>
+import { PropDto } from '~~/domains/prop-data'
 
-export default defineComponent({
-  name: 'ConfigPreview',
-  components: {
-    PreviewProp,
-  },
-  props: {
-    config: {
-      type: Array as PropType<PropDto[]>,
-      required: true,
-    },
-  },
-})
+defineProps<{
+  config: PropDto[]
+}>()
 </script>
 
 <style lang="scss">
 .setting-panel {
   position: relative;
   width: 332px;
-  height: 100vh;
+  height: calc(80vh + 12px);
 }
 
 .setting-panel-content {

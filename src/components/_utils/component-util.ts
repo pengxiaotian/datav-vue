@@ -3,6 +3,21 @@ import { useComStore } from '@/store/com'
 import { useBlueprintStore } from '@/store/blueprint'
 import { DatavComponent } from '../_models/datav-component'
 
+export const loadCom = async (com: DatavComponent) => {
+  const comStore = useComStore()
+  const blueprintStore = useBlueprintStore()
+
+  await comStore.add(com)
+  comStore.select(com.id)
+
+  if (com.apis.source) {
+    await com.loadData()
+    nextTick(() => {
+      blueprintStore.events[com.id]?.requestData()
+    })
+  }
+}
+
 export const loadSubComs = async (parentCom: DatavComponent, subComs: DatavComponent[]) => {
   const comStore = useComStore()
   const blueprintStore = useBlueprintStore()

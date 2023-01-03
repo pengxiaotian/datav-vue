@@ -22,47 +22,40 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, ref } from 'vue'
+<script lang='ts' setup>
+import { PropType, ref } from 'vue'
+import { NSelect } from 'naive-ui'
+import type { Size } from 'naive-ui/es/select/src/interface'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
-export default defineComponent({
-  name: 'GSelect',
-  props: {
-    modelValue: {
-      type: [String, Number],
-      default: 0,
-    },
-    data: {
-      type: Array as PropType<{ id: string | number; value: string | number; }[]>,
-      default: () => [],
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    size: {
-      type: String,
-      default: 'small',
-    },
-    inline: {
-      type: [Boolean, String],
-      default: false,
-    },
-    disabled: Boolean,
+const props = defineProps({
+  modelValue: {
+    type: [String, Number],
+    default: 0,
   },
-  emits: [UPDATE_MODEL_EVENT],
-  setup(props, ctx) {
-    const handleInput = (value: string | number) => {
-      ctx.emit(UPDATE_MODEL_EVENT, value)
-    }
-
-    const opts = ref(props.data.map(m => ({ label: m.value, value: m.id })))
-
-    return {
-      opts,
-      handleInput,
-    }
+  data: {
+    type: Array as PropType<{ id: string | number; value: string | number; }[]>,
+    default: () => [],
   },
+  label: {
+    type: String,
+    default: '',
+  },
+  size: {
+    type: String as PropType<Size>,
+    default: 'small',
+  },
+  inline: {
+    type: [Boolean, String],
+    default: false,
+  },
+  disabled: Boolean,
 })
+const emits = defineEmits([UPDATE_MODEL_EVENT])
+
+const handleInput = (value: string | number) => {
+  emits(UPDATE_MODEL_EVENT, value)
+}
+
+const opts = ref<any[]>(props.data.map(m => ({ label: m.value, value: m.id })))
 </script>

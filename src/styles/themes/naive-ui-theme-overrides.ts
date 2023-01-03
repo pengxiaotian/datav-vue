@@ -291,6 +291,33 @@ const themeOverrides: GlobalThemeOverrides = {
     tabTextColorHoverCard: vars.primaryColorHover,
     tabTextColorActiveCard: vars.primaryColorHover,
   },
+  PageHeader: {
+    backColor: '#fff',
+  },
+  Cascader: {
+    menuColor: '#1d2126',
+    menuDividerColor: vars2.borderColor,
+    menuHeight: 'calc(var(--n-option-height) * 7.6)',
+    optionTextColor: vars2.guiFontColor,
+    optionColorHover: '#1b3964',
+    peers: {
+      InternalSelection: {
+        textColor: vars.textColor1,
+        arrowColor: vars.textColor1,
+        caretColor: vars.primaryColor,
+        color: vars2.guiComponentBgColor,
+        colorActive: vars2.guiComponentBgColor,
+        colorDisabled: vars2.guiComponentBgColor,
+        border: vars2.border,
+        borderHover: vars2.borderPrimary,
+        borderActive: vars2.borderPrimary,
+        borderFocus: vars2.borderPrimary,
+        boxShadowFocus: 'none',
+        boxShadowActive: 'none',
+        placeholderColor: '#c0c4cc',
+      },
+    },
+  },
 }
 
 export {

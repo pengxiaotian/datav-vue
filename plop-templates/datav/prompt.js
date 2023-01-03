@@ -72,6 +72,21 @@ module.exports = {
       },
     ];
 
+    actions.push(
+      {
+        type: 'modify',
+        path: `${process.cwd()}/src/components/index.ts`,
+        pattern: /(\/\/ -- prepend placeholder 1 --)/gi,
+        template: `import V{{pascalCase name}} from \'./${subDir}/{{dashCase name}}\'\n$1`,
+      },
+      {
+        type: 'modify',
+        path: `${process.cwd()}/src/components/index.ts`,
+        pattern: /(\/\/ -- prepend placeholder 2 --)/gi,
+        template: `  V{{pascalCase name}},\n$1`,
+      },
+    );
+
     return actions;
   },
 };

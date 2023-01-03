@@ -1,21 +1,17 @@
-interface ComDataType {
+export interface ComDataDto {
+  name: string
+  alias: string
+  img: string
+  thum: string
+  used: boolean
+  children?: ComDataDto[]
+}
+
+export interface ComDataType {
   type: string
   name: string
   icon: string
-  data: {
-    name: string
-    alias: string
-    img: string
-    thum: string
-    used: boolean
-    children?: {
-      name: string
-      alias: string
-      img: string
-      thum: string
-      used: boolean
-    }[]
-  }[]
+  data: (ComDataType | ComDataDto)[]
 }
 
 export const bar: ComDataType = {
@@ -245,7 +241,7 @@ export const list: ComDataType = {
       alias: '轮播列表',
       img: `${import.meta.env.VITE_APP_CDN}/com/carousel-table-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/carousel-table-370-208.png`,
-      used: false,
+      used: true,
     }, {
       name: 'VTableBar',
       alias: '轮播列表柱状图',
@@ -349,7 +345,7 @@ export const other: ComDataType = {
   ],
 }
 
-export const classifications = [
+export const classifications: ComDataType[] = [
   {
     type: 'regular',
     name: '图表',
@@ -394,7 +390,7 @@ export const classifications = [
   },
 ]
 
-const getCom = (coms: ComDataType['data'], name: string) => {
+const getCom = (coms: ComDataDto[], name: string) => {
   for (let i = 0, len = coms.length; i < len; i++) {
     const com = coms[i]
     if (com.name === name) {
@@ -413,16 +409,14 @@ const getCom = (coms: ComDataType['data'], name: string) => {
 }
 
 export function getSystemSubComs(name: string) {
-  const subComs = map.data.find(m => m.name === name)
+  const subComs = map.data.find(m => m.name === name) as ComDataDto
   return subComs && subComs.children ? subComs.children : []
 }
 
 export function findComByName(name: string) {
-  for (let i = 0; i < classifications.length; i++) {
-    const classification = classifications[i]
-    for (let j = 0; j < classification.data.length; j++) {
-      const category = classification.data[j]
-      const com = getCom(category.data, name)
+  for (const classification of classifications) {
+    for (const category of classification.data as ComDataType[]) {
+      const com = getCom(category.data as ComDataDto[], name)
       if (com) {
         return {
           classification,

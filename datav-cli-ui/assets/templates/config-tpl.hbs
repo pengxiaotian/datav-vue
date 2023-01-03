@@ -2,6 +2,7 @@
   <div class="setting-panel-gui">
     {{> prop-config-tpl
       configs=configs
+      propDataTypes=propDataTypes
       componentTypes=componentTypes
       selectOpts=selectOpts
       toggleCol=''
@@ -25,4 +26,8 @@ const props = defineProps<{
 }>()
 
 const config = toRef(props.com, 'config')
+
+{{> prop-data-tpl
+  configs=configs
+}}
 </script>

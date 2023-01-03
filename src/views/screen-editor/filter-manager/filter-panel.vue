@@ -57,6 +57,7 @@
 import { defineComponent, ref, computed, provide, inject } from 'vue'
 import { useFilterStore } from '@/store/filter'
 import { useComStore } from '@/store/com'
+import { useEditorStore } from '@/store/editor'
 import { ApiDataConfig } from '@/components/_models/data-source'
 import { DataFilter } from '@/components/_models/data-filter'
 import { IconPlus } from '@/icons'
@@ -83,6 +84,7 @@ export default defineComponent({
 
     const filterStore = useFilterStore()
     const comStore = useComStore()
+    const editorStore = useEditorStore()
     const { apiDataConfig } = inject(sourcePanelInjectionKey)
     const { refreshData } = inject(sourceDrawerInjectionKey)
 
@@ -163,7 +165,7 @@ export default defineComponent({
           name: '新建过滤器',
           code: 'return data;',
           origin: 'return data;',
-          projectId: 0,
+          projectId: editorStore.screen.id,
           createAt: '',
           updateAt: '',
         }

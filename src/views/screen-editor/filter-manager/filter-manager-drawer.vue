@@ -59,6 +59,7 @@ import { useMessage, useDialog } from 'naive-ui'
 import { useToolbarStore } from '@/store/toolbar'
 import { useFilterStore } from '@/store/filter'
 import { useComStore } from '@/store/com'
+import { useEditorStore } from '@/store/editor'
 import { ApiDataConfig, ApiKeyName } from '@/components/_models/data-source'
 import { DataFilter } from '@/components/_models/data-filter'
 import { setComponentData } from '@/components/_mixins/use-data-center'
@@ -78,6 +79,7 @@ export default defineComponent({
     const toolbarStore = useToolbarStore()
     const filterStore = useFilterStore()
     const comStore = useComStore()
+    const editorStore = useEditorStore()
     const visible = ref(false)
     const newDataFilter = ref<DataFilter | null>(null)
 
@@ -122,7 +124,7 @@ export default defineComponent({
           name: '新建过滤器',
           code: 'return data;',
           origin: 'return data;',
-          projectId: 0,
+          projectId: editorStore.screen.id,
           createAt: '',
           updateAt: '',
         }

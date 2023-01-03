@@ -28,6 +28,7 @@ export const isMac = () => /macintosh|mac os x/i.test(navigator.userAgent)
 export const isBool = (val: unknown) => typeof val === 'boolean'
 export const isNumber = (val: unknown) => typeof val === 'number'
 export const isUndefined = (val: unknown) => val === void 0
+export const isObject = (val: unknown) => Object.prototype.toString.call(val) === '[object Object]'
 
 export const isUrl = (val: string) => /^[a-zA-z]+:\/\/[^\s]*$/.test(val)
 

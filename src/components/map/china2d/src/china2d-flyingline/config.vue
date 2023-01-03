@@ -117,7 +117,6 @@
     >
       <g-field
         :level="2"
-        tooltip="修改此选项不会立即生效, 可以刷新组件或者在预览页查看"
         label="类型"
       >
         <g-select-shape

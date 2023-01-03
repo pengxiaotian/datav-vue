@@ -26,59 +26,50 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, ref } from 'vue'
+<script lang='ts' setup>
+import { PropType, ref } from 'vue'
 
-export default defineComponent({
-  name: 'GLoading',
-  props: {
-    type: {
-      type: String as PropType<'dna' | 'square'>,
-      default: 'dna',
-    },
-    spinning: {
-      type: Boolean,
-      default: false,
-    },
-    theme: {
-      type: String as PropType<'dark' | 'light'>,
-      default: 'dark',
-    },
-    opacity: {
-      type: Number,
-      default: 1,
-    },
-    wrapClass: {
-      type: String,
-    },
-    wrapStyle: {
-      type: {} as PropType<Record<string, any>>,
-    },
+const props = defineProps({
+  type: {
+    type: String as PropType<'dna' | 'square'>,
+    default: 'dna',
   },
-  setup(props) {
-    const opacity = props.opacity > 1 ? 1 : props.opacity < 0 ? 0 : props.opacity
-
-    const spinContentClass = ref('')
-    if (props.spinning) {
-      if (props.wrapClass) {
-        spinContentClass.value += ` ${props.wrapClass}`
-      }
-    } else {
-      spinContentClass.value = ''
-    }
-
-    const wrapStyle: Record<string, any> = props.wrapStyle || {}
-    const spinContentStyle = ref({
-      ...wrapStyle,
-      background: props.theme === 'dark'
-        ? `rgba(23,27,34,${opacity})`
-        : `rgba(255, 255, 255, ${opacity})`,
-    })
-
-    return {
-      spinContentClass,
-      spinContentStyle,
-    }
+  spinning: {
+    type: Boolean,
+    default: false,
   },
+  theme: {
+    type: String as PropType<'dark' | 'light'>,
+    default: 'dark',
+  },
+  opacity: {
+    type: Number,
+    default: 1,
+  },
+  wrapClass: {
+    type: String,
+  },
+  wrapStyle: {
+    type: {} as PropType<Record<string, any>>,
+  },
+})
+
+const opacity = props.opacity > 1 ? 1 : props.opacity < 0 ? 0 : props.opacity
+
+const spinContentClass = ref('')
+if (props.spinning) {
+  if (props.wrapClass) {
+    spinContentClass.value += ` ${props.wrapClass}`
+  }
+} else {
+  spinContentClass.value = ''
+}
+
+const wrapStyle: Record<string, any> = props.wrapStyle || {}
+const spinContentStyle = ref({
+  ...wrapStyle,
+  background: props.theme === 'dark'
+    ? `rgba(23,27,34,${opacity})`
+    : `rgba(255, 255, 255, ${opacity})`,
 })
 </script>

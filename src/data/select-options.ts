@@ -1,5 +1,3 @@
-import { EChartEasing } from '@/components/_models/echarts-animation'
-
 export const fontFamilys = [
   { id: 'Microsoft Yahei', value: '微软雅黑' },
   { id: 'SimSun', value: '宋体' },
@@ -105,7 +103,7 @@ export const echartsLablePositions = [
   { id: 'insideBottomRight', value: '内-顶部居右' },
 ]
 
-export const animationEasings = Object.values(EChartEasing).map(m => ({ id: m, value: m }))
+export const animationEasings = ['linear', 'quadraticIn', 'quadraticOut', 'quadraticInOut', 'cubicIn', 'cubicOut', 'cubicInOut', 'quarticIn', 'quarticOut', 'quarticInOut', 'quinticIn', 'quinticOut', 'quinticInOut', 'sinusoidalIn', 'sinusoidalOut', 'sinusoidalInOut', 'exponentialIn', 'exponentialOut', 'exponentialInOut', 'circularIn', 'circularOut', 'circularInOut', 'elasticIn', 'elasticOut', 'elasticInOut', 'backIn', 'backOut', 'backInOut', 'bounceIn', 'bounceOut', 'bounceInOut'].map(m => ({ id: m, value: m }))
 
 export const selectSuggests = [
   { id: 'auto', value: '自适应' },

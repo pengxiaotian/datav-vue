@@ -28,35 +28,40 @@
         :step="1"
         inline
       />
-      <div class="rotate-flip-wp">
-        <n-tooltip>
-          <template #trigger>
-            <button
-              class="hor"
-              :class="{ '--checked': filps.includes('h') }"
-              @click="onFilpChange('h')"
-            >
-              <n-icon>
-                <IconFlipH />
-              </n-icon>
-            </button>
-          </template>
-          水平翻转
-        </n-tooltip>
-        <n-tooltip>
-          <template #trigger>
-            <button
-              class="ver"
-              :class="{ '--checked': filps.includes('v') }"
-              @click="onFilpChange('v')"
-            >
-              <n-icon>
-                <IconFlipV />
-              </n-icon>
-            </button>
-          </template>
-          垂直翻转
-        </n-tooltip>
+      <div class="rotate-wp">
+        <div class="rotate-icon-wp" @click="onRotateChange">
+          <span class="rotate-icon" :style="`transform: rotate(${com.attr.deg}deg);`"></span>
+        </div>
+        <div class="rotate-flip-wp">
+          <n-tooltip>
+            <template #trigger>
+              <button
+                class="hor"
+                :class="{ '--checked': filps.includes('h') }"
+                @click="onFilpChange('h')"
+              >
+                <n-icon>
+                  <IconFlipH />
+                </n-icon>
+              </button>
+            </template>
+            水平翻转
+          </n-tooltip>
+          <n-tooltip>
+            <template #trigger>
+              <button
+                class="ver"
+                :class="{ '--checked': filps.includes('v') }"
+                @click="onFilpChange('v')"
+              >
+                <n-icon>
+                  <IconFlipV />
+                </n-icon>
+              </button>
+            </template>
+            垂直翻转
+          </n-tooltip>
+        </div>
       </div>
     </g-field>
     <g-field label="透明度">
@@ -95,6 +100,21 @@ export default defineComponent({
       com.value.attr.h = val
     }
 
+    const onRotateChange = (ev: MouseEvent) => {
+      const el = ev.target as HTMLElement
+      const rect = el.getBoundingClientRect()
+      const centerX = rect.left + rect.width / 2
+      const centerY = rect.top + rect.height / 2
+
+      const angle = Math.atan2(
+        centerY - ev.clientY,
+        centerX - ev.clientX,
+      ) * 180 / Math.PI - 90
+
+      const deg = Math.round(angle % 360)
+      com.value.attr.deg = deg < 0 ? deg + 360 : deg
+    }
+
     const onFilpChange = (key: filpType) => {
       if (filps.value.includes(key)) {
         filps.value = filps.value.filter(m => m !== key)
@@ -120,6 +140,7 @@ export default defineComponent({
       filps,
       updateWidth,
       updateHeight,
+      onRotateChange,
       onFilpChange,
     }
   },
@@ -131,10 +152,44 @@ export default defineComponent({
   user-select: none;
 }
 
-.rotate-flip-wp {
-  display: inline-block;
+.rotate-wp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 92px;
   flex: 0 0 92px;
+}
+
+.rotate-icon-wp {
+  width: 22px;
+  height: 20px;
+  padding-left: 2px;
+
+  .rotate-icon {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(0deg, #eee 100%, #999 0);
+    position: relative;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 4px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--datav-bgcolor-1);
+      position: absolute;
+      top: 1px;
+      left: 8px;
+    }
+  }
+}
+
+.rotate-flip-wp {
+  display: inline-block;
   padding-bottom: 4px;
 
   .hor,

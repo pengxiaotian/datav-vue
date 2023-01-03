@@ -37,67 +37,60 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script lang='ts' setup>
+import { PropType } from 'vue'
+import { NConfigProvider, NSlider, NInputNumber } from 'naive-ui'
+import type { Size } from 'naive-ui/es/input-number/src/interface'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
-export default defineComponent({
-  name: 'GSlider',
-  props: {
-    modelValue: {
-      type: [String, Number],
-      default: '',
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    size: {
-      type: String,
-      default: 'small',
-    },
-    min: {
-      type: Number,
-      default: -Infinity,
-    },
-    max: {
-      type: Number,
-      default: Infinity,
-    },
-    step: {
-      type: Number,
-      default: 1,
-    },
-    inline: {
-      type: [Boolean, String],
-      default: false,
-    },
-    suffix: String,
-    disabled: Boolean,
+const props = defineProps({
+  modelValue: {
+    type: Number,
+    default: 0,
   },
-  emits: [UPDATE_MODEL_EVENT],
-  setup(props, ctx) {
-    const handleInput = (value: number) => {
-      ctx.emit(UPDATE_MODEL_EVENT, value)
-    }
-
-    const themeOverrides = {
-      Button: {
-        textColorText: 'var(--datav-font-color)',
-        fontSizeMedium: '12px',
-        iconSizeMedium: '12px',
-      },
-    }
-
-    if (props.size === 'medium') {
-      themeOverrides.Button.fontSizeMedium = '14px'
-      themeOverrides.Button.iconSizeMedium = '14px'
-    }
-
-    return {
-      themeOverrides,
-      handleInput,
-    }
+  label: {
+    type: String,
+    default: '',
   },
+  size: {
+    type: String as PropType<Size>,
+    default: 'small',
+  },
+  min: {
+    type: Number,
+    default: -Infinity,
+  },
+  max: {
+    type: Number,
+    default: Infinity,
+  },
+  step: {
+    type: Number,
+    default: 1,
+  },
+  inline: {
+    type: [Boolean, String],
+    default: false,
+  },
+  suffix: String,
+  disabled: Boolean,
 })
+const emits = defineEmits([UPDATE_MODEL_EVENT])
+
+const handleInput = (value: number) => {
+  emits(UPDATE_MODEL_EVENT, value)
+}
+
+const themeOverrides = {
+  Button: {
+    textColorText: 'var(--datav-font-color)',
+    fontSizeMedium: '12px',
+    iconSizeMedium: '12px',
+  },
+}
+
+if (props.size === 'medium') {
+  themeOverrides.Button.fontSizeMedium = '14px'
+  themeOverrides.Button.iconSizeMedium = '14px'
+}
 </script>

@@ -1,4 +1,4 @@
-import { throwError } from '@/utils/warn'
+import { throwError } from '@/utils/warn-util'
 
 export interface FilterConfig {
   id: number

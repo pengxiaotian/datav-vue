@@ -36,7 +36,7 @@
             </template>
 
             <el-tabs v-if="cate.data.length > 2" tab-position="left" class="el-tabs-l2">
-              <el-tab-pane v-for="subcate in cate.data" :key="subcate.type">
+              <el-tab-pane v-for="subcate in (cate.data as ComDataType[])" :key="subcate.type">
                 <template #label>
                   <span class="com-tab-title">{{ subcate.name }}</span>
                 </template>
@@ -44,7 +44,7 @@
                   <div class="components-single-menu">
                     <ul class="components-single-menu-list">
                       <li
-                        v-for="com in subcate.data"
+                        v-for="com in (subcate.data as ComDataDto[])"
                         :key="com.name"
                         :title="com.alias"
                         :draggable="com.used"
@@ -81,7 +81,7 @@
               <div class="components-single-menu --wider">
                 <ul class="components-single-menu-list">
                   <li
-                    v-for="com in cate.data[0].data"
+                    v-for="com in ((cate.data[0] as ComDataType).data as ComDataDto[])"
                     :key="com.name"
                     :title="com.alias"
                     :draggable="com.used"
@@ -109,7 +109,7 @@
                     </div>
                   </li>
                 </ul>
-                <template v-if="cate.data[0].data.length === 0">
+                <template v-if="(cate.data[0] as ComDataType).data.length === 0">
                   <div v-if="cate.type === 'favorite'" class="favorite-empty">
                     没有收藏组件
                   </div>
@@ -123,8 +123,8 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, ref, computed, nextTick } from 'vue'
+<script lang='ts' setup>
+import { ref, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
 
 import 'element-plus/es/components/tabs/style/css'
@@ -133,104 +133,73 @@ import { ElTabs, ElTabPane } from 'element-plus'
 
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
-import { useBlueprintStore } from '@/store/blueprint'
-import { useComStore } from '@/store/com'
-import { classifications } from '@/data/system-components'
+import { classifications, ComDataType, ComDataDto } from '@/data/system-components'
 import { createComponent } from '@/components/datav'
+import { loadCom } from '@/components/_utils/component-util'
 import { IconSearch, IconBack, IconLock } from '@/icons'
 
-type CategoryType = typeof classifications[0]
+const toolbarStore = useToolbarStore()
+const editorStore = useEditorStore()
 
-export default defineComponent({
-  name: 'ComponentsPanel',
-  components: {
-    IconSearch,
-    IconBack,
-    IconLock,
-    ElTabs,
-    ElTabPane,
-  },
-  setup() {
-    const toolbarStore = useToolbarStore()
-    const comStore = useComStore()
-    const editorStore = useEditorStore()
-    const blueprintStore = useBlueprintStore()
+const favoriteComs = ref([])
+const visiblePanel = computed(() => toolbarStore.components.show)
 
-    const favoriteComs = ref([])
-    const visiblePanel = computed(() => toolbarStore.components.show)
-
-    const cloneCfs: CategoryType[] = cloneDeep(classifications)
-    const first = { type: 'all', name: '全部', icon: 'v-icon-view-grid' }
-
-    const categories = computed(() => {
-      const list: CategoryType[] = cloneCfs
-      list.forEach(item => {
-        item.data.unshift({
-          ...first,
-          data: item.data.flatMap(m => m.data),
-        })
-      })
-
-      list.push({
-        type: 'favorite',
-        name: '收藏',
-        icon: 'v-icon-favorite',
-        data: [{ ...first, data: favoriteComs.value }],
-      })
-
-      return list
-    })
-
-    const changeVisible = () => {
-      toolbarStore.setPanelState(PanelType.components, !visiblePanel.value)
-    }
-
-    const handleTabClick = () => {
-      if (!visiblePanel.value) {
-        toolbarStore.setPanelState(PanelType.components, true)
-      }
-    }
-
-    const toAddCom = async (comName: string, used: boolean) => {
-      if (used) {
-        toolbarStore.addLoading()
-        const com = await createComponent(comName)
-        com.attr.x = Math.floor((editorStore.pageConfig.width - com.attr.w) / 2)
-        com.attr.y = Math.floor((editorStore.pageConfig.height - com.attr.h) / 2)
-        await comStore.add(com)
-        comStore.select(com.id)
-        toolbarStore.removeLoading()
-
-        if (com.apis.source) {
-          await com.loadData()
-          nextTick(() => {
-            blueprintStore.events[com.id]?.requestData()
-          })
-        }
-      }
-    }
-
-    const dragStart = (ev: any, comName: string) => {
-      ev.dataTransfer.setData('text', comName)
-    }
-
-    const dragOver = (ev: DragEvent) => {
-      ev.preventDefault()
-      ev.stopPropagation()
-      ev.dataTransfer.dropEffect = 'none'
-    }
-
-    return {
-      visiblePanel,
-      categories,
-      changeVisible,
-      handleTabClick,
-      toAddCom,
-      dragStart,
-      dragOver,
-    }
-  },
+const first: ComDataType = {
+  type: 'all',
+  name: '全部',
+  icon: 'v-icon-view-grid',
+  data: [],
+}
+const cloneCfs = cloneDeep(classifications)
+cloneCfs.forEach(item => {
+  item.data.unshift({
+    ...first,
+    data: (item.data as ComDataType[]).flatMap(m => m.data),
+  })
 })
+
+const categories = computed<ComDataType[]>(() => {
+  return [
+    ...cloneCfs,
+    {
+      type: 'favorite',
+      name: '收藏',
+      icon: 'v-icon-favorite',
+      data: [{ ...first, data: favoriteComs.value }],
+    },
+  ]
+})
+
+const changeVisible = () => {
+  toolbarStore.setPanelState(PanelType.components, !visiblePanel.value)
+}
+
+const handleTabClick = () => {
+  if (!visiblePanel.value) {
+    toolbarStore.setPanelState(PanelType.components, true)
+  }
+}
+
+const toAddCom = async (comName: string, used: boolean) => {
+  if (used) {
+    toolbarStore.addLoading()
+    const com = await createComponent(comName)
+    com.attr.x = Math.floor((editorStore.pageConfig.width - com.attr.w) / 2)
+    com.attr.y = Math.floor((editorStore.pageConfig.height - com.attr.h) / 2)
+    await loadCom(com)
+    toolbarStore.removeLoading()
+  }
+}
+
+const dragStart = (ev: any, comName: string) => {
+  ev.dataTransfer.setData('text', comName)
+}
+
+const dragOver = (ev: DragEvent) => {
+  ev.preventDefault()
+  ev.stopPropagation()
+  ev.dataTransfer.dropEffect = 'none'
+}
 </script>
 
 <style lang="scss">

@@ -32,7 +32,7 @@ import { useEventStore } from '@/store/event'
 import { getSysTemplate } from '@/api/templates'
 import { useMock } from '@/data/mock'
 import { loadAsyncComponent } from '@/utils/async-component'
-import { warn } from '@/utils/warn'
+import { warn } from '@/utils/warn-util'
 
 export default defineComponent({
   name: 'ScreenEditor',

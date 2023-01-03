@@ -5,7 +5,7 @@ import {
   ApiType, ApiRequestMethod,
 } from '@/components/_models/data-source'
 import { isUrl, toJson, replaceTextParams } from '@/utils/util'
-import dcRequest from '@/utils/dc-request'
+import requestUtil from '@/components/_utils/request-util'
 import { useEventStore } from './event'
 
 export interface IApiState {
@@ -47,9 +47,9 @@ export const useApiStore = defineStore('api', {
 
           const url = replaceTextParams(config.api, eventStore.variables)
           if (config.apiMethod === ApiRequestMethod.GET) {
-            res = await dcRequest.get(url, conf)
+            res = await requestUtil.get(url, conf)
           } else {
-            res = await dcRequest.post(url, toJson(config.apiBody, {}), conf)
+            res = await requestUtil.post(url, toJson(config.apiBody, {}), conf)
           }
         } catch {
           throw Error('connectFailed')

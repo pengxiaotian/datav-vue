@@ -422,7 +422,7 @@
           "type": "string",
           "component": "echartIcon",
           "alias": "类型",
-          "tip": "修改此选项不会立即生效, 可以刷新组件或者在预览页查看",
+          "tip": "",
           "displayMode": "single",
           "features": [],
           "layout": "horizontal",

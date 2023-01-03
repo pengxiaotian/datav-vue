@@ -31,39 +31,30 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
+<script lang='ts' setup>
+import { PropType } from 'vue'
+import { NInput, NColorPicker } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
-export default defineComponent({
-  name: 'GColorPicker',
-  props: {
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    size: {
-      type: String,
-      default: 'small',
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    inline: {
-      type: [Boolean, String],
-      default: false,
-    },
+defineProps({
+  modelValue: String,
+  size: {
+    type: String as PropType<'small' | 'medium' | 'large'>,
+    default: 'small',
   },
-  emits: [UPDATE_MODEL_EVENT],
-  setup(props, ctx) {
-    const handleInput = (value: number) => {
-      ctx.emit(UPDATE_MODEL_EVENT, value)
-    }
-
-    return {
-      handleInput,
-    }
+  label: {
+    type: String,
+    default: '',
+  },
+  inline: {
+    type: [Boolean, String],
+    default: false,
   },
 })
+
+const emits = defineEmits([UPDATE_MODEL_EVENT])
+
+const handleInput = (value: string) => {
+  emits(UPDATE_MODEL_EVENT, value)
+}
 </script>
