@@ -64,11 +64,7 @@
   size="small"
 >
   <n-radio-button
-    v-for="pair in [
-      {{#each config.pairs as | pair |}}
-      {{{pairToTpl pair}}},
-      {{/each}}
-    ]"
+    v-for="pair in pairData{{config.id}}"
     :key="pair.key"
     :value="pair.key"
   >
@@ -84,11 +80,7 @@
   size="small"
 >
   <n-radio
-    v-for="pair in [
-      {{#each config.pairs as | pair |}}
-      {{{pairToTpl pair}}},
-      {{/each}}
-    ]"
+    v-for="pair in pairData{{config.id}}"
     :key="pair.key"
     :value="pair.key"
   >
@@ -177,7 +169,7 @@
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
   :data="{{config.component}}s"
-  :filters="{{{enumsToTpl config.enums}}}"
+  :filters="enumData{{config.id}}"
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"

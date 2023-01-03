@@ -1,0 +1,21 @@
+{{#each configs as | item |}}
+{{#unless (isEmptyArray item.config.pairs)}}
+const pairData{{item.config.id}} = [
+  {{#each config.pairs as | pair |}}
+  { key: '{{pair.key}}', value: '{{pair.value}}' },
+  {{/each}}
+]
+
+{{/unless}}
+{{#unless (isEmptyArray item.config.enums)}}
+const enumData{{item.config.id}} = [
+  {{#each config.enums as | en |}}
+  '{{en}}',
+  {{/each}}
+]
+
+{{/unless}}
+{{> prop-data-tpl
+  configs=item.children
+}}
+{{/each}}

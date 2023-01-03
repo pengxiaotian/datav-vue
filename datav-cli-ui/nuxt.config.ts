@@ -1,7 +1,11 @@
 import path from 'path'
+import plainText from 'vite-plugin-plain-text'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  alias: {
+    '@': path.resolve(__dirname, '..', 'src'),
+  },
   build: {
     transpile:
       process.env.NODE_ENV === 'production'
@@ -14,6 +18,9 @@ export default defineNuxtConfig({
         : ['@juggle/resize-observer'],
   },
   vite: {
+    plugins: [
+      plainText(/\.hbs$/),
+    ],
     optimizeDeps: {
       include:
         process.env.NODE_ENV === 'development'
@@ -21,14 +28,4 @@ export default defineNuxtConfig({
           : [],
     },
   },
-  alias: {
-    '@': path.resolve(__dirname, '..', 'src'),
-  },
-  // components: {
-  //   dirs: [{
-  //     path: '../src/components/ui',
-  //     extensions: ['vue'],
-  //     prefix: 'g',
-  //   }],
-  // },
 })

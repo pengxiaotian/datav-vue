@@ -1,5 +1,5 @@
 import { isArray, isString } from 'lodash-es'
-import { isNumber, isBool, isObject } from '@/utils/util'
+import { isNumber, isBool, isObject, getRandomInt } from '@/utils/util'
 import { ToolboxType } from '@/domains/editor'
 import * as selectOptions from '@/data/select-options'
 
@@ -63,6 +63,7 @@ export enum DisplayMode {
 }
 
 export interface PropConfig {
+  id: number
   type: PropDataType
   component: ComponentType
   alias: string
@@ -100,6 +101,7 @@ export interface PropDto {
 
 export const createPropConfig = () => {
   const data: PropConfig = {
+    id: getRandomInt(9999),
     type: PropDataType.unknown,
     component: ComponentType.none,
     alias: '',

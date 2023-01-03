@@ -10,7 +10,7 @@
               show-path
               filterable
               size="large"
-              placeholder="选择组件"
+              placeholder="请选择组件"
               style="width: 540px;"
             />
             <n-select
@@ -67,6 +67,16 @@
                 </n-tab-pane>
               </n-tabs>
             </n-card>
+            <n-button
+              v-if="activeTab !== 'config'"
+              type="success"
+              secondary
+              :loading="writePending"
+              style="margin-top: 20px;"
+              @click="writeFile"
+            >
+              写入 {{ activeTab === 'code' ? 'config.json' : 'config.vue' }} 文件
+            </n-button>
           </n-gi>
         </n-grid>
       </div>
@@ -79,6 +89,9 @@ import { useMessage, NSpin, NSpace, NInputGroup, NCascader, NSelect, NButton, NG
 import { ComponentType, initPropData, mixinPropData, PropDataType, PropDto, getUsedSelectOptions } from '~~/domains/prop-data'
 import { GMonacoEditor } from '~~/ui-components'
 import { getSystemDataVComponents, pascalCaseForComName } from '~~/domains/system-components'
+import Handlebars from 'handlebars'
+import '~~/assets/templates/register'
+import { plainText as configTpl } from '~~/assets/templates/config-tpl.hbs'
 
 const nMessage = useMessage()
 
@@ -89,6 +102,7 @@ const comTsKey = ref('')
 const comJsonKey = ref('')
 const activeTab = ref<'config' | 'code'| 'template'>('config')
 const loading = ref(false)
+const writePending = ref(false)
 const fileName = ref('')
 const comName = ref('')
 const ext = ref<'.ts' | '.json' | '.ts&.json'>('.ts')
@@ -193,10 +207,42 @@ const genTemplate = () => {
 
   try {
     loading.value = true
-    // templateCode.value = Handlebars.compile(configTpl)(data)
+    templateCode.value = Handlebars.compile(configTpl)(data)
     activeTab.value = 'template'
   } catch (error) {
     console.log(error)
+    nMessage.error(error.message)
+  } finally {
+    loading.value = false
+  }
+}
+
+const writeFile = async () => {
+  try {
+    if (!comJsonKey.value) {
+      nMessage.warning('请选择组件')
+      return
+    }
+
+    writePending.value = true
+    const { data } = await useFetch('/api/update-com-config', {
+      method: 'post',
+      body: {
+        path: activeTab.value === 'code'
+          ? comJsonKey.value
+          : comJsonKey.value.replace('.json', '.vue'),
+        content: activeTab.value === 'code'
+          ? configCode.value
+          : templateCode.value,
+      },
+    })
+    writePending.value = false
+    if (data.value.code !== 0) {
+      throw new Error(data.value.message)
+    }
+
+    nMessage.success('写入成功')
+  } catch (error) {
     nMessage.error(error.message)
   } finally {
     loading.value = false

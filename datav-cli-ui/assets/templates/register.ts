@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars'
 import { plainText as propConfigTpl } from './partials/prop-config-tpl.hbs'
 import { plainText as propComponentTpl } from './partials/prop-component-tpl.hbs'
+import { plainText as propDataTpl } from './partials/prop-data-tpl.hbs'
 
 // ------Helpers------
 // https://github.com/helpers/handlebars-helpers
@@ -67,7 +68,10 @@ Handlebars.registerHelper('isTypeOf', (configList, key, type) => {
   const item = configList.find(m => m.key === key)
   return item ? item.config.type === type : false
 })
+Handlebars.registerHelper('isEmptyArray', (arr: any[]) => !arr || arr.length === 0)
+
 // ------Partials------
 Handlebars.registerPartial('prop-config-tpl', propConfigTpl)
 Handlebars.registerPartial('prop-component-tpl', propComponentTpl)
+Handlebars.registerPartial('prop-data-tpl', propDataTpl)
 

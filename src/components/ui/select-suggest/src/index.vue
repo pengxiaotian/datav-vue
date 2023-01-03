@@ -16,6 +16,8 @@
       :options="opts"
       :size="size"
       :disabled="disabled"
+      label-field="value"
+      value-field="id"
       @update:value="handleInput"
     />
     <span v-if="label" class="g-input__caption">
@@ -92,6 +94,6 @@ const opts = computed<any[]>(() => {
       }
     })
   }
-  return list.map(m => ({ label: m.value, value: m.id }))
+  return list
 })
 </script>
