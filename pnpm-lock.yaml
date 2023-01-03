@@ -32,7 +32,6 @@ specifiers:
   eslint-plugin-import: ^2.26.0
   eslint-plugin-vue: ^9.8.0
   gsap: ^3.11.3
-  handlebars: ^4.7.7
   html2canvas: ^1.4.1
   husky: ^7.0.4
   js-cookie: ^3.0.1
@@ -109,13 +108,12 @@ devDependencies:
   '@typescript-eslint/parser': 5.46.0_ha6vam6werchizxrnqvarmz2zu
   '@vitejs/plugin-vue': 3.2.0_vite@3.2.5+vue@3.2.45
   '@vue/compiler-sfc': 3.2.45
-  '@vue/component-compiler-utils': 3.3.0_handlebars@4.7.7
+  '@vue/component-compiler-utils': 3.3.0
   '@vue/runtime-core': 3.2.45
   cross-env: 7.0.3
   eslint: 8.29.0
   eslint-plugin-import: 2.26.0_jx43xxcguvnqqmtmaaygwl7cmu
   eslint-plugin-vue: 9.8.0_eslint@8.29.0
-  handlebars: 4.7.7
   husky: 7.0.4
   lint-staged: 13.1.0
   plop: 3.1.1
@@ -2274,10 +2272,10 @@ packages:
       '@vue/compiler-dom': 3.2.45
       '@vue/shared': 3.2.45
 
-  /@vue/component-compiler-utils/3.3.0_handlebars@4.7.7:
+  /@vue/component-compiler-utils/3.3.0:
     resolution: {integrity: sha512-97sfH2mYNU+2PzGrmK2haqffDpVASuib9/w2/noxiFi31Z54hW+q3izKQXXQZSNhtiUpAI36uSuYepeBe4wpHQ==}
     dependencies:
-      consolidate: 0.15.1_handlebars@4.7.7
+      consolidate: 0.15.1
       hash-sum: 1.0.2
       lru-cache: 4.1.5
       merge-source-map: 1.1.0
@@ -2989,7 +2987,7 @@ packages:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
     dev: true
 
-  /consolidate/0.15.1_handlebars@4.7.7:
+  /consolidate/0.15.1:
     resolution: {integrity: sha512-DW46nrsMJgy9kqAbPt5rKaCr7uFtpo4mSUvLHIUbJEjm0vo+aY5QLwBUq3FK4tRnJr/X0Psc0C4jf/h+HtXSMw==}
     engines: {node: '>= 0.10.0'}
     peerDependencies:
@@ -3155,7 +3153,6 @@ packages:
         optional: true
     dependencies:
       bluebird: 3.7.2
-      handlebars: 4.7.7
     dev: true
 
   /constant-case/3.0.4:
