@@ -1,31 +1,23 @@
 # DataV CLI UI
 
-## Setup
+目前还是个简易版配置生成工具，使用 [Nuxt3](https://nuxt.com/) 框架开发，说明如下：
 
-Make sure to install the dependencies:
+## 安装
 
 ```bash
+# 通过 pnpm 安装依赖
 pnpm install
-```
 
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
+# 运行项目, 启动后访问 http://localhost:3000
 pnpm run dev
 ```
 
-## Production
+## 使用
 
-Build the application for production:
-
-```bash
-pnpm run build
-```
-
-Locally preview production build:
-
-```bash
-pnpm run preview
-```
+- 全部图标
+- 组件属性设置
+  1. 选择组件
+  2. 选择加载模式, 有三种模式可选
+  3. 按需配置好组件属性后，点击 `生成配置代码` 或 `生成模板代码` 按钮
+  4. 成功生成后, 点击 `写入文件` 按钮即可
+  5. 如果有复杂逻辑的，需要在代码生成后手动处理

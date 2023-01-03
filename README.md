@@ -150,7 +150,7 @@ main-title
 
 #### 使用工具
 
-> 其中 `config.vue` 和 `config.json` 文件，可以在 `development` 模式下，通过访问 `http://localhost:9096/#/dev/props-config` 配置生成。
+> 其中 `config.vue` 和 `config.json` 文件，可以通过 [datav-cli-ui](./datav-cli-ui/) 工具进行配置，[更多详情 »](./datav-cli-ui/README.md)。
 
 - 工具预览
 ![prop-config](./demo/prop-config.png)
