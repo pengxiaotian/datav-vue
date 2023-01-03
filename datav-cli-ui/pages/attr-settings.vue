@@ -4,20 +4,14 @@
       <div class="g-header" style="margin-top: 20px;">
         <n-space align="center" justify="center">
           <n-input-group>
-            <n-input-group-label size="large">
-              src/components/
-            </n-input-group-label>
-            <n-input
-              v-model:value="classPath"
+            <n-cascader
+              v-model:value="comKey"
+              :options="sysComs"
+              show-path
+              filterable
               size="large"
-              placeholder="输入组件目录, 如: map/china2d"
-              style="width: 250px;"
-            />
-            <n-input
-              v-model:value="classSubPath"
-              size="large"
-              placeholder="子组件, 如: china2d-area"
-              style="width: 200px;"
+              placeholder="选择组件"
+              style="width: 540px;"
             />
             <n-select
               v-model:value="ext"
@@ -28,7 +22,7 @@
           </n-input-group>
           <n-button
             size="large"
-            :disabled="!classPath"
+            :disabled="!comKey"
             style="margin-left: 12px;"
             @click="loadModule"
           >
@@ -46,7 +40,7 @@
                   <n-button @click="genTemplate">生成模板代码</n-button>
                 </n-space>
               </template>
-              <config-form :config="list" />
+              <config-form :config="list" class="config-form-panel" />
             </n-card>
           </n-gi>
           <n-gi>
@@ -81,17 +75,19 @@
 </template>
 
 <script lang="ts" setup>
-import { useMessage, NSpin, NSpace, NInputGroup, NInputGroupLabel, NInput, NSelect, NButton, NGrid, NGi, NCard, NTabs, NTabPane } from 'naive-ui'
-import { pascalCase } from '@/utils/string-util'
-import { ComponentType, initPropData, mixinPropData, PropDataType, PropDto, getUsedSelectOptions } from '@/domains/prop-data'
-import { GMonacoEditor } from '@/ui-components'
+import { useMessage, NSpin, NSpace, NInputGroup, NCascader, NSelect, NButton, NGrid, NGi, NCard, NTabs, NTabPane } from 'naive-ui'
+import { ComponentType, initPropData, mixinPropData, PropDataType, PropDto, getUsedSelectOptions } from '~~/domains/prop-data'
+import { GMonacoEditor } from '~~/ui-components'
+import { getSystemDataVComponents, pascalCaseForComName } from '~~/domains/system-components'
 
 const nMessage = useMessage()
 
 const comModules = shallowRef<Record<string, () => Promise<any>>>(null)
-const classPath = ref('table/carousel-table')
-const classSubPath = ref('')
-const activeTab = ref('config')
+const sysComs = getSystemDataVComponents()
+const comKey = ref<string>(null)
+const comTsKey = ref('')
+const comJsonKey = ref('')
+const activeTab = ref<'config' | 'code'| 'template'>('config')
 const loading = ref(false)
 const fileName = ref('')
 const comName = ref('')
@@ -106,13 +102,8 @@ const list = ref<PropDto[]>([])
 const configCode = ref('{}')
 const templateCode = ref('<template></template>')
 
-const getConfigByTS = async (fileName: string) => {
-  let path = `${classPath.value}/src`
-  if (classSubPath.value) {
-    path += `/${classSubPath.value}`
-  }
-
-  const comModule = await comModules.value[`/src/components/${path}/${fileName}.ts`]()
+const getConfigByTS = async () => {
+  const comModule = await comModules.value[comTsKey.value]()
   const arr: PropDto[] = []
   const dvc = new comModule.default()
   initPropData(dvc.config, arr, '')
@@ -120,16 +111,12 @@ const getConfigByTS = async (fileName: string) => {
 }
 
 const getConfigByJson = async () => {
-  let path = `${classPath.value}/src`
-  if (classSubPath.value) {
-    path += `/${classSubPath.value}`
-  }
-  const comModule = await comModules.value[`/src/components/${path}/config.json`]()
+  const comModule = await comModules.value[comJsonKey.value]()
   return comModule.default as PropDto[]
 }
 
-const getConfigByMixin = async (fileName: string) => {
-  const tsList = await getConfigByTS(fileName)
+const getConfigByMixin = async () => {
+  const tsList = await getConfigByTS()
   const jsonList = await getConfigByJson()
   mixinPropData(tsList, jsonList)
   return tsList
@@ -137,6 +124,7 @@ const getConfigByMixin = async (fileName: string) => {
 
 const loadModule = async () => {
   try {
+    loading.value = true
     if (!comModules.value) {
       comModules.value = import.meta.glob([
         '@/../src/components/**/*.{ts,json}',
@@ -146,27 +134,31 @@ const loadModule = async () => {
       ])
     }
 
-    console.log(comModules.value)
-    return
+    let isSubCom = false
+    const paths = Object.keys(comModules.value)
+    let path = paths.find(m => m.includes(`src/${comKey.value}.ts`))
+    if (!path) {
+      isSubCom = true
+      path = paths.find(m => m.includes(`src/${comKey.value}/index.ts`))
+    }
 
-    if (classPath.value) {
-      loading.value = true
-      if (classSubPath.value) {
-        fileName.value = 'index'
-        comName.value = classSubPath.value.split('/').pop()
-      } else {
-        fileName.value = classPath.value.split('/').pop()
-        comName.value = fileName.value
-      }
-      if (ext.value === '.ts') {
-        list.value = await getConfigByTS(fileName.value)
-      } else if (ext.value === '.json') {
-        list.value = await getConfigByJson()
-      } else if (ext.value === '.ts&.json') {
-        list.value = await getConfigByMixin(fileName.value)
-      } else {
-        throw new Error(`未识别的文件格式`)
-      }
+    if (!path) {
+      nMessage.warning(`未找到组件: ${comKey.value}`)
+      return
+    }
+
+    comName.value = comKey.value
+    fileName.value = isSubCom ? 'index' : comKey.value
+    comTsKey.value = path
+    comJsonKey.value = path.replace(`${fileName.value}.ts`, 'config.json')
+    if (ext.value === '.ts') {
+      list.value = await getConfigByTS()
+    } else if (ext.value === '.json') {
+      list.value = await getConfigByJson()
+    } else if (ext.value === '.ts&.json') {
+      list.value = await getConfigByMixin()
+    } else {
+      throw new Error(`未识别的文件格式`)
     }
   } catch (error) {
     console.log(error)
@@ -192,9 +184,7 @@ const genConfig = () => {
 const genTemplate = () => {
   const data = {
     fileName: fileName.value,
-    comName: pascalCase(comName.value)
-      .replace('2D', '2d')
-      .replace('3D', '3d'),
+    comName: pascalCaseForComName(comName.value),
     propDataTypes: { ...PropDataType },
     componentTypes: { ...ComponentType },
     configs: list.value,
@@ -213,3 +203,12 @@ const genTemplate = () => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.config-form-panel {
+  width: 100%;
+  height: 80vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+</style>

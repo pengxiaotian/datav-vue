@@ -1,7 +1,7 @@
 import { isArray, isString } from 'lodash-es'
 import { isNumber, isBool, isObject } from '@/utils/util'
-import { ToolboxType } from './editor'
-import * as selectOptions from './select-options'
+import { ToolboxType } from '@/domains/editor'
+import * as selectOptions from '@/data/select-options'
 
 export const AllOptionKeys = Object.keys(selectOptions)
 

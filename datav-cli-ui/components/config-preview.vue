@@ -11,7 +11,7 @@
 </template>
 
 <script lang='ts' setup>
-import { PropDto } from '@/domains/prop-data'
+import { PropDto } from '~~/domains/prop-data'
 
 defineProps<{
   config: PropDto[]
@@ -22,7 +22,7 @@ defineProps<{
 .setting-panel {
   position: relative;
   width: 332px;
-  height: 100vh;
+  height: calc(80vh + 12px);
 }
 
 .setting-panel-content {

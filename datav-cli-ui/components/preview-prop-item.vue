@@ -126,8 +126,8 @@
 <script lang='ts' setup>
 import type { PropType } from 'vue'
 import { NCheckbox, NSwitch, NRadioGroup, NRadioButton, NRadio } from 'naive-ui'
-import { GInput, GInputNumber, GColorPicker, GSlider, GSliderRange, GUploadImage, GSelectImage, GSelectSuggest, GSelectShape, GSelect } from '@/ui-components'
-import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '@/domains/prop-data'
+import { GInput, GInputNumber, GColorPicker, GSlider, GSliderRange, GUploadImage, GSelectImage, GSelectSuggest, GSelectShape, GSelect } from '~~/ui-components'
+import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '~~/domains/prop-data'
 
 const props = defineProps({
   dataType: {

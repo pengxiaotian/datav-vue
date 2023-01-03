@@ -1,3 +1,5 @@
+import path from 'path'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   build: {
@@ -18,6 +20,9 @@ export default defineNuxtConfig({
           ? ['naive-ui', 'vueuc', 'date-fns-tz/esm/formatInTimeZone']
           : [],
     },
+  },
+  alias: {
+    '@': path.resolve(__dirname, '..', 'src'),
   },
   // components: {
   //   dirs: [{

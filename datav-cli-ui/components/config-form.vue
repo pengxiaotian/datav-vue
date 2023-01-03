@@ -209,11 +209,11 @@
 
 <script lang='ts' setup>
 import { NCollapse, NCollapseItem, NIcon, NSpace, NForm, NFormItem, NFormItemGi, NGrid, NTooltip, NInput, NSelect, NCheckbox, NDynamicInput, NRadio, NRadioGroup } from 'naive-ui'
-import { GInputNumber } from '@/ui-components'
+import { GInputNumber } from '~~/ui-components'
 import { IconArrowRight } from '@/icons'
 import { ToolboxType } from '@/domains/editor'
-import { selectSuggests } from '@/domains/select-options'
-import { PropDto, DisplayMode, PropDataType, ComponentType, getSelectedOptions } from '@/domains/prop-data'
+import { selectSuggests } from '@/data/select-options'
+import { PropDto, DisplayMode, PropDataType, ComponentType, getSelectedOptions } from '~~/domains/prop-data'
 
 const objectToOpts = (obj: Object) => {
   return Object.values(obj).map(m => ({ value: m, label: m }))

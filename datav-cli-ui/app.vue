@@ -20,10 +20,10 @@ import {
   NLoadingBarProvider,
   NDialogProvider,
 } from 'naive-ui'
-import { themeOverrides } from '../src/styles/themes/naive-ui-theme-overrides'
+import { themeOverrides } from '@/styles/themes/naive-ui-theme-overrides'
 </script>
 
 <style lang="scss">
 @import '../src/styles/index.scss';
-@import '@/assets/styles/index.scss';
+@import '~~/assets/styles/index.scss';
 </style>

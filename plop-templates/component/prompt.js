@@ -69,7 +69,7 @@ module.exports = {
         type: 'modify',
         path: `${process.cwd()}/datav-cli-ui/ui-components/index.ts`,
         pattern: /(\/\/ -- prepend register placeholder --)/gi,
-        template: "export { default as G{{ pascalCase name }} } from '../../src/components/ui/{{ dashCase name }}'\n$1",
+        template: "export { default as G{{ pascalCase name }} } from '@/components/ui/{{ dashCase name }}'\n$1",
       }
     ];
 

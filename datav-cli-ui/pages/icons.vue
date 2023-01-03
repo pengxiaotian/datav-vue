@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import { useMessage, NCard, NPageHeader, NGrid, NGi, NIcon } from 'naive-ui'
 import { copyText } from '@/utils/util'
-import * as Icons from '../../src/icons'
+import * as Icons from '@/icons'
 
 const nMessage = useMessage()
 const router = useRouter()
@@ -44,6 +44,7 @@ const handleBack = () => {
   border: 1px solid #0000;
   border-radius: 4px;
   color: #fff;
+  padding: 8px;
 
   &:hover {
     border: var(--datav-border-primary);

@@ -5,7 +5,14 @@
       hoverable
       :style="{
         width: '300px',
-        margin: '10% auto 0',
+        height: '150px',
+        margin: 'auto',
+        position: 'fixed',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        transform: 'translateY(-50%)',
         '--n-border-radius': '4px',
         '--n-border-color': 'rgb(239, 239, 245)',
         '--n-box-shadow': '0 1px 2px -2px rgba(0, 0, 0, 0.08), 0 3px 6px 0 rgba(0, 0, 0, 0.06), 0 5px 12px 4px rgba(0, 0, 0, 0.04)',
@@ -46,7 +53,7 @@ import {
   NLi,
   NIcon,
 } from 'naive-ui'
-import { IconV } from '@/icons'
+import { IconV } from '~~/icons'
 </script>
 
 <style lang="scss" scoped>
