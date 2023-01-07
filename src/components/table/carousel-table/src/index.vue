@@ -18,10 +18,10 @@
     <div class="placeholder" :style="`height: ${headerHeight}px`"></div>
     <div ref="rowsRef" class="rows-container" :style="rowBoxStyle">
       <div
-        v-for="(item, index) in viewListData"
-        :key="index"
+        v-for="item in viewListData"
+        :key="item.$$datav_index"
         class="line row-content"
-        :style="[rowStyle, isEven(index + 1)]"
+        :style="[rowStyle, rowStripedStyle(item.$$datav_index)]"
         @click="doLink(item)"
       >
         <div
@@ -30,12 +30,13 @@
           :style="indexStyle"
         >
           <div class="index-bg" :style="indexBGStyle">
-            {{ item.index }}
+            {{ item.$$datav_index }}
           </div>
         </div>
         <carousel-table-item
           v-for="(s, j) in config.series"
-          :key="j"
+          :key="item.$$datav_key + j"
+          :table-width="attr.w"
           :global-config="config.global"
           :config="s"
           :data="item"
@@ -56,6 +57,10 @@ const props = defineProps<{
   com: CarouselTable
 }>()
 
+const getRandomInt = (max: number) => {
+  return Math.floor(Math.random() * Math.floor(max))
+}
+
 const apiStore = useApiStore()
 useDataCenter(props.com)
 
@@ -70,7 +75,6 @@ const loopTimer1 = ref(-1)
 const loopTimer2 = ref(-1)
 const pageIndex = ref(0)
 const viewListData = ref([])
-const antonym = ref(false)
 const rowsRef = ref(null)
 
 const headerHeight = computed(() => {
@@ -100,7 +104,10 @@ const getDataList = () => {
   const tableData = []
   const len = cols.value.length
   data.forEach((item, index) => {
-    const map = { index: index + 1 }
+    const map = {
+      $$datav_key: getRandomInt(999999) + index,
+      $$datav_index: index + 1,
+    }
     for (let i = 0; i < len; i++) {
       const field = cols.value[i]
       map[field] = item[field] ?? null
@@ -123,7 +130,10 @@ const listData = computed(() => {
   if (diff > 0) {
     const len = cols.value.length
     for (let i = 0; i < diff; i++) {
-      let map = { index: total + i + 1 }
+      let map = {
+        $$datav_key: getRandomInt(999999) + i,
+        $$datav_index: total + i + 1,
+      }
       for (let j = 0; j < len; j++) {
         map[cols.value[j]] = '-'
       }
@@ -210,17 +220,13 @@ const rowStyle = computed(() => {
   }
 })
 
-const oddRowStyle = computed(() => {
+const rowStripedStyle = (rowNum: number) => {
   return {
-    backgroundColor: config.value.row.oddBGColor,
+    backgroundColor: rowNum & 1
+      ? config.value.row.oddBGColor
+      : config.value.row.evenBGColor,
   }
-})
-
-const evenRowStyle = computed(() => {
-  return {
-    backgroundColor: config.value.row.evenBGColor,
-  }
-})
+}
 
 const indexStyle = computed(() => {
   const { idList } = config.value
@@ -251,48 +257,42 @@ const indexBGStyle = computed(() => {
   } as CSSProperties
 })
 
-const isEven = (rowNum: number) => {
-  let b = !(rowNum & 1)
-  b = antonym.value ? !b : b
-  return b ? evenRowStyle.value : oddRowStyle.value
-}
-
 const pageTurning = () => {
   const page = pageIndex.value
-  const { animation, rowCount, isLoop } = config.value.global
+  const { animation, rowCount, isLoop, ifRowHidden } = config.value.global
   if (page === 0) {
     viewListData.value = listData.value
   } else {
-    let arr1 = []
-    let arr2 = []
+    let v1 = 0, v2 = 0
+    let v3 = 0, v4 = 0
     if (animation.mode === 'top') {
-      let v1 = (page - 1) * rowCount
-      let v2 = page * rowCount
-      let v3 = 0
-      arr1 = listData.value.filter(m => v1 < m.index && m.index <= v2)
-      if (page === pageCount.value) {
-        v2 = 0
-        v3 = rowCount
+      v1 = (page - 1) * rowCount
+      v2 = page * rowCount + 1
+      if (page === pageCount.value && !ifRowHidden) {
+        v3 = 1
+        v4 = rowCount
       } else {
-        v3 = (page + 1) * rowCount
+        v3 = v2
+        v4 = (page + 1) * rowCount
       }
-      arr2 = listData.value.filter(m => v2 < m.index && m.index <= v3)
     } else {
-      let v1 = page - 1
-      let v2 = page + rowCount
-      let v3 = 0
-      let diff = page - listData.value.length + rowCount
-      arr1 = listData.value.filter(m => v1 < m.index && m.index < v2)
-      if (diff > 0) {
-        v2 = 1
-        v3 = diff
+      v1 = page - 1
+      v2 = page + rowCount
+      const totalCount = listData.value.length
+      const diff = page - totalCount + rowCount
+      if (diff > 0 && totalCount > rowCount) {
+        v3 = 1
+        v4 = diff
       } else {
-        v3 = v2 + 1
+        v3 = v2
+        v4 = v2 + 1
       }
-      arr2 = listData.value.filter(m => v2 <= m.index && m.index <= v3)
     }
 
-    viewListData.value = [...arr1, ...arr2]
+    viewListData.value = [
+      ...listData.value.filter(m => v1 < m.$$datav_index && m.$$datav_index < v2),
+      ...listData.value.filter(m => v3 <= m.$$datav_index && m.$$datav_index <= v4),
+    ]
   }
 
   if (isLoop && !(animation.singleStop && pageCount.value <= 1)) {
@@ -327,10 +327,6 @@ const goScrolling = () => {
     }
 
     loopTimer2.value = window.setTimeout(() => {
-      if (global.animation.mode === 'bottom') {
-        antonym.value = !antonym.value
-      }
-
       for (let i = 0; i < nodes2.length; i++) {
         let node = nodes2[i]
         node.style.transition = 'none 0s ease 0s'
@@ -358,7 +354,6 @@ const stopLoop = () => {
 }
 
 const reset = () => {
-  antonym.value = false
   pageIndex.value = 1
   stopLoop()
   pageTurning()

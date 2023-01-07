@@ -2,6 +2,7 @@
   {
     "key": "global",
     "config": {
+      "id": 3114,
       "type": "object",
       "component": "none",
       "alias": "全局",
@@ -33,6 +34,7 @@
       {
         "key": "rowCount",
         "config": {
+          "id": 1700,
           "type": "number",
           "component": "number",
           "alias": "表格行数",
@@ -64,6 +66,7 @@
       {
         "key": "isLoop",
         "config": {
+          "id": 8094,
           "type": "boolean",
           "component": "switch",
           "alias": "自动轮播",
@@ -95,6 +98,7 @@
       {
         "key": "fontFamily",
         "config": {
+          "id": 3156,
           "type": "string",
           "component": "fontFamily",
           "alias": "字体",
@@ -126,6 +130,7 @@
       {
         "key": "animation",
         "config": {
+          "id": 6320,
           "type": "object",
           "component": "none",
           "alias": "动画",
@@ -157,6 +162,7 @@
           {
             "key": "mode",
             "config": {
+              "id": 2024,
               "type": "string",
               "component": "radioBase",
               "alias": "动画模式",
@@ -197,6 +203,7 @@
           {
             "key": "duration",
             "config": {
+              "id": 5163,
               "type": "number",
               "component": "number",
               "alias": "轮播间隔",
@@ -228,6 +235,7 @@
           {
             "key": "singleStop",
             "config": {
+              "id": 9371,
               "type": "boolean",
               "component": "switch",
               "alias": "单页不轮播",
@@ -266,6 +274,7 @@
       {
         "key": "highLight",
         "config": {
+          "id": 8499,
           "type": "object",
           "component": "none",
           "alias": "高亮",
@@ -297,6 +306,7 @@
           {
             "key": "show",
             "config": {
+              "id": 975,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -328,6 +338,7 @@
           {
             "key": "isOrder",
             "config": {
+              "id": 9181,
               "type": "boolean",
               "component": "switch",
               "alias": "自动依次高亮",
@@ -359,6 +370,7 @@
           {
             "key": "hlIndex",
             "config": {
+              "id": 9647,
               "type": "string",
               "component": "input",
               "alias": "指定高亮序列号",
@@ -390,6 +402,7 @@
           {
             "key": "hlStyle",
             "config": {
+              "id": 2493,
               "type": "object",
               "component": "none",
               "alias": "高亮样式",
@@ -421,6 +434,7 @@
               {
                 "key": "textStyle",
                 "config": {
+                  "id": 7108,
                   "type": "object",
                   "component": "none",
                   "alias": "文本样式",
@@ -452,6 +466,7 @@
                   {
                     "key": "fontFamily",
                     "config": {
+                      "id": 2651,
                       "type": "string",
                       "component": "fontFamily",
                       "alias": "字体",
@@ -483,6 +498,7 @@
                   {
                     "key": "fontSize",
                     "config": {
+                      "id": 3764,
                       "type": "number",
                       "component": "number",
                       "alias": "字号",
@@ -514,6 +530,7 @@
                   {
                     "key": "color",
                     "config": {
+                      "id": 3939,
                       "type": "string",
                       "component": "color",
                       "alias": "颜色",
@@ -545,6 +562,7 @@
                   {
                     "key": "fontWeight",
                     "config": {
+                      "id": 7286,
                       "type": "string",
                       "component": "fontWeight",
                       "alias": "字体粗细",
@@ -584,6 +602,7 @@
               {
                 "key": "bgColor",
                 "config": {
+                  "id": 3552,
                   "type": "string",
                   "component": "color",
                   "alias": "背景色",
@@ -615,6 +634,7 @@
               {
                 "key": "border",
                 "config": {
+                  "id": 4229,
                   "type": "object",
                   "component": "none",
                   "alias": "边框",
@@ -646,6 +666,7 @@
                   {
                     "key": "width",
                     "config": {
+                      "id": 8709,
                       "type": "number",
                       "component": "number",
                       "alias": "粗细",
@@ -677,6 +698,7 @@
                   {
                     "key": "style",
                     "config": {
+                      "id": 4809,
                       "type": "string",
                       "component": "lineStyle",
                       "alias": "类型",
@@ -708,6 +730,7 @@
                   {
                     "key": "color",
                     "config": {
+                      "id": 2798,
                       "type": "string",
                       "component": "color",
                       "alias": "颜色",
@@ -761,6 +784,7 @@
       {
         "key": "ifRowHidden",
         "config": {
+          "id": 1056,
           "type": "boolean",
           "component": "switch",
           "alias": "空值隐藏行",
@@ -792,6 +816,7 @@
       {
         "key": "textAnimate",
         "config": {
+          "id": 6551,
           "type": "object",
           "component": "none",
           "alias": "溢出文本滚动",
@@ -823,6 +848,7 @@
           {
             "key": "ifRun",
             "config": {
+              "id": 7843,
               "type": "boolean",
               "component": "switch",
               "alias": "是否滚动",
@@ -854,6 +880,7 @@
           {
             "key": "isSpeed",
             "config": {
+              "id": 421,
               "type": "boolean",
               "component": "switch",
               "alias": "匀速滚动",
@@ -885,6 +912,7 @@
           {
             "key": "animateDur",
             "config": {
+              "id": 6007,
               "type": "number",
               "component": "number",
               "alias": "滚动时间",
@@ -904,8 +932,8 @@
               "enums": [],
               "pairs": [],
               "whichEnum": {
-                "field": "",
-                "value": ""
+                "field": "isSpeed",
+                "value": "false"
               },
               "flatValue": false,
               "isRange": false
@@ -916,6 +944,7 @@
           {
             "key": "speedRate",
             "config": {
+              "id": 970,
               "type": "number",
               "component": "number",
               "alias": "速率",
@@ -935,8 +964,8 @@
               "enums": [],
               "pairs": [],
               "whichEnum": {
-                "field": "",
-                "value": ""
+                "field": "isSpeed",
+                "value": "true"
               },
               "flatValue": false,
               "isRange": false
@@ -955,6 +984,7 @@
       {
         "key": "defaultImg",
         "config": {
+          "id": 9651,
           "type": "string",
           "component": "input",
           "alias": "默认图片",
@@ -964,7 +994,7 @@
           "layout": "horizontal",
           "toggleCol": "",
           "isHide": false,
-          "defaultValue": "https://img.alicdn.com/tfs/TB1Bk0IhbGYBuNjy0FoXXciBFXa-99-65.png",
+          "defaultValue": "https://files.pengxiaotian.com/datav/datav-img-placeholder.png",
           "min": 0,
           "max": 100,
           "step": 1,
@@ -998,6 +1028,7 @@
   {
     "key": "header",
     "config": {
+      "id": 9978,
       "type": "object",
       "component": "none",
       "alias": "表头",
@@ -1029,6 +1060,7 @@
       {
         "key": "show",
         "config": {
+          "id": 7986,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -1060,6 +1092,7 @@
       {
         "key": "heightPercent",
         "config": {
+          "id": 8481,
           "type": "number",
           "component": "slider",
           "alias": "表头行高",
@@ -1091,6 +1124,7 @@
       {
         "key": "bgColor",
         "config": {
+          "id": 600,
           "type": "string",
           "component": "color",
           "alias": "背景色",
@@ -1122,6 +1156,7 @@
       {
         "key": "textStyle",
         "config": {
+          "id": 4980,
           "type": "object",
           "component": "none",
           "alias": "文本样式",
@@ -1153,6 +1188,7 @@
           {
             "key": "textAlign",
             "config": {
+              "id": 8966,
               "type": "string",
               "component": "hAlign",
               "alias": "文本对齐",
@@ -1184,6 +1220,7 @@
           {
             "key": "fontFamily",
             "config": {
+              "id": 9652,
               "type": "string",
               "component": "fontFamily",
               "alias": "字体",
@@ -1215,6 +1252,7 @@
           {
             "key": "color",
             "config": {
+              "id": 209,
               "type": "string",
               "component": "color",
               "alias": "字体颜色",
@@ -1246,6 +1284,7 @@
           {
             "key": "fontSize",
             "config": {
+              "id": 5408,
               "type": "number",
               "component": "slider",
               "alias": "字号",
@@ -1277,6 +1316,7 @@
           {
             "key": "fontWeight",
             "config": {
+              "id": 9742,
               "type": "string",
               "component": "fontWeight",
               "alias": "字体粗细",
@@ -1325,6 +1365,7 @@
   {
     "key": "row",
     "config": {
+      "id": 9340,
       "type": "object",
       "component": "none",
       "alias": "行配置",
@@ -1356,6 +1397,7 @@
       {
         "key": "oddBGColor",
         "config": {
+          "id": 2258,
           "type": "string",
           "component": "color",
           "alias": "奇行背景色",
@@ -1387,6 +1429,7 @@
       {
         "key": "evenBGColor",
         "config": {
+          "id": 4795,
           "type": "string",
           "component": "color",
           "alias": "偶行背景色",
@@ -1424,6 +1467,7 @@
   {
     "key": "idList",
     "config": {
+      "id": 137,
       "type": "object",
       "component": "none",
       "alias": "序列号",
@@ -1455,6 +1499,7 @@
       {
         "key": "show",
         "config": {
+          "id": 4739,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -1486,6 +1531,7 @@
       {
         "key": "bgColor",
         "config": {
+          "id": 9491,
           "type": "string",
           "component": "color",
           "alias": "背景色",
@@ -1517,6 +1563,7 @@
       {
         "key": "width",
         "config": {
+          "id": 9818,
           "type": "number",
           "component": "slider",
           "alias": "列宽占比",
@@ -1548,6 +1595,7 @@
       {
         "key": "radius",
         "config": {
+          "id": 8493,
           "type": "number",
           "component": "slider",
           "alias": "半径占比",
@@ -1579,6 +1627,7 @@
       {
         "key": "textStyle",
         "config": {
+          "id": 8556,
           "type": "object",
           "component": "none",
           "alias": "文本样式",
@@ -1610,6 +1659,7 @@
           {
             "key": "fontFamily",
             "config": {
+              "id": 5252,
               "type": "string",
               "component": "fontFamily",
               "alias": "字体",
@@ -1641,6 +1691,7 @@
           {
             "key": "fontWeight",
             "config": {
+              "id": 6873,
               "type": "string",
               "component": "fontWeight",
               "alias": "文字粗细",
@@ -1672,6 +1723,7 @@
           {
             "key": "fontSize",
             "config": {
+              "id": 7279,
               "type": "number",
               "component": "number",
               "alias": "字号",
@@ -1703,6 +1755,7 @@
           {
             "key": "color",
             "config": {
+              "id": 870,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -1751,6 +1804,7 @@
   {
     "key": "series",
     "config": {
+      "id": 7484,
       "type": "array",
       "component": "none",
       "alias": "自定义列",
@@ -1788,6 +1842,7 @@
       {
         "key": "0",
         "config": {
+          "id": 644,
           "type": "object",
           "component": "none",
           "alias": "标签",
@@ -1819,6 +1874,7 @@
           {
             "key": "columnName",
             "config": {
+              "id": 5159,
               "type": "string",
               "component": "input",
               "alias": "列字段名",
@@ -1850,6 +1906,7 @@
           {
             "key": "displayName",
             "config": {
+              "id": 1067,
               "type": "string",
               "component": "input",
               "alias": "列显示名",
@@ -1881,6 +1938,7 @@
           {
             "key": "width",
             "config": {
+              "id": 3674,
               "type": "number",
               "component": "number",
               "alias": "列宽占比",
@@ -1912,6 +1970,7 @@
           {
             "key": "dataType",
             "config": {
+              "id": 7136,
               "type": "string",
               "component": "radioBase",
               "alias": "内容类型",
@@ -1952,6 +2011,7 @@
           {
             "key": "widthPercent",
             "config": {
+              "id": 6671,
               "type": "number",
               "component": "number",
               "alias": "图片宽度",
@@ -1983,6 +2043,7 @@
           {
             "key": "margin",
             "config": {
+              "id": 4832,
               "type": "object",
               "component": "none",
               "alias": "图片边距",
@@ -2014,6 +2075,7 @@
               {
                 "key": "top",
                 "config": {
+                  "id": 2799,
                   "type": "number",
                   "component": "number",
                   "alias": "顶部",
@@ -2045,6 +2107,7 @@
               {
                 "key": "bottom",
                 "config": {
+                  "id": 5390,
                   "type": "number",
                   "component": "number",
                   "alias": "底部",
@@ -2076,6 +2139,7 @@
               {
                 "key": "left",
                 "config": {
+                  "id": 8676,
                   "type": "number",
                   "component": "number",
                   "alias": "左侧",
@@ -2107,6 +2171,7 @@
               {
                 "key": "right",
                 "config": {
+                  "id": 8782,
                   "type": "number",
                   "component": "number",
                   "alias": "右侧",
@@ -2146,6 +2211,7 @@
           {
             "key": "isBr",
             "config": {
+              "id": 9799,
               "type": "boolean",
               "component": "switch",
               "alias": "自动换行",
@@ -2165,8 +2231,8 @@
               "enums": [],
               "pairs": [],
               "whichEnum": {
-                "field": "",
-                "value": ""
+                "field": "dataType",
+                "value": "text"
               },
               "flatValue": false,
               "isRange": false
@@ -2177,6 +2243,7 @@
           {
             "key": "textAlign",
             "config": {
+              "id": 6034,
               "type": "string",
               "component": "hAlign",
               "alias": "文本对齐",
@@ -2196,8 +2263,8 @@
               "enums": [],
               "pairs": [],
               "whichEnum": {
-                "field": "",
-                "value": ""
+                "field": "dataType",
+                "value": "text"
               },
               "flatValue": false,
               "isRange": false
@@ -2208,6 +2275,7 @@
           {
             "key": "textStyle",
             "config": {
+              "id": 2495,
               "type": "object",
               "component": "none",
               "alias": "文本样式",
@@ -2227,8 +2295,8 @@
               "enums": [],
               "pairs": [],
               "whichEnum": {
-                "field": "",
-                "value": ""
+                "field": "dataType",
+                "value": "text"
               },
               "flatValue": false,
               "isRange": false
@@ -2239,6 +2307,7 @@
               {
                 "key": "fontFamily",
                 "config": {
+                  "id": 7923,
                   "type": "string",
                   "component": "fontFamily",
                   "alias": "字体",
@@ -2270,6 +2339,7 @@
               {
                 "key": "fontWeight",
                 "config": {
+                  "id": 4679,
                   "type": "string",
                   "component": "fontWeight",
                   "alias": "文字粗细",
@@ -2301,6 +2371,7 @@
               {
                 "key": "fontSize",
                 "config": {
+                  "id": 8648,
                   "type": "number",
                   "component": "number",
                   "alias": "字号",
@@ -2332,6 +2403,7 @@
               {
                 "key": "color",
                 "config": {
+                  "id": 4049,
                   "type": "string",
                   "component": "color",
                   "alias": "颜色",

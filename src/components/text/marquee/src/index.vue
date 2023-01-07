@@ -1,9 +1,6 @@
 <template>
   <div class="datav-wrapper" :style="wrapperStyle">
-    <div
-      ref="marqueeRef"
-      style="white-space: nowrap; overflow: hidden;"
-    >
+    <div style="white-space: nowrap; overflow: hidden;">
       <div
         ref="marqueeTextRef"
         :style="textStyle"
@@ -45,7 +42,6 @@ export default defineComponent({
     const config = toRef(props.com, 'config')
     const attr = toRef(props.com, 'attr')
 
-    const marqueeRef = ref(null)
     const marqueeTextRef = ref(null)
     const transform = ref('')
     const transition = ref('')
@@ -136,7 +132,6 @@ export default defineComponent({
     })
 
     return {
-      marqueeRef,
       marqueeTextRef,
       wrapperStyle,
       textStyle,
