@@ -11,7 +11,7 @@
 <g-field-collapse
   {{#if item.config.whichEnum.field}}
   {{#if (isTypeOf ../configs item.config.whichEnum.field ../propDataTypes.boolean)}}
-  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}}"
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === {{item.config.whichEnum.value}}"
   {{else}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
   {{/if}}
@@ -38,7 +38,7 @@
 <g-field-collapse
   {{#if item.config.whichEnum.field}}
   {{#if (isTypeOf ../configs item.config.whichEnum.field ../propDataTypes.boolean)}}
-  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}}"
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === {{item.config.whichEnum.value}}"
   {{else}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
   {{/if}}
@@ -103,7 +103,7 @@
 <g-field
   {{#if item.config.whichEnum.field}}
   {{#if (isTypeOf ../configs item.config.whichEnum.field ../propDataTypes.boolean)}}
-  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}}"
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === {{item.config.whichEnum.value}}"
   {{else}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
   {{/if}}
@@ -136,7 +136,7 @@
 <g-field
   {{#if item.config.whichEnum.field}}
   {{#if (isTypeOf ../configs item.config.whichEnum.field ../propDataTypes.boolean)}}
-  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}}"
+  v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === {{item.config.whichEnum.value}}"
   {{else}}
   v-if="{{getSlotPath item.path item.virtualPath}}.{{item.config.whichEnum.field}} === '{{item.config.whichEnum.value}}'"
   {{/if}}
