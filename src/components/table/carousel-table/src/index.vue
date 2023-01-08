@@ -16,12 +16,15 @@
       </div>
     </div>
     <div class="placeholder" :style="`height: ${headerHeight}px`"></div>
-    <div ref="rowsRef" class="rows-container" :style="rowBoxStyle">
+    <div class="rows-container" :style="rowBoxStyle">
       <div
         v-for="item in viewListData"
         :key="item.$$datav_index"
         class="line row-content"
-        :style="[rowStyle, rowStripedStyle(item.$$datav_index)]"
+        :style="[
+          rowStyle,
+          rowHighLightStyle(item.$$datav_index)
+        ]"
         @click="doLink(item)"
       >
         <div
@@ -29,13 +32,19 @@
           class="index"
           :style="indexStyle"
         >
-          <div class="index-bg" :style="indexBGStyle">
+          <div
+            class="index-bg"
+            :style="[
+              indexBGStyle,
+              indexBGHighLightStyle(item.$$datav_index)
+            ]"
+          >
             {{ item.$$datav_index }}
           </div>
         </div>
         <carousel-table-item
           v-for="(s, j) in config.series"
-          :key="item.$$datav_key + j"
+          :key="item.$$datav_index + j"
           :table-width="attr.w"
           :global-config="config.global"
           :config="s"
@@ -47,19 +56,17 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, toRef, ref, watch, CSSProperties, onUnmounted } from 'vue'
+import { computed, toRef, ref, shallowRef, watch, CSSProperties, provide, onUnmounted } from 'vue'
+import gsap from 'gsap'
 import { useDataCenter } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { CarouselTable } from './carousel-table'
+import { CarouselTableDto, carouselTableInjectionKey } from './context'
 import CarouselTableItem from './components/carousel-table-item.vue'
 
 const props = defineProps<{
   com: CarouselTable
 }>()
-
-const getRandomInt = (max: number) => {
-  return Math.floor(Math.random() * Math.floor(max))
-}
 
 const apiStore = useApiStore()
 useDataCenter(props.com)
@@ -71,11 +78,12 @@ const dv_data = computed(() => {
   return apiStore.dataMap[props.com.id]?.source ?? []
 })
 
-const loopTimer1 = ref(-1)
-const loopTimer2 = ref(-1)
+const timeId = ref(-1)
+const tween = shallowRef<gsap.core.Tween>(null)
 const pageIndex = ref(0)
-const viewListData = ref([])
-const rowsRef = ref(null)
+const viewListData = ref<CarouselTableDto[]>([])
+const curHighLightId = ref(1)
+const transform = ref(0)
 
 const headerHeight = computed(() => {
   return config.value.header.heightPercent * attr.value.h / 100
@@ -85,7 +93,7 @@ const rowHeight = computed(() => {
   return (attr.value.h - headerHeight.value) / config.value.global.rowCount
 })
 
-const pageCount = computed(() => {
+const pageTotal = computed(() => {
   return Array.isArray(dv_data.value)
     ? Math.ceil(dv_data.value.length / config.value.global.rowCount)
     : 0
@@ -95,17 +103,20 @@ const cols = computed(() => {
   return config.value.series.map(m => m.columnName)
 })
 
+const hlRowNums = computed(() => {
+  return config.value.global.highLight.hlIndex.split(',').map(m => +m)
+})
+
 const getDataList = () => {
   const data = dv_data.value as any[]
   if (!data || !Array.isArray(data)) {
     return []
   }
 
-  const tableData = []
+  const tableData: CarouselTableDto[] = []
   const len = cols.value.length
   data.forEach((item, index) => {
     const map = {
-      $$datav_key: getRandomInt(999999) + index,
       $$datav_index: index + 1,
     }
     for (let i = 0; i < len; i++) {
@@ -124,14 +135,13 @@ const listData = computed(() => {
     return dataList
   }
 
-  const attachArr = []
+  const attachArr: CarouselTableDto[] = []
   const total = dataList.length
-  let diff = pageCount.value * global.rowCount - total
+  let diff = pageTotal.value * global.rowCount - total
   if (diff > 0) {
     const len = cols.value.length
     for (let i = 0; i < diff; i++) {
       let map = {
-        $$datav_key: getRandomInt(999999) + i,
         $$datav_index: total + i + 1,
       }
       for (let j = 0; j < len; j++) {
@@ -216,17 +226,9 @@ const rowStyle = computed(() => {
     overflow: 'hidden',
     height: `${rowHeight.value}px`,
     opacity: 1,
-    transition: 'none 0s ease 0s',
+    transform: `translateY(-${transform.value}px)`,
   }
 })
-
-const rowStripedStyle = (rowNum: number) => {
-  return {
-    backgroundColor: rowNum & 1
-      ? config.value.row.oddBGColor
-      : config.value.row.evenBGColor,
-  }
-}
 
 const indexStyle = computed(() => {
   const { idList } = config.value
@@ -247,7 +249,6 @@ const indexBGStyle = computed(() => {
     margin: 'auto',
     'vertical-align': 'middle',
     'text-align': 'center',
-    'background-color': idList.bgColor,
     'font-family': idList.textStyle.fontFamily,
     'font-weight': idList.textStyle.fontWeight,
     'line-height': `${h}px`,
@@ -256,6 +257,50 @@ const indexBGStyle = computed(() => {
     height: `${h}px`,
   } as CSSProperties
 })
+
+const isHighLight = (rowNum: number) => {
+  const { show, isOrder } = config.value.global.highLight
+  return show && ((isOrder && curHighLightId.value === rowNum)
+      || (!isOrder && hlRowNums.value.includes(rowNum)))
+}
+
+const rowHighLightStyle = (rowNum: number) => {
+  const { bgColor, border } = config.value.global.highLight.hlStyle
+  if (isHighLight(rowNum)) {
+    return {
+      backgroundColor: bgColor,
+      border: `${border.width}px ${border.style} ${border.color}`,
+    }
+  }
+
+  return {
+    backgroundColor: rowNum & 1
+      ? config.value.row.oddBGColor
+      : config.value.row.evenBGColor,
+  }
+}
+
+const indexBGHighLightStyle = (rowNum: number) => {
+  const { textStyle } = config.value.global.highLight.hlStyle
+  if (isHighLight(rowNum)) {
+    return  {
+      'background-image': 'none',
+      'background-position': 'initial',
+      'background-size': 'initial',
+      'background-repeat': 'initial',
+      'background-attachment': 'initial',
+      'background-origin': 'initial',
+      'background-clip': 'unset',
+      '-webkit-text-fill-color': 'initial',
+      'font-size': textStyle.fontSize,
+      color: textStyle.color,
+    }
+  }
+
+  return {
+    'background-color': config.value.idList.bgColor,
+  }
+}
 
 const pageTurning = () => {
   const page = pageIndex.value
@@ -268,7 +313,7 @@ const pageTurning = () => {
     if (animation.mode === 'top') {
       v1 = (page - 1) * rowCount
       v2 = page * rowCount + 1
-      if (page === pageCount.value && !ifRowHidden) {
+      if (page === pageTotal.value && !ifRowHidden) {
         v3 = 1
         v4 = rowCount
       } else {
@@ -295,7 +340,7 @@ const pageTurning = () => {
     ]
   }
 
-  if (isLoop && !(animation.singleStop && pageCount.value <= 1)) {
+  if (isLoop && !(animation.singleStop && pageTotal.value <= 1)) {
     goScrolling()
   } else {
     stopLoop()
@@ -304,43 +349,47 @@ const pageTurning = () => {
 
 const goScrolling = () => {
   const { global } = config.value
-  loopTimer1.value = window.setTimeout(() => {
-    let pc = 0
-    let len = 0
-    let nodes = rowsRef.value.children
-    if (global.animation.mode === 'top') {
-      pc = pageCount.value
-      len = nodes.length > global.rowCount
-        ? global.rowCount
-        : nodes.length
-    } else {
-      pc = listData.value.length
-      len = 1
-    }
-
-    let nodes2 = []
-    for (let i = 0; i < len; i++) {
-      let node = nodes[i] as HTMLDivElement
-      node.style.transition = 'height 400ms linear 0s'
-      node.style.height = '0'
-      nodes2.push(node)
-    }
-
-    loopTimer2.value = window.setTimeout(() => {
-      for (let i = 0; i < nodes2.length; i++) {
-        let node = nodes2[i]
-        node.style.transition = 'none 0s ease 0s'
-        node.style.height = `${rowHeight.value}px`
-      }
-
-      if (pageIndex.value === pc) {
-        pageIndex.value = 1
+  const { show, isOrder } = global.highLight
+  timeId.value = window.setTimeout(() => {
+    if (show && isOrder) {
+      const id = curHighLightId.value + 1
+      const hasVal = viewListData.value.some(m => m.$$datav_index === id)
+      if (hasVal) {
+        curHighLightId.value = id
       } else {
-        pageIndex.value += 1
+        curHighLightId.value = 1
       }
 
-      pageTurning()
-    }, 400)
+      if (global.animation.mode === 'top') {
+        if (hasVal && id <= pageIndex.value * global.rowCount) {
+          goScrolling()
+          return
+        }
+      }
+    }
+
+    let total = listData.value.length
+    let scroll = rowHeight.value
+    if (global.animation.mode === 'top') {
+      total = pageTotal.value
+      scroll *= global.rowCount
+    }
+
+    tween.value = gsap.fromTo(transform, {
+      value: 0,
+    }, {
+      duration: 0.85,
+      value: scroll,
+      onComplete: () => {
+        transform.value = 0
+        if (pageIndex.value === total) {
+          pageIndex.value = 1
+        } else {
+          pageIndex.value += 1
+        }
+        pageTurning()
+      },
+    })
   }, global.animation.duration * 1000)
 }
 
@@ -349,8 +398,10 @@ const doLink = (data: any) => {
 }
 
 const stopLoop = () => {
-  clearTimeout(loopTimer1.value)
-  clearTimeout(loopTimer2.value)
+  clearTimeout(timeId.value)
+  tween.value?.kill()
+  transform.value = 0
+  curHighLightId.value = 1
 }
 
 const reset = () => {
@@ -367,6 +418,10 @@ watch(() => config.value.global, () => {
 
 watch(listData, () => {
   reset()
+})
+
+provide(carouselTableInjectionKey, {
+  isHighLight,
 })
 
 onUnmounted(() => {

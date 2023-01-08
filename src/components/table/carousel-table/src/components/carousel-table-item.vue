@@ -1,16 +1,17 @@
 <script lang="ts">
-import { defineComponent, h, computed, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { defineComponent, h, computed, ref, watch, nextTick, inject, onMounted, onUnmounted } from 'vue'
 import type { CSSProperties, PropType } from 'vue'
 import { debounce } from 'lodash-es'
 import gsap from 'gsap'
 import { CarouselTable, CarouselTableSeries, defaultImg } from '../carousel-table'
+import { CarouselTableDto, carouselTableInjectionKey } from '../context'
 
 
 export default defineComponent({
   name: 'CarouselTableItem',
   props: {
     data: {
-      type: Object,
+      type: Object as PropType<CarouselTableDto>,
       required: true,
     },
     tableWidth: {
@@ -27,6 +28,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { isHighLight } = inject(carouselTableInjectionKey)
+
     const showError = ref(false)
     const columnRef = ref(null)
     const marqueeTextRef = ref(null)
@@ -94,6 +97,24 @@ export default defineComponent({
 
     const debouncedDoMarquee = debounce(doMarquee, 500)
 
+    const getHighLightStyle = () => {
+      const { textStyle } = props.globalConfig.highLight.hlStyle
+      return isHighLight(props.data.$$datav_index)
+        ? {
+          display: 'inline-block',
+          'background-image': 'none',
+          'background-clip': 'unset',
+          '-webkit-text-fill-color': 'initial',
+          color: textStyle.color,
+          'font-size': `${textStyle.fontSize}px`,
+          'font-weight': textStyle.fontWeight,
+          'font-family': textStyle.fontFamily,
+        }
+        : {
+          display: 'inline-block',
+        }
+    }
+
     const createMarqueeImg = (imgSrc: string) => {
       return h('img', {
         src: showError.value
@@ -119,7 +140,7 @@ export default defineComponent({
         h('span', {
           ref: marqueeTextRef,
           class: 'marquee-text-span',
-          style: 'display: inline-block',
+          style: getHighLightStyle(),
         }, val == null
           ? '-' : config.dataType === 'img'
             ? createMarqueeImg(val) : val,

@@ -282,7 +282,8 @@ export default defineComponent({
 .canvas-panel-wrap {
   position: relative;
   width: 100%;
-  height: 100%;
+  // height: 100%; // 后续加上鸟瞰图
+  height: calc(100% - 32px);
   overflow: auto;
 
   .canvas-panel {
