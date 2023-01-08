@@ -33,7 +33,7 @@
         />
       </g-field>
       <g-field-collapse
-        v-if="config.global.isLoop"
+        v-if="config.global.isLoop === true"
         label="动画"
       >
         <g-field
@@ -45,10 +45,7 @@
             size="small"
           >
             <n-radio
-              v-for="pair in [
-                { key: 'top', value: '全部滚动' },
-                { key: 'bottom', value: '逐条滚动' },
-              ]"
+              v-for="pair in pairData2024"
               :key="pair.key"
               :value="pair.key"
             >
@@ -92,7 +89,7 @@
           />
         </g-field>
         <g-field
-          v-if="config.global.highLight.isOrder"
+          v-if="config.global.highLight.isOrder === false"
           :level="2"
           label="指定高亮序列号"
         >
@@ -199,6 +196,7 @@
           />
         </g-field>
         <g-field
+          v-if="config.global.textAnimate.isSpeed === false"
           :level="2"
           label="滚动时间"
         >
@@ -211,6 +209,7 @@
           />
         </g-field>
         <g-field
+          v-if="config.global.textAnimate.isSpeed === true"
           :level="2"
           label="速率"
         >
@@ -454,10 +453,7 @@
             size="small"
           >
             <n-radio
-              v-for="pair in [
-                { key: 'text', value: '文本' },
-                { key: 'img', value: '图片' },
-              ]"
+              v-for="pair in pairData7136"
               :key="pair.key"
               :value="pair.key"
             >
@@ -522,6 +518,7 @@
           />
         </g-field>
         <g-field
+          v-if="slotProps.item.dataType === 'text'"
           :level="2"
           label="自动换行"
         >
@@ -530,6 +527,7 @@
           />
         </g-field>
         <g-field
+          v-if="slotProps.item.dataType === 'text'"
           :level="2"
           label="文本对齐"
         >
@@ -539,6 +537,7 @@
           />
         </g-field>
         <g-field
+          v-if="slotProps.item.dataType === 'text'"
           :level="2"
           label="文本样式"
           :is-flat="true"
@@ -590,6 +589,16 @@ const props = defineProps<{
 }>()
 
 const config = toRef(props.com, 'config')
+
+const pairData2024 = [
+  { key: 'top', value: '全部滚动' },
+  { key: 'bottom', value: '逐条滚动' },
+]
+
+const pairData7136 = [
+  { key: 'text', value: '文本' },
+  { key: 'img', value: '图片' },
+]
 
 const handleAddSeriesItem = () => {
   return new CarouselTableSeries('series1', '类别一')
