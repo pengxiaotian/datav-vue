@@ -247,7 +247,7 @@ export const list: ComDataType = {
       alias: '轮播列表柱状图',
       img: `${import.meta.env.VITE_APP_CDN}/com/table-bar-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/table-bar-370-208.png`,
-      used: false,
+      used: true,
     },
   ],
 }
