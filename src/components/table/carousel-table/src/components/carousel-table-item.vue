@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, computed, ref, watch, nextTick, inject, onMounted, onUnmounted } from 'vue'
+import { defineComponent, h, computed, ref, shallowRef, watch, nextTick, inject, onMounted, onUnmounted } from 'vue'
 import type { CSSProperties, PropType } from 'vue'
 import { debounce } from 'lodash-es'
 import gsap from 'gsap'
@@ -37,6 +37,7 @@ export default defineComponent({
     const textWidth = ref(0)
     const transform = ref(0)
     const timeId = ref(0)
+    const tween = shallowRef<gsap.core.Tween>(null)
 
     const textTypeStyle = computed(() => {
       const { width, textAlign, textStyle, isBr } = props.config
@@ -82,7 +83,7 @@ export default defineComponent({
             doMarquee()
           }, t * 1000)
 
-          gsap.fromTo(transform, {
+          tween.value = gsap.fromTo(transform, {
             value: 0,
           }, {
             duration: t,
@@ -173,16 +174,24 @@ export default defineComponent({
       }, nodes))
     }
 
+    const stopLoop = () => {
+      clearTimeout(timeId.value)
+      tween.value?.kill()
+      transform.value = 0
+    }
+
+
     watch([
       textTypeStyle,
       props.globalConfig.textAnimate,
+      () => props.tableWidth,
       () => props.data[props.config.columnName],
     ], () => {
       if (props.config.dataType === 'img') {
         showError.value = false
       }
 
-      clearTimeout(timeId.value)
+      stopLoop()
       debouncedDoMarquee()
     })
 
@@ -191,7 +200,7 @@ export default defineComponent({
     })
 
     onUnmounted(() => {
-      clearTimeout(timeId.value)
+      stopLoop()
     })
 
     return {

@@ -68,7 +68,7 @@ export const useEventStore = defineStore('event', {
       }
     },
     async setVariables(fields: Record<string, string>, data: Record<string, any>) {
-      const res = {}
+      const res = Object.create(null)
       for (const key of Object.keys(fields)) {
         const alias = fields[key] || key
         res[alias] = data[key]

@@ -4,7 +4,15 @@ import {
   setApiConfig, setApiData,
 } from '@/components/_models/data-source'
 import { DataEventConfig } from '@/components/_models/data-event'
+import { createField } from '@/components/_models/data-field'
 import { getStaticData } from '@/api/data'
+
+export const CarouselTableEvent = {
+  rowClicked: 'rowClicked',
+  dataFlipped: 'data-flipped',
+  dataHighLight: 'data-highLight',
+  scrollEnd: 'scroll-end',
+}
 
 /**
  * CarouselTableSeries
@@ -125,7 +133,34 @@ export class CarouselTable extends DatavComponent {
     setApiConfig(this)
     setApiData(this)
 
-    this.events = {}
+    const fields = [
+      createField('index', {
+        type: 'number',
+        description: '索引值',
+      }),
+    ]
+
+    this.events = {
+      [CarouselTableEvent.rowClicked]: {
+        description: '当点击单行时',
+        fields: Object.assign({}, ...fields),
+      },
+      [CarouselTableEvent.dataFlipped]: {
+        description: '当数据滚动时',
+        fields: Object.assign({}, ...fields),
+      },
+      [CarouselTableEvent.dataHighLight]: {
+        description: '当数据高亮时',
+        fields: Object.assign({}, ...fields),
+      },
+      [CarouselTableEvent.scrollEnd]: {
+        description: '一轮滚动结束',
+        fields: Object.assign({}, createField('isEnding', {
+          type: 'boolean',
+          description: '结束',
+        })),
+      },
+    }
     this.actions = {}
 
     this.config.series.push(

@@ -25,7 +25,7 @@
           rowStyle,
           rowHighLightStyle(item.$$datav_index)
         ]"
-        @click="doLink(item)"
+        @click="handleRowClick(item)"
       >
         <div
           v-if="config.idList.show"
@@ -60,7 +60,8 @@ import { computed, toRef, ref, shallowRef, watch, CSSProperties, provide, onUnmo
 import gsap from 'gsap'
 import { useDataCenter } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
-import { CarouselTable } from './carousel-table'
+import { useEventStore } from '@/store/event'
+import { CarouselTable, CarouselTableEvent } from './carousel-table'
 import { CarouselTableDto, carouselTableInjectionKey } from './context'
 import CarouselTableItem from './components/carousel-table-item.vue'
 
@@ -69,6 +70,7 @@ const props = defineProps<{
 }>()
 
 const apiStore = useApiStore()
+const eventStore = useEventStore()
 useDataCenter(props.com)
 
 const config = toRef(props.com, 'config')
@@ -258,15 +260,15 @@ const indexBGStyle = computed(() => {
   } as CSSProperties
 })
 
-const isHighLight = (rowNum: number) => {
+const isHighLight = (rowId: number) => {
   const { show, isOrder } = config.value.global.highLight
-  return show && ((isOrder && curHighLightId.value === rowNum)
-      || (!isOrder && hlRowNums.value.includes(rowNum)))
+  return show && ((isOrder && curHighLightId.value === rowId)
+      || (!isOrder && hlRowNums.value.includes(rowId)))
 }
 
-const rowHighLightStyle = (rowNum: number) => {
+const rowHighLightStyle = (rowId: number) => {
   const { bgColor, border } = config.value.global.highLight.hlStyle
-  if (isHighLight(rowNum)) {
+  if (isHighLight(rowId)) {
     return {
       backgroundColor: bgColor,
       border: `${border.width}px ${border.style} ${border.color}`,
@@ -274,15 +276,15 @@ const rowHighLightStyle = (rowNum: number) => {
   }
 
   return {
-    backgroundColor: rowNum & 1
+    backgroundColor: rowId & 1
       ? config.value.row.oddBGColor
       : config.value.row.evenBGColor,
   }
 }
 
-const indexBGHighLightStyle = (rowNum: number) => {
+const indexBGHighLightStyle = (rowId: number) => {
   const { textStyle } = config.value.global.highLight.hlStyle
-  if (isHighLight(rowNum)) {
+  if (isHighLight(rowId)) {
     return  {
       'background-image': 'none',
       'background-position': 'initial',
@@ -384,17 +386,17 @@ const goScrolling = () => {
         transform.value = 0
         if (pageIndex.value === total) {
           pageIndex.value = 1
+          handleScrollEnd(viewListData.value[0])
         } else {
           pageIndex.value += 1
         }
         pageTurning()
       },
     })
-  }, global.animation.duration * 1000)
-}
 
-const doLink = (data: any) => {
-  console.log(data)
+    handleDataFlipped(viewListData.value[0])
+    handleDataHighLight(curHighLightId.value)
+  }, global.animation.duration * 1000)
 }
 
 const stopLoop = () => {
@@ -419,6 +421,48 @@ watch(() => config.value.global, () => {
 watch(listData, () => {
   reset()
 })
+
+const getEmitData = (item: CarouselTableDto) => {
+  return item ? { ...item, index: item.$$datav_index } : {}
+}
+
+const handleRowClick = (data: CarouselTableDto) => {
+  eventStore.handleSubVariablesChange(
+    props.com.id,
+    CarouselTableEvent.rowClicked,
+    getEmitData(data),
+  )
+}
+
+const handleDataFlipped = (data: CarouselTableDto) => {
+  eventStore.handleSubVariablesChange(
+    props.com.id,
+    CarouselTableEvent.dataFlipped,
+    getEmitData(data),
+  )
+}
+
+const handleDataHighLight = (rowId: number) => {
+  if (isHighLight(rowId)) {
+    const data = viewListData.value.find(m => m.$$datav_index === rowId)
+    eventStore.handleSubVariablesChange(
+      props.com.id,
+      CarouselTableEvent.dataHighLight,
+      getEmitData(data),
+    )
+  }
+}
+
+const handleScrollEnd = (data: CarouselTableDto) => {
+  eventStore.handleSubVariablesChange(
+    props.com.id,
+    CarouselTableEvent.scrollEnd,
+    {
+      isEnding: true,
+      ...getEmitData(data),
+    },
+  )
+}
 
 provide(carouselTableInjectionKey, {
   isHighLight,
