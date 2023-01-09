@@ -17,6 +17,9 @@ const props = defineProps<{
 const apiStore = useApiStore()
 useDataCenter(props.com)
 
+const config = toRef(props.com, 'config')
+const attr = toRef(props.com, 'attr')
+
 const dv_data = computed(() => {
   return apiStore.dataMap[props.com.id]?.source ?? {}
 })
@@ -25,6 +28,4 @@ const dv_field = computed(() => {
   return getFieldMap(props.com.apis.source.fields)
 })
 
-const config = toRef(props.com, 'config')
-const attr = toRef(props.com, 'attr')
 </script>
