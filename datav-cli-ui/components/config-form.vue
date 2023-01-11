@@ -101,7 +101,7 @@
               <n-input v-model:value="item.config.suffix" />
             </n-form-item>
           </template>
-          <template v-else-if="item.config.component === ComponentType.radio || item.config.component === ComponentType.radioBase">
+          <template v-else-if="item.config.component === ComponentType.radio || item.config.component === ComponentType.radioBase || item.config.component === ComponentType.select">
             <n-form-item label="枚举值">
               <n-dynamic-input
                 v-model:value="item.config.pairs"
@@ -254,7 +254,10 @@ const getEnums = (field: string) => {
   if (field) {
     const config = props.config.find(m => m.key === field)
     if (config) {
-      if (config.config.component === ComponentType.radio || config.config.component === ComponentType.radioBase) {
+      if (config.config.component === ComponentType.radio
+       || config.config.component === ComponentType.radioBase
+       || config.config.component === ComponentType.select
+      ) {
         return config.config.pairs.map(m => m.key)
       } else if (config.config.type === PropDataType.boolean) {
         return ['true', 'false']

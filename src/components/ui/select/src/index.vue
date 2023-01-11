@@ -23,7 +23,7 @@
 </template>
 
 <script lang='ts' setup>
-import { PropType, ref } from 'vue'
+import { PropType, computed } from 'vue'
 import { NSelect } from 'naive-ui'
 import type { Size } from 'naive-ui/es/select/src/interface'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
@@ -34,7 +34,11 @@ const props = defineProps({
     default: 0,
   },
   data: {
-    type: Array as PropType<{ id: string | number; value: string | number; }[]>,
+    type: Array as PropType<{
+      id?: string
+      key?: string
+      value: string
+    }[]>,
     default: () => [],
   },
   label: {
@@ -53,9 +57,14 @@ const props = defineProps({
 })
 const emits = defineEmits([UPDATE_MODEL_EVENT])
 
+const opts = computed(() => {
+  return props.data.map(m => ({
+    label: m.value,
+    value: m.id || m.key,
+  }))
+})
+
 const handleInput = (value: string | number) => {
   emits(UPDATE_MODEL_EVENT, value)
 }
-
-const opts = ref<any[]>(props.data.map(m => ({ label: m.value, value: m.id })))
 </script>
