@@ -8,23 +8,22 @@
     >
       <table-bar-item
         :config="config"
-        :bar="item"
+        :data="item"
         :index="index"
-        :serial-num="index + (pageIndex - 1) * config.global.quantity"
-        :max-value="maxNum"
-        :flag="flag"
         :table-width="attr.w"
-        @lastCompleted="lastCompleted"
+        @lastCompleted="flipOver"
       />
     </div>
   </div>
 </template>
 
 <script lang='ts' setup>
-import { ref, computed, watch, toRef } from 'vue'
+import { ref, computed, toRef, provide, markRaw, watch } from 'vue'
+import { orderBy, maxBy } from 'lodash-es'
 import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { TableBar } from './table-bar'
+import { tableBarInjectionKey } from './context'
 import TableBarItem from './components/table-bar-item.vue'
 
 const props = defineProps<{
@@ -36,11 +35,11 @@ useDataCenter(props.com)
 
 const config = toRef(props.com, 'config')
 const attr = toRef(props.com, 'attr')
-const flag = ref(0)
 const pageIndex = ref(1)
+const watchFlag = ref(0)
 
-const dv_data = computed(() => {
-  return apiStore.dataMap[props.com.id]?.source ?? {}
+const dv_data = computed<any[]>(() => {
+  return apiStore.dataMap[props.com.id]?.source ?? []
 })
 
 const dv_field = computed(() => {
@@ -48,45 +47,73 @@ const dv_field = computed(() => {
 })
 
 const wraperStyle = computed(() => {
-  const { global } = config.value
   return {
-    'font-family': `${global.fontFamily}, Arial, sans-serif`,
+    transform: 'translate3d(0px, 0px, 0px)',
     width: `${attr.value.w}px`,
     height: `${attr.value.h}px`,
-    transform: 'translate3d(0px, 0px, 0px)',
+    opacity: attr.value.opacity,
+    fontFamily: `${config.value.global.fontFamily}, Arial, sans-serif`,
   }
 })
 
 const listData = computed(() => {
-  return []
+  const list = dv_data.value.map(m => {
+    const value = +m[dv_field.value.value]
+    return {
+      value: isNaN(value) ? 0 : value,
+      content: m[dv_field.value.content] ?? '',
+      dataRef: markRaw(m),
+    }
+  })
+
+  const { show, sort } = config.value.global.sort
+  return show
+    ? orderBy(list, o => o.value, sort as any)
+    : list
 })
 
 const partListData = computed(() => {
-  return []
+  const { quantity } = config.value.global
+  const start = quantity * (pageIndex.value - 1)
+  return listData.value.slice(start, start + quantity)
 })
 
 const maxNum = computed(() => {
-  return 0
+  const len = listData.value.length
+  if (len === 0) {
+    return 0
+  }
+
+  const { show, sort } = config.value.global.sort
+  return show
+    ? listData.value[sort === 'desc' ? 0 : len - 1].value
+    : maxBy(listData.value, m => m.value).value
 })
 
-const lastCompleted = (index: number) => {
+const flipOver = (index: number) => {
   if (index === partListData.value.length - 1) {
+    const { loop, quantity, looptime } = config.value.global
+    if (!loop) {
+      return
+    }
+
     window.setTimeout(() => {
-      flag.value++
-      calcPagination()
-    }, config.value.global.looptime)
+      watchFlag.value = Math.random()
+      const pageTotal = Math.ceil(listData.value.length / quantity)
+      pageIndex.value = pageTotal <= pageIndex.value ? 1 : pageIndex.value + 1
+    }, looptime)
   }
 }
 
-const calcPagination = () => {
-  pageIndex.value += 1
-  let totalCount = Math.ceil(listData.value.length / config.value.global.quantity)
-  if (totalCount < pageIndex.value) {
-    pageIndex.value = 1
-  }
-}
+watch(() => config.value.global.loop, loop => {
+  if (loop) {
 
-watch(() => config.value.global.loop, () => {
-  pageIndex.value = 0
+  }
+})
+
+provide(tableBarInjectionKey, {
+  pageIndex,
+  maxNum,
+  watchFlag,
 })
 </script>

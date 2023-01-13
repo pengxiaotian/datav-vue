@@ -1,14 +1,15 @@
-import { Ref } from 'vue'
+import { Ref, ComputedRef } from 'vue'
 import { createInjectionKey } from '@/utils/vue-util'
 
 export interface TableBarDto {
-  content: string
   value: number
+  content: string
 }
 
 export interface TableBarInjection {
-  maxNum: Ref<number>
-  flag: Ref<number>
+  pageIndex: Ref<number>
+  maxNum: ComputedRef<number>
+  watchFlag: Ref<number>
 }
 
 export const tableBarInjectionKey = createInjectionKey<TableBarInjection>('v-table-bar')

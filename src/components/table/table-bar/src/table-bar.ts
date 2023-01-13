@@ -17,7 +17,7 @@ export class TableBar extends DatavComponent {
       animation: true,
       duration: 500,
       padding: 8,
-      quantity: 5,
+      quantity: 3,
       loop: true,
       looptime: 5000,
       sort: {
@@ -42,7 +42,7 @@ export class TableBar extends DatavComponent {
         color: '#fff',
         fontWeight: 'normal',
       },
-      padding: 0,
+      padding: 8,
       marquee: {
         show: true,
         duration: 8000,
@@ -54,7 +54,9 @@ export class TableBar extends DatavComponent {
       color: '#fff',
       fontWeight: 'normal',
       padding: 10,
+      percentage: true,
       separatingChart: true,
+      decimal: 2,
       symbol: {
         prefix: '',
         suffix: '',
