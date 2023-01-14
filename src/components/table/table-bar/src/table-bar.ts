@@ -15,9 +15,9 @@ export class TableBar extends DatavComponent {
     global: {
       fontFamily: 'Microsoft Yahei',
       animation: true,
-      duration: 500,
+      duration: 1000,
       padding: 8,
-      quantity: 3,
+      quantity: 5,
       loop: true,
       looptime: 5000,
       sort: {
@@ -42,7 +42,6 @@ export class TableBar extends DatavComponent {
         color: '#fff',
         fontWeight: 'normal',
       },
-      padding: 8,
       marquee: {
         show: true,
         duration: 8000,
@@ -54,7 +53,7 @@ export class TableBar extends DatavComponent {
       color: '#fff',
       fontWeight: 'normal',
       padding: 10,
-      percentage: true,
+      percentage: false,
       separatingChart: true,
       decimal: 2,
       symbol: {
@@ -66,16 +65,16 @@ export class TableBar extends DatavComponent {
     },
     bar: {
       show: true,
-      fillColorType: 'gradient',
+      fillColorType: 'solid',
       color: 'rgb(10, 115, 255)',
       fromColor: '#2d99f7',
       toColor: '#01f0ff',
-      height: 10,
-      radius: 10,
+      height: 8,
+      radius: 8,
       threshold: {
         show: true,
-        value: 90,
-        fillColorType: 'gradient',
+        value: 80,
+        fillColorType: 'solid',
         color: '#ffc925',
         fromColor: '#f87c0b',
         toColor: '#fad422',
@@ -101,7 +100,7 @@ export class TableBar extends DatavComponent {
   actions: Record<string, DataEventConfig>
 
   constructor() {
-    super('TableBar', { w: 300, h: 200 })
+    super('TableBar', { w: 300, h: 230 })
 
     this.initData()
   }

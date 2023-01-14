@@ -1,31 +1,40 @@
 <template>
-  <div>
-    <div class="rotate" :style="rotateStyle">
-      <span v-if="config.index.show" class="table-index" :style="indexStyle">
-        {{ viewIndex }}
-      </span>
-      <div ref="contentRef" class="table-content" :style="contentStyle">
-        <div
-          ref="marqueeRef"
-          class="inner"
-          :style="marqueeStyle"
-          v-html="marquee.content"
-        ></div>
-      </div>
-      <div v-if="config.number.show" class="number" :style="numberStyle">
-        {{ realNumber }}
+  <div class="rotate" :style="rotateStyle">
+    <span v-if="config.index.show" class="table-index" :style="indexStyle">
+      {{ serialNum }}
+    </span>
+    <div ref="contentRef" class="table-content" :style="contentStyle">
+      <div class="inner" :style="marqueeStyle">
+        <span ref="marqueeRef">{{ data.content }}</span>
+        <template v-if="config.content.marquee.show && showMarquee">
+          <i style="display: inline-block; width: 80px;"></i>
+          <span>{{ data.content }}</span>
+        </template>
       </div>
     </div>
-    <div v-if="config.bar.show" class="table-bar" :style="barStyle">
-      <div class="light" :style="lightStyle"></div>
+    <div v-if="config.number.show" class="number" :style="numberStyle">
+      {{ config.number.symbol.prefix }}<span
+        :style="{
+          'margin-left': config.number.symbol.marginLeft + 'px',
+          'margin-right': config.number.symbol.marginRight + 'px',
+        }"
+      >
+        {{ viewNumber }}
+      </span>{{ config.number.symbol.suffix }}
     </div>
-    <div v-if="config.segment.show" class="line-segment" :style="segmentStyle"></div>
+  </div>
+  <div v-if="config.bar.show" class="table-bar" :style="barStyle">
+    <div class="light" :style="lightStyle"></div>
+  </div>
+  <div class="line-segment" :style="segmentStyle">
+    <div v-if="!config.bar.show" class="light" :style="lightStyle"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, onMounted, nextTick, inject } from 'vue'
+import { ref, shallowRef, computed, watch, nextTick, inject, onUnmounted } from 'vue'
 import type { CSSProperties } from 'vue'
+import gsap from 'gsap'
 import Accounting from 'accounting'
 import { TableBar } from '../table-bar'
 import { TableBarDto, tableBarInjectionKey } from '../context'
@@ -37,39 +46,33 @@ const props = defineProps<{
   tableWidth: number
 }>()
 
-const emits = defineEmits(['lastCompleted'])
-
 const { pageIndex, maxNum, watchFlag } = inject(tableBarInjectionKey)
 
-const marquee = ref({
-  timerID: -1,
-  content: props.data.content,
-  transform: '',
-  transition: '',
-  width: 0,
-  show: true,
-})
-
-const light = ref({
-  timerID1: -1,
-  timerID2: -1,
-  transform: `translateX(-${props.config.light.width}px)`,
-  transition: 'none 0s ease 0s',
-})
-
-const rotate = ref({
-  transform: 'rotateX(0deg) translateZ(0px)',
-  transition: 'transform 500ms ease-in-out 0s',
-})
-
-const marqueeRef = ref(null)
 const contentRef = ref(null)
-
-const viewIndex = computed(() => {
-  return props.index + (pageIndex.value - 1) * props.config.global.quantity + 1
+const marqueeRef = ref(null)
+const showMarquee = ref(false)
+const marquee = ref({
+  timerId: null,
+  transform: 0,
+  transition: 0,
 })
 
-const realNumber = computed(() => {
+const lightTransform = ref(0)
+const lightTween = shallowRef<gsap.core.Tween>(null)
+
+const flipTransform = ref(0)
+const flipTween = shallowRef<gsap.core.Tween>(null)
+const flipTimerId = ref(null)
+
+const serialNum = computed(() => {
+  const { global, index } = props.config
+  const no = props.index + (pageIndex.value - 1) * global.quantity + 1
+  return index.format === '2'
+    ? `NO.${no}` : index.format === '3'
+      ? `(${no})` : no
+})
+
+const viewNumber = computed(() => {
   const { number } = props.config
   if (!number.show) {
     return ''
@@ -78,48 +81,47 @@ const realNumber = computed(() => {
   let { value } = props.data
   let valueStr = '0'
   if (number.percentage) {
+    if (maxNum.value !== 0) {
+      value = value / maxNum.value * 100
+    }
+    valueStr = Accounting.toFixed(value, number.decimal)
+  } else {
     valueStr = Accounting.toFixed(value, number.decimal)
     valueStr = number.separatingChart
       ? number.decimal === 0
         ? valueStr.replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
         : valueStr.replace(/(\d)(?=(\d{3})+\.)/g, '$1,')
       : valueStr
-  } else {
-    if (maxNum.value !== 0) {
-      value = value / maxNum.value * 100
-    }
-    valueStr = Accounting.toFixed(value, number.decimal)
   }
 
-  return number.symbol.prefix + valueStr + number.symbol.suffix
+  return valueStr
 })
 
 const rotateStyle = computed(() => {
-  const { textarea, padding } = props.config.content
+  const { textarea } = props.config.content
   return {
     display: 'flex',
     'align-items': 'center',
-    'margin-bottom': `${padding}px`,
+    'margin-bottom': `${props.config.global.padding}px`,
     position: 'relative',
     width: '100%',
-    height: `${Math.max(textarea.fontSize + 8, 20)}px`,
     'transform-style': 'preserve-3d',
     'transform-origin': '50% 50% 0px',
-    transform: rotate.value.transform,
-    transition: rotate.value.transition,
     'will-change': 'transform',
+    height: `${Math.max(textarea.fontSize + 8, 20)}px`,
+    transform: `rotateX(${flipTransform.value}deg) translateZ(0px)`,
     // 'backface-visibility': 'hidden',
   } as CSSProperties
 })
 
 const indexStyle = computed(() => {
-  const { textarea, padding } = props.config.index
+  const { textarea, width, padding } = props.config.index
   return {
-    width: 'auto',
     flex: 'none',
+    width,
+    color: textarea.color,
     'font-weight': textarea.fontWeight,
     'font-size': `${textarea.fontSize}px`,
-    color: textarea.color,
     'padding-right': `${padding}px`,
   } as CSSProperties
 })
@@ -128,14 +130,14 @@ const contentStyle = computed(() => {
   const { textarea, marquee } = props.config.content
   let style = {
     position: 'relative',
-    overflow: 'auto',
     display: 'flex',
+    'vertical-align': 'bottom',
+    'font-size': `${textarea.fontSize}px`,
+    'font-weight': textarea.fontWeight,
+    color: textarea.color,
+    overflow: 'auto',
     flex: 'auto',
     whiteSpace: 'normal',
-    'vertical-align': 'bottom',
-    'font-weight': textarea.fontWeight,
-    'font-size': `${textarea.fontSize}px`,
-    color: textarea.color,
   }
 
   if (marquee.show) {
@@ -148,11 +150,12 @@ const contentStyle = computed(() => {
 
 const marqueeStyle = computed(() => {
   if (props.config.content.marquee.show) {
+    const { transform, transition } = marquee.value
     return {
-      left: '0px',
       position: 'relative',
-      transform: marquee.value.transform,
-      transition: marquee.value.transition,
+      left: '0px',
+      transform: `translateX(-${transform}px)`,
+      transition: transition > 0 ? `transform ${transition}ms linear 0s` : 'none',
     } as CSSProperties
   }
   return {}
@@ -170,10 +173,10 @@ const numberStyle = computed(() => {
 })
 
 const barStyle = computed(() => {
+  const { bar } = props.config
+  const { threshold } = bar
   const v = maxNum.value === 0 ? 0 : props.data.value / maxNum.value * 100
-  const color = v > props.config.bar.threshold.value
-    ? props.config.bar.threshold
-    : props.config.bar
+  const color = (threshold.show && v > threshold.value) ? threshold : bar
   return {
     display: 'inline-block',
     overflow: 'hidden',
@@ -181,9 +184,12 @@ const barStyle = computed(() => {
     bottom: '0px',
     left: '0px',
     width: `${v}%`,
-    height: `${props.config.bar.height}px`,
-    'border-radius': `${props.config.bar.radius}px`,
-    background: `linear-gradient(${color.fromColor}, ${color.toColor})`,
+    height: `${bar.height}px`,
+    'z-index': 1,
+    'border-radius': `${bar.radius}px`,
+    background: color.fillColorType === 'gradient'
+      ? `linear-gradient(${color.fromColor}, ${color.toColor})`
+      : color.color,
   } as CSSProperties
 })
 
@@ -196,125 +202,143 @@ const lightStyle = computed(() => {
     width: `${width}px`,
     height: `${height}px`,
     background: `radial-gradient(${color} 5%, rgba(0, 0, 0, 0) 80%)`,
-    transform: light.value.transform,
-    transition: light.value.transition,
+    transform: `translateX(${lightTransform.value || -width}px)`,
+    transition: 'none 0s ease 0s',
   } as CSSProperties
 })
 
 const segmentStyle = computed(() => {
-  const { bar, segment, global } = props.config
+  const { segment, global, bar, light } = props.config
   return {
-    display: 'block',
+    display: segment.show ? 'block' : 'none',
     overflow: 'hidden',
     position: 'relative',
     width: '100%',
-    'border-radius': `${bar.radius}px`,
-    height: `${segment.height}px`,
+    height: `${light.show ? segment.height : 0}px`,
     background: segment.color,
     'margin-bottom': `${global.padding}px`,
+    'border-radius': `${bar.radius}px`,
+    'border-bottom': bar.show ? 'none' : `1px solid ${segment.color}`,
   } as CSSProperties
 })
 
-const showMarquee = () => {
+// ------ marquee ------
+const doMarquee = () => {
+  const { show, duration } = props.config.content.marquee
+  if (!show) {
+    return
+  }
+
   nextTick(() => {
-    if (marquee.value.width === 0) {
-      if (marqueeRef.value) {
-        marquee.value.width = marqueeRef.value.offsetWidth
-      }
-    }
-    let len2 = 0
+    let contentWidth = 0
+    let textWidth = 0
+
     if (contentRef.value) {
-      len2 = contentRef.value.offsetWidth
+      contentWidth = contentRef.value.offsetWidth
     }
-    if (marquee.value.width > len2) {
-      marquee.value.content = `${props.data.content}<i style="display:inline-block;width:80px;"></i>${props.data.content}`
-      marquee.value.transform = `translateX(-${marquee.value.width + 80}px)`
-      marquee.value.transition = `transform ${props.config.content.marquee.duration}ms linear 0s`
-      marquee.value.timerID = window.setTimeout(() => {
-        marquee.value.transform = ''
-        marquee.value.transition = ''
-        marquee.value.show = !marquee.value.show
-        showMarquee()
-      }, props.config.content.marquee.duration)
+
+    if (marqueeRef.value) {
+      textWidth = marqueeRef.value.offsetWidth
+    }
+
+    showMarquee.value = textWidth > contentWidth
+    if (showMarquee.value) {
+      marquee.value.transform = textWidth + 80
+      marquee.value.transition = duration
+      marquee.value.timerId = window.setTimeout(() => {
+        marquee.value.transform = 0
+        marquee.value.transition = 0
+        doMarquee()
+      }, duration)
     } else {
-      marquee.value.content = props.data.content
+      marquee.value.transform = 0
     }
   })
 }
 
-const showLight = () => {
-  let v = 0
-  if (maxNum.value !== 0) {
-    v = props.data.value / maxNum.value * props.tableWidth + 20
+const stopMarquee = () => {
+  clearTimeout(marquee.value.timerId)
+  marquee.value.transform = 0
+  marquee.value.transition = 0
+}
+
+// ------ light ------
+const doLight = () => {
+  const { global, light } = props.config
+  if (!light.show) {
+    return
   }
-  light.value.transform = `translateX(${v}px)`
-  light.value.transition = `transform ${props.config.global.duration + 100}ms ease-in-out 0s`
-  clearTimeout(light.value.timerID1)
-  clearTimeout(light.value.timerID2)
-  light.value.timerID1 = window.setTimeout(() => {
-    light.value.transform = `translateX(-${props.config.light.width}px)`
-    light.value.transition = 'none 0s ease 0s'
-    light.value.timerID2 = window.setTimeout(showLight, props.config.light.duration)
-  }, props.config.global.duration + 100)
+
+  lightTween.value = gsap.fromTo(lightTransform, {
+    value: -light.width,
+  }, {
+    value: props.tableWidth,
+    duration: global.duration / 1000,
+    delay: props.index * 0.15,
+    ease: 'power1.out',
+    repeatDelay: light.duration / 1000,
+    repeat: Infinity,
+  })
 }
 
-const showRotate1 = () => {
-  window.setTimeout(() => {
-    rotate.value.transform = 'rotateX(-360deg)'
-    rotate.value.transition = 'transform 500ms cubic-bezier(0.55, 0.18, 0.92, 0.46) 0s'
-    showRotate2()
-  }, props.index * 100)
+const stopLight = () => {
+  lightTween.value?.kill()
+  lightTransform.value = 0
 }
 
-const showRotate2 = () => {
-  setTimeout(() => {
-    rotate.value.transform = 'rotateX(0deg)'
-    rotate.value.transition = 'none 0s ease 0s'
-
-    clearTimeout(marquee.value.timerID)
-    marquee.value.width = 0
-    marquee.value.content = props.data.content
-    marquee.value.transform = ''
-    marquee.value.transition = ''
-    marquee.value.show = !marquee.value.show
-
-    clearTimeout(light.value.timerID1)
-    clearTimeout(light.value.timerID2)
-    light.value.transform = `translateX(-${props.config.light.width}px)`
-    light.value.transition = 'none 0s ease 0s'
-
-    if (props.config.content.marquee.show || props.config.light.show) {
-      setTimeout(() => {
-        if (props.config.content.marquee.show) {
-          showMarquee()
-        }
-        if (props.config.light.show) {
-          showLight()
-        }
-      }, 500)
-    }
-
-    emits('lastCompleted', props.index)
-  }, 600)
-}
-
-watch(() => props.config.content.marquee.show, nv => {
-  if (!nv) {
-    marquee.value.content = props.data.content
+// ------ flip ------
+const doFlip = () => {
+  const { global } = props.config
+  if (!global.loop && !global.animation) {
+    doMarquee()
+    doLight()
+    return
   }
-})
+
+  flipTween.value = gsap.to(flipTransform, {
+    ease: 'power4.inOut',
+    keyframes: [
+      {
+        value: -90,
+        duration: 0.75,
+        onStart() {
+          stopMarquee()
+          stopLight()
+        },
+      },
+      { value: 90, duration: 0 },
+      {
+        value: 0,
+        duration: 0.5,
+        onComplete() {
+          doMarquee()
+          doLight()
+        },
+      },
+    ],
+    delay: props.index * 0.1,
+    repeatDelay: global.looptime / 1000,
+    repeat: Infinity,
+  })
+}
+
+const stopFlip = () => {
+  clearTimeout(flipTimerId.value)
+  flipTween.value?.kill()
+  flipTransform.value = 0
+}
 
 watch(watchFlag, () => {
-  // showRotate1()
+  stopFlip()
+  stopMarquee()
+  stopLight()
+
+  doFlip()
 })
 
-onMounted(() => {
-  if (props.config.content.marquee.show) {
-    showMarquee()
-  }
-  // if (props.config.light.show) {
-  //   showLight()
-  // }
-  // showRotate1()
+onUnmounted(() => {
+  stopFlip()
+  stopMarquee()
+  stopLight()
 })
 </script>

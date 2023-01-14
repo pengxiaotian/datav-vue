@@ -42,6 +42,7 @@
           :min="0"
           :max="100"
           :step="1"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -65,6 +66,7 @@
         />
       </g-field>
       <g-field
+        v-if="config.global.loop === true"
         :level="2"
         label="轮播时间"
       >
@@ -146,6 +148,7 @@
           :min="0"
           :max="100"
           :step="1"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -173,6 +176,7 @@
             :min="12"
             :max="100"
             :step="1"
+            suffix="px"
           />
         </g-field>
         <g-field
@@ -193,17 +197,6 @@
           />
         </g-field>
       </g-field-collapse>
-      <g-field
-        :level="2"
-        label="底间距"
-      >
-        <g-input-number
-          v-model="config.content.padding"
-          :min="0"
-          :max="1000"
-          :step="1"
-        />
-      </g-field>
       <g-field-collapse
         v-model="config.content.marquee.show"
         :toggle="true"
@@ -237,6 +230,7 @@
           :min="12"
           :max="100"
           :step="1"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -265,6 +259,15 @@
           :min="0"
           :max="1000"
           :step="1"
+          suffix="px"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="显示百分数"
+      >
+        <n-switch
+          v-model:value="config.number.percentage"
         />
       </g-field>
       <g-field
@@ -273,6 +276,17 @@
       >
         <n-switch
           v-model:value="config.number.separatingChart"
+        />
+      </g-field>
+      <g-field
+        :level="2"
+        label="保留小数位"
+      >
+        <g-input-number
+          v-model="config.number.decimal"
+          :min="0"
+          :max="100"
+          :step="1"
         />
       </g-field>
       <g-field
@@ -335,7 +349,7 @@
       <g-field
         v-if="config.bar.fillColorType === 'solid'"
         :level="2"
-        label=""
+        label="颜色"
       >
         <g-color-picker
           v-model="config.bar.color"
@@ -368,6 +382,7 @@
           :min="1"
           :max="1000"
           :step="1"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -379,6 +394,7 @@
           :min="0"
           :max="1000"
           :step="1"
+          suffix="px"
         />
       </g-field>
       <g-field-collapse
@@ -393,6 +409,7 @@
           <g-input-number
             v-model="config.bar.threshold.value"
             :step="1"
+            suffix="%"
           />
         </g-field>
         <g-field
@@ -422,6 +439,7 @@
           />
         </g-field>
         <g-field
+          v-if="config.bar.threshold.fillColorType === 'gradient'"
           :level="2"
           label="开始颜色"
         >
@@ -430,6 +448,7 @@
           />
         </g-field>
         <g-field
+          v-if="config.bar.threshold.fillColorType === 'gradient'"
           :level="2"
           label="结束颜色"
         >
@@ -461,6 +480,7 @@
           :min="0"
           :max="1000"
           :step="1"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -472,6 +492,7 @@
           :min="0"
           :max="1000"
           :step="1"
+          suffix="px"
         />
       </g-field>
       <g-field
@@ -509,6 +530,7 @@
           :min="0"
           :max="1000"
           :step="1"
+          suffix="px"
         />
       </g-field>
     </g-field-collapse>

@@ -11,6 +11,7 @@
     <n-input
       :value="modelValue"
       :size="size"
+      placeholder=""
       @update:value="handleInput"
     />
     <span v-if="label" class="g-input__caption">

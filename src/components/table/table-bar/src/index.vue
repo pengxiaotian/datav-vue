@@ -2,7 +2,7 @@
   <div class="datav-wrapper" :style="wraperStyle">
     <div
       v-for="(item, index) in partListData"
-      :key="index"
+      :key="item.$$datav_index"
       style="position: relative; perspective: 250px; perspective-origin: 50% 100%;"
       class="table-line"
     >
@@ -11,15 +11,14 @@
         :data="item"
         :index="index"
         :table-width="attr.w"
-        @lastCompleted="flipOver"
       />
     </div>
   </div>
 </template>
 
 <script lang='ts' setup>
-import { ref, computed, toRef, provide, markRaw, watch } from 'vue'
-import { orderBy, maxBy } from 'lodash-es'
+import { ref, computed, toRef, provide, markRaw, watch, onUnmounted } from 'vue'
+import { orderBy, maxBy, debounce } from 'lodash-es'
 import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { TableBar } from './table-bar'
@@ -36,6 +35,7 @@ useDataCenter(props.com)
 const config = toRef(props.com, 'config')
 const attr = toRef(props.com, 'attr')
 const pageIndex = ref(1)
+const flipTimerId = ref(null)
 const watchFlag = ref(0)
 
 const dv_data = computed<any[]>(() => {
@@ -57,9 +57,10 @@ const wraperStyle = computed(() => {
 })
 
 const listData = computed(() => {
-  const list = dv_data.value.map(m => {
+  const list = dv_data.value.map((m, index) => {
     const value = +m[dv_field.value.value]
     return {
+      $$datav_index: index,
       value: isNaN(value) ? 0 : value,
       content: m[dv_field.value.content] ?? '',
       dataRef: markRaw(m),
@@ -90,25 +91,39 @@ const maxNum = computed(() => {
     : maxBy(listData.value, m => m.value).value
 })
 
-const flipOver = (index: number) => {
-  if (index === partListData.value.length - 1) {
-    const { loop, quantity, looptime } = config.value.global
-    if (!loop) {
-      return
-    }
-
-    window.setTimeout(() => {
-      watchFlag.value = Math.random()
-      const pageTotal = Math.ceil(listData.value.length / quantity)
-      pageIndex.value = pageTotal <= pageIndex.value ? 1 : pageIndex.value + 1
-    }, looptime)
+const flipOver = () => {
+  if (!config.value.global.loop) {
+    return
   }
+
+  const { quantity, looptime } = config.value.global
+  flipTimerId.value = window.setTimeout(() => {
+    const pageTotal = Math.ceil(listData.value.length / quantity)
+    pageIndex.value = pageTotal <= pageIndex.value ? 1 : pageIndex.value + 1
+    flipOver()
+  }, looptime)
 }
 
-watch(() => config.value.global.loop, loop => {
-  if (loop) {
+watch([config, attr, pageIndex], debounce(() => {
+  watchFlag.value = Math.random()
+}, 300), {
+  deep: true,
+  immediate: true,
+})
 
+watch(() => config.value.global.loop, loop => {
+  clearTimeout(flipTimerId.value)
+  if (loop) {
+    flipOver()
+  } else {
+    pageIndex.value = 1
   }
+}, {
+  immediate: true,
+})
+
+onUnmounted(() => {
+  clearTimeout(flipTimerId.value)
 })
 
 provide(tableBarInjectionKey, {
