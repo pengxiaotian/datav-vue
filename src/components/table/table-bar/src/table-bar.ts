@@ -74,7 +74,7 @@ export class TableBar extends DatavComponent {
       threshold: {
         show: true,
         value: 80,
-        fillColorType: 'solid',
+        fillColorType: 'gradient',
         color: '#ffc925',
         fromColor: '#f87c0b',
         toColor: '#fad422',

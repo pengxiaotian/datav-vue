@@ -183,7 +183,7 @@ const barStyle = computed(() => {
     'z-index': 1,
     'border-radius': `${bar.radius}px`,
     background: color.fillColorType === 'gradient'
-      ? `linear-gradient(${color.fromColor}, ${color.toColor})`
+      ? `linear-gradient(to left, ${color.fromColor}, ${color.toColor})`
       : color.color,
   } as CSSProperties
 })
