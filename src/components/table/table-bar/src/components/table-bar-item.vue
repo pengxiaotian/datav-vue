@@ -285,9 +285,7 @@ const stopLight = () => {
 // ------ flip ------
 const doFlip = () => {
   const { global } = props.config
-  if (!global.loop && !global.animation) {
-    doMarquee()
-    doLight()
+  if (!global.loop || !global.animation) {
     return
   }
 
@@ -329,6 +327,8 @@ watch(watchFlag, () => {
   stopLight()
 
   doFlip()
+}, {
+  immediate: true,
 })
 
 onUnmounted(() => {
