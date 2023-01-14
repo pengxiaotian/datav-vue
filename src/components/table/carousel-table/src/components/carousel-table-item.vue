@@ -1,7 +1,6 @@
 <script lang="ts">
 import { defineComponent, h, computed, ref, shallowRef, watch, nextTick, inject, onMounted, onUnmounted } from 'vue'
 import type { CSSProperties, PropType } from 'vue'
-import { debounce } from 'lodash-es'
 import gsap from 'gsap'
 import { CarouselTable, CarouselTableSeries, defaultImg } from '../carousel-table'
 import { CarouselTableDto, carouselTableInjectionKey } from '../context'
@@ -36,7 +35,6 @@ export default defineComponent({
     const columnWidth = ref(0)
     const textWidth = ref(0)
     const transform = ref(0)
-    const timeId = ref(0)
     const tween = shallowRef<gsap.core.Tween>(null)
 
     const textTypeStyle = computed(() => {
@@ -78,25 +76,21 @@ export default defineComponent({
 
         const { isSpeed, animateDur, speedRate } = props.globalConfig.textAnimate
         if (textWidth.value > columnWidth.value) {
-          const t = isSpeed ? speedRate * textWidth.value : animateDur
-          timeId.value = window.setTimeout(() => {
-            doMarquee()
-          }, t * 1000)
-
+          const time = isSpeed ? speedRate * textWidth.value : animateDur
           tween.value = gsap.fromTo(transform, {
             value: 0,
           }, {
-            duration: t,
             value: textWidth.value,
+            duration: time,
             ease: 'none',
+            repeatDelay: 0.5,
+            repeat: Infinity,
           })
         } else {
-          transform.value = 0
+          stopLoop()
         }
       })
     }
-
-    const debouncedDoMarquee = debounce(doMarquee, 500)
 
     const getHighLightStyle = () => {
       const { textStyle } = props.globalConfig.highLight.hlStyle
@@ -175,7 +169,6 @@ export default defineComponent({
     }
 
     const stopLoop = () => {
-      clearTimeout(timeId.value)
       tween.value?.kill()
       transform.value = 0
     }
@@ -192,11 +185,11 @@ export default defineComponent({
       }
 
       stopLoop()
-      debouncedDoMarquee()
+      doMarquee()
     })
 
     onMounted(() => {
-      debouncedDoMarquee()
+      doMarquee()
     })
 
     onUnmounted(() => {

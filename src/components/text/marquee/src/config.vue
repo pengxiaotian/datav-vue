@@ -58,22 +58,23 @@
       />
     </g-field>
     <g-field
-      v-if="config.ifSpeed"
-      label="动画间隔"
+      v-if="config.ifSpeed === false"
+      label="动画时间"
     >
       <g-input-number
-        v-model="config.speed"
+        v-model="config.duration"
         :min="0"
         :step="100"
         suffix="ms"
       />
     </g-field>
     <g-field
-      v-else
-      label="动画时间"
+      v-if="config.ifSpeed === true"
+      tooltip="每100长度动画时长"
+      label="动画间隔"
     >
       <g-input-number
-        v-model="config.duration"
+        v-model="config.speed"
         :min="0"
         :step="100"
         suffix="ms"
@@ -92,31 +93,18 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
 } from '@/data/select-options'
 import { Marquee } from './marquee'
 
-export default defineComponent({
-  name: 'VMarqueeProp',
-  props: {
-    com: {
-      type: Object as PropType<Marquee>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: Marquee
+}>()
 
-    return {
-      config,
+const config = toRef(props.com, 'config')
 
-      fontFamilys,
-      fontWeights,
-    }
-  },
-})
 </script>

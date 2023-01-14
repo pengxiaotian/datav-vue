@@ -1,20 +1,32 @@
 <template>
   <div class="datav-wrapper" :style="wrapperStyle">
-    <div style="white-space: nowrap; overflow: hidden;">
-      <div
-        ref="marqueeTextRef"
-        :style="textStyle"
-        v-html="content"
-      >
+    <div class="datav-marquee" style="white-space: nowrap; overflow: hidden;">
+      <div ref="marqueeRef" :style="textStyle">
+        <div
+          :style="{
+            display: 'inline-block',
+            'min-width': `${textWidth}px`
+          }"
+        >
+          {{ titleText }}<i style="display: inline-block; width: 80px;"></i>
+        </div>
+        <div
+          :style="{
+            display: 'inline-block',
+            'min-width': `${textWidth}px`
+          }"
+        >
+          {{ titleText }}<i style="display: inline-block; width: 80px;"></i>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType, computed, toRef, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { defineComponent, PropType, computed, toRef, ref, shallowRef, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import type { CSSProperties } from 'vue'
-import { debounce } from 'lodash-es'
+import gsap from 'gsap'
 import { useDataCenter, getFieldMap } from '@/components/_mixins/use-data-center'
 import { useApiStore } from '@/store/api'
 import { Marquee } from './marquee'
@@ -42,29 +54,28 @@ export default defineComponent({
     const config = toRef(props.com, 'config')
     const attr = toRef(props.com, 'attr')
 
-    const marqueeTextRef = ref(null)
-    const transform = ref('')
-    const transition = ref('')
-    const width = ref(0)
-    const timeId1 = ref(0)
-    const timeId2 = ref(0)
+    const marqueeRef = ref(null)
+    const textWidth = ref(0)
+    const transform = ref(0)
+    const tween = shallowRef<gsap.core.Tween>(null)
 
     const wrapperStyle = computed(() => {
+      const { textStyle } = config.value
       return {
         width: `${attr.value.w}px`,
         height: `${attr.value.h}px`,
-        fontFamily: `${config.value.textStyle.fontFamily}, Arial, sans-serif`,
-        fontSize: `${config.value.textStyle.fontSize}px`,
-        color: config.value.textStyle.color,
-        'font-weight': config.value.textStyle.fontWeight,
+        fontFamily: `${textStyle.fontFamily}, Arial, sans-serif`,
+        fontSize: `${textStyle.fontSize}px`,
+        color: textStyle.color,
+        'font-weight': textStyle.fontWeight,
       } as CSSProperties
     })
 
     const textStyle = computed(() => {
       return {
         display: 'inline-block',
-        transform: transform.value,
-        transition: transition.value,
+        transform: `translateX(-${transform.value}px)`,
+        transition: 'none 0s ease 0s',
       }
     })
 
@@ -72,70 +83,61 @@ export default defineComponent({
       return dv_data.value[dv_field.value.value] || ''
     })
 
-    const content = computed(() => {
-      let c = `<div style="display: inline-block;min-width: ${width.value}px">${titleText.value}<i style="display:inline-block; width:80px;"></i></div>`
-      return c + c
-    })
-
     const doMarquee = () => {
+      if (!config.value.loop) {
+        return
+      }
+
       nextTick(() => {
-        if (marqueeTextRef.value) {
-          width.value = marqueeTextRef.value.offsetWidth / 2
+        const { ifSpeed, speed, duration, timeout } = config.value
+        if (marqueeRef.value) {
+          textWidth.value = marqueeRef.value.offsetWidth / 2
         }
-        if (width.value > attr.value.w) {
-          let t = 0
-          if (config.value.ifSpeed) {
-            t = config.value.speed / 100 * width.value
-          } else {
-            t = config.value.duration
-          }
-          transform.value = `translateX(-${width.value}px)`
-          transition.value = `transform ${t}ms linear 0s`
-          timeId1.value = window.setTimeout(
-            () => {
-              transform.value = 'translateX(0)'
-              transition.value = 'none 0s ease 0s'
-              if (config.value.loop) {
-                if (config.value.timeout > 0) {
-                  timeId2.value = window.setTimeout(doMarquee, config.value.timeout)
-                } else {
-                  doMarquee()
-                }
-              }
-            }, t)
+
+        if (textWidth.value > attr.value.w) {
+          const time = ifSpeed ? speed / 100 * textWidth.value : duration
+          tween.value = gsap.fromTo(transform, {
+            value: 0,
+          }, {
+            value: textWidth.value,
+            duration: time / 1000,
+            ease: 'none',
+            repeatDelay: timeout / 1000,
+            repeat: Infinity,
+          })
         } else {
-          width.value = attr.value.w
-          transform.value = 'translateX(0)'
-          transition.value = 'none 0s ease 0s'
+          stopMarquee()
         }
       })
     }
 
-    const debouncedDoMarquee = debounce(doMarquee, 500)
+    const stopMarquee = () => {
+      tween.value?.kill()
+      textWidth.value = attr.value.w
+      transform.value = 0
+    }
 
-    watch([wrapperStyle, titleText], () => {
-      clearTimeout(timeId1.value)
-      clearTimeout(timeId2.value)
-      width.value = attr.value.w
-      transform.value = 'translateX(0)'
-      transition.value = 'none 0s ease 0s'
-      debouncedDoMarquee()
+    watch([config, titleText], () => {
+      stopMarquee()
+      doMarquee()
+    }, {
+      deep: true,
     })
 
     onMounted(() => {
-      debouncedDoMarquee()
+      doMarquee()
     })
 
     onUnmounted(() => {
-      clearTimeout(timeId1.value)
-      clearTimeout(timeId2.value)
+      stopMarquee()
     })
 
     return {
-      marqueeTextRef,
+      marqueeRef,
       wrapperStyle,
       textStyle,
-      content,
+      titleText,
+      textWidth,
     }
   },
 })

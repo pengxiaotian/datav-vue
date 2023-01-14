@@ -51,18 +51,14 @@ const { pageIndex, maxNum, watchFlag } = inject(tableBarInjectionKey)
 const contentRef = ref(null)
 const marqueeRef = ref(null)
 const showMarquee = ref(false)
-const marquee = ref({
-  timerId: null,
-  transform: 0,
-  transition: 0,
-})
+const marqueeTransform = ref(0)
+const marqueeTween = shallowRef<gsap.core.Tween>(null)
 
 const lightTransform = ref(0)
 const lightTween = shallowRef<gsap.core.Tween>(null)
 
 const flipTransform = ref(0)
 const flipTween = shallowRef<gsap.core.Tween>(null)
-const flipTimerId = ref(null)
 
 const serialNum = computed(() => {
   const { global, index } = props.config
@@ -150,12 +146,11 @@ const contentStyle = computed(() => {
 
 const marqueeStyle = computed(() => {
   if (props.config.content.marquee.show) {
-    const { transform, transition } = marquee.value
     return {
       position: 'relative',
       left: '0px',
-      transform: `translateX(-${transform}px)`,
-      transition: transition > 0 ? `transform ${transition}ms linear 0s` : 'none',
+      transform: `translateX(-${marqueeTransform.value}px)`,
+      transition: 'none 0s ease 0s',
     } as CSSProperties
   }
   return {}
@@ -243,23 +238,24 @@ const doMarquee = () => {
 
     showMarquee.value = textWidth > contentWidth
     if (showMarquee.value) {
-      marquee.value.transform = textWidth + 80
-      marquee.value.transition = duration
-      marquee.value.timerId = window.setTimeout(() => {
-        marquee.value.transform = 0
-        marquee.value.transition = 0
-        doMarquee()
-      }, duration)
+      marqueeTween.value = gsap.fromTo(marqueeTransform, {
+        value: 0,
+      }, {
+        value:  textWidth + 80,
+        duration: duration / 1000,
+        ease: 'none',
+        repeatDelay: 0.5,
+        repeat: Infinity,
+      })
     } else {
-      marquee.value.transform = 0
+      stopMarquee()
     }
   })
 }
 
 const stopMarquee = () => {
-  clearTimeout(marquee.value.timerId)
-  marquee.value.transform = 0
-  marquee.value.transition = 0
+  marqueeTween.value?.kill()
+  marqueeTransform.value = 0
 }
 
 // ------ light ------
@@ -323,7 +319,6 @@ const doFlip = () => {
 }
 
 const stopFlip = () => {
-  clearTimeout(flipTimerId.value)
   flipTween.value?.kill()
   flipTransform.value = 0
 }
