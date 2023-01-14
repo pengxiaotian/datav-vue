@@ -17,6 +17,7 @@ import VBorderBox from './media/border-box'
 import VDecoration from './media/decoration'
 import VMainImg from './media/main-img'
 import VDatePicker from './other/date-picker'
+import VTableBar from './table/table-bar'
 // -- prepend placeholder 1 --
 
 const components = [
@@ -36,6 +37,7 @@ const components = [
   VDecoration,
   VMainImg,
   VDatePicker,
+  VTableBar,
 // -- prepend placeholder 2 --
 ]
 

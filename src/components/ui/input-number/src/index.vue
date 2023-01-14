@@ -15,6 +15,7 @@
         :min="min"
         :max="max"
         :step="step"
+        placeholder=""
         @update:value="handleInput"
       >
         <template v-if="suffix" #suffix>

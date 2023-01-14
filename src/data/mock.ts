@@ -9,7 +9,7 @@ export const useMock = async () => {
   const editorStore = useEditorStore()
   const blueprintStore = useBlueprintStore()
 
-  const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar', 'VMarquee', 'VParagraph', 'VTimer', 'VFullScreen', 'VMainImg', 'VWordCloud', 'VCarouselTable']
+  const names = ['VMainTitle', 'VNumberTitleFlop', 'VDatePicker', 'VBgBox', 'VBorderBox', 'VDecoration', 'VBasicBar', 'VMarquee', 'VParagraph', 'VTimer', 'VFullScreen', 'VMainImg', 'VWordCloud', 'VCarouselTable', 'VTableBar']
 
   const coms = await Promise.all(names.map(name => createComponent(name)))
   coms.map(com => {
