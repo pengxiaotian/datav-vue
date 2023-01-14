@@ -5,7 +5,11 @@
       class="line header"
       :style="headerStyle"
     >
-      <div class="index-list" :style="headerIndexStyle"></div>
+      <div
+        v-if="config.idList.show"
+        class="index-list"
+        :style="headerIndexStyle"
+      ></div>
       <div
         v-for="(head, index) in config.series"
         :key="index"

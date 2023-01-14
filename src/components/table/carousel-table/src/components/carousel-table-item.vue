@@ -59,6 +59,23 @@ export default defineComponent({
       return style as CSSProperties
     })
 
+    const getDefaultTransform = () => {
+      const { textAlign } = props.config
+      if (textAlign === 'left') {
+        return 0
+      }
+
+      if (textAlign === 'center') {
+        return (columnWidth.value - textWidth.value + 4) / 2
+      }
+
+      if (textAlign === 'right') {
+        return columnWidth.value - textWidth.value + 4
+      }
+
+      return 0
+    }
+
     const doMarquee = () => {
       const { ifRun } = props.globalConfig.textAnimate
       if (!ifRun || props.config.isBr) {
@@ -78,9 +95,9 @@ export default defineComponent({
         if (textWidth.value > columnWidth.value) {
           const time = isSpeed ? speedRate * textWidth.value : animateDur
           tween.value = gsap.fromTo(transform, {
-            value: 0,
+            value: getDefaultTransform(),
           }, {
-            value: textWidth.value,
+            value: -textWidth.value,
             duration: time,
             ease: 'none',
             repeatDelay: 0.5,
@@ -163,14 +180,14 @@ export default defineComponent({
         class: 'marquee-text',
         style: {
           display: 'inline-block',
-          transform: `translateX(-${transform.value}px)`,
+          transform: `translateX(${transform.value}px)`,
         },
       }, nodes))
     }
 
     const stopLoop = () => {
       tween.value?.kill()
-      transform.value = 0
+      transform.value = getDefaultTransform()
     }
 
 
