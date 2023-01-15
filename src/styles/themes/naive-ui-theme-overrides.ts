@@ -175,7 +175,7 @@ const themeOverrides: GlobalThemeOverrides = {
   },
   Radio: {
     fontSizeSmall: '12px',
-    buttonHeightSmall: '24px',
+    buttonHeightSmall: '28px',
     buttonTextColor: vars2.guiFontColor,
     buttonTextColorActive: '#fff',
     buttonColor: vars2.darkColor,

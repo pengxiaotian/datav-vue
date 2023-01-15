@@ -1804,7 +1804,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": false,
-              "defaultValue": "solid",
+              "defaultValue": "gradient",
               "min": 0,
               "max": 100,
               "step": 1,

@@ -114,49 +114,28 @@
         tooltip="请设置info字段作为弹窗内容，info支持配置html标签；如不选，则兼容name和value作为弹窗内容"
         label="info字段"
       >
-        <n-switch
-          v-model:value="config.tooltip.infoField"
+        <g-switch
+          v-model="config.tooltip.infoField"
         />
       </g-field>
       <g-field
         :level="2"
         label="事件类型"
       >
-        <n-radio-group
-          v-model:value="config.tooltip.eventType"
-          size="small"
-        >
-          <n-radio
-            v-for="pair in [
-              { key: 'click', value: '点击区域' },
-              { key: 'mousemove', value: '鼠标移入时' },
-            ]"
-            :key="pair.key"
-            :value="pair.key"
-          >
-            {{ pair.value }}
-          </n-radio>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.tooltip.eventType"
+          :data="pairData929"
+        />
       </g-field>
       <g-field
         :level="2"
         label="配置选项"
       >
-        <n-radio-group
-          v-model:value="config.tooltip.styleType"
-          size="small"
-        >
-          <n-radio-button
-            v-for="pair in [
-              { key: 'parent', value: '父容器默认' },
-              { key: 'custom', value: '自定义配置' },
-            ]"
-            :key="pair.key"
-            :value="pair.key"
-          >
-            {{ pair.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.tooltip.styleType"
+          :data="pairData1776"
+          is-button
+        />
       </g-field>
       <g-field
         v-if="config.tooltip.styleType === 'custom'"
@@ -329,4 +308,15 @@ const props = defineProps<{
 }>()
 
 const config = toRef(props.com, 'config')
+
+const pairData929 = [
+  { key: 'click', value: '点击区域' },
+  { key: 'mousemove', value: '鼠标移入时' },
+]
+
+const pairData1776 = [
+  { key: 'parent', value: '父容器默认' },
+  { key: 'custom', value: '自定义配置' },
+]
+
 </script>

@@ -120,6 +120,8 @@
                 clearable
                 tag
                 :options="selectSuggests"
+                value-field="id"
+                label-field="value"
               />
             </n-form-item>
           </template>

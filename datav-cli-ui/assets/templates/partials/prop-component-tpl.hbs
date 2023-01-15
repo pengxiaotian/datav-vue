@@ -8,6 +8,9 @@
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.number)}}
 <g-input-number
@@ -29,6 +32,9 @@
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.color)}}
 <g-color-picker
@@ -40,53 +46,69 @@
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.checkbox)}}
-<n-checkbox
+<g-checkbox
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
-  v-model:checked="{{ getPath path virtualPath }}"
+  v-model="{{ getPath path virtualPath }}"
+  {{#if (getInlineMode config.displayMode)}}
+  inline="{{config.displayMode}}"
+  label="{{config.alias}}"
+  {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.switch)}}
-<n-switch
+<g-switch
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
-  v-model:value="{{ getPath path virtualPath }}"
+  v-model="{{ getPath path virtualPath }}"
+  {{#if (getInlineMode config.displayMode)}}
+  inline="{{config.displayMode}}"
+  label="{{config.alias}}"
+  {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
+/>
+{{else if (eq config.component componentTypes.radioBase)}}
+<g-radio-group
+  {{#if (and judgeEnum config.whichEnum.field)}}
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  {{/if}}
+  v-model="{{ getPath path virtualPath }}"
+  {{#if (getInlineMode config.displayMode)}}
+  inline="{{config.displayMode}}"
+  label="{{config.alias}}"
+  {{/if}}
+  :data="pairData{{config.id}}"
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.radio)}}
-<n-radio-group
+<g-radio-group
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
-  v-model:value="{{ getPath path virtualPath }}"
-  size="small"
->
-  <n-radio-button
-    v-for="pair in pairData{{config.id}}"
-    :key="pair.key"
-    :value="pair.key"
-  >
-    \{{ pair.value }}
-  </n-radio-button>
-</n-radio-group>
-{{else if (eq config.component componentTypes.radioBase)}}
-<n-radio-group
-  {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  v-model="{{ getPath path virtualPath }}"
+  {{#if (getInlineMode config.displayMode)}}
+  inline="{{config.displayMode}}"
+  label="{{config.alias}}"
   {{/if}}
-  v-model:value="{{ getPath path virtualPath }}"
-  size="small"
->
-  <n-radio
-    v-for="pair in pairData{{config.id}}"
-    :key="pair.key"
-    :value="pair.key"
-  >
-    \{{ pair.value }}
-  </n-radio>
-</n-radio-group>
+  :data="pairData{{config.id}}"
+  is-button
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.slider)}}
 <g-slider
   {{#if (and judgeEnum config.whichEnum.field)}}
@@ -107,6 +129,9 @@
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.sliderRange)}}
 <g-slider-range
@@ -125,6 +150,9 @@
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.select)}}
 <g-select
@@ -137,6 +165,9 @@
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.uploadImage)}}
 <g-upload-image
@@ -147,6 +178,9 @@
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
+  {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.selectImage)}}
@@ -159,6 +193,9 @@
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
+  {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
   {{/if}}
 />
 {{else if (eq config.component componentTypes.selectSuggest)}}
@@ -173,6 +210,9 @@
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (eq config.component componentTypes.echartIcon)}}
 <g-select-shape
@@ -185,24 +225,27 @@
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
   {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
 />
 {{else if (hasSelectOpts selectOpts config.component)}}
 {{#if config.flatValue}}
-<n-radio-group
+<g-radio-group
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
-  v-model:value="{{ getPath path virtualPath }}"
-  size="small"
->
-  <n-radio-button
-    v-for="em in {{config.component}}s"
-    :key="em.id"
-    :value="em.id"
-  >
-    \{{ em.value }}
-  </n-radio-button>
-</n-radio-group>
+  v-model="{{ getPath path virtualPath }}"
+  {{#if (getInlineMode config.displayMode)}}
+  inline="{{config.displayMode}}"
+  label="{{config.alias}}"
+  {{/if}}
+  :data="{{config.component}}s"
+  is-button
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
+/>
 {{else}}
 <g-select
   {{#if (and judgeEnum config.whichEnum.field)}}
@@ -213,6 +256,9 @@
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"
+  {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
   {{/if}}
 />
 {{/if}}

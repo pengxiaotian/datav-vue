@@ -48,7 +48,7 @@ export const horizontalBar: ComDataType = {
   data: [
     {
       name: 'VHoriBasicBar',
-      alias: '水平基本柱状图',
+      alias: '条形图',
       img: `${import.meta.env.VITE_APP_CDN}/com/hori-basic-bar-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/hori-basic-bar-368-208.png`,
       used: false,
@@ -63,7 +63,7 @@ export const line: ComDataType = {
   data: [
     {
       name: 'VBasicLine',
-      alias: '基本折线图',
+      alias: '折线图',
       img: `${import.meta.env.VITE_APP_CDN}/com/basic-line-332-144.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/basic-line-368-208.png`,
       used: true,
@@ -93,7 +93,7 @@ export const pie: ComDataType = {
   data: [
     {
       name: 'VBasicPie',
-      alias: '基本饼图',
+      alias: '饼图',
       img: `${import.meta.env.VITE_APP_CDN}/com/basic-pie-160-116.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/basic-pie-368-208.png`,
       used: true,

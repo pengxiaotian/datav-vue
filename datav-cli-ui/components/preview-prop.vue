@@ -16,6 +16,7 @@
         :pairs="item.config.pairs"
         :inline="item.config.displayMode"
         :flat-value="item.config.flatValue"
+        :tooltip="item.config.tip"
       />
       <template v-else-if="item.children && !item.config.isRange">
         <g-field-collapse
@@ -106,6 +107,7 @@
           :pairs="item.config.pairs"
           :inline="item.config.displayMode"
           :flat-value="item.config.flatValue"
+          :tooltip="item.config.tip"
         />
       </g-field>
     </template>

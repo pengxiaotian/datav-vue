@@ -2,6 +2,7 @@
   {
     "key": "global",
     "config": {
+      "id": 9366,
       "type": "object",
       "component": "none",
       "alias": "全局样式",
@@ -19,11 +20,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "global",
     "virtualPath": "",
@@ -31,6 +34,7 @@
       {
         "key": "date",
         "config": {
+          "id": 2288,
           "type": "string",
           "component": "input",
           "alias": "日期",
@@ -48,11 +52,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.date",
         "virtualPath": ""
@@ -60,6 +66,7 @@
       {
         "key": "fontFamily",
         "config": {
+          "id": 7500,
           "type": "string",
           "component": "fontFamily",
           "alias": "字体",
@@ -77,11 +84,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.fontFamily",
         "virtualPath": ""
@@ -95,6 +104,7 @@
   {
     "key": "input",
     "config": {
+      "id": 4720,
       "type": "object",
       "component": "none",
       "alias": "文本框",
@@ -112,11 +122,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "input",
     "virtualPath": "",
@@ -124,6 +136,7 @@
       {
         "key": "size",
         "config": {
+          "id": 2448,
           "type": "object",
           "component": "none",
           "alias": "大小",
@@ -141,11 +154,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "input.size",
         "virtualPath": "",
@@ -153,6 +168,7 @@
           {
             "key": "width",
             "config": {
+              "id": 8534,
               "type": "number",
               "component": "number",
               "alias": "宽度",
@@ -170,11 +186,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "input.size.width",
             "virtualPath": ""
@@ -182,6 +200,7 @@
           {
             "key": "height",
             "config": {
+              "id": 258,
               "type": "number",
               "component": "number",
               "alias": "高度",
@@ -199,11 +218,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "input.size.height",
             "virtualPath": ""
@@ -217,6 +238,7 @@
       {
         "key": "border",
         "config": {
+          "id": 6858,
           "type": "object",
           "component": "none",
           "alias": "边框",
@@ -234,11 +256,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "input.border",
         "virtualPath": "",
@@ -246,6 +270,7 @@
           {
             "key": "width",
             "config": {
+              "id": 5262,
               "type": "number",
               "component": "number",
               "alias": "宽度",
@@ -263,11 +288,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "input.border.width",
             "virtualPath": ""
@@ -275,6 +302,7 @@
           {
             "key": "color",
             "config": {
+              "id": 6047,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -292,11 +320,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "input.border.color",
             "virtualPath": ""
@@ -304,6 +334,7 @@
           {
             "key": "radius",
             "config": {
+              "id": 1610,
               "type": "number",
               "component": "number",
               "alias": "圆角",
@@ -321,11 +352,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "input.border.radius",
             "virtualPath": ""
@@ -340,6 +373,7 @@
       {
         "key": "bgColor",
         "config": {
+          "id": 4971,
           "type": "string",
           "component": "color",
           "alias": "背景颜色",
@@ -357,11 +391,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "input.bgColor",
         "virtualPath": ""
@@ -369,6 +405,7 @@
       {
         "key": "fontSize",
         "config": {
+          "id": 8881,
           "type": "number",
           "component": "number",
           "alias": "文字字号",
@@ -386,11 +423,13 @@
           "InfiniteMax": false,
           "suffix": "px",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "input.fontSize",
         "virtualPath": ""
@@ -398,6 +437,7 @@
       {
         "key": "fontColor",
         "config": {
+          "id": 8649,
           "type": "string",
           "component": "color",
           "alias": "文字颜色",
@@ -415,11 +455,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "input.fontColor",
         "virtualPath": ""
@@ -427,6 +469,7 @@
       {
         "key": "separator",
         "config": {
+          "id": 7248,
           "type": "string",
           "component": "input",
           "alias": "时间分隔符",
@@ -444,11 +487,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "input.separator",
         "virtualPath": ""
@@ -456,6 +501,7 @@
       {
         "key": "pos",
         "config": {
+          "id": 8705,
           "type": "string",
           "component": "hAlign",
           "alias": "文字位置",
@@ -473,11 +519,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "input.pos",
         "virtualPath": ""
@@ -496,6 +544,7 @@
   {
     "key": "calendar",
     "config": {
+      "id": 1464,
       "type": "object",
       "component": "none",
       "alias": "日历",
@@ -513,11 +562,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "calendar",
     "virtualPath": "",
@@ -525,6 +576,7 @@
       {
         "key": "fontSize",
         "config": {
+          "id": 7095,
           "type": "number",
           "component": "number",
           "alias": "文字字号",
@@ -542,11 +594,13 @@
           "InfiniteMax": false,
           "suffix": "px",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "calendar.fontSize",
         "virtualPath": ""
@@ -554,6 +608,7 @@
       {
         "key": "fontColor",
         "config": {
+          "id": 2281,
           "type": "string",
           "component": "color",
           "alias": "文字颜色",
@@ -571,11 +626,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "calendar.fontColor",
         "virtualPath": ""
@@ -583,6 +640,7 @@
       {
         "key": "bgColor",
         "config": {
+          "id": 502,
           "type": "string",
           "component": "color",
           "alias": "日历背景",
@@ -600,11 +658,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "calendar.bgColor",
         "virtualPath": ""
@@ -612,6 +672,7 @@
       {
         "key": "selectBGColor",
         "config": {
+          "id": 5338,
           "type": "string",
           "component": "color",
           "alias": "选择器背景",
@@ -629,11 +690,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "calendar.selectBGColor",
         "virtualPath": ""
@@ -641,6 +704,7 @@
       {
         "key": "border",
         "config": {
+          "id": 884,
           "type": "object",
           "component": "none",
           "alias": "外边框",
@@ -658,11 +722,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "calendar.border",
         "virtualPath": "",
@@ -670,6 +736,7 @@
           {
             "key": "width",
             "config": {
+              "id": 2592,
               "type": "number",
               "component": "number",
               "alias": "宽度",
@@ -687,11 +754,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "calendar.border.width",
             "virtualPath": ""
@@ -699,6 +768,7 @@
           {
             "key": "color",
             "config": {
+              "id": 7519,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -716,11 +786,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "calendar.border.color",
             "virtualPath": ""
@@ -728,6 +800,7 @@
           {
             "key": "radius",
             "config": {
+              "id": 3733,
               "type": "number",
               "component": "number",
               "alias": "圆角",
@@ -745,11 +818,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "calendar.border.radius",
             "virtualPath": ""
@@ -764,6 +839,7 @@
       {
         "key": "paddingBorder",
         "config": {
+          "id": 9900,
           "type": "object",
           "component": "none",
           "alias": "内边框",
@@ -781,11 +857,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "calendar.paddingBorder",
         "virtualPath": "",
@@ -793,6 +871,7 @@
           {
             "key": "width",
             "config": {
+              "id": 4659,
               "type": "number",
               "component": "number",
               "alias": "宽度",
@@ -810,11 +889,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "calendar.paddingBorder.width",
             "virtualPath": ""
@@ -822,6 +903,7 @@
           {
             "key": "color",
             "config": {
+              "id": 915,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -839,11 +921,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "calendar.paddingBorder.color",
             "virtualPath": ""
@@ -851,6 +935,7 @@
           {
             "key": "padding",
             "config": {
+              "id": 4628,
               "type": "number",
               "component": "number",
               "alias": "内边距",
@@ -868,11 +953,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "calendar.paddingBorder.padding",
             "virtualPath": ""
@@ -887,6 +974,7 @@
       {
         "key": "select",
         "config": {
+          "id": 1113,
           "type": "object",
           "component": "none",
           "alias": "选择器内边距",
@@ -904,11 +992,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "calendar.select",
         "virtualPath": "",
@@ -916,6 +1006,7 @@
           {
             "key": "time",
             "config": {
+              "id": 7485,
               "type": "number",
               "component": "number",
               "alias": "时间",
@@ -933,11 +1024,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "calendar.select.time",
             "virtualPath": ""
@@ -945,6 +1038,7 @@
           {
             "key": "today",
             "config": {
+              "id": 3389,
               "type": "number",
               "component": "number",
               "alias": "今",
@@ -962,11 +1056,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "calendar.select.today",
             "virtualPath": ""

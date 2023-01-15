@@ -106,42 +106,28 @@
         :level="2"
         label="水平对齐"
       >
-        <n-radio-group
-          v-model:value="config.time.horizontal"
-          size="small"
-        >
-          <n-radio-button
-            v-for="em in justifyContents"
-            :key="em.id"
-            :value="em.id"
-          >
-            {{ em.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.time.horizontal"
+          :data="justifyContents"
+          is-button
+        />
       </g-field>
       <g-field
         :level="2"
         label="垂直对齐"
       >
-        <n-radio-group
-          v-model:value="config.time.vertical"
-          size="small"
-        >
-          <n-radio-button
-            v-for="em in aligns"
-            :key="em.id"
-            :value="em.id"
-          >
-            {{ em.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.time.vertical"
+          :data="aligns"
+          is-button
+        />
       </g-field>
     </g-field-collapse>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
@@ -150,25 +136,10 @@ import {
 } from '@/data/select-options'
 import { Timer } from './timer'
 
-export default defineComponent({
-  name: 'VTimerProp',
-  props: {
-    com: {
-      type: Object as PropType<Timer>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: Timer
+}>()
 
-    return {
-      config,
+const config = toRef(props.com, 'config')
 
-      fontFamilys,
-      fontWeights,
-      justifyContents,
-      aligns,
-    }
-  },
-})
 </script>

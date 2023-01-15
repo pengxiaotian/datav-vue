@@ -11,7 +11,24 @@ import { getStaticData } from '@/api/data'
  * BasicPie
  */
 export class BasicPie extends DatavComponent {
-  config = {}
+  config = {
+    name: '',
+    isUse: false,
+    value: 0,
+    fontSize: 12,
+    textStyle: {
+      color: '',
+      value: 0,
+      isUse: false,
+      fontSize: 12,
+    },
+    border: {
+      size: 1,
+      color: '#fff',
+      type: 'solid',
+    },
+    ran: [10, 20],
+  }
 
   apis: Partial<ApiConfigMap>
   apiData: Partial<ApiDataConfigMap>

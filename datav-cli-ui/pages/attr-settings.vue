@@ -63,6 +63,7 @@
                     language="html"
                     :code="templateCode"
                     :height="500"
+                    @blur="updateTemplateCode"
                   />
                 </n-tab-pane>
               </n-tabs>
@@ -215,6 +216,10 @@ const genTemplate = () => {
   } finally {
     loading.value = false
   }
+}
+
+const updateTemplateCode = (data: any) => {
+  templateCode.value = data.value
 }
 
 const writeFile = async () => {

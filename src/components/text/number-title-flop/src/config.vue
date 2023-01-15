@@ -19,7 +19,7 @@
       >
         <g-select
           v-model="config.global.arrangement"
-          :data="arrangements"
+          :data="pairData2545"
         />
       </g-field>
       <g-field
@@ -274,8 +274,8 @@
         :level="2"
         label="分隔符背景"
       >
-        <n-switch
-          v-model:value="config.numbers.bgSeparating"
+        <g-switch
+          v-model="config.numbers.bgSeparating"
         />
       </g-field>
       <g-field
@@ -313,8 +313,8 @@
         :level="2"
         label="千位分隔符"
       >
-        <n-switch
-          v-model:value="config.numbers.separatingChart"
+        <g-switch
+          v-model="config.numbers.separatingChart"
         />
       </g-field>
       <g-field
@@ -350,8 +350,8 @@
         :level="2"
         label="开启动画"
       >
-        <n-switch
-          v-model:value="config.numbers.animation"
+        <g-switch
+          v-model="config.numbers.animation"
         />
       </g-field>
       <g-field
@@ -369,8 +369,8 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
@@ -378,31 +378,16 @@ import {
 } from '@/data/select-options'
 import { NumberTitleFlop } from './number-title-flop'
 
-export default defineComponent({
-  name: 'VNumberTitleFlopProp',
-  props: {
-    com: {
-      type: Object as PropType<NumberTitleFlop>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: NumberTitleFlop
+}>()
 
-    const arrangements = [
-      { id: 'top', value: '标题在上' },
-      { id: 'left', value: '标题在左' },
-      { id: 'bottom', value: '标题在下' },
-    ]
+const config = toRef(props.com, 'config')
 
-    return {
-      config,
-      arrangements,
+const pairData2545 = [
+  { key: 'top', value: '标题在上' },
+  { key: 'left', value: '标题在左' },
+  { key: 'bottom', value: '标题在下' },
+]
 
-      fontFamilys,
-      fontWeights,
-      justifyContents,
-    }
-  },
-})
 </script>

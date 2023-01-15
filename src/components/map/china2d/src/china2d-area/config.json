@@ -2,6 +2,7 @@
   {
     "key": "defaultStyle",
     "config": {
+      "id": 3795,
       "type": "object",
       "component": "none",
       "alias": "区域样式",
@@ -33,6 +34,7 @@
       {
         "key": "fill",
         "config": {
+          "id": 2760,
           "type": "object",
           "component": "none",
           "alias": "填充颜色",
@@ -64,6 +66,7 @@
           {
             "key": "minFillColor",
             "config": {
+              "id": 7141,
               "type": "string",
               "component": "color",
               "alias": "最小值",
@@ -95,6 +98,7 @@
           {
             "key": "maxFillColor",
             "config": {
+              "id": 6692,
               "type": "string",
               "component": "color",
               "alias": "最大值",
@@ -126,6 +130,7 @@
           {
             "key": "fillColor",
             "config": {
+              "id": 9609,
               "type": "string",
               "component": "color",
               "alias": "无数据",
@@ -164,6 +169,7 @@
       {
         "key": "stroke",
         "config": {
+          "id": 8550,
           "type": "object",
           "component": "none",
           "alias": "边线样式",
@@ -195,6 +201,7 @@
           {
             "key": "color",
             "config": {
+              "id": 3268,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -226,6 +233,7 @@
           {
             "key": "weight",
             "config": {
+              "id": 2477,
               "type": "number",
               "component": "slider",
               "alias": "粗细 [0, 20]",
@@ -257,6 +265,7 @@
           {
             "key": "dashArray",
             "config": {
+              "id": 3238,
               "type": "string",
               "component": "lineStyle",
               "alias": "线类型",
@@ -301,6 +310,7 @@
   {
     "key": "labelStyle",
     "config": {
+      "id": 6658,
       "type": "object",
       "component": "none",
       "alias": "标注",
@@ -332,6 +342,7 @@
       {
         "key": "show",
         "config": {
+          "id": 2303,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -363,6 +374,7 @@
       {
         "key": "fontFamily",
         "config": {
+          "id": 2025,
           "type": "string",
           "component": "fontFamily",
           "alias": "字体",
@@ -394,6 +406,7 @@
       {
         "key": "fontWeight",
         "config": {
+          "id": 8998,
           "type": "string",
           "component": "fontWeight",
           "alias": "文字粗细",
@@ -425,6 +438,7 @@
       {
         "key": "fontSize",
         "config": {
+          "id": 6170,
           "type": "number",
           "component": "number",
           "alias": "字号",
@@ -456,6 +470,7 @@
       {
         "key": "color",
         "config": {
+          "id": 7771,
           "type": "string",
           "component": "color",
           "alias": "颜色",
@@ -487,6 +502,7 @@
       {
         "key": "shadowColor",
         "config": {
+          "id": 1332,
           "type": "string",
           "component": "color",
           "alias": "阴影色",
@@ -528,6 +544,7 @@
   {
     "key": "tooltip",
     "config": {
+      "id": 1615,
       "type": "object",
       "component": "none",
       "alias": "弹框",
@@ -559,6 +576,7 @@
       {
         "key": "show",
         "config": {
+          "id": 476,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -590,6 +608,7 @@
       {
         "key": "infoField",
         "config": {
+          "id": 1855,
           "type": "boolean",
           "component": "switch",
           "alias": "info字段",
@@ -621,6 +640,7 @@
       {
         "key": "eventType",
         "config": {
+          "id": 929,
           "type": "string",
           "component": "radioBase",
           "alias": "事件类型",
@@ -661,6 +681,7 @@
       {
         "key": "styleType",
         "config": {
+          "id": 1776,
           "type": "string",
           "component": "radio",
           "alias": "配置选项",
@@ -701,6 +722,7 @@
       {
         "key": "textStyle",
         "config": {
+          "id": 8349,
           "type": "object",
           "component": "none",
           "alias": "文本样式",
@@ -732,6 +754,7 @@
           {
             "key": "fontFamily",
             "config": {
+              "id": 6036,
               "type": "string",
               "component": "fontFamily",
               "alias": "字体",
@@ -763,6 +786,7 @@
           {
             "key": "fontWeight",
             "config": {
+              "id": 550,
               "type": "string",
               "component": "fontWeight",
               "alias": "文字粗细",
@@ -794,6 +818,7 @@
           {
             "key": "fontSize",
             "config": {
+              "id": 1059,
               "type": "number",
               "component": "number",
               "alias": "字号",
@@ -825,6 +850,7 @@
           {
             "key": "color",
             "config": {
+              "id": 3470,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -864,6 +890,7 @@
       {
         "key": "lineHeight",
         "config": {
+          "id": 6571,
           "type": "number",
           "component": "slider",
           "alias": "行高比例",
@@ -895,6 +922,7 @@
       {
         "key": "borderRadius",
         "config": {
+          "id": 8925,
           "type": "number",
           "component": "slider",
           "alias": "圆角半径",
@@ -926,6 +954,7 @@
       {
         "key": "padding",
         "config": {
+          "id": 676,
           "type": "object",
           "component": "none",
           "alias": "外边距",
@@ -957,6 +986,7 @@
           {
             "key": "top",
             "config": {
+              "id": 8415,
               "type": "number",
               "component": "number",
               "alias": "上",
@@ -988,6 +1018,7 @@
           {
             "key": "bottom",
             "config": {
+              "id": 5631,
               "type": "number",
               "component": "number",
               "alias": "下",
@@ -1019,6 +1050,7 @@
           {
             "key": "left",
             "config": {
+              "id": 3864,
               "type": "number",
               "component": "number",
               "alias": "左",
@@ -1050,6 +1082,7 @@
           {
             "key": "right",
             "config": {
+              "id": 9368,
               "type": "number",
               "component": "number",
               "alias": "右",
@@ -1089,6 +1122,7 @@
       {
         "key": "bgColor",
         "config": {
+          "id": 5219,
           "type": "string",
           "component": "color",
           "alias": "背景色",
@@ -1133,6 +1167,7 @@
   {
     "key": "interactive",
     "config": {
+      "id": 6002,
       "type": "object",
       "component": "none",
       "alias": "交互配置",
@@ -1164,6 +1199,7 @@
       {
         "key": "isHover",
         "config": {
+          "id": 2095,
           "type": "object",
           "component": "none",
           "alias": "悬停样式",
@@ -1195,6 +1231,7 @@
           {
             "key": "show",
             "config": {
+              "id": 7308,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -1226,6 +1263,7 @@
           {
             "key": "fillColor",
             "config": {
+              "id": 5064,
               "type": "string",
               "component": "color",
               "alias": "填充颜色",
@@ -1257,6 +1295,7 @@
           {
             "key": "strokeColor",
             "config": {
+              "id": 2276,
               "type": "string",
               "component": "color",
               "alias": "边线颜色",
@@ -1288,6 +1327,7 @@
           {
             "key": "weight",
             "config": {
+              "id": 7348,
               "type": "number",
               "component": "number",
               "alias": "边线粗细 [0, 20]",
@@ -1327,6 +1367,7 @@
       {
         "key": "clickZoom",
         "config": {
+          "id": 6932,
           "type": "object",
           "component": "none",
           "alias": "点击聚焦",
@@ -1358,6 +1399,7 @@
           {
             "key": "show",
             "config": {
+              "id": 8480,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -1389,6 +1431,7 @@
           {
             "key": "zoomPad",
             "config": {
+              "id": 9137,
               "type": "number",
               "component": "slider",
               "alias": "聚焦范围比 [1, 3]",

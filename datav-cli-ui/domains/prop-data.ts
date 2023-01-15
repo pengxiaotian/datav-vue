@@ -172,13 +172,16 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       initPropData(val, dto.children, dto.path)
     } else if (isArray(val) && val.length > 0) {
       pc.type = PropDataType.array
-      pc.displayMode = DisplayMode.nest
       dto.children = []
-      // dto.cols = Object.keys(val[0])
-      if (isNumber(val[0])) {
+      if (val.length === 2 && isNumber(val[0]) && isNumber(val[1])) {
+        pc.isRange = true
+        pc.component = ComponentType.sliderRange
         pc.defaultValue = val
+      } else {
+        pc.displayMode = DisplayMode.nest
+        // dto.cols = Object.keys(val[0])
+        initPropData([val[0]], dto.children, dto.path)
       }
-      initPropData([val[0]], dto.children, dto.path)
     }
     arr.push(dto)
   }

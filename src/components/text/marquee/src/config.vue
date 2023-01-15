@@ -46,15 +46,15 @@
     <g-field
       label="是否轮播"
     >
-      <n-switch
-        v-model:value="config.loop"
+      <g-switch
+        v-model="config.loop"
       />
     </g-field>
     <g-field
       label="定速播放"
     >
-      <n-switch
-        v-model:value="config.ifSpeed"
+      <g-switch
+        v-model="config.ifSpeed"
       />
     </g-field>
     <g-field

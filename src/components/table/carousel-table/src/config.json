@@ -316,7 +316,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": false,
-              "defaultValue": true,
+              "defaultValue": false,
               "min": 0,
               "max": 100,
               "step": 1,

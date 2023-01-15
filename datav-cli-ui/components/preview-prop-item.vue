@@ -4,6 +4,7 @@
     v-model="strValue"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
   <g-input-number
     v-else-if="componentType === componentTypes.number"
@@ -14,39 +15,46 @@
     :suffix="suffix"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
   <g-color-picker
     v-else-if="componentType === componentTypes.color"
     v-model="strValue"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
-  <n-checkbox
+  <g-checkbox
     v-else-if="componentType === componentTypes.checkbox"
-    v-model:checked="boolValue"
+    v-model="boolValue"
+    :inline="mode"
+    :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
-  <n-switch
+  <g-switch
     v-else-if="componentType === componentTypes.switch"
-    v-model:value="boolValue"
+    v-model="boolValue"
+    :inline="mode"
+    :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
-  <n-radio-group
-    v-else-if="componentType === componentTypes.radio"
-    v-model:value="strValue"
-    size="small"
-  >
-    <n-radio-button v-for="pair in pairs" :key="pair.key" :value="pair.key">
-      {{ pair.value }}
-    </n-radio-button>
-  </n-radio-group>
-  <n-radio-group
+  <g-radio-group
     v-else-if="componentType === componentTypes.radioBase"
-    v-model:value="strValue"
-    size="small"
-  >
-    <n-radio v-for="pair in pairs" :key="pair.key" :value="pair.key">
-      {{ pair.value }}
-    </n-radio>
-  </n-radio-group>
+    v-model="strValue"
+    :inline="mode"
+    :label="mode ? label : ''"
+    :tooltip="tooltip"
+    :data="pairs"
+  />
+  <g-radio-group
+    v-else-if="componentType === componentTypes.radio"
+    v-model="strValue"
+    :inline="mode"
+    :label="mode ? label : ''"
+    :tooltip="tooltip"
+    :data="pairs"
+    is-button
+  />
   <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
@@ -56,6 +64,7 @@
     :suffix="suffix"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
   <g-slider-range
     v-else-if="componentType === componentTypes.sliderRange"
@@ -65,12 +74,14 @@
     :step="step"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
   <g-upload-image
     v-else-if="componentType === componentTypes.uploadImage"
     v-model="strValue"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
   <g-select-image
     v-else-if="componentType === componentTypes.selectImage"
@@ -78,6 +89,7 @@
     :images="[]"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
   <g-select-suggest
     v-else-if="componentType === componentTypes.selectSuggest"
@@ -86,6 +98,7 @@
     :filters="enums"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
   <g-select-shape
     v-else-if="componentType === componentTypes.echartIcon"
@@ -93,6 +106,7 @@
     :shapes="selectOptions"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
   <g-select
     v-else-if="componentType === componentTypes.select"
@@ -100,23 +114,25 @@
     :data="pairs"
     :inline="mode"
     :label="mode ? label : ''"
+    :tooltip="tooltip"
   />
   <template v-else-if="AllOptionKeys.includes(componentType + 's')">
-    <n-radio-group
+    <g-radio-group
       v-if="flatValue"
-      v-model:value="strValue"
-      size="small"
-    >
-      <n-radio-button v-for="em in selectOptions" :key="em.id" :value="em.id">
-        {{ em.value }}
-      </n-radio-button>
-    </n-radio-group>
+      v-model="strValue"
+      :inline="mode"
+      :label="mode ? label : ''"
+      :tooltip="tooltip"
+      :data="selectOptions"
+      is-button
+    />
     <g-select
       v-else
       v-model="strValue"
       :data="selectOptions"
       :inline="mode"
       :label="mode ? label : ''"
+      :tooltip="tooltip"
     />
   </template>
   <span v-else>--</span>
@@ -124,8 +140,7 @@
 
 <script lang='ts' setup>
 import type { PropType } from 'vue'
-import { NCheckbox, NSwitch, NRadioGroup, NRadioButton, NRadio } from 'naive-ui'
-import { GInput, GInputNumber, GColorPicker, GSlider, GSliderRange, GUploadImage, GSelectImage, GSelectSuggest, GSelectShape, GSelect } from '~~/ui-components'
+import { GCheckbox, GInput, GInputNumber, GColorPicker, GSlider, GSwitch, GSliderRange, GUploadImage, GSelectImage, GSelectSuggest, GSelectShape, GSelect, GRadioGroup } from '~~/ui-components'
 import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '~~/domains/prop-data'
 
 const props = defineProps({
@@ -177,6 +192,7 @@ const props = defineProps({
     }),
   },
   flatValue: Boolean,
+  tooltip: String,
 })
 
 const componentTypes = ref({ ...ComponentType })

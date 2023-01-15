@@ -2,6 +2,7 @@
   {
     "key": "imageType",
     "config": {
+      "id": 869,
       "type": "string",
       "component": "imageType",
       "alias": "图片类型",
@@ -19,11 +20,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": true
+      "flatValue": true,
+      "isRange": false
     },
     "path": "imageType",
     "virtualPath": ""
@@ -31,6 +34,7 @@
   {
     "key": "backgroundImage",
     "config": {
+      "id": 6028,
       "type": "string",
       "component": "uploadImage",
       "alias": "背景图",
@@ -48,11 +52,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "backgroundImage",
     "virtualPath": ""
@@ -60,6 +66,7 @@
   {
     "key": "vectorImage",
     "config": {
+      "id": 8705,
       "type": "string",
       "component": "uploadImage",
       "alias": "矢量图",
@@ -77,11 +84,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "imageType",
         "value": "vector"
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "vectorImage",
     "virtualPath": ""
@@ -89,6 +98,7 @@
   {
     "key": "vectorFill",
     "config": {
+      "id": 8762,
       "type": "string",
       "component": "color",
       "alias": "填充色",
@@ -106,11 +116,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "imageType",
         "value": "vector"
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "vectorFill",
     "virtualPath": ""
@@ -118,6 +130,7 @@
   {
     "key": "repeat",
     "config": {
+      "id": 3260,
       "type": "string",
       "component": "repeatType",
       "alias": "图片重复",
@@ -135,11 +148,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "repeat",
     "virtualPath": ""
@@ -147,6 +162,7 @@
   {
     "key": "radius",
     "config": {
+      "id": 1272,
       "type": "number",
       "component": "number",
       "alias": "圆角",
@@ -156,7 +172,7 @@
       "layout": "horizontal",
       "toggleCol": "",
       "isHide": false,
-      "defaultValue": 0,
+      "defaultValue": 1,
       "min": 0,
       "max": 100,
       "step": 1,
@@ -164,11 +180,13 @@
       "InfiniteMax": true,
       "suffix": "px",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "radius",
     "virtualPath": ""
@@ -176,6 +194,7 @@
   {
     "key": "urlConfig",
     "config": {
+      "id": 492,
       "type": "object",
       "component": "none",
       "alias": "超链接配置",
@@ -193,11 +212,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "urlConfig",
     "virtualPath": "",
@@ -205,6 +226,7 @@
       {
         "key": "url",
         "config": {
+          "id": 9326,
           "type": "string",
           "component": "input",
           "alias": "超链接",
@@ -222,11 +244,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "urlConfig.url",
         "virtualPath": ""
@@ -234,6 +258,7 @@
       {
         "key": "ifBlank",
         "config": {
+          "id": 8402,
           "type": "boolean",
           "component": "switch",
           "alias": "是否打开新窗口",
@@ -251,11 +276,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "urlConfig.ifBlank",
         "virtualPath": ""
@@ -269,6 +296,7 @@
   {
     "key": "cursor",
     "config": {
+      "id": 4851,
       "type": "boolean",
       "component": "switch",
       "alias": "手势光标",
@@ -286,11 +314,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "cursor",
     "virtualPath": ""

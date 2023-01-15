@@ -53,7 +53,17 @@
         </n-spin>
       </n-upload-dragger>
     </n-upload>
-    <span v-if="label" class="g-input__caption">
+    <template v-if="tooltip && label">
+      <n-tooltip placement="top">
+        <template #trigger>
+          <span class="g-input__caption-with-description">
+            {{ label }}
+          </span>
+        </template>
+        {{ tooltip }}
+      </n-tooltip>
+    </template>
+    <span v-else-if="label" class="g-input__caption">
       {{ label }}
     </span>
   </div>
@@ -61,7 +71,7 @@
 
 <script lang='ts' setup>
 import { ref, watch } from 'vue'
-import { useMessage, UploadFileInfo, NInput, NUpload, NIcon, NSpin, NUploadDragger } from 'naive-ui'
+import { useMessage, UploadFileInfo, NInput, NUpload, NIcon, NSpin, NUploadDragger, NTooltip } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import { generateId } from '@/utils/util'
 import { uploadHost, previewHost, validAllowImg } from '@/utils/upload-util'
@@ -94,6 +104,7 @@ const props = defineProps({
     type: [Boolean, String],
     default: false,
   },
+  tooltip: String,
 })
 const emits = defineEmits([UPDATE_MODEL_EVENT])
 

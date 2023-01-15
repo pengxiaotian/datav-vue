@@ -7,20 +7,10 @@
         :level="2"
         label="动画效果"
       >
-        <n-radio-group
-          v-model:value="config.defaultStyle.effectType"
-          size="small"
-        >
-          <n-radio
-            v-for="pair in [
-              { key: 'ripple', value: '涟漪动效' },
-            ]"
-            :key="pair.key"
-            :value="pair.key"
-          >
-            {{ pair.value }}
-          </n-radio>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.defaultStyle.effectType"
+          :data="pairData2390"
+        />
       </g-field>
       <g-field
         :level="2"
@@ -132,13 +122,17 @@
 
 <script lang='ts' setup>
 import { toRef } from 'vue'
-import { China2dBubbles, bubbleTypes, brushTypes } from './index'
+import { China2dBubbles, brushTypes, bubbleTypes } from './index'
 
 const props = defineProps<{
   com: China2dBubbles
 }>()
 
 const config = toRef(props.com, 'config')
+
+const pairData2390 = [
+  { key: 'ripple', value: '涟漪动效' },
+]
 
 const handleAddTypeSeriesItem = () => {
   return {
@@ -147,4 +141,5 @@ const handleAddTypeSeriesItem = () => {
     fillColor: 'rgba(198, 236, 238, 1)',
   }
 }
+
 </script>

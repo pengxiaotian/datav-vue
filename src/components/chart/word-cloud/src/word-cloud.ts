@@ -97,16 +97,4 @@ export class WordCloud extends DatavEChartsComponent {
   }
 }
 
-export const drawTypes = [
-  { id: 'preset', value: '内置图形' },
-  { id: 'image', value: '自定义图形' },
-]
-
-export const simpleShapes = [
-  { id: 'circle', value: '圆形' },
-  { id: 'triangle', value: '三矩形' },
-  { id: 'diamond', value: '菱形' },
-  { id: 'pentagon', value: '五角星' },
-]
-
 export default WordCloud

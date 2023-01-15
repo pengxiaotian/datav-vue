@@ -34,7 +34,17 @@
             </span>
           </div>
         </div>
-        <span v-if="label" class="g-input__caption">
+        <template v-if="tooltip && label">
+          <n-tooltip placement="top">
+            <template #trigger>
+              <span class="g-input__caption-with-description">
+                {{ label }}
+              </span>
+            </template>
+            {{ tooltip }}
+          </n-tooltip>
+        </template>
+        <span v-else-if="label" class="g-input__caption">
           {{ label }}
         </span>
       </div>
@@ -62,7 +72,7 @@
 
 <script lang='ts' setup>
 import { PropType, computed, ref } from 'vue'
-import { NPopover, NIcon } from 'naive-ui'
+import { NPopover, NIcon, NTooltip } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 import { BorderImage } from '@/components/_models/border-image'
 import { IconSelectArrow } from '@/icons'
@@ -90,6 +100,7 @@ const props = defineProps({
     type: String as PropType<Placement>,
     default: 'left',
   },
+  tooltip: String,
 })
 const emits = defineEmits([UPDATE_MODEL_EVENT])
 

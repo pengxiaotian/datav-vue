@@ -40,6 +40,8 @@ export class BorderBox extends DatavComponent {
   async loadData() {}
 }
 
+export default BorderBox
+
 export const presetImages: BorderImage[] = [
   {
     id: 'box1',
@@ -187,4 +189,3 @@ export const presetImages: BorderImage[] = [
   },
 ]
 
-export default BorderBox

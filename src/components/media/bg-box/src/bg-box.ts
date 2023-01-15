@@ -89,6 +89,8 @@ export class BgBox extends DatavComponent {
   async loadData() {}
 }
 
+export default BgBox
+
 export const presetImages: BorderImage[] = [
   ...BorderBoxPresetImages,
   {
@@ -273,4 +275,3 @@ export const presetImages: BorderImage[] = [
   },
 ]
 
-export default BgBox

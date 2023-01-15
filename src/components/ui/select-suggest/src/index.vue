@@ -20,7 +20,17 @@
       value-field="id"
       @update:value="handleInput"
     />
-    <span v-if="label" class="g-input__caption">
+    <template v-if="tooltip && label">
+      <n-tooltip placement="top">
+        <template #trigger>
+          <span class="g-input__caption-with-description">
+            {{ label }}
+          </span>
+        </template>
+        {{ tooltip }}
+      </n-tooltip>
+    </template>
+    <span v-else-if="label" class="g-input__caption">
       {{ label }}
     </span>
   </div>
@@ -28,7 +38,7 @@
 
 <script lang='ts' setup>
 import { PropType, toRefs, computed } from 'vue'
-import { NSelect } from 'naive-ui'
+import { NSelect, NTooltip } from 'naive-ui'
 import type { Size } from 'naive-ui/es/select/src/interface'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
@@ -60,6 +70,7 @@ const props = defineProps({
   },
   disabled: Boolean,
   filters: Array as PropType<(number | string)[]>,
+  tooltip: String,
 })
 
 const emits = defineEmits([UPDATE_MODEL_EVENT])

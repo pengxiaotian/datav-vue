@@ -2,6 +2,7 @@
   {
     "key": "global",
     "config": {
+      "id": 2870,
       "type": "object",
       "component": "none",
       "alias": "全局",
@@ -19,11 +20,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "global",
     "virtualPath": "",
@@ -31,6 +34,7 @@
       {
         "key": "img",
         "config": {
+          "id": 2657,
           "type": "string",
           "component": "selectImage",
           "alias": "装饰元素",
@@ -48,11 +52,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.img",
         "virtualPath": ""
@@ -60,6 +66,7 @@
       {
         "key": "opacity",
         "config": {
+          "id": 9224,
           "type": "number",
           "component": "slider",
           "alias": "透明度",
@@ -77,11 +84,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.opacity",
         "virtualPath": ""

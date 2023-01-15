@@ -2,6 +2,7 @@
   {
     "key": "request",
     "config": {
+      "id": 1016,
       "type": "string",
       "component": "uploadImage",
       "alias": "全屏显示",
@@ -19,11 +20,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "request",
     "virtualPath": ""
@@ -31,6 +34,7 @@
   {
     "key": "exit",
     "config": {
+      "id": 4398,
       "type": "string",
       "component": "uploadImage",
       "alias": "退出全屏",
@@ -48,11 +52,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "exit",
     "virtualPath": ""
@@ -60,6 +66,7 @@
   {
     "key": "bgColor",
     "config": {
+      "id": 6975,
       "type": "string",
       "component": "color",
       "alias": "背景颜色",
@@ -77,11 +84,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "bgColor",
     "virtualPath": ""
@@ -89,6 +98,7 @@
   {
     "key": "borderRadius",
     "config": {
+      "id": 5965,
       "type": "number",
       "component": "slider",
       "alias": "圆角",
@@ -106,11 +116,13 @@
       "InfiniteMax": false,
       "suffix": "%",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "borderRadius",
     "virtualPath": ""
@@ -118,6 +130,7 @@
   {
     "key": "alwaysShow",
     "config": {
+      "id": 4338,
       "type": "boolean",
       "component": "switch",
       "alias": "始终显示图片背景",
@@ -135,11 +148,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "alwaysShow",
     "virtualPath": ""

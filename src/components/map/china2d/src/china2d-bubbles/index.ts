@@ -79,16 +79,6 @@ export class China2dBubbles extends DatavComponent {
 
 export default China2dBubbles
 
-export const bubbleTypes = [
-  { id: 'circle', value: '圆形', icon: 'shape-circle' },
-  { id: 'rect', value: '矩形', icon: 'shape-rect' },
-  { id: 'roundRect', value: '圆角矩形', icon: 'shape-round-rect' },
-  { id: 'triangle', value: '三矩形', icon: 'shape-triangle' },
-  { id: 'diamond', value: '菱形', icon: 'shape-diamond' },
-  { id: 'arrow', value: '箭头', icon: 'shape-arrow' },
-  { id: 'pin', value: '针头', icon: 'shape-pin' },
-]
-
 export const brushTypes = [
   {
     id: 'fill',
@@ -100,4 +90,14 @@ export const brushTypes = [
     name: '方式二',
     src: 'https://files.pengxiaotian.com/com-materiel/bubble-2-162-104.png',
   },
+]
+
+export const bubbleTypes = [
+  { id: 'circle', value: '圆形', icon: 'shape-circle' },
+  { id: 'rect', value: '矩形', icon: 'shape-rect' },
+  { id: 'roundRect', value: '圆角矩形', icon: 'shape-round-rect' },
+  { id: 'triangle', value: '三矩形', icon: 'shape-triangle' },
+  { id: 'diamond', value: '菱形', icon: 'shape-diamond' },
+  { id: 'arrow', value: '箭头', icon: 'shape-arrow' },
+  { id: 'pin', value: '针头', icon: 'shape-pin' },
 ]

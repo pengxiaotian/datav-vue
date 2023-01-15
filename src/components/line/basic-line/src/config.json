@@ -2,6 +2,7 @@
   {
     "key": "global",
     "config": {
+      "id": 4205,
       "type": "object",
       "component": "none",
       "alias": "全局",
@@ -24,7 +25,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "global",
     "virtualPath": "",
@@ -32,6 +34,7 @@
       {
         "key": "fontFamily",
         "config": {
+          "id": 8017,
           "type": "string",
           "component": "fontFamily",
           "alias": "字体",
@@ -54,7 +57,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.fontFamily",
         "virtualPath": ""
@@ -62,6 +66,7 @@
       {
         "key": "margin",
         "config": {
+          "id": 9764,
           "type": "object",
           "component": "none",
           "alias": "边距",
@@ -84,7 +89,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.margin",
         "virtualPath": "",
@@ -92,6 +98,7 @@
           {
             "key": "top",
             "config": {
+              "id": 4123,
               "type": "number",
               "component": "number",
               "alias": "顶部",
@@ -114,7 +121,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "global.margin.top",
             "virtualPath": ""
@@ -122,6 +130,7 @@
           {
             "key": "bottom",
             "config": {
+              "id": 7435,
               "type": "number",
               "component": "number",
               "alias": "底部",
@@ -144,7 +153,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "global.margin.bottom",
             "virtualPath": ""
@@ -152,6 +162,7 @@
           {
             "key": "left",
             "config": {
+              "id": 1148,
               "type": "number",
               "component": "number",
               "alias": "左侧",
@@ -174,7 +185,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "global.margin.left",
             "virtualPath": ""
@@ -182,6 +194,7 @@
           {
             "key": "right",
             "config": {
+              "id": 796,
               "type": "number",
               "component": "number",
               "alias": "右侧",
@@ -204,7 +217,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "global.margin.right",
             "virtualPath": ""
@@ -220,6 +234,7 @@
       {
         "key": "connectNulls",
         "config": {
+          "id": 1675,
           "type": "boolean",
           "component": "switch",
           "alias": "连接空数据",
@@ -242,7 +257,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.connectNulls",
         "virtualPath": ""
@@ -257,6 +273,7 @@
   {
     "key": "xAxis",
     "config": {
+      "id": 5188,
       "type": "object",
       "component": "none",
       "alias": "X轴",
@@ -279,7 +296,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "xAxis",
     "virtualPath": "",
@@ -287,6 +305,7 @@
       {
         "key": "show",
         "config": {
+          "id": 1714,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -309,7 +328,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "xAxis.show",
         "virtualPath": ""
@@ -317,6 +337,7 @@
       {
         "key": "type",
         "config": {
+          "id": 2248,
           "type": "string",
           "component": "axisType",
           "alias": "数据类型",
@@ -339,7 +360,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": true
+          "flatValue": true,
+          "isRange": false
         },
         "path": "xAxis.type",
         "virtualPath": ""
@@ -347,6 +369,7 @@
       {
         "key": "extent",
         "config": {
+          "id": 4944,
           "type": "object",
           "component": "none",
           "alias": "显示范围",
@@ -369,7 +392,8 @@
             "field": "type",
             "value": "value"
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "xAxis.extent",
         "virtualPath": "",
@@ -377,6 +401,7 @@
           {
             "key": "min",
             "config": {
+              "id": 1220,
               "type": "string",
               "component": "selectSuggest",
               "alias": "最小值",
@@ -403,7 +428,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.extent.min",
             "virtualPath": ""
@@ -411,6 +437,7 @@
           {
             "key": "max",
             "config": {
+              "id": 9631,
               "type": "string",
               "component": "selectSuggest",
               "alias": "最大值",
@@ -437,7 +464,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.extent.max",
             "virtualPath": ""
@@ -451,6 +479,7 @@
       {
         "key": "boundaryGap",
         "config": {
+          "id": 8024,
           "type": "boolean",
           "component": "switch",
           "alias": "两端留白",
@@ -473,7 +502,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "xAxis.boundaryGap",
         "virtualPath": ""
@@ -481,6 +511,7 @@
       {
         "key": "title",
         "config": {
+          "id": 9891,
           "type": "object",
           "component": "none",
           "alias": "轴标题",
@@ -503,7 +534,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "xAxis.title",
         "virtualPath": "",
@@ -511,6 +543,7 @@
           {
             "key": "show",
             "config": {
+              "id": 1039,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -533,7 +566,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.title.show",
             "virtualPath": ""
@@ -541,6 +575,7 @@
           {
             "key": "name",
             "config": {
+              "id": 1179,
               "type": "string",
               "component": "input",
               "alias": "标题显示",
@@ -563,7 +598,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.title.name",
             "virtualPath": ""
@@ -571,6 +607,7 @@
           {
             "key": "location",
             "config": {
+              "id": 2361,
               "type": "string",
               "component": "titleLocation",
               "alias": "位置",
@@ -593,7 +630,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.title.location",
             "virtualPath": ""
@@ -601,6 +639,7 @@
           {
             "key": "display",
             "config": {
+              "id": 9561,
               "type": "object",
               "component": "none",
               "alias": "展示方式",
@@ -623,7 +662,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.title.display",
             "virtualPath": "",
@@ -631,6 +671,7 @@
               {
                 "key": "rotate",
                 "config": {
+                  "id": 4634,
                   "type": "number",
                   "component": "number",
                   "alias": "旋转",
@@ -653,7 +694,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.title.display.rotate",
                 "virtualPath": ""
@@ -661,6 +703,7 @@
               {
                 "key": "offset",
                 "config": {
+                  "id": 9787,
                   "type": "number",
                   "component": "number",
                   "alias": "偏移",
@@ -683,7 +726,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.title.display.offset",
                 "virtualPath": ""
@@ -697,6 +741,7 @@
           {
             "key": "textStyle",
             "config": {
+              "id": 8141,
               "type": "object",
               "component": "none",
               "alias": "文本样式",
@@ -719,7 +764,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.title.textStyle",
             "virtualPath": "",
@@ -727,6 +773,7 @@
               {
                 "key": "fontSize",
                 "config": {
+                  "id": 7609,
                   "type": "number",
                   "component": "number",
                   "alias": "字号",
@@ -749,44 +796,16 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.title.textStyle.fontSize",
                 "virtualPath": ""
               },
               {
-                "key": "color",
-                "config": {
-                  "type": "string",
-                  "component": "color",
-                  "alias": "颜色",
-                  "tip": "",
-                  "displayMode": "inline",
-                  "features": [],
-                  "layout": "horizontal",
-                  "toggleCol": "",
-                  "isHide": false,
-                  "defaultValue": "#90a0ae",
-                  "min": 0,
-                  "max": 100,
-                  "step": 1,
-                  "InfiniteMin": false,
-                  "InfiniteMax": false,
-                  "suffix": "",
-                  "enums": [],
-                  "pairs": [],
-                  "whichEnum": {
-                    "field": "",
-                    "value": ""
-                  },
-                  "flatValue": false
-                },
-                "path": "xAxis.title.textStyle.color",
-                "virtualPath": ""
-              },
-              {
                 "key": "fontWeight",
                 "config": {
+                  "id": 2875,
                   "type": "string",
                   "component": "fontWeight",
                   "alias": "字体粗细",
@@ -809,16 +828,49 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.title.textStyle.fontWeight",
+                "virtualPath": ""
+              },
+              {
+                "key": "color",
+                "config": {
+                  "id": 2193,
+                  "type": "string",
+                  "component": "color",
+                  "alias": "颜色",
+                  "tip": "",
+                  "displayMode": "inline-single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "#90a0ae",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false,
+                  "isRange": false
+                },
+                "path": "xAxis.title.textStyle.color",
                 "virtualPath": ""
               }
             ],
             "cols": [
               "fontSize",
-              "color",
-              "fontWeight"
+              "fontWeight",
+              "color"
             ]
           }
         ],
@@ -833,6 +885,7 @@
       {
         "key": "axisLine",
         "config": {
+          "id": 1368,
           "type": "object",
           "component": "none",
           "alias": "轴线",
@@ -855,7 +908,8 @@
             "field": null,
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "xAxis.axisLine",
         "virtualPath": "",
@@ -863,6 +917,7 @@
           {
             "key": "show",
             "config": {
+              "id": 3128,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -885,7 +940,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLine.show",
             "virtualPath": ""
@@ -893,6 +949,7 @@
           {
             "key": "type",
             "config": {
+              "id": 7252,
               "type": "string",
               "component": "lineStyle",
               "alias": "类型",
@@ -915,7 +972,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLine.type",
             "virtualPath": ""
@@ -923,6 +981,7 @@
           {
             "key": "width",
             "config": {
+              "id": 1413,
               "type": "number",
               "component": "number",
               "alias": "粗细",
@@ -945,7 +1004,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLine.width",
             "virtualPath": ""
@@ -953,6 +1013,7 @@
           {
             "key": "color",
             "config": {
+              "id": 5045,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -975,7 +1036,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLine.color",
             "virtualPath": ""
@@ -991,6 +1053,7 @@
       {
         "key": "axisTick",
         "config": {
+          "id": 3913,
           "type": "object",
           "component": "none",
           "alias": "轴刻度",
@@ -1013,7 +1076,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "xAxis.axisTick",
         "virtualPath": "",
@@ -1021,6 +1085,7 @@
           {
             "key": "show",
             "config": {
+              "id": 633,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -1043,7 +1108,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisTick.show",
             "virtualPath": ""
@@ -1051,6 +1117,7 @@
           {
             "key": "type",
             "config": {
+              "id": 2146,
               "type": "string",
               "component": "lineStyle",
               "alias": "类型",
@@ -1073,7 +1140,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisTick.type",
             "virtualPath": ""
@@ -1081,6 +1149,7 @@
           {
             "key": "width",
             "config": {
+              "id": 5106,
               "type": "number",
               "component": "number",
               "alias": "粗细",
@@ -1103,7 +1172,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisTick.width",
             "virtualPath": ""
@@ -1111,6 +1181,7 @@
           {
             "key": "color",
             "config": {
+              "id": 2129,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -1133,7 +1204,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisTick.color",
             "virtualPath": ""
@@ -1149,6 +1221,7 @@
       {
         "key": "axisLabel",
         "config": {
+          "id": 1464,
           "type": "object",
           "component": "none",
           "alias": "轴标签",
@@ -1171,7 +1244,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "xAxis.axisLabel",
         "virtualPath": "",
@@ -1179,6 +1253,7 @@
           {
             "key": "show",
             "config": {
+              "id": 1435,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -1201,7 +1276,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLabel.show",
             "virtualPath": ""
@@ -1209,6 +1285,7 @@
           {
             "key": "valueFormat",
             "config": {
+              "id": 5684,
               "type": "string",
               "component": "valueFormat",
               "alias": "显示格式",
@@ -1231,7 +1308,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLabel.valueFormat",
             "virtualPath": ""
@@ -1239,6 +1317,7 @@
           {
             "key": "timeFormat",
             "config": {
+              "id": 3569,
               "type": "string",
               "component": "timeFormat",
               "alias": "显示格式",
@@ -1261,7 +1340,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLabel.timeFormat",
             "virtualPath": ""
@@ -1269,6 +1349,7 @@
           {
             "key": "interval",
             "config": {
+              "id": 2745,
               "type": "string",
               "component": "selectSuggest",
               "alias": "间隔",
@@ -1296,7 +1377,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLabel.interval",
             "virtualPath": ""
@@ -1304,6 +1386,7 @@
           {
             "key": "display",
             "config": {
+              "id": 5558,
               "type": "object",
               "component": "none",
               "alias": "展示方式",
@@ -1326,7 +1409,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLabel.display",
             "virtualPath": "",
@@ -1334,6 +1418,7 @@
               {
                 "key": "rotate",
                 "config": {
+                  "id": 908,
                   "type": "number",
                   "component": "number",
                   "alias": "旋转",
@@ -1356,7 +1441,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.axisLabel.display.rotate",
                 "virtualPath": ""
@@ -1364,6 +1450,7 @@
               {
                 "key": "margin",
                 "config": {
+                  "id": 7969,
                   "type": "number",
                   "component": "number",
                   "alias": "偏移",
@@ -1386,7 +1473,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.axisLabel.display.margin",
                 "virtualPath": ""
@@ -1400,6 +1488,7 @@
           {
             "key": "align",
             "config": {
+              "id": 5070,
               "type": "string",
               "component": "hAlign",
               "alias": "对齐方式",
@@ -1422,7 +1511,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLabel.align",
             "virtualPath": ""
@@ -1430,6 +1520,7 @@
           {
             "key": "textStyle",
             "config": {
+              "id": 9697,
               "type": "object",
               "component": "none",
               "alias": "文本样式",
@@ -1452,7 +1543,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.axisLabel.textStyle",
             "virtualPath": "",
@@ -1460,6 +1552,7 @@
               {
                 "key": "fontSize",
                 "config": {
+                  "id": 3577,
                   "type": "number",
                   "component": "number",
                   "alias": "字号",
@@ -1482,44 +1575,16 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.axisLabel.textStyle.fontSize",
                 "virtualPath": ""
               },
               {
-                "key": "color",
-                "config": {
-                  "type": "string",
-                  "component": "color",
-                  "alias": "颜色",
-                  "tip": "",
-                  "displayMode": "inline",
-                  "features": [],
-                  "layout": "horizontal",
-                  "toggleCol": "",
-                  "isHide": false,
-                  "defaultValue": "rgba(255, 255, 255, 0.6)",
-                  "min": 0,
-                  "max": 100,
-                  "step": 1,
-                  "InfiniteMin": false,
-                  "InfiniteMax": false,
-                  "suffix": "",
-                  "enums": [],
-                  "pairs": [],
-                  "whichEnum": {
-                    "field": "",
-                    "value": ""
-                  },
-                  "flatValue": false
-                },
-                "path": "xAxis.axisLabel.textStyle.color",
-                "virtualPath": ""
-              },
-              {
                 "key": "fontWeight",
                 "config": {
+                  "id": 8716,
                   "type": "string",
                   "component": "fontWeight",
                   "alias": "字体粗细",
@@ -1542,16 +1607,49 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.axisLabel.textStyle.fontWeight",
+                "virtualPath": ""
+              },
+              {
+                "key": "color",
+                "config": {
+                  "id": 4854,
+                  "type": "string",
+                  "component": "color",
+                  "alias": "颜色",
+                  "tip": "",
+                  "displayMode": "inline-single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "rgba(255, 255, 255, 0.6)",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false,
+                  "isRange": false
+                },
+                "path": "xAxis.axisLabel.textStyle.color",
                 "virtualPath": ""
               }
             ],
             "cols": [
               "fontSize",
-              "color",
-              "fontWeight"
+              "fontWeight",
+              "color"
             ]
           }
         ],
@@ -1568,6 +1666,7 @@
       {
         "key": "grid",
         "config": {
+          "id": 5393,
           "type": "object",
           "component": "none",
           "alias": "网格线",
@@ -1590,7 +1689,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "xAxis.grid",
         "virtualPath": "",
@@ -1598,6 +1698,7 @@
           {
             "key": "show",
             "config": {
+              "id": 9198,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -1620,7 +1721,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.grid.show",
             "virtualPath": ""
@@ -1628,6 +1730,7 @@
           {
             "key": "line",
             "config": {
+              "id": 9784,
               "type": "object",
               "component": "none",
               "alias": "线型样式",
@@ -1650,7 +1753,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "xAxis.grid.line",
             "virtualPath": "",
@@ -1658,6 +1762,7 @@
               {
                 "key": "type",
                 "config": {
+                  "id": 6359,
                   "type": "string",
                   "component": "lineStyle",
                   "alias": "类型",
@@ -1680,7 +1785,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.grid.line.type",
                 "virtualPath": ""
@@ -1688,6 +1794,7 @@
               {
                 "key": "width",
                 "config": {
+                  "id": 5463,
                   "type": "number",
                   "component": "number",
                   "alias": "粗细",
@@ -1710,7 +1817,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.grid.line.width",
                 "virtualPath": ""
@@ -1718,6 +1826,7 @@
               {
                 "key": "color",
                 "config": {
+                  "id": 1323,
                   "type": "string",
                   "component": "color",
                   "alias": "颜色",
@@ -1740,7 +1849,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.grid.line.color",
                 "virtualPath": ""
@@ -1748,6 +1858,7 @@
               {
                 "key": "dashedLength",
                 "config": {
+                  "id": 4655,
                   "type": "number",
                   "component": "number",
                   "alias": "长度",
@@ -1770,7 +1881,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.grid.line.dashedLength",
                 "virtualPath": ""
@@ -1778,6 +1890,7 @@
               {
                 "key": "dashedSpace",
                 "config": {
+                  "id": 85,
                   "type": "number",
                   "component": "number",
                   "alias": "间隔",
@@ -1800,7 +1913,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "xAxis.grid.line.dashedSpace",
                 "virtualPath": ""
@@ -1836,6 +1950,7 @@
   {
     "key": "yAxis",
     "config": {
+      "id": 171,
       "type": "object",
       "component": "none",
       "alias": "Y轴",
@@ -1858,7 +1973,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "yAxis",
     "virtualPath": "",
@@ -1866,6 +1982,7 @@
       {
         "key": "show",
         "config": {
+          "id": 9977,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -1888,7 +2005,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "yAxis.show",
         "virtualPath": ""
@@ -1896,6 +2014,7 @@
       {
         "key": "type",
         "config": {
+          "id": 3564,
           "type": "string",
           "component": "axisType",
           "alias": "数据类型",
@@ -1918,7 +2037,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": true
+          "flatValue": true,
+          "isRange": false
         },
         "path": "yAxis.type",
         "virtualPath": ""
@@ -1926,6 +2046,7 @@
       {
         "key": "extent",
         "config": {
+          "id": 3150,
           "type": "object",
           "component": "none",
           "alias": "显示范围",
@@ -1948,7 +2069,8 @@
             "field": "type",
             "value": "value"
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "yAxis.extent",
         "virtualPath": "",
@@ -1956,6 +2078,7 @@
           {
             "key": "min",
             "config": {
+              "id": 7690,
               "type": "string",
               "component": "selectSuggest",
               "alias": "最小值",
@@ -1982,7 +2105,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.extent.min",
             "virtualPath": ""
@@ -1990,6 +2114,7 @@
           {
             "key": "max",
             "config": {
+              "id": 8706,
               "type": "string",
               "component": "selectSuggest",
               "alias": "最大值",
@@ -2016,7 +2141,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.extent.max",
             "virtualPath": ""
@@ -2030,6 +2156,7 @@
       {
         "key": "title",
         "config": {
+          "id": 3694,
           "type": "object",
           "component": "none",
           "alias": "轴标题",
@@ -2052,7 +2179,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "yAxis.title",
         "virtualPath": "",
@@ -2060,6 +2188,7 @@
           {
             "key": "show",
             "config": {
+              "id": 2321,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -2082,7 +2211,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.title.show",
             "virtualPath": ""
@@ -2090,6 +2220,7 @@
           {
             "key": "name",
             "config": {
+              "id": 6369,
               "type": "string",
               "component": "input",
               "alias": "标题显示",
@@ -2112,7 +2243,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.title.name",
             "virtualPath": ""
@@ -2120,6 +2252,7 @@
           {
             "key": "location",
             "config": {
+              "id": 7077,
               "type": "string",
               "component": "titleLocation",
               "alias": "位置",
@@ -2142,7 +2275,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.title.location",
             "virtualPath": ""
@@ -2150,6 +2284,7 @@
           {
             "key": "display",
             "config": {
+              "id": 5440,
               "type": "object",
               "component": "none",
               "alias": "展示方式",
@@ -2172,7 +2307,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.title.display",
             "virtualPath": "",
@@ -2180,6 +2316,7 @@
               {
                 "key": "rotate",
                 "config": {
+                  "id": 5341,
                   "type": "number",
                   "component": "number",
                   "alias": "旋转",
@@ -2202,7 +2339,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.title.display.rotate",
                 "virtualPath": ""
@@ -2210,6 +2348,7 @@
               {
                 "key": "offset",
                 "config": {
+                  "id": 9439,
                   "type": "number",
                   "component": "number",
                   "alias": "偏移",
@@ -2232,7 +2371,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.title.display.offset",
                 "virtualPath": ""
@@ -2246,6 +2386,7 @@
           {
             "key": "textStyle",
             "config": {
+              "id": 9884,
               "type": "object",
               "component": "none",
               "alias": "文本样式",
@@ -2268,7 +2409,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.title.textStyle",
             "virtualPath": "",
@@ -2276,6 +2418,7 @@
               {
                 "key": "fontSize",
                 "config": {
+                  "id": 3701,
                   "type": "number",
                   "component": "number",
                   "alias": "字号",
@@ -2298,44 +2441,16 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.title.textStyle.fontSize",
                 "virtualPath": ""
               },
               {
-                "key": "color",
-                "config": {
-                  "type": "string",
-                  "component": "color",
-                  "alias": "颜色",
-                  "tip": "",
-                  "displayMode": "inline",
-                  "features": [],
-                  "layout": "horizontal",
-                  "toggleCol": "",
-                  "isHide": false,
-                  "defaultValue": "#90a0ae",
-                  "min": 0,
-                  "max": 100,
-                  "step": 1,
-                  "InfiniteMin": false,
-                  "InfiniteMax": false,
-                  "suffix": "",
-                  "enums": [],
-                  "pairs": [],
-                  "whichEnum": {
-                    "field": "",
-                    "value": ""
-                  },
-                  "flatValue": false
-                },
-                "path": "yAxis.title.textStyle.color",
-                "virtualPath": ""
-              },
-              {
                 "key": "fontWeight",
                 "config": {
+                  "id": 6170,
                   "type": "string",
                   "component": "fontWeight",
                   "alias": "字体粗细",
@@ -2358,16 +2473,49 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.title.textStyle.fontWeight",
+                "virtualPath": ""
+              },
+              {
+                "key": "color",
+                "config": {
+                  "id": 9484,
+                  "type": "string",
+                  "component": "color",
+                  "alias": "颜色",
+                  "tip": "",
+                  "displayMode": "inline-single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "#90a0ae",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false,
+                  "isRange": false
+                },
+                "path": "yAxis.title.textStyle.color",
                 "virtualPath": ""
               }
             ],
             "cols": [
               "fontSize",
-              "color",
-              "fontWeight"
+              "fontWeight",
+              "color"
             ]
           }
         ],
@@ -2382,6 +2530,7 @@
       {
         "key": "axisLine",
         "config": {
+          "id": 5314,
           "type": "object",
           "component": "none",
           "alias": "轴线",
@@ -2404,7 +2553,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "yAxis.axisLine",
         "virtualPath": "",
@@ -2412,6 +2562,7 @@
           {
             "key": "show",
             "config": {
+              "id": 8549,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -2434,7 +2585,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLine.show",
             "virtualPath": ""
@@ -2442,6 +2594,7 @@
           {
             "key": "type",
             "config": {
+              "id": 4638,
               "type": "string",
               "component": "lineStyle",
               "alias": "类型",
@@ -2464,7 +2617,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLine.type",
             "virtualPath": ""
@@ -2472,6 +2626,7 @@
           {
             "key": "width",
             "config": {
+              "id": 3720,
               "type": "number",
               "component": "number",
               "alias": "粗细",
@@ -2494,7 +2649,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLine.width",
             "virtualPath": ""
@@ -2502,6 +2658,7 @@
           {
             "key": "color",
             "config": {
+              "id": 7402,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -2524,7 +2681,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLine.color",
             "virtualPath": ""
@@ -2540,6 +2698,7 @@
       {
         "key": "axisTick",
         "config": {
+          "id": 7480,
           "type": "object",
           "component": "none",
           "alias": "轴刻度",
@@ -2562,7 +2721,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "yAxis.axisTick",
         "virtualPath": "",
@@ -2570,6 +2730,7 @@
           {
             "key": "show",
             "config": {
+              "id": 8304,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -2592,7 +2753,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisTick.show",
             "virtualPath": ""
@@ -2600,6 +2762,7 @@
           {
             "key": "type",
             "config": {
+              "id": 8995,
               "type": "string",
               "component": "lineStyle",
               "alias": "类型",
@@ -2622,7 +2785,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisTick.type",
             "virtualPath": ""
@@ -2630,6 +2794,7 @@
           {
             "key": "width",
             "config": {
+              "id": 8659,
               "type": "number",
               "component": "number",
               "alias": "粗细",
@@ -2652,7 +2817,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisTick.width",
             "virtualPath": ""
@@ -2660,6 +2826,7 @@
           {
             "key": "color",
             "config": {
+              "id": 1848,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -2682,7 +2849,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisTick.color",
             "virtualPath": ""
@@ -2698,6 +2866,7 @@
       {
         "key": "axisLabel",
         "config": {
+          "id": 766,
           "type": "object",
           "component": "none",
           "alias": "轴标签",
@@ -2720,7 +2889,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "yAxis.axisLabel",
         "virtualPath": "",
@@ -2728,6 +2898,7 @@
           {
             "key": "show",
             "config": {
+              "id": 2512,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -2750,7 +2921,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLabel.show",
             "virtualPath": ""
@@ -2758,6 +2930,7 @@
           {
             "key": "valueFormat",
             "config": {
+              "id": 1795,
               "type": "string",
               "component": "valueFormat",
               "alias": "显示格式",
@@ -2780,7 +2953,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLabel.valueFormat",
             "virtualPath": ""
@@ -2788,6 +2962,7 @@
           {
             "key": "timeFormat",
             "config": {
+              "id": 1831,
               "type": "string",
               "component": "timeFormat",
               "alias": "显示格式",
@@ -2810,7 +2985,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLabel.timeFormat",
             "virtualPath": ""
@@ -2818,6 +2994,7 @@
           {
             "key": "boundaryGap",
             "config": {
+              "id": 3227,
               "type": "number",
               "component": "number",
               "alias": "两端间距",
@@ -2840,7 +3017,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLabel.boundaryGap",
             "virtualPath": ""
@@ -2848,6 +3026,7 @@
           {
             "key": "display",
             "config": {
+              "id": 7066,
               "type": "object",
               "component": "none",
               "alias": "展示方式",
@@ -2870,7 +3049,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLabel.display",
             "virtualPath": "",
@@ -2878,6 +3058,7 @@
               {
                 "key": "rotate",
                 "config": {
+                  "id": 9323,
                   "type": "number",
                   "component": "number",
                   "alias": "旋转",
@@ -2900,7 +3081,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.axisLabel.display.rotate",
                 "virtualPath": ""
@@ -2908,6 +3090,7 @@
               {
                 "key": "margin",
                 "config": {
+                  "id": 4411,
                   "type": "number",
                   "component": "number",
                   "alias": "偏移",
@@ -2930,7 +3113,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.axisLabel.display.margin",
                 "virtualPath": ""
@@ -2944,6 +3128,7 @@
           {
             "key": "align",
             "config": {
+              "id": 1408,
               "type": "string",
               "component": "hAlign",
               "alias": "对齐方式",
@@ -2966,7 +3151,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLabel.align",
             "virtualPath": ""
@@ -2974,6 +3160,7 @@
           {
             "key": "textStyle",
             "config": {
+              "id": 4185,
               "type": "object",
               "component": "none",
               "alias": "文本样式",
@@ -2996,7 +3183,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.axisLabel.textStyle",
             "virtualPath": "",
@@ -3004,6 +3192,7 @@
               {
                 "key": "fontSize",
                 "config": {
+                  "id": 3405,
                   "type": "number",
                   "component": "number",
                   "alias": "字号",
@@ -3026,44 +3215,16 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.axisLabel.textStyle.fontSize",
                 "virtualPath": ""
               },
               {
-                "key": "color",
-                "config": {
-                  "type": "string",
-                  "component": "color",
-                  "alias": "颜色",
-                  "tip": "",
-                  "displayMode": "inline",
-                  "features": [],
-                  "layout": "horizontal",
-                  "toggleCol": "",
-                  "isHide": false,
-                  "defaultValue": "rgba(255, 255, 255, 0.6)",
-                  "min": 0,
-                  "max": 100,
-                  "step": 1,
-                  "InfiniteMin": false,
-                  "InfiniteMax": false,
-                  "suffix": "",
-                  "enums": [],
-                  "pairs": [],
-                  "whichEnum": {
-                    "field": "",
-                    "value": ""
-                  },
-                  "flatValue": false
-                },
-                "path": "yAxis.axisLabel.textStyle.color",
-                "virtualPath": ""
-              },
-              {
                 "key": "fontWeight",
                 "config": {
+                  "id": 4139,
                   "type": "string",
                   "component": "fontWeight",
                   "alias": "字体粗细",
@@ -3086,16 +3247,49 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.axisLabel.textStyle.fontWeight",
+                "virtualPath": ""
+              },
+              {
+                "key": "color",
+                "config": {
+                  "id": 8207,
+                  "type": "string",
+                  "component": "color",
+                  "alias": "颜色",
+                  "tip": "",
+                  "displayMode": "inline-single",
+                  "features": [],
+                  "layout": "horizontal",
+                  "toggleCol": "",
+                  "isHide": false,
+                  "defaultValue": "rgba(255, 255, 255, 0.6)",
+                  "min": 0,
+                  "max": 100,
+                  "step": 1,
+                  "InfiniteMin": false,
+                  "InfiniteMax": false,
+                  "suffix": "",
+                  "enums": [],
+                  "pairs": [],
+                  "whichEnum": {
+                    "field": "",
+                    "value": ""
+                  },
+                  "flatValue": false,
+                  "isRange": false
+                },
+                "path": "yAxis.axisLabel.textStyle.color",
                 "virtualPath": ""
               }
             ],
             "cols": [
               "fontSize",
-              "color",
-              "fontWeight"
+              "fontWeight",
+              "color"
             ]
           }
         ],
@@ -3112,6 +3306,7 @@
       {
         "key": "grid",
         "config": {
+          "id": 910,
           "type": "object",
           "component": "none",
           "alias": "网格线",
@@ -3134,7 +3329,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "yAxis.grid",
         "virtualPath": "",
@@ -3142,6 +3338,7 @@
           {
             "key": "show",
             "config": {
+              "id": 7997,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -3164,7 +3361,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.grid.show",
             "virtualPath": ""
@@ -3172,6 +3370,7 @@
           {
             "key": "line",
             "config": {
+              "id": 1603,
               "type": "object",
               "component": "none",
               "alias": "线型样式",
@@ -3194,7 +3393,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "yAxis.grid.line",
             "virtualPath": "",
@@ -3202,6 +3402,7 @@
               {
                 "key": "type",
                 "config": {
+                  "id": 8237,
                   "type": "string",
                   "component": "lineStyle",
                   "alias": "类型",
@@ -3224,7 +3425,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.grid.line.type",
                 "virtualPath": ""
@@ -3232,6 +3434,7 @@
               {
                 "key": "width",
                 "config": {
+                  "id": 3110,
                   "type": "number",
                   "component": "number",
                   "alias": "粗细",
@@ -3254,7 +3457,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.grid.line.width",
                 "virtualPath": ""
@@ -3262,6 +3466,7 @@
               {
                 "key": "color",
                 "config": {
+                  "id": 1453,
                   "type": "string",
                   "component": "color",
                   "alias": "颜色",
@@ -3284,7 +3489,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.grid.line.color",
                 "virtualPath": ""
@@ -3292,6 +3498,7 @@
               {
                 "key": "dashedLength",
                 "config": {
+                  "id": 6149,
                   "type": "number",
                   "component": "number",
                   "alias": "长度",
@@ -3314,7 +3521,8 @@
                     "field": "type",
                     "value": "dashed"
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.grid.line.dashedLength",
                 "virtualPath": ""
@@ -3322,6 +3530,7 @@
               {
                 "key": "dashedSpace",
                 "config": {
+                  "id": 5623,
                   "type": "number",
                   "component": "number",
                   "alias": "间距",
@@ -3344,7 +3553,8 @@
                     "field": "type",
                     "value": "dashed"
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "yAxis.grid.line.dashedSpace",
                 "virtualPath": ""
@@ -3379,6 +3589,7 @@
   {
     "key": "tooltip",
     "config": {
+      "id": 6432,
       "type": "object",
       "component": "none",
       "alias": "提示框",
@@ -3401,7 +3612,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "tooltip",
     "virtualPath": "",
@@ -3409,6 +3621,7 @@
       {
         "key": "show",
         "config": {
+          "id": 6796,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -3431,7 +3644,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "tooltip.show",
         "virtualPath": ""
@@ -3439,6 +3653,7 @@
       {
         "key": "triggerOn",
         "config": {
+          "id": 1266,
           "type": "string",
           "component": "radio",
           "alias": "触发方式",
@@ -3470,7 +3685,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "tooltip.triggerOn",
         "virtualPath": ""
@@ -3478,11 +3694,12 @@
       {
         "key": "textStyle",
         "config": {
+          "id": 2995,
           "type": "object",
           "component": "none",
           "alias": "文本样式",
           "tip": "",
-          "displayMode": "nest",
+          "displayMode": "flat",
           "features": [],
           "layout": "horizontal",
           "toggleCol": "",
@@ -3500,7 +3717,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "tooltip.textStyle",
         "virtualPath": "",
@@ -3508,11 +3726,12 @@
           {
             "key": "fontSize",
             "config": {
+              "id": 4349,
               "type": "number",
               "component": "number",
               "alias": "字号",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
@@ -3530,49 +3749,21 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "tooltip.textStyle.fontSize",
             "virtualPath": ""
           },
           {
-            "key": "color",
-            "config": {
-              "type": "string",
-              "component": "color",
-              "alias": "颜色",
-              "tip": "",
-              "displayMode": "single",
-              "features": [],
-              "layout": "horizontal",
-              "toggleCol": "",
-              "isHide": false,
-              "defaultValue": "#fff",
-              "min": 0,
-              "max": 100,
-              "step": 1,
-              "InfiniteMin": false,
-              "InfiniteMax": false,
-              "suffix": "",
-              "enums": [],
-              "pairs": [],
-              "whichEnum": {
-                "field": "",
-                "value": ""
-              },
-              "flatValue": false
-            },
-            "path": "tooltip.textStyle.color",
-            "virtualPath": ""
-          },
-          {
             "key": "fontWeight",
             "config": {
+              "id": 1107,
               "type": "string",
               "component": "fontWeight",
               "alias": "字体粗细",
               "tip": "",
-              "displayMode": "single",
+              "displayMode": "inline",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
@@ -3590,21 +3781,55 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "tooltip.textStyle.fontWeight",
+            "virtualPath": ""
+          },
+          {
+            "key": "color",
+            "config": {
+              "id": 2963,
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "inline-single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "#fff",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "pairs": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false,
+              "isRange": false
+            },
+            "path": "tooltip.textStyle.color",
             "virtualPath": ""
           }
         ],
         "cols": [
           "fontSize",
-          "color",
-          "fontWeight"
+          "fontWeight",
+          "color"
         ]
       },
       {
         "key": "background",
         "config": {
+          "id": 3686,
           "type": "object",
           "component": "none",
           "alias": "弹框背景",
@@ -3627,7 +3852,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "tooltip.background",
         "virtualPath": "",
@@ -3635,6 +3861,7 @@
           {
             "key": "padding",
             "config": {
+              "id": 8126,
               "type": "object",
               "component": "none",
               "alias": "背景边距",
@@ -3657,7 +3884,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "tooltip.background.padding",
             "virtualPath": "",
@@ -3665,6 +3893,7 @@
               {
                 "key": "h",
                 "config": {
+                  "id": 672,
                   "type": "number",
                   "component": "number",
                   "alias": "水平",
@@ -3687,7 +3916,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "tooltip.background.padding.h",
                 "virtualPath": ""
@@ -3695,6 +3925,7 @@
               {
                 "key": "v",
                 "config": {
+                  "id": 279,
                   "type": "number",
                   "component": "number",
                   "alias": "垂直",
@@ -3717,7 +3948,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "tooltip.background.padding.v",
                 "virtualPath": ""
@@ -3731,6 +3963,7 @@
           {
             "key": "color",
             "config": {
+              "id": 4998,
               "type": "string",
               "component": "color",
               "alias": "背景色",
@@ -3753,7 +3986,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "tooltip.background.color",
             "virtualPath": ""
@@ -3761,6 +3995,7 @@
           {
             "key": "borderColor",
             "config": {
+              "id": 8448,
               "type": "string",
               "component": "color",
               "alias": "边框颜色",
@@ -3783,7 +4018,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "tooltip.background.borderColor",
             "virtualPath": ""
@@ -3791,6 +4027,7 @@
           {
             "key": "borderWidth",
             "config": {
+              "id": 9205,
               "type": "number",
               "component": "number",
               "alias": "边框粗细",
@@ -3813,7 +4050,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "tooltip.background.borderWidth",
             "virtualPath": ""
@@ -3829,6 +4067,7 @@
       {
         "key": "pointer",
         "config": {
+          "id": 3422,
           "type": "object",
           "component": "none",
           "alias": "轴指示器",
@@ -3851,7 +4090,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "tooltip.pointer",
         "virtualPath": "",
@@ -3859,6 +4099,7 @@
           {
             "key": "show",
             "config": {
+              "id": 2834,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -3881,7 +4122,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "tooltip.pointer.show",
             "virtualPath": ""
@@ -3889,6 +4131,7 @@
           {
             "key": "line",
             "config": {
+              "id": 1741,
               "type": "object",
               "component": "none",
               "alias": "线型样式",
@@ -3911,7 +4154,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "tooltip.pointer.line",
             "virtualPath": "",
@@ -3919,6 +4163,7 @@
               {
                 "key": "type",
                 "config": {
+                  "id": 4787,
                   "type": "string",
                   "component": "lineStyle",
                   "alias": "类型",
@@ -3941,7 +4186,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "tooltip.pointer.line.type",
                 "virtualPath": ""
@@ -3949,6 +4195,7 @@
               {
                 "key": "width",
                 "config": {
+                  "id": 3301,
                   "type": "number",
                   "component": "number",
                   "alias": "粗细",
@@ -3971,7 +4218,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "tooltip.pointer.line.width",
                 "virtualPath": ""
@@ -3979,6 +4227,7 @@
               {
                 "key": "color",
                 "config": {
+                  "id": 4241,
                   "type": "string",
                   "component": "color",
                   "alias": "颜色",
@@ -4001,7 +4250,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "tooltip.pointer.line.color",
                 "virtualPath": ""
@@ -4009,6 +4259,7 @@
               {
                 "key": "dashedLength",
                 "config": {
+                  "id": 544,
                   "type": "number",
                   "component": "number",
                   "alias": "长度",
@@ -4031,7 +4282,8 @@
                     "field": "type",
                     "value": "dashed"
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "tooltip.pointer.line.dashedLength",
                 "virtualPath": ""
@@ -4039,6 +4291,7 @@
               {
                 "key": "dashedSpace",
                 "config": {
+                  "id": 1155,
                   "type": "number",
                   "component": "number",
                   "alias": "间距",
@@ -4061,7 +4314,8 @@
                     "field": "type",
                     "value": "dashed"
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "tooltip.pointer.line.dashedSpace",
                 "virtualPath": ""
@@ -4093,6 +4347,7 @@
   {
     "key": "legend",
     "config": {
+      "id": 6511,
       "type": "object",
       "component": "none",
       "alias": "图例",
@@ -4115,7 +4370,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "legend",
     "virtualPath": "",
@@ -4123,6 +4379,7 @@
       {
         "key": "show",
         "config": {
+          "id": 4196,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -4145,7 +4402,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "legend.show",
         "virtualPath": ""
@@ -4153,6 +4411,7 @@
       {
         "key": "position",
         "config": {
+          "id": 5090,
           "type": "string",
           "component": "legendLocation",
           "alias": "位置",
@@ -4175,7 +4434,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "legend.position",
         "virtualPath": ""
@@ -4183,6 +4443,7 @@
       {
         "key": "orient",
         "config": {
+          "id": 3327,
           "type": "string",
           "component": "orient",
           "alias": "布局方式",
@@ -4205,7 +4466,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": true
+          "flatValue": true,
+          "isRange": false
         },
         "path": "legend.orient",
         "virtualPath": ""
@@ -4213,6 +4475,7 @@
       {
         "key": "textStyle",
         "config": {
+          "id": 1734,
           "type": "object",
           "component": "none",
           "alias": "文本样式",
@@ -4235,7 +4498,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "legend.textStyle",
         "virtualPath": "",
@@ -4243,6 +4507,7 @@
           {
             "key": "fontSize",
             "config": {
+              "id": 3417,
               "type": "number",
               "component": "number",
               "alias": "字号",
@@ -4265,49 +4530,21 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.textStyle.fontSize",
             "virtualPath": ""
           },
           {
-            "key": "color",
-            "config": {
-              "type": "string",
-              "component": "color",
-              "alias": "颜色",
-              "tip": "",
-              "displayMode": "inline",
-              "features": [],
-              "layout": "horizontal",
-              "toggleCol": "",
-              "isHide": false,
-              "defaultValue": "#90a0ae",
-              "min": 0,
-              "max": 100,
-              "step": 1,
-              "InfiniteMin": false,
-              "InfiniteMax": false,
-              "suffix": "",
-              "enums": [],
-              "pairs": [],
-              "whichEnum": {
-                "field": "",
-                "value": ""
-              },
-              "flatValue": false
-            },
-            "path": "legend.textStyle.color",
-            "virtualPath": ""
-          },
-          {
             "key": "fontWeight",
             "config": {
+              "id": 303,
               "type": "string",
               "component": "fontWeight",
               "alias": "字体粗细",
               "tip": "",
-              "displayMode": "inline-single",
+              "displayMode": "inline",
               "features": [],
               "layout": "horizontal",
               "toggleCol": "",
@@ -4325,21 +4562,55 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.textStyle.fontWeight",
+            "virtualPath": ""
+          },
+          {
+            "key": "color",
+            "config": {
+              "id": 3566,
+              "type": "string",
+              "component": "color",
+              "alias": "颜色",
+              "tip": "",
+              "displayMode": "inline-single",
+              "features": [],
+              "layout": "horizontal",
+              "toggleCol": "",
+              "isHide": false,
+              "defaultValue": "#90a0ae",
+              "min": 0,
+              "max": 100,
+              "step": 1,
+              "InfiniteMin": false,
+              "InfiniteMax": false,
+              "suffix": "",
+              "enums": [],
+              "pairs": [],
+              "whichEnum": {
+                "field": "",
+                "value": ""
+              },
+              "flatValue": false,
+              "isRange": false
+            },
+            "path": "legend.textStyle.color",
             "virtualPath": ""
           }
         ],
         "cols": [
           "fontSize",
-          "color",
-          "fontWeight"
+          "fontWeight",
+          "color"
         ]
       },
       {
         "key": "symbol",
         "config": {
+          "id": 1463,
           "type": "object",
           "component": "none",
           "alias": "图例图标",
@@ -4362,7 +4633,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "legend.symbol",
         "virtualPath": "",
@@ -4370,6 +4642,7 @@
           {
             "key": "show",
             "config": {
+              "id": 8003,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -4392,7 +4665,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.symbol.show",
             "virtualPath": ""
@@ -4400,6 +4674,7 @@
           {
             "key": "icon",
             "config": {
+              "id": 2830,
               "type": "string",
               "component": "echartIcon",
               "alias": "图标",
@@ -4422,7 +4697,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.symbol.icon",
             "virtualPath": ""
@@ -4430,6 +4706,7 @@
           {
             "key": "width",
             "config": {
+              "id": 8260,
               "type": "number",
               "component": "number",
               "alias": "宽度",
@@ -4452,7 +4729,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.symbol.width",
             "virtualPath": ""
@@ -4460,6 +4738,7 @@
           {
             "key": "height",
             "config": {
+              "id": 3637,
               "type": "number",
               "component": "number",
               "alias": "高度",
@@ -4482,7 +4761,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.symbol.height",
             "virtualPath": ""
@@ -4490,6 +4770,7 @@
           {
             "key": "gap",
             "config": {
+              "id": 7172,
               "type": "number",
               "component": "number",
               "alias": "间隔",
@@ -4512,7 +4793,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.symbol.gap",
             "virtualPath": ""
@@ -4529,6 +4811,7 @@
       {
         "key": "page",
         "config": {
+          "id": 892,
           "type": "object",
           "component": "none",
           "alias": "翻页功能",
@@ -4551,7 +4834,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "legend.page",
         "virtualPath": "",
@@ -4559,6 +4843,7 @@
           {
             "key": "enabled",
             "config": {
+              "id": 3218,
               "type": "boolean",
               "component": "switch",
               "alias": "",
@@ -4581,7 +4866,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.page.enabled",
             "virtualPath": ""
@@ -4589,6 +4875,7 @@
           {
             "key": "size",
             "config": {
+              "id": 873,
               "type": "object",
               "component": "none",
               "alias": "容器尺寸",
@@ -4611,7 +4898,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.page.size",
             "virtualPath": "",
@@ -4619,6 +4907,7 @@
               {
                 "key": "width",
                 "config": {
+                  "id": 4382,
                   "type": "number",
                   "component": "number",
                   "alias": "宽度",
@@ -4641,7 +4930,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "legend.page.size.width",
                 "virtualPath": ""
@@ -4649,6 +4939,7 @@
               {
                 "key": "height",
                 "config": {
+                  "id": 124,
                   "type": "number",
                   "component": "number",
                   "alias": "高度",
@@ -4671,7 +4962,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "legend.page.size.height",
                 "virtualPath": ""
@@ -4685,6 +4977,7 @@
           {
             "key": "button",
             "config": {
+              "id": 1417,
               "type": "object",
               "component": "none",
               "alias": "翻页按钮",
@@ -4707,7 +5000,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.page.button",
             "virtualPath": "",
@@ -4715,6 +5009,7 @@
               {
                 "key": "size",
                 "config": {
+                  "id": 6970,
                   "type": "number",
                   "component": "number",
                   "alias": "尺寸",
@@ -4737,7 +5032,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "legend.page.button.size",
                 "virtualPath": ""
@@ -4745,6 +5041,7 @@
               {
                 "key": "color",
                 "config": {
+                  "id": 7993,
                   "type": "string",
                   "component": "color",
                   "alias": "颜色",
@@ -4767,7 +5064,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "legend.page.button.color",
                 "virtualPath": ""
@@ -4775,6 +5073,7 @@
               {
                 "key": "inactiveColor",
                 "config": {
+                  "id": 5412,
                   "type": "string",
                   "component": "color",
                   "alias": "禁用颜色",
@@ -4797,7 +5096,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "legend.page.button.inactiveColor",
                 "virtualPath": ""
@@ -4812,6 +5112,7 @@
           {
             "key": "pageNumColor",
             "config": {
+              "id": 2289,
               "type": "string",
               "component": "color",
               "alias": "页码颜色",
@@ -4834,7 +5135,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "legend.page.pageNumColor",
             "virtualPath": ""
@@ -4860,6 +5162,7 @@
   {
     "key": "series",
     "config": {
+      "id": 7225,
       "type": "array",
       "component": "none",
       "alias": "系列",
@@ -4888,7 +5191,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "series",
     "virtualPath": "",
@@ -4896,6 +5200,7 @@
       {
         "key": "0",
         "config": {
+          "id": 6764,
           "type": "object",
           "component": "none",
           "alias": "系列",
@@ -4918,7 +5223,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "series.0",
         "virtualPath": "",
@@ -4926,6 +5232,7 @@
           {
             "key": "type",
             "config": {
+              "id": 1873,
               "type": "string",
               "component": "input",
               "alias": "",
@@ -4948,7 +5255,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "series.0.type",
             "virtualPath": "slotProps.item.type"
@@ -4956,6 +5264,7 @@
           {
             "key": "id",
             "config": {
+              "id": 4738,
               "type": "string",
               "component": "input",
               "alias": "",
@@ -4965,7 +5274,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": true,
-              "defaultValue": "系列1_-AxbqvJM6_",
+              "defaultValue": "D0yvFjOW4t",
               "min": 0,
               "max": 100,
               "step": 1,
@@ -4978,7 +5287,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "series.0.id",
             "virtualPath": "slotProps.item.id"
@@ -4986,6 +5296,7 @@
           {
             "key": "name",
             "config": {
+              "id": 7778,
               "type": "string",
               "component": "input",
               "alias": "系列名称",
@@ -4995,7 +5306,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": false,
-              "defaultValue": "系列1",
+              "defaultValue": "",
               "min": 0,
               "max": 100,
               "step": 1,
@@ -5008,7 +5319,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "series.0.name",
             "virtualPath": "slotProps.item.name"
@@ -5016,6 +5328,7 @@
           {
             "key": "line",
             "config": {
+              "id": 6051,
               "type": "object",
               "component": "none",
               "alias": "折线",
@@ -5038,7 +5351,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "series.0.line",
             "virtualPath": "slotProps.item.line",
@@ -5046,6 +5360,7 @@
               {
                 "key": "color",
                 "config": {
+                  "id": 6693,
                   "type": "string",
                   "component": "color",
                   "alias": "颜色",
@@ -5068,7 +5383,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.line.color",
                 "virtualPath": "slotProps.item.line.color"
@@ -5076,6 +5392,7 @@
               {
                 "key": "style",
                 "config": {
+                  "id": 8777,
                   "type": "string",
                   "component": "lineStyle",
                   "alias": "类型",
@@ -5098,7 +5415,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.line.style",
                 "virtualPath": "slotProps.item.line.style"
@@ -5106,6 +5424,7 @@
               {
                 "key": "width",
                 "config": {
+                  "id": 6361,
                   "type": "number",
                   "component": "number",
                   "alias": "粗细",
@@ -5128,7 +5447,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.line.width",
                 "virtualPath": "slotProps.item.line.width"
@@ -5136,6 +5456,7 @@
               {
                 "key": "opacity",
                 "config": {
+                  "id": 749,
                   "type": "number",
                   "component": "slider",
                   "alias": "透明度",
@@ -5158,7 +5479,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.line.opacity",
                 "virtualPath": "slotProps.item.line.opacity"
@@ -5166,6 +5488,7 @@
               {
                 "key": "smooth",
                 "config": {
+                  "id": 5425,
                   "type": "number",
                   "component": "slider",
                   "alias": "曲线平滑程度",
@@ -5188,7 +5511,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.line.smooth",
                 "virtualPath": "slotProps.item.line.smooth"
@@ -5205,6 +5529,7 @@
           {
             "key": "point",
             "config": {
+              "id": 4993,
               "type": "object",
               "component": "none",
               "alias": "标记",
@@ -5227,7 +5552,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "series.0.point",
             "virtualPath": "slotProps.item.point",
@@ -5235,6 +5561,7 @@
               {
                 "key": "icon",
                 "config": {
+                  "id": 8816,
                   "type": "string",
                   "component": "echartIcon",
                   "alias": "符号",
@@ -5257,7 +5584,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.point.icon",
                 "virtualPath": "slotProps.item.point.icon"
@@ -5265,6 +5593,7 @@
               {
                 "key": "color",
                 "config": {
+                  "id": 3404,
                   "type": "string",
                   "component": "color",
                   "alias": "填充色",
@@ -5287,7 +5616,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.point.color",
                 "virtualPath": "slotProps.item.point.color"
@@ -5295,6 +5625,7 @@
               {
                 "key": "borderColor",
                 "config": {
+                  "id": 6359,
                   "type": "string",
                   "component": "color",
                   "alias": "描边颜色",
@@ -5317,7 +5648,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.point.borderColor",
                 "virtualPath": "slotProps.item.point.borderColor"
@@ -5325,6 +5657,7 @@
               {
                 "key": "borderWidth",
                 "config": {
+                  "id": 8475,
                   "type": "number",
                   "component": "number",
                   "alias": "描边粗细",
@@ -5347,7 +5680,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.point.borderWidth",
                 "virtualPath": "slotProps.item.point.borderWidth"
@@ -5355,6 +5689,7 @@
               {
                 "key": "borderType",
                 "config": {
+                  "id": 1330,
                   "type": "string",
                   "component": "lineStyle",
                   "alias": "描边类型",
@@ -5377,7 +5712,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.point.borderType",
                 "virtualPath": "slotProps.item.point.borderType"
@@ -5385,6 +5721,7 @@
               {
                 "key": "opacity",
                 "config": {
+                  "id": 6006,
                   "type": "number",
                   "component": "slider",
                   "alias": "透明度",
@@ -5407,7 +5744,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.point.opacity",
                 "virtualPath": "slotProps.item.point.opacity"
@@ -5425,6 +5763,7 @@
           {
             "key": "label",
             "config": {
+              "id": 5814,
               "type": "object",
               "component": "none",
               "alias": "标注",
@@ -5447,7 +5786,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "series.0.label",
             "virtualPath": "slotProps.item.label",
@@ -5455,6 +5795,7 @@
               {
                 "key": "show",
                 "config": {
+                  "id": 517,
                   "type": "boolean",
                   "component": "switch",
                   "alias": "",
@@ -5477,7 +5818,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.label.show",
                 "virtualPath": "slotProps.item.label.show"
@@ -5485,6 +5827,7 @@
               {
                 "key": "field",
                 "config": {
+                  "id": 1843,
                   "type": "string",
                   "component": "input",
                   "alias": "标注字段",
@@ -5507,7 +5850,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.label.field",
                 "virtualPath": "slotProps.item.label.field"
@@ -5515,6 +5859,7 @@
               {
                 "key": "valueFormat",
                 "config": {
+                  "id": 1320,
                   "type": "string",
                   "component": "valueFormat",
                   "alias": "数值格式",
@@ -5537,7 +5882,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.label.valueFormat",
                 "virtualPath": "slotProps.item.label.valueFormat"
@@ -5545,6 +5891,7 @@
               {
                 "key": "describe",
                 "config": {
+                  "id": 8494,
                   "type": "object",
                   "component": "none",
                   "alias": "前后缀",
@@ -5567,7 +5914,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.label.describe",
                 "virtualPath": "slotProps.item.label.describe",
@@ -5575,6 +5923,7 @@
                   {
                     "key": "prefix",
                     "config": {
+                      "id": 7903,
                       "type": "string",
                       "component": "input",
                       "alias": "前缀",
@@ -5597,7 +5946,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "series.0.label.describe.prefix",
                     "virtualPath": "slotProps.item.label.describe.prefix"
@@ -5605,6 +5955,7 @@
                   {
                     "key": "suffix",
                     "config": {
+                      "id": 7486,
                       "type": "string",
                       "component": "input",
                       "alias": "后缀",
@@ -5627,7 +5978,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "series.0.label.describe.suffix",
                     "virtualPath": "slotProps.item.label.describe.suffix"
@@ -5641,6 +5993,7 @@
               {
                 "key": "offset",
                 "config": {
+                  "id": 6702,
                   "type": "object",
                   "component": "none",
                   "alias": "相对偏移",
@@ -5663,7 +6016,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.label.offset",
                 "virtualPath": "slotProps.item.label.offset",
@@ -5671,6 +6025,7 @@
                   {
                     "key": "x",
                     "config": {
+                      "id": 4211,
                       "type": "number",
                       "component": "number",
                       "alias": "水平",
@@ -5693,7 +6048,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "series.0.label.offset.x",
                     "virtualPath": "slotProps.item.label.offset.x"
@@ -5701,6 +6057,7 @@
                   {
                     "key": "y",
                     "config": {
+                      "id": 5640,
                       "type": "number",
                       "component": "number",
                       "alias": "垂直",
@@ -5723,7 +6080,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "series.0.label.offset.y",
                     "virtualPath": "slotProps.item.label.offset.y"
@@ -5737,6 +6095,7 @@
               {
                 "key": "rotate",
                 "config": {
+                  "id": 2801,
                   "type": "number",
                   "component": "number",
                   "alias": "旋转角度",
@@ -5759,7 +6118,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.label.rotate",
                 "virtualPath": "slotProps.item.label.rotate"
@@ -5767,6 +6127,7 @@
               {
                 "key": "textStyle",
                 "config": {
+                  "id": 5043,
                   "type": "object",
                   "component": "none",
                   "alias": "文本样式",
@@ -5789,7 +6150,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.label.textStyle",
                 "virtualPath": "slotProps.item.label.textStyle",
@@ -5797,6 +6159,7 @@
                   {
                     "key": "fontSize",
                     "config": {
+                      "id": 1452,
                       "type": "number",
                       "component": "number",
                       "alias": "字号",
@@ -5819,7 +6182,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "series.0.label.textStyle.fontSize",
                     "virtualPath": "slotProps.item.label.textStyle.fontSize"
@@ -5827,6 +6191,7 @@
                   {
                     "key": "color",
                     "config": {
+                      "id": 79,
                       "type": "string",
                       "component": "color",
                       "alias": "颜色",
@@ -5849,7 +6214,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "series.0.label.textStyle.color",
                     "virtualPath": "slotProps.item.label.textStyle.color"
@@ -5857,6 +6223,7 @@
                   {
                     "key": "fontWeight",
                     "config": {
+                      "id": 9111,
                       "type": "string",
                       "component": "fontWeight",
                       "alias": "字体粗细",
@@ -5879,7 +6246,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "series.0.label.textStyle.fontWeight",
                     "virtualPath": "slotProps.item.label.textStyle.fontWeight"
@@ -5894,6 +6262,7 @@
               {
                 "key": "stroke",
                 "config": {
+                  "id": 3093,
                   "type": "object",
                   "component": "none",
                   "alias": "描边",
@@ -5916,7 +6285,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "series.0.label.stroke",
                 "virtualPath": "slotProps.item.label.stroke",
@@ -5924,6 +6294,7 @@
                   {
                     "key": "color",
                     "config": {
+                      "id": 7647,
                       "type": "string",
                       "component": "color",
                       "alias": "颜色",
@@ -5946,7 +6317,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "series.0.label.stroke.color",
                     "virtualPath": "slotProps.item.label.stroke.color"
@@ -5954,6 +6326,7 @@
                   {
                     "key": "width",
                     "config": {
+                      "id": 7708,
                       "type": "number",
                       "component": "number",
                       "alias": "粗细",
@@ -5976,7 +6349,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "series.0.label.stroke.width",
                     "virtualPath": "slotProps.item.label.stroke.width"
@@ -6007,6 +6381,7 @@
   {
     "key": "animation",
     "config": {
+      "id": 8760,
       "type": "object",
       "component": "none",
       "alias": "动画",
@@ -6029,7 +6404,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "animation",
     "virtualPath": "",
@@ -6037,6 +6413,7 @@
       {
         "key": "enabled",
         "config": {
+          "id": 9518,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -6059,7 +6436,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "animation.enabled",
         "virtualPath": ""
@@ -6067,6 +6445,7 @@
       {
         "key": "duration",
         "config": {
+          "id": 6981,
           "type": "number",
           "component": "number",
           "alias": "持续时间",
@@ -6089,7 +6468,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "animation.duration",
         "virtualPath": ""
@@ -6097,6 +6477,7 @@
       {
         "key": "easing",
         "config": {
+          "id": 2579,
           "type": "string",
           "component": "animationEasing",
           "alias": "缓动效果",
@@ -6119,7 +6500,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "animation.easing",
         "virtualPath": ""
@@ -6127,6 +6509,7 @@
       {
         "key": "delay",
         "config": {
+          "id": 348,
           "type": "number",
           "component": "number",
           "alias": "延迟",
@@ -6149,7 +6532,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "animation.delay",
         "virtualPath": ""

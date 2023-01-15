@@ -167,55 +167,42 @@
         :level="2"
         label="开启拖拽"
       >
-        <n-switch
-          v-model:value="config.interactive.dragging"
+        <g-switch
+          v-model="config.interactive.dragging"
         />
       </g-field>
       <g-field
         :level="2"
         label="开启缩放"
       >
-        <n-switch
-          v-model:value="config.interactive.scrollWheelZoom"
+        <g-switch
+          v-model="config.interactive.scrollWheelZoom"
         />
       </g-field>
       <g-field
         :level="2"
         label="地图交互"
       >
-        <n-switch
-          v-model:value="config.interactive.isInteractive"
+        <g-switch
+          v-model="config.interactive.isInteractive"
         />
       </g-field>
     </g-field-collapse>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
 } from '@/data/select-options'
 import { China2d } from './china2d'
 
-export default defineComponent({
-  name: 'VChina2dProp',
-  props: {
-    com: {
-      type: Object as PropType<China2d>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: China2d
+}>()
 
-    return {
-      config,
+const config = toRef(props.com, 'config')
 
-      fontFamilys,
-      fontWeights,
-    }
-  },
-})
 </script>

@@ -54,7 +54,7 @@
           :max="360"
           :step="1"
           inline="inline"
-          label="最小角度"
+          label="最大角度"
         />
       </g-field>
       <g-field
@@ -72,36 +72,20 @@
         :level="2"
         label="绘制类型"
       >
-        <n-radio-group
-          v-model:value="config.global.drawType"
-          size="small"
-        >
-          <n-radio-button
-            v-for="em in drawTypes"
-            :key="em.id"
-            :value="em.id"
-          >
-            {{ em.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.global.drawType"
+          :data="pairData2085"
+        />
       </g-field>
       <g-field
         v-if="config.global.drawType === 'preset'"
         :level="2"
         label="图形"
       >
-        <n-radio-group
-          v-model:value="config.global.shape"
-          size="small"
-        >
-          <n-radio-button
-            v-for="em in simpleShapes"
-            :key="em.id"
-            :value="em.id"
-          >
-            {{ em.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-select
+          v-model="config.global.shape"
+          :data="pairData7870"
+        />
       </g-field>
       <g-field
         v-if="config.global.drawType === 'image'"
@@ -117,7 +101,7 @@
       label="系列"
       mode="layout"
       default-layout="horizontal"
-      :features="['vertical','horizontal','copy','add','remove']"
+      :features="['vertical', 'horizontal', 'copy', 'add', 'remove']"
       :list="config.series"
       :min="0"
       :max="100"
@@ -186,38 +170,34 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
 } from '@/data/select-options'
-import { WordCloud, WordCloudSeries, drawTypes, simpleShapes } from './word-cloud'
+import { WordCloud, WordCloudSeries } from './word-cloud'
 
-export default defineComponent({
-  name: 'VWordCloudProp',
-  props: {
-    com: {
-      type: Object as PropType<WordCloud>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: WordCloud
+}>()
 
-    const handleAddSeriesItem = () => {
-      return new WordCloudSeries(`系列${config.value.series.length + 1}`, '#fff')
-    }
+const config = toRef(props.com, 'config')
 
-    return {
-      config,
+const pairData2085 = [
+  { key: 'preset', value: '内置' },
+  { key: 'image', value: '自定义' },
+]
 
-      fontFamilys,
-      fontWeights,
-      drawTypes,
-      simpleShapes,
-      handleAddSeriesItem,
-    }
-  },
-})
+const pairData7870 = [
+  { key: 'circle', value: '圆形' },
+  { key: 'triangle', value: '三矩形' },
+  { key: 'diamond', value: '菱形' },
+  { key: 'pentagon', value: '五角星' },
+]
+
+const handleAddSeriesItem = () => {
+  return new WordCloudSeries(`系列${config.value.series.length + 1}`, '#fff')
+}
+
 </script>

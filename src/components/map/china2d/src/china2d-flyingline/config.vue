@@ -157,4 +157,5 @@ const props = defineProps<{
 }>()
 
 const config = toRef(props.com, 'config')
+
 </script>

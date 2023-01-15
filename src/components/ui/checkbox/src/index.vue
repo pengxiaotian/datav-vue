@@ -1,6 +1,6 @@
 <template>
   <div
-    class="datav-gui g-switch"
+    class="datav-gui g-checkbox"
     :class="[
       {
         '--inline': !!inline,
@@ -9,12 +9,12 @@
       }
     ]"
   >
-    <div class="g-switch-inner">
-      <n-switch
-        :value="modelValue"
+    <div class="g-checkbox-inner">
+      <n-checkbox
+        :checked="modelValue"
         :size="size"
         :disabled="disabled"
-        @update:value="handleInput"
+        @update:checked="handleInput"
       />
     </div>
     <template v-if="tooltip && label">
@@ -35,7 +35,7 @@
 
 <script lang='ts' setup>
 import { PropType } from 'vue'
-import { NSwitch, NTooltip } from 'naive-ui'
+import { NCheckbox, NTooltip } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
 defineProps({

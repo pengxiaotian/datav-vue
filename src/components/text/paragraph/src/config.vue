@@ -69,8 +69,8 @@
         tooltip="仅当文本溢出时有效"
         label="溢出滚动"
       >
-        <n-switch
-          v-model:value="config.scroll.overScroll"
+        <g-switch
+          v-model="config.scroll.overScroll"
         />
       </g-field>
     </g-field-collapse>
@@ -105,8 +105,8 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
@@ -114,24 +114,10 @@ import {
 } from '@/data/select-options'
 import { Paragraph } from './paragraph'
 
-export default defineComponent({
-  name: 'VParagraphProp',
-  props: {
-    com: {
-      type: Object as PropType<Paragraph>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: Paragraph
+}>()
 
-    return {
-      config,
+const config = toRef(props.com, 'config')
 
-      fontFamilys,
-      fontWeights,
-      hAligns,
-    }
-  },
-})
 </script>
