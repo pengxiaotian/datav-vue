@@ -96,7 +96,7 @@ export const pie: ComDataType = {
       alias: '基本饼图',
       img: `${import.meta.env.VITE_APP_CDN}/com/basic-pie-160-116.png`,
       thum: `${import.meta.env.VITE_APP_CDN}/com-thum/basic-pie-368-208.png`,
-      used: false,
+      used: true,
     }, {
       name: 'VPieOneValue',
       alias: '指标占比饼图',

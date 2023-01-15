@@ -1,0 +1,37 @@
+[
+  {
+    "type": "分类一",
+    "value": 10,
+    "colorField": 100
+  },
+  {
+    "type": "分类二",
+    "value": 20,
+    "colorField": 200
+  },
+  {
+    "type": "分类三",
+    "value": 30,
+    "colorField": 300
+  },
+  {
+    "type": "分类四",
+    "value": 40,
+    "colorField": 400
+  },
+  {
+    "type": "分类五",
+    "value": 50,
+    "colorField": 500
+  },
+  {
+    "type": "分类六",
+    "value": 60,
+    "colorField": 600
+  },
+  {
+    "type": "分类七",
+    "value": 70,
+    "colorField": 700
+  }
+]

@@ -18,6 +18,7 @@ import VDecoration from './media/decoration'
 import VMainImg from './media/main-img'
 import VDatePicker from './other/date-picker'
 import VTableBar from './table/table-bar'
+import VBasicPie from './pie/basic-pie'
 // -- prepend placeholder 1 --
 
 const components = [
@@ -38,6 +39,7 @@ const components = [
   VMainImg,
   VDatePicker,
   VTableBar,
+  VBasicPie,
 // -- prepend placeholder 2 --
 ]
 
