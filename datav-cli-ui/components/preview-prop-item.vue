@@ -91,19 +91,19 @@
     :label="mode ? label : ''"
     :tooltip="tooltip"
   />
+  <g-select-shape
+    v-else-if="componentType === componentTypes.echartIcon"
+    v-model="strValue"
+    :shapes="selectOptions"
+    :inline="mode"
+    :label="mode ? label : ''"
+    :tooltip="tooltip"
+  />
   <g-select-suggest
     v-else-if="componentType === componentTypes.selectSuggest"
     v-model="strValue"
     :data="selectOptions"
     :filters="enums"
-    :inline="mode"
-    :label="mode ? label : ''"
-    :tooltip="tooltip"
-  />
-  <g-select-shape
-    v-else-if="componentType === componentTypes.echartIcon"
-    v-model="strValue"
-    :shapes="selectOptions"
     :inline="mode"
     :label="mode ? label : ''"
     :tooltip="tooltip"

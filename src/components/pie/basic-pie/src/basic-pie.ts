@@ -12,22 +12,71 @@ import { getStaticData } from '@/api/data'
  */
 export class BasicPie extends DatavComponent {
   config = {
-    name: '',
-    isUse: false,
-    value: 0,
-    fontSize: 12,
-    textStyle: {
-      color: '',
-      value: 0,
-      isUse: false,
-      fontSize: 12,
+    margin: {
+      show: false,
+      top: 40,
+      bottom: 30,
+      left: 30,
+      right: 20,
     },
-    border: {
-      size: 1,
-      color: '#fff',
-      type: 'solid',
+    radius: {
+      inner: 75,
+      outer: 80,
     },
-    ran: [10, 20],
+    fill: {
+      mapping: true,
+      fixed: {
+        type: 'flat',
+        value: '#1c81ff',
+      },
+      scale: {
+        type: 'ordinal',
+        scheme: 'cat-7',
+        range: [
+          '#32FFA1',
+          '#50BA58',
+          '#00CEFF',
+          '#E7E342',
+          '#FF6A00',
+          '#8C57E4',
+          '#1C81FF',
+        ],
+        pin: [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+        ],
+        custom: false,
+        domain: [
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+        ],
+        abnormal: 'transparent',
+      },
+    },
+    line: {
+      lineStyle: 'solid',
+      lineWidth: 1,
+      lineColor: 'rgba(255, 255, 255, 0.25)',
+      dashedLength: 3,
+      dashedSpace: 8,
+      dottedLength: 2,
+      dottedSpace: 4,
+    },
+    isCombine: {
+      show: true,
+      piecesCount: 20,
+      defineType: '其他',
+    },
   }
 
   apis: Partial<ApiConfigMap>

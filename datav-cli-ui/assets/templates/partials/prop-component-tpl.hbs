@@ -154,21 +154,6 @@
   tooltip="{{{config.tip}}}"
   {{/if}}
 />
-{{else if (eq config.component componentTypes.select)}}
-<g-select
-  {{#if (and judgeEnum config.whichEnum.field)}}
-  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
-  {{/if}}
-  v-model="{{ getPath path virtualPath }}"
-  :data="pairData{{config.id}}"
-  {{#if (getInlineMode config.displayMode)}}
-  inline="{{config.displayMode}}"
-  label="{{config.alias}}"
-  {{/if}}
-  {{#if config.tip}}
-  tooltip="{{{config.tip}}}"
-  {{/if}}
-/>
 {{else if (eq config.component componentTypes.uploadImage)}}
 <g-upload-image
   {{#if (and judgeEnum config.whichEnum.field)}}
@@ -198,6 +183,21 @@
   tooltip="{{{config.tip}}}"
   {{/if}}
 />
+{{else if (eq config.component componentTypes.echartIcon)}}
+<g-select-shape
+  {{#if (and judgeEnum config.whichEnum.field)}}
+  v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
+  {{/if}}
+  v-model="{{ getPath path virtualPath }}"
+  :shapes="{{config.component}}s"
+  {{#if (getInlineMode config.displayMode)}}
+  inline="{{config.displayMode}}"
+  label="{{config.alias}}"
+  {{/if}}
+  {{#if config.tip}}
+  tooltip="{{{config.tip}}}"
+  {{/if}}
+/>
 {{else if (eq config.component componentTypes.selectSuggest)}}
 <g-select-suggest
   {{#if (and judgeEnum config.whichEnum.field)}}
@@ -214,13 +214,13 @@
   tooltip="{{{config.tip}}}"
   {{/if}}
 />
-{{else if (eq config.component componentTypes.echartIcon)}}
-<g-select-shape
+{{else if (eq config.component componentTypes.select)}}
+<g-select
   {{#if (and judgeEnum config.whichEnum.field)}}
   v-if="{{getSlotPath path virtualPath}}.{{config.whichEnum.field}} === '{{config.whichEnum.value}}'"
   {{/if}}
   v-model="{{ getPath path virtualPath }}"
-  :shapes="{{config.component}}s"
+  :data="pairData{{config.id}}"
   {{#if (getInlineMode config.displayMode)}}
   inline="{{config.displayMode}}"
   label="{{config.alias}}"

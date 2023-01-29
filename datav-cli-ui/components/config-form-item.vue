@@ -52,16 +52,16 @@
     v-model="strValue"
     :images="[]"
   />
+  <g-select-shape
+    v-else-if="componentType === componentTypes.echartIcon"
+    v-model="strValue"
+    :shapes="selectOptions"
+  />
   <g-select-suggest
     v-else-if="componentType === componentTypes.selectSuggest"
     v-model="strValue"
     :data="selectOptions"
     :filters="enums"
-  />
-  <g-select-shape
-    v-else-if="componentType === componentTypes.echartIcon"
-    v-model="strValue"
-    :shapes="selectOptions"
   />
   <g-select
     v-else-if="componentType === componentTypes.select"

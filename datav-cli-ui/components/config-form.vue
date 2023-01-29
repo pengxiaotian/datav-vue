@@ -22,7 +22,7 @@
         <n-form-item label="显示模式">
           <n-select v-model:value="item.config.displayMode" :options="displayModes" />
         </n-form-item>
-        <n-form-item>
+        <n-form-item v-if="item.config.type === PropDataType.array">
           <template #label>
             <n-tooltip>
               <template #trigger>
