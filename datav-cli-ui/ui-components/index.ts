@@ -17,4 +17,5 @@ export { default as GTooltipPopover } from '@/components/ui/tooltip-popover'
 export { default as GUploadImage } from '@/components/ui/upload-image'
 export { default as GCheckbox } from '@/components/ui/checkbox'
 export { default as GRadioGroup } from '@/components/ui/radio-group'
+export { default as GColorMapping } from '@/components/ui/color-mapping'
 // -- prepend register placeholder --

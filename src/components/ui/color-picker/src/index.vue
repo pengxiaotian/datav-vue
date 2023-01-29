@@ -32,7 +32,7 @@
 </template>
 
 <script lang='ts' setup>
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import { NInput, NColorPicker } from 'naive-ui'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 

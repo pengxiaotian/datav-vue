@@ -43,7 +43,7 @@
 </template>
 
 <script lang='ts' setup>
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import { NConfigProvider, NInputNumber, NTooltip } from 'naive-ui'
 import type { Size } from 'naive-ui/es/input-number/src/interface'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'

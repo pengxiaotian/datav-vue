@@ -31,7 +31,7 @@
 </template>
 
 <script lang='ts' setup>
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import { NInput, NTooltip } from 'naive-ui'
 import type { Size } from 'naive-ui/es/input/src/interface'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
@@ -57,7 +57,7 @@ defineProps({
 })
 const emits = defineEmits([UPDATE_MODEL_EVENT])
 
-const handleInput = (value: string | number) => {
+const handleInput = (value: string) => {
   emits(UPDATE_MODEL_EVENT, value)
 }
 </script>
