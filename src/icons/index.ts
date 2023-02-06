@@ -104,4 +104,6 @@ export { default as IconAlignHorizontal } from './align-horizontal.vue'
 export { default as IconAlignVertical } from './align-vertical.vue'
 export { default as IconShapePin } from './shape-pin.vue'
 export { default as IconShapeAirplane } from './shape-airplane.vue'
+export { default as IconConnect } from './connect.vue'
+export { default as IconDisconnect } from './disconnect.vue'
 // -- prepend export placeholder --

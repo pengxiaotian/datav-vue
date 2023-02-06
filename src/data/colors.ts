@@ -1,11 +1,11 @@
 export const presetCatColors = {
-  'cat-1': ['#12939A', '#DDB27C', '#88572C', '#FF991F', '#F15C17', '#223F9A', '#46AEFF', '#FFFB76', '#79954F', '#978B63', '#FF9C6F', '#98B1FF'],
-  'cat-2': ['#8CD4C6', '#FEFFB3', '#BFBADB', '#FA8073', '#80B1D2', '#FCB460', '#B5DD6B', '#FBCEE2', '#D9D9D9', '#BF7FBC', '#CCECC7', '#F6E44B'],
-  'cat-3': ['#A2CFE6', '#1F77B6', '#B3DF8A', '#2DA32B', '#FC9A99', '#F7393B', '#FDBE6F', '#FE7F02', '#CBB1D8', '#6A3D9C', '#FDFF99', '#B1592B'],
-  'cat-4': ['#8EDBAD', '#12D862', '#6AA7FF', '#0058D7', '#ED95FF', '#B72AD4', '#FFDD97', '#FEAD02', '#63E5B6', '#3D9C7A', '#6261FF', '#302EEF'],
-  'cat-5': ['#B3E2CD', '#66C2A5', '#FDCDAC', '#D88C6F', '#CBD5E8', '#8DA0CB', '#F4CAE4', '#C391B0', '#E6F5C9', '#A7CA6F', '#FFF2AE', '#E5D177'],
-  'cat-6': ['#D15B5B', '#41994A', '#5F5DA5', '#BC6C89', '#D77E55', '#468085', '#035C9F', '#8862C7', '#346E8C', '#D2B144', '#A66142', '#485B98'],
-  'cat-7': ['#32FFA1', '#50BA58', '#00CEFF', '#E7E342', '#FF6A00', '#8C57E4', '#1C81FF', '#FFFB76', '#79954F', '#978B63', '#FF9C6F', '#98B1FF'],
+  'cat-1': ['#12939a', '#ddb27c', '#88572c', '#ff991f', '#f15c17', '#223f9a', '#46aeff', '#fffb76', '#79954f', '#978b63', '#ff9c6f', '#98b1ff'],
+  'cat-2': ['#8cd4c6', '#feffb3', '#bfbadb', '#fa8073', '#80b1d2', '#fcb460', '#b5dd6b', '#fbcee2', '#d9d9d9', '#bf7fbc', '#ccecc7', '#f6e44b'],
+  'cat-3': ['#a2cfe6', '#1f77b6', '#b3df8a', '#2da32b', '#fc9a99', '#f7393b', '#fdbe6f', '#fe7f02', '#cbb1d8', '#6a3d9c', '#fdff99', '#b1592b'],
+  'cat-4': ['#8edbad', '#12d862', '#6aa7ff', '#0058d7', '#ed95ff', '#b72ad4', '#ffdd97', '#fead02', '#63e5b6', '#3d9c7a', '#6261ff', '#302eef'],
+  'cat-5': ['#b3e2cd', '#66c2a5', '#fdcdac', '#d88c6f', '#cbd5e8', '#8da0cb', '#f4cae4', '#c391b0', '#e6f5c9', '#a7ca6f', '#fff2ae', '#e5d177'],
+  'cat-6': ['#d15b5b', '#41994a', '#5f5da5', '#bc6c89', '#d77e55', '#468085', '#035c9f', '#8862c7', '#346e8c', '#d2b144', '#a66142', '#485b98'],
+  'cat-7': ['#32ffa1', '#50ba58', '#00ceff', '#e7e342', '#ff6a00', '#8c57e4', '#1c81ff', '#fffb76', '#79954f', '#978b63', '#ff9c6f', '#98b1ff'],
 }
 
 export const presetSeqColors = {
