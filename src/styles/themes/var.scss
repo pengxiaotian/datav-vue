@@ -79,6 +79,8 @@
   --datav-gui-component-bgcolor-hover: #303640;
   --datav-gui-component-bgcolor-active: #262b33;
   --datav-gui-component-bgcolor-disabled: #13161a;
+  --datav-gui-component-border-color: #0b0c0d;
+  --datav-gui-component-border: 1px solid var(--datav-gui-component-border-color);
   --datav-gui-font-color-base: #a1aeb3;
   --datav-gui-font-color-1: #fff;
   --datav-gui-font-color-2: #c3d3d9;
@@ -92,15 +94,13 @@
   --datav-gui-editor-bgcolor-disabled: #1f2329;
   --datav-gui-fullscreen-bgcolor: #222425;
   --datav-gui-slider-track-color: linear-gradient(to right, #74f0ff, #2681ff);
-  --datav-gui-component-border-color: #0b0c0d;
-  --datav-gui-component-border: 1px solid var(--datav-gui-component-border-color);
   --datav-gui-select-option-bgcolor: #1d2126;
   --datav-gui-select-option-bgcolor-hover: #1b3964;
   --datav-gui-select-color-selected: #fff;
-  --datav-gui-cp-border: 1px solid #141210;
-  --datav-gui-cp-title-padding-left: 0;
   --datav-gui-new-select-border: 1px solid #282f3a;
   --datav-gui-new-select-bgcolor: #0e1013;
+  --datav-gui-cp-border: 1px solid #141210;
+  --datav-gui-cp-title-padding-left: 0;
   --datav-gui-empty-color: #909399;
   --datav-gui-tabs-card-num: 3;
 }

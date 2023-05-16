@@ -1,10 +1,8 @@
 import type { ConfigEnv } from 'vite'
 import { loadEnv, defineConfig } from 'vite'
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import ElementPlus from 'unplugin-element-plus/vite'
-import plainText from 'vite-plugin-plain-text'
-
-import { resolve } from 'path'
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -21,7 +19,6 @@ export default ({ mode }: ConfigEnv) => {
     plugins: [
       vue(),
       ElementPlus(),
-      plainText(/\.hbs$/),
     ],
     server: {
       host: '0.0.0.0',
