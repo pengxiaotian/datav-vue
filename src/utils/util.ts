@@ -1,4 +1,4 @@
-import { isString, extend, isEmpty } from 'lodash-es'
+import { isString } from 'lodash-es'
 import shortid from 'shortid'
 
 const hasOwnProperty = Object.prototype.hasOwnProperty
@@ -16,7 +16,7 @@ export const generateId = (prefix?: string) => {
  * Generating a random int in range (0, max - 1)
  * @param max {number}
  */
-export function getRandomInt(max: number) {
+export const getRandomInt = (max: number) => {
   return Math.floor(Math.random() * Math.floor(max))
 }
 
@@ -29,28 +29,15 @@ export const isBool = (val: unknown) => typeof val === 'boolean'
 export const isNumber = (val: unknown) => typeof val === 'number'
 export const isUndefined = (val: unknown) => val === void 0
 export const isObject = (val: unknown) => Object.prototype.toString.call(val) === '[object Object]'
-
 export const isUrl = (val: string) => /^[a-zA-z]+:\/\/[^\s]*$/.test(val)
 
-export function objToArray(obj) {
-  if (Array.isArray(obj)) {
-    return obj
-  }
-  return isEmpty(obj) ? [] : [obj]
+export const macMetaOrCtrl = (ev: MouseEvent | KeyboardEvent) => {
+  const ismac = isMac()
+  return (!ismac && ev.ctrlKey) || (ismac && ev.metaKey)
 }
 
-export function deduplicate<T>(arr: T[]) {
-  return Array.from(new Set(arr))
-}
-
-export function toObject<T>(arr: Array<T>) {
-  const res: Record<string, T> = Object.create(null)
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i]) {
-      extend(res, arr[i])
-    }
-  }
-  return res
+export const sleep = (time: number) => {
+  return new Promise<void>(resolve => setTimeout(resolve, time))
 }
 
 export function ArrayToObject<T extends string | Object>(arr: Array<T>, key?: string, value?: string) {
@@ -68,7 +55,7 @@ export function ArrayToObject<T extends string | Object>(arr: Array<T>, key?: st
   }, map)
 }
 
-export function toJson<T>(data: any, defaultValue: T) {
+export function jsonToObject<T>(data: any, defaultValue: T): T {
   try {
     if (!data) {
       return defaultValue
@@ -121,9 +108,4 @@ export const replaceTextParams = (text: string, data: Record<string, string>) =>
   return text.replace(reg, (key: string) => {
     return data[key.substring(1)] ?? key
   })
-}
-
-export const macMetaOrCtrl = (ev: MouseEvent | KeyboardEvent) => {
-  const ismac = isMac()
-  return (!ismac && ev.ctrlKey) || (ismac && ev.metaKey)
 }
