@@ -21,12 +21,29 @@
         </n-tooltip>
       </div>
       <div class="components-panel-wrapper" @dragover="dragOver">
-        <el-tabs tab-position="left" @tab-click="handleTabClick">
-          <el-tab-pane v-for="cate in categories" :key="cate.type">
-            <template #label>
+        <n-tabs
+          type="line"
+          size="small"
+          placement="left"
+          :tab-style="{
+            height: '64px',
+            width: '48px',
+          }"
+          :style="{
+            '--n-pane-padding-top': '0',
+            '--n-tab-gap-vertical': '0',
+            '--n-tab-padding-vertical': '14px 12px',
+          }"
+        >
+          <n-tab-pane
+            v-for="cate in categories"
+            :key="cate.type"
+            :name="cate.type"
+          >
+            <template #tab>
               <n-tooltip placement="left" :delay="500">
                 <template #trigger>
-                  <div>
+                  <div @click="handleTabClick">
                     <g-com-icon :icon="cate.icon" class="com-tab-icon" />
                     <span class="com-tab-title">{{ cate.name }}</span>
                   </div>
@@ -34,10 +51,28 @@
                 {{ cate.name }}
               </n-tooltip>
             </template>
-
-            <el-tabs v-if="cate.data.length > 2" tab-position="left" class="el-tabs-l2">
-              <el-tab-pane v-for="subcate in (cate.data as ComDataType[])" :key="subcate.type">
-                <template #label>
+            <n-tabs
+              v-if="cate.data.length > 2"
+              size="small"
+              placement="left"
+              :tab-style="{
+                height: '46px',
+                width: '60px',
+              }"
+              :style="{
+                '--n-bar-color': '#0000',
+                '--n-pane-padding-top': '0',
+                '--n-tab-gap-vertical': '0',
+                '--n-tab-padding-vertical': '14px 12px'
+              }"
+              class="n-tabs-l2"
+            >
+              <n-tab-pane
+                v-for="subcate in (cate.data as ComDataType[])"
+                :key="subcate.type"
+                :name="subcate.type"
+              >
+                <template #tab>
                   <span class="com-tab-title">{{ subcate.name }}</span>
                 </template>
                 <div class="components-single-menu-wp">
@@ -74,8 +109,8 @@
                     </ul>
                   </div>
                 </div>
-              </el-tab-pane>
-            </el-tabs>
+              </n-tab-pane>
+            </n-tabs>
 
             <div v-else class="components-multi-menu">
               <div class="components-single-menu --wider">
@@ -116,8 +151,8 @@
                 </template>
               </div>
             </div>
-          </el-tab-pane>
-        </el-tabs>
+          </n-tab-pane>
+        </n-tabs>
       </div>
     </div>
   </div>
@@ -126,11 +161,7 @@
 <script lang='ts' setup>
 import { ref, computed } from 'vue'
 import { cloneDeep } from 'lodash-es'
-
-import 'element-plus/es/components/tabs/style/css'
-import 'element-plus/es/components/tab-pane/style/css'
-import { ElTabs, ElTabPane } from 'element-plus'
-
+import { NTabs, NTabPane } from 'naive-ui'
 import { PanelType, useToolbarStore } from '@/store/toolbar'
 import { useEditorStore } from '@/store/editor'
 import { classifications, ComDataType, ComDataDto } from '@/data/system-components'
@@ -204,5 +235,4 @@ const dragOver = (ev: DragEvent) => {
 
 <style lang="scss">
 @import './style';
-@import './tabs';
 </style>
