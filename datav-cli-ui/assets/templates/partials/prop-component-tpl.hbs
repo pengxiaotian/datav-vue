@@ -93,6 +93,11 @@
   tooltip="{{{config.tip}}}"
   {{/if}}
 />
+{{else if (eq config.component componentTypes.colorMap)}}
+<g-color-mapping
+  label="{{config.alias}}"
+  :data="{{ getPath path virtualPath }}"
+/>
 {{else if (eq config.component componentTypes.radio)}}
 <g-radio-group
   {{#if (and judgeEnum config.whichEnum.field)}}

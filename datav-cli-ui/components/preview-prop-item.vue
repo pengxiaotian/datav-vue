@@ -55,6 +55,13 @@
     :data="pairs"
     is-button
   />
+  <g-color-mapping
+    v-else-if="componentType === componentTypes.colorMap"
+    :data="defaultValue"
+    :inline="mode"
+    :label="label"
+    :tooltip="tooltip"
+  />
   <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
@@ -140,7 +147,7 @@
 
 <script lang='ts' setup>
 import type { PropType } from 'vue'
-import { GCheckbox, GInput, GInputNumber, GColorPicker, GSlider, GSwitch, GSliderRange, GUploadImage, GSelectImage, GSelectSuggest, GSelectShape, GSelect, GRadioGroup } from '~~/ui-components'
+import { GCheckbox, GInput, GInputNumber, GColorPicker, GSlider, GSwitch, GSliderRange, GUploadImage, GSelectImage, GSelectSuggest, GSelectShape, GSelect, GRadioGroup, GColorMapping } from '~~/ui-components'
 import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '~~/domains/prop-data'
 
 const props = defineProps({
@@ -152,9 +159,7 @@ const props = defineProps({
     type: String as PropType<ComponentType>,
     required: true,
   },
-  defaultValue: {
-    type: [String, Number, Boolean, Array, Object],
-  },
+  defaultValue: null,
   min: {
     type: Number,
     default: -Infinity,

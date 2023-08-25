@@ -53,6 +53,8 @@ specifiers:
   stylelint: ^14.16.0
   stylelint-config-prettier: ^9.0.4
   stylelint-config-standard: ^29.0.0
+  tinycolor2: ^1.6.0
+  tinygradient: ^1.1.5
   tslib: ^2.4.1
   tsparticles: ^2.6.0
   typescript: ^4.9.4
@@ -86,6 +88,8 @@ dependencies:
   particles.vue3: 2.6.0
   pinia: 2.0.28_prq2uz4lho2pwp6irk4cfkrxwu
   shortid: 2.2.16
+  tinycolor2: 1.6.0
+  tinygradient: 1.1.5
   tsparticles: 2.6.0
   vue: 3.2.45
   vue-echarts: 6.2.4_echarts@5.4.1+vue@3.2.45
@@ -1915,6 +1919,10 @@ packages:
     dependencies:
       '@types/node': 18.11.9
     dev: true
+
+  /@types/tinycolor2/1.4.3:
+    resolution: {integrity: sha512-Kf1w9NE5HEgGxCRyIcRXR/ZYtDv0V8FVPtYHwLxl0O+maGX0erE77pQlD0gpP+/KByMZ87mOA79SjifhSB3PjQ==}
+    dev: false
 
   /@types/web-bluetooth/0.0.14:
     resolution: {integrity: sha512-5d2RhCard1nQUC3aHcq/gHzWYO6K0WJmAbjO7mQJgCQKtZpgXxv1rOM6O/dBDhDYYVutk1sciOgNSe+5YyfM8A==}
@@ -6479,6 +6487,17 @@ packages:
     dependencies:
       readable-stream: 3.6.0
     dev: true
+
+  /tinycolor2/1.6.0:
+    resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
+    dev: false
+
+  /tinygradient/1.1.5:
+    resolution: {integrity: sha512-8nIfc2vgQ4TeLnk2lFj4tRLvvJwEfQuabdsmvDdQPT0xlk9TaNtpGd6nNRxXoK6vQhN6RSzj+Cnp5tTQmpxmbw==}
+    dependencies:
+      '@types/tinycolor2': 1.4.3
+      tinycolor2: 1.6.0
+    dev: false
 
   /title-case/3.0.3:
     resolution: {integrity: sha512-e1zGYRvbffpcHIrnuqT0Dh+gEJtDaxDSoG4JAIpq4oDFyooziLBIiYQv0GBT4FUAnUop5uZ1hiIAj7oAF6sOCA==}

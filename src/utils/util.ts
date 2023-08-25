@@ -2,7 +2,6 @@ import { isString } from 'lodash-es'
 import shortid from 'shortid'
 
 const hasOwnProperty = Object.prototype.hasOwnProperty
-export const hasOwn = (val: object, key: string | symbol) => hasOwnProperty.call(val, key)
 
 /**
  * Generate shortId
@@ -25,11 +24,13 @@ export const isEdge = () => navigator.userAgent.indexOf('Edge') > -1
 export const isFirefox = () => !!window.navigator.userAgent.match(/firefox/i)
 export const isMac = () => /macintosh|mac os x/i.test(navigator.userAgent)
 
-export const isBool = (val: unknown) => typeof val === 'boolean'
-export const isNumber = (val: unknown) => typeof val === 'number'
-export const isUndefined = (val: unknown) => val === void 0
-export const isObject = (val: unknown) => Object.prototype.toString.call(val) === '[object Object]'
+export const isBool = (val: unknown): val is boolean => typeof val === 'boolean'
+export const isNumber = (val: unknown): val is number => typeof val === 'number'
+export const isUndefined = (val: unknown): val is undefined => val === void 0
+export const isObject = (val: unknown): val is object => Object.prototype.toString.call(val) === '[object Object]'
 export const isUrl = (val: string) => /^[a-zA-z]+:\/\/[^\s]*$/.test(val)
+
+export const hasOwn = (val: object, key: string | symbol) => hasOwnProperty.call(val, key)
 
 export const macMetaOrCtrl = (ev: MouseEvent | KeyboardEvent) => {
   const ismac = isMac()

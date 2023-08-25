@@ -69,6 +69,7 @@ Handlebars.registerHelper('isTypeOf', (configList, key, type) => {
   return item ? item.config.type === type : false
 })
 Handlebars.registerHelper('isEmptyArray', (arr: any[]) => !arr || arr.length === 0)
+Handlebars.registerHelper('isCustom', type => type === 'colorMap')
 
 // ------Partials------
 Handlebars.registerPartial('prop-config-tpl', propConfigTpl)

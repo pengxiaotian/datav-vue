@@ -39,6 +39,8 @@
     "particles.vue3": "^2.6.0",
     "pinia": "^2.0.28",
     "shortid": "^2.2.16",
+    "tinycolor2": "^1.6.0",
+    "tinygradient": "^1.1.5",
     "tsparticles": "^2.6.0",
     "vue": "^3.2.45",
     "vue-echarts": "^6.2.4",

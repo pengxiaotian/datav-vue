@@ -1,5 +1,5 @@
 import { isArray, isString } from 'lodash-es'
-import { isNumber, isBool, isObject, getRandomInt } from '@/utils/util'
+import { isNumber, isBool, isObject, getRandomInt, hasOwn } from '@/utils/util'
 import { ToolboxType } from '@/domains/editor'
 import * as selectOptions from '@/data/select-options'
 
@@ -51,6 +51,7 @@ export enum ComponentType {
   valueFormat = 'valueFormat',
   timeFormat = 'timeFormat',
   imageType = 'imageType',
+  colorMap = 'colorMap',
 }
 
 export enum DisplayMode {
@@ -166,10 +167,16 @@ export const initPropData = (data: any, arr: PropDto[], prev: string) => {
       pc.defaultValue = val
     } else if (isObject(val)) {
       pc.type = PropDataType.object
-      pc.displayMode = DisplayMode.nest
-      dto.children = []
       dto.cols = key === '0' ? [] : Object.keys(val)
-      initPropData(val, dto.children, dto.path)
+      if (hasOwn(val, 'mapping') && hasOwn(val, 'scale')) {
+        pc.component = ComponentType.colorMap
+        pc.displayMode = DisplayMode.flat
+        pc.defaultValue = val
+      } else {
+        pc.displayMode = DisplayMode.nest
+        dto.children = []
+        initPropData(val, dto.children, dto.path)
+      }
     } else if (isArray(val) && val.length > 0) {
       pc.type = PropDataType.array
       dto.children = []

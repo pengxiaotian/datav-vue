@@ -148,6 +148,9 @@
   tooltip="{{{item.config.tip}}}"
   {{/if}}
   label="{{item.config.alias}}"
+  {{#if (isCustom item.config.component)}}
+  custom="{{{item.config.tip}}}"
+  {{/if}}
 >
   {{> prop-component-tpl
     componentTypes=../componentTypes
