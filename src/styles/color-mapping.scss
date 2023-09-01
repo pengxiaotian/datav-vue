@@ -6,7 +6,7 @@
   width: 100%;
   border: none;
   font-size: 12px;
-  color: #fff;
+  color: var(--datav-gui-font-color-1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -128,18 +128,12 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
         }
 
         .--color-block {
           width: 12px;
           height: 100%;
-        }
-
-        &:first-child {
-          .--color-block {
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-          }
         }
 
         .--color-changer {
@@ -155,32 +149,32 @@
           align-items: center;
           justify-content: space-between;
 
-          .datav-gui-fill {
-            background: none;
-            border: none;
+          .--color-fill {
             padding-right: 6px;
+            width: 100%;
+            height: 24px;
+            font-size: 12px;
+            color: var(--datav-gui-font-color-1);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
 
-            .datav-gui-fill-default {
+            .--color-fill-default {
               border: 1px solid var(--datav-gui-component-border-color);
-              background-image: url(data:image/png;base64,R0lGODdhCgAKAPAAAOXl5f///ywAAAAACgAKAEACEIQdqXt9GxyETrI279OIgwIAOw==);
               display: flex;
               align-items: center;
               justify-content: center;
               width: 24px;
               height: 14px;
               border-radius: 2px;
-              overflow: hidden;
               cursor: pointer;
               margin-left: 5px;
-
-              > .--block {
-                display: block;
-                width: 100%;
-                height: 100%;
-              }
             }
 
-            .datav-gui-fill-input {
+            .--color-fill-input {
+              display: block;
               background: transparent;
               padding-left: 5px;
               border: none;
@@ -193,10 +187,9 @@
 
           .--color-pin {
             font-size: 14px;
-            padding-right: 4px;
             color: var(--datav-gui-font-color-description);
             position: absolute;
-            right: 0;
+            right: 4px;
             top: 4px;
             cursor: pointer;
             font-style: normal;
@@ -208,7 +201,7 @@
           }
 
           &.--with-pin {
-            .datav-gui-fill {
+            .--color-fill {
               padding-right: 20px;
             }
           }
@@ -238,6 +231,13 @@
             border-color: var(--datav-gui-primary-color);
           }
         }
+
+        &:first-child {
+          .--color-block {
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+          }
+        }
       }
 
       .--excepted {
@@ -249,16 +249,17 @@
         &:last-child {
           margin-top: 12px;
         }
+      }
 
-        &.--custom {
-          .--color-area {
-            width: 58%;
-          }
+      .--mapping-main.--custom,
+      .--excepted.--custom, {
+        .--color-area {
+          width: 58%;
+        }
 
-          .--value-area {
-            width: 42%;
-            padding-left: 20px;
-          }
+        .--value-area {
+          width: 42%;
+          padding-left: 20px;
         }
       }
 
@@ -287,14 +288,40 @@
           border: 1px solid var(--datav-gui-component-border-color);
           position: absolute;
           left: -3px;
+          z-index: 1;
         }
 
-        .datav-input {
-          display: block;
-          border-radius: 2px;
-          height: 24px;
-          width: 100%;
-          background: var(--datav-gui-bgcolor-back);
+        .--value-input:not(.is-disabled) {
+          color: var(--datav-gui-font-color-1);
+        }
+      }
+
+      &.--linear .--mapping-main {
+        .--color-block {
+          transform: translateY(18px);
+        }
+      }
+
+      &.--threshold {
+        .--mapping-main {
+          .--value-area {
+            transform: translateY(-18px);
+          }
+
+          .--value-editor::after {
+            content: '';
+            width: 126px;
+            height: 3px;
+            border-radius: 1px;
+            display: block;
+            background: var(--datav-gui-font-color-description);
+            position: absolute;
+            left: -148px;
+          }
+        }
+
+        &.--custom .--excepted {
+          transform: translateY(-24px);
         }
       }
     }
@@ -351,7 +378,16 @@
     }
   }
 
-  .color-block {
+  .datav-new-input {
+    border-radius: 2px;
+    background: var(--datav-gui-bgcolor-back);
+
+    &:hover {
+      color: var(--datav-gui-font-color-1);
+    }
+  }
+
+  .g-color-mapping__color-block {
     background-image: url(data:image/png;base64,R0lGODdhCgAKAPAAAOXl5f///ywAAAAACgAKAEACEIQdqXt9GxyETrI279OIgwIAOw==);
     overflow: hidden;
 
@@ -360,30 +396,6 @@
       width: 100%;
       height: 100%;
     }
-  }
-
-  .datav-gui-fill {
-    width: 100%;
-    height: 24px;
-    background: var(--datav-gui-component-bgcolor);
-    border: 1px solid var(--datav-gui-component-border-color);
-    font-size: 12px;
-    color: var(--datav-gui-font-color-1);
-    outline: none;
-    box-shadow: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-  }
-
-  .datav-input.datav-input--disabled {
-    line-height: 16px;
-    font-size: 12px;
-    color: var(--datav-font-color-disabled);
-    cursor: not-allowed;
-    border: var(--datav-border-disabled);
   }
 }
 

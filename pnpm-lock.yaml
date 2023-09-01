@@ -12,6 +12,7 @@ specifiers:
   '@types/lodash-es': ^4.17.6
   '@types/mockjs': ^1.0.7
   '@types/shortid': ^0.0.29
+  '@types/tinycolor2': ^1.4.3
   '@typescript-eslint/eslint-plugin': ^5.46.0
   '@typescript-eslint/parser': ^5.46.0
   '@vitejs/plugin-vue': ^3.2.0
@@ -107,6 +108,7 @@ devDependencies:
   '@types/lodash-es': 4.17.6
   '@types/mockjs': 1.0.7
   '@types/shortid': 0.0.29
+  '@types/tinycolor2': 1.4.3
   '@typescript-eslint/eslint-plugin': 5.46.0_5mle7isnkfgjmrghnnczirv6iy
   '@typescript-eslint/parser': 5.46.0_ha6vam6werchizxrnqvarmz2zu
   '@vitejs/plugin-vue': 3.2.0_vite@3.2.5+vue@3.2.45
@@ -1922,7 +1924,6 @@ packages:
 
   /@types/tinycolor2/1.4.3:
     resolution: {integrity: sha512-Kf1w9NE5HEgGxCRyIcRXR/ZYtDv0V8FVPtYHwLxl0O+maGX0erE77pQlD0gpP+/KByMZ87mOA79SjifhSB3PjQ==}
-    dev: false
 
   /@types/web-bluetooth/0.0.14:
     resolution: {integrity: sha512-5d2RhCard1nQUC3aHcq/gHzWYO6K0WJmAbjO7mQJgCQKtZpgXxv1rOM6O/dBDhDYYVutk1sciOgNSe+5YyfM8A==}

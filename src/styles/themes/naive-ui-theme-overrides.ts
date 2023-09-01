@@ -195,6 +195,18 @@ const themeOverrides: GlobalThemeOverrides = {
     paddingSmall: '0 8px',
     fontSizeSmall: '12px',
     heightMedium: '32px',
+    heightTiny: '24px',
+  },
+  InputNumber: {
+    peers: {
+      Input: {
+        heightTiny: '24px',
+      },
+      Button: {
+        iconSizeTiny: '10px',
+        fontSizeTiny: '10px',
+      },
+    },
   },
   ColorPicker: {
     color: vars2.guiComponentBgColor,

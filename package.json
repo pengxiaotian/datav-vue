@@ -58,6 +58,7 @@
     "@types/lodash-es": "^4.17.6",
     "@types/mockjs": "^1.0.7",
     "@types/shortid": "^0.0.29",
+    "@types/tinycolor2": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^5.46.0",
     "@typescript-eslint/parser": "^5.46.0",
     "@vitejs/plugin-vue": "^3.2.0",

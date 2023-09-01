@@ -3,7 +3,7 @@ export type ColorMappingScaleType = 'ordinal' | 'linear' | 'threshold'
 export interface ColorMappingScaleConfig {
   scheme: string
   range: string[]
-  domain: number[]
+  domain: (string | number)[]
   pin: boolean[]
   custom: boolean
   abnormal: string
