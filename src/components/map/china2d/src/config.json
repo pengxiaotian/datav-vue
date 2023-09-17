@@ -2,6 +2,7 @@
   {
     "key": "global",
     "config": {
+      "id": 2481,
       "type": "object",
       "component": "none",
       "alias": "全局配置",
@@ -33,6 +34,7 @@
       {
         "key": "bgColor",
         "config": {
+          "id": 4349,
           "type": "string",
           "component": "color",
           "alias": "地图背景",
@@ -64,6 +66,7 @@
       {
         "key": "zoom",
         "config": {
+          "id": 1962,
           "type": "object",
           "component": "none",
           "alias": "地图缩放",
@@ -95,6 +98,7 @@
           {
             "key": "range",
             "config": {
+              "id": 481,
               "type": "array",
               "component": "sliderRange",
               "alias": "缩放范围 [0, 20]",
@@ -125,43 +129,12 @@
             },
             "path": "global.zoom.range",
             "virtualPath": "",
-            "children": [
-              {
-                "key": "0",
-                "config": {
-                  "type": "number",
-                  "component": "number",
-                  "alias": "",
-                  "tip": "",
-                  "displayMode": "single",
-                  "features": [],
-                  "layout": "horizontal",
-                  "toggleCol": "",
-                  "isHide": false,
-                  "defaultValue": 0,
-                  "min": 0,
-                  "max": 100,
-                  "step": 1,
-                  "InfiniteMin": false,
-                  "InfiniteMax": false,
-                  "suffix": "",
-                  "enums": [],
-                  "pairs": [],
-                  "whichEnum": {
-                    "field": "",
-                    "value": ""
-                  },
-                  "flatValue": false,
-                  "isRange": false
-                },
-                "path": "global.zoom.range.0",
-                "virtualPath": ""
-              }
-            ]
+            "children": []
           },
           {
             "key": "value",
             "config": {
+              "id": 6054,
               "type": "number",
               "component": "slider",
               "alias": "默认级别 [0, 20]",
@@ -171,7 +144,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": false,
-              "defaultValue": 4.5,
+              "defaultValue": 1.5,
               "min": 0,
               "max": 20,
               "step": 0.1,
@@ -199,6 +172,7 @@
       {
         "key": "center",
         "config": {
+          "id": 830,
           "type": "object",
           "component": "none",
           "alias": "地图中心",
@@ -230,6 +204,7 @@
           {
             "key": "lng",
             "config": {
+              "id": 4172,
               "type": "number",
               "component": "slider",
               "alias": "经度",
@@ -261,6 +236,7 @@
           {
             "key": "lat",
             "config": {
+              "id": 2910,
               "type": "number",
               "component": "slider",
               "alias": "纬度",
@@ -305,6 +281,7 @@
   {
     "key": "tooltip",
     "config": {
+      "id": 6014,
       "type": "object",
       "component": "none",
       "alias": "弹框设置",
@@ -336,6 +313,7 @@
       {
         "key": "textStyle",
         "config": {
+          "id": 698,
           "type": "object",
           "component": "none",
           "alias": "文本样式",
@@ -367,6 +345,7 @@
           {
             "key": "fontFamily",
             "config": {
+              "id": 3075,
               "type": "string",
               "component": "fontFamily",
               "alias": "字体",
@@ -398,6 +377,7 @@
           {
             "key": "fontWeight",
             "config": {
+              "id": 1107,
               "type": "string",
               "component": "fontWeight",
               "alias": "文字粗细",
@@ -429,6 +409,7 @@
           {
             "key": "fontSize",
             "config": {
+              "id": 5753,
               "type": "number",
               "component": "number",
               "alias": "字号",
@@ -460,6 +441,7 @@
           {
             "key": "color",
             "config": {
+              "id": 2320,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -499,6 +481,7 @@
       {
         "key": "lineHeight",
         "config": {
+          "id": 8620,
           "type": "number",
           "component": "slider",
           "alias": "行高比例",
@@ -530,6 +513,7 @@
       {
         "key": "borderRadius",
         "config": {
+          "id": 8323,
           "type": "number",
           "component": "slider",
           "alias": "圆角半径",
@@ -561,6 +545,7 @@
       {
         "key": "padding",
         "config": {
+          "id": 7521,
           "type": "object",
           "component": "none",
           "alias": "外边距",
@@ -592,6 +577,7 @@
           {
             "key": "top",
             "config": {
+              "id": 3491,
               "type": "number",
               "component": "number",
               "alias": "上",
@@ -623,6 +609,7 @@
           {
             "key": "bottom",
             "config": {
+              "id": 6218,
               "type": "number",
               "component": "number",
               "alias": "下",
@@ -654,6 +641,7 @@
           {
             "key": "left",
             "config": {
+              "id": 8615,
               "type": "number",
               "component": "number",
               "alias": "左",
@@ -685,6 +673,7 @@
           {
             "key": "right",
             "config": {
+              "id": 2589,
               "type": "number",
               "component": "number",
               "alias": "右",
@@ -724,6 +713,7 @@
       {
         "key": "bgColor",
         "config": {
+          "id": 1139,
           "type": "string",
           "component": "color",
           "alias": "背景色",
@@ -764,6 +754,7 @@
   {
     "key": "interactive",
     "config": {
+      "id": 7575,
       "type": "object",
       "component": "none",
       "alias": "交互配置",
@@ -795,6 +786,7 @@
       {
         "key": "dragging",
         "config": {
+          "id": 5068,
           "type": "boolean",
           "component": "switch",
           "alias": "开启拖拽",
@@ -826,6 +818,7 @@
       {
         "key": "scrollWheelZoom",
         "config": {
+          "id": 1713,
           "type": "boolean",
           "component": "switch",
           "alias": "开启缩放",
@@ -857,6 +850,7 @@
       {
         "key": "isInteractive",
         "config": {
+          "id": 4611,
           "type": "boolean",
           "component": "switch",
           "alias": "地图交互",

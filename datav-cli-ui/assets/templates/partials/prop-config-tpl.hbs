@@ -53,7 +53,7 @@
   label="{{item.config.alias}}"
   mode="layout"
   default-layout="{{item.config.layout}}"
-  :features="{{{enumsToTpl item.config.features}}}"
+  :features="{{enumsToTpl item.config.features}}"
   :list="{{getSlotPath item.path item.virtualPath}}.{{item.key}}"
   :min="{{item.config.min}}"
   :max="{{item.config.max}}"
@@ -148,6 +148,9 @@
   tooltip="{{{item.config.tip}}}"
   {{/if}}
   label="{{item.config.alias}}"
+  {{#if (isCustom item.config.component)}}
+  custom="{{{item.config.tip}}}"
+  {{/if}}
 >
   {{> prop-component-tpl
     componentTypes=../componentTypes

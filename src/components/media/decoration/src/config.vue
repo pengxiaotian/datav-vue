@@ -9,7 +9,7 @@
       >
         <g-select-image
           v-model="config.global.img"
-          :images="images"
+          :images="presetImages"
         />
       </g-field>
       <g-field
@@ -27,36 +27,14 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import { Decoration, presetImages } from './decoration'
-import { BorderImage } from '@/components/_models/border-image'
 
-export default defineComponent({
-  name: 'VDecorationProp',
-  props: {
-    com: {
-      type: Object as PropType<Decoration>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: Decoration
+}>()
 
-    const images: BorderImage[] = []
-    for (const key in presetImages) {
-      const item = presetImages[key]
-      images.push({
-        id: key,
-        name: key,
-        src: item.url,
-      })
-    }
+const config = toRef(props.com, 'config')
 
-    return {
-      config,
-      images,
-    }
-  },
-})
 </script>

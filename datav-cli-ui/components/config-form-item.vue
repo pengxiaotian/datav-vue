@@ -12,30 +12,31 @@
     v-model="strValue"
     size="medium"
   />
-  <n-checkbox
+  <g-checkbox
     v-else-if="componentType === componentTypes.checkbox"
-    v-model:checked="boolValue"
+    v-model="boolValue"
   />
-  <n-switch
+  <g-switch
     v-else-if="componentType === componentTypes.switch"
-    v-model:value="boolValue"
+    v-model="boolValue"
   />
-  <n-radio-group
-    v-else-if="componentType === componentTypes.radio"
-    v-model:value="strValue"
-  >
-    <n-radio-button v-for="pair in pairs" :key="pair.key" :value="pair.key">
-      {{ pair.value }}
-    </n-radio-button>
-  </n-radio-group>
-  <n-radio-group
+  <g-radio-group
     v-else-if="componentType === componentTypes.radioBase"
-    v-model:value="strValue"
-  >
-    <n-radio v-for="pair in pairs" :key="pair.key" :value="pair.key">
-      {{ pair.value }}
-    </n-radio>
-  </n-radio-group>
+    v-model="strValue"
+    :data="pairs"
+  />
+  <g-radio-group
+    v-else-if="componentType === componentTypes.radio"
+    v-model="strValue"
+    :data="pairs"
+    is-button
+  />
+  <g-color-mapping
+    v-else-if="componentType === componentTypes.colorMap"
+    :data="defaultValue"
+    :label="label"
+    style="width: 332px;"
+  />
   <g-slider
     v-else-if="componentType === componentTypes.slider"
     v-model="numValue"
@@ -57,16 +58,16 @@
     v-model="strValue"
     :images="[]"
   />
+  <g-select-shape
+    v-else-if="componentType === componentTypes.echartIcon"
+    v-model="strValue"
+    :shapes="selectOptions"
+  />
   <g-select-suggest
     v-else-if="componentType === componentTypes.selectSuggest"
     v-model="strValue"
     :data="selectOptions"
     :filters="enums"
-  />
-  <g-select-shape
-    v-else-if="componentType === componentTypes.echartIcon"
-    v-model="strValue"
-    :shapes="selectOptions"
   />
   <g-select
     v-else-if="componentType === componentTypes.select"
@@ -74,14 +75,12 @@
     :data="pairs"
   />
   <template v-else-if="AllOptionKeys.includes(componentType + 's')">
-    <n-radio-group
+    <g-radio-group
       v-if="flatValue"
-      v-model:value="strValue"
-    >
-      <n-radio-button v-for="em in selectOptions" :key="em.id" :value="em.id">
-        {{ em.value }}
-      </n-radio-button>
-    </n-radio-group>
+      v-model="strValue"
+      :data="selectOptions"
+      is-button
+    />
     <g-select
       v-else
       v-model="strValue"
@@ -93,8 +92,7 @@
 
 <script lang='ts' setup>
 import type { PropType } from 'vue'
-import { NCheckbox, NSwitch, NRadioGroup, NRadioButton, NRadio } from 'naive-ui'
-import { GInput, GInputNumber, GColorPicker, GSlider, GSliderRange, GUploadImage, GSelectImage, GSelectSuggest, GSelectShape, GSelect } from '~~/ui-components'
+import { GCheckbox, GInput, GInputNumber, GColorPicker, GSlider, GSwitch, GSliderRange, GUploadImage, GSelectImage, GSelectSuggest, GSelectShape, GSelect, GRadioGroup, GColorMapping } from '~~/ui-components'
 import { PropDataType, ComponentType, AllOptionKeys, getSelectedOptions } from '~~/domains/prop-data'
 
 const props = defineProps({
@@ -106,9 +104,7 @@ const props = defineProps({
     type: String as PropType<ComponentType>,
     required: true,
   },
-  defaultValue: {
-    type: [String, Number, Boolean, Array, Object],
-  },
+  defaultValue: Object as PropType<any>,
   enums: {
     type: Array as PropType<string[]>,
     default: () => [],
@@ -118,6 +114,7 @@ const props = defineProps({
     default: () => [],
   },
   flatValue: Boolean,
+  label: String,
 })
 
 const componentTypes = ref({ ...ComponentType })

@@ -15,7 +15,11 @@ const enumData{{item.config.id}} = [
 ]
 
 {{/unless}}
-{{> prop-data-tpl
-  configs=item.children
-}}
+{{#if (includes item.config.features 'add')}}
+const handleAdd{{capitalize item.key}}Item = () => {
+  throw new Error('handleAdd{{capitalize item.key}}Item Not Implemented')
+}
+
+{{/if}}
+{{> prop-data-tpl configs=item.children}}
 {{/each}}

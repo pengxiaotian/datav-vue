@@ -2,6 +2,7 @@
   {
     "key": "borderRadius",
     "config": {
+      "id": 2169,
       "type": "number",
       "component": "number",
       "alias": "圆角",
@@ -24,7 +25,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "borderRadius",
     "virtualPath": ""
@@ -32,6 +34,7 @@
   {
     "key": "fills",
     "config": {
+      "id": 977,
       "type": "array",
       "component": "none",
       "alias": "填充",
@@ -60,7 +63,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "fills",
     "virtualPath": "",
@@ -68,6 +72,7 @@
       {
         "key": "0",
         "config": {
+          "id": 6016,
           "type": "object",
           "component": "none",
           "alias": "填充",
@@ -90,7 +95,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "fills.0",
         "virtualPath": "",
@@ -98,6 +104,7 @@
           {
             "key": "fill",
             "config": {
+              "id": 2799,
               "type": "string",
               "component": "color",
               "alias": "填充",
@@ -120,7 +127,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "fills.0.fill",
             "virtualPath": "slotProps.item.fill"
@@ -128,6 +136,7 @@
           {
             "key": "opacity",
             "config": {
+              "id": 6991,
               "type": "number",
               "component": "number",
               "alias": "透明度",
@@ -150,7 +159,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "fills.0.opacity",
             "virtualPath": "slotProps.item.opacity"
@@ -163,6 +173,7 @@
   {
     "key": "border",
     "config": {
+      "id": 5508,
       "type": "object",
       "component": "none",
       "alias": "边框",
@@ -185,7 +196,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "border",
     "virtualPath": "",
@@ -193,6 +205,7 @@
       {
         "key": "show",
         "config": {
+          "id": 5970,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -215,7 +228,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "border.show",
         "virtualPath": ""
@@ -223,6 +237,7 @@
       {
         "key": "type",
         "config": {
+          "id": 8683,
           "type": "string",
           "component": "radio",
           "alias": "边框类型",
@@ -258,7 +273,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "border.type",
         "virtualPath": ""
@@ -266,6 +282,7 @@
       {
         "key": "flat",
         "config": {
+          "id": 6420,
           "type": "object",
           "component": "none",
           "alias": "边框配置",
@@ -288,7 +305,8 @@
             "field": "type",
             "value": "flat"
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "border.flat",
         "virtualPath": "",
@@ -296,6 +314,7 @@
           {
             "key": "width",
             "config": {
+              "id": 4072,
               "type": "number",
               "component": "number",
               "alias": "粗细",
@@ -318,7 +337,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.flat.width",
             "virtualPath": ""
@@ -326,6 +346,7 @@
           {
             "key": "style",
             "config": {
+              "id": 7362,
               "type": "string",
               "component": "lineStyle",
               "alias": "样式",
@@ -348,7 +369,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.flat.style",
             "virtualPath": ""
@@ -356,6 +378,7 @@
           {
             "key": "color",
             "config": {
+              "id": 5722,
               "type": "string",
               "component": "color",
               "alias": "颜色",
@@ -378,7 +401,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.flat.color",
             "virtualPath": ""
@@ -393,6 +417,7 @@
       {
         "key": "linearGradient",
         "config": {
+          "id": 9003,
           "type": "object",
           "component": "none",
           "alias": "边框配置",
@@ -415,7 +440,8 @@
             "field": "type",
             "value": "linearGradient"
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "border.linearGradient",
         "virtualPath": "",
@@ -423,6 +449,7 @@
           {
             "key": "width",
             "config": {
+              "id": 2122,
               "type": "number",
               "component": "number",
               "alias": "粗细",
@@ -445,7 +472,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.linearGradient.width",
             "virtualPath": ""
@@ -453,6 +481,7 @@
           {
             "key": "color",
             "config": {
+              "id": 5774,
               "type": "object",
               "component": "none",
               "alias": "渐变色",
@@ -475,7 +504,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.linearGradient.color",
             "virtualPath": "",
@@ -483,6 +513,7 @@
               {
                 "key": "angle",
                 "config": {
+                  "id": 4154,
                   "type": "number",
                   "component": "number",
                   "alias": "角度",
@@ -505,7 +536,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "border.linearGradient.color.angle",
                 "virtualPath": ""
@@ -513,6 +545,7 @@
               {
                 "key": "stops",
                 "config": {
+                  "id": 1551,
                   "type": "array",
                   "component": "none",
                   "alias": "节点",
@@ -541,7 +574,8 @@
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "border.linearGradient.color.stops",
                 "virtualPath": "",
@@ -549,6 +583,7 @@
                   {
                     "key": "0",
                     "config": {
+                      "id": 4947,
                       "type": "object",
                       "component": "none",
                       "alias": "节点",
@@ -571,7 +606,8 @@
                         "field": "",
                         "value": ""
                       },
-                      "flatValue": false
+                      "flatValue": false,
+                      "isRange": false
                     },
                     "path": "border.linearGradient.color.stops.0",
                     "virtualPath": "",
@@ -579,6 +615,7 @@
                       {
                         "key": "offset",
                         "config": {
+                          "id": 8303,
                           "type": "number",
                           "component": "number",
                           "alias": "位置",
@@ -601,7 +638,8 @@
                             "field": "",
                             "value": ""
                           },
-                          "flatValue": false
+                          "flatValue": false,
+                          "isRange": false
                         },
                         "path": "border.linearGradient.color.stops.0.offset",
                         "virtualPath": "slotProps.item.offset"
@@ -609,6 +647,7 @@
                       {
                         "key": "color",
                         "config": {
+                          "id": 3720,
                           "type": "string",
                           "component": "color",
                           "alias": "颜色",
@@ -631,7 +670,8 @@
                             "field": "",
                             "value": ""
                           },
-                          "flatValue": false
+                          "flatValue": false,
+                          "isRange": false
                         },
                         "path": "border.linearGradient.color.stops.0.color",
                         "virtualPath": "slotProps.item.color"
@@ -656,6 +696,7 @@
       {
         "key": "imageType",
         "config": {
+          "id": 406,
           "type": "string",
           "component": "radio",
           "alias": "配置方式",
@@ -687,7 +728,8 @@
             "field": "type",
             "value": "image"
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "border.imageType",
         "virtualPath": ""
@@ -695,6 +737,7 @@
       {
         "key": "presetImage",
         "config": {
+          "id": 8798,
           "type": "string",
           "component": "selectImage",
           "alias": "边框配置",
@@ -717,7 +760,8 @@
             "field": "imageType",
             "value": "preset"
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "border.presetImage",
         "virtualPath": ""
@@ -725,6 +769,7 @@
       {
         "key": "customImage",
         "config": {
+          "id": 819,
           "type": "object",
           "component": "none",
           "alias": "边框配置",
@@ -747,7 +792,8 @@
             "field": "imageType",
             "value": "custom"
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "border.customImage",
         "virtualPath": "",
@@ -755,6 +801,7 @@
           {
             "key": "source",
             "config": {
+              "id": 5794,
               "type": "string",
               "component": "uploadImage",
               "alias": "图片",
@@ -777,7 +824,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.customImage.source",
             "virtualPath": ""
@@ -785,6 +833,7 @@
           {
             "key": "slice",
             "config": {
+              "id": 1370,
               "type": "string",
               "component": "input",
               "alias": "切片",
@@ -807,7 +856,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.customImage.slice",
             "virtualPath": ""
@@ -815,6 +865,7 @@
           {
             "key": "width",
             "config": {
+              "id": 3020,
               "type": "string",
               "component": "input",
               "alias": "宽度",
@@ -837,7 +888,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.customImage.width",
             "virtualPath": ""
@@ -845,6 +897,7 @@
           {
             "key": "outset",
             "config": {
+              "id": 3569,
               "type": "string",
               "component": "input",
               "alias": "外扩",
@@ -867,7 +920,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.customImage.outset",
             "virtualPath": ""
@@ -875,6 +929,7 @@
           {
             "key": "repeat",
             "config": {
+              "id": 3049,
               "type": "string",
               "component": "repeatType",
               "alias": "平铺类型",
@@ -897,7 +952,8 @@
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "border.customImage.repeat",
             "virtualPath": ""
@@ -925,6 +981,7 @@
   {
     "key": "filter",
     "config": {
+      "id": 5294,
       "type": "object",
       "component": "none",
       "alias": "滤镜",
@@ -947,7 +1004,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "filter",
     "virtualPath": "",
@@ -955,6 +1013,7 @@
       {
         "key": "blur",
         "config": {
+          "id": 1227,
           "type": "string",
           "component": "input",
           "alias": "模糊",
@@ -977,7 +1036,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "filter.blur",
         "virtualPath": ""
@@ -990,6 +1050,7 @@
   {
     "key": "backdropFilter",
     "config": {
+      "id": 7356,
       "type": "object",
       "component": "none",
       "alias": "背景过滤器",
@@ -1012,7 +1073,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "backdropFilter",
     "virtualPath": "",
@@ -1020,6 +1082,7 @@
       {
         "key": "blur",
         "config": {
+          "id": 6151,
           "type": "string",
           "component": "input",
           "alias": "磨玻璃模糊",
@@ -1042,7 +1105,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "backdropFilter.blur",
         "virtualPath": ""
@@ -1055,6 +1119,7 @@
   {
     "key": "urlConfig",
     "config": {
+      "id": 3438,
       "type": "object",
       "component": "none",
       "alias": "超链接配置",
@@ -1077,7 +1142,8 @@
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "urlConfig",
     "virtualPath": "",
@@ -1085,6 +1151,7 @@
       {
         "key": "url",
         "config": {
+          "id": 8067,
           "type": "string",
           "component": "input",
           "alias": "超链接",
@@ -1107,7 +1174,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "urlConfig.url",
         "virtualPath": ""
@@ -1115,6 +1183,7 @@
       {
         "key": "ifBlank",
         "config": {
+          "id": 9480,
           "type": "boolean",
           "component": "switch",
           "alias": "是否新打开窗口",
@@ -1137,7 +1206,8 @@
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "urlConfig.ifBlank",
         "virtualPath": ""

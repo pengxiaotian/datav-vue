@@ -7,40 +7,45 @@
       }
     ]"
   >
-    <n-gi class="g-field" v-bind="labelStyle">
-      <i class="g-field-show-placeholder">
-        <n-switch
-          v-if="toggle"
-          :value="modelValue"
-          size="small"
-          @click.stop
-          @update:value="toggleVisible"
-        />
-      </i>
-      <template v-if="tooltip">
-        <n-tooltip placement="top">
-          <template #trigger>
-            <label class="g-field-title-with-description" :title="label">
-              {{ label }}
-            </label>
-          </template>
-          <span v-html="tooltip"></span>
-        </n-tooltip>
-      </template>
-      <label v-else class="g-field-title" :title="label">
-        {{ label }}
-      </label>
-    </n-gi>
-    <n-gi
-      class="g-field-container"
-      :class="{ '--flat': isFlat }"
-      v-bind="contentStyle"
-    >
+    <n-gi v-if="custom" :span="24">
       <slot></slot>
-      <span v-if="caption" class="g-field-caption" :title="caption">
-        {{ caption }}
-      </span>
     </n-gi>
+    <template v-else>
+      <n-gi class="g-field" v-bind="labelStyle">
+        <i class="g-field-show-placeholder">
+          <n-switch
+            v-if="toggle"
+            :value="modelValue"
+            size="small"
+            @click.stop
+            @update:value="toggleVisible"
+          />
+        </i>
+        <template v-if="tooltip">
+          <n-tooltip placement="top">
+            <template #trigger>
+              <label class="g-field-title-with-description" :title="label">
+                {{ label }}
+              </label>
+            </template>
+            {{ tooltip }}
+          </n-tooltip>
+        </template>
+        <label v-else class="g-field-title" :title="label">
+          {{ label }}
+        </label>
+      </n-gi>
+      <n-gi
+        class="g-field-container"
+        :class="{ '--flat': isFlat }"
+        v-bind="contentStyle"
+      >
+        <slot></slot>
+        <span v-if="caption" class="g-field-caption" :title="caption">
+          {{ caption }}
+        </span>
+      </n-gi>
+    </template>
   </n-grid>
 </template>
 
@@ -72,6 +77,7 @@ const props = defineProps({
     type: Number,
     default: 9,
   },
+  custom: Boolean,
 })
 const emits = defineEmits([UPDATE_MODEL_EVENT])
 

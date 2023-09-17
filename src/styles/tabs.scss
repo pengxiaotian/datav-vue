@@ -1,6 +1,20 @@
 .n-tabs {
   height: 100%;
 
+  .n-tab-pane {
+    height: 100%;
+    background: var(--datav-nav-bg-active);
+  }
+
+  &.n-tabs--left {
+    .n-tab-pane {
+      height: 100%;
+      overflow-y: scroll;
+      background: var(--datav-nav-bg);
+      flex: 1;
+    }
+  }
+
   .n-tabs-nav.n-tabs-nav--card-type {
     .n-tabs-wrapper {
       width: 100%;
@@ -29,8 +43,22 @@
     }
   }
 
-  .n-tab-pane {
-    height: 100%;
-    background: var(--datav-nav-bg-active);
+  .n-tabs-nav.n-tabs-nav--line-type {
+    &.n-tabs-nav--left {
+      background: var(--datav-left-nav-bg);
+
+      .n-tabs-tab {
+        &.n-tabs-tab--active {
+          background: var(--datav-left-nav-active-bg);
+        }
+      }
+
+      &.n-tabs-nav--line-type {
+        .n-tabs-bar {
+          right: 0;
+          left: 0;
+        }
+      }
+    }
   }
 }

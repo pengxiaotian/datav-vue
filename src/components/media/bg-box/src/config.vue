@@ -55,22 +55,11 @@
         :level="2"
         label="边框类型"
       >
-        <n-radio-group
-          v-model:value="config.border.type"
-          size="small"
-        >
-          <n-radio-button
-            v-for="pair in [
-              { key: 'flat', value: '纯色' },
-              { key: 'linearGradient', value: '渐变' },
-              { key: 'image', value: '图片' },
-            ]"
-            :key="pair.key"
-            :value="pair.key"
-          >
-            {{ pair.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.border.type"
+          :data="pairData8683"
+          is-button
+        />
       </g-field>
       <g-field
         v-if="config.border.type === 'flat'"
@@ -171,24 +160,14 @@
         :level="2"
         label="配置方式"
       >
-        <n-radio-group
-          v-model:value="config.border.imageType"
-          size="small"
-        >
-          <n-radio-button
-            v-for="pair in [
-              { key: 'preset', value: '预设边框' },
-              { key: 'custom', value: '自定义边框' },
-            ]"
-            :key="pair.key"
-            :value="pair.key"
-          >
-            {{ pair.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.border.imageType"
+          :data="pairData406"
+          is-button
+        />
       </g-field>
       <g-field
-        v-if="config.border.type === 'image' && config.border.imageType === 'preset'"
+        v-if="config.border.imageType === 'preset'"
         :level="2"
         label="边框配置"
       >
@@ -198,7 +177,7 @@
         />
       </g-field>
       <g-field
-        v-if="config.border.type === 'image' && config.border.imageType === 'custom'"
+        v-if="config.border.imageType === 'custom'"
         :level="2"
         label="边框配置"
         :is-flat="true"
@@ -271,56 +250,51 @@
         :level="2"
         label="是否新打开窗口"
       >
-        <n-switch
-          v-model:value="config.urlConfig.ifBlank"
+        <g-switch
+          v-model="config.urlConfig.ifBlank"
         />
       </g-field>
     </g-field-collapse>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   lineStyles,
   repeatTypes,
 } from '@/data/select-options'
 import { BgBox, presetImages } from './bg-box'
 
-export default defineComponent({
-  name: 'VBgBoxProp',
-  props: {
-    com: {
-      type: Object as PropType<BgBox>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: BgBox
+}>()
 
-    const handleAddFillsItem = () => {
-      return {
-        fill: '#333',
-        opacity: 10,
-      }
-    }
+const config = toRef(props.com, 'config')
 
-    const handleAddStopsItem = () => {
-      return {
-        offset: 0,
-        color: '#f60',
-      }
-    }
+const handleAddFillsItem = () => {
+  return {
+    fill: '#333',
+    opacity: 10,
+  }
+}
 
-    return {
-      config,
+const pairData8683 = [
+  { key: 'flat', value: '纯色' },
+  { key: 'linearGradient', value: '渐变' },
+  { key: 'image', value: '图片' },
+]
 
-      lineStyles,
-      repeatTypes,
-      presetImages,
-      handleAddFillsItem,
-      handleAddStopsItem,
-    }
-  },
-})
+const handleAddStopsItem = () => {
+  return {
+    offset: 0,
+    color: '#f60',
+  }
+}
+
+const pairData406 = [
+  { key: 'preset', value: '预设边框' },
+  { key: 'custom', value: '自定义边框' },
+]
+
 </script>

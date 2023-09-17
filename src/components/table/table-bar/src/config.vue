@@ -17,8 +17,8 @@
         :level="2"
         label="开启动画"
       >
-        <n-switch
-          v-model:value="config.global.animation"
+        <g-switch
+          v-model="config.global.animation"
         />
       </g-field>
       <g-field
@@ -61,8 +61,8 @@
         tooltip="开启自动轮播后, 配置不会立即生效, 将会在下一次轮播后生效"
         label="自动轮播"
       >
-        <n-switch
-          v-model:value="config.global.loop"
+        <g-switch
+          v-model="config.global.loop"
         />
       </g-field>
       <g-field
@@ -266,16 +266,16 @@
         :level="2"
         label="显示百分数"
       >
-        <n-switch
-          v-model:value="config.number.percentage"
+        <g-switch
+          v-model="config.number.percentage"
         />
       </g-field>
       <g-field
         :level="2"
         label="千分位分隔符"
       >
-        <n-switch
-          v-model:value="config.number.separatingChart"
+        <g-switch
+          v-model="config.number.separatingChart"
         />
       </g-field>
       <g-field
@@ -333,18 +333,11 @@
         :level="2"
         label="填充类型"
       >
-        <n-radio-group
-          v-model:value="config.bar.fillColorType"
-          size="small"
-        >
-          <n-radio-button
-            v-for="em in fillTypes"
-            :key="em.id"
-            :value="em.id"
-          >
-            {{ em.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.bar.fillColorType"
+          :data="fillTypes"
+          is-button
+        />
       </g-field>
       <g-field
         v-if="config.bar.fillColorType === 'solid'"
@@ -416,18 +409,11 @@
           :level="2"
           label="填充类型"
         >
-          <n-radio-group
-            v-model:value="config.bar.threshold.fillColorType"
-            size="small"
-          >
-            <n-radio-button
-              v-for="em in fillTypes"
-              :key="em.id"
-              :value="em.id"
-            >
-              {{ em.value }}
-            </n-radio-button>
-          </n-radio-group>
+          <g-radio-group
+            v-model="config.bar.threshold.fillColorType"
+            :data="fillTypes"
+            is-button
+          />
         </g-field>
         <g-field
           v-if="config.bar.threshold.fillColorType === 'solid'"

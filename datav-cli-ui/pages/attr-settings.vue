@@ -63,6 +63,7 @@
                     language="html"
                     :code="templateCode"
                     :height="500"
+                    @blur="updateTemplateCode"
                   />
                 </n-tab-pane>
               </n-tabs>
@@ -97,7 +98,7 @@ const nMessage = useMessage()
 
 const comModules = shallowRef<Record<string, () => Promise<any>>>(null)
 const sysComs = getSystemDataVComponents()
-const comKey = ref<string>(null)
+const comKey = ref<string>('basic-pie')
 const comTsKey = ref('')
 const comJsonKey = ref('')
 const activeTab = ref<'config' | 'code'| 'template'>('config')
@@ -215,6 +216,10 @@ const genTemplate = () => {
   } finally {
     loading.value = false
   }
+}
+
+const updateTemplateCode = (data: any) => {
+  templateCode.value = data.value
 }
 
 const writeFile = async () => {

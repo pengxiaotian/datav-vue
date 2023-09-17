@@ -15,7 +15,8 @@
         :min="min"
         :max="max"
         :step="step"
-        placeholder=""
+        :readonly="readonly"
+        :placeholder="placeholder"
         @update:value="handleInput"
       >
         <template v-if="suffix" #suffix>
@@ -24,17 +25,33 @@
         <template v-if="prefix" #prefix>
           {{ prefix }}
         </template>
+        <template #minus-icon>
+          -
+        </template>
+        <template #add-icon>
+          +
+        </template>
       </n-input-number>
     </n-config-provider>
-    <span v-if="label" class="g-input__caption">
+    <template v-if="tooltip && label">
+      <n-tooltip placement="top">
+        <template #trigger>
+          <span class="g-input__caption-with-description">
+            {{ label }}
+          </span>
+        </template>
+        {{ tooltip }}
+      </n-tooltip>
+    </template>
+    <span v-else-if="label" class="g-input__caption">
       {{ label }}
     </span>
   </div>
 </template>
 
 <script lang='ts' setup>
-import { PropType } from 'vue'
-import { NConfigProvider, NInputNumber } from 'naive-ui'
+import type { PropType } from 'vue'
+import { NConfigProvider, NInputNumber, NTooltip } from 'naive-ui'
 import type { Size } from 'naive-ui/es/input-number/src/interface'
 import { UPDATE_MODEL_EVENT } from '@/utils/constants'
 
@@ -69,6 +86,16 @@ const props = defineProps({
   },
   prefix: String,
   suffix: String,
+  tooltip: String,
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
+  inputTheme: Object,
 })
 const emits = defineEmits([UPDATE_MODEL_EVENT])
 
@@ -79,13 +106,22 @@ const handleInput = (value: number) => {
 const themeOverrides = {
   Button: {
     textColorText: 'var(--datav-font-color)',
+    // small
     fontSizeMedium: '12px',
     iconSizeMedium: '12px',
+  },
+  Input: {
+    ...(props.inputTheme || {}),
   },
 }
 
 if (props.size === 'medium') {
   themeOverrides.Button.fontSizeMedium = '14px'
   themeOverrides.Button.iconSizeMedium = '14px'
+}
+
+if (props.size === 'tiny') {
+  themeOverrides.Button.fontSizeMedium = '10px'
+  themeOverrides.Button.iconSizeMedium = '10px'
 }
 </script>

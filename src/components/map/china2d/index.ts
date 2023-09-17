@@ -1,5 +1,4 @@
 import type { App } from 'vue'
-import type { SFCWithInstall } from '@/utils/types'
 import { loadAsyncComponent } from '@/utils/async-component'
 import China2d from './src/index.vue'
 import China2dArea from './src/china2d-area/index.vue'

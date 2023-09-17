@@ -18,8 +18,8 @@
         :level="2"
         label="自动轮播"
       >
-        <n-switch
-          v-model:value="config.global.isLoop"
+        <g-switch
+          v-model="config.global.isLoop"
         />
       </g-field>
       <g-field
@@ -40,18 +40,10 @@
           :level="2"
           label="动画模式"
         >
-          <n-radio-group
-            v-model:value="config.global.animation.mode"
-            size="small"
-          >
-            <n-radio
-              v-for="pair in pairData2024"
-              :key="pair.key"
-              :value="pair.key"
-            >
-              {{ pair.value }}
-            </n-radio>
-          </n-radio-group>
+          <g-radio-group
+            v-model="config.global.animation.mode"
+            :data="pairData2024"
+          />
         </g-field>
         <g-field
           :level="2"
@@ -69,8 +61,8 @@
           :level="2"
           label="单页不轮播"
         >
-          <n-switch
-            v-model:value="config.global.animation.singleStop"
+          <g-switch
+            v-model="config.global.animation.singleStop"
           />
         </g-field>
       </g-field-collapse>
@@ -84,8 +76,8 @@
           tooltip="关闭时, 可指定高亮行"
           label="自动依次高亮"
         >
-          <n-switch
-            v-model:value="config.global.highLight.isOrder"
+          <g-switch
+            v-model="config.global.highLight.isOrder"
           />
         </g-field>
         <g-field
@@ -172,8 +164,8 @@
         :level="2"
         label="空值隐藏行"
       >
-        <n-switch
-          v-model:value="config.global.ifRowHidden"
+        <g-switch
+          v-model="config.global.ifRowHidden"
         />
       </g-field>
       <g-field-collapse
@@ -183,16 +175,16 @@
           :level="2"
           label="是否滚动"
         >
-          <n-switch
-            v-model:value="config.global.textAnimate.ifRun"
+          <g-switch
+            v-model="config.global.textAnimate.ifRun"
           />
         </g-field>
         <g-field
           :level="2"
           label="匀速滚动"
         >
-          <n-switch
-            v-model:value="config.global.textAnimate.isSpeed"
+          <g-switch
+            v-model="config.global.textAnimate.isSpeed"
           />
         </g-field>
         <g-field
@@ -448,18 +440,10 @@
           :level="2"
           label="内容类型"
         >
-          <n-radio-group
-            v-model:value="slotProps.item.dataType"
-            size="small"
-          >
-            <n-radio
-              v-for="pair in pairData7136"
-              :key="pair.key"
-              :value="pair.key"
-            >
-              {{ pair.value }}
-            </n-radio>
-          </n-radio-group>
+          <g-radio-group
+            v-model="slotProps.item.dataType"
+            :data="pairData7136"
+          />
         </g-field>
         <g-field
           v-if="slotProps.item.dataType === 'img'"
@@ -522,8 +506,8 @@
           :level="2"
           label="自动换行"
         >
-          <n-switch
-            v-model:value="slotProps.item.isBr"
+          <g-switch
+            v-model="slotProps.item.isBr"
           />
         </g-field>
         <g-field
@@ -595,12 +579,13 @@ const pairData2024 = [
   { key: 'bottom', value: '逐条滚动' },
 ]
 
+const handleAddSeriesItem = () => {
+  return new CarouselTableSeries('series1', '类别一')
+}
+
 const pairData7136 = [
   { key: 'text', value: '文本' },
   { key: 'img', value: '图片' },
 ]
 
-const handleAddSeriesItem = () => {
-  return new CarouselTableSeries('series1', '类别一')
-}
 </script>

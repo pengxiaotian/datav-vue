@@ -137,8 +137,8 @@
       tooltip="溢出文本加省略号"
       label="省略号"
     >
-      <n-switch
-        v-model:value="config.ellipsis"
+      <g-switch
+        v-model="config.ellipsis"
       />
     </g-field>
     <g-field-collapse
@@ -157,16 +157,16 @@
         :level="2"
         label="是否新开窗口"
       >
-        <n-switch
-          v-model:value="config.urlConfig.isBlank"
+        <g-switch
+          v-model="config.urlConfig.isBlank"
         />
       </g-field>
     </g-field-collapse>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
@@ -176,26 +176,10 @@ import {
 } from '@/data/select-options'
 import { MainTitle } from './main-title'
 
-export default defineComponent({
-  name: 'VMainTitleProp',
-  props: {
-    com: {
-      type: Object as PropType<MainTitle>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: MainTitle
+}>()
 
-    return {
-      config,
+const config = toRef(props.com, 'config')
 
-      fontFamilys,
-      fontWeights,
-      justifyContents,
-      writingModes,
-      lineStyles,
-    }
-  },
-})
 </script>

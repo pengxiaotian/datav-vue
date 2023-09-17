@@ -2,6 +2,7 @@
   {
     "key": "global",
     "config": {
+      "id": 704,
       "type": "object",
       "component": "none",
       "alias": "全局",
@@ -19,11 +20,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "global",
     "virtualPath": "",
@@ -31,6 +34,7 @@
       {
         "key": "fontFamily",
         "config": {
+          "id": 5994,
           "type": "string",
           "component": "fontFamily",
           "alias": "字体",
@@ -48,11 +52,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.fontFamily",
         "virtualPath": ""
@@ -60,6 +66,7 @@
       {
         "key": "arrangement",
         "config": {
+          "id": 2545,
           "type": "string",
           "component": "select",
           "alias": "排列方式",
@@ -77,11 +84,26 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [
+            {
+              "key": "top",
+              "value": "标题在上"
+            },
+            {
+              "key": "left",
+              "value": "标题在左"
+            },
+            {
+              "key": "bottom",
+              "value": "标题在下"
+            }
+          ],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.arrangement",
         "virtualPath": ""
@@ -89,6 +111,7 @@
       {
         "key": "distance",
         "config": {
+          "id": 9104,
           "type": "number",
           "component": "slider",
           "alias": "间隔",
@@ -106,11 +129,13 @@
           "InfiniteMax": false,
           "suffix": "px",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "global.distance",
         "virtualPath": ""
@@ -125,6 +150,7 @@
   {
     "key": "title",
     "config": {
+      "id": 7575,
       "type": "object",
       "component": "none",
       "alias": "标题",
@@ -142,11 +168,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "title",
     "virtualPath": "",
@@ -154,6 +182,7 @@
       {
         "key": "content",
         "config": {
+          "id": 188,
           "type": "string",
           "component": "input",
           "alias": "标题名",
@@ -163,7 +192,7 @@
           "layout": "horizontal",
           "toggleCol": "",
           "isHide": false,
-          "defaultValue": "我是标题",
+          "defaultValue": "Typesomething",
           "min": 0,
           "max": 100,
           "step": 1,
@@ -171,11 +200,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "title.content",
         "virtualPath": ""
@@ -183,6 +214,7 @@
       {
         "key": "textStyle",
         "config": {
+          "id": 9031,
           "type": "object",
           "component": "none",
           "alias": "文本样式",
@@ -200,11 +232,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "title.textStyle",
         "virtualPath": "",
@@ -212,6 +246,7 @@
           {
             "key": "fontSize",
             "config": {
+              "id": 2728,
               "type": "number",
               "component": "number",
               "alias": "字号",
@@ -229,11 +264,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "title.textStyle.fontSize",
             "virtualPath": ""
@@ -241,6 +278,7 @@
           {
             "key": "color",
             "config": {
+              "id": 5884,
               "type": "string",
               "component": "color",
               "alias": "字体颜色",
@@ -258,11 +296,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "title.textStyle.color",
             "virtualPath": ""
@@ -270,6 +310,7 @@
           {
             "key": "fontWeight",
             "config": {
+              "id": 2392,
               "type": "string",
               "component": "fontWeight",
               "alias": "字体粗细",
@@ -287,11 +328,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "title.textStyle.fontWeight",
             "virtualPath": ""
@@ -299,6 +342,7 @@
           {
             "key": "textAlign",
             "config": {
+              "id": 8237,
               "type": "string",
               "component": "justifyContent",
               "alias": "对齐方式",
@@ -308,7 +352,7 @@
               "layout": "horizontal",
               "toggleCol": "",
               "isHide": false,
-              "defaultValue": "left",
+              "defaultValue": "flex-start",
               "min": 0,
               "max": 100,
               "step": 1,
@@ -316,11 +360,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "title.textStyle.textAlign",
             "virtualPath": ""
@@ -342,6 +388,7 @@
   {
     "key": "counter",
     "config": {
+      "id": 5731,
       "type": "object",
       "component": "none",
       "alias": "翻牌器",
@@ -359,11 +406,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "counter",
     "virtualPath": "",
@@ -371,6 +420,7 @@
       {
         "key": "fontFamily",
         "config": {
+          "id": 3713,
           "type": "string",
           "component": "fontFamily",
           "alias": "字体",
@@ -388,11 +438,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "counter.fontFamily",
         "virtualPath": ""
@@ -400,6 +452,7 @@
       {
         "key": "justifyContent",
         "config": {
+          "id": 1867,
           "type": "string",
           "component": "justifyContent",
           "alias": "水平对齐",
@@ -417,11 +470,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "counter.justifyContent",
         "virtualPath": ""
@@ -429,6 +484,7 @@
       {
         "key": "margin",
         "config": {
+          "id": 3977,
           "type": "object",
           "component": "none",
           "alias": "间距",
@@ -446,11 +502,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "counter.margin",
         "virtualPath": "",
@@ -458,6 +516,7 @@
           {
             "key": "preNum",
             "config": {
+              "id": 2042,
               "type": "number",
               "component": "number",
               "alias": "前缀-数字",
@@ -475,11 +534,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "counter.margin.preNum",
             "virtualPath": ""
@@ -487,6 +548,7 @@
           {
             "key": "numSuff",
             "config": {
+              "id": 1755,
               "type": "number",
               "component": "number",
               "alias": "数字-后缀",
@@ -504,11 +566,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "counter.margin.numSuff",
             "virtualPath": ""
@@ -522,6 +586,7 @@
       {
         "key": "prefix",
         "config": {
+          "id": 3159,
           "type": "object",
           "component": "none",
           "alias": "前缀",
@@ -539,11 +604,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "counter.prefix",
         "virtualPath": "",
@@ -551,6 +618,7 @@
           {
             "key": "content",
             "config": {
+              "id": 3947,
               "type": "string",
               "component": "input",
               "alias": "内容",
@@ -568,11 +636,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "counter.prefix.content",
             "virtualPath": ""
@@ -580,6 +650,7 @@
           {
             "key": "textStyle",
             "config": {
+              "id": 3114,
               "type": "object",
               "component": "none",
               "alias": "文本样式",
@@ -597,11 +668,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "counter.prefix.textStyle",
             "virtualPath": "",
@@ -609,6 +682,7 @@
               {
                 "key": "fontSize",
                 "config": {
+                  "id": 9346,
                   "type": "number",
                   "component": "number",
                   "alias": "字号",
@@ -626,11 +700,13 @@
                   "InfiniteMax": false,
                   "suffix": "px",
                   "enums": [],
+                  "pairs": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "counter.prefix.textStyle.fontSize",
                 "virtualPath": ""
@@ -638,6 +714,7 @@
               {
                 "key": "color",
                 "config": {
+                  "id": 4175,
                   "type": "string",
                   "component": "color",
                   "alias": "字体颜色",
@@ -655,11 +732,13 @@
                   "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
+                  "pairs": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "counter.prefix.textStyle.color",
                 "virtualPath": ""
@@ -667,6 +746,7 @@
               {
                 "key": "fontWeight",
                 "config": {
+                  "id": 862,
                   "type": "string",
                   "component": "fontWeight",
                   "alias": "字体粗细",
@@ -684,11 +764,13 @@
                   "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
+                  "pairs": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "counter.prefix.textStyle.fontWeight",
                 "virtualPath": ""
@@ -709,6 +791,7 @@
       {
         "key": "suffix",
         "config": {
+          "id": 9867,
           "type": "object",
           "component": "none",
           "alias": "后缀",
@@ -726,11 +809,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "counter.suffix",
         "virtualPath": "",
@@ -738,6 +823,7 @@
           {
             "key": "content",
             "config": {
+              "id": 7366,
               "type": "string",
               "component": "input",
               "alias": "内容",
@@ -755,11 +841,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "counter.suffix.content",
             "virtualPath": ""
@@ -767,6 +855,7 @@
           {
             "key": "textStyle",
             "config": {
+              "id": 9254,
               "type": "object",
               "component": "none",
               "alias": "文本样式",
@@ -784,11 +873,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "counter.suffix.textStyle",
             "virtualPath": "",
@@ -796,6 +887,7 @@
               {
                 "key": "fontSize",
                 "config": {
+                  "id": 7739,
                   "type": "number",
                   "component": "number",
                   "alias": "字号",
@@ -813,11 +905,13 @@
                   "InfiniteMax": false,
                   "suffix": "px",
                   "enums": [],
+                  "pairs": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "counter.suffix.textStyle.fontSize",
                 "virtualPath": ""
@@ -825,6 +919,7 @@
               {
                 "key": "color",
                 "config": {
+                  "id": 5758,
                   "type": "string",
                   "component": "color",
                   "alias": "字体颜色",
@@ -842,11 +937,13 @@
                   "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
+                  "pairs": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "counter.suffix.textStyle.color",
                 "virtualPath": ""
@@ -854,6 +951,7 @@
               {
                 "key": "fontWeight",
                 "config": {
+                  "id": 8595,
                   "type": "string",
                   "component": "fontWeight",
                   "alias": "字体粗细",
@@ -871,11 +969,13 @@
                   "InfiniteMax": false,
                   "suffix": "",
                   "enums": [],
+                  "pairs": [],
                   "whichEnum": {
                     "field": "",
                     "value": ""
                   },
-                  "flatValue": false
+                  "flatValue": false,
+                  "isRange": false
                 },
                 "path": "counter.suffix.textStyle.fontWeight",
                 "virtualPath": ""
@@ -905,6 +1005,7 @@
   {
     "key": "numbers",
     "config": {
+      "id": 5634,
       "type": "object",
       "component": "none",
       "alias": "数字",
@@ -922,11 +1023,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "numbers",
     "virtualPath": "",
@@ -934,6 +1037,7 @@
       {
         "key": "textStyle",
         "config": {
+          "id": 3287,
           "type": "object",
           "component": "none",
           "alias": "文本样式",
@@ -951,11 +1055,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.textStyle",
         "virtualPath": "",
@@ -963,6 +1069,7 @@
           {
             "key": "fontSize",
             "config": {
+              "id": 1965,
               "type": "number",
               "component": "number",
               "alias": "字号",
@@ -980,11 +1087,13 @@
               "InfiniteMax": false,
               "suffix": "px",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "numbers.textStyle.fontSize",
             "virtualPath": ""
@@ -992,6 +1101,7 @@
           {
             "key": "color",
             "config": {
+              "id": 8883,
               "type": "string",
               "component": "color",
               "alias": "字体颜色",
@@ -1009,11 +1119,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "numbers.textStyle.color",
             "virtualPath": ""
@@ -1021,6 +1133,7 @@
           {
             "key": "fontWeight",
             "config": {
+              "id": 4943,
               "type": "string",
               "component": "fontWeight",
               "alias": "字体粗细",
@@ -1038,11 +1151,13 @@
               "InfiniteMax": false,
               "suffix": "",
               "enums": [],
+              "pairs": [],
               "whichEnum": {
                 "field": "",
                 "value": ""
               },
-              "flatValue": false
+              "flatValue": false,
+              "isRange": false
             },
             "path": "numbers.textStyle.fontWeight",
             "virtualPath": ""
@@ -1057,6 +1172,7 @@
       {
         "key": "marginRight",
         "config": {
+          "id": 8721,
           "type": "number",
           "component": "slider",
           "alias": "数字间隔",
@@ -1074,11 +1190,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.marginRight",
         "virtualPath": ""
@@ -1086,6 +1204,7 @@
       {
         "key": "bgColor",
         "config": {
+          "id": 3410,
           "type": "string",
           "component": "color",
           "alias": "背景色",
@@ -1103,11 +1222,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.bgColor",
         "virtualPath": ""
@@ -1115,6 +1236,7 @@
       {
         "key": "bgRadius",
         "config": {
+          "id": 6458,
           "type": "number",
           "component": "slider",
           "alias": "背景圆角",
@@ -1132,11 +1254,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.bgRadius",
         "virtualPath": ""
@@ -1144,6 +1268,7 @@
       {
         "key": "bgSeparating",
         "config": {
+          "id": 37,
           "type": "boolean",
           "component": "switch",
           "alias": "分隔符背景",
@@ -1161,11 +1286,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.bgSeparating",
         "virtualPath": ""
@@ -1173,6 +1300,7 @@
       {
         "key": "digit",
         "config": {
+          "id": 6864,
           "type": "number",
           "component": "slider",
           "alias": "默认位数",
@@ -1190,11 +1318,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.digit",
         "virtualPath": ""
@@ -1202,6 +1332,7 @@
       {
         "key": "decimal",
         "config": {
+          "id": 2437,
           "type": "number",
           "component": "slider",
           "alias": "小数点位数",
@@ -1219,11 +1350,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.decimal",
         "virtualPath": ""
@@ -1231,6 +1364,7 @@
       {
         "key": "divisor",
         "config": {
+          "id": 8526,
           "type": "number",
           "component": "number",
           "alias": "除数",
@@ -1248,11 +1382,13 @@
           "InfiniteMax": true,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.divisor",
         "virtualPath": ""
@@ -1260,6 +1396,7 @@
       {
         "key": "separatingChart",
         "config": {
+          "id": 4031,
           "type": "boolean",
           "component": "switch",
           "alias": "千位分隔符",
@@ -1277,11 +1414,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.separatingChart",
         "virtualPath": ""
@@ -1289,6 +1428,7 @@
       {
         "key": "separatingSymbol",
         "config": {
+          "id": 6775,
           "type": "string",
           "component": "input",
           "alias": "千位分隔符符号",
@@ -1306,11 +1446,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.separatingSymbol",
         "virtualPath": ""
@@ -1318,6 +1460,7 @@
       {
         "key": "decimalSymbol",
         "config": {
+          "id": 4769,
           "type": "string",
           "component": "input",
           "alias": "小数分隔符符号",
@@ -1335,11 +1478,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.decimalSymbol",
         "virtualPath": ""
@@ -1347,6 +1492,7 @@
       {
         "key": "fixedWidth",
         "config": {
+          "id": 2780,
           "type": "number",
           "component": "number",
           "alias": "定宽",
@@ -1364,11 +1510,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.fixedWidth",
         "virtualPath": ""
@@ -1376,6 +1524,7 @@
       {
         "key": "increment",
         "config": {
+          "id": 223,
           "type": "boolean",
           "component": "switch",
           "alias": "数据抖动修正",
@@ -1393,11 +1542,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.increment",
         "virtualPath": ""
@@ -1405,6 +1556,7 @@
       {
         "key": "animation",
         "config": {
+          "id": 4522,
           "type": "boolean",
           "component": "switch",
           "alias": "开启动画",
@@ -1422,11 +1574,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.animation",
         "virtualPath": ""
@@ -1434,6 +1588,7 @@
       {
         "key": "sameDataFlip",
         "config": {
+          "id": 7625,
           "type": "boolean",
           "component": "switch",
           "alias": "始终动画",
@@ -1451,11 +1606,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.sameDataFlip",
         "virtualPath": ""
@@ -1463,6 +1620,7 @@
       {
         "key": "duration",
         "config": {
+          "id": 3724,
           "type": "number",
           "component": "number",
           "alias": "动画时长",
@@ -1480,11 +1638,13 @@
           "InfiniteMax": true,
           "suffix": "ms",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "numbers.duration",
         "virtualPath": ""

@@ -29,12 +29,12 @@ export default defineComponent({
     })
 
     const imgBoxStyle = computed(() => {
-      const gif = presetImages[config.value.global.img]
+      const gif = presetImages.find(m => m.id === config.value.global.img)
       return {
         width: '100%',
         height: '100%',
         opacity: config.value.global.opacity,
-        'background-image': `url(${gif.url})`,
+        'background-image': `url(${gif.src})`,
         'background-size': '100%',
         'background-repeat': 'no-repeat',
         'background-position': 'center',

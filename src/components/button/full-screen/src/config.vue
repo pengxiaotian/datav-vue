@@ -35,34 +35,21 @@
     <g-field
       label="始终显示图片背景"
     >
-      <n-switch
-        v-model:value="config.alwaysShow"
+      <g-switch
+        v-model="config.alwaysShow"
       />
     </g-field>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
-import {
-} from '@/data/select-options'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import { FullScreen } from './full-screen'
 
-export default defineComponent({
-  name: 'VFullScreenProp',
-  props: {
-    com: {
-      type: Object as PropType<FullScreen>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: FullScreen
+}>()
 
-    return {
-      config,
+const config = toRef(props.com, 'config')
 
-    }
-  },
-})
 </script>

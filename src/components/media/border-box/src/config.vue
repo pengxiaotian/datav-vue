@@ -16,25 +16,14 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import { BorderBox, presetImages } from './border-box'
 
-export default defineComponent({
-  name: 'VBorderBoxProp',
-  props: {
-    com: {
-      type: Object as PropType<BorderBox>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: BorderBox
+}>()
 
-    return {
-      config,
-      presetImages,
-    }
-  },
-})
+const config = toRef(props.com, 'config')
+
 </script>

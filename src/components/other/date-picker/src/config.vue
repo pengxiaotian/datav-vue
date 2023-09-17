@@ -249,31 +249,18 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   fontFamilys,
   hAligns,
 } from '@/data/select-options'
 import { DatePicker } from './date-picker'
 
-export default defineComponent({
-  name: 'VDatePickerProp',
-  props: {
-    com: {
-      type: Object as PropType<DatePicker>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: DatePicker
+}>()
 
-    return {
-      config,
+const config = toRef(props.com, 'config')
 
-      fontFamilys,
-      hAligns,
-    }
-  },
-})
 </script>

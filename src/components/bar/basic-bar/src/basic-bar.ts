@@ -47,8 +47,8 @@ export class BasicBar extends DatavEChartsComponent {
       position: 'top',
       textStyle: {
         fontSize: 12,
-        color: 'rgba(255, 255, 255, 0.6)',
         fontWeight: 'normal',
+        color: 'rgba(255, 255, 255, 0.6)',
       },
       offsetX: 0,
       offsetY: 0,
@@ -67,8 +67,8 @@ export class BasicBar extends DatavEChartsComponent {
         },
         textStyle: {
           fontSize: 12,
-          color: '#90a0ae',
           fontWeight: 'normal',
+          color: '#90a0ae',
         },
       },
       axisLine: {
@@ -95,8 +95,8 @@ export class BasicBar extends DatavEChartsComponent {
         align: 'center',
         textStyle: {
           fontSize: 12,
-          color: 'rgba(255, 255, 255, 0.6)',
           fontWeight: 'normal',
+          color: 'rgba(255, 255, 255, 0.6)',
         },
       },
       grid: {
@@ -127,8 +127,8 @@ export class BasicBar extends DatavEChartsComponent {
         },
         textStyle: {
           fontSize: 12,
-          color: '#90a0ae',
           fontWeight: 'normal',
+          color: '#90a0ae',
         },
       },
       axisLine: {
@@ -154,8 +154,8 @@ export class BasicBar extends DatavEChartsComponent {
         align: 'right',
         textStyle: {
           fontSize: 12,
-          color: 'rgba(255, 255, 255, 0.6)',
           fontWeight: 'normal',
+          color: 'rgba(255, 255, 255, 0.6)',
         },
       },
       grid: {
@@ -173,8 +173,8 @@ export class BasicBar extends DatavEChartsComponent {
       show: true,
       textStyle: {
         fontSize: 14,
-        color: '#fff',
         fontWeight: 'normal',
+        color: '#fff',
       },
       background: {
         padding: {
@@ -200,8 +200,8 @@ export class BasicBar extends DatavEChartsComponent {
       orient: 'horizontal',
       textStyle: {
         fontSize: 12,
-        color: '#90a0ae',
         fontWeight: 'normal',
+        color: '#90a0ae',
       },
       symbol: {
         show: true,

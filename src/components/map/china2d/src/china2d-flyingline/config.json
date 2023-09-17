@@ -2,6 +2,7 @@
   {
     "key": "flyinglineStyle",
     "config": {
+      "id": 834,
       "type": "object",
       "component": "none",
       "alias": "飞线样式",
@@ -33,6 +34,7 @@
       {
         "key": "fromColor",
         "config": {
+          "id": 1410,
           "type": "string",
           "component": "color",
           "alias": "起点颜色",
@@ -64,6 +66,7 @@
       {
         "key": "toColor",
         "config": {
+          "id": 6163,
           "type": "string",
           "component": "color",
           "alias": "终点颜色",
@@ -95,6 +98,7 @@
       {
         "key": "k",
         "config": {
+          "id": 7113,
           "type": "number",
           "component": "slider",
           "alias": "飞线渐变",
@@ -126,6 +130,7 @@
       {
         "key": "trailLength",
         "config": {
+          "id": 5709,
           "type": "number",
           "component": "slider",
           "alias": "飞线长度",
@@ -157,6 +162,7 @@
       {
         "key": "trailSize",
         "config": {
+          "id": 3874,
           "type": "number",
           "component": "slider",
           "alias": "飞线粗细",
@@ -188,6 +194,7 @@
       {
         "key": "curveness",
         "config": {
+          "id": 3418,
           "type": "number",
           "component": "slider",
           "alias": "飞线曲率",
@@ -219,6 +226,7 @@
       {
         "key": "constantSpeed",
         "config": {
+          "id": 7789,
           "type": "number",
           "component": "slider",
           "alias": "飞行速度",
@@ -250,6 +258,7 @@
       {
         "key": "period",
         "config": {
+          "id": 1604,
           "type": "number",
           "component": "slider",
           "alias": "飞行时长",
@@ -281,6 +290,7 @@
       {
         "key": "lineWidth",
         "config": {
+          "id": 5492,
           "type": "number",
           "component": "slider",
           "alias": "轨迹粗细",
@@ -312,6 +322,7 @@
       {
         "key": "opacity",
         "config": {
+          "id": 8615,
           "type": "number",
           "component": "slider",
           "alias": "轨迹透明度",
@@ -357,6 +368,7 @@
   {
     "key": "flareStyle",
     "config": {
+      "id": 7963,
       "type": "object",
       "component": "none",
       "alias": "耀斑样式",
@@ -388,6 +400,7 @@
       {
         "key": "show",
         "config": {
+          "id": 5541,
           "type": "boolean",
           "component": "switch",
           "alias": "",
@@ -419,6 +432,7 @@
       {
         "key": "type",
         "config": {
+          "id": 7382,
           "type": "string",
           "component": "echartIcon",
           "alias": "类型",
@@ -450,6 +464,7 @@
       {
         "key": "color",
         "config": {
+          "id": 6640,
           "type": "string",
           "component": "color",
           "alias": "颜色",
@@ -481,6 +496,7 @@
       {
         "key": "size",
         "config": {
+          "id": 8571,
           "type": "number",
           "component": "slider",
           "alias": "大小",
@@ -512,6 +528,7 @@
       {
         "key": "lineWidth",
         "config": {
+          "id": 2980,
           "type": "number",
           "component": "number",
           "alias": "",

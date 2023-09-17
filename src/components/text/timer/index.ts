@@ -1,5 +1,4 @@
 import type { App } from 'vue'
-import type { SFCWithInstall } from '@/utils/types'
 import { loadAsyncComponent } from '@/utils/async-component'
 import Timer from './src/index.vue'
 

@@ -59,8 +59,8 @@
         :level="2"
         label="连接空数据"
       >
-        <n-switch
-          v-model:value="config.global.connectNulls"
+        <g-switch
+          v-model="config.global.connectNulls"
         />
       </g-field>
     </g-field-collapse>
@@ -73,18 +73,11 @@
         :level="2"
         label="数据类型"
       >
-        <n-radio-group
-          v-model:value="config.xAxis.type"
-          size="small"
-        >
-          <n-radio-button
-            v-for="em in axisTypes"
-            :key="em.id"
-            :value="em.id"
-          >
-            {{ em.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.xAxis.type"
+          :data="axisTypes"
+          is-button
+        />
       </g-field>
       <g-field
         v-if="config.xAxis.type === 'value'"
@@ -96,14 +89,14 @@
         <g-select-suggest
           v-model="config.xAxis.extent.min"
           :data="selectSuggests"
-          :filters="['auto', 'dataMin', 'dataMax']"
+          :filters="enumData1220"
           inline="inline"
           label="最小值"
         />
         <g-select-suggest
           v-model="config.xAxis.extent.max"
           :data="selectSuggests"
-          :filters="['auto', 'dataMin', 'dataMax']"
+          :filters="enumData9631"
           inline="inline"
           label="最大值"
         />
@@ -112,8 +105,8 @@
         :level="2"
         label="两端留白"
       >
-        <n-switch
-          v-model:value="config.xAxis.boundaryGap"
+        <g-switch
+          v-model="config.xAxis.boundaryGap"
         />
       </g-field>
       <g-field-collapse
@@ -176,16 +169,16 @@
             inline="inline"
             label="字号"
           />
-          <g-color-picker
-            v-model="config.xAxis.title.textStyle.color"
-            inline="inline"
-            label="颜色"
-          />
           <g-select
             v-model="config.xAxis.title.textStyle.fontWeight"
             :data="fontWeights"
             inline="inline"
             label="字体粗细"
+          />
+          <g-color-picker
+            v-model="config.xAxis.title.textStyle.color"
+            inline="inline-single"
+            label="颜色"
           />
         </g-field>
       </g-field-collapse>
@@ -265,7 +258,6 @@
         label="轴标签"
       >
         <g-field
-          v-if="config.xAxis.type === 'value'"
           :level="2"
           tooltip="整数参照 d, 浮点参照 .1f"
           label="显示格式"
@@ -276,7 +268,6 @@
           />
         </g-field>
         <g-field
-          v-if="config.xAxis.type === 'time'"
           :level="2"
           tooltip="时间请参照 YYYY/MM/DD HH:mm:ss"
           label="显示格式"
@@ -294,7 +285,7 @@
           <g-select-suggest
             v-model="config.xAxis.axisLabel.interval"
             :data="selectSuggests"
-            :filters="['auto', '0', '1', '2']"
+            :filters="enumData2745"
           />
         </g-field>
         <g-field
@@ -344,16 +335,16 @@
             inline="inline"
             label="字号"
           />
-          <g-color-picker
-            v-model="config.xAxis.axisLabel.textStyle.color"
-            inline="inline"
-            label="颜色"
-          />
           <g-select
             v-model="config.xAxis.axisLabel.textStyle.fontWeight"
             :data="fontWeights"
             inline="inline"
             label="字体粗细"
+          />
+          <g-color-picker
+            v-model="config.xAxis.axisLabel.textStyle.color"
+            inline="inline-single"
+            label="颜色"
           />
         </g-field>
       </g-field-collapse>
@@ -417,18 +408,11 @@
         :level="2"
         label="数据类型"
       >
-        <n-radio-group
-          v-model:value="config.yAxis.type"
-          size="small"
-        >
-          <n-radio-button
-            v-for="em in axisTypes"
-            :key="em.id"
-            :value="em.id"
-          >
-            {{ em.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.yAxis.type"
+          :data="axisTypes"
+          is-button
+        />
       </g-field>
       <g-field
         v-if="config.yAxis.type === 'value'"
@@ -439,14 +423,14 @@
         <g-select-suggest
           v-model="config.yAxis.extent.min"
           :data="selectSuggests"
-          :filters="['auto', 'dataMin', 'dataMax']"
+          :filters="enumData7690"
           inline="inline"
           label="最小值"
         />
         <g-select-suggest
           v-model="config.yAxis.extent.max"
           :data="selectSuggests"
-          :filters="['auto', 'dataMin', 'dataMax']"
+          :filters="enumData8706"
           inline="inline"
           label="最大值"
         />
@@ -511,16 +495,16 @@
             inline="inline"
             label="字号"
           />
-          <g-color-picker
-            v-model="config.yAxis.title.textStyle.color"
-            inline="inline"
-            label="颜色"
-          />
           <g-select
             v-model="config.yAxis.title.textStyle.fontWeight"
             :data="fontWeights"
             inline="inline"
             label="字体粗细"
+          />
+          <g-color-picker
+            v-model="config.yAxis.title.textStyle.color"
+            inline="inline-single"
+            label="颜色"
           />
         </g-field>
       </g-field-collapse>
@@ -600,7 +584,6 @@
         label="轴标签"
       >
         <g-field
-          v-if="config.yAxis.type === 'value'"
           :level="2"
           tooltip="整数参照 d, 浮点参照 .1f"
           label="显示格式"
@@ -611,7 +594,6 @@
           />
         </g-field>
         <g-field
-          v-if="config.yAxis.type === 'time'"
           :level="2"
           tooltip="时间请参照 YYYY/MM/DD HH:mm:ss"
           label="显示格式"
@@ -680,16 +662,16 @@
             inline="inline"
             label="字号"
           />
-          <g-color-picker
-            v-model="config.yAxis.axisLabel.textStyle.color"
-            inline="inline"
-            label="颜色"
-          />
           <g-select
             v-model="config.yAxis.axisLabel.textStyle.fontWeight"
             :data="fontWeights"
             inline="inline"
             label="字体粗细"
+          />
+          <g-color-picker
+            v-model="config.yAxis.axisLabel.textStyle.color"
+            inline="inline-single"
+            label="颜色"
           />
         </g-field>
       </g-field-collapse>
@@ -755,55 +737,37 @@
         :level="2"
         label="触发方式"
       >
-        <n-radio-group
-          v-model:value="config.tooltip.triggerOn"
-          size="small"
-        >
-          <n-radio-button
-            v-for="pair in [
-              { key: 'mousemove', value: '悬浮' },
-              { key: 'click', value: '点击' },
-            ]"
-            :key="pair.key"
-            :value="pair.key"
-          >
-            {{ pair.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.tooltip.triggerOn"
+          :data="pairData1266"
+        />
       </g-field>
-      <g-field-collapse
+      <g-field
+        :level="2"
         label="文本样式"
+        :is-flat="true"
       >
-        <g-field
-          :level="2"
+        <g-input-number
+          v-model="config.tooltip.textStyle.fontSize"
+          :min="12"
+          :max="100"
+          :step="1"
+          suffix="px"
+          inline="inline"
           label="字号"
-        >
-          <g-input-number
-            v-model="config.tooltip.textStyle.fontSize"
-            :min="12"
-            :max="100"
-            :step="1"
-            suffix="px"
-          />
-        </g-field>
-        <g-field
-          :level="2"
-          label="颜色"
-        >
-          <g-color-picker
-            v-model="config.tooltip.textStyle.color"
-          />
-        </g-field>
-        <g-field
-          :level="2"
+        />
+        <g-select
+          v-model="config.tooltip.textStyle.fontWeight"
+          :data="fontWeights"
+          inline="inline"
           label="字体粗细"
-        >
-          <g-select
-            v-model="config.tooltip.textStyle.fontWeight"
-            :data="fontWeights"
-          />
-        </g-field>
-      </g-field-collapse>
+        />
+        <g-color-picker
+          v-model="config.tooltip.textStyle.color"
+          inline="inline-single"
+          label="颜色"
+        />
+      </g-field>
       <g-field-collapse
         label="弹框背景"
       >
@@ -931,18 +895,11 @@
         :level="2"
         label="布局方式"
       >
-        <n-radio-group
-          v-model:value="config.legend.orient"
-          size="small"
-        >
-          <n-radio-button
-            v-for="em in orients"
-            :key="em.id"
-            :value="em.id"
-          >
-            {{ em.value }}
-          </n-radio-button>
-        </n-radio-group>
+        <g-radio-group
+          v-model="config.legend.orient"
+          :data="orients"
+          is-button
+        />
       </g-field>
       <g-field
         :level="2"
@@ -958,16 +915,16 @@
           inline="inline"
           label="字号"
         />
-        <g-color-picker
-          v-model="config.legend.textStyle.color"
-          inline="inline"
-          label="颜色"
-        />
         <g-select
           v-model="config.legend.textStyle.fontWeight"
           :data="fontWeights"
-          inline="inline-single"
+          inline="inline"
           label="字体粗细"
+        />
+        <g-color-picker
+          v-model="config.legend.textStyle.color"
+          inline="inline-single"
+          label="颜色"
         />
       </g-field>
       <g-field-collapse
@@ -1355,8 +1312,8 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   fontFamilys,
   axisTypes,
@@ -1374,39 +1331,50 @@ import {
 } from '@/data/select-options'
 import { BasicLine, BasicLineSeries } from './basic-line'
 
-export default defineComponent({
-  name: 'VBasicLineProp',
-  props: {
-    com: {
-      type: Object as PropType<BasicLine>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: BasicLine
+}>()
 
-    const handleAddSeriesItem = () => {
-      return new BasicLineSeries('')
-    }
+const config = toRef(props.com, 'config')
 
-    return {
-      config,
-      handleAddSeriesItem,
+const enumData1220 = [
+  'auto',
+  'dataMin',
+  'dataMax',
+]
 
-      fontFamilys,
-      axisTypes,
-      selectSuggests,
-      titleLocations,
-      fontWeights,
-      lineStyles,
-      valueFormats,
-      timeFormats,
-      hAligns,
-      legendLocations,
-      orients,
-      echartIcons,
-      animationEasings,
-    }
-  },
-})
+const enumData9631 = [
+  'auto',
+  'dataMin',
+  'dataMax',
+]
+
+const enumData2745 = [
+  'auto',
+  '0',
+  '1',
+  '2',
+]
+
+const enumData7690 = [
+  'auto',
+  'dataMin',
+  'dataMax',
+]
+
+const enumData8706 = [
+  'auto',
+  'dataMin',
+  'dataMax',
+]
+
+const pairData1266 = [
+  { key: 'mousemove', value: '悬浮' },
+  { key: 'click', value: '点击' },
+]
+
+const handleAddSeriesItem = () => {
+  return new BasicLineSeries('')
+}
+
 </script>

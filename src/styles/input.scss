@@ -15,7 +15,17 @@
   @include utils-ellipsis();
 }
 
-.new-input {
+.g-input__caption-with-description {
+  @extend .g-input__caption;
+
+  display: inline-block;
+  max-width: 100%;
+  width: auto;
+  cursor: help;
+  text-decoration: underline dotted;
+}
+
+.datav-new-input {
   height: 24px;
   line-height: 24px;
   display: inline-block;

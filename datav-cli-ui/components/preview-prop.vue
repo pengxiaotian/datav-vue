@@ -16,6 +16,7 @@
         :pairs="item.config.pairs"
         :inline="item.config.displayMode"
         :flat-value="item.config.flatValue"
+        :tooltip="item.config.tip"
       />
       <template v-else-if="item.children && !item.config.isRange">
         <g-field-collapse
@@ -92,6 +93,7 @@
         :label="item.config.alias"
         :tooltip="item.config.tip"
         :level="level"
+        :custom="isCustom(item.config.component)"
       >
         <preview-prop-item
           :key="item.config.component"
@@ -102,10 +104,12 @@
           :max="item.config.InfiniteMax ? Infinity : item.config.max"
           :step="item.config.step"
           :suffix="item.config.suffix"
+          :label="item.config.alias"
           :enums="item.config.enums"
           :pairs="item.config.pairs"
           :inline="item.config.displayMode"
           :flat-value="item.config.flatValue"
+          :tooltip="item.config.tip"
         />
       </g-field>
     </template>
@@ -113,8 +117,8 @@
 </template>
 
 <script lang='ts' setup>
-import { PropType } from 'vue'
-import { PropDataType, PropDto } from '~~/domains/prop-data'
+import type { PropType } from 'vue'
+import { PropDataType, PropDto, ComponentType } from '~~/domains/prop-data'
 import { GField, GFieldCollapse } from '~~/ui-components'
 
 const props = defineProps({
@@ -147,5 +151,9 @@ const judgeDisplay = (item: PropDto) => {
   }
 
   return isok
+}
+
+const isCustom = (type: ComponentType) => {
+  return type === ComponentType.colorMap
 }
 </script>

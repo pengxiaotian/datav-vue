@@ -11,4 +11,5 @@ export interface BorderImage {
     slice: string
     repeat: string
   }
+  css?: Record<string, any>
 }

@@ -32,6 +32,9 @@ const install = (app: App): void => {
   app.component('GSwitch', defineAsyncComponent(() => import('./switch')))
   app.component('GTooltipPopover', defineAsyncComponent(() => import('./tooltip-popover')))
   app.component('GUploadImage', defineAsyncComponent(() => import('./upload-image')))
+  app.component('GCheckbox', defineAsyncComponent(() => import('./checkbox')))
+  app.component('GRadioGroup', defineAsyncComponent(() => import('./radio-group')))
+  app.component('GColorMapping', defineAsyncComponent(() => import('./color-mapping')))
   // -- prepend async register placeholder --
 
   // async registry with loading

@@ -30,7 +30,7 @@
                 {{ label }}
               </label>
             </template>
-            <span v-html="tooltip"></span>
+            {{ tooltip }}
           </n-tooltip>
         </template>
         <label v-else class="g-field-title" :title="label">

@@ -178,7 +178,9 @@ export default defineComponent({
         xAxis: {
           show: xAxis.show,
           type: xAxis.type,
-          boundaryGap: xAxis.boundaryGap,
+          boundaryGap: xAxis.type === 'category'
+            ? xAxis.boundaryGap : xAxis.boundaryGap
+              ? ['5%', '5%'] : ['0%', '0%'],
           name: xAxis.title.show ? xAxis.title.name : '',
           nameLocation: xAxis.title.location,
           nameRotate: xAxis.title.display.rotate,

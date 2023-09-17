@@ -88,8 +88,8 @@ export class BasicLine extends DatavEChartsComponent {
         },
         textStyle: {
           fontSize: 12,
-          color: '#90a0ae',
           fontWeight: 'normal',
+          color: '#90a0ae',
         },
       },
       axisLine: {
@@ -116,8 +116,8 @@ export class BasicLine extends DatavEChartsComponent {
         align: 'center',
         textStyle: {
           fontSize: 12,
-          color: 'rgba(255, 255, 255, 0.6)',
           fontWeight: 'normal',
+          color: 'rgba(255, 255, 255, 0.6)',
         },
       },
       grid: {
@@ -148,8 +148,8 @@ export class BasicLine extends DatavEChartsComponent {
         },
         textStyle: {
           fontSize: 12,
-          color: '#90a0ae',
           fontWeight: 'normal',
+          color: '#90a0ae',
         },
       },
       axisLine: {
@@ -176,8 +176,8 @@ export class BasicLine extends DatavEChartsComponent {
         align: 'right',
         textStyle: {
           fontSize: 12,
-          color: 'rgba(255, 255, 255, 0.6)',
           fontWeight: 'normal',
+          color: 'rgba(255, 255, 255, 0.6)',
         },
       },
       grid: {
@@ -196,8 +196,8 @@ export class BasicLine extends DatavEChartsComponent {
       triggerOn: 'mousemove',
       textStyle: {
         fontSize: 14,
-        color: '#fff',
         fontWeight: 'normal',
+        color: '#fff',
       },
       background: {
         padding: {
@@ -225,8 +225,8 @@ export class BasicLine extends DatavEChartsComponent {
       orient: 'horizontal',
       textStyle: {
         fontSize: 12,
-        color: '#90a0ae',
         fontWeight: 'normal',
+        color: '#90a0ae',
       },
       symbol: {
         show: true,

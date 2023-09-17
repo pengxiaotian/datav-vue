@@ -3,18 +3,11 @@
     <g-field
       label="图片类型"
     >
-      <n-radio-group
-        v-model:value="config.imageType"
-        size="small"
-      >
-        <n-radio-button
-          v-for="em in imageTypes"
-          :key="em.id"
-          :value="em.id"
-        >
-          {{ em.value }}
-        </n-radio-button>
-      </n-radio-group>
+      <g-radio-group
+        v-model="config.imageType"
+        :data="imageTypes"
+        is-button
+      />
     </g-field>
     <g-field
       label="背景图"
@@ -73,46 +66,33 @@
         :level="2"
         label="是否打开新窗口"
       >
-        <n-switch
-          v-model:value="config.urlConfig.ifBlank"
+        <g-switch
+          v-model="config.urlConfig.ifBlank"
         />
       </g-field>
     </g-field-collapse>
     <g-field
       label="手势光标"
     >
-      <n-switch
-        v-model:value="config.cursor"
+      <g-switch
+        v-model="config.cursor"
       />
     </g-field>
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent, PropType, toRef } from 'vue'
+<script lang='ts' setup>
+import { toRef } from 'vue'
 import {
   imageTypes,
   repeatTypes,
 } from '@/data/select-options'
 import { MainImg } from './main-img'
 
-export default defineComponent({
-  name: 'VMainImgProp',
-  props: {
-    com: {
-      type: Object as PropType<MainImg>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const config = toRef(props.com, 'config')
+const props = defineProps<{
+  com: MainImg
+}>()
 
-    return {
-      config,
+const config = toRef(props.com, 'config')
 
-      imageTypes,
-      repeatTypes,
-    }
-  },
-})
 </script>

@@ -2,6 +2,7 @@
   {
     "key": "boxStyle",
     "config": {
+      "id": 9653,
       "type": "object",
       "component": "none",
       "alias": "框",
@@ -19,11 +20,13 @@
       "InfiniteMax": false,
       "suffix": "",
       "enums": [],
+      "pairs": [],
       "whichEnum": {
         "field": "",
         "value": ""
       },
-      "flatValue": false
+      "flatValue": false,
+      "isRange": false
     },
     "path": "boxStyle",
     "virtualPath": "",
@@ -31,6 +34,7 @@
       {
         "key": "style",
         "config": {
+          "id": 4207,
           "type": "string",
           "component": "selectImage",
           "alias": "样式",
@@ -40,7 +44,7 @@
           "layout": "horizontal",
           "toggleCol": "",
           "isHide": false,
-          "defaultValue": "box1",
+          "defaultValue": "box15",
           "min": 0,
           "max": 100,
           "step": 1,
@@ -48,11 +52,13 @@
           "InfiniteMax": false,
           "suffix": "",
           "enums": [],
+          "pairs": [],
           "whichEnum": {
             "field": "",
             "value": ""
           },
-          "flatValue": false
+          "flatValue": false,
+          "isRange": false
         },
         "path": "boxStyle.style",
         "virtualPath": ""

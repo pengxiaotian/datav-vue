@@ -27,7 +27,7 @@
   </n-config-provider>
 </template>
 <script lang='ts' setup>
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import { NConfigProvider, NPopover } from 'naive-ui'
 import type { PopoverTrigger } from 'naive-ui/es/popover/src/interface'
 

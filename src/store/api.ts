@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { set } from 'lodash-es'
 import {
-  ApiKeyName, ApiConfig, ApiDataConfig,
+  ApiKeyName, ApiDataConfig,
   ApiType, ApiRequestMethod,
 } from '@/components/_models/data-source'
-import { isUrl, toJson, replaceTextParams } from '@/utils/util'
+import { isUrl, jsonToObject, replaceTextParams } from '@/utils/util'
 import requestUtil from '@/components/_utils/request-util'
 import { useEventStore } from './event'
 
@@ -24,9 +24,9 @@ export const useApiStore = defineStore('api', {
     async setData(comId: string, apiKey: ApiKeyName, data: any) {
       set(this.dataMap, `${comId}.${apiKey}`, data)
     },
-    async requestData(comId: string, aConfig: ApiConfig, adConfig: ApiDataConfig) {
+    async requestData(apiDataCfg: ApiDataConfig) {
       const eventStore = useEventStore()
-      const { type, config } = adConfig
+      const { type, config } = apiDataCfg
       let res: unknown
       if (type === ApiType.static) {
         res = config.data
@@ -41,7 +41,7 @@ export const useApiStore = defineStore('api', {
 
         try {
           const conf = {
-            headers: toJson(config.apiHeaders, {}),
+            headers: jsonToObject(config.apiHeaders, {}),
             withCredentials: config.cookie,
           }
 
@@ -49,14 +49,14 @@ export const useApiStore = defineStore('api', {
           if (config.apiMethod === ApiRequestMethod.GET) {
             res = await requestUtil.get(url, conf)
           } else {
-            res = await requestUtil.post(url, toJson(config.apiBody, {}), conf)
+            res = await requestUtil.post(url, jsonToObject(config.apiBody, {}), conf)
           }
         } catch {
           throw Error('connectFailed')
         }
       }
 
-      return toJson(res, [])
+      return jsonToObject(res, [])
     },
   },
 })
