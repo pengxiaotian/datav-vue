@@ -106,4 +106,7 @@ export { default as IconShapePin } from './shape-pin.vue'
 export { default as IconShapeAirplane } from './shape-airplane.vue'
 export { default as IconConnect } from './connect.vue'
 export { default as IconDisconnect } from './disconnect.vue'
+export { default as IconSort } from './sort.vue'
+export { default as IconPin } from './pin.vue'
+export { default as IconPinFill } from './pin-fill.vue'
 // -- prepend export placeholder --

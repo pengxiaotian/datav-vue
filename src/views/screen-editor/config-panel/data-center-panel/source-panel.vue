@@ -143,7 +143,7 @@ import {
 } from '@/components/_models/data-source'
 import { useDebugStore } from '@/store/debug'
 import { useApiStore } from '@/store/api'
-import { setComponentData } from '@/components/_mixins/use-data-center'
+import { setComponentData } from '@/components/_utils/set-component-data'
 import { IconArrowRight, IconRefresh } from '@/icons'
 import DisplayApiStatus from '../components/display-api-status.vue'
 import SourceDrawer from './source-drawer.vue'

@@ -3,7 +3,7 @@
     ref="inputRef"
     :value="modelValue"
     autocomplete="off"
-    class="new-input"
+    class="datav-new-input"
     :class="{ 'is-disabled': disabled }"
     :disabled="disabled"
     :autofocus="autofocus"
@@ -33,7 +33,6 @@ export default defineComponent({
 
     const handleInput = (event: any) => {
       const { value } = event.target
-
       ctx.emit(UPDATE_MODEL_EVENT, value)
     }
 

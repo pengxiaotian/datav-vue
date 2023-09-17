@@ -1,7 +1,3 @@
 declare module '*.hbs' {
-  const plainText: string
-
-  export {
-    plainText,
-  }
+  export const plainText: string
 }

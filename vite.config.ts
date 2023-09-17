@@ -1,9 +1,7 @@
 import type { ConfigEnv } from 'vite'
 import { loadEnv, defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import plainText from 'vite-plugin-plain-text'
-
 import { resolve } from 'path'
+import vue from '@vitejs/plugin-vue'
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -19,7 +17,6 @@ export default ({ mode }: ConfigEnv) => {
     base: env.VITE_PUBLIC_PATH,
     plugins: [
       vue(),
-      plainText(/\.hbs$/),
     ],
     server: {
       host: '0.0.0.0',

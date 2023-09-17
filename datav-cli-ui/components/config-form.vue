@@ -62,6 +62,7 @@
               :enums="item.config.enums"
               :pairs="item.config.pairs"
               :flat-value="item.config.flatValue"
+              :label="item.config.alias"
             />
           </n-form-item>
           <n-form-item>

@@ -15,7 +15,8 @@
         :min="min"
         :max="max"
         :step="step"
-        placeholder=""
+        :readonly="readonly"
+        :placeholder="placeholder"
         @update:value="handleInput"
       >
         <template v-if="suffix" #suffix>
@@ -23,6 +24,12 @@
         </template>
         <template v-if="prefix" #prefix>
           {{ prefix }}
+        </template>
+        <template #minus-icon>
+          -
+        </template>
+        <template #add-icon>
+          +
         </template>
       </n-input-number>
     </n-config-provider>
@@ -80,6 +87,15 @@ const props = defineProps({
   prefix: String,
   suffix: String,
   tooltip: String,
+  placeholder: {
+    type: String,
+    default: '',
+  },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
+  inputTheme: Object,
 })
 const emits = defineEmits([UPDATE_MODEL_EVENT])
 
@@ -90,13 +106,22 @@ const handleInput = (value: number) => {
 const themeOverrides = {
   Button: {
     textColorText: 'var(--datav-font-color)',
+    // small
     fontSizeMedium: '12px',
     iconSizeMedium: '12px',
+  },
+  Input: {
+    ...(props.inputTheme || {}),
   },
 }
 
 if (props.size === 'medium') {
   themeOverrides.Button.fontSizeMedium = '14px'
   themeOverrides.Button.iconSizeMedium = '14px'
+}
+
+if (props.size === 'tiny') {
+  themeOverrides.Button.fontSizeMedium = '10px'
+  themeOverrides.Button.iconSizeMedium = '10px'
 }
 </script>
